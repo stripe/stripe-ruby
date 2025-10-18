@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class PaymentRecordReportPaymentAttemptParams < Stripe::RequestParams
-    class Failed < Stripe::RequestParams
+  class PaymentRecordReportPaymentAttemptParams < ::Stripe::RequestParams
+    class Failed < ::Stripe::RequestParams
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def failed_at; end
@@ -13,7 +13,7 @@ module Stripe
       sig { params(failed_at: Integer).void }
       def initialize(failed_at: nil); end
     end
-    class Guaranteed < Stripe::RequestParams
+    class Guaranteed < ::Stripe::RequestParams
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def guaranteed_at; end
@@ -22,9 +22,9 @@ module Stripe
       sig { params(guaranteed_at: Integer).void }
       def initialize(guaranteed_at: nil); end
     end
-    class PaymentMethodDetails < Stripe::RequestParams
-      class BillingDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+    class PaymentMethodDetails < ::Stripe::RequestParams
+      class BillingDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -96,7 +96,7 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
-      class Custom < Stripe::RequestParams
+      class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         sig { returns(T.nilable(String)) }
         def display_name; end
@@ -143,8 +143,8 @@ module Stripe
        }
       def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil); end
     end
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class MarginUpdateParams < Stripe::RequestParams
+  class MarginUpdateParams < ::Stripe::RequestParams
     # Whether the margin can be applied to invoices, invoice items, or invoice line items or not.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end

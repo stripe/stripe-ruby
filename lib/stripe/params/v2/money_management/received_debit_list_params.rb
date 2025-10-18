@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class ReceivedDebitListParams < Stripe::RequestParams
+      class ReceivedDebitListParams < ::Stripe::RequestParams
         # The page limit.
         attr_accessor :limit
 

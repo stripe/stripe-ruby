@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       module Vault
-        class GbBankAccountArchiveParams < Stripe::RequestParams; end
+        class GbBankAccountArchiveParams < ::Stripe::RequestParams; end
       end
     end
   end

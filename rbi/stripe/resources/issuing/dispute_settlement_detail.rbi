@@ -6,7 +6,7 @@ module Stripe
   module Issuing
     # Represents a record from the card network of a money movement or change in state for an Issuing dispute. These records are included in the settlement reports that we receive from networks and expose to users as Settlement objects.
     class DisputeSettlementDetail < APIResource
-      class NetworkData < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
         # The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
         sig { returns(T.nilable(String)) }
         def processing_date; end
@@ -55,7 +55,7 @@ module Stripe
       def settlement; end
       # Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::DisputeSettlementDetailListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::DisputeSettlementDetailListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

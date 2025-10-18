@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionScheduleAmendParams < Stripe::RequestParams
-    class Amendment < Stripe::RequestParams
-      class AmendmentEnd < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
+  class SubscriptionScheduleAmendParams < ::Stripe::RequestParams
+    class Amendment < ::Stripe::RequestParams
+      class AmendmentEnd < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
           # The ID of a specific discount.
           attr_accessor :discount
 
@@ -14,7 +14,7 @@ module Stripe
           end
         end
 
-        class Duration < Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -42,8 +42,8 @@ module Stripe
         end
       end
 
-      class AmendmentStart < Stripe::RequestParams
-        class AmendmentEnd < Stripe::RequestParams
+      class AmendmentStart < ::Stripe::RequestParams
+        class AmendmentEnd < ::Stripe::RequestParams
           # The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
           attr_accessor :index
 
@@ -52,7 +52,7 @@ module Stripe
           end
         end
 
-        class DiscountEnd < Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
           # The ID of a specific discount.
           attr_accessor :discount
 
@@ -77,9 +77,9 @@ module Stripe
         end
       end
 
-      class DiscountAction < Stripe::RequestParams
-        class Add < Stripe::RequestParams
-          class DiscountEnd < Stripe::RequestParams
+      class DiscountAction < ::Stripe::RequestParams
+        class Add < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
             # The type of calculation made to determine when the discount ends.
             attr_accessor :type
 
@@ -113,7 +113,7 @@ module Stripe
           end
         end
 
-        class Remove < Stripe::RequestParams
+        class Remove < ::Stripe::RequestParams
           # The coupon code to remove from the `discounts` array.
           attr_accessor :coupon
           # The ID of a discount to remove from the `discounts` array.
@@ -128,7 +128,7 @@ module Stripe
           end
         end
 
-        class Set < Stripe::RequestParams
+        class Set < ::Stripe::RequestParams
           # The coupon code to replace the `discounts` array with.
           attr_accessor :coupon
           # An ID of an existing discount to replace the `discounts` array with.
@@ -159,11 +159,11 @@ module Stripe
         end
       end
 
-      class ItemAction < Stripe::RequestParams
-        class Add < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
-            class DiscountEnd < Stripe::RequestParams
-              class Duration < Stripe::RequestParams
+      class ItemAction < ::Stripe::RequestParams
+        class Add < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -204,7 +204,7 @@ module Stripe
             end
           end
 
-          class Trial < Stripe::RequestParams
+          class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             attr_accessor :converts_to
             # Determines the type of trial for this item.
@@ -245,7 +245,7 @@ module Stripe
           end
         end
 
-        class Remove < Stripe::RequestParams
+        class Remove < ::Stripe::RequestParams
           # ID of a price to remove.
           attr_accessor :price
 
@@ -254,10 +254,10 @@ module Stripe
           end
         end
 
-        class Set < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
-            class DiscountEnd < Stripe::RequestParams
-              class Duration < Stripe::RequestParams
+        class Set < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -298,7 +298,7 @@ module Stripe
             end
           end
 
-          class Trial < Stripe::RequestParams
+          class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             attr_accessor :converts_to
             # Determines the type of trial for this item.
@@ -355,7 +355,7 @@ module Stripe
         end
       end
 
-      class MetadataAction < Stripe::RequestParams
+      class MetadataAction < ::Stripe::RequestParams
         # Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
         attr_accessor :add
         # Keys to remove from schedule phase metadata.
@@ -373,8 +373,8 @@ module Stripe
         end
       end
 
-      class SetPauseCollection < Stripe::RequestParams
-        class Set < Stripe::RequestParams
+      class SetPauseCollection < ::Stripe::RequestParams
+        class Set < ::Stripe::RequestParams
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           attr_accessor :behavior
 
@@ -393,8 +393,8 @@ module Stripe
         end
       end
 
-      class TrialSettings < Stripe::RequestParams
-        class EndBehavior < Stripe::RequestParams
+      class TrialSettings < ::Stripe::RequestParams
+        class EndBehavior < ::Stripe::RequestParams
           # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
           attr_accessor :prorate_up_front
 
@@ -455,9 +455,9 @@ module Stripe
       end
     end
 
-    class Prebilling < Stripe::RequestParams
-      class BillFrom < Stripe::RequestParams
-        class AmendmentStart < Stripe::RequestParams
+    class Prebilling < ::Stripe::RequestParams
+      class BillFrom < ::Stripe::RequestParams
+        class AmendmentStart < ::Stripe::RequestParams
           # The position of the amendment in the `amendments` array with which prebilling should begin. Indexes start from 0 and must be less than the total number of supplied amendments.
           attr_accessor :index
 
@@ -479,8 +479,8 @@ module Stripe
         end
       end
 
-      class BillUntil < Stripe::RequestParams
-        class AmendmentEnd < Stripe::RequestParams
+      class BillUntil < ::Stripe::RequestParams
+        class AmendmentEnd < ::Stripe::RequestParams
           # The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
           attr_accessor :index
 
@@ -489,7 +489,7 @@ module Stripe
           end
         end
 
-        class Duration < Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -533,7 +533,7 @@ module Stripe
       end
     end
 
-    class ScheduleSettings < Stripe::RequestParams
+    class ScheduleSettings < ::Stripe::RequestParams
       # Behavior of the subscription schedule and underlying subscription when it ends.
       attr_accessor :end_behavior
 

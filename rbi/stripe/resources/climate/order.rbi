@@ -7,7 +7,7 @@ module Stripe
     # Orders represent your intent to purchase a particular Climate product. When you create an order, the
     # payment is deducted from your merchant balance.
     class Order < APIResource
-      class Beneficiary < Stripe::StripeObject
+      class Beneficiary < ::Stripe::StripeObject
         # Publicly displayable name for the end beneficiary of carbon removal.
         sig { returns(String) }
         def public_name; end
@@ -18,8 +18,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class DeliveryDetail < Stripe::StripeObject
-        class Location < Stripe::StripeObject
+      class DeliveryDetail < ::Stripe::StripeObject
+        class Location < ::Stripe::StripeObject
           # The city where the supplier is located.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -55,7 +55,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def registry_url; end
         # A supplier of carbon removal.
-        sig { returns(Stripe::Climate::Supplier) }
+        sig { returns(::Stripe::Climate::Supplier) }
         def supplier; end
         def self.inner_class_types
           @inner_class_types = {location: Location}
@@ -122,7 +122,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # Unique ID for the Climate `Product` this order is purchasing.
-      sig { returns(T.any(String, Stripe::Climate::Product)) }
+      sig { returns(T.any(String, ::Stripe::Climate::Product)) }
       def product; end
       # Time at which the order's product was substituted for a different product. Measured in seconds since the Unix epoch.
       sig { returns(T.nilable(Integer)) }
@@ -135,7 +135,7 @@ module Stripe
       # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
       # provides 90 days advance notice and refunds the amount_total.
       sig {
-        params(params: T.any(::Stripe::Climate::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Climate::Order)
+        params(params: T.any(::Stripe::Climate::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
        }
       def cancel(params = {}, opts = {}); end
 
@@ -144,27 +144,27 @@ module Stripe
       # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
       # provides 90 days advance notice and refunds the amount_total.
       sig {
-        params(order: String, params: T.any(::Stripe::Climate::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Climate::Order)
+        params(order: String, params: T.any(::Stripe::Climate::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
        }
       def self.cancel(order, params = {}, opts = {}); end
 
       # Creates a Climate order object for a given Climate product. The order will be processed immediately
       # after creation and payment will be deducted your Stripe balance.
       sig {
-        params(params: T.any(::Stripe::Climate::OrderCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Climate::Order)
+        params(params: T.any(::Stripe::Climate::OrderCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
        }
       def self.create(params = {}, opts = {}); end
 
       # Lists all Climate order objects. The orders are returned sorted by creation date, with the
       # most recently created orders appearing first.
       sig {
-        params(params: T.any(::Stripe::Climate::OrderListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Climate::OrderListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates the specified order by setting the values of the parameters passed.
       sig {
-        params(order: String, params: T.any(::Stripe::Climate::OrderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Climate::Order)
+        params(order: String, params: T.any(::Stripe::Climate::OrderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
        }
       def self.update(order, params = {}, opts = {}); end
     end

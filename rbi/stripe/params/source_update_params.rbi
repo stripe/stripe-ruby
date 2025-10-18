@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class SourceUpdateParams < Stripe::RequestParams
-    class Mandate < Stripe::RequestParams
-      class Acceptance < Stripe::RequestParams
-        class Offline < Stripe::RequestParams
+  class SourceUpdateParams < ::Stripe::RequestParams
+    class Mandate < ::Stripe::RequestParams
+      class Acceptance < ::Stripe::RequestParams
+        class Offline < ::Stripe::RequestParams
           # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
           sig { returns(String) }
           def contact_email; end
@@ -15,7 +15,7 @@ module Stripe
           sig { params(contact_email: String).void }
           def initialize(contact_email: nil); end
         end
-        class Online < Stripe::RequestParams
+        class Online < ::Stripe::RequestParams
           # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
           sig { returns(T.nilable(Integer)) }
           def date; end
@@ -128,8 +128,8 @@ module Stripe
         notification_method: nil
       ); end
     end
-    class Owner < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -199,8 +199,8 @@ module Stripe
        }
       def initialize(address: nil, email: nil, name: nil, phone: nil); end
     end
-    class SourceOrder < Stripe::RequestParams
-      class Item < Stripe::RequestParams
+    class SourceOrder < ::Stripe::RequestParams
+      class Item < ::Stripe::RequestParams
         # Attribute for param field amount
         sig { returns(T.nilable(Integer)) }
         def amount; end
@@ -243,8 +243,8 @@ module Stripe
           type: nil
         ); end
       end
-      class Shipping < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end

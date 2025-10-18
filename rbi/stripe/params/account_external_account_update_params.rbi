@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class AccountExternalAccountUpdateParams < Stripe::RequestParams
-    class Documents < Stripe::RequestParams
-      class BankAccountOwnershipVerification < Stripe::RequestParams
+  class AccountExternalAccountUpdateParams < ::Stripe::RequestParams
+    class Documents < ::Stripe::RequestParams
+      class BankAccountOwnershipVerification < ::Stripe::RequestParams
         # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end

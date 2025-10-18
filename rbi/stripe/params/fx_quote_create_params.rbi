@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class FxQuoteCreateParams < Stripe::RequestParams
-    class Usage < Stripe::RequestParams
-      class Payment < Stripe::RequestParams
+  class FxQuoteCreateParams < ::Stripe::RequestParams
+    class Usage < ::Stripe::RequestParams
+      class Payment < ::Stripe::RequestParams
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the PaymentIntent’s transfer_data[destination] field.
@@ -23,7 +23,7 @@ module Stripe
         sig { params(destination: T.nilable(String), on_behalf_of: T.nilable(String)).void }
         def initialize(destination: nil, on_behalf_of: nil); end
       end
-      class Transfer < Stripe::RequestParams
+      class Transfer < ::Stripe::RequestParams
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the Transfer’s destination field.

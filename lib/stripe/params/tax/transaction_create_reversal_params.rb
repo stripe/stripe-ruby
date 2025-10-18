@@ -3,8 +3,8 @@
 
 module Stripe
   module Tax
-    class TransactionCreateReversalParams < Stripe::RequestParams
-      class LineItem < Stripe::RequestParams
+    class TransactionCreateReversalParams < ::Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
         # The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         attr_accessor :amount
         # The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
@@ -35,7 +35,7 @@ module Stripe
         end
       end
 
-      class ShippingCost < Stripe::RequestParams
+      class ShippingCost < ::Stripe::RequestParams
         # The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         attr_accessor :amount
         # The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.

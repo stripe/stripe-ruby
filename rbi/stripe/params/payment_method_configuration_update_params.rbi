@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodConfigurationUpdateParams < Stripe::RequestParams
-    class AcssDebit < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+  class PaymentMethodConfigurationUpdateParams < ::Stripe::RequestParams
+    class AcssDebit < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -28,8 +28,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Affirm < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Affirm < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -50,8 +50,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class AfterpayClearpay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class AfterpayClearpay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -74,8 +74,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Alipay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Alipay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -96,8 +96,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Alma < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Alma < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -118,8 +118,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class AmazonPay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class AmazonPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -142,8 +142,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class ApplePay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class ApplePay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -166,8 +166,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class ApplePayLater < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class ApplePayLater < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -190,8 +190,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class AuBecsDebit < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class AuBecsDebit < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -214,8 +214,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class BacsDebit < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class BacsDebit < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -238,8 +238,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Bancontact < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Bancontact < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -262,8 +262,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Billie < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Billie < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -284,8 +284,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Blik < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Blik < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -306,8 +306,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Boleto < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Boleto < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -328,8 +328,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Card < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Card < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -350,8 +350,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class CartesBancaires < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class CartesBancaires < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -374,8 +374,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Cashapp < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Cashapp < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -396,8 +396,30 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class CustomerBalance < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Crypto < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        sig { returns(T.nilable(String)) }
+        def preference; end
+        sig { params(_preference: T.nilable(String)).returns(T.nilable(String)) }
+        def preference=(_preference); end
+        sig { params(preference: T.nilable(String)).void }
+        def initialize(preference: nil); end
+      end
+      # Whether or not the payment method should be displayed.
+      sig { returns(T.nilable(PaymentMethodConfigurationUpdateParams::Crypto::DisplayPreference)) }
+      def display_preference; end
+      sig {
+        params(_display_preference: T.nilable(PaymentMethodConfigurationUpdateParams::Crypto::DisplayPreference)).returns(T.nilable(PaymentMethodConfigurationUpdateParams::Crypto::DisplayPreference))
+       }
+      def display_preference=(_display_preference); end
+      sig {
+        params(display_preference: T.nilable(PaymentMethodConfigurationUpdateParams::Crypto::DisplayPreference)).void
+       }
+      def initialize(display_preference: nil); end
+    end
+    class CustomerBalance < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -420,8 +442,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Eps < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Eps < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -442,8 +464,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Fpx < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Fpx < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -464,8 +486,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class FrMealVoucherConecs < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class FrMealVoucherConecs < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -488,8 +510,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Giropay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Giropay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -510,8 +532,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class GooglePay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class GooglePay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -534,8 +556,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Gopay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Gopay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -556,8 +578,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Grabpay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Grabpay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -578,8 +600,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class IdBankTransfer < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class IdBankTransfer < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -602,8 +624,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Ideal < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Ideal < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -624,8 +646,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Jcb < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Jcb < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -646,8 +668,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class KakaoPay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class KakaoPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -670,8 +692,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Klarna < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Klarna < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -692,8 +714,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Konbini < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Konbini < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -714,8 +736,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class KrCard < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class KrCard < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -736,8 +758,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Link < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Link < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -758,8 +780,30 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Mobilepay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class MbWay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        sig { returns(T.nilable(String)) }
+        def preference; end
+        sig { params(_preference: T.nilable(String)).returns(T.nilable(String)) }
+        def preference=(_preference); end
+        sig { params(preference: T.nilable(String)).void }
+        def initialize(preference: nil); end
+      end
+      # Whether or not the payment method should be displayed.
+      sig { returns(T.nilable(PaymentMethodConfigurationUpdateParams::MbWay::DisplayPreference)) }
+      def display_preference; end
+      sig {
+        params(_display_preference: T.nilable(PaymentMethodConfigurationUpdateParams::MbWay::DisplayPreference)).returns(T.nilable(PaymentMethodConfigurationUpdateParams::MbWay::DisplayPreference))
+       }
+      def display_preference=(_display_preference); end
+      sig {
+        params(display_preference: T.nilable(PaymentMethodConfigurationUpdateParams::MbWay::DisplayPreference)).void
+       }
+      def initialize(display_preference: nil); end
+    end
+    class Mobilepay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -782,8 +826,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Multibanco < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Multibanco < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -806,8 +850,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class NaverPay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class NaverPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -830,8 +874,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class NzBankAccount < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class NzBankAccount < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -854,8 +898,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Oxxo < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Oxxo < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -876,8 +920,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class P24 < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class P24 < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -898,8 +942,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class PayByBank < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class PayByBank < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -922,8 +966,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Payco < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Payco < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -944,8 +988,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Paynow < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Paynow < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -966,8 +1010,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Paypal < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Paypal < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -988,8 +1032,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Paypay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Paypay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1010,8 +1054,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Payto < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Payto < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1032,8 +1076,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Pix < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Pix < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1054,8 +1098,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Promptpay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Promptpay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1078,8 +1122,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Qris < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Qris < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1100,8 +1144,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class RevolutPay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class RevolutPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1124,8 +1168,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class SamsungPay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class SamsungPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1148,8 +1192,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Satispay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Satispay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1172,8 +1216,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class SepaDebit < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class SepaDebit < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1196,8 +1240,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Shopeepay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Shopeepay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1220,8 +1264,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Sofort < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Sofort < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1242,8 +1286,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Swish < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Swish < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1264,8 +1308,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Twint < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Twint < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1286,8 +1330,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class UsBankAccount < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class UsBankAccount < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1310,8 +1354,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class WechatPay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class WechatPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1334,8 +1378,8 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class Zip < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
+    class Zip < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         sig { returns(T.nilable(String)) }
         def preference; end
@@ -1480,6 +1524,13 @@ module Stripe
       params(_cashapp: T.nilable(PaymentMethodConfigurationUpdateParams::Cashapp)).returns(T.nilable(PaymentMethodConfigurationUpdateParams::Cashapp))
      }
     def cashapp=(_cashapp); end
+    # [Stablecoin payments](https://stripe.com/docs/payments/stablecoin-payments) enable customers to pay in stablecoins like USDC from 100s of wallets including Phantom and Metamask.
+    sig { returns(T.nilable(PaymentMethodConfigurationUpdateParams::Crypto)) }
+    def crypto; end
+    sig {
+      params(_crypto: T.nilable(PaymentMethodConfigurationUpdateParams::Crypto)).returns(T.nilable(PaymentMethodConfigurationUpdateParams::Crypto))
+     }
+    def crypto=(_crypto); end
     # Uses a customer’s [cash balance](https://stripe.com/docs/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://stripe.com/docs/payments/bank-transfers) for more details.
     sig { returns(T.nilable(PaymentMethodConfigurationUpdateParams::CustomerBalance)) }
     def customer_balance; end
@@ -1597,6 +1648,13 @@ module Stripe
       params(_link: T.nilable(PaymentMethodConfigurationUpdateParams::Link)).returns(T.nilable(PaymentMethodConfigurationUpdateParams::Link))
      }
     def link=(_link); end
+    # MB WAY is the most popular wallet in Portugal. After entering their phone number in your checkout, customers approve the payment directly in their MB WAY app. Check this [page](https://stripe.com/docs/payments/mb-way) for more details.
+    sig { returns(T.nilable(PaymentMethodConfigurationUpdateParams::MbWay)) }
+    def mb_way; end
+    sig {
+      params(_mb_way: T.nilable(PaymentMethodConfigurationUpdateParams::MbWay)).returns(T.nilable(PaymentMethodConfigurationUpdateParams::MbWay))
+     }
+    def mb_way=(_mb_way); end
     # MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
     sig { returns(T.nilable(PaymentMethodConfigurationUpdateParams::Mobilepay)) }
     def mobilepay; end
@@ -1785,7 +1843,7 @@ module Stripe
      }
     def zip=(_zip); end
     sig {
-      params(acss_debit: T.nilable(PaymentMethodConfigurationUpdateParams::AcssDebit), active: T.nilable(T::Boolean), affirm: T.nilable(PaymentMethodConfigurationUpdateParams::Affirm), afterpay_clearpay: T.nilable(PaymentMethodConfigurationUpdateParams::AfterpayClearpay), alipay: T.nilable(PaymentMethodConfigurationUpdateParams::Alipay), alma: T.nilable(PaymentMethodConfigurationUpdateParams::Alma), amazon_pay: T.nilable(PaymentMethodConfigurationUpdateParams::AmazonPay), apple_pay: T.nilable(PaymentMethodConfigurationUpdateParams::ApplePay), apple_pay_later: T.nilable(PaymentMethodConfigurationUpdateParams::ApplePayLater), au_becs_debit: T.nilable(PaymentMethodConfigurationUpdateParams::AuBecsDebit), bacs_debit: T.nilable(PaymentMethodConfigurationUpdateParams::BacsDebit), bancontact: T.nilable(PaymentMethodConfigurationUpdateParams::Bancontact), billie: T.nilable(PaymentMethodConfigurationUpdateParams::Billie), blik: T.nilable(PaymentMethodConfigurationUpdateParams::Blik), boleto: T.nilable(PaymentMethodConfigurationUpdateParams::Boleto), card: T.nilable(PaymentMethodConfigurationUpdateParams::Card), cartes_bancaires: T.nilable(PaymentMethodConfigurationUpdateParams::CartesBancaires), cashapp: T.nilable(PaymentMethodConfigurationUpdateParams::Cashapp), customer_balance: T.nilable(PaymentMethodConfigurationUpdateParams::CustomerBalance), eps: T.nilable(PaymentMethodConfigurationUpdateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(PaymentMethodConfigurationUpdateParams::Fpx), fr_meal_voucher_conecs: T.nilable(PaymentMethodConfigurationUpdateParams::FrMealVoucherConecs), giropay: T.nilable(PaymentMethodConfigurationUpdateParams::Giropay), google_pay: T.nilable(PaymentMethodConfigurationUpdateParams::GooglePay), gopay: T.nilable(PaymentMethodConfigurationUpdateParams::Gopay), grabpay: T.nilable(PaymentMethodConfigurationUpdateParams::Grabpay), id_bank_transfer: T.nilable(PaymentMethodConfigurationUpdateParams::IdBankTransfer), ideal: T.nilable(PaymentMethodConfigurationUpdateParams::Ideal), jcb: T.nilable(PaymentMethodConfigurationUpdateParams::Jcb), kakao_pay: T.nilable(PaymentMethodConfigurationUpdateParams::KakaoPay), klarna: T.nilable(PaymentMethodConfigurationUpdateParams::Klarna), konbini: T.nilable(PaymentMethodConfigurationUpdateParams::Konbini), kr_card: T.nilable(PaymentMethodConfigurationUpdateParams::KrCard), link: T.nilable(PaymentMethodConfigurationUpdateParams::Link), mobilepay: T.nilable(PaymentMethodConfigurationUpdateParams::Mobilepay), multibanco: T.nilable(PaymentMethodConfigurationUpdateParams::Multibanco), name: T.nilable(String), naver_pay: T.nilable(PaymentMethodConfigurationUpdateParams::NaverPay), nz_bank_account: T.nilable(PaymentMethodConfigurationUpdateParams::NzBankAccount), oxxo: T.nilable(PaymentMethodConfigurationUpdateParams::Oxxo), p24: T.nilable(PaymentMethodConfigurationUpdateParams::P24), pay_by_bank: T.nilable(PaymentMethodConfigurationUpdateParams::PayByBank), payco: T.nilable(PaymentMethodConfigurationUpdateParams::Payco), paynow: T.nilable(PaymentMethodConfigurationUpdateParams::Paynow), paypal: T.nilable(PaymentMethodConfigurationUpdateParams::Paypal), paypay: T.nilable(PaymentMethodConfigurationUpdateParams::Paypay), payto: T.nilable(PaymentMethodConfigurationUpdateParams::Payto), pix: T.nilable(PaymentMethodConfigurationUpdateParams::Pix), promptpay: T.nilable(PaymentMethodConfigurationUpdateParams::Promptpay), qris: T.nilable(PaymentMethodConfigurationUpdateParams::Qris), revolut_pay: T.nilable(PaymentMethodConfigurationUpdateParams::RevolutPay), samsung_pay: T.nilable(PaymentMethodConfigurationUpdateParams::SamsungPay), satispay: T.nilable(PaymentMethodConfigurationUpdateParams::Satispay), sepa_debit: T.nilable(PaymentMethodConfigurationUpdateParams::SepaDebit), shopeepay: T.nilable(PaymentMethodConfigurationUpdateParams::Shopeepay), sofort: T.nilable(PaymentMethodConfigurationUpdateParams::Sofort), swish: T.nilable(PaymentMethodConfigurationUpdateParams::Swish), twint: T.nilable(PaymentMethodConfigurationUpdateParams::Twint), us_bank_account: T.nilable(PaymentMethodConfigurationUpdateParams::UsBankAccount), wechat_pay: T.nilable(PaymentMethodConfigurationUpdateParams::WechatPay), zip: T.nilable(PaymentMethodConfigurationUpdateParams::Zip)).void
+      params(acss_debit: T.nilable(PaymentMethodConfigurationUpdateParams::AcssDebit), active: T.nilable(T::Boolean), affirm: T.nilable(PaymentMethodConfigurationUpdateParams::Affirm), afterpay_clearpay: T.nilable(PaymentMethodConfigurationUpdateParams::AfterpayClearpay), alipay: T.nilable(PaymentMethodConfigurationUpdateParams::Alipay), alma: T.nilable(PaymentMethodConfigurationUpdateParams::Alma), amazon_pay: T.nilable(PaymentMethodConfigurationUpdateParams::AmazonPay), apple_pay: T.nilable(PaymentMethodConfigurationUpdateParams::ApplePay), apple_pay_later: T.nilable(PaymentMethodConfigurationUpdateParams::ApplePayLater), au_becs_debit: T.nilable(PaymentMethodConfigurationUpdateParams::AuBecsDebit), bacs_debit: T.nilable(PaymentMethodConfigurationUpdateParams::BacsDebit), bancontact: T.nilable(PaymentMethodConfigurationUpdateParams::Bancontact), billie: T.nilable(PaymentMethodConfigurationUpdateParams::Billie), blik: T.nilable(PaymentMethodConfigurationUpdateParams::Blik), boleto: T.nilable(PaymentMethodConfigurationUpdateParams::Boleto), card: T.nilable(PaymentMethodConfigurationUpdateParams::Card), cartes_bancaires: T.nilable(PaymentMethodConfigurationUpdateParams::CartesBancaires), cashapp: T.nilable(PaymentMethodConfigurationUpdateParams::Cashapp), crypto: T.nilable(PaymentMethodConfigurationUpdateParams::Crypto), customer_balance: T.nilable(PaymentMethodConfigurationUpdateParams::CustomerBalance), eps: T.nilable(PaymentMethodConfigurationUpdateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(PaymentMethodConfigurationUpdateParams::Fpx), fr_meal_voucher_conecs: T.nilable(PaymentMethodConfigurationUpdateParams::FrMealVoucherConecs), giropay: T.nilable(PaymentMethodConfigurationUpdateParams::Giropay), google_pay: T.nilable(PaymentMethodConfigurationUpdateParams::GooglePay), gopay: T.nilable(PaymentMethodConfigurationUpdateParams::Gopay), grabpay: T.nilable(PaymentMethodConfigurationUpdateParams::Grabpay), id_bank_transfer: T.nilable(PaymentMethodConfigurationUpdateParams::IdBankTransfer), ideal: T.nilable(PaymentMethodConfigurationUpdateParams::Ideal), jcb: T.nilable(PaymentMethodConfigurationUpdateParams::Jcb), kakao_pay: T.nilable(PaymentMethodConfigurationUpdateParams::KakaoPay), klarna: T.nilable(PaymentMethodConfigurationUpdateParams::Klarna), konbini: T.nilable(PaymentMethodConfigurationUpdateParams::Konbini), kr_card: T.nilable(PaymentMethodConfigurationUpdateParams::KrCard), link: T.nilable(PaymentMethodConfigurationUpdateParams::Link), mb_way: T.nilable(PaymentMethodConfigurationUpdateParams::MbWay), mobilepay: T.nilable(PaymentMethodConfigurationUpdateParams::Mobilepay), multibanco: T.nilable(PaymentMethodConfigurationUpdateParams::Multibanco), name: T.nilable(String), naver_pay: T.nilable(PaymentMethodConfigurationUpdateParams::NaverPay), nz_bank_account: T.nilable(PaymentMethodConfigurationUpdateParams::NzBankAccount), oxxo: T.nilable(PaymentMethodConfigurationUpdateParams::Oxxo), p24: T.nilable(PaymentMethodConfigurationUpdateParams::P24), pay_by_bank: T.nilable(PaymentMethodConfigurationUpdateParams::PayByBank), payco: T.nilable(PaymentMethodConfigurationUpdateParams::Payco), paynow: T.nilable(PaymentMethodConfigurationUpdateParams::Paynow), paypal: T.nilable(PaymentMethodConfigurationUpdateParams::Paypal), paypay: T.nilable(PaymentMethodConfigurationUpdateParams::Paypay), payto: T.nilable(PaymentMethodConfigurationUpdateParams::Payto), pix: T.nilable(PaymentMethodConfigurationUpdateParams::Pix), promptpay: T.nilable(PaymentMethodConfigurationUpdateParams::Promptpay), qris: T.nilable(PaymentMethodConfigurationUpdateParams::Qris), revolut_pay: T.nilable(PaymentMethodConfigurationUpdateParams::RevolutPay), samsung_pay: T.nilable(PaymentMethodConfigurationUpdateParams::SamsungPay), satispay: T.nilable(PaymentMethodConfigurationUpdateParams::Satispay), sepa_debit: T.nilable(PaymentMethodConfigurationUpdateParams::SepaDebit), shopeepay: T.nilable(PaymentMethodConfigurationUpdateParams::Shopeepay), sofort: T.nilable(PaymentMethodConfigurationUpdateParams::Sofort), swish: T.nilable(PaymentMethodConfigurationUpdateParams::Swish), twint: T.nilable(PaymentMethodConfigurationUpdateParams::Twint), us_bank_account: T.nilable(PaymentMethodConfigurationUpdateParams::UsBankAccount), wechat_pay: T.nilable(PaymentMethodConfigurationUpdateParams::WechatPay), zip: T.nilable(PaymentMethodConfigurationUpdateParams::Zip)).void
      }
     def initialize(
       acss_debit: nil,
@@ -1806,6 +1864,7 @@ module Stripe
       card: nil,
       cartes_bancaires: nil,
       cashapp: nil,
+      crypto: nil,
       customer_balance: nil,
       eps: nil,
       expand: nil,
@@ -1823,6 +1882,7 @@ module Stripe
       konbini: nil,
       kr_card: nil,
       link: nil,
+      mb_way: nil,
       mobilepay: nil,
       multibanco: nil,
       name: nil,

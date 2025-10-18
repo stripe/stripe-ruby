@@ -21,7 +21,7 @@ module Stripe
                                     operations: %i[list],
                                     resource_plural: "event_summaries"
 
-      class CustomerMapping < Stripe::StripeObject
+      class CustomerMapping < ::Stripe::StripeObject
         # The key in the meter event payload to use for mapping the event to a customer.
         attr_reader :event_payload_key
         # The method for mapping a meter event to a customer.
@@ -36,7 +36,7 @@ module Stripe
         end
       end
 
-      class DefaultAggregation < Stripe::StripeObject
+      class DefaultAggregation < ::Stripe::StripeObject
         # Specifies how events are aggregated.
         attr_reader :formula
 
@@ -49,7 +49,7 @@ module Stripe
         end
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # The time the meter was deactivated, if any. Measured in seconds since Unix epoch.
         attr_reader :deactivated_at
 
@@ -62,7 +62,7 @@ module Stripe
         end
       end
 
-      class ValueSettings < Stripe::StripeObject
+      class ValueSettings < ::Stripe::StripeObject
         # The key in the meter event payload to use as the value for this meter.
         attr_reader :event_payload_key
 

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class TopupUpdateParams < Stripe::RequestParams
+  class TopupUpdateParams < ::Stripe::RequestParams
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     def description; end

@@ -3,8 +3,8 @@
 
 module Stripe
   module Terminal
-    class LocationCreateParams < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class LocationCreateParams < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -35,7 +35,7 @@ module Stripe
         end
       end
 
-      class AddressKana < Stripe::RequestParams
+      class AddressKana < ::Stripe::RequestParams
         # City or ward.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -70,7 +70,7 @@ module Stripe
         end
       end
 
-      class AddressKanji < Stripe::RequestParams
+      class AddressKanji < ::Stripe::RequestParams
         # City or ward.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

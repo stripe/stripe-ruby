@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PlanUpdateParams < Stripe::RequestParams
+  class PlanUpdateParams < ::Stripe::RequestParams
     # Whether the plan is currently available for new subscriptions.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      class EventRetrieveParams < Stripe::RequestParams; end
+      class EventRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

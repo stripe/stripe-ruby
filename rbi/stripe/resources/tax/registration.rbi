@@ -10,9 +10,9 @@ module Stripe
     #
     # Related guide: [Using the Registrations API](https://stripe.com/docs/tax/registrations-api)
     class Registration < APIResource
-      class CountryOptions < Stripe::StripeObject
-        class Ae < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+      class CountryOptions < ::Stripe::StripeObject
+        class Ae < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -36,7 +36,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Al < Stripe::StripeObject
+        class Al < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -47,7 +47,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Am < Stripe::StripeObject
+        class Am < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -58,7 +58,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ao < Stripe::StripeObject
+        class Ao < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -69,8 +69,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class At < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class At < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -94,8 +94,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Au < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Au < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -119,7 +119,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Aw < Stripe::StripeObject
+        class Aw < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -130,7 +130,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Az < Stripe::StripeObject
+        class Az < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -141,7 +141,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ba < Stripe::StripeObject
+        class Ba < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -152,7 +152,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bb < Stripe::StripeObject
+        class Bb < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -163,7 +163,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bd < Stripe::StripeObject
+        class Bd < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -174,8 +174,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Be < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Be < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -199,7 +199,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bf < Stripe::StripeObject
+        class Bf < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -210,8 +210,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bg < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Bg < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -235,7 +235,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bh < Stripe::StripeObject
+        class Bh < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -246,7 +246,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bj < Stripe::StripeObject
+        class Bj < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -257,7 +257,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bs < Stripe::StripeObject
+        class Bs < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -268,7 +268,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class By < Stripe::StripeObject
+        class By < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -279,8 +279,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ca < Stripe::StripeObject
-          class ProvinceStandard < Stripe::StripeObject
+        class Ca < ::Stripe::StripeObject
+          class ProvinceStandard < ::Stripe::StripeObject
             # Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(String) }
             def province; end
@@ -304,7 +304,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cd < Stripe::StripeObject
+        class Cd < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -315,8 +315,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ch < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ch < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -340,7 +340,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cl < Stripe::StripeObject
+        class Cl < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -351,7 +351,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cm < Stripe::StripeObject
+        class Cm < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -362,7 +362,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Co < Stripe::StripeObject
+        class Co < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -373,7 +373,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cr < Stripe::StripeObject
+        class Cr < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -384,7 +384,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cv < Stripe::StripeObject
+        class Cv < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -395,8 +395,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cy < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Cy < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -420,8 +420,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cz < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Cz < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -445,8 +445,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class De < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class De < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -470,8 +470,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Dk < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Dk < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -495,7 +495,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ec < Stripe::StripeObject
+        class Ec < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -506,8 +506,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ee < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ee < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -531,7 +531,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Eg < Stripe::StripeObject
+        class Eg < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -542,8 +542,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Es < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Es < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -567,7 +567,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Et < Stripe::StripeObject
+        class Et < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -578,8 +578,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Fi < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Fi < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -603,8 +603,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Fr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Fr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -628,8 +628,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Gb < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Gb < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -653,7 +653,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ge < Stripe::StripeObject
+        class Ge < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -664,7 +664,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Gn < Stripe::StripeObject
+        class Gn < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -675,8 +675,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Gr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Gr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -700,8 +700,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Hr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Hr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -725,8 +725,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Hu < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Hu < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -750,7 +750,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Id < Stripe::StripeObject
+        class Id < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -761,8 +761,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ie < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ie < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -786,7 +786,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class In < Stripe::StripeObject
+        class In < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -797,7 +797,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Is < Stripe::StripeObject
+        class Is < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -808,8 +808,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class It < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class It < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -833,8 +833,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Jp < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Jp < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -858,7 +858,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ke < Stripe::StripeObject
+        class Ke < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -869,7 +869,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Kg < Stripe::StripeObject
+        class Kg < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -880,7 +880,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Kh < Stripe::StripeObject
+        class Kh < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -891,7 +891,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Kr < Stripe::StripeObject
+        class Kr < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -902,7 +902,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Kz < Stripe::StripeObject
+        class Kz < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -913,7 +913,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class La < Stripe::StripeObject
+        class La < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -924,8 +924,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Lt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -949,8 +949,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Lu < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lu < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -974,8 +974,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Lv < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lv < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -999,7 +999,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ma < Stripe::StripeObject
+        class Ma < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1010,7 +1010,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Md < Stripe::StripeObject
+        class Md < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1021,7 +1021,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Me < Stripe::StripeObject
+        class Me < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1032,7 +1032,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Mk < Stripe::StripeObject
+        class Mk < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1043,7 +1043,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Mr < Stripe::StripeObject
+        class Mr < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1054,8 +1054,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Mt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Mt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1079,7 +1079,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Mx < Stripe::StripeObject
+        class Mx < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1090,7 +1090,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class My < Stripe::StripeObject
+        class My < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1101,7 +1101,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ng < Stripe::StripeObject
+        class Ng < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1112,8 +1112,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Nl < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Nl < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1137,8 +1137,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class No < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class No < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1162,7 +1162,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Np < Stripe::StripeObject
+        class Np < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1173,8 +1173,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Nz < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Nz < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1198,7 +1198,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Om < Stripe::StripeObject
+        class Om < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1209,7 +1209,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Pe < Stripe::StripeObject
+        class Pe < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1220,7 +1220,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ph < Stripe::StripeObject
+        class Ph < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1231,8 +1231,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Pl < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Pl < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1256,8 +1256,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Pt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Pt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1281,8 +1281,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ro < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ro < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1306,7 +1306,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Rs < Stripe::StripeObject
+        class Rs < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1317,7 +1317,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ru < Stripe::StripeObject
+        class Ru < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1328,7 +1328,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Sa < Stripe::StripeObject
+        class Sa < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1339,8 +1339,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Se < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Se < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1364,8 +1364,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Sg < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Sg < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1389,8 +1389,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Si < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Si < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1414,8 +1414,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Sk < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Sk < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
             def place_of_supply_scheme; end
@@ -1439,7 +1439,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Sn < Stripe::StripeObject
+        class Sn < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1450,7 +1450,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Sr < Stripe::StripeObject
+        class Sr < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1461,7 +1461,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Th < Stripe::StripeObject
+        class Th < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1472,7 +1472,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Tj < Stripe::StripeObject
+        class Tj < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1483,7 +1483,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Tr < Stripe::StripeObject
+        class Tr < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1494,7 +1494,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Tz < Stripe::StripeObject
+        class Tw < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1505,7 +1505,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ua < Stripe::StripeObject
+        class Tz < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1516,7 +1516,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ug < Stripe::StripeObject
+        class Ua < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1527,8 +1527,19 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Us < Stripe::StripeObject
-          class LocalAmusementTax < Stripe::StripeObject
+        class Ug < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Us < ::Stripe::StripeObject
+          class LocalAmusementTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
             sig { returns(String) }
             def jurisdiction; end
@@ -1539,7 +1550,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class LocalLeaseTax < Stripe::StripeObject
+          class LocalLeaseTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
             sig { returns(String) }
             def jurisdiction; end
@@ -1550,8 +1561,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class StateSalesTax < Stripe::StripeObject
-            class Election < Stripe::StripeObject
+          class StateSalesTax < ::Stripe::StripeObject
+            class Election < ::Stripe::StripeObject
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
               sig { returns(T.nilable(String)) }
               def jurisdiction; end
@@ -1601,7 +1612,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Uy < Stripe::StripeObject
+        class Uy < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1612,7 +1623,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Uz < Stripe::StripeObject
+        class Uz < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1623,7 +1634,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Vn < Stripe::StripeObject
+        class Vn < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1634,7 +1645,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Za < Stripe::StripeObject
+        class Za < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1645,7 +1656,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Zm < Stripe::StripeObject
+        class Zm < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1656,7 +1667,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Zw < Stripe::StripeObject
+        class Zw < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1934,6 +1945,9 @@ module Stripe
         # Attribute for field tr
         sig { returns(T.nilable(Tr)) }
         def tr; end
+        # Attribute for field tw
+        sig { returns(T.nilable(Tw)) }
+        def tw; end
         # Attribute for field tz
         sig { returns(T.nilable(Tz)) }
         def tz; end
@@ -2055,6 +2069,7 @@ module Stripe
             th: Th,
             tj: Tj,
             tr: Tr,
+            tw: Tw,
             tz: Tz,
             ua: Ua,
             ug: Ug,
@@ -2100,13 +2115,13 @@ module Stripe
       def status; end
       # Creates a new Tax Registration object.
       sig {
-        params(params: T.any(::Stripe::Tax::RegistrationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Tax::Registration)
+        params(params: T.any(::Stripe::Tax::RegistrationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Registration)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of Tax Registration objects.
       sig {
-        params(params: T.any(::Stripe::Tax::RegistrationListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Tax::RegistrationListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
@@ -2114,7 +2129,7 @@ module Stripe
       #
       # A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
       sig {
-        params(id: String, params: T.any(::Stripe::Tax::RegistrationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Tax::Registration)
+        params(id: String, params: T.any(::Stripe::Tax::RegistrationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Registration)
        }
       def self.update(id, params = {}, opts = {}); end
     end

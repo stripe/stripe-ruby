@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Treasury
-    class InboundTransferCreateParams < Stripe::RequestParams
+    class InboundTransferCreateParams < ::Stripe::RequestParams
       # Amount (in cents) to be transferred.
       sig { returns(Integer) }
       def amount; end

@@ -12,8 +12,8 @@ module Stripe
           "v2.money_management.inbound_transfer"
         end
 
-        class From < Stripe::StripeObject
-          class PaymentMethod < Stripe::StripeObject
+        class From < ::Stripe::StripeObject
+          class PaymentMethod < ::Stripe::StripeObject
             # The type of object this destination represents. For a us bank account, we expect us_bank_account.
             attr_reader :type
             # The destination US bank account identifier. eg "usba_***".
@@ -41,7 +41,7 @@ module Stripe
           end
         end
 
-        class To < Stripe::StripeObject
+        class To < ::Stripe::StripeObject
           # The amount by which the FinancialAccount balance is credited.
           attr_reader :credited
           # The FinancialAccount that funds will land in.
@@ -56,8 +56,8 @@ module Stripe
           end
         end
 
-        class TransferHistory < Stripe::StripeObject
-          class BankDebitFailed < Stripe::StripeObject
+        class TransferHistory < ::Stripe::StripeObject
+          class BankDebitFailed < ::Stripe::StripeObject
             # Open Enum. The return reason for the failed InboundTransfer.
             attr_reader :failure_reason
 
@@ -70,7 +70,7 @@ module Stripe
             end
           end
 
-          class BankDebitReturned < Stripe::StripeObject
+          class BankDebitReturned < ::Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             attr_reader :return_reason
 

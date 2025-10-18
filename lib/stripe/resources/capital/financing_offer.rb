@@ -13,7 +13,7 @@ module Stripe
         "capital.financing_offer"
       end
 
-      class AcceptedTerms < Stripe::StripeObject
+      class AcceptedTerms < ::Stripe::StripeObject
         # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         attr_reader :advance_amount
         # Currency that the financing offer is transacted in. For example, `usd`.
@@ -35,7 +35,7 @@ module Stripe
         end
       end
 
-      class OfferedTerms < Stripe::StripeObject
+      class OfferedTerms < ::Stripe::StripeObject
         # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         attr_reader :advance_amount
         # Describes the type of user the offer is being extended to.

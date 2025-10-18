@@ -3,11 +3,11 @@
 
 # typed: true
 module Stripe
-  class SubscriptionCreateParams < Stripe::RequestParams
-    class AddInvoiceItem < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+  class SubscriptionCreateParams < ::Stripe::RequestParams
+    class AddInvoiceItem < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
             def interval; end
@@ -72,8 +72,8 @@ module Stripe
          }
         def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
       end
-      class Period < Stripe::RequestParams
-        class End < Stripe::RequestParams
+      class Period < ::Stripe::RequestParams
+        class End < ::Stripe::RequestParams
           # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
           sig { returns(T.nilable(Integer)) }
           def timestamp; end
@@ -87,7 +87,7 @@ module Stripe
           sig { params(timestamp: T.nilable(Integer), type: String).void }
           def initialize(timestamp: nil, type: nil); end
         end
-        class Start < Stripe::RequestParams
+        class Start < ::Stripe::RequestParams
           # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
           sig { returns(T.nilable(Integer)) }
           def timestamp; end
@@ -120,7 +120,7 @@ module Stripe
          }
         def initialize(end_: nil, start: nil); end
       end
-      class PriceData < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
@@ -215,8 +215,8 @@ module Stripe
         tax_rates: nil
       ); end
     end
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -247,7 +247,7 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
-    class BillingCycleAnchorConfig < Stripe::RequestParams
+    class BillingCycleAnchorConfig < ::Stripe::RequestParams
       # The day of the month the anchor should be. Ranges from 1 to 31.
       sig { returns(Integer) }
       def day_of_month; end
@@ -278,8 +278,8 @@ module Stripe
        }
       def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
     end
-    class BillingMode < Stripe::RequestParams
-      class Flexible < Stripe::RequestParams
+    class BillingMode < ::Stripe::RequestParams
+      class Flexible < ::Stripe::RequestParams
         # Controls how invoices and invoice items display proration amounts and discount amounts.
         sig { returns(T.nilable(String)) }
         def proration_discounts; end
@@ -305,8 +305,8 @@ module Stripe
        }
       def initialize(flexible: nil, type: nil); end
     end
-    class BillingSchedule < Stripe::RequestParams
-      class AppliesTo < Stripe::RequestParams
+    class BillingSchedule < ::Stripe::RequestParams
+      class AppliesTo < ::Stripe::RequestParams
         # The ID of the price object.
         sig { returns(T.nilable(String)) }
         def price; end
@@ -320,8 +320,8 @@ module Stripe
         sig { params(price: T.nilable(String), type: String).void }
         def initialize(price: nil, type: nil); end
       end
-      class BillUntil < Stripe::RequestParams
-        class Duration < Stripe::RequestParams
+      class BillUntil < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies billing duration. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -381,7 +381,7 @@ module Stripe
        }
       def initialize(applies_to: nil, bill_until: nil, key: nil); end
     end
-    class BillingThresholds < Stripe::RequestParams
+    class BillingThresholds < ::Stripe::RequestParams
       # Monetary threshold that triggers the subscription to advance to a new billing period
       sig { returns(T.nilable(Integer)) }
       def amount_gte; end
@@ -399,9 +399,9 @@ module Stripe
        }
       def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
     end
-    class Discount < Stripe::RequestParams
-      class DiscountEnd < Stripe::RequestParams
-        class Duration < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -464,8 +464,8 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
     end
-    class InvoiceSettings < Stripe::RequestParams
-      class Issuer < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -498,8 +498,8 @@ module Stripe
        }
       def initialize(account_tax_ids: nil, issuer: nil); end
     end
-    class Item < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
+    class Item < ::Stripe::RequestParams
+      class BillingThresholds < ::Stripe::RequestParams
         # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         sig { returns(Integer) }
         def usage_gte; end
@@ -508,9 +508,9 @@ module Stripe
         sig { params(usage_gte: Integer).void }
         def initialize(usage_gte: nil); end
       end
-      class Discount < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
             def interval; end
@@ -575,8 +575,8 @@ module Stripe
          }
         def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
       end
-      class PriceData < Stripe::RequestParams
-        class Recurring < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -634,7 +634,7 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
-      class Trial < Stripe::RequestParams
+      class Trial < ::Stripe::RequestParams
         # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         sig { returns(T.nilable(T::Array[String])) }
         def converts_to; end
@@ -722,10 +722,10 @@ module Stripe
         trial: nil
       ); end
     end
-    class PaymentSettings < Stripe::RequestParams
-      class PaymentMethodOptions < Stripe::RequestParams
-        class AcssDebit < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+    class PaymentSettings < ::Stripe::RequestParams
+      class PaymentMethodOptions < ::Stripe::RequestParams
+        class AcssDebit < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Transaction type of the mandate.
             sig { returns(T.nilable(String)) }
             def transaction_type; end
@@ -753,7 +753,7 @@ module Stripe
            }
           def initialize(mandate_options: nil, verification_method: nil); end
         end
-        class Bancontact < Stripe::RequestParams
+        class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(T.nilable(String)) }
           def preferred_language; end
@@ -762,8 +762,8 @@ module Stripe
           sig { params(preferred_language: T.nilable(String)).void }
           def initialize(preferred_language: nil); end
         end
-        class Card < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments.
             sig { returns(T.nilable(Integer)) }
             def amount; end
@@ -808,9 +808,9 @@ module Stripe
            }
           def initialize(mandate_options: nil, network: nil, request_three_d_secure: nil); end
         end
-        class CustomerBalance < Stripe::RequestParams
-          class BankTransfer < Stripe::RequestParams
-            class EuBankTransfer < Stripe::RequestParams
+        class CustomerBalance < ::Stripe::RequestParams
+          class BankTransfer < ::Stripe::RequestParams
+            class EuBankTransfer < ::Stripe::RequestParams
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
@@ -857,10 +857,10 @@ module Stripe
            }
           def initialize(bank_transfer: nil, funding_type: nil); end
         end
-        class IdBankTransfer < Stripe::RequestParams; end
-        class Konbini < Stripe::RequestParams; end
-        class Pix < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+        class IdBankTransfer < ::Stripe::RequestParams; end
+        class Konbini < ::Stripe::RequestParams; end
+        class Pix < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments. If not provided, defaults to 40000.
             sig { returns(T.nilable(Integer)) }
             def amount; end
@@ -905,9 +905,9 @@ module Stripe
            }
           def initialize(mandate_options: nil); end
         end
-        class SepaDebit < Stripe::RequestParams; end
-        class Upi < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+        class SepaDebit < ::Stripe::RequestParams; end
+        class Upi < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments.
             sig { returns(T.nilable(Integer)) }
             def amount; end
@@ -947,9 +947,9 @@ module Stripe
            }
           def initialize(mandate_options: nil); end
         end
-        class UsBankAccount < Stripe::RequestParams
-          class FinancialConnections < Stripe::RequestParams
-            class Filters < Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
+          class FinancialConnections < ::Stripe::RequestParams
+            class Filters < ::Stripe::RequestParams
               # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
               sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
@@ -1148,7 +1148,7 @@ module Stripe
         save_default_payment_method: nil
       ); end
     end
-    class PendingInvoiceItemInterval < Stripe::RequestParams
+    class PendingInvoiceItemInterval < ::Stripe::RequestParams
       # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
       sig { returns(String) }
       def interval; end
@@ -1162,7 +1162,7 @@ module Stripe
       sig { params(interval: String, interval_count: T.nilable(Integer)).void }
       def initialize(interval: nil, interval_count: nil); end
     end
-    class Prebilling < Stripe::RequestParams
+    class Prebilling < ::Stripe::RequestParams
       # This is used to determine the number of billing cycles to prebill.
       sig { returns(Integer) }
       def iterations; end
@@ -1176,7 +1176,7 @@ module Stripe
       sig { params(iterations: Integer, update_behavior: T.nilable(String)).void }
       def initialize(iterations: nil, update_behavior: nil); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       sig { returns(T.nilable(Float)) }
       def amount_percent; end
@@ -1190,8 +1190,8 @@ module Stripe
       sig { params(amount_percent: T.nilable(Float), destination: String).void }
       def initialize(amount_percent: nil, destination: nil); end
     end
-    class TrialSettings < Stripe::RequestParams
-      class EndBehavior < Stripe::RequestParams
+    class TrialSettings < ::Stripe::RequestParams
+      class EndBehavior < ::Stripe::RequestParams
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         sig { returns(String) }
         def missing_payment_method; end

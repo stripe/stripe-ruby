@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Core
       module Accounts
-        class PersonDeleteParams < Stripe::RequestParams; end
+        class PersonDeleteParams < ::Stripe::RequestParams; end
       end
     end
   end

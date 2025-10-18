@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Core
-      class EventDestinationCreateParams < Stripe::RequestParams
-        class AmazonEventbridge < Stripe::RequestParams
+      class EventDestinationCreateParams < ::Stripe::RequestParams
+        class AmazonEventbridge < ::Stripe::RequestParams
           # The AWS account ID.
           attr_accessor :aws_account_id
           # The region of the AWS event source.
@@ -17,7 +17,7 @@ module Stripe
           end
         end
 
-        class WebhookEndpoint < Stripe::RequestParams
+        class WebhookEndpoint < ::Stripe::RequestParams
           # The URL of the webhook endpoint.
           attr_accessor :url
 

@@ -10,7 +10,7 @@ module Stripe
         "terminal.reader_collected_data"
       end
 
-      class Magstripe < Stripe::StripeObject
+      class Magstripe < ::Stripe::StripeObject
         # The raw magstripe data collected by the reader.
         attr_reader :data
 

@@ -10,9 +10,9 @@ module Stripe
           "v2.billing.cadence"
         end
 
-        class BillingCycle < Stripe::StripeObject
-          class Day < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+        class BillingCycle < ::Stripe::StripeObject
+          class Day < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -44,8 +44,8 @@ module Stripe
             end
           end
 
-          class Month < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+          class Month < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -84,8 +84,8 @@ module Stripe
             end
           end
 
-          class Week < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+          class Week < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -120,8 +120,8 @@ module Stripe
             end
           end
 
-          class Year < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+          class Year < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -180,7 +180,7 @@ module Stripe
           end
         end
 
-        class Payer < Stripe::StripeObject
+        class Payer < ::Stripe::StripeObject
           # The ID of the Billing Profile object which determines how a bill will be paid.
           attr_reader :billing_profile
           # The ID of the Customer object.
@@ -197,8 +197,8 @@ module Stripe
           end
         end
 
-        class Settings < Stripe::StripeObject
-          class Bill < Stripe::StripeObject
+        class Settings < ::Stripe::StripeObject
+          class Bill < ::Stripe::StripeObject
             # The ID of the referenced settings object.
             attr_reader :id
             # Returns the Settings Version when the cadence is pinned to a specific version.
@@ -213,7 +213,7 @@ module Stripe
             end
           end
 
-          class Collection < Stripe::StripeObject
+          class Collection < ::Stripe::StripeObject
             # The ID of the referenced settings object.
             attr_reader :id
             # Returns the Settings Version when the cadence is pinned to a specific version.
@@ -241,10 +241,10 @@ module Stripe
           end
         end
 
-        class SettingsData < Stripe::StripeObject
-          class Bill < Stripe::StripeObject
-            class Calculation < Stripe::StripeObject
-              class Tax < Stripe::StripeObject
+        class SettingsData < ::Stripe::StripeObject
+          class Bill < ::Stripe::StripeObject
+            class Calculation < ::Stripe::StripeObject
+              class Tax < ::Stripe::StripeObject
                 # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
                 attr_reader :type
 
@@ -268,8 +268,8 @@ module Stripe
               end
             end
 
-            class Invoice < Stripe::StripeObject
-              class TimeUntilDue < Stripe::StripeObject
+            class Invoice < ::Stripe::StripeObject
+              class TimeUntilDue < ::Stripe::StripeObject
                 # The interval unit for the time until due.
                 attr_reader :interval
                 # The number of interval units. For example, if interval=day and interval_count=30,
@@ -311,9 +311,9 @@ module Stripe
             end
           end
 
-          class Collection < Stripe::StripeObject
-            class EmailDelivery < Stripe::StripeObject
-              class PaymentDue < Stripe::StripeObject
+          class Collection < ::Stripe::StripeObject
+            class EmailDelivery < ::Stripe::StripeObject
+              class PaymentDue < ::Stripe::StripeObject
                 # If true an email for the invoice would be generated and sent out.
                 attr_reader :enabled
                 # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
@@ -339,9 +339,9 @@ module Stripe
               end
             end
 
-            class PaymentMethodOptions < Stripe::StripeObject
-              class AcssDebit < Stripe::StripeObject
-                class MandateOptions < Stripe::StripeObject
+            class PaymentMethodOptions < ::Stripe::StripeObject
+              class AcssDebit < ::Stripe::StripeObject
+                class MandateOptions < ::Stripe::StripeObject
                   # Transaction type of the mandate.
                   attr_reader :transaction_type
 
@@ -367,7 +367,7 @@ module Stripe
                 end
               end
 
-              class Bancontact < Stripe::StripeObject
+              class Bancontact < ::Stripe::StripeObject
                 # Preferred language of the Bancontact authorization page that the customer is redirected to.
                 attr_reader :preferred_language
 
@@ -380,8 +380,8 @@ module Stripe
                 end
               end
 
-              class Card < Stripe::StripeObject
-                class MandateOptions < Stripe::StripeObject
+              class Card < ::Stripe::StripeObject
+                class MandateOptions < ::Stripe::StripeObject
                   # Amount to be charged for future payments.
                   attr_reader :amount
                   # The AmountType for the mandate. One of `fixed` or `maximum`.
@@ -416,9 +416,9 @@ module Stripe
                 end
               end
 
-              class CustomerBalance < Stripe::StripeObject
-                class BankTransfer < Stripe::StripeObject
-                  class EuBankTransfer < Stripe::StripeObject
+              class CustomerBalance < ::Stripe::StripeObject
+                class BankTransfer < ::Stripe::StripeObject
+                  class EuBankTransfer < ::Stripe::StripeObject
                     # The desired country code of the bank account information.
                     attr_reader :country
 
@@ -457,9 +457,9 @@ module Stripe
                 end
               end
 
-              class UsBankAccount < Stripe::StripeObject
-                class FinancialConnections < Stripe::StripeObject
-                  class Filters < Stripe::StripeObject
+              class UsBankAccount < ::Stripe::StripeObject
+                class FinancialConnections < ::Stripe::StripeObject
+                  class Filters < ::Stripe::StripeObject
                     # The account subcategories to use to filter for selectable accounts.
                     attr_reader :account_subcategories
 

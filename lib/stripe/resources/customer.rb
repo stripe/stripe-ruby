@@ -22,7 +22,7 @@ module Stripe
     nested_resource_class_methods :source, operations: %i[create retrieve update delete list]
     nested_resource_class_methods :tax_id, operations: %i[create retrieve delete list]
 
-    class Address < Stripe::StripeObject
+    class Address < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -45,8 +45,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::StripeObject
-      class CustomField < Stripe::StripeObject
+    class InvoiceSettings < ::Stripe::StripeObject
+      class CustomField < ::Stripe::StripeObject
         # The name of the custom field.
         attr_reader :name
         # The value of the custom field.
@@ -61,7 +61,7 @@ module Stripe
         end
       end
 
-      class RenderingOptions < Stripe::StripeObject
+      class RenderingOptions < ::Stripe::StripeObject
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
         attr_reader :amount_tax_display
         # ID of the invoice rendering template to be used for this customer's invoices. If set, the template will be used on all invoices for this customer unless a template is set directly on the invoice.
@@ -93,8 +93,8 @@ module Stripe
       end
     end
 
-    class Shipping < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Shipping < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -136,8 +136,8 @@ module Stripe
       end
     end
 
-    class Tax < Stripe::StripeObject
-      class Location < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
+      class Location < ::Stripe::StripeObject
         # The identified tax country of the customer.
         attr_reader :country
         # The data source used to infer the customer's location.
@@ -159,6 +159,8 @@ module Stripe
       attr_reader :ip_address
       # The identified tax location of the customer.
       attr_reader :location
+      # The tax calculation provider used for location resolution. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
+      attr_reader :provider
 
       def self.inner_class_types
         @inner_class_types = { location: Location }

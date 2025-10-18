@@ -7,15 +7,15 @@ module Stripe
     module MoneyManagement
       # A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
       class FinancialAccount < APIResource
-        class Balance < Stripe::StripeObject
+        class Balance < ::Stripe::StripeObject
           # Balance that can be used for money movement.
-          sig { returns(T::Hash[String, Stripe::V2::Amount]) }
+          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def available; end
           # Balance of inbound funds that will later transition to the `available` balance.
-          sig { returns(T::Hash[String, Stripe::V2::Amount]) }
+          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def inbound_pending; end
           # Balance of funds that are being used for a pending outbound money movement.
-          sig { returns(T::Hash[String, Stripe::V2::Amount]) }
+          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def outbound_pending; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -24,7 +24,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Other < Stripe::StripeObject
+        class Other < ::Stripe::StripeObject
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           sig { returns(String) }
           def type; end
@@ -35,9 +35,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusDetails < Stripe::StripeObject
-          class Closed < Stripe::StripeObject
-            class ForwardingSettings < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Closed < ::Stripe::StripeObject
+            class ForwardingSettings < ::Stripe::StripeObject
               # The address to send forwarded payments to.
               sig { returns(T.nilable(String)) }
               def payment_method; end
@@ -74,7 +74,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Storage < Stripe::StripeObject
+        class Storage < ::Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
           def holds_currencies; end

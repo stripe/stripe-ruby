@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Radar
-    class ValueListItemListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class ValueListItemListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
         def gt; end

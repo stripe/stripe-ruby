@@ -3,8 +3,8 @@
 
 module Stripe
   module Reporting
-    class ReportRunCreateParams < Stripe::RequestParams
-      class Parameters < Stripe::RequestParams
+    class ReportRunCreateParams < ::Stripe::RequestParams
+      class Parameters < ::Stripe::RequestParams
         # The set of report columns to include in the report output. If omitted, the Report Type is run with its default column set.
         attr_accessor :columns
         # Connected account ID to filter for in the report run.

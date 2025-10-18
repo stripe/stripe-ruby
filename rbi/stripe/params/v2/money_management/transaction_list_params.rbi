@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class TransactionListParams < Stripe::RequestParams
+      class TransactionListParams < ::Stripe::RequestParams
         # Filter for Transactions created at an exact time.
         sig { returns(T.nilable(String)) }
         def created; end

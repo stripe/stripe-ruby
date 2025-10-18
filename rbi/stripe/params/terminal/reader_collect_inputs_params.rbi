@@ -4,20 +4,20 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderCollectInputsParams < Stripe::RequestParams
-      class Input < Stripe::RequestParams
-        class CustomText < Stripe::RequestParams
+    class ReaderCollectInputsParams < ::Stripe::RequestParams
+      class Input < ::Stripe::RequestParams
+        class CustomText < ::Stripe::RequestParams
           # The description which will be displayed when collecting this input
           sig { returns(T.nilable(String)) }
           def description; end
           sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
           def description=(_description); end
-          # The skip button text
+          # Custom text for the skip button. Maximum 14 characters.
           sig { returns(T.nilable(String)) }
           def skip_button; end
           sig { params(_skip_button: T.nilable(String)).returns(T.nilable(String)) }
           def skip_button=(_skip_button); end
-          # The submit button text
+          # Custom text for the submit button. Maximum 30 characters.
           sig { returns(T.nilable(String)) }
           def submit_button; end
           sig { params(_submit_button: T.nilable(String)).returns(T.nilable(String)) }
@@ -32,14 +32,14 @@ module Stripe
            }
           def initialize(description: nil, skip_button: nil, submit_button: nil, title: nil); end
         end
-        class Selection < Stripe::RequestParams
-          class Choice < Stripe::RequestParams
+        class Selection < ::Stripe::RequestParams
+          class Choice < ::Stripe::RequestParams
             # The unique identifier for this choice
             sig { returns(String) }
             def id; end
             sig { params(_id: String).returns(String) }
             def id=(_id); end
-            # The style of the button which will be shown for this choice
+            # The style of the button which will be shown for this choice. Can be `primary` or `secondary`.
             sig { returns(T.nilable(String)) }
             def style; end
             sig { params(_style: T.nilable(String)).returns(T.nilable(String)) }
@@ -64,18 +64,18 @@ module Stripe
            }
           def initialize(choices: nil); end
         end
-        class Toggle < Stripe::RequestParams
-          # The default value of the toggle
+        class Toggle < ::Stripe::RequestParams
+          # The default value of the toggle. Can be `enabled` or `disabled`.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
           def default_value=(_default_value); end
-          # The description which will be displayed for the toggle
+          # The description which will be displayed for the toggle. Maximum 50 characters. At least one of title or description must be provided.
           sig { returns(T.nilable(String)) }
           def description; end
           sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
           def description=(_description); end
-          # The title which will be displayed for the toggle
+          # The title which will be displayed for the toggle. Maximum 50 characters. At least one of title or description must be provided.
           sig { returns(T.nilable(String)) }
           def title; end
           sig { params(_title: T.nilable(String)).returns(T.nilable(String)) }
@@ -132,7 +132,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # List of inputs to be collected using the Reader
+      # List of inputs to be collected from the customer using the Reader. Maximum 5 inputs.
       sig { returns(T::Array[Terminal::ReaderCollectInputsParams::Input]) }
       def inputs; end
       sig {

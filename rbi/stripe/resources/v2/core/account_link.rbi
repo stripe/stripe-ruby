@@ -7,9 +7,9 @@ module Stripe
     module Core
       # AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted applications, such as Recipient Onboarding. This API is only available for users enrolled in the public preview for Accounts v2.
       class AccountLink < APIResource
-        class UseCase < Stripe::StripeObject
-          class AccountOnboarding < Stripe::StripeObject
-            class CollectionOptions < Stripe::StripeObject
+        class UseCase < ::Stripe::StripeObject
+          class AccountOnboarding < ::Stripe::StripeObject
+            class CollectionOptions < ::Stripe::StripeObject
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               sig { returns(T.nilable(String)) }
               def fields; end
@@ -42,8 +42,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class AccountUpdate < Stripe::StripeObject
-            class CollectionOptions < Stripe::StripeObject
+          class AccountUpdate < ::Stripe::StripeObject
+            class CollectionOptions < ::Stripe::StripeObject
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               sig { returns(T.nilable(String)) }
               def fields; end

@@ -15,8 +15,8 @@ module Stripe
       "person"
     end
 
-    class AdditionalTosAcceptances < Stripe::StripeObject
-      class Account < Stripe::StripeObject
+    class AdditionalTosAcceptances < ::Stripe::StripeObject
+      class Account < ::Stripe::StripeObject
         # The Unix timestamp marking when the legal guardian accepted the service agreement.
         attr_reader :date
         # The IP address from which the legal guardian accepted the service agreement.
@@ -44,7 +44,7 @@ module Stripe
       end
     end
 
-    class Address < Stripe::StripeObject
+    class Address < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -67,7 +67,7 @@ module Stripe
       end
     end
 
-    class AddressKana < Stripe::StripeObject
+    class AddressKana < ::Stripe::StripeObject
       # City/Ward.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -92,7 +92,7 @@ module Stripe
       end
     end
 
-    class AddressKanji < Stripe::StripeObject
+    class AddressKanji < ::Stripe::StripeObject
       # City/Ward.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -117,7 +117,7 @@ module Stripe
       end
     end
 
-    class Dob < Stripe::StripeObject
+    class Dob < ::Stripe::StripeObject
       # The day of birth, between 1 and 31.
       attr_reader :day
       # The month of birth, between 1 and 12.
@@ -134,8 +134,8 @@ module Stripe
       end
     end
 
-    class FutureRequirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
@@ -150,7 +150,7 @@ module Stripe
         end
       end
 
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
@@ -188,7 +188,7 @@ module Stripe
       end
     end
 
-    class RegisteredAddress < Stripe::StripeObject
+    class RegisteredAddress < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -211,7 +211,7 @@ module Stripe
       end
     end
 
-    class Relationship < Stripe::StripeObject
+    class Relationship < ::Stripe::StripeObject
       # Whether the person is the authorizer of the account's representative.
       attr_reader :authorizer
       # Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -238,8 +238,8 @@ module Stripe
       end
     end
 
-    class Requirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
@@ -254,7 +254,7 @@ module Stripe
         end
       end
 
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
@@ -292,8 +292,8 @@ module Stripe
       end
     end
 
-    class UsCfpbData < Stripe::StripeObject
-      class EthnicityDetails < Stripe::StripeObject
+    class UsCfpbData < ::Stripe::StripeObject
+      class EthnicityDetails < ::Stripe::StripeObject
         # The persons ethnicity
         attr_reader :ethnicity
         # Please specify your origin, when other is selected.
@@ -308,7 +308,7 @@ module Stripe
         end
       end
 
-      class RaceDetails < Stripe::StripeObject
+      class RaceDetails < ::Stripe::StripeObject
         # The persons race.
         attr_reader :race
         # Please specify your race, when other is selected.
@@ -338,8 +338,8 @@ module Stripe
       end
     end
 
-    class Verification < Stripe::StripeObject
-      class AdditionalDocument < Stripe::StripeObject
+    class Verification < ::Stripe::StripeObject
+      class AdditionalDocument < ::Stripe::StripeObject
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
         attr_reader :back
         # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
@@ -358,7 +358,7 @@ module Stripe
         end
       end
 
-      class Document < Stripe::StripeObject
+      class Document < ::Stripe::StripeObject
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
         attr_reader :back
         # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".

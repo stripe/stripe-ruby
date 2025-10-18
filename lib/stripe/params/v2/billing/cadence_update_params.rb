@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Billing
-      class CadenceUpdateParams < Stripe::RequestParams
-        class Payer < Stripe::RequestParams
+      class CadenceUpdateParams < ::Stripe::RequestParams
+        class Payer < ::Stripe::RequestParams
           # The ID of the Billing Profile object which determines how a bill will be paid.
           attr_accessor :billing_profile
 
@@ -14,8 +14,8 @@ module Stripe
           end
         end
 
-        class Settings < Stripe::RequestParams
-          class Bill < Stripe::RequestParams
+        class Settings < ::Stripe::RequestParams
+          class Bill < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             attr_accessor :id
             # An optional field to specify the version of Settings to use.
@@ -30,7 +30,7 @@ module Stripe
             end
           end
 
-          class Collection < Stripe::RequestParams
+          class Collection < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             attr_accessor :id
             # An optional field to specify the version of Settings to use.

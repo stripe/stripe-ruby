@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class InvoiceListParams < Stripe::RequestParams
-    class Created < Stripe::RequestParams
+  class InvoiceListParams < ::Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       sig { returns(T.nilable(Integer)) }
       def gt; end
@@ -30,7 +30,7 @@ module Stripe
        }
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
-    class DueDate < Stripe::RequestParams
+    class DueDate < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       sig { returns(T.nilable(Integer)) }
       def gt; end

@@ -11,8 +11,8 @@ module Stripe
           "v2.billing.collection_setting"
         end
 
-        class EmailDelivery < Stripe::StripeObject
-          class PaymentDue < Stripe::StripeObject
+        class EmailDelivery < ::Stripe::StripeObject
+          class PaymentDue < ::Stripe::StripeObject
             # If true an email for the invoice would be generated and sent out.
             attr_reader :enabled
             # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
@@ -38,9 +38,9 @@ module Stripe
           end
         end
 
-        class PaymentMethodOptions < Stripe::StripeObject
-          class AcssDebit < Stripe::StripeObject
-            class MandateOptions < Stripe::StripeObject
+        class PaymentMethodOptions < ::Stripe::StripeObject
+          class AcssDebit < ::Stripe::StripeObject
+            class MandateOptions < ::Stripe::StripeObject
               # Transaction type of the mandate.
               attr_reader :transaction_type
 
@@ -66,7 +66,7 @@ module Stripe
             end
           end
 
-          class Bancontact < Stripe::StripeObject
+          class Bancontact < ::Stripe::StripeObject
             # Preferred language of the Bancontact authorization page that the customer is redirected to.
             attr_reader :preferred_language
 
@@ -79,8 +79,8 @@ module Stripe
             end
           end
 
-          class Card < Stripe::StripeObject
-            class MandateOptions < Stripe::StripeObject
+          class Card < ::Stripe::StripeObject
+            class MandateOptions < ::Stripe::StripeObject
               # Amount to be charged for future payments.
               attr_reader :amount
               # The AmountType for the mandate. One of `fixed` or `maximum`.
@@ -115,9 +115,9 @@ module Stripe
             end
           end
 
-          class CustomerBalance < Stripe::StripeObject
-            class BankTransfer < Stripe::StripeObject
-              class EuBankTransfer < Stripe::StripeObject
+          class CustomerBalance < ::Stripe::StripeObject
+            class BankTransfer < ::Stripe::StripeObject
+              class EuBankTransfer < ::Stripe::StripeObject
                 # The desired country code of the bank account information.
                 attr_reader :country
 
@@ -156,9 +156,9 @@ module Stripe
             end
           end
 
-          class UsBankAccount < Stripe::StripeObject
-            class FinancialConnections < Stripe::StripeObject
-              class Filters < Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
+            class FinancialConnections < ::Stripe::StripeObject
+              class Filters < ::Stripe::StripeObject
                 # The account subcategories to use to filter for selectable accounts.
                 attr_reader :account_subcategories
 

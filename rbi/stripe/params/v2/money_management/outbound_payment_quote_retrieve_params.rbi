@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundPaymentQuoteRetrieveParams < Stripe::RequestParams; end
+      class OutboundPaymentQuoteRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

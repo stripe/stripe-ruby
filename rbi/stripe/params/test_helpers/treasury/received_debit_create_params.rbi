@@ -5,9 +5,9 @@
 module Stripe
   module TestHelpers
     module Treasury
-      class ReceivedDebitCreateParams < Stripe::RequestParams
-        class InitiatingPaymentMethodDetails < Stripe::RequestParams
-          class UsBankAccount < Stripe::RequestParams
+      class ReceivedDebitCreateParams < ::Stripe::RequestParams
+        class InitiatingPaymentMethodDetails < ::Stripe::RequestParams
+          class UsBankAccount < ::Stripe::RequestParams
             # The bank account holder's name.
             sig { returns(T.nilable(String)) }
             def account_holder_name; end
@@ -47,8 +47,8 @@ module Stripe
            }
           def initialize(type: nil, us_bank_account: nil); end
         end
-        class NetworkDetails < Stripe::RequestParams
-          class Ach < Stripe::RequestParams
+        class NetworkDetails < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
             # Addenda record data associated with this ReceivedDebit.
             sig { returns(T.nilable(String)) }
             def addenda; end

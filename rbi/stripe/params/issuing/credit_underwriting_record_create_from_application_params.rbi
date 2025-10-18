@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Issuing
-    class CreditUnderwritingRecordCreateFromApplicationParams < Stripe::RequestParams
-      class Application < Stripe::RequestParams
+    class CreditUnderwritingRecordCreateFromApplicationParams < ::Stripe::RequestParams
+      class Application < ::Stripe::RequestParams
         # The channel through which the applicant has submitted their application. Defaults to `online`.
         sig { returns(T.nilable(String)) }
         def application_method; end
@@ -26,7 +26,7 @@ module Stripe
          }
         def initialize(application_method: nil, purpose: nil, submitted_at: nil); end
       end
-      class CreditUser < Stripe::RequestParams
+      class CreditUser < ::Stripe::RequestParams
         # Email of the applicant or accountholder.
         sig { returns(String) }
         def email; end

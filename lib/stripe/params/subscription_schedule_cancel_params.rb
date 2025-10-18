@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionScheduleCancelParams < Stripe::RequestParams
+  class SubscriptionScheduleCancelParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`.

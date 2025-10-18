@@ -3,11 +3,11 @@
 
 # typed: true
 module Stripe
-  class PaymentIntentCaptureParams < Stripe::RequestParams
-    class AmountDetails < Stripe::RequestParams
-      class LineItem < Stripe::RequestParams
-        class PaymentMethodOptions < Stripe::RequestParams
-          class Card < Stripe::RequestParams
+  class PaymentIntentCaptureParams < ::Stripe::RequestParams
+    class AmountDetails < ::Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
@@ -16,7 +16,7 @@ module Stripe
             sig { params(commodity_code: T.nilable(String)).void }
             def initialize(commodity_code: nil); end
           end
-          class CardPresent < Stripe::RequestParams
+          class CardPresent < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
@@ -25,7 +25,7 @@ module Stripe
             sig { params(commodity_code: T.nilable(String)).void }
             def initialize(commodity_code: nil); end
           end
-          class Klarna < Stripe::RequestParams
+          class Klarna < ::Stripe::RequestParams
             # URL to an image for the product. Max length, 4096 characters.
             sig { returns(T.nilable(String)) }
             def image_url; end
@@ -36,17 +36,27 @@ module Stripe
             def product_url; end
             sig { params(_product_url: T.nilable(String)).returns(T.nilable(String)) }
             def product_url=(_product_url); end
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def reference=(_reference); end
             # Reference for the subscription this line item is for.
             sig { returns(T.nilable(String)) }
             def subscription_reference; end
             sig { params(_subscription_reference: T.nilable(String)).returns(T.nilable(String)) }
             def subscription_reference=(_subscription_reference); end
             sig {
-              params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
+              params(image_url: T.nilable(String), product_url: T.nilable(String), reference: T.nilable(String), subscription_reference: T.nilable(String)).void
              }
-            def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            ); end
           end
-          class Paypal < Stripe::RequestParams
+          class Paypal < ::Stripe::RequestParams
             # Type of the line item.
             sig { returns(T.nilable(String)) }
             def category; end
@@ -108,7 +118,7 @@ module Stripe
            }
           def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
         end
-        class Tax < Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The total tax on an item. Non-negative integer.
           sig { returns(Integer) }
           def total_tax_amount; end
@@ -177,7 +187,7 @@ module Stripe
           unit_of_measure: nil
         ); end
       end
-      class Shipping < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
         # Portion of the amount that is for shipping.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def amount; end
@@ -200,7 +210,7 @@ module Stripe
          }
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
       end
-      class Tax < Stripe::RequestParams
+      class Tax < ::Stripe::RequestParams
         # Total portion of the amount that is for tax.
         sig { returns(Integer) }
         def total_tax_amount; end
@@ -244,9 +254,9 @@ module Stripe
        }
       def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
     end
-    class Hooks < Stripe::RequestParams
-      class Inputs < Stripe::RequestParams
-        class Tax < Stripe::RequestParams
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
           sig { returns(String) }
           def calculation; end
@@ -275,9 +285,9 @@ module Stripe
       sig { params(inputs: T.nilable(PaymentIntentCaptureParams::Hooks::Inputs)).void }
       def initialize(inputs: nil); end
     end
-    class PaymentDetails < Stripe::RequestParams
-      class CarRental < Stripe::RequestParams
-        class Affiliate < Stripe::RequestParams
+    class PaymentDetails < ::Stripe::RequestParams
+      class CarRental < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           sig { returns(String) }
           def name; end
@@ -286,8 +296,8 @@ module Stripe
           sig { params(name: String).void }
           def initialize(name: nil); end
         end
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             sig { returns(T.nilable(String)) }
             def email; end
@@ -327,7 +337,7 @@ module Stripe
            }
           def initialize(mode: nil, recipient: nil); end
         end
-        class Distance < Stripe::RequestParams
+        class Distance < ::Stripe::RequestParams
           # Distance traveled.
           sig { returns(T.nilable(Integer)) }
           def amount; end
@@ -341,7 +351,7 @@ module Stripe
           sig { params(amount: T.nilable(Integer), unit: T.nilable(String)).void }
           def initialize(amount: nil, unit: nil); end
         end
-        class Driver < Stripe::RequestParams
+        class Driver < ::Stripe::RequestParams
           # Driver's identification number.
           sig { returns(T.nilable(String)) }
           def driver_identification_number; end
@@ -364,7 +374,7 @@ module Stripe
            }
           def initialize(driver_identification_number: nil, driver_tax_number: nil, name: nil); end
         end
-        class PickupAddress < Stripe::RequestParams
+        class PickupAddress < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -407,7 +417,7 @@ module Stripe
             state: nil
           ); end
         end
-        class ReturnAddress < Stripe::RequestParams
+        class ReturnAddress < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -620,8 +630,8 @@ module Stripe
           vehicle_identification_number: nil
         ); end
       end
-      class EventDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class EventDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -664,7 +674,7 @@ module Stripe
             state: nil
           ); end
         end
-        class Affiliate < Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           sig { returns(String) }
           def name; end
@@ -673,8 +683,8 @@ module Stripe
           sig { params(name: String).void }
           def initialize(name: nil); end
         end
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             sig { returns(T.nilable(String)) }
             def email; end
@@ -788,8 +798,8 @@ module Stripe
           starts_at: nil
         ); end
       end
-      class Flight < Stripe::RequestParams
-        class Affiliate < Stripe::RequestParams
+      class Flight < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           sig { returns(String) }
           def name; end
@@ -798,8 +808,8 @@ module Stripe
           sig { params(name: String).void }
           def initialize(name: nil); end
         end
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             sig { returns(T.nilable(String)) }
             def email; end
@@ -839,7 +849,7 @@ module Stripe
            }
           def initialize(mode: nil, recipient: nil); end
         end
-        class Passenger < Stripe::RequestParams
+        class Passenger < ::Stripe::RequestParams
           # Full name of the person or entity on the flight reservation.
           sig { returns(String) }
           def name; end
@@ -848,7 +858,7 @@ module Stripe
           sig { params(name: String).void }
           def initialize(name: nil); end
         end
-        class Segment < Stripe::RequestParams
+        class Segment < ::Stripe::RequestParams
           # The flight segment amount.
           sig { returns(T.nilable(Integer)) }
           def amount; end
@@ -967,8 +977,8 @@ module Stripe
           ticket_number: nil
         ); end
       end
-      class Lodging < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Lodging < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -1011,7 +1021,7 @@ module Stripe
             state: nil
           ); end
         end
-        class Affiliate < Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           sig { returns(String) }
           def name; end
@@ -1020,8 +1030,8 @@ module Stripe
           sig { params(name: String).void }
           def initialize(name: nil); end
         end
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             sig { returns(T.nilable(String)) }
             def email; end
@@ -1061,7 +1071,7 @@ module Stripe
            }
           def initialize(mode: nil, recipient: nil); end
         end
-        class Passenger < Stripe::RequestParams
+        class Passenger < ::Stripe::RequestParams
           # Full name of the person or entity on the lodging reservation.
           sig { returns(String) }
           def name; end
@@ -1216,8 +1226,8 @@ module Stripe
           total_tax_amount: nil
         ); end
       end
-      class Subscription < Stripe::RequestParams
-        class Affiliate < Stripe::RequestParams
+      class Subscription < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           sig { returns(String) }
           def name; end
@@ -1226,7 +1236,7 @@ module Stripe
           sig { params(name: String).void }
           def initialize(name: nil); end
         end
-        class BillingInterval < Stripe::RequestParams
+        class BillingInterval < ::Stripe::RequestParams
           # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
           sig { returns(Integer) }
           def count; end
@@ -1348,7 +1358,7 @@ module Stripe
         subscription: nil
       ); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       sig { returns(T.nilable(Integer)) }
       def amount; end

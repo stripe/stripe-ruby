@@ -3,7 +3,7 @@
 
 module Stripe
   module BillingPortal
-    # A portal configuration describes the functionality and behavior of a portal session.
+    # A portal configuration describes the functionality and behavior you embed in a portal session. Related guide: [Configure the customer portal](https://docs.stripe.com/customer-management/configure-portal).
     class Configuration < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -14,7 +14,7 @@ module Stripe
         "billing_portal.configuration"
       end
 
-      class BusinessProfile < Stripe::StripeObject
+      class BusinessProfile < ::Stripe::StripeObject
         # The messaging shown to customers in the portal.
         attr_reader :headline
         # A link to the business’s publicly available privacy policy.
@@ -31,8 +31,8 @@ module Stripe
         end
       end
 
-      class Features < Stripe::StripeObject
-        class CustomerUpdate < Stripe::StripeObject
+      class Features < ::Stripe::StripeObject
+        class CustomerUpdate < ::Stripe::StripeObject
           # The types of customer updates that are supported. When empty, customers are not updateable.
           attr_reader :allowed_updates
           # Whether the feature is enabled.
@@ -47,7 +47,7 @@ module Stripe
           end
         end
 
-        class InvoiceHistory < Stripe::StripeObject
+        class InvoiceHistory < ::Stripe::StripeObject
           # Whether the feature is enabled.
           attr_reader :enabled
 
@@ -60,7 +60,7 @@ module Stripe
           end
         end
 
-        class PaymentMethodUpdate < Stripe::StripeObject
+        class PaymentMethodUpdate < ::Stripe::StripeObject
           # Whether the feature is enabled.
           attr_reader :enabled
 
@@ -73,8 +73,8 @@ module Stripe
           end
         end
 
-        class SubscriptionCancel < Stripe::StripeObject
-          class CancellationReason < Stripe::StripeObject
+        class SubscriptionCancel < ::Stripe::StripeObject
+          class CancellationReason < ::Stripe::StripeObject
             # Whether the feature is enabled.
             attr_reader :enabled
             # Which cancellation reasons will be given as options to the customer.
@@ -106,9 +106,9 @@ module Stripe
           end
         end
 
-        class SubscriptionUpdate < Stripe::StripeObject
-          class Product < Stripe::StripeObject
-            class AdjustableQuantity < Stripe::StripeObject
+        class SubscriptionUpdate < ::Stripe::StripeObject
+          class Product < ::Stripe::StripeObject
+            class AdjustableQuantity < ::Stripe::StripeObject
               # If true, the quantity can be adjusted to any non-negative integer.
               attr_reader :enabled
               # The maximum quantity that can be set for the product.
@@ -140,8 +140,8 @@ module Stripe
             end
           end
 
-          class ScheduleAtPeriodEnd < Stripe::StripeObject
-            class Condition < Stripe::StripeObject
+          class ScheduleAtPeriodEnd < ::Stripe::StripeObject
+            class Condition < ::Stripe::StripeObject
               # The type of condition.
               attr_reader :type
 
@@ -211,7 +211,7 @@ module Stripe
         end
       end
 
-      class LoginPage < Stripe::StripeObject
+      class LoginPage < ::Stripe::StripeObject
         # If `true`, a shareable `url` will be generated that will take your customers to a hosted login page for the customer portal.
         #
         # If `false`, the previously generated `url`, if any, will be deactivated.

@@ -24,7 +24,7 @@ module Stripe
 
     nested_resource_class_methods :source_transaction, operations: %i[retrieve list]
 
-    class AchCreditTransfer < Stripe::StripeObject
+    class AchCreditTransfer < ::Stripe::StripeObject
       # Attribute for field account_number
       attr_reader :account_number
       # Attribute for field bank_name
@@ -51,7 +51,7 @@ module Stripe
       end
     end
 
-    class AchDebit < Stripe::StripeObject
+    class AchDebit < ::Stripe::StripeObject
       # Attribute for field bank_name
       attr_reader :bank_name
       # Attribute for field country
@@ -74,7 +74,7 @@ module Stripe
       end
     end
 
-    class AcssDebit < Stripe::StripeObject
+    class AcssDebit < ::Stripe::StripeObject
       # Attribute for field bank_address_city
       attr_reader :bank_address_city
       # Attribute for field bank_address_line_1
@@ -105,7 +105,7 @@ module Stripe
       end
     end
 
-    class Alipay < Stripe::StripeObject
+    class Alipay < ::Stripe::StripeObject
       # Attribute for field data_string
       attr_reader :data_string
       # Attribute for field native_url
@@ -122,7 +122,7 @@ module Stripe
       end
     end
 
-    class AuBecsDebit < Stripe::StripeObject
+    class AuBecsDebit < ::Stripe::StripeObject
       # Attribute for field bsb_number
       attr_reader :bsb_number
       # Attribute for field fingerprint
@@ -139,7 +139,7 @@ module Stripe
       end
     end
 
-    class Bancontact < Stripe::StripeObject
+    class Bancontact < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field bank_name
@@ -162,7 +162,7 @@ module Stripe
       end
     end
 
-    class Card < Stripe::StripeObject
+    class Card < ::Stripe::StripeObject
       # Attribute for field address_line1_check
       attr_reader :address_line1_check
       # Attribute for field address_zip_check
@@ -209,7 +209,7 @@ module Stripe
       end
     end
 
-    class CardPresent < Stripe::StripeObject
+    class CardPresent < ::Stripe::StripeObject
       # Attribute for field application_cryptogram
       attr_reader :application_cryptogram
       # Attribute for field application_preferred_name
@@ -274,7 +274,7 @@ module Stripe
       end
     end
 
-    class CodeVerification < Stripe::StripeObject
+    class CodeVerification < ::Stripe::StripeObject
       # The number of attempts remaining to authenticate the source object with a verification code.
       attr_reader :attempts_remaining
       # The status of the code verification, either `pending` (awaiting verification, `attempts_remaining` should be greater than 0), `succeeded` (successful verification) or `failed` (failed verification, cannot be verified anymore as `attempts_remaining` should be 0).
@@ -289,7 +289,7 @@ module Stripe
       end
     end
 
-    class Eps < Stripe::StripeObject
+    class Eps < ::Stripe::StripeObject
       # Attribute for field reference
       attr_reader :reference
       # Attribute for field statement_descriptor
@@ -304,7 +304,7 @@ module Stripe
       end
     end
 
-    class Giropay < Stripe::StripeObject
+    class Giropay < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field bank_name
@@ -323,7 +323,7 @@ module Stripe
       end
     end
 
-    class Ideal < Stripe::StripeObject
+    class Ideal < ::Stripe::StripeObject
       # Attribute for field bank
       attr_reader :bank
       # Attribute for field bic
@@ -342,7 +342,7 @@ module Stripe
       end
     end
 
-    class Klarna < Stripe::StripeObject
+    class Klarna < ::Stripe::StripeObject
       # Attribute for field background_image_url
       attr_reader :background_image_url
       # Attribute for field client_token
@@ -405,7 +405,7 @@ module Stripe
       end
     end
 
-    class Multibanco < Stripe::StripeObject
+    class Multibanco < ::Stripe::StripeObject
       # Attribute for field entity
       attr_reader :entity
       # Attribute for field reference
@@ -436,8 +436,8 @@ module Stripe
       end
     end
 
-    class Owner < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Owner < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -460,7 +460,7 @@ module Stripe
         end
       end
 
-      class VerifiedAddress < Stripe::StripeObject
+      class VerifiedAddress < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -508,7 +508,7 @@ module Stripe
       end
     end
 
-    class P24 < Stripe::StripeObject
+    class P24 < ::Stripe::StripeObject
       # Attribute for field reference
       attr_reader :reference
 
@@ -521,7 +521,7 @@ module Stripe
       end
     end
 
-    class Paypal < Stripe::StripeObject
+    class Paypal < ::Stripe::StripeObject
       # Attribute for field billing_agreement
       attr_reader :billing_agreement
       # Attribute for field fingerprint
@@ -550,7 +550,7 @@ module Stripe
       end
     end
 
-    class Receiver < Stripe::StripeObject
+    class Receiver < ::Stripe::StripeObject
       # The address of the receiver source. This is the value that should be communicated to the customer to send their funds to.
       attr_reader :address
       # The total amount that was moved to your balance. This is almost always equal to the amount charged. In rare cases when customers deposit excess funds and we are unable to refund those, those funds get moved to your balance and show up in amount_charged as well. The amount charged is expressed in the source's currency.
@@ -573,7 +573,7 @@ module Stripe
       end
     end
 
-    class Redirect < Stripe::StripeObject
+    class Redirect < ::Stripe::StripeObject
       # The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`.
       attr_reader :failure_reason
       # The URL you provide to redirect the customer to after they authenticated their payment.
@@ -592,7 +592,7 @@ module Stripe
       end
     end
 
-    class SepaCreditTransfer < Stripe::StripeObject
+    class SepaCreditTransfer < ::Stripe::StripeObject
       # Attribute for field bank_name
       attr_reader :bank_name
       # Attribute for field bic
@@ -625,7 +625,7 @@ module Stripe
       end
     end
 
-    class SepaDebit < Stripe::StripeObject
+    class SepaDebit < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field branch_code
@@ -650,7 +650,7 @@ module Stripe
       end
     end
 
-    class Sofort < Stripe::StripeObject
+    class Sofort < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field bank_name
@@ -675,8 +675,8 @@ module Stripe
       end
     end
 
-    class SourceOrder < Stripe::StripeObject
-      class Item < Stripe::StripeObject
+    class SourceOrder < ::Stripe::StripeObject
+      class Item < ::Stripe::StripeObject
         # The amount (price) for this order item.
         attr_reader :amount
         # This currency of this order item. Required when `amount` is present.
@@ -699,8 +699,8 @@ module Stripe
         end
       end
 
-      class Shipping < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -761,7 +761,7 @@ module Stripe
       end
     end
 
-    class ThreeDSecure < Stripe::StripeObject
+    class ThreeDSecure < ::Stripe::StripeObject
       # Attribute for field address_line1_check
       attr_reader :address_line1_check
       # Attribute for field address_zip_check
@@ -814,7 +814,7 @@ module Stripe
       end
     end
 
-    class Wechat < Stripe::StripeObject
+    class Wechat < ::Stripe::StripeObject
       # Attribute for field prepay_id
       attr_reader :prepay_id
       # Attribute for field qr_code_url

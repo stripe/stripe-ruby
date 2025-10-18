@@ -11,8 +11,8 @@ module Stripe
           "v2.money_management.received_debit"
         end
 
-        class StatusDetails < Stripe::StripeObject
-          class Failed < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
             attr_reader :reason
 
@@ -37,7 +37,7 @@ module Stripe
           end
         end
 
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # The time when the ReceivedDebit was marked as `canceled`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           attr_reader :canceled_at
@@ -57,8 +57,8 @@ module Stripe
           end
         end
 
-        class BankTransfer < Stripe::StripeObject
-          class UsBankAccount < Stripe::StripeObject
+        class BankTransfer < ::Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             attr_reader :bank_name
             # Open Enum. The bank network the debit was originated on.

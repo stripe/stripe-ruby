@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ApplicationFeeRefundCreateParams < Stripe::RequestParams
+  class ApplicationFeeRefundCreateParams < ::Stripe::RequestParams
     # A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
     attr_accessor :amount
     # Specifies which fields in the response should be expanded.

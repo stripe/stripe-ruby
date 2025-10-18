@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Core
       module Accounts
-        class PersonRetrieveParams < Stripe::RequestParams; end
+        class PersonRetrieveParams < ::Stripe::RequestParams; end
       end
     end
   end

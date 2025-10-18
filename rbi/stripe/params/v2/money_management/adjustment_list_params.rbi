@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class AdjustmentListParams < Stripe::RequestParams
+      class AdjustmentListParams < ::Stripe::RequestParams
         # Filter for Adjustments linked to a Flow.
         sig { returns(T.nilable(String)) }
         def adjusted_flow; end

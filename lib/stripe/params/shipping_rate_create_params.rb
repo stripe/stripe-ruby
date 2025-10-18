@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ShippingRateCreateParams < Stripe::RequestParams
-    class DeliveryEstimate < Stripe::RequestParams
-      class Maximum < Stripe::RequestParams
+  class ShippingRateCreateParams < ::Stripe::RequestParams
+    class DeliveryEstimate < ::Stripe::RequestParams
+      class Maximum < ::Stripe::RequestParams
         # A unit of time.
         attr_accessor :unit
         # Must be greater than 0.
@@ -16,7 +16,7 @@ module Stripe
         end
       end
 
-      class Minimum < Stripe::RequestParams
+      class Minimum < ::Stripe::RequestParams
         # A unit of time.
         attr_accessor :unit
         # Must be greater than 0.
@@ -38,8 +38,8 @@ module Stripe
       end
     end
 
-    class FixedAmount < Stripe::RequestParams
-      class CurrencyOptions < Stripe::RequestParams
+    class FixedAmount < ::Stripe::RequestParams
+      class CurrencyOptions < ::Stripe::RequestParams
         # A non-negative integer in cents representing how much to charge.
         attr_accessor :amount
         # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.

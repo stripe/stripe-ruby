@@ -3,8 +3,8 @@
 
 module Stripe
   module Treasury
-    class OutboundPaymentListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class OutboundPaymentListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
         # Minimum value to filter by (inclusive)

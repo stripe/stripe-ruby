@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CustomerPaymentSourceUpdateParams < Stripe::RequestParams
-    class Owner < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+  class CustomerPaymentSourceUpdateParams < ::Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

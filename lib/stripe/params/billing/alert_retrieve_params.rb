@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class AlertRetrieveParams < Stripe::RequestParams
+    class AlertRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

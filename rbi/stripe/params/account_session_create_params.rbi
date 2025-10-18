@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class AccountSessionCreateParams < Stripe::RequestParams
-    class Components < Stripe::RequestParams
-      class AccountManagement < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+  class AccountSessionCreateParams < ::Stripe::RequestParams
+    class Components < ::Stripe::RequestParams
+      class AccountManagement < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T.nilable(T::Boolean)) }
           def disable_stripe_user_authentication; end
@@ -48,8 +48,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class AccountOnboarding < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class AccountOnboarding < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T.nilable(T::Boolean)) }
           def disable_stripe_user_authentication; end
@@ -91,8 +91,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class AppInstall < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class AppInstall < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # The list of apps allowed to be enabled in the embedded component.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           def allowed_apps; end
@@ -120,8 +120,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class AppViewport < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class AppViewport < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # The list of apps allowed to be enabled in the embedded component.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           def allowed_apps; end
@@ -149,8 +149,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class Balances < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class Balances < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T.nilable(T::Boolean)) }
           def disable_stripe_user_authentication; end
@@ -210,8 +210,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class CapitalFinancing < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class CapitalFinancing < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -231,8 +231,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class CapitalFinancingApplication < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class CapitalFinancingApplication < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -252,8 +252,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class CapitalFinancingPromotion < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class CapitalFinancingPromotion < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -273,8 +273,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class CapitalOverview < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class CapitalOverview < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -294,8 +294,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class DisputesList < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class DisputesList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T.nilable(T::Boolean)) }
           def capture_payments; end
@@ -347,8 +347,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class Documents < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class Documents < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -366,8 +366,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class ExportTaxTransactions < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class ExportTaxTransactions < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -387,8 +387,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class FinancialAccount < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class FinancialAccount < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T.nilable(T::Boolean)) }
           def disable_stripe_user_authentication; end
@@ -442,8 +442,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class FinancialAccountTransactions < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class FinancialAccountTransactions < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow card spend dispute management features.
           sig { returns(T.nilable(T::Boolean)) }
           def card_spend_dispute_management; end
@@ -473,8 +473,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class InstantPayoutsPromotion < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class InstantPayoutsPromotion < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T.nilable(T::Boolean)) }
           def disable_stripe_user_authentication; end
@@ -522,8 +522,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class IssuingCard < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class IssuingCard < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow card management features.
           sig { returns(T.nilable(T::Boolean)) }
           def card_management; end
@@ -577,8 +577,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class IssuingCardsList < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class IssuingCardsList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow card management features.
           sig { returns(T.nilable(T::Boolean)) }
           def card_management; end
@@ -642,8 +642,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class NotificationBanner < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class NotificationBanner < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T.nilable(T::Boolean)) }
           def disable_stripe_user_authentication; end
@@ -685,8 +685,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class PaymentDetails < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class PaymentDetails < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T.nilable(T::Boolean)) }
           def capture_payments; end
@@ -738,8 +738,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class PaymentDisputes < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class PaymentDisputes < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           sig { returns(T.nilable(T::Boolean)) }
           def destination_on_behalf_of_charge_management; end
@@ -787,8 +787,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class PaymentMethodSettings < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class PaymentMethodSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -808,8 +808,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class Payments < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class Payments < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T.nilable(T::Boolean)) }
           def capture_payments; end
@@ -861,8 +861,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class PayoutDetails < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class PayoutDetails < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -880,8 +880,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class Payouts < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class Payouts < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T.nilable(T::Boolean)) }
           def disable_stripe_user_authentication; end
@@ -941,8 +941,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class PayoutsList < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class PayoutsList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -960,8 +960,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class ProductTaxCodeSelector < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class ProductTaxCodeSelector < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -981,8 +981,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class Recipients < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class Recipients < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow sending money.
           sig { returns(T.nilable(T::Boolean)) }
           def send_money; end
@@ -1008,8 +1008,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class ReportingChart < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class ReportingChart < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -1027,8 +1027,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class TaxRegistrations < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class TaxRegistrations < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -1048,8 +1048,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class TaxSettings < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class TaxSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -1067,8 +1067,8 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class TaxThresholdMonitoring < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class TaxThresholdMonitoring < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end

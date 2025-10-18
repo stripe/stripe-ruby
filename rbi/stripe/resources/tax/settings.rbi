@@ -8,7 +8,7 @@ module Stripe
     #
     # Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
     class Settings < SingletonAPIResource
-      class Defaults < Stripe::StripeObject
+      class Defaults < ::Stripe::StripeObject
         # The tax calculation provider this account uses. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
         sig { returns(String) }
         def provider; end
@@ -25,8 +25,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class HeadOffice < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class HeadOffice < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -62,8 +62,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StatusDetails < Stripe::StripeObject
-        class Active < Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
+        class Active < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -71,7 +71,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Pending < Stripe::StripeObject
+        class Pending < ::Stripe::StripeObject
           # The list of missing fields that are required to perform calculations. It includes the entry `head_office` when the status is `pending`. It is recommended to set the optional values even if they aren't listed as required for calculating taxes. Calculations can fail if missing fields aren't explicitly provided on every call.
           sig { returns(T.nilable(T::Array[String])) }
           def missing_fields; end

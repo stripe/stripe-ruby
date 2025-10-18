@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CreditNotePreviewLinesListParams < Stripe::RequestParams
-    class Line < Stripe::RequestParams
-      class TaxAmount < Stripe::RequestParams
+  class CreditNotePreviewLinesListParams < ::Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
+      class TaxAmount < ::Stripe::RequestParams
         # The amount, in cents (or local equivalent), of the tax.
         attr_accessor :amount
         # The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
@@ -60,19 +60,36 @@ module Stripe
       end
     end
 
-    class Refund < Stripe::RequestParams
+    class Refund < ::Stripe::RequestParams
+      class PaymentRecordRefund < ::Stripe::RequestParams
+        # The ID of the PaymentRecord with the refund to link to this credit note.
+        attr_accessor :payment_record
+        # The PaymentRecord refund group to link to this credit note. For refunds processed off-Stripe, this will correspond to the `processor_details.custom.refund_reference` field provided when reporting the refund on the PaymentRecord.
+        attr_accessor :refund_group
+
+        def initialize(payment_record: nil, refund_group: nil)
+          @payment_record = payment_record
+          @refund_group = refund_group
+        end
+      end
       # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
       attr_accessor :amount_refunded
+      # The PaymentRecord refund details to link to this credit note. Required when `type` is `payment_record_refund`.
+      attr_accessor :payment_record_refund
       # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
       attr_accessor :refund
+      # Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
+      attr_accessor :type
 
-      def initialize(amount_refunded: nil, refund: nil)
+      def initialize(amount_refunded: nil, payment_record_refund: nil, refund: nil, type: nil)
         @amount_refunded = amount_refunded
+        @payment_record_refund = payment_record_refund
         @refund = refund
+        @type = type
       end
     end
 
-    class ShippingCost < Stripe::RequestParams
+    class ShippingCost < ::Stripe::RequestParams
       # The ID of the shipping rate to use for this order.
       attr_accessor :shipping_rate
 

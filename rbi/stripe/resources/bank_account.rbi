@@ -11,8 +11,8 @@ module Stripe
   #
   # Related guide: [Bank debits and transfers](https://docs.stripe.com/payments/bank-debits-transfers)
   class BankAccount < APIResource
-    class FutureRequirements < Stripe::StripeObject
-      class Error < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -48,8 +48,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Requirements < Stripe::StripeObject
-      class Error < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -86,7 +86,7 @@ module Stripe
       end
     end
     # The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](/api/external_account_bank_accounts/object) where [controller.is_controller](/api/accounts/object#account_object-controller-is_controller) is `true`.
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def account; end
     # The name of the person or business that owns the bank account.
     sig { returns(T.nilable(String)) }
@@ -110,7 +110,7 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # The ID of the customer that the bank account is associated with.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # Whether this bank account is the default external account for its currency.
     sig { returns(T.nilable(T::Boolean)) }

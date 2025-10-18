@@ -5,8 +5,8 @@
 module Stripe
   module Tax
     class CalculationLineItem < APIResource
-      class TaxBreakdown < Stripe::StripeObject
-        class Jurisdiction < Stripe::StripeObject
+      class TaxBreakdown < ::Stripe::StripeObject
+        class Jurisdiction < ::Stripe::StripeObject
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
           def country; end
@@ -26,7 +26,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TaxRateDetails < Stripe::StripeObject
+        class TaxRateDetails < ::Stripe::StripeObject
           # A localized display name for tax type, intended to be human-readable. For example, "Local Sales and Use Tax", "Value-added tax (VAT)", or "Umsatzsteuer (USt.)".
           sig { returns(String) }
           def display_name; end

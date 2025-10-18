@@ -8,7 +8,7 @@ module Stripe
   # multiple transactions. As such, sources can have multiple associated
   # transactions.
   class SourceTransaction < StripeObject
-    class AchCreditTransfer < Stripe::StripeObject
+    class AchCreditTransfer < ::Stripe::StripeObject
       # Customer data associated with the transfer.
       sig { returns(T.nilable(String)) }
       def customer_data; end
@@ -28,7 +28,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ChfCreditTransfer < Stripe::StripeObject
+    class ChfCreditTransfer < ::Stripe::StripeObject
       # Reference associated with the transfer.
       sig { returns(T.nilable(String)) }
       def reference; end
@@ -51,7 +51,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class GbpCreditTransfer < Stripe::StripeObject
+    class GbpCreditTransfer < ::Stripe::StripeObject
       # Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
       sig { returns(T.nilable(String)) }
       def fingerprint; end
@@ -80,7 +80,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PaperCheck < Stripe::StripeObject
+    class PaperCheck < ::Stripe::StripeObject
       # Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
       sig { returns(T.nilable(String)) }
       def available_at; end
@@ -94,7 +94,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SepaCreditTransfer < Stripe::StripeObject
+    class SepaCreditTransfer < ::Stripe::StripeObject
       # Reference associated with the transfer.
       sig { returns(T.nilable(String)) }
       def reference; end

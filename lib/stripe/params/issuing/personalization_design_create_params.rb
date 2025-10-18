@@ -3,8 +3,8 @@
 
 module Stripe
   module Issuing
-    class PersonalizationDesignCreateParams < Stripe::RequestParams
-      class CarrierText < Stripe::RequestParams
+    class PersonalizationDesignCreateParams < ::Stripe::RequestParams
+      class CarrierText < ::Stripe::RequestParams
         # The footer body text of the carrier letter.
         attr_accessor :footer_body
         # The footer title text of the carrier letter.
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class Preferences < Stripe::RequestParams
+      class Preferences < ::Stripe::RequestParams
         # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
         attr_accessor :is_default
 

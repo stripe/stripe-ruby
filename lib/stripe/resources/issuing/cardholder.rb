@@ -16,8 +16,8 @@ module Stripe
         "issuing.cardholder"
       end
 
-      class Billing < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Billing < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -51,7 +51,7 @@ module Stripe
         end
       end
 
-      class Company < Stripe::StripeObject
+      class Company < ::Stripe::StripeObject
         # Whether the company's business ID number was provided.
         attr_reader :tax_id_provided
 
@@ -64,9 +64,9 @@ module Stripe
         end
       end
 
-      class Individual < Stripe::StripeObject
-        class CardIssuing < Stripe::StripeObject
-          class UserTermsAcceptance < Stripe::StripeObject
+      class Individual < ::Stripe::StripeObject
+        class CardIssuing < ::Stripe::StripeObject
+          class UserTermsAcceptance < ::Stripe::StripeObject
             # The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
             attr_reader :date
             # The IP address from which the cardholder accepted the Authorized User Terms.
@@ -94,7 +94,7 @@ module Stripe
           end
         end
 
-        class Dob < Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # The day of birth, between 1 and 31.
           attr_reader :day
           # The month of birth, between 1 and 12.
@@ -111,8 +111,8 @@ module Stripe
           end
         end
 
-        class Verification < Stripe::StripeObject
-          class Document < Stripe::StripeObject
+        class Verification < ::Stripe::StripeObject
+          class Document < ::Stripe::StripeObject
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
             attr_reader :back
             # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
@@ -157,7 +157,7 @@ module Stripe
         end
       end
 
-      class Requirements < Stripe::StripeObject
+      class Requirements < ::Stripe::StripeObject
         # If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
         attr_reader :disabled_reason
         # Array of fields that need to be collected in order to verify and re-enable the cardholder.
@@ -172,8 +172,8 @@ module Stripe
         end
       end
 
-      class SpendingControls < Stripe::StripeObject
-        class SpendingLimit < Stripe::StripeObject
+      class SpendingControls < ::Stripe::StripeObject
+        class SpendingLimit < ::Stripe::StripeObject
           # Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_reader :amount
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.

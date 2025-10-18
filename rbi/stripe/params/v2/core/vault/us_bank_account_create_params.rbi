@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Core
       module Vault
-        class UsBankAccountCreateParams < Stripe::RequestParams
+        class UsBankAccountCreateParams < ::Stripe::RequestParams
           # The account number of the bank account.
           sig { returns(String) }
           def account_number; end

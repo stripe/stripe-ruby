@@ -10,9 +10,9 @@ module Stripe
     #
     # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
     class OutboundPayment < APIResource
-      class DestinationPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class DestinationPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -54,7 +54,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class FinancialAccount < Stripe::StripeObject
+        class FinancialAccount < ::Stripe::StripeObject
           # Token of the FinancialAccount.
           sig { returns(String) }
           def id; end
@@ -68,7 +68,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Account holder type: individual or company.
           sig { returns(T.nilable(String)) }
           def account_holder_type; end
@@ -85,7 +85,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def last4; end
           # ID of the mandate used to make this payment.
-          sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
           def mandate; end
           # The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(String) }
@@ -123,7 +123,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class EndUserDetails < Stripe::StripeObject
+      class EndUserDetails < ::Stripe::StripeObject
         # IP address of the user initiating the OutboundPayment. Set if `present` is set to `true`. IP address collection is required for risk and compliance reasons. This will be used to help determine if the OutboundPayment is authorized or should be blocked.
         sig { returns(T.nilable(String)) }
         def ip_address; end
@@ -137,12 +137,12 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ReturnedDetails < Stripe::StripeObject
+      class ReturnedDetails < ::Stripe::StripeObject
         # Reason for the return.
         sig { returns(String) }
         def code; end
         # The Transaction associated with this object.
-        sig { returns(T.any(String, Stripe::Treasury::Transaction)) }
+        sig { returns(T.any(String, ::Stripe::Treasury::Transaction)) }
         def transaction; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -151,7 +151,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when an OutboundPayment changed status to `canceled`.
         sig { returns(T.nilable(Integer)) }
         def canceled_at; end
@@ -171,8 +171,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TrackingDetails < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
+      class TrackingDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
           # ACH trace ID of the OutboundPayment for payments sent over the `ach` network.
           sig { returns(String) }
           def trace_id; end
@@ -183,7 +183,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsDomesticWire < Stripe::StripeObject
+        class UsDomesticWire < ::Stripe::StripeObject
           # CHIPS System Sequence Number (SSN) of the OutboundPayment for payments sent over the `us_domestic_wire` network.
           sig { returns(T.nilable(String)) }
           def chips; end
@@ -280,29 +280,29 @@ module Stripe
       sig { returns(T.nilable(TrackingDetails)) }
       def tracking_details; end
       # The Transaction associated with this object.
-      sig { returns(T.any(String, Stripe::Treasury::Transaction)) }
+      sig { returns(T.any(String, ::Stripe::Treasury::Transaction)) }
       def transaction; end
       # Cancel an OutboundPayment.
       sig {
-        params(params: T.any(::Stripe::Treasury::OutboundPaymentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::OutboundPayment)
+        params(params: T.any(::Stripe::Treasury::OutboundPaymentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::OutboundPayment)
        }
       def cancel(params = {}, opts = {}); end
 
       # Cancel an OutboundPayment.
       sig {
-        params(id: String, params: T.any(::Stripe::Treasury::OutboundPaymentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::OutboundPayment)
+        params(id: String, params: T.any(::Stripe::Treasury::OutboundPaymentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::OutboundPayment)
        }
       def self.cancel(id, params = {}, opts = {}); end
 
       # Creates an OutboundPayment.
       sig {
-        params(params: T.any(::Stripe::Treasury::OutboundPaymentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::OutboundPayment)
+        params(params: T.any(::Stripe::Treasury::OutboundPaymentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::OutboundPayment)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of OutboundPayments sent from the specified FinancialAccount.
       sig {
-        params(params: T.any(::Stripe::Treasury::OutboundPaymentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Treasury::OutboundPaymentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

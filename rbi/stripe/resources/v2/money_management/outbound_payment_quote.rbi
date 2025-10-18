@@ -7,7 +7,7 @@ module Stripe
     module MoneyManagement
       # OutboundPaymentQuote represents a quote that provides fee and amount estimates for OutboundPayment.
       class OutboundPaymentQuote < APIResource
-        class DeliveryOptions < Stripe::StripeObject
+        class DeliveryOptions < ::Stripe::StripeObject
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
@@ -18,9 +18,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class EstimatedFee < Stripe::StripeObject
+        class EstimatedFee < ::Stripe::StripeObject
           # The fee amount for corresponding fee type.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def amount; end
           # The fee type.
           sig { returns(String) }
@@ -32,9 +32,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class From < Stripe::StripeObject
+        class From < ::Stripe::StripeObject
           # The monetary amount debited from the sender, only set on responses.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def debited; end
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
@@ -46,8 +46,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class FxQuote < Stripe::StripeObject
-          class Rates < Stripe::StripeObject
+        class FxQuote < ::Stripe::StripeObject
+          class Rates < ::Stripe::StripeObject
             # The exchange rate going from_currency -> to_currency.
             sig { returns(String) }
             def exchange_rate; end
@@ -80,9 +80,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class To < Stripe::StripeObject
+        class To < ::Stripe::StripeObject
           # The monetary amount being credited to the destination.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def credited; end
           # The payout method which the OutboundPayment uses to send payout.
           sig { returns(String) }
@@ -98,7 +98,7 @@ module Stripe
           end
         end
         # The "presentment amount" for the OutboundPaymentQuote.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Time at which the OutboundPaymentQuote was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

@@ -15,8 +15,8 @@ module Stripe
       "subscription_schedule"
     end
 
-    class BillingMode < Stripe::StripeObject
-      class Flexible < Stripe::StripeObject
+    class BillingMode < ::Stripe::StripeObject
+      class Flexible < ::Stripe::StripeObject
         # Controls how invoices and invoice items display proration amounts and discount amounts.
         attr_reader :proration_discounts
 
@@ -44,7 +44,7 @@ module Stripe
       end
     end
 
-    class CurrentPhase < Stripe::StripeObject
+    class CurrentPhase < ::Stripe::StripeObject
       # The end of this phase of the subscription schedule.
       attr_reader :end_date
       # The start of this phase of the subscription schedule.
@@ -59,9 +59,9 @@ module Stripe
       end
     end
 
-    class DefaultSettings < Stripe::StripeObject
-      class AutomaticTax < Stripe::StripeObject
-        class Liability < Stripe::StripeObject
+    class DefaultSettings < ::Stripe::StripeObject
+      class AutomaticTax < ::Stripe::StripeObject
+        class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
           # Type of the account referenced.
@@ -91,7 +91,7 @@ module Stripe
         end
       end
 
-      class BillingThresholds < Stripe::StripeObject
+      class BillingThresholds < ::Stripe::StripeObject
         # Monetary threshold that triggers the subscription to create an invoice
         attr_reader :amount_gte
         # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
@@ -106,8 +106,8 @@ module Stripe
         end
       end
 
-      class InvoiceSettings < Stripe::StripeObject
-        class Issuer < Stripe::StripeObject
+      class InvoiceSettings < ::Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
           # Type of the account referenced.
@@ -137,7 +137,7 @@ module Stripe
         end
       end
 
-      class TransferData < Stripe::StripeObject
+      class TransferData < ::Stripe::StripeObject
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         attr_reader :amount_percent
         # The account where funds from the payment will be transferred to upon payment success.
@@ -186,8 +186,8 @@ module Stripe
       end
     end
 
-    class LastPriceMigrationError < Stripe::StripeObject
-      class FailedTransition < Stripe::StripeObject
+    class LastPriceMigrationError < ::Stripe::StripeObject
+      class FailedTransition < ::Stripe::StripeObject
         # The original price to be migrated.
         attr_reader :source_price
         # The intended resulting price of the migration.
@@ -217,10 +217,10 @@ module Stripe
       end
     end
 
-    class Phase < Stripe::StripeObject
-      class AddInvoiceItem < Stripe::StripeObject
-        class Discount < Stripe::StripeObject
-          class DiscountEnd < Stripe::StripeObject
+    class Phase < ::Stripe::StripeObject
+      class AddInvoiceItem < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
             # The discount end timestamp.
             attr_reader :timestamp
             # The discount end type.
@@ -252,8 +252,8 @@ module Stripe
           end
         end
 
-        class Period < Stripe::StripeObject
-          class End < Stripe::StripeObject
+        class Period < ::Stripe::StripeObject
+          class End < ::Stripe::StripeObject
             # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
             attr_reader :timestamp
             # Select how to calculate the end of the invoice item period.
@@ -268,7 +268,7 @@ module Stripe
             end
           end
 
-          class Start < Stripe::StripeObject
+          class Start < ::Stripe::StripeObject
             # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
             attr_reader :timestamp
             # Select how to calculate the start of the invoice item period.
@@ -317,8 +317,8 @@ module Stripe
         end
       end
 
-      class AutomaticTax < Stripe::StripeObject
-        class Liability < Stripe::StripeObject
+      class AutomaticTax < ::Stripe::StripeObject
+        class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
           # Type of the account referenced.
@@ -348,7 +348,7 @@ module Stripe
         end
       end
 
-      class BillingThresholds < Stripe::StripeObject
+      class BillingThresholds < ::Stripe::StripeObject
         # Monetary threshold that triggers the subscription to create an invoice
         attr_reader :amount_gte
         # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
@@ -363,8 +363,8 @@ module Stripe
         end
       end
 
-      class Discount < Stripe::StripeObject
-        class DiscountEnd < Stripe::StripeObject
+      class Discount < ::Stripe::StripeObject
+        class DiscountEnd < ::Stripe::StripeObject
           # The discount end timestamp.
           attr_reader :timestamp
           # The discount end type.
@@ -396,8 +396,8 @@ module Stripe
         end
       end
 
-      class InvoiceSettings < Stripe::StripeObject
-        class Issuer < Stripe::StripeObject
+      class InvoiceSettings < ::Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
           # Type of the account referenced.
@@ -427,8 +427,8 @@ module Stripe
         end
       end
 
-      class Item < Stripe::StripeObject
-        class BillingThresholds < Stripe::StripeObject
+      class Item < ::Stripe::StripeObject
+        class BillingThresholds < ::Stripe::StripeObject
           # Usage threshold that triggers the subscription to create an invoice
           attr_reader :usage_gte
 
@@ -441,8 +441,8 @@ module Stripe
           end
         end
 
-        class Discount < Stripe::StripeObject
-          class DiscountEnd < Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
             # The discount end timestamp.
             attr_reader :timestamp
             # The discount end type.
@@ -474,7 +474,7 @@ module Stripe
           end
         end
 
-        class Trial < Stripe::StripeObject
+        class Trial < ::Stripe::StripeObject
           # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
           attr_reader :converts_to
           # Determines the type of trial for this item.
@@ -518,7 +518,7 @@ module Stripe
         end
       end
 
-      class PauseCollection < Stripe::StripeObject
+      class PauseCollection < ::Stripe::StripeObject
         # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
         attr_reader :behavior
 
@@ -531,7 +531,7 @@ module Stripe
         end
       end
 
-      class TransferData < Stripe::StripeObject
+      class TransferData < ::Stripe::StripeObject
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         attr_reader :amount_percent
         # The account where funds from the payment will be transferred to upon payment success.
@@ -546,8 +546,8 @@ module Stripe
         end
       end
 
-      class TrialSettings < Stripe::StripeObject
-        class EndBehavior < Stripe::StripeObject
+      class TrialSettings < ::Stripe::StripeObject
+        class EndBehavior < ::Stripe::StripeObject
           # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
           attr_reader :prorate_up_front
 
@@ -636,7 +636,7 @@ module Stripe
       end
     end
 
-    class Prebilling < Stripe::StripeObject
+    class Prebilling < ::Stripe::StripeObject
       # ID of the prebilling invoice.
       attr_reader :invoice
       # The end of the last period for which the invoice pre-bills.

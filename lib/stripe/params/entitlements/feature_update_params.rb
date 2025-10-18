@@ -3,7 +3,7 @@
 
 module Stripe
   module Entitlements
-    class FeatureUpdateParams < Stripe::RequestParams
+    class FeatureUpdateParams < ::Stripe::RequestParams
       # Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
       attr_accessor :active
       # Specifies which fields in the response should be expanded.

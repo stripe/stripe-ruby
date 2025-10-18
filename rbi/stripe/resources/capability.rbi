@@ -7,8 +7,8 @@ module Stripe
   #
   # Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities)
   class Capability < APIResource
-    class FutureRequirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
@@ -22,7 +22,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -70,8 +70,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Requirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
@@ -85,7 +85,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -134,7 +134,7 @@ module Stripe
       end
     end
     # The account for which the capability enables functionality.
-    sig { returns(T.any(String, Stripe::Account)) }
+    sig { returns(T.any(String, ::Stripe::Account)) }
     def account; end
     # Attribute for field future_requirements
     sig { returns(T.nilable(FutureRequirements)) }

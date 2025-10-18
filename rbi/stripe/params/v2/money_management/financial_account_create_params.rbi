@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountCreateParams < Stripe::RequestParams
-        class Storage < Stripe::RequestParams
+      class FinancialAccountCreateParams < ::Stripe::RequestParams
+        class Storage < ::Stripe::RequestParams
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
           def holds_currencies; end

@@ -17,8 +17,8 @@ module Stripe
       "refund"
     end
 
-    class DestinationDetails < Stripe::StripeObject
-      class Affirm < Stripe::StripeObject
+    class DestinationDetails < ::Stripe::StripeObject
+      class Affirm < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -28,7 +28,7 @@ module Stripe
         end
       end
 
-      class AfterpayClearpay < Stripe::StripeObject
+      class AfterpayClearpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -38,7 +38,7 @@ module Stripe
         end
       end
 
-      class Alipay < Stripe::StripeObject
+      class Alipay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -48,7 +48,7 @@ module Stripe
         end
       end
 
-      class Alma < Stripe::StripeObject
+      class Alma < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -58,7 +58,7 @@ module Stripe
         end
       end
 
-      class AmazonPay < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -68,7 +68,7 @@ module Stripe
         end
       end
 
-      class AuBankTransfer < Stripe::StripeObject
+      class AuBankTransfer < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -78,7 +78,7 @@ module Stripe
         end
       end
 
-      class Blik < Stripe::StripeObject
+      class Blik < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         attr_reader :network_decline_code
         # The reference assigned to the refund.
@@ -95,7 +95,7 @@ module Stripe
         end
       end
 
-      class BrBankTransfer < Stripe::StripeObject
+      class BrBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -110,7 +110,7 @@ module Stripe
         end
       end
 
-      class Card < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
         # Value of the reference number assigned to the refund.
         attr_reader :reference
         # Status of the reference number on the refund. This can be `pending`, `available` or `unavailable`.
@@ -129,7 +129,7 @@ module Stripe
         end
       end
 
-      class Cashapp < Stripe::StripeObject
+      class Cashapp < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -139,7 +139,10 @@ module Stripe
         end
       end
 
-      class CustomerCashBalance < Stripe::StripeObject
+      class Crypto < ::Stripe::StripeObject
+        # The transaction hash of the refund.
+        attr_reader :reference
+
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -149,7 +152,7 @@ module Stripe
         end
       end
 
-      class Eps < Stripe::StripeObject
+      class CustomerCashBalance < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -159,7 +162,17 @@ module Stripe
         end
       end
 
-      class EuBankTransfer < Stripe::StripeObject
+      class Eps < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class EuBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -174,7 +187,7 @@ module Stripe
         end
       end
 
-      class GbBankTransfer < Stripe::StripeObject
+      class GbBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -189,7 +202,7 @@ module Stripe
         end
       end
 
-      class Giropay < Stripe::StripeObject
+      class Giropay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -199,7 +212,7 @@ module Stripe
         end
       end
 
-      class Grabpay < Stripe::StripeObject
+      class Grabpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -209,7 +222,7 @@ module Stripe
         end
       end
 
-      class IdBankTransfer < Stripe::StripeObject
+      class IdBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -224,7 +237,7 @@ module Stripe
         end
       end
 
-      class JpBankTransfer < Stripe::StripeObject
+      class JpBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -239,7 +252,7 @@ module Stripe
         end
       end
 
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -249,7 +262,7 @@ module Stripe
         end
       end
 
-      class Multibanco < Stripe::StripeObject
+      class Multibanco < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -264,7 +277,7 @@ module Stripe
         end
       end
 
-      class MxBankTransfer < Stripe::StripeObject
+      class MxBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -279,7 +292,7 @@ module Stripe
         end
       end
 
-      class NzBankTransfer < Stripe::StripeObject
+      class NzBankTransfer < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -289,7 +302,7 @@ module Stripe
         end
       end
 
-      class P24 < Stripe::StripeObject
+      class P24 < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -304,7 +317,7 @@ module Stripe
         end
       end
 
-      class Paynow < Stripe::StripeObject
+      class Paynow < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -314,7 +327,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         attr_reader :network_decline_code
 
@@ -327,7 +340,7 @@ module Stripe
         end
       end
 
-      class Pix < Stripe::StripeObject
+      class Pix < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -337,7 +350,7 @@ module Stripe
         end
       end
 
-      class Revolut < Stripe::StripeObject
+      class Revolut < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -347,7 +360,7 @@ module Stripe
         end
       end
 
-      class Sofort < Stripe::StripeObject
+      class Sofort < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -357,7 +370,7 @@ module Stripe
         end
       end
 
-      class Swish < Stripe::StripeObject
+      class Swish < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         attr_reader :network_decline_code
         # The reference assigned to the refund.
@@ -374,7 +387,7 @@ module Stripe
         end
       end
 
-      class ThBankTransfer < Stripe::StripeObject
+      class ThBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -389,7 +402,7 @@ module Stripe
         end
       end
 
-      class UsBankTransfer < Stripe::StripeObject
+      class UsBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
@@ -404,7 +417,7 @@ module Stripe
         end
       end
 
-      class WechatPay < Stripe::StripeObject
+      class WechatPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -414,7 +427,7 @@ module Stripe
         end
       end
 
-      class Zip < Stripe::StripeObject
+      class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -443,6 +456,8 @@ module Stripe
       attr_reader :card
       # Attribute for field cashapp
       attr_reader :cashapp
+      # Attribute for field crypto
+      attr_reader :crypto
       # Attribute for field customer_cash_balance
       attr_reader :customer_cash_balance
       # Attribute for field eps
@@ -504,6 +519,7 @@ module Stripe
           br_bank_transfer: BrBankTransfer,
           card: Card,
           cashapp: Cashapp,
+          crypto: Crypto,
           customer_cash_balance: CustomerCashBalance,
           eps: Eps,
           eu_bank_transfer: EuBankTransfer,
@@ -535,9 +551,9 @@ module Stripe
       end
     end
 
-    class NextAction < Stripe::StripeObject
-      class DisplayDetails < Stripe::StripeObject
-        class EmailSent < Stripe::StripeObject
+    class NextAction < ::Stripe::StripeObject
+      class DisplayDetails < ::Stripe::StripeObject
+        class EmailSent < ::Stripe::StripeObject
           # The timestamp when the email was sent.
           attr_reader :email_sent_at
           # The recipient's email address.
@@ -578,7 +594,7 @@ module Stripe
       end
     end
 
-    class PresentmentDetails < Stripe::StripeObject
+    class PresentmentDetails < ::Stripe::StripeObject
       # Amount intended to be collected by this payment, denominated in `presentment_currency`.
       attr_reader :presentment_amount
       # Currency presented to the customer during payment.

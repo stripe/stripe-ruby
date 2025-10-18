@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentIntentVerifyMicrodepositsParams < Stripe::RequestParams
+  class PaymentIntentVerifyMicrodepositsParams < ::Stripe::RequestParams
     # Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
     attr_accessor :amounts
     # A six-character code starting with SM present in the microdeposit sent to the bank account.

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ApplePayDomainCreateParams < Stripe::RequestParams
+  class ApplePayDomainCreateParams < ::Stripe::RequestParams
     # Attribute for param field domain_name
     attr_accessor :domain_name
     # Specifies which fields in the response should be expanded.

@@ -3,10 +3,10 @@
 
 module Stripe
   module Treasury
-    class OutboundPaymentCreateParams < Stripe::RequestParams
-      class DestinationPaymentMethodData < Stripe::RequestParams
-        class BillingDetails < Stripe::RequestParams
-          class Address < Stripe::RequestParams
+    class OutboundPaymentCreateParams < ::Stripe::RequestParams
+      class DestinationPaymentMethodData < ::Stripe::RequestParams
+        class BillingDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -53,7 +53,7 @@ module Stripe
           end
         end
 
-        class UsBankAccount < Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # Account holder type: individual or company.
           attr_accessor :account_holder_type
           # Account number of the bank account.
@@ -105,8 +105,8 @@ module Stripe
         end
       end
 
-      class DestinationPaymentMethodOptions < Stripe::RequestParams
-        class UsBankAccount < Stripe::RequestParams
+      class DestinationPaymentMethodOptions < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           attr_accessor :network
 
@@ -122,7 +122,7 @@ module Stripe
         end
       end
 
-      class EndUserDetails < Stripe::RequestParams
+      class EndUserDetails < ::Stripe::RequestParams
         # IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
         attr_accessor :ip_address
         # `True` if the OutboundPayment creation request is being made on behalf of an end user by a platform. Otherwise, `false`.

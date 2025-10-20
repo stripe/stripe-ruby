@@ -6,6 +6,10 @@ module Stripe
     class MeterEventSummaryListParams < ::Stripe::RequestParams
       # The customer for which to fetch event summaries.
       attr_accessor :customer
+      # Key-value pairs used to filter meter events by dimension values. If specified, event summaries will be generated with only matching meter events.
+      attr_accessor :dimension_filters
+      # List of dimension payload keys to group by. If specified, event summaries will be grouped by the given dimension payload key values.
+      attr_accessor :dimension_group_by_keys
       # The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.
       attr_accessor :end_time
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -23,6 +27,8 @@ module Stripe
 
       def initialize(
         customer: nil,
+        dimension_filters: nil,
+        dimension_group_by_keys: nil,
         end_time: nil,
         ending_before: nil,
         expand: nil,
@@ -32,6 +38,8 @@ module Stripe
         value_grouping_window: nil
       )
         @customer = customer
+        @dimension_filters = dimension_filters
+        @dimension_group_by_keys = dimension_group_by_keys
         @end_time = end_time
         @ending_before = ending_before
         @expand = expand

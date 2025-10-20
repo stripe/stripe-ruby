@@ -47,6 +47,8 @@ module Stripe
       attr_accessor :expand
       # Fields that specify how to calculate a meter event's value.
       attr_accessor :value_settings
+      # Set of keys that will be used to group meter events by. Each key must be present in the event payload.
+      attr_accessor :dimension_payload_keys
 
       def initialize(
         customer_mapping: nil,
@@ -55,7 +57,8 @@ module Stripe
         event_name: nil,
         event_time_window: nil,
         expand: nil,
-        value_settings: nil
+        value_settings: nil,
+        dimension_payload_keys: nil
       )
         @customer_mapping = customer_mapping
         @default_aggregation = default_aggregation
@@ -64,6 +67,7 @@ module Stripe
         @event_time_window = event_time_window
         @expand = expand
         @value_settings = value_settings
+        @dimension_payload_keys = dimension_payload_keys
       end
     end
   end

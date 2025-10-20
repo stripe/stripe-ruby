@@ -100,6 +100,8 @@ module Stripe
       attr_reader :updated
       # Attribute for field value_settings
       attr_reader :value_settings
+      # Set of keys that will be used to group meter events by.
+      attr_reader :dimension_payload_keys
 
       # Creates a billing meter.
       def self.create(params = {}, opts = {})

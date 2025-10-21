@@ -212,6 +212,42 @@ module Stripe
         sig { params(enabled: T::Boolean).void }
         def initialize(enabled: nil); end
       end
+      class TaxIdElement < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Controls whether the Tax ID Element displays saved tax IDs for the customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, the Tax ID Element will show existing tax IDs associated with the customer, allowing them to select from previously saved tax identification numbers.
+          sig { returns(T.nilable(String)) }
+          def tax_id_redisplay; end
+          sig { params(_tax_id_redisplay: T.nilable(String)).returns(T.nilable(String)) }
+          def tax_id_redisplay=(_tax_id_redisplay); end
+          # Controls whether the Tax ID Element allows merchants to save new tax IDs for their customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, customers can enter and save new tax identification numbers during the payment flow, which will be stored securely and associated with their customer object for future use.
+          sig { returns(T.nilable(String)) }
+          def tax_id_save; end
+          sig { params(_tax_id_save: T.nilable(String)).returns(T.nilable(String)) }
+          def tax_id_save=(_tax_id_save); end
+          sig { params(tax_id_redisplay: T.nilable(String), tax_id_save: T.nilable(String)).void }
+          def initialize(tax_id_redisplay: nil, tax_id_save: nil); end
+        end
+        # Whether the Tax ID Element is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # This hash defines whether the Tax ID Element supports certain features.
+        sig { returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features)) }
+        def features; end
+        sig {
+          params(_features: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features)).returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
       # Configuration for buy button.
       sig { returns(T.nilable(CustomerSessionCreateParams::Components::BuyButton)) }
       def buy_button; end
@@ -247,15 +283,23 @@ module Stripe
         params(_pricing_table: T.nilable(CustomerSessionCreateParams::Components::PricingTable)).returns(T.nilable(CustomerSessionCreateParams::Components::PricingTable))
        }
       def pricing_table=(_pricing_table); end
+      # Configuration for the Tax ID Element.
+      sig { returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement)) }
+      def tax_id_element; end
       sig {
-        params(buy_button: T.nilable(CustomerSessionCreateParams::Components::BuyButton), customer_sheet: T.nilable(CustomerSessionCreateParams::Components::CustomerSheet), mobile_payment_element: T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement), payment_element: T.nilable(CustomerSessionCreateParams::Components::PaymentElement), pricing_table: T.nilable(CustomerSessionCreateParams::Components::PricingTable)).void
+        params(_tax_id_element: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement)).returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement))
+       }
+      def tax_id_element=(_tax_id_element); end
+      sig {
+        params(buy_button: T.nilable(CustomerSessionCreateParams::Components::BuyButton), customer_sheet: T.nilable(CustomerSessionCreateParams::Components::CustomerSheet), mobile_payment_element: T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement), payment_element: T.nilable(CustomerSessionCreateParams::Components::PaymentElement), pricing_table: T.nilable(CustomerSessionCreateParams::Components::PricingTable), tax_id_element: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement)).void
        }
       def initialize(
         buy_button: nil,
         customer_sheet: nil,
         mobile_payment_element: nil,
         payment_element: nil,
-        pricing_table: nil
+        pricing_table: nil,
+        tax_id_element: nil
       ); end
     end
     # Configuration for each component. Exactly 1 component must be enabled.

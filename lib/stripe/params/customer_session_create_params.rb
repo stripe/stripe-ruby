@@ -144,6 +144,33 @@ module Stripe
           @enabled = enabled
         end
       end
+
+      class TaxIdElement < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Controls whether the Tax ID Element displays saved tax IDs for the customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, the Tax ID Element will show existing tax IDs associated with the customer, allowing them to select from previously saved tax identification numbers.
+          attr_accessor :tax_id_redisplay
+          # Controls whether the Tax ID Element allows merchants to save new tax IDs for their customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, customers can enter and save new tax identification numbers during the payment flow, which will be stored securely and associated with their customer object for future use.
+          attr_accessor :tax_id_save
+
+          def initialize(tax_id_redisplay: nil, tax_id_save: nil)
+            @tax_id_redisplay = tax_id_redisplay
+            @tax_id_save = tax_id_save
+          end
+        end
+        # Whether the Tax ID Element is enabled.
+        attr_accessor :enabled
+        # This hash defines whether the Tax ID Element supports certain features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
       # Configuration for buy button.
       attr_accessor :buy_button
       # Configuration for the customer sheet.
@@ -154,19 +181,23 @@ module Stripe
       attr_accessor :payment_element
       # Configuration for the pricing table.
       attr_accessor :pricing_table
+      # Configuration for the Tax ID Element.
+      attr_accessor :tax_id_element
 
       def initialize(
         buy_button: nil,
         customer_sheet: nil,
         mobile_payment_element: nil,
         payment_element: nil,
-        pricing_table: nil
+        pricing_table: nil,
+        tax_id_element: nil
       )
         @buy_button = buy_button
         @customer_sheet = customer_sheet
         @mobile_payment_element = mobile_payment_element
         @payment_element = payment_element
         @pricing_table = pricing_table
+        @tax_id_element = tax_id_element
       end
     end
     # Configuration for each component. Exactly 1 component must be enabled.

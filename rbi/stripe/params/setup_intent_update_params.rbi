@@ -1498,6 +1498,13 @@ module Stripe
     def description; end
     sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
     def description=(_description); end
+    # The list of payment method types to exclude from use with this SetupIntent.
+    sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+    def excluded_payment_method_types; end
+    sig {
+      params(_excluded_payment_method_types: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+     }
+    def excluded_payment_method_types=(_excluded_payment_method_types); end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end
@@ -1552,12 +1559,13 @@ module Stripe
      }
     def payment_method_types=(_payment_method_types); end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
+      params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
      }
     def initialize(
       attach_to_self: nil,
       customer: nil,
       description: nil,
+      excluded_payment_method_types: nil,
       expand: nil,
       flow_directions: nil,
       metadata: nil,

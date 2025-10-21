@@ -34,11 +34,11 @@ module Stripe
           @tipping = tipping
         end
       end
-      # Configuration overrides.
+      # Configuration overrides for this collection, such as tipping, surcharging, and customer cancellation settings.
       attr_accessor :collect_config
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # PaymentIntent ID.
+      # The ID of the PaymentIntent to collect a payment method for.
       attr_accessor :payment_intent
 
       def initialize(collect_config: nil, expand: nil, payment_intent: nil)

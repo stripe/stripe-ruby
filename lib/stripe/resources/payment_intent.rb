@@ -16,6 +16,7 @@ module Stripe
   class PaymentIntent < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::NestedResource
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
@@ -24,7 +25,39 @@ module Stripe
       "payment_intent"
     end
 
+    nested_resource_class_methods :amount_details_line_item, operations: %i[list]
+
     class AmountDetails < ::Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        # Portion of the amount that is for shipping.
+        attr_reader :amount
+        # The postal code that represents the shipping source.
+        attr_reader :from_postal_code
+        # The postal code that represents the shipping destination.
+        attr_reader :to_postal_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Tax < ::Stripe::StripeObject
+        # Total portion of the amount that is for tax.
+        attr_reader :total_tax_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Tip < ::Stripe::StripeObject
         # Portion of the amount that corresponds to a tip.
         attr_reader :amount
@@ -37,11 +70,19 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # The total discount applied on the transaction.
+      attr_reader :discount_amount
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      attr_reader :line_items
+      # Attribute for field shipping
+      attr_reader :shipping
+      # Attribute for field tax
+      attr_reader :tax
       # Attribute for field tip
       attr_reader :tip
 
       def self.inner_class_types
-        @inner_class_types = { tip: Tip }
+        @inner_class_types = { shipping: Shipping, tax: Tax, tip: Tip }
       end
 
       def self.field_remappings
@@ -1095,6 +1136,21 @@ module Stripe
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
         }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class PaymentDetails < ::Stripe::StripeObject
+      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      attr_reader :customer_reference
+      # A unique value assigned by the business to identify the transaction.
+      attr_reader :order_reference
+
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
       def self.field_remappings
@@ -2706,6 +2762,8 @@ module Stripe
     attr_reader :object
     # The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
     attr_reader :on_behalf_of
+    # Attribute for field payment_details
+    attr_reader :payment_details
     # ID of the payment method used in this PaymentIntent.
     attr_reader :payment_method
     # Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent.
@@ -3041,6 +3099,7 @@ module Stripe
         automatic_payment_methods: AutomaticPaymentMethods,
         last_payment_error: LastPaymentError,
         next_action: NextAction,
+        payment_details: PaymentDetails,
         payment_method_configuration_details: PaymentMethodConfigurationDetails,
         payment_method_options: PaymentMethodOptions,
         presentment_details: PresentmentDetails,

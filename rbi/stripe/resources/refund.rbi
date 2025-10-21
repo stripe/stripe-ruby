@@ -117,6 +117,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Crypto < ::Stripe::StripeObject
+        # The transaction hash of the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CustomerCashBalance < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -383,6 +394,9 @@ module Stripe
       # Attribute for field cashapp
       sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
+      # Attribute for field crypto
+      sig { returns(T.nilable(Crypto)) }
+      def crypto; end
       # Attribute for field customer_cash_balance
       sig { returns(T.nilable(CustomerCashBalance)) }
       def customer_cash_balance; end
@@ -464,6 +478,7 @@ module Stripe
           br_bank_transfer: BrBankTransfer,
           card: Card,
           cashapp: Cashapp,
+          crypto: Crypto,
           customer_cash_balance: CustomerCashBalance,
           eps: Eps,
           eu_bank_transfer: EuBankTransfer,

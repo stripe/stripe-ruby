@@ -571,6 +571,9 @@ module Stripe
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     def description; end
+    # Payment method types that are excluded from this SetupIntent.
+    sig { returns(T.nilable(T::Array[String])) }
+    def excluded_payment_method_types; end
     # Indicates the directions of money movement for which this payment method is intended to be used.
     #
     # Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.

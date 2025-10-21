@@ -12,11 +12,11 @@ module Stripe
           @return_url = return_url
         end
       end
-      # Configuration overrides.
+      # Configuration overrides for this confirmation, such as surcharge settings and return URL.
       attr_accessor :confirm_config
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # PaymentIntent ID.
+      # The ID of the PaymentIntent to confirm.
       attr_accessor :payment_intent
 
       def initialize(confirm_config: nil, expand: nil, payment_intent: nil)

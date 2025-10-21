@@ -58,7 +58,7 @@ module Stripe
       attr_accessor :amount
       # Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
       attr_accessor :applicability_config
-      # The category of this credit grant.
+      # The category of this credit grant. It defaults to `paid` if not specified.
       attr_accessor :category
       # ID of the customer to receive the billing credits.
       attr_accessor :customer

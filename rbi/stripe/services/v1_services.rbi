@@ -40,11 +40,13 @@ module Stripe
     attr_reader :invoice_rendering_templates
     attr_reader :issuing
     attr_reader :mandates
+    attr_reader :payment_attempt_records
     attr_reader :payment_intents
     attr_reader :payment_links
     attr_reader :payment_methods
     attr_reader :payment_method_configurations
     attr_reader :payment_method_domains
+    attr_reader :payment_records
     attr_reader :payouts
     attr_reader :plans
     attr_reader :prices

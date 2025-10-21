@@ -139,6 +139,19 @@ module Stripe
         end
       end
 
+      class Crypto < ::Stripe::StripeObject
+        # The transaction hash of the refund.
+        attr_reader :reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CustomerCashBalance < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -428,6 +441,8 @@ module Stripe
       attr_reader :card
       # Attribute for field cashapp
       attr_reader :cashapp
+      # Attribute for field crypto
+      attr_reader :crypto
       # Attribute for field customer_cash_balance
       attr_reader :customer_cash_balance
       # Attribute for field eps
@@ -487,6 +502,7 @@ module Stripe
           br_bank_transfer: BrBankTransfer,
           card: Card,
           cashapp: Cashapp,
+          crypto: Crypto,
           customer_cash_balance: CustomerCashBalance,
           eps: Eps,
           eu_bank_transfer: EuBankTransfer,

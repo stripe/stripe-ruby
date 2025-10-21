@@ -292,6 +292,23 @@ module Stripe
       end
     end
 
+    class Crypto < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class CustomerBalance < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -514,6 +531,23 @@ module Stripe
     end
 
     class Link < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
+    class MbWay < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         attr_accessor :preference
@@ -937,6 +971,8 @@ module Stripe
     attr_accessor :cartes_bancaires
     # Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
     attr_accessor :cashapp
+    # [Stablecoin payments](https://stripe.com/docs/payments/stablecoin-payments) enable customers to pay in stablecoins like USDC from 100s of wallets including Phantom and Metamask.
+    attr_accessor :crypto
     # Uses a customer’s [cash balance](https://stripe.com/docs/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://stripe.com/docs/payments/bank-transfers) for more details.
     attr_accessor :customer_balance
     # EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://stripe.com/docs/payments/eps) for more details.
@@ -967,6 +1003,8 @@ module Stripe
     attr_accessor :kr_card
     # [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
     attr_accessor :link
+    # MB WAY is the most popular wallet in Portugal. After entering their phone number in your checkout, customers approve the payment directly in their MB WAY app. Check this [page](https://stripe.com/docs/payments/mb-way) for more details.
+    attr_accessor :mb_way
     # MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
     attr_accessor :mobilepay
     # Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
@@ -1034,6 +1072,7 @@ module Stripe
       card: nil,
       cartes_bancaires: nil,
       cashapp: nil,
+      crypto: nil,
       customer_balance: nil,
       eps: nil,
       expand: nil,
@@ -1049,6 +1088,7 @@ module Stripe
       konbini: nil,
       kr_card: nil,
       link: nil,
+      mb_way: nil,
       mobilepay: nil,
       multibanco: nil,
       name: nil,
@@ -1091,6 +1131,7 @@ module Stripe
       @card = card
       @cartes_bancaires = cartes_bancaires
       @cashapp = cashapp
+      @crypto = crypto
       @customer_balance = customer_balance
       @eps = eps
       @expand = expand
@@ -1106,6 +1147,7 @@ module Stripe
       @konbini = konbini
       @kr_card = kr_card
       @link = link
+      @mb_way = mb_way
       @mobilepay = mobilepay
       @multibanco = multibanco
       @name = name

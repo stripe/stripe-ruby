@@ -202,6 +202,15 @@ module Stripe
     end
     class Cashapp < ::Stripe::RequestParams; end
     class Crypto < ::Stripe::RequestParams; end
+    class Custom < ::Stripe::RequestParams
+      # ID of the Dashboard-only CustomPaymentMethodType. This field is used by Stripe products' internal code to support CPMs.
+      sig { returns(String) }
+      def type; end
+      sig { params(_type: String).returns(String) }
+      def type=(_type); end
+      sig { params(type: String).void }
+      def initialize(type: nil); end
+    end
     class CustomerBalance < ::Stripe::RequestParams; end
     class Eps < ::Stripe::RequestParams
       # The customer's bank.
@@ -531,6 +540,13 @@ module Stripe
       params(_crypto: T.nilable(PaymentMethodCreateParams::Crypto)).returns(T.nilable(PaymentMethodCreateParams::Crypto))
      }
     def crypto=(_crypto); end
+    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    sig { returns(T.nilable(PaymentMethodCreateParams::Custom)) }
+    def custom; end
+    sig {
+      params(_custom: T.nilable(PaymentMethodCreateParams::Custom)).returns(T.nilable(PaymentMethodCreateParams::Custom))
+     }
+    def custom=(_custom); end
     # The `Customer` to whom the original PaymentMethod is attached.
     sig { returns(T.nilable(String)) }
     def customer; end
@@ -811,7 +827,7 @@ module Stripe
      }
     def zip=(_zip); end
     sig {
-      params(acss_debit: T.nilable(PaymentMethodCreateParams::AcssDebit), affirm: T.nilable(PaymentMethodCreateParams::Affirm), afterpay_clearpay: T.nilable(PaymentMethodCreateParams::AfterpayClearpay), alipay: T.nilable(PaymentMethodCreateParams::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(PaymentMethodCreateParams::Alma), amazon_pay: T.nilable(PaymentMethodCreateParams::AmazonPay), au_becs_debit: T.nilable(PaymentMethodCreateParams::AuBecsDebit), bacs_debit: T.nilable(PaymentMethodCreateParams::BacsDebit), bancontact: T.nilable(PaymentMethodCreateParams::Bancontact), billie: T.nilable(PaymentMethodCreateParams::Billie), billing_details: T.nilable(PaymentMethodCreateParams::BillingDetails), blik: T.nilable(PaymentMethodCreateParams::Blik), boleto: T.nilable(PaymentMethodCreateParams::Boleto), card: T.nilable(PaymentMethodCreateParams::Card), cashapp: T.nilable(PaymentMethodCreateParams::Cashapp), crypto: T.nilable(PaymentMethodCreateParams::Crypto), customer: T.nilable(String), customer_balance: T.nilable(PaymentMethodCreateParams::CustomerBalance), eps: T.nilable(PaymentMethodCreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(PaymentMethodCreateParams::Fpx), giropay: T.nilable(PaymentMethodCreateParams::Giropay), grabpay: T.nilable(PaymentMethodCreateParams::Grabpay), ideal: T.nilable(PaymentMethodCreateParams::Ideal), interac_present: T.nilable(PaymentMethodCreateParams::InteracPresent), kakao_pay: T.nilable(PaymentMethodCreateParams::KakaoPay), klarna: T.nilable(PaymentMethodCreateParams::Klarna), konbini: T.nilable(PaymentMethodCreateParams::Konbini), kr_card: T.nilable(PaymentMethodCreateParams::KrCard), link: T.nilable(PaymentMethodCreateParams::Link), mb_way: T.nilable(PaymentMethodCreateParams::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(PaymentMethodCreateParams::Mobilepay), multibanco: T.nilable(PaymentMethodCreateParams::Multibanco), naver_pay: T.nilable(PaymentMethodCreateParams::NaverPay), nz_bank_account: T.nilable(PaymentMethodCreateParams::NzBankAccount), oxxo: T.nilable(PaymentMethodCreateParams::Oxxo), p24: T.nilable(PaymentMethodCreateParams::P24), pay_by_bank: T.nilable(PaymentMethodCreateParams::PayByBank), payco: T.nilable(PaymentMethodCreateParams::Payco), payment_method: T.nilable(String), paynow: T.nilable(PaymentMethodCreateParams::Paynow), paypal: T.nilable(PaymentMethodCreateParams::Paypal), pix: T.nilable(PaymentMethodCreateParams::Pix), promptpay: T.nilable(PaymentMethodCreateParams::Promptpay), radar_options: T.nilable(PaymentMethodCreateParams::RadarOptions), revolut_pay: T.nilable(PaymentMethodCreateParams::RevolutPay), samsung_pay: T.nilable(PaymentMethodCreateParams::SamsungPay), satispay: T.nilable(PaymentMethodCreateParams::Satispay), sepa_debit: T.nilable(PaymentMethodCreateParams::SepaDebit), sofort: T.nilable(PaymentMethodCreateParams::Sofort), swish: T.nilable(PaymentMethodCreateParams::Swish), twint: T.nilable(PaymentMethodCreateParams::Twint), type: T.nilable(String), us_bank_account: T.nilable(PaymentMethodCreateParams::UsBankAccount), wechat_pay: T.nilable(PaymentMethodCreateParams::WechatPay), zip: T.nilable(PaymentMethodCreateParams::Zip)).void
+      params(acss_debit: T.nilable(PaymentMethodCreateParams::AcssDebit), affirm: T.nilable(PaymentMethodCreateParams::Affirm), afterpay_clearpay: T.nilable(PaymentMethodCreateParams::AfterpayClearpay), alipay: T.nilable(PaymentMethodCreateParams::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(PaymentMethodCreateParams::Alma), amazon_pay: T.nilable(PaymentMethodCreateParams::AmazonPay), au_becs_debit: T.nilable(PaymentMethodCreateParams::AuBecsDebit), bacs_debit: T.nilable(PaymentMethodCreateParams::BacsDebit), bancontact: T.nilable(PaymentMethodCreateParams::Bancontact), billie: T.nilable(PaymentMethodCreateParams::Billie), billing_details: T.nilable(PaymentMethodCreateParams::BillingDetails), blik: T.nilable(PaymentMethodCreateParams::Blik), boleto: T.nilable(PaymentMethodCreateParams::Boleto), card: T.nilable(PaymentMethodCreateParams::Card), cashapp: T.nilable(PaymentMethodCreateParams::Cashapp), crypto: T.nilable(PaymentMethodCreateParams::Crypto), custom: T.nilable(PaymentMethodCreateParams::Custom), customer: T.nilable(String), customer_balance: T.nilable(PaymentMethodCreateParams::CustomerBalance), eps: T.nilable(PaymentMethodCreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(PaymentMethodCreateParams::Fpx), giropay: T.nilable(PaymentMethodCreateParams::Giropay), grabpay: T.nilable(PaymentMethodCreateParams::Grabpay), ideal: T.nilable(PaymentMethodCreateParams::Ideal), interac_present: T.nilable(PaymentMethodCreateParams::InteracPresent), kakao_pay: T.nilable(PaymentMethodCreateParams::KakaoPay), klarna: T.nilable(PaymentMethodCreateParams::Klarna), konbini: T.nilable(PaymentMethodCreateParams::Konbini), kr_card: T.nilable(PaymentMethodCreateParams::KrCard), link: T.nilable(PaymentMethodCreateParams::Link), mb_way: T.nilable(PaymentMethodCreateParams::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(PaymentMethodCreateParams::Mobilepay), multibanco: T.nilable(PaymentMethodCreateParams::Multibanco), naver_pay: T.nilable(PaymentMethodCreateParams::NaverPay), nz_bank_account: T.nilable(PaymentMethodCreateParams::NzBankAccount), oxxo: T.nilable(PaymentMethodCreateParams::Oxxo), p24: T.nilable(PaymentMethodCreateParams::P24), pay_by_bank: T.nilable(PaymentMethodCreateParams::PayByBank), payco: T.nilable(PaymentMethodCreateParams::Payco), payment_method: T.nilable(String), paynow: T.nilable(PaymentMethodCreateParams::Paynow), paypal: T.nilable(PaymentMethodCreateParams::Paypal), pix: T.nilable(PaymentMethodCreateParams::Pix), promptpay: T.nilable(PaymentMethodCreateParams::Promptpay), radar_options: T.nilable(PaymentMethodCreateParams::RadarOptions), revolut_pay: T.nilable(PaymentMethodCreateParams::RevolutPay), samsung_pay: T.nilable(PaymentMethodCreateParams::SamsungPay), satispay: T.nilable(PaymentMethodCreateParams::Satispay), sepa_debit: T.nilable(PaymentMethodCreateParams::SepaDebit), sofort: T.nilable(PaymentMethodCreateParams::Sofort), swish: T.nilable(PaymentMethodCreateParams::Swish), twint: T.nilable(PaymentMethodCreateParams::Twint), type: T.nilable(String), us_bank_account: T.nilable(PaymentMethodCreateParams::UsBankAccount), wechat_pay: T.nilable(PaymentMethodCreateParams::WechatPay), zip: T.nilable(PaymentMethodCreateParams::Zip)).void
      }
     def initialize(
       acss_debit: nil,
@@ -831,6 +847,7 @@ module Stripe
       card: nil,
       cashapp: nil,
       crypto: nil,
+      custom: nil,
       customer: nil,
       customer_balance: nil,
       eps: nil,

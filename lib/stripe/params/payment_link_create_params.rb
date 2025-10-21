@@ -434,6 +434,41 @@ module Stripe
       end
     end
 
+    class NameCollection < ::Stripe::RequestParams
+      class Business < ::Stripe::RequestParams
+        # Enable business name collection on the payment link. Defaults to `false`.
+        attr_accessor :enabled
+        # Whether the customer is required to provide their business name before checking out. Defaults to `false`.
+        attr_accessor :optional
+
+        def initialize(enabled: nil, optional: nil)
+          @enabled = enabled
+          @optional = optional
+        end
+      end
+
+      class Individual < ::Stripe::RequestParams
+        # Enable individual name collection on the payment link. Defaults to `false`.
+        attr_accessor :enabled
+        # Whether the customer is required to provide their full name before checking out. Defaults to `false`.
+        attr_accessor :optional
+
+        def initialize(enabled: nil, optional: nil)
+          @enabled = enabled
+          @optional = optional
+        end
+      end
+      # Controls settings applied for collecting the customer's business name.
+      attr_accessor :business
+      # Controls settings applied for collecting the customer's individual name.
+      attr_accessor :individual
+
+      def initialize(business: nil, individual: nil)
+        @business = business
+        @individual = individual
+      end
+    end
+
     class OptionalItem < ::Stripe::RequestParams
       class AdjustableQuantity < ::Stripe::RequestParams
         # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -676,6 +711,8 @@ module Stripe
     attr_accessor :line_items
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
     attr_accessor :metadata
+    # Controls settings applied for collecting the customer's name.
+    attr_accessor :name_collection
     # The account on behalf of which to charge.
     attr_accessor :on_behalf_of
     # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
@@ -728,6 +765,7 @@ module Stripe
       invoice_creation: nil,
       line_items: nil,
       metadata: nil,
+      name_collection: nil,
       on_behalf_of: nil,
       optional_items: nil,
       payment_intent_data: nil,
@@ -758,6 +796,7 @@ module Stripe
       @invoice_creation = invoice_creation
       @line_items = line_items
       @metadata = metadata
+      @name_collection = name_collection
       @on_behalf_of = on_behalf_of
       @optional_items = optional_items
       @payment_intent_data = payment_intent_data

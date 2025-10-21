@@ -261,7 +261,7 @@ module Stripe
         )
       end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       def subscribe(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -271,7 +271,7 @@ module Stripe
         )
       end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       def self.subscribe(account, params = {}, opts = {})
         request_stripe_object(
           method: :post,

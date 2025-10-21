@@ -23,6 +23,8 @@ module Stripe
       attr_reader :charge
       # ID of the PaymentIntent associated with this payment when `type` is `payment_intent`. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
       attr_reader :payment_intent
+      # ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
+      attr_reader :payment_record
       # Type of payment object associated with this invoice payment.
       attr_reader :type
 

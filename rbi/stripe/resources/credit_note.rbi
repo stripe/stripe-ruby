@@ -42,14 +42,34 @@ module Stripe
       end
     end
     class Refund < ::Stripe::StripeObject
+      class PaymentRecordRefund < ::Stripe::StripeObject
+        # ID of the payment record.
+        sig { returns(String) }
+        def payment_record; end
+        # ID of the refund group.
+        sig { returns(String) }
+        def refund_group; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Amount of the refund that applies to this credit note, in cents (or local equivalent).
       sig { returns(Integer) }
       def amount_refunded; end
+      # The PaymentRecord refund details associated with this credit note refund.
+      sig { returns(T.nilable(PaymentRecordRefund)) }
+      def payment_record_refund; end
       # ID of the refund.
       sig { returns(T.any(String, ::Stripe::Refund)) }
       def refund; end
+      # Type of the refund, one of `refund` or `payment_record_refund`.
+      sig { returns(T.nilable(String)) }
+      def type; end
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {payment_record_refund: PaymentRecordRefund}
       end
       def self.field_remappings
         @field_remappings = {}

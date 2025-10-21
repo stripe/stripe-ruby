@@ -327,6 +327,41 @@ module Stripe
       end
     end
 
+    class NameCollection < ::Stripe::RequestParams
+      class Business < ::Stripe::RequestParams
+        # Enable business name collection on the payment link. Defaults to `false`.
+        attr_accessor :enabled
+        # Whether the customer is required to provide their business name before checking out. Defaults to `false`.
+        attr_accessor :optional
+
+        def initialize(enabled: nil, optional: nil)
+          @enabled = enabled
+          @optional = optional
+        end
+      end
+
+      class Individual < ::Stripe::RequestParams
+        # Enable individual name collection on the payment link. Defaults to `false`.
+        attr_accessor :enabled
+        # Whether the customer is required to provide their full name before checking out. Defaults to `false`.
+        attr_accessor :optional
+
+        def initialize(enabled: nil, optional: nil)
+          @enabled = enabled
+          @optional = optional
+        end
+      end
+      # Controls settings applied for collecting the customer's business name.
+      attr_accessor :business
+      # Controls settings applied for collecting the customer's individual name.
+      attr_accessor :individual
+
+      def initialize(business: nil, individual: nil)
+        @business = business
+        @individual = individual
+      end
+    end
+
     class PaymentIntentData < ::Stripe::RequestParams
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
@@ -488,6 +523,8 @@ module Stripe
     attr_accessor :line_items
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
     attr_accessor :metadata
+    # Controls settings applied for collecting the customer's name.
+    attr_accessor :name_collection
     # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
     attr_accessor :payment_intent_data
     # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -527,6 +564,7 @@ module Stripe
       invoice_creation: nil,
       line_items: nil,
       metadata: nil,
+      name_collection: nil,
       payment_intent_data: nil,
       payment_method_collection: nil,
       payment_method_types: nil,
@@ -550,6 +588,7 @@ module Stripe
       @invoice_creation = invoice_creation
       @line_items = line_items
       @metadata = metadata
+      @name_collection = name_collection
       @payment_intent_data = payment_intent_data
       @payment_method_collection = payment_method_collection
       @payment_method_types = payment_method_types

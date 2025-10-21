@@ -383,6 +383,23 @@ module Stripe
         end
       end
 
+      class RepresentativeDeclaration < ::Stripe::StripeObject
+        # The Unix timestamp marking when the representative declaration attestation was made.
+        attr_reader :date
+        # The IP address from which the representative declaration attestation was made.
+        attr_reader :ip
+        # The user-agent string from the browser where the representative declaration attestation was made.
+        attr_reader :user_agent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
@@ -445,6 +462,8 @@ module Stripe
       attr_reader :phone
       # Attribute for field registration_date
       attr_reader :registration_date
+      # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+      attr_reader :representative_declaration
       # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       attr_reader :structure
       # Whether the company's business ID number was provided.
@@ -464,6 +483,7 @@ module Stripe
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
           registration_date: RegistrationDate,
+          representative_declaration: RepresentativeDeclaration,
           verification: Verification,
         }
       end

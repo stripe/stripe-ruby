@@ -830,6 +830,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Custom < ::Stripe::StripeObject
+      class Logo < ::Stripe::StripeObject
+        # Content type of the Dashboard-only CustomPaymentMethodType logo.
+        sig { returns(T.nilable(String)) }
+        def content_type; end
+        # URL of the Dashboard-only CustomPaymentMethodType logo.
+        sig { returns(String) }
+        def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Display name of the Dashboard-only CustomPaymentMethodType.
+      sig { returns(T.nilable(String)) }
+      def display_name; end
+      # Contains information about the Dashboard-only CustomPaymentMethodType logo.
+      sig { returns(T.nilable(Logo)) }
+      def logo; end
+      # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {logo: Logo}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class CustomerBalance < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1421,6 +1452,9 @@ module Stripe
     # Attribute for field crypto
     sig { returns(T.nilable(Crypto)) }
     def crypto; end
+    # Attribute for field custom
+    sig { returns(T.nilable(Custom)) }
+    def custom; end
     # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end

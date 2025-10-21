@@ -4,6 +4,256 @@
 # typed: true
 module Stripe
   class PaymentIntentConfirmParams < ::Stripe::RequestParams
+    class AmountDetails < ::Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            sig { returns(T.nilable(String)) }
+            def commodity_code; end
+            sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
+            def commodity_code=(_commodity_code); end
+            sig { params(commodity_code: T.nilable(String)).void }
+            def initialize(commodity_code: nil); end
+          end
+          class CardPresent < ::Stripe::RequestParams
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            sig { returns(T.nilable(String)) }
+            def commodity_code; end
+            sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
+            def commodity_code=(_commodity_code); end
+            sig { params(commodity_code: T.nilable(String)).void }
+            def initialize(commodity_code: nil); end
+          end
+          class Klarna < ::Stripe::RequestParams
+            # URL to an image for the product. Max length, 4096 characters.
+            sig { returns(T.nilable(String)) }
+            def image_url; end
+            sig { params(_image_url: T.nilable(String)).returns(T.nilable(String)) }
+            def image_url=(_image_url); end
+            # URL to the product page. Max length, 4096 characters.
+            sig { returns(T.nilable(String)) }
+            def product_url; end
+            sig { params(_product_url: T.nilable(String)).returns(T.nilable(String)) }
+            def product_url=(_product_url); end
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def reference=(_reference); end
+            # Reference for the subscription this line item is for.
+            sig { returns(T.nilable(String)) }
+            def subscription_reference; end
+            sig { params(_subscription_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def subscription_reference=(_subscription_reference); end
+            sig {
+              params(image_url: T.nilable(String), product_url: T.nilable(String), reference: T.nilable(String), subscription_reference: T.nilable(String)).void
+             }
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            ); end
+          end
+          class Paypal < ::Stripe::RequestParams
+            # Type of the line item.
+            sig { returns(T.nilable(String)) }
+            def category; end
+            sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
+            def category=(_category); end
+            # Description of the line item.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+            def description=(_description); end
+            # The Stripe account ID of the connected account that sells the item.
+            sig { returns(T.nilable(String)) }
+            def sold_by; end
+            sig { params(_sold_by: T.nilable(String)).returns(T.nilable(String)) }
+            def sold_by=(_sold_by); end
+            sig {
+              params(category: T.nilable(String), description: T.nilable(String), sold_by: T.nilable(String)).void
+             }
+            def initialize(category: nil, description: nil, sold_by: nil); end
+          end
+          # This sub-hash contains line item details that are specific to `card` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
+           }
+          def card; end
+          sig {
+            params(_card: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
+           }
+          def card=(_card); end
+          # This sub-hash contains line item details that are specific to `card_present` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
+           }
+          def card_present; end
+          sig {
+            params(_card_present: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
+           }
+          def card_present=(_card_present); end
+          # This sub-hash contains line item details that are specific to `klarna` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
+           }
+          def klarna; end
+          sig {
+            params(_klarna: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
+           }
+          def klarna=(_klarna); end
+          # This sub-hash contains line item details that are specific to `paypal` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
+           }
+          def paypal; end
+          sig {
+            params(_paypal: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
+           }
+          def paypal=(_paypal); end
+          sig {
+            params(card: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card), card_present: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent), klarna: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna), paypal: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).void
+           }
+          def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
+        end
+        class Tax < ::Stripe::RequestParams
+          # The total tax on an item. Non-negative integer.
+          sig { returns(Integer) }
+          def total_tax_amount; end
+          sig { params(_total_tax_amount: Integer).returns(Integer) }
+          def total_tax_amount=(_total_tax_amount); end
+          sig { params(total_tax_amount: Integer).void }
+          def initialize(total_tax_amount: nil); end
+        end
+        # The amount an item was discounted for. Positive integer.
+        sig { returns(T.nilable(Integer)) }
+        def discount_amount; end
+        sig { params(_discount_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def discount_amount=(_discount_amount); end
+        # Payment method-specific information for line items.
+        sig {
+          returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions))
+         }
+        def payment_method_options; end
+        sig {
+          params(_payment_method_options: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions))
+         }
+        def payment_method_options=(_payment_method_options); end
+        # Unique identifier of the product. At most 12 characters long.
+        sig { returns(T.nilable(String)) }
+        def product_code; end
+        sig { params(_product_code: T.nilable(String)).returns(T.nilable(String)) }
+        def product_code=(_product_code); end
+        # Name of the product. At most 100 characters long.
+        sig { returns(String) }
+        def product_name; end
+        sig { params(_product_name: String).returns(String) }
+        def product_name=(_product_name); end
+        # Number of items of the product. Positive integer.
+        sig { returns(Integer) }
+        def quantity; end
+        sig { params(_quantity: Integer).returns(Integer) }
+        def quantity=(_quantity); end
+        # Contains information about the tax on the item.
+        sig { returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax)) }
+        def tax; end
+        sig {
+          params(_tax: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax))
+         }
+        def tax=(_tax); end
+        # Cost of the product. Non-negative integer.
+        sig { returns(Integer) }
+        def unit_cost; end
+        sig { params(_unit_cost: Integer).returns(Integer) }
+        def unit_cost=(_unit_cost); end
+        # A unit of measure for the line item, such as gallons, feet, meters, etc.
+        sig { returns(T.nilable(String)) }
+        def unit_of_measure; end
+        sig { params(_unit_of_measure: T.nilable(String)).returns(T.nilable(String)) }
+        def unit_of_measure=(_unit_of_measure); end
+        sig {
+          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
+         }
+        def initialize(
+          discount_amount: nil,
+          payment_method_options: nil,
+          product_code: nil,
+          product_name: nil,
+          quantity: nil,
+          tax: nil,
+          unit_cost: nil,
+          unit_of_measure: nil
+        ); end
+      end
+      class Shipping < ::Stripe::RequestParams
+        # Portion of the amount that is for shipping.
+        sig { returns(T.nilable(T.any(String, Integer))) }
+        def amount; end
+        sig {
+          params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+         }
+        def amount=(_amount); end
+        # The postal code that represents the shipping source.
+        sig { returns(T.nilable(String)) }
+        def from_postal_code; end
+        sig { params(_from_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def from_postal_code=(_from_postal_code); end
+        # The postal code that represents the shipping destination.
+        sig { returns(T.nilable(String)) }
+        def to_postal_code; end
+        sig { params(_to_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def to_postal_code=(_to_postal_code); end
+        sig {
+          params(amount: T.nilable(T.any(String, Integer)), from_postal_code: T.nilable(String), to_postal_code: T.nilable(String)).void
+         }
+        def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
+      end
+      class Tax < ::Stripe::RequestParams
+        # Total portion of the amount that is for tax.
+        sig { returns(Integer) }
+        def total_tax_amount; end
+        sig { params(_total_tax_amount: Integer).returns(Integer) }
+        def total_tax_amount=(_total_tax_amount); end
+        sig { params(total_tax_amount: Integer).void }
+        def initialize(total_tax_amount: nil); end
+      end
+      # The total discount applied on the transaction.
+      sig { returns(T.nilable(T.any(String, Integer))) }
+      def discount_amount; end
+      sig {
+        params(_discount_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+       }
+      def discount_amount=(_discount_amount); end
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem])))
+       }
+      def line_items; end
+      sig {
+        params(_line_items: T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem]))).returns(T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem])))
+       }
+      def line_items=(_line_items); end
+      # Contains information about the shipping portion of the amount.
+      sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping))) }
+      def shipping; end
+      sig {
+        params(_shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping)))
+       }
+      def shipping=(_shipping); end
+      # Contains information about the tax portion of the amount.
+      sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax))) }
+      def tax; end
+      sig {
+        params(_tax: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax)))
+       }
+      def tax=(_tax); end
+      sig {
+        params(discount_amount: T.nilable(T.any(String, Integer)), line_items: T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax))).void
+       }
+      def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
+    end
     class MandateData < ::Stripe::RequestParams
       class CustomerAcceptance < ::Stripe::RequestParams
         class Offline < ::Stripe::RequestParams; end
@@ -65,6 +315,20 @@ module Stripe
         params(customer_acceptance: T.nilable(PaymentIntentConfirmParams::MandateData::CustomerAcceptance)).void
        }
       def initialize(customer_acceptance: nil); end
+    end
+    class PaymentDetails < ::Stripe::RequestParams
+      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      sig { returns(T.nilable(String)) }
+      def customer_reference; end
+      sig { params(_customer_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_reference=(_customer_reference); end
+      # A unique value assigned by the business to identify the transaction.
+      sig { returns(T.nilable(String)) }
+      def order_reference; end
+      sig { params(_order_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def order_reference=(_order_reference); end
+      sig { params(customer_reference: T.nilable(String), order_reference: T.nilable(String)).void }
+      def initialize(customer_reference: nil, order_reference: nil); end
     end
     class PaymentMethodData < ::Stripe::RequestParams
       class AcssDebit < ::Stripe::RequestParams
@@ -3378,6 +3642,13 @@ module Stripe
        }
       def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
     end
+    # Provides industry-specific information about the amount.
+    sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails))) }
+    def amount_details; end
+    sig {
+      params(_amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)))
+     }
+    def amount_details=(_amount_details); end
     # Controls when the funds will be captured from the customer's account.
     sig { returns(T.nilable(String)) }
     def capture_method; end
@@ -3426,6 +3697,13 @@ module Stripe
       params(_off_session: T.nilable(T.any(T::Boolean, String))).returns(T.nilable(T.any(T::Boolean, String)))
      }
     def off_session=(_off_session); end
+    # Provides industry-specific information about the charge.
+    sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails))) }
+    def payment_details; end
+    sig {
+      params(_payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)))
+     }
+    def payment_details=(_payment_details); end
     # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
     # If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
     sig { returns(T.nilable(String)) }
@@ -3502,9 +3780,10 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
+      amount_details: nil,
       capture_method: nil,
       confirmation_token: nil,
       error_on_requires_action: nil,
@@ -3513,6 +3792,7 @@ module Stripe
       mandate: nil,
       mandate_data: nil,
       off_session: nil,
+      payment_details: nil,
       payment_method: nil,
       payment_method_data: nil,
       payment_method_options: nil,

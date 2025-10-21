@@ -237,6 +237,23 @@ module Stripe
           end
         end
 
+        class Gip < ::Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Hkd < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
@@ -458,6 +475,8 @@ module Stripe
         attr_reader :eur
         # Attribute for field gbp
         attr_reader :gbp
+        # Attribute for field gip
+        attr_reader :gip
         # Attribute for field hkd
         attr_reader :hkd
         # Attribute for field huf
@@ -494,6 +513,7 @@ module Stripe
             dkk: Dkk,
             eur: Eur,
             gbp: Gbp,
+            gip: Gip,
             hkd: Hkd,
             huf: Huf,
             jpy: Jpy,

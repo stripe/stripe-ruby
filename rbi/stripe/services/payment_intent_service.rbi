@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   class PaymentIntentService < StripeService
+    attr_reader :amount_details_line_items
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     sig {
       params(intent: String, params: T.any(::Stripe::PaymentIntentApplyCustomerBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)

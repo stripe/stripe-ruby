@@ -637,6 +637,54 @@ module Stripe
        }
       def initialize(adjustable_quantity: nil, price: nil, price_data: nil, quantity: nil); end
     end
+    class NameCollection < ::Stripe::RequestParams
+      class Business < ::Stripe::RequestParams
+        # Enable business name collection on the payment link. Defaults to `false`.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # Whether the customer is required to provide their business name before checking out. Defaults to `false`.
+        sig { returns(T.nilable(T::Boolean)) }
+        def optional; end
+        sig { params(_optional: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def optional=(_optional); end
+        sig { params(enabled: T::Boolean, optional: T.nilable(T::Boolean)).void }
+        def initialize(enabled: nil, optional: nil); end
+      end
+      class Individual < ::Stripe::RequestParams
+        # Enable individual name collection on the payment link. Defaults to `false`.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # Whether the customer is required to provide their full name before checking out. Defaults to `false`.
+        sig { returns(T.nilable(T::Boolean)) }
+        def optional; end
+        sig { params(_optional: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def optional=(_optional); end
+        sig { params(enabled: T::Boolean, optional: T.nilable(T::Boolean)).void }
+        def initialize(enabled: nil, optional: nil); end
+      end
+      # Controls settings applied for collecting the customer's business name.
+      sig { returns(T.nilable(PaymentLinkCreateParams::NameCollection::Business)) }
+      def business; end
+      sig {
+        params(_business: T.nilable(PaymentLinkCreateParams::NameCollection::Business)).returns(T.nilable(PaymentLinkCreateParams::NameCollection::Business))
+       }
+      def business=(_business); end
+      # Controls settings applied for collecting the customer's individual name.
+      sig { returns(T.nilable(PaymentLinkCreateParams::NameCollection::Individual)) }
+      def individual; end
+      sig {
+        params(_individual: T.nilable(PaymentLinkCreateParams::NameCollection::Individual)).returns(T.nilable(PaymentLinkCreateParams::NameCollection::Individual))
+       }
+      def individual=(_individual); end
+      sig {
+        params(business: T.nilable(PaymentLinkCreateParams::NameCollection::Business), individual: T.nilable(PaymentLinkCreateParams::NameCollection::Individual)).void
+       }
+      def initialize(business: nil, individual: nil); end
+    end
     class OptionalItem < ::Stripe::RequestParams
       class AdjustableQuantity < ::Stripe::RequestParams
         # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -1015,6 +1063,13 @@ module Stripe
       params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
      }
     def metadata=(_metadata); end
+    # Controls settings applied for collecting the customer's name.
+    sig { returns(T.nilable(PaymentLinkCreateParams::NameCollection)) }
+    def name_collection; end
+    sig {
+      params(_name_collection: T.nilable(PaymentLinkCreateParams::NameCollection)).returns(T.nilable(PaymentLinkCreateParams::NameCollection))
+     }
+    def name_collection=(_name_collection); end
     # The account on behalf of which to charge.
     sig { returns(T.nilable(String)) }
     def on_behalf_of; end
@@ -1109,7 +1164,7 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(after_completion: T.nilable(PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[PaymentLinkCreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(PaymentLinkCreateParams::TransferData)).void
+      params(after_completion: T.nilable(PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[PaymentLinkCreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(PaymentLinkCreateParams::TransferData)).void
      }
     def initialize(
       after_completion: nil,
@@ -1128,6 +1183,7 @@ module Stripe
       invoice_creation: nil,
       line_items: nil,
       metadata: nil,
+      name_collection: nil,
       on_behalf_of: nil,
       optional_items: nil,
       payment_intent_data: nil,

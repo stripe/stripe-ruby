@@ -135,7 +135,7 @@ module Stripe
         def button_color; end
         sig { params(_button_color: T.nilable(String)).returns(T.nilable(String)) }
         def button_color=(_button_color); end
-        # A string to override the business name shown on the Checkout Session.
+        # A string to override the business name shown on the Checkout Session. This only shows at the top of the Checkout page, and your business name still appears in terms, receipts, and other places.
         sig { returns(T.nilable(String)) }
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
@@ -147,14 +147,14 @@ module Stripe
           params(_font_family: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
          }
         def font_family=(_font_family); end
-        # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        # The icon for the Checkout Session. For best results, use a square image.
         sig { returns(T.nilable(Checkout::SessionCreateParams::BrandingSettings::Icon)) }
         def icon; end
         sig {
           params(_icon: T.nilable(Checkout::SessionCreateParams::BrandingSettings::Icon)).returns(T.nilable(Checkout::SessionCreateParams::BrandingSettings::Icon))
          }
         def icon=(_icon); end
-        # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        # The logo for the Checkout Session.
         sig { returns(T.nilable(Checkout::SessionCreateParams::BrandingSettings::Logo)) }
         def logo; end
         sig {
@@ -2171,6 +2171,21 @@ module Stripe
           sig { params(reference: T.nilable(String)).void }
           def initialize(reference: nil); end
         end
+        class Twint < ::Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+          def setup_future_usage=(_setup_future_usage); end
+          sig { params(setup_future_usage: T.nilable(String)).void }
+          def initialize(setup_future_usage: nil); end
+        end
         class UsBankAccount < ::Stripe::RequestParams
           class FinancialConnections < ::Stripe::RequestParams
             # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
@@ -2550,6 +2565,13 @@ module Stripe
           params(_swish: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Swish)).returns(T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Swish))
          }
         def swish=(_swish); end
+        # contains details about the TWINT payment method options.
+        sig { returns(T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Twint)) }
+        def twint; end
+        sig {
+          params(_twint: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Twint)).returns(T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Twint))
+         }
+        def twint=(_twint); end
         # contains details about the Us Bank Account payment method options.
         sig {
           returns(T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::UsBankAccount))
@@ -2567,7 +2589,7 @@ module Stripe
          }
         def wechat_pay=(_wechat_pay); end
         sig {
-          params(acss_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AcssDebit), affirm: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Affirm), afterpay_clearpay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AfterpayClearpay), alipay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Alipay), alma: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Alma), amazon_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AmazonPay), au_becs_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AuBecsDebit), bacs_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit), bancontact: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Bancontact), billie: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Billie), boleto: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Boleto), card: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Card), cashapp: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Cashapp), customer_balance: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::CustomerBalance), demo_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::DemoPay), eps: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Eps), fpx: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Fpx), giropay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Giropay), grabpay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Grabpay), ideal: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Ideal), kakao_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::KakaoPay), klarna: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Klarna), konbini: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Konbini), kr_card: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::KrCard), link: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Link), mobilepay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Mobilepay), multibanco: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Multibanco), naver_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::NaverPay), oxxo: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Oxxo), p24: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::P24), pay_by_bank: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::PayByBank), payco: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Payco), paynow: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Paynow), paypal: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Paypal), pix: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Pix), revolut_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::RevolutPay), samsung_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::SamsungPay), satispay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Satispay), sepa_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::SepaDebit), sofort: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Sofort), swish: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Swish), us_bank_account: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::UsBankAccount), wechat_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::WechatPay)).void
+          params(acss_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AcssDebit), affirm: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Affirm), afterpay_clearpay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AfterpayClearpay), alipay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Alipay), alma: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Alma), amazon_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AmazonPay), au_becs_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AuBecsDebit), bacs_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit), bancontact: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Bancontact), billie: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Billie), boleto: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Boleto), card: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Card), cashapp: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Cashapp), customer_balance: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::CustomerBalance), demo_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::DemoPay), eps: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Eps), fpx: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Fpx), giropay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Giropay), grabpay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Grabpay), ideal: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Ideal), kakao_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::KakaoPay), klarna: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Klarna), konbini: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Konbini), kr_card: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::KrCard), link: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Link), mobilepay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Mobilepay), multibanco: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Multibanco), naver_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::NaverPay), oxxo: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Oxxo), p24: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::P24), pay_by_bank: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::PayByBank), payco: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Payco), paynow: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Paynow), paypal: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Paypal), pix: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Pix), revolut_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::RevolutPay), samsung_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::SamsungPay), satispay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Satispay), sepa_debit: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::SepaDebit), sofort: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Sofort), swish: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Swish), twint: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Twint), us_bank_account: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::UsBankAccount), wechat_pay: T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::WechatPay)).void
          }
         def initialize(
           acss_debit: nil,
@@ -2611,6 +2633,7 @@ module Stripe
           sepa_debit: nil,
           sofort: nil,
           swish: nil,
+          twint: nil,
           us_bank_account: nil,
           wechat_pay: nil
         ); end

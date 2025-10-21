@@ -50,13 +50,31 @@ module Stripe
     end
 
     class Refund < ::Stripe::StripeObject
+      class PaymentRecordRefund < ::Stripe::StripeObject
+        # ID of the payment record.
+        attr_reader :payment_record
+        # ID of the refund group.
+        attr_reader :refund_group
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Amount of the refund that applies to this credit note, in cents (or local equivalent).
       attr_reader :amount_refunded
+      # The PaymentRecord refund details associated with this credit note refund.
+      attr_reader :payment_record_refund
       # ID of the refund.
       attr_reader :refund
+      # Type of the refund, one of `refund` or `payment_record_refund`.
+      attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { payment_record_refund: PaymentRecordRefund }
       end
 
       def self.field_remappings

@@ -788,6 +788,37 @@ module Stripe
       end
     end
 
+    class Custom < ::Stripe::StripeObject
+      class Logo < ::Stripe::StripeObject
+        # Content type of the Dashboard-only CustomPaymentMethodType logo.
+        attr_reader :content_type
+        # URL of the Dashboard-only CustomPaymentMethodType logo.
+        attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Display name of the Dashboard-only CustomPaymentMethodType.
+      attr_reader :display_name
+      # Contains information about the Dashboard-only CustomPaymentMethodType logo.
+      attr_reader :logo
+      # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { logo: Logo }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class CustomerBalance < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1394,6 +1425,8 @@ module Stripe
     attr_reader :created
     # Attribute for field crypto
     attr_reader :crypto
+    # Attribute for field custom
+    attr_reader :custom
     # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     attr_reader :customer
     # Attribute for field customer_balance
@@ -1584,6 +1617,7 @@ module Stripe
         card_present: CardPresent,
         cashapp: Cashapp,
         crypto: Crypto,
+        custom: Custom,
         customer_balance: CustomerBalance,
         eps: Eps,
         fpx: Fpx,

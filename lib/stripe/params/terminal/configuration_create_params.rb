@@ -188,6 +188,21 @@ module Stripe
           end
         end
 
+        class Gip < ::Stripe::RequestParams
+          # Fixed amounts displayed when collecting a tip
+          attr_accessor :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_accessor :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_accessor :smart_tip_threshold
+
+          def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+            @fixed_amounts = fixed_amounts
+            @percentages = percentages
+            @smart_tip_threshold = smart_tip_threshold
+          end
+        end
+
         class Hkd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
@@ -385,6 +400,8 @@ module Stripe
         attr_accessor :eur
         # Tipping configuration for GBP
         attr_accessor :gbp
+        # Tipping configuration for GIP
+        attr_accessor :gip
         # Tipping configuration for HKD
         attr_accessor :hkd
         # Tipping configuration for HUF
@@ -420,6 +437,7 @@ module Stripe
           dkk: nil,
           eur: nil,
           gbp: nil,
+          gip: nil,
           hkd: nil,
           huf: nil,
           jpy: nil,
@@ -442,6 +460,7 @@ module Stripe
           @dkk = dkk
           @eur = eur
           @gbp = gbp
+          @gip = gip
           @hkd = hkd
           @huf = huf
           @jpy = jpy

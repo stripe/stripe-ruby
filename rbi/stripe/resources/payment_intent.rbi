@@ -16,6 +16,34 @@ module Stripe
   # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
   class PaymentIntent < APIResource
     class AmountDetails < ::Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        # Portion of the amount that is for shipping.
+        sig { returns(T.nilable(Integer)) }
+        def amount; end
+        # The postal code that represents the shipping source.
+        sig { returns(T.nilable(String)) }
+        def from_postal_code; end
+        # The postal code that represents the shipping destination.
+        sig { returns(T.nilable(String)) }
+        def to_postal_code; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Tax < ::Stripe::StripeObject
+        # Total portion of the amount that is for tax.
+        sig { returns(T.nilable(Integer)) }
+        def total_tax_amount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Tip < ::Stripe::StripeObject
         # Portion of the amount that corresponds to a tip.
         sig { returns(T.nilable(Integer)) }
@@ -27,11 +55,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # The total discount applied on the transaction.
+      sig { returns(T.nilable(Integer)) }
+      def discount_amount; end
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      sig { returns(T.nilable(::Stripe::ListObject)) }
+      def line_items; end
+      # Attribute for field shipping
+      sig { returns(T.nilable(Shipping)) }
+      def shipping; end
+      # Attribute for field tax
+      sig { returns(T.nilable(Tax)) }
+      def tax; end
       # Attribute for field tip
       sig { returns(T.nilable(Tip)) }
       def tip; end
       def self.inner_class_types
-        @inner_class_types = {tip: Tip}
+        @inner_class_types = {shipping: Shipping, tax: Tax, tip: Tip}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -1200,6 +1240,20 @@ module Stripe
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
         }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class PaymentDetails < ::Stripe::StripeObject
+      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      sig { returns(T.nilable(String)) }
+      def customer_reference; end
+      # A unique value assigned by the business to identify the transaction.
+      sig { returns(T.nilable(String)) }
+      def order_reference; end
+      def self.inner_class_types
+        @inner_class_types = {}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -2851,6 +2905,9 @@ module Stripe
     # The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
     sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
+    # Attribute for field payment_details
+    sig { returns(T.nilable(PaymentDetails)) }
+    def payment_details; end
     # ID of the payment method used in this PaymentIntent.
     sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
     def payment_method; end

@@ -30,7 +30,7 @@ module Stripe
        }
       def retrieve(account, params = {}, opts = {}); end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       sig {
         params(account: String, params: T.any(::Stripe::FinancialConnections::AccountSubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }

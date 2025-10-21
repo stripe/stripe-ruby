@@ -159,6 +159,8 @@ module Stripe
       attr_reader :ip_address
       # The identified tax location of the customer.
       attr_reader :location
+      # The tax calculation provider used for location resolution. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
+      attr_reader :provider
 
       def self.inner_class_types
         @inner_class_types = { location: Location }

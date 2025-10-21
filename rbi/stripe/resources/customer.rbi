@@ -156,6 +156,9 @@ module Stripe
       # The identified tax location of the customer.
       sig { returns(T.nilable(Location)) }
       def location; end
+      # The tax calculation provider used for location resolution. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
+      sig { returns(String) }
+      def provider; end
       def self.inner_class_types
         @inner_class_types = {location: Location}
       end

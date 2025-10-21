@@ -1049,6 +1049,8 @@ module Stripe
     attr_accessor :customer
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_accessor :description
+    # The list of payment method types to exclude from use with this SetupIntent.
+    attr_accessor :excluded_payment_method_types
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # Indicates the directions of money movement for which this payment method is intended to be used.
@@ -1090,6 +1092,7 @@ module Stripe
       confirmation_token: nil,
       customer: nil,
       description: nil,
+      excluded_payment_method_types: nil,
       expand: nil,
       flow_directions: nil,
       mandate_data: nil,
@@ -1111,6 +1114,7 @@ module Stripe
       @confirmation_token = confirmation_token
       @customer = customer
       @description = description
+      @excluded_payment_method_types = excluded_payment_method_types
       @expand = expand
       @flow_directions = flow_directions
       @mandate_data = mandate_data

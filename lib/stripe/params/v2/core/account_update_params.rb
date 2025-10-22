@@ -1020,11 +1020,23 @@ module Stripe
                     @requested = requested
                   end
                 end
+
+                class Usd < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_accessor :gbp
+                # Can hold storage-type funds on Stripe in USD.
+                attr_accessor :usd
 
-                def initialize(gbp: nil)
+                def initialize(gbp: nil, usd: nil)
                   @gbp = gbp
+                  @usd = usd
                 end
               end
 
@@ -1265,6 +1277,21 @@ module Stripe
               end
             end
 
+            class RepresentativeDeclaration < ::Stripe::RequestParams
+              # The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+              attr_accessor :date
+              # The IP address from which the representative attestation was made.
+              attr_accessor :ip
+              # The user agent of the browser from which the representative attestation was made.
+              attr_accessor :user_agent
+
+              def initialize(date: nil, ip: nil, user_agent: nil)
+                @date = date
+                @ip = ip
+                @user_agent = user_agent
+              end
+            end
+
             class TermsOfService < ::Stripe::RequestParams
               class Account < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -1311,6 +1338,8 @@ module Stripe
             attr_accessor :ownership_declaration
             # Attestation that all Persons with a specific Relationship value have been provided.
             attr_accessor :persons_provided
+            # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+            attr_accessor :representative_declaration
             # Attestations of accepted terms of service agreements.
             attr_accessor :terms_of_service
 
@@ -1318,11 +1347,13 @@ module Stripe
               directorship_declaration: nil,
               ownership_declaration: nil,
               persons_provided: nil,
+              representative_declaration: nil,
               terms_of_service: nil
             )
               @directorship_declaration = directorship_declaration
               @ownership_declaration = ownership_declaration
               @persons_provided = persons_provided
+              @representative_declaration = representative_declaration
               @terms_of_service = terms_of_service
             end
           end
@@ -2178,7 +2209,7 @@ module Stripe
               @surname = surname
             end
           end
-          # Attestations from the identity's key people, e.g. owners, executives, directors.
+          # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_accessor :attestations
           # Information about the company or business.
           attr_accessor :business_details

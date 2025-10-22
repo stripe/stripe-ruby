@@ -11,7 +11,7 @@ module Stripe
             # If true an email for the invoice would be generated and sent out.
             sig { returns(T::Boolean) }
             def enabled; end
-            # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+            # If true the payment link to hosted invoice page would be included in email and PDF of the invoice.
             sig { returns(T::Boolean) }
             def include_payment_link; end
             def self.inner_class_types
@@ -21,7 +21,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+          # Controls emails for when the payment is due. For example after the invoice is finalized and transitions to Open state.
           sig { returns(T.nilable(PaymentDue)) }
           def payment_due; end
           def self.inner_class_types

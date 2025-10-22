@@ -1497,6 +1497,15 @@ module Stripe
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
+                class Usd < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
+                  sig { params(requested: T::Boolean).void }
+                  def initialize(requested: nil); end
+                end
                 # Can hold storage-type funds on Stripe in GBP.
                 sig {
                   returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
@@ -1506,10 +1515,19 @@ module Stripe
                   params(_gbp: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
                  }
                 def gbp=(_gbp); end
+                # Can hold storage-type funds on Stripe in USD.
                 sig {
-                  params(gbp: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).void
+                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd))
                  }
-                def initialize(gbp: nil); end
+                def usd; end
+                sig {
+                  params(_usd: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd))
+                 }
+                def usd=(_usd); end
+                sig {
+                  params(gbp: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp), usd: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).void
+                 }
+                def initialize(gbp: nil, usd: nil); end
               end
               class InboundTransfers < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
@@ -1882,6 +1900,27 @@ module Stripe
                 ownership_exemption_reason: nil
               ); end
             end
+            class RepresentativeDeclaration < ::Stripe::RequestParams
+              # The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+              sig { returns(T.nilable(String)) }
+              def date; end
+              sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+              def date=(_date); end
+              # The IP address from which the representative attestation was made.
+              sig { returns(T.nilable(String)) }
+              def ip; end
+              sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+              def ip=(_ip); end
+              # The user agent of the browser from which the representative attestation was made.
+              sig { returns(T.nilable(String)) }
+              def user_agent; end
+              sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+              def user_agent=(_user_agent); end
+              sig {
+                params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+               }
+              def initialize(date: nil, ip: nil, user_agent: nil); end
+            end
             class TermsOfService < ::Stripe::RequestParams
               class Account < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -1971,6 +2010,15 @@ module Stripe
               params(_persons_provided: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided))
              }
             def persons_provided=(_persons_provided); end
+            # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+            sig {
+              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration))
+             }
+            def representative_declaration; end
+            sig {
+              params(_representative_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration))
+             }
+            def representative_declaration=(_representative_declaration); end
             # Attestations of accepted terms of service agreements.
             sig {
               returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService))
@@ -1981,12 +2029,13 @@ module Stripe
              }
             def terms_of_service=(_terms_of_service); end
             sig {
-              params(directorship_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration), ownership_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration), persons_provided: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided), terms_of_service: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService)).void
+              params(directorship_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration), ownership_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration), persons_provided: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided), representative_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration), terms_of_service: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService)).void
              }
             def initialize(
               directorship_declaration: nil,
               ownership_declaration: nil,
               persons_provided: nil,
+              representative_declaration: nil,
               terms_of_service: nil
             ); end
           end
@@ -3309,7 +3358,7 @@ module Stripe
               surname: nil
             ); end
           end
-          # Attestations from the identity's key people, e.g. owners, executives, directors.
+          # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           sig { returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations)) }
           def attestations; end
           sig {

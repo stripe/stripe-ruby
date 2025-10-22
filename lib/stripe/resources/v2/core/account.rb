@@ -3861,6 +3861,8 @@ module Stripe
         end
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         attr_reader :applied_configurations
+        # A value indicating if the Account has been closed.
+        attr_reader :closed
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         attr_reader :configuration
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.

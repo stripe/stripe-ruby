@@ -8026,17 +8026,14 @@ module Stripe
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links"
     end
     should "Test v2 core event get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=object_id"
-      ).to_return(
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events").to_return(
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.event","type":"type","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      events = client.v2.core.events.list({ object_id: "object_id" })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=object_id"
+      events = client.v2.core.events.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events"
     end
     should "Test v2 core event get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123").to_return(
@@ -8370,6 +8367,19 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
     end
     should "Test v2 money management financial account post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
+      ).to_return(
+        body: '{"balance":{"available":{"key":{"currency":"USD","value":35}},"inbound_pending":{"key":{"currency":"USD","value":11}},"outbound_pending":{"key":{"currency":"USD","value":60}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      financial_account = client.v2.money_management.financial_accounts.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
+    end
+    should "Test v2 money management financial account post 3 (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123/close"
@@ -9048,7 +9058,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts"
       ).to_return(
-        body: '{"error":{"type":"feature_not_enabled","code":"recipient_feature_not_active"}}',
+        body: '{"error":{"type":"feature_not_enabled","code":"outbound_flow_from_closed_financial_account_unsupported"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")

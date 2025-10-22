@@ -12,7 +12,7 @@ module Stripe
           @persons = Stripe::V2::Core::Accounts::PersonService.new(@requestor)
         end
 
-        # Removes access to the Account and its associated resources.
+        # Removes access to the Account and its associated resources. Closed Accounts can no longer be operated on, but limited information can still be retrieved through the API in order to be able to track their history.
         def close(id, params = {}, opts = {})
           request(
             method: :post,

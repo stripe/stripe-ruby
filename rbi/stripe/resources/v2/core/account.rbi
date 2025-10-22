@@ -3976,6 +3976,9 @@ module Stripe
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         sig { returns(T::Array[String]) }
         def applied_configurations; end
+        # A value indicating if the Account has been closed.
+        sig { returns(T.nilable(T::Boolean)) }
+        def closed; end
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         sig { returns(T.nilable(Configuration)) }
         def configuration; end

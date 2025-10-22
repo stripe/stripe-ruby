@@ -34,6 +34,12 @@ module Stripe
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::FinancialAccount)
          }
         def retrieve(id, params = {}, opts = {}); end
+
+        # Updates an existing FinancialAccount.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::FinancialAccount)
+         }
+        def update(id, params = {}, opts = {}); end
       end
     end
   end

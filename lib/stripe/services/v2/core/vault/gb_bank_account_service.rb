@@ -57,6 +57,17 @@ module Stripe
             )
           end
 
+          # List objects that can be used as destinations for outbound money movement via OutboundPayment.
+          def list(params = {}, opts = {})
+            request(
+              method: :get,
+              path: "/v2/core/vault/gb_bank_accounts",
+              params: params,
+              opts: opts,
+              base_address: :api
+            )
+          end
+
           # Retrieve a GB bank account.
           def retrieve(id, params = {}, opts = {})
             request(

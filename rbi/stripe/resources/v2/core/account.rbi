@@ -2617,11 +2617,45 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                class Usd < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can hold storage-type funds on Stripe in GBP.
                 sig { returns(T.nilable(Gbp)) }
                 def gbp; end
+                # Can hold storage-type funds on Stripe in USD.
+                sig { returns(T.nilable(Usd)) }
+                def usd; end
                 def self.inner_class_types
-                  @inner_class_types = {gbp: Gbp}
+                  @inner_class_types = {gbp: Gbp, usd: Usd}
                 end
                 def self.field_remappings
                   @field_remappings = {}
@@ -3031,6 +3065,23 @@ module Stripe
               # Reason for why the company is exempt from providing ownership information.
               sig { returns(T.nilable(String)) }
               def ownership_exemption_reason; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class RepresentativeDeclaration < ::Stripe::StripeObject
+              # The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+              sig { returns(T.nilable(String)) }
+              def date; end
+              # The IP address from which the representative attestation was made.
+              sig { returns(T.nilable(String)) }
+              def ip; end
+              # The user agent of the browser from which the representative attestation was made.
+              sig { returns(T.nilable(String)) }
+              def user_agent; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -3505,6 +3556,9 @@ module Stripe
             # Attestation that all Persons with a specific Relationship value have been provided.
             sig { returns(T.nilable(PersonsProvided)) }
             def persons_provided; end
+            # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+            sig { returns(T.nilable(RepresentativeDeclaration)) }
+            def representative_declaration; end
             # Attestations of accepted terms of service agreements.
             sig { returns(T.nilable(TermsOfService)) }
             def terms_of_service; end
@@ -3513,6 +3567,7 @@ module Stripe
                 directorship_declaration: DirectorshipDeclaration,
                 ownership_declaration: OwnershipDeclaration,
                 persons_provided: PersonsProvided,
+                representative_declaration: RepresentativeDeclaration,
                 terms_of_service: TermsOfService,
               }
             end
@@ -4446,7 +4501,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attestations from the identity's key people, e.g. owners, executives, directors.
+          # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           sig { returns(T.nilable(Attestations)) }
           def attestations; end
           # Information about the company or business.
@@ -4644,6 +4699,9 @@ module Stripe
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         sig { returns(T::Array[String]) }
         def applied_configurations; end
+        # A value indicating if the Account has been closed.
+        sig { returns(T.nilable(T::Boolean)) }
+        def closed; end
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         sig { returns(T.nilable(Configuration)) }
         def configuration; end

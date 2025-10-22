@@ -7,6 +7,159 @@ module Stripe
     # A requested session is a session that has been requested by a customer.
     class RequestedSession < APIResource
       class FulfillmentDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          sig { returns(T.nilable(String)) }
+          def city; end
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          sig { returns(T.nilable(String)) }
+          def country; end
+          # Address line 1, such as the street, PO Box, or company name.
+          sig { returns(T.nilable(String)) }
+          def line1; end
+          # Address line 2, such as the apartment, suite, unit, or building.
+          sig { returns(T.nilable(String)) }
+          def line2; end
+          # ZIP or postal code.
+          sig { returns(T.nilable(String)) }
+          def postal_code; end
+          # State, county, province, or region.
+          sig { returns(T.nilable(String)) }
+          def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FulfillmentOption < ::Stripe::StripeObject
+          class Shipping < ::Stripe::StripeObject
+            class ShippingOption < ::Stripe::StripeObject
+              # The description of the shipping option.
+              sig { returns(T.nilable(String)) }
+              def description; end
+              # The display name of the shipping option.
+              sig { returns(String) }
+              def display_name; end
+              # The earliest delivery time of the shipping option.
+              sig { returns(T.nilable(Integer)) }
+              def earliest_delivery_time; end
+              # The key of the shipping option.
+              sig { returns(String) }
+              def key; end
+              # The latest delivery time of the shipping option.
+              sig { returns(T.nilable(Integer)) }
+              def latest_delivery_time; end
+              # The shipping amount of the shipping option.
+              sig { returns(Integer) }
+              def shipping_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The shipping options.
+            sig { returns(T.nilable(T::Array[ShippingOption])) }
+            def shipping_options; end
+            def self.inner_class_types
+              @inner_class_types = {shipping_options: ShippingOption}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The shipping option.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # The type of the fulfillment option.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {shipping: Shipping}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class SelectedFulfillmentOption < ::Stripe::StripeObject
+          class Shipping < ::Stripe::StripeObject
+            # The shipping option.
+            sig { returns(T.nilable(String)) }
+            def shipping_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The shipping option.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # The type of the selected fulfillment option.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {shipping: Shipping}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The fulfillment address.
+        sig { returns(T.nilable(Address)) }
+        def address; end
+        # The email address for the fulfillment details.
+        sig { returns(T.nilable(String)) }
+        def email; end
+        # The fulfillment options.
+        sig { returns(T.nilable(T::Array[FulfillmentOption])) }
+        def fulfillment_options; end
+        # The name for the fulfillment details.
+        sig { returns(T.nilable(String)) }
+        def name; end
+        # The phone number for the fulfillment details.
+        sig { returns(T.nilable(String)) }
+        def phone; end
+        # The fulfillment option.
+        sig { returns(T.nilable(SelectedFulfillmentOption)) }
+        def selected_fulfillment_option; end
+        def self.inner_class_types
+          @inner_class_types = {
+            address: Address,
+            fulfillment_options: FulfillmentOption,
+            selected_fulfillment_option: SelectedFulfillmentOption,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class LineItemDetail < ::Stripe::StripeObject
+        # The description of the line item.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # The images of the line item.
+        sig { returns(T.nilable(T::Array[String])) }
+        def images; end
+        # The key of the line item.
+        sig { returns(String) }
+        def key; end
+        # The name of the line item.
+        sig { returns(String) }
+        def name; end
+        # The quantity of the line item.
+        sig { returns(Integer) }
+        def quantity; end
+        # The SKU ID of the line item.
+        sig { returns(String) }
+        def sku_id; end
+        # The unit amount of the line item.
+        sig { returns(Integer) }
+        def unit_amount; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -14,24 +167,105 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class OrderDetails < ::Stripe::StripeObject
+        # The URL to the order status.
+        sig { returns(T.nilable(String)) }
+        def order_status_url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class SellerDetails < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TotalDetails < ::Stripe::StripeObject
+        # The amount discount of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_discount; end
+        # The amount fulfillment of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_fulfillment; end
+        # The amount tax of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_tax; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The subtotal amount of the requested session.
+      sig { returns(Integer) }
+      def amount_subtotal; end
+      # The total amount of the requested session.
+      sig { returns(Integer) }
+      def amount_total; end
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def created_at; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
       # The customer for this requested session.
       sig { returns(T.nilable(String)) }
       def customer; end
-      # Attribute for field fulfillment_details
+      # Time at which the requested session expires. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def expires_at; end
+      # The details of the fulfillment.
       sig { returns(T.nilable(FulfillmentDetails)) }
       def fulfillment_details; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
+      # The line items to be purchased.
+      sig { returns(T::Array[LineItemDetail]) }
+      def line_item_details; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def metadata; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # The details of the order.
+      sig { returns(T.nilable(OrderDetails)) }
+      def order_details; end
+      # The payment method used for the requested session.
+      sig { returns(T.nilable(String)) }
+      def payment_method; end
+      # Attribute for field seller_details
+      sig { returns(SellerDetails) }
+      def seller_details; end
+      # Whether or not the payment method should be saved for future use.
+      sig { returns(T.nilable(String)) }
+      def setup_future_usage; end
+      # The metadata shared with the seller.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def shared_metadata; end
+      # The SPT used for payment.
+      sig { returns(T.nilable(String)) }
+      def shared_payment_issued_token; end
+      # The status of the requested session.
+      sig { returns(String) }
+      def status; end
+      # Attribute for field total_details
+      sig { returns(TotalDetails) }
+      def total_details; end
+      # Time at which the object was last updated. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def updated_at; end
       # Confirms a requested session
       sig {
         params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

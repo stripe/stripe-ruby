@@ -9,7 +9,7 @@ module Stripe
           class PaymentDue < ::Stripe::RequestParams
             # If true an email for the invoice would be generated and sent out.
             attr_accessor :enabled
-            # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+            # If true the payment link to hosted invoice page would be included in email and PDF of the invoice.
             attr_accessor :include_payment_link
 
             def initialize(enabled: nil, include_payment_link: nil)
@@ -17,7 +17,7 @@ module Stripe
               @include_payment_link = include_payment_link
             end
           end
-          # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+          # Controls emails for when the payment is due. For example after the invoice is finalized and transitions to Open state.
           attr_accessor :payment_due
 
           def initialize(payment_due: nil)

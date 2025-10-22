@@ -37,6 +37,9 @@ module Stripe
         # Attribute for field reference
         sig { returns(T.nilable(String)) }
         def reference; end
+        # Attribute for field subscription_reference
+        sig { returns(T.nilable(String)) }
+        def subscription_reference; end
         def self.inner_class_types
           @inner_class_types = {}
         end

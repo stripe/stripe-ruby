@@ -42,6 +42,8 @@ module Stripe
         attr_reader :product_url
         # Attribute for field reference
         attr_reader :reference
+        # Attribute for field subscription_reference
+        attr_reader :subscription_reference
 
         def self.inner_class_types
           @inner_class_types = {}

@@ -10,6 +10,20 @@ module Stripe
       def customer; end
       sig { params(_customer: String).returns(String) }
       def customer=(_customer); end
+      # Key-value pairs used to filter meter events by dimension values. If specified, event summaries will be generated with only matching meter events.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def dimension_filters; end
+      sig {
+        params(_dimension_filters: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+       }
+      def dimension_filters=(_dimension_filters); end
+      # List of dimension payload keys to group by. If specified, event summaries will be grouped by the given dimension payload key values.
+      sig { returns(T.nilable(T::Array[String])) }
+      def dimension_group_by_keys; end
+      sig {
+        params(_dimension_group_by_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def dimension_group_by_keys=(_dimension_group_by_keys); end
       # The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.
       sig { returns(Integer) }
       def end_time; end
@@ -46,10 +60,12 @@ module Stripe
       sig { params(_value_grouping_window: T.nilable(String)).returns(T.nilable(String)) }
       def value_grouping_window=(_value_grouping_window); end
       sig {
-        params(customer: String, end_time: Integer, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), start_time: Integer, starting_after: T.nilable(String), value_grouping_window: T.nilable(String)).void
+        params(customer: String, dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), end_time: Integer, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), start_time: Integer, starting_after: T.nilable(String), value_grouping_window: T.nilable(String)).void
        }
       def initialize(
         customer: nil,
+        dimension_filters: nil,
+        dimension_group_by_keys: nil,
         end_time: nil,
         ending_before: nil,
         expand: nil,

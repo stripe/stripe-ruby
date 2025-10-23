@@ -30,6 +30,9 @@ module Stripe
       # Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
       sig { returns(Integer) }
       def start_time; end
+      # Key-value pairs of dimension values for event summaries with grouping on dimensions.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def dimensions; end
     end
   end
 end

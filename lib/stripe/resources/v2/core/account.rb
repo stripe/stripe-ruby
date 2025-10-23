@@ -2560,11 +2560,44 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+
+                class Usd < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_reader :gbp
+                # Can hold storage-type funds on Stripe in USD.
+                attr_reader :usd
 
                 def self.inner_class_types
-                  @inner_class_types = { gbp: Gbp }
+                  @inner_class_types = { gbp: Gbp, usd: Usd }
                 end
 
                 def self.field_remappings
@@ -2965,6 +2998,23 @@ module Stripe
               attr_reader :owners
               # Reason for why the company is exempt from providing ownership information.
               attr_reader :ownership_exemption_reason
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class RepresentativeDeclaration < ::Stripe::StripeObject
+              # The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+              attr_reader :date
+              # The IP address from which the representative attestation was made.
+              attr_reader :ip
+              # The user agent of the browser from which the representative attestation was made.
+              attr_reader :user_agent
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -3420,6 +3470,8 @@ module Stripe
             attr_reader :ownership_declaration
             # Attestation that all Persons with a specific Relationship value have been provided.
             attr_reader :persons_provided
+            # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+            attr_reader :representative_declaration
             # Attestations of accepted terms of service agreements.
             attr_reader :terms_of_service
 
@@ -3428,6 +3480,7 @@ module Stripe
                 directorship_declaration: DirectorshipDeclaration,
                 ownership_declaration: OwnershipDeclaration,
                 persons_provided: PersonsProvided,
+                representative_declaration: RepresentativeDeclaration,
                 terms_of_service: TermsOfService,
               }
             end
@@ -4314,7 +4367,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attestations from the identity's key people, e.g. owners, executives, directors.
+          # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_reader :attestations
           # Information about the company or business.
           attr_reader :business_details
@@ -4511,6 +4564,8 @@ module Stripe
         end
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         attr_reader :applied_configurations
+        # A value indicating if the Account has been closed.
+        attr_reader :closed
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         attr_reader :configuration
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.

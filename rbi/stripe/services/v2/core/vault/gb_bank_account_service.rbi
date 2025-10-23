@@ -38,6 +38,12 @@ module Stripe
            }
           def initiate_confirmation_of_payee(id, params = {}, opts = {}); end
 
+          # List objects that can be used as destinations for outbound money movement via OutboundPayment.
+          sig {
+            params(params: T.any(::Stripe::V2::Core::Vault::GbBankAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
+           }
+          def list(params = {}, opts = {}); end
+
           # Retrieve a GB bank account.
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::GbBankAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::GbBankAccount)

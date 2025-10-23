@@ -209,6 +209,8 @@ module Stripe
         V2::Billing::PricingPlan.object_name => V2::Billing::PricingPlan,
         V2::Billing::PricingPlanComponent.object_name => V2::Billing::PricingPlanComponent,
         V2::Billing::PricingPlanSubscription.object_name => V2::Billing::PricingPlanSubscription,
+        V2::Billing::PricingPlanSubscriptionComponents.object_name =>
+        V2::Billing::PricingPlanSubscriptionComponents,
         V2::Billing::PricingPlanVersion.object_name => V2::Billing::PricingPlanVersion,
         V2::Billing::Profile.object_name => V2::Billing::Profile,
         V2::Billing::RateCard.object_name => V2::Billing::RateCard,

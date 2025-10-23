@@ -5,6 +5,14 @@ module Stripe
   module V2
     module Billing
       class PricingPlanSubscriptionService < StripeService
+        attr_reader :components
+
+        def initialize(requestor)
+          super
+          @components = Stripe::V2::Billing::PricingPlanSubscriptions::ComponentService
+                        .new(@requestor)
+        end
+
         # List all Pricing Plan Subscription objects.
         def list(params = {}, opts = {})
           request(

@@ -8,6 +8,39 @@ module Stripe
       module Vault
         # Use the USBankAccounts API to create and manage US bank accounts objects that you can use to receive funds. Note that these are not interchangeable with v1 Tokens.
         class UsBankAccount < APIResource
+          class Verification < ::Stripe::StripeObject
+            class MicrodepositVerificationDetails < ::Stripe::StripeObject
+              # Time when microdeposits will expire and have to be re-sent.
+              sig { returns(String) }
+              def expires; end
+              # Microdeposit type can be amounts or descriptor_type.
+              sig { returns(String) }
+              def microdeposit_type; end
+              # Time when microdeposits were sent.
+              sig { returns(String) }
+              def sent; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The microdeposit verification details if the status is awaiting verification.
+            sig { returns(T.nilable(MicrodepositVerificationDetails)) }
+            def microdeposit_verification_details; end
+            # The bank account verification status.
+            sig { returns(String) }
+            def status; end
+            def self.inner_class_types
+              @inner_class_types = {
+                microdeposit_verification_details: MicrodepositVerificationDetails,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Whether this USBankAccount object was archived.
           sig { returns(T::Boolean) }
           def archived; end
@@ -35,6 +68,9 @@ module Stripe
           # The ACH routing number of the bank account.
           sig { returns(T.nilable(String)) }
           def routing_number; end
+          # The bank account verification details.
+          sig { returns(Verification) }
+          def verification; end
           # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
           sig { returns(T::Boolean) }
           def livemode; end

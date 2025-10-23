@@ -27,6 +27,8 @@ module Stripe
       attr_reader :object
       # Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
       attr_reader :start_time
+      # Key-value pairs of dimension values for event summaries with grouping on dimensions.
+      attr_reader :dimensions
 
       def self.inner_class_types
         @inner_class_types = {}

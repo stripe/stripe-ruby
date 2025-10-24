@@ -8,5 +8,5 @@
 
   // Rubocop settings
   "ruby.rubocop.configFilePath": ".rubocop.yml",
-  "ruby.rubocop.onSave": true
+  "ruby.rubocop.onSave": false
 }

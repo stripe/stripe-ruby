@@ -16,6 +16,33 @@ The library also provides other features. For example:
 - Built-in mechanisms for the serialization of parameters according to the
   expectations of Stripe's API.
 
+## Table of Contents
+
+- [Documentation](#documentation)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Bundler](#bundler)
+- [Usage](#usage)
+  - [Per-request Configuration](#per-request-configuration)
+  - [StripeClient vs legacy pattern](#stripeclient-vs-legacy-pattern)
+  - [Accessing resource properties](#accessing-resource-properties)
+  - [Accessing a response object](#accessing-a-response-object)
+  - [Configuring a proxy](#configuring-a-proxy)
+  - [Configuring an API Version](#configuring-an-api-version)
+  - [Configuring CA Bundles](#configuring-ca-bundles)
+  - [Configuring Automatic Retries](#configuring-automatic-retries)
+  - [Configuring Timeouts](#configuring-timeouts)
+  - [Logging](#logging)
+  - [Instrumentation](#instrumentation)
+  - [Writing a Plugin](#writing-a-plugin)
+  - [Telemetry](#telemetry)
+  - [Types](#types)
+  - [Public Preview SDKs](#public-preview-sdks)
+  - [Private Preview SDKs](#private-preview-sdks)
+  - [Custom requests](#custom-requests)
+- [Support](#support)
+- [Development](#development)
+
 ## Documentation
 
 See the [Ruby API docs](https://stripe.com/docs/api?lang=ruby).

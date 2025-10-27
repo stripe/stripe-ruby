@@ -292,7 +292,7 @@ Stripe.enable_telemetry = false
 ### Types
 
 In [v14.0.0](https://github.com/stripe/stripe-python/releases/tag/v7.1.0) and newer, the library provides RBI
-static type annotations. See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations)
+static type annotations. See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations-(with-Sorbet))
 for an detailed guide.
 
 Please note that these types are available only for static analysis and we only support RBIs at the moment.

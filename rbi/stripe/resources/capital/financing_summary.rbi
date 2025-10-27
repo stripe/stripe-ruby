@@ -7,8 +7,8 @@ module Stripe
     # A financing object describes an account's current financing state. Used by Connect
     # platforms to read the state of Capital offered to their connected accounts.
     class FinancingSummary < SingletonAPIResource
-      class Details < Stripe::StripeObject
-        class CurrentRepaymentInterval < Stripe::StripeObject
+      class Details < ::Stripe::StripeObject
+        class CurrentRepaymentInterval < ::Stripe::StripeObject
           # The time at which the minimum payment amount will be due. If not met through withholding, the Connected account's linked bank account or account balance will be debited.
           # Given in seconds since unix epoch.
           sig { returns(Float) }

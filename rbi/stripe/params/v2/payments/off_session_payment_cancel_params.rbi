@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Payments
-      class OffSessionPaymentCancelParams < Stripe::RequestParams; end
+      class OffSessionPaymentCancelParams < ::Stripe::RequestParams; end
     end
   end
 end

@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Identity
-    class VerificationSessionUpdateParams < Stripe::RequestParams
-      class Options < Stripe::RequestParams
-        class Document < Stripe::RequestParams
+    class VerificationSessionUpdateParams < ::Stripe::RequestParams
+      class Options < ::Stripe::RequestParams
+        class Document < ::Stripe::RequestParams
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           sig { returns(T.nilable(T::Array[String])) }
           def allowed_types; end
@@ -57,7 +57,7 @@ module Stripe
          }
         def initialize(document: nil); end
       end
-      class ProvidedDetails < Stripe::RequestParams
+      class ProvidedDetails < ::Stripe::RequestParams
         # Email of user being verified
         sig { returns(T.nilable(String)) }
         def email; end

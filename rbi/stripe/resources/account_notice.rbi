@@ -7,7 +7,7 @@ module Stripe
   #
   # See the [guide to send notices](https://stripe.com/docs/issuing/compliance-us/issuing-regulated-customer-notices) to your connected accounts.
   class AccountNotice < APIResource
-    class Email < Stripe::StripeObject
+    class Email < ::Stripe::StripeObject
       # Content of the email in plain text. The copy must match exactly the language that Stripe Compliance has approved for use.
       sig { returns(String) }
       def plain_text; end
@@ -24,7 +24,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class LinkedObjects < Stripe::StripeObject
+    class LinkedObjects < ::Stripe::StripeObject
       # Associated [Capability](https://stripe.com/docs/api/capabilities)
       sig { returns(T.nilable(String)) }
       def capability; end
@@ -73,13 +73,13 @@ module Stripe
     def sent_at; end
     # Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
     sig {
-      params(params: T.any(::Stripe::AccountNoticeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::AccountNoticeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates an AccountNotice object.
     sig {
-      params(account_notice: String, params: T.any(::Stripe::AccountNoticeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::AccountNotice)
+      params(account_notice: String, params: T.any(::Stripe::AccountNoticeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountNotice)
      }
     def self.update(account_notice, params = {}, opts = {}); end
   end

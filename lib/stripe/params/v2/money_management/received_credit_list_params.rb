@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class ReceivedCreditListParams < Stripe::RequestParams
+      class ReceivedCreditListParams < ::Stripe::RequestParams
         # Filter for objects created at the specified timestamp.
         # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
         attr_accessor :created

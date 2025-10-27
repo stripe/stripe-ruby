@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class SourceRetrieveParams < Stripe::RequestParams
+  class SourceRetrieveParams < ::Stripe::RequestParams
     # The client secret of the source. Required if a publishable key is used to retrieve the source.
     sig { returns(T.nilable(String)) }
     def client_secret; end

@@ -3,10 +3,10 @@
 
 module Stripe
   module Tax
-    class RegistrationCreateParams < Stripe::RequestParams
-      class CountryOptions < Stripe::RequestParams
-        class Ae < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+    class RegistrationCreateParams < ::Stripe::RequestParams
+      class CountryOptions < ::Stripe::RequestParams
+        class Ae < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -25,8 +25,8 @@ module Stripe
           end
         end
 
-        class Al < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Al < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -45,7 +45,7 @@ module Stripe
           end
         end
 
-        class Am < Stripe::RequestParams
+        class Am < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -54,8 +54,8 @@ module Stripe
           end
         end
 
-        class Ao < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Ao < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -74,8 +74,8 @@ module Stripe
           end
         end
 
-        class At < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class At < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -94,8 +94,8 @@ module Stripe
           end
         end
 
-        class Au < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Au < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -114,8 +114,8 @@ module Stripe
           end
         end
 
-        class Aw < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Aw < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -134,7 +134,7 @@ module Stripe
           end
         end
 
-        class Az < Stripe::RequestParams
+        class Az < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -143,8 +143,8 @@ module Stripe
           end
         end
 
-        class Ba < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Ba < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -163,8 +163,8 @@ module Stripe
           end
         end
 
-        class Bb < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Bb < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -183,8 +183,8 @@ module Stripe
           end
         end
 
-        class Bd < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Bd < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -203,8 +203,8 @@ module Stripe
           end
         end
 
-        class Be < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Be < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -223,8 +223,8 @@ module Stripe
           end
         end
 
-        class Bf < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Bf < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -243,8 +243,8 @@ module Stripe
           end
         end
 
-        class Bg < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Bg < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -263,8 +263,8 @@ module Stripe
           end
         end
 
-        class Bh < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Bh < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -283,7 +283,7 @@ module Stripe
           end
         end
 
-        class Bj < Stripe::RequestParams
+        class Bj < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -292,8 +292,8 @@ module Stripe
           end
         end
 
-        class Bs < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Bs < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -312,7 +312,7 @@ module Stripe
           end
         end
 
-        class By < Stripe::RequestParams
+        class By < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -321,8 +321,8 @@ module Stripe
           end
         end
 
-        class Ca < Stripe::RequestParams
-          class ProvinceStandard < Stripe::RequestParams
+        class Ca < ::Stripe::RequestParams
+          class ProvinceStandard < ::Stripe::RequestParams
             # Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_accessor :province
 
@@ -341,8 +341,8 @@ module Stripe
           end
         end
 
-        class Cd < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Cd < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -361,8 +361,8 @@ module Stripe
           end
         end
 
-        class Ch < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Ch < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -381,7 +381,7 @@ module Stripe
           end
         end
 
-        class Cl < Stripe::RequestParams
+        class Cl < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -390,7 +390,7 @@ module Stripe
           end
         end
 
-        class Cm < Stripe::RequestParams
+        class Cm < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -399,7 +399,7 @@ module Stripe
           end
         end
 
-        class Co < Stripe::RequestParams
+        class Co < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -408,7 +408,7 @@ module Stripe
           end
         end
 
-        class Cr < Stripe::RequestParams
+        class Cr < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -417,7 +417,7 @@ module Stripe
           end
         end
 
-        class Cv < Stripe::RequestParams
+        class Cv < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -426,8 +426,8 @@ module Stripe
           end
         end
 
-        class Cy < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Cy < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -446,8 +446,8 @@ module Stripe
           end
         end
 
-        class Cz < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Cz < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -466,8 +466,8 @@ module Stripe
           end
         end
 
-        class De < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class De < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -486,8 +486,8 @@ module Stripe
           end
         end
 
-        class Dk < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Dk < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -506,7 +506,7 @@ module Stripe
           end
         end
 
-        class Ec < Stripe::RequestParams
+        class Ec < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -515,8 +515,8 @@ module Stripe
           end
         end
 
-        class Ee < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Ee < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -535,7 +535,7 @@ module Stripe
           end
         end
 
-        class Eg < Stripe::RequestParams
+        class Eg < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -544,8 +544,8 @@ module Stripe
           end
         end
 
-        class Es < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Es < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -564,8 +564,8 @@ module Stripe
           end
         end
 
-        class Et < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Et < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -584,8 +584,8 @@ module Stripe
           end
         end
 
-        class Fi < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Fi < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -604,8 +604,8 @@ module Stripe
           end
         end
 
-        class Fr < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Fr < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -624,8 +624,8 @@ module Stripe
           end
         end
 
-        class Gb < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Gb < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -644,7 +644,7 @@ module Stripe
           end
         end
 
-        class Ge < Stripe::RequestParams
+        class Ge < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -653,8 +653,8 @@ module Stripe
           end
         end
 
-        class Gn < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Gn < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -673,8 +673,8 @@ module Stripe
           end
         end
 
-        class Gr < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Gr < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -693,8 +693,8 @@ module Stripe
           end
         end
 
-        class Hr < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Hr < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -713,8 +713,8 @@ module Stripe
           end
         end
 
-        class Hu < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Hu < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -733,7 +733,7 @@ module Stripe
           end
         end
 
-        class Id < Stripe::RequestParams
+        class Id < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -742,8 +742,8 @@ module Stripe
           end
         end
 
-        class Ie < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Ie < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -762,7 +762,7 @@ module Stripe
           end
         end
 
-        class In < Stripe::RequestParams
+        class In < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -771,8 +771,8 @@ module Stripe
           end
         end
 
-        class Is < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Is < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -791,8 +791,8 @@ module Stripe
           end
         end
 
-        class It < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class It < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -811,8 +811,8 @@ module Stripe
           end
         end
 
-        class Jp < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Jp < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -831,7 +831,7 @@ module Stripe
           end
         end
 
-        class Ke < Stripe::RequestParams
+        class Ke < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -840,7 +840,7 @@ module Stripe
           end
         end
 
-        class Kg < Stripe::RequestParams
+        class Kg < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -849,7 +849,7 @@ module Stripe
           end
         end
 
-        class Kh < Stripe::RequestParams
+        class Kh < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -858,7 +858,7 @@ module Stripe
           end
         end
 
-        class Kr < Stripe::RequestParams
+        class Kr < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -867,7 +867,7 @@ module Stripe
           end
         end
 
-        class Kz < Stripe::RequestParams
+        class Kz < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -876,7 +876,7 @@ module Stripe
           end
         end
 
-        class La < Stripe::RequestParams
+        class La < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -885,8 +885,8 @@ module Stripe
           end
         end
 
-        class Lt < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Lt < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -905,8 +905,8 @@ module Stripe
           end
         end
 
-        class Lu < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Lu < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -925,8 +925,8 @@ module Stripe
           end
         end
 
-        class Lv < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Lv < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -945,7 +945,7 @@ module Stripe
           end
         end
 
-        class Ma < Stripe::RequestParams
+        class Ma < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -954,7 +954,7 @@ module Stripe
           end
         end
 
-        class Md < Stripe::RequestParams
+        class Md < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -963,8 +963,8 @@ module Stripe
           end
         end
 
-        class Me < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Me < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -983,8 +983,8 @@ module Stripe
           end
         end
 
-        class Mk < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Mk < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1003,8 +1003,8 @@ module Stripe
           end
         end
 
-        class Mr < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Mr < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1023,8 +1023,8 @@ module Stripe
           end
         end
 
-        class Mt < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Mt < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1043,7 +1043,7 @@ module Stripe
           end
         end
 
-        class Mx < Stripe::RequestParams
+        class Mx < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1052,7 +1052,7 @@ module Stripe
           end
         end
 
-        class My < Stripe::RequestParams
+        class My < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1061,7 +1061,7 @@ module Stripe
           end
         end
 
-        class Ng < Stripe::RequestParams
+        class Ng < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1070,8 +1070,8 @@ module Stripe
           end
         end
 
-        class Nl < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Nl < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1090,8 +1090,8 @@ module Stripe
           end
         end
 
-        class No < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class No < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1110,7 +1110,7 @@ module Stripe
           end
         end
 
-        class Np < Stripe::RequestParams
+        class Np < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1119,8 +1119,8 @@ module Stripe
           end
         end
 
-        class Nz < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Nz < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1139,8 +1139,8 @@ module Stripe
           end
         end
 
-        class Om < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Om < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1159,7 +1159,7 @@ module Stripe
           end
         end
 
-        class Pe < Stripe::RequestParams
+        class Pe < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1168,7 +1168,7 @@ module Stripe
           end
         end
 
-        class Ph < Stripe::RequestParams
+        class Ph < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1177,8 +1177,8 @@ module Stripe
           end
         end
 
-        class Pl < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Pl < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1197,8 +1197,8 @@ module Stripe
           end
         end
 
-        class Pt < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Pt < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1217,8 +1217,8 @@ module Stripe
           end
         end
 
-        class Ro < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Ro < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1237,8 +1237,8 @@ module Stripe
           end
         end
 
-        class Rs < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Rs < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1257,7 +1257,7 @@ module Stripe
           end
         end
 
-        class Ru < Stripe::RequestParams
+        class Ru < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1266,7 +1266,7 @@ module Stripe
           end
         end
 
-        class Sa < Stripe::RequestParams
+        class Sa < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1275,8 +1275,8 @@ module Stripe
           end
         end
 
-        class Se < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Se < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1295,8 +1295,8 @@ module Stripe
           end
         end
 
-        class Sg < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Sg < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1315,8 +1315,8 @@ module Stripe
           end
         end
 
-        class Si < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Si < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1335,8 +1335,8 @@ module Stripe
           end
         end
 
-        class Sk < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Sk < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1355,7 +1355,7 @@ module Stripe
           end
         end
 
-        class Sn < Stripe::RequestParams
+        class Sn < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1364,8 +1364,8 @@ module Stripe
           end
         end
 
-        class Sr < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Sr < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1384,7 +1384,7 @@ module Stripe
           end
         end
 
-        class Th < Stripe::RequestParams
+        class Th < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1393,7 +1393,7 @@ module Stripe
           end
         end
 
-        class Tj < Stripe::RequestParams
+        class Tj < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1402,7 +1402,7 @@ module Stripe
           end
         end
 
-        class Tr < Stripe::RequestParams
+        class Tr < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1411,7 +1411,7 @@ module Stripe
           end
         end
 
-        class Tz < Stripe::RequestParams
+        class Tw < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1420,7 +1420,7 @@ module Stripe
           end
         end
 
-        class Ua < Stripe::RequestParams
+        class Tz < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1429,7 +1429,7 @@ module Stripe
           end
         end
 
-        class Ug < Stripe::RequestParams
+        class Ua < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1438,8 +1438,17 @@ module Stripe
           end
         end
 
-        class Us < Stripe::RequestParams
-          class LocalAmusementTax < Stripe::RequestParams
+        class Ug < ::Stripe::RequestParams
+          # Type of registration to be created in `country`.
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
+        class Us < ::Stripe::RequestParams
+          class LocalAmusementTax < ::Stripe::RequestParams
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago), `06613` (Bloomington), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), and `68081` (Schiller Park).
             attr_accessor :jurisdiction
 
@@ -1448,7 +1457,7 @@ module Stripe
             end
           end
 
-          class LocalLeaseTax < Stripe::RequestParams
+          class LocalLeaseTax < ::Stripe::RequestParams
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
             attr_accessor :jurisdiction
 
@@ -1457,8 +1466,8 @@ module Stripe
             end
           end
 
-          class StateSalesTax < Stripe::RequestParams
-            class Election < Stripe::RequestParams
+          class StateSalesTax < ::Stripe::RequestParams
+            class Election < ::Stripe::RequestParams
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
               attr_accessor :jurisdiction
               # The type of the election for the state sales tax registration.
@@ -1502,8 +1511,8 @@ module Stripe
           end
         end
 
-        class Uy < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Uy < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1522,7 +1531,7 @@ module Stripe
           end
         end
 
-        class Uz < Stripe::RequestParams
+        class Uz < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1531,7 +1540,7 @@ module Stripe
           end
         end
 
-        class Vn < Stripe::RequestParams
+        class Vn < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1540,8 +1549,8 @@ module Stripe
           end
         end
 
-        class Za < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Za < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1560,7 +1569,7 @@ module Stripe
           end
         end
 
-        class Zm < Stripe::RequestParams
+        class Zm < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1569,8 +1578,8 @@ module Stripe
           end
         end
 
-        class Zw < Stripe::RequestParams
-          class Standard < Stripe::RequestParams
+        class Zw < ::Stripe::RequestParams
+          class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an standard registration.
             attr_accessor :place_of_supply_scheme
 
@@ -1766,6 +1775,8 @@ module Stripe
         attr_accessor :tj
         # Options for the registration in TR.
         attr_accessor :tr
+        # Options for the registration in TW.
+        attr_accessor :tw
         # Options for the registration in TZ.
         attr_accessor :tz
         # Options for the registration in UA.
@@ -1877,6 +1888,7 @@ module Stripe
           th: nil,
           tj: nil,
           tr: nil,
+          tw: nil,
           tz: nil,
           ua: nil,
           ug: nil,
@@ -1977,6 +1989,7 @@ module Stripe
           @th = th
           @tj = tj
           @tr = tr
+          @tw = tw
           @tz = tz
           @ua = ua
           @ug = ug

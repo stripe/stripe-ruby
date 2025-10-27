@@ -7,7 +7,7 @@ module Stripe
     class ReaderCollectedDataService < StripeService
       # Retrieve data collected using Reader hardware.
       sig {
-        params(reader_collected_data: String, params: T.any(::Stripe::Terminal::ReaderCollectedDataRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::ReaderCollectedData)
+        params(reader_collected_data: String, params: T.any(::Stripe::Terminal::ReaderCollectedDataRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::ReaderCollectedData)
        }
       def retrieve(reader_collected_data, params = {}, opts = {}); end
     end

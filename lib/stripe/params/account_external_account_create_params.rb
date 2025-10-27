@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class AccountExternalAccountCreateParams < Stripe::RequestParams
-    class BankAccount < Stripe::RequestParams
+  class AccountExternalAccountCreateParams < ::Stripe::RequestParams
+    class BankAccount < ::Stripe::RequestParams
       # Attribute for param field object
       attr_accessor :object
       # The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
@@ -38,7 +38,7 @@ module Stripe
       end
     end
 
-    class Card < Stripe::RequestParams
+    class Card < ::Stripe::RequestParams
       # Attribute for param field object
       attr_accessor :object
       # Attribute for param field address_city
@@ -101,7 +101,7 @@ module Stripe
       end
     end
 
-    class CardToken < Stripe::RequestParams
+    class CardToken < ::Stripe::RequestParams
       # Attribute for param field object
       attr_accessor :object
       # Attribute for param field currency

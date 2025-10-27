@@ -17,7 +17,7 @@ module Stripe
         "terminal.location"
       end
 
-      class Address < Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -40,7 +40,7 @@ module Stripe
         end
       end
 
-      class AddressKana < Stripe::StripeObject
+      class AddressKana < ::Stripe::StripeObject
         # City/Ward.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -65,7 +65,7 @@ module Stripe
         end
       end
 
-      class AddressKanji < Stripe::StripeObject
+      class AddressKanji < ::Stripe::StripeObject
         # City/Ward.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

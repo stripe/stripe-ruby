@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class PayoutMethodsBankAccountSpecRetrieveParams < Stripe::RequestParams
+      class PayoutMethodsBankAccountSpecRetrieveParams < ::Stripe::RequestParams
         # The countries to fetch the bank account spec for.
         attr_accessor :countries
 

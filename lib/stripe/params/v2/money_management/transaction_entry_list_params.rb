@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class TransactionEntryListParams < Stripe::RequestParams
+      class TransactionEntryListParams < ::Stripe::RequestParams
         # Filter for Transactions created at an exact time.
         attr_accessor :created
         # Filter for Transactions created after the specified timestamp.

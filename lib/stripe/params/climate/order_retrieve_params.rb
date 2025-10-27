@@ -3,7 +3,7 @@
 
 module Stripe
   module Climate
-    class OrderRetrieveParams < Stripe::RequestParams
+    class OrderRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

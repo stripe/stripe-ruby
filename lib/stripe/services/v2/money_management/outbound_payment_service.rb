@@ -22,9 +22,9 @@ module Stripe
         # Creates an OutboundPayment.
         #
         # ** raises InsufficientFundsError
+        # ** raises FeatureNotEnabledError
         # ** raises QuotaExceededError
         # ** raises RecipientNotNotifiableError
-        # ** raises FeatureNotEnabledError
         def create(params = {}, opts = {})
           request(
             method: :post,

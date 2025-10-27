@@ -14,7 +14,7 @@ module Stripe
         "tax.form"
       end
 
-      class AuSerr < Stripe::StripeObject
+      class AuSerr < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
@@ -29,7 +29,7 @@ module Stripe
         end
       end
 
-      class CaMrdp < Stripe::StripeObject
+      class CaMrdp < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
@@ -44,7 +44,7 @@ module Stripe
         end
       end
 
-      class EuDac7 < Stripe::StripeObject
+      class EuDac7 < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
@@ -59,8 +59,8 @@ module Stripe
         end
       end
 
-      class FilingStatus < Stripe::StripeObject
-        class Jurisdiction < Stripe::StripeObject
+      class FilingStatus < ::Stripe::StripeObject
+        class Jurisdiction < ::Stripe::StripeObject
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
           # Indicates the level of the jurisdiction where the form was filed.
@@ -92,7 +92,7 @@ module Stripe
         end
       end
 
-      class GbMrdp < Stripe::StripeObject
+      class GbMrdp < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
@@ -107,7 +107,7 @@ module Stripe
         end
       end
 
-      class NzMrdp < Stripe::StripeObject
+      class NzMrdp < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
@@ -122,7 +122,7 @@ module Stripe
         end
       end
 
-      class Payee < Stripe::StripeObject
+      class Payee < ::Stripe::StripeObject
         # The ID of the payee's Stripe account.
         attr_reader :account
         # The external reference to this payee.
@@ -139,7 +139,7 @@ module Stripe
         end
       end
 
-      class Us1099K < Stripe::StripeObject
+      class Us1099K < ::Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
 
@@ -152,7 +152,7 @@ module Stripe
         end
       end
 
-      class Us1099Misc < Stripe::StripeObject
+      class Us1099Misc < ::Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
 
@@ -165,7 +165,7 @@ module Stripe
         end
       end
 
-      class Us1099Nec < Stripe::StripeObject
+      class Us1099Nec < ::Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
 

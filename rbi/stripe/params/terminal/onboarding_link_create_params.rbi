@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Terminal
-    class OnboardingLinkCreateParams < Stripe::RequestParams
-      class LinkOptions < Stripe::RequestParams
-        class AppleTermsAndConditions < Stripe::RequestParams
+    class OnboardingLinkCreateParams < ::Stripe::RequestParams
+      class LinkOptions < ::Stripe::RequestParams
+        class AppleTermsAndConditions < ::Stripe::RequestParams
           # Whether the link should also support users relinking their Apple account.
           sig { returns(T.nilable(T::Boolean)) }
           def allow_relinking; end

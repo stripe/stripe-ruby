@@ -3,9 +3,9 @@
 
 module Stripe
   module Treasury
-    class FinancialAccountUpdateParams < Stripe::RequestParams
-      class Features < Stripe::RequestParams
-        class CardIssuing < Stripe::RequestParams
+    class FinancialAccountUpdateParams < ::Stripe::RequestParams
+      class Features < ::Stripe::RequestParams
+        class CardIssuing < ::Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           attr_accessor :requested
 
@@ -14,7 +14,7 @@ module Stripe
           end
         end
 
-        class DepositInsurance < Stripe::RequestParams
+        class DepositInsurance < ::Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           attr_accessor :requested
 
@@ -23,8 +23,8 @@ module Stripe
           end
         end
 
-        class FinancialAddresses < Stripe::RequestParams
-          class Aba < Stripe::RequestParams
+        class FinancialAddresses < ::Stripe::RequestParams
+          class Aba < ::Stripe::RequestParams
             # Requested bank partner
             attr_accessor :bank
             # Whether the FinancialAccount should have the Feature.
@@ -43,8 +43,8 @@ module Stripe
           end
         end
 
-        class InboundTransfers < Stripe::RequestParams
-          class Ach < Stripe::RequestParams
+        class InboundTransfers < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
@@ -60,7 +60,7 @@ module Stripe
           end
         end
 
-        class IntraStripeFlows < Stripe::RequestParams
+        class IntraStripeFlows < ::Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           attr_accessor :requested
 
@@ -69,8 +69,8 @@ module Stripe
           end
         end
 
-        class OutboundPayments < Stripe::RequestParams
-          class Ach < Stripe::RequestParams
+        class OutboundPayments < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
@@ -79,7 +79,7 @@ module Stripe
             end
           end
 
-          class UsDomesticWire < Stripe::RequestParams
+          class UsDomesticWire < ::Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
@@ -98,8 +98,8 @@ module Stripe
           end
         end
 
-        class OutboundTransfers < Stripe::RequestParams
-          class Ach < Stripe::RequestParams
+        class OutboundTransfers < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
@@ -108,7 +108,7 @@ module Stripe
             end
           end
 
-          class UsDomesticWire < Stripe::RequestParams
+          class UsDomesticWire < ::Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
@@ -160,7 +160,7 @@ module Stripe
         end
       end
 
-      class ForwardingSettings < Stripe::RequestParams
+      class ForwardingSettings < ::Stripe::RequestParams
         # The financial_account id
         attr_accessor :financial_account
         # The payment_method or bank account id. This needs to be a verified bank account.
@@ -175,7 +175,7 @@ module Stripe
         end
       end
 
-      class PlatformRestrictions < Stripe::RequestParams
+      class PlatformRestrictions < ::Stripe::RequestParams
         # Restricts all inbound money movement.
         attr_accessor :inbound_flows
         # Restricts all outbound money movement.

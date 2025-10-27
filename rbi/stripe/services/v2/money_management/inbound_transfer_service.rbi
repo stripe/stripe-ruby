@@ -10,19 +10,19 @@ module Stripe
         #
         # ** raises BlockedByStripeError
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::InboundTransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::InboundTransfer)
+          params(params: T.any(::Stripe::V2::MoneyManagement::InboundTransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::InboundTransfer)
          }
         def create(params = {}, opts = {}); end
 
         # Retrieves a list of InboundTransfers.
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::InboundTransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
+          params(params: T.any(::Stripe::V2::MoneyManagement::InboundTransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
         # Retrieve an InboundTransfer by ID.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::InboundTransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::InboundTransfer)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::InboundTransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::InboundTransfer)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

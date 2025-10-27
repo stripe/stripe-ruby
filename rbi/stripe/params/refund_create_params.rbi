@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class RefundCreateParams < Stripe::RequestParams
+  class RefundCreateParams < ::Stripe::RequestParams
     # Attribute for param field amount
     sig { returns(T.nilable(Integer)) }
     def amount; end

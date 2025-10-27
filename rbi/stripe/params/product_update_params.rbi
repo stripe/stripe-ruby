@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class ProductUpdateParams < Stripe::RequestParams
-    class MarketingFeature < Stripe::RequestParams
+  class ProductUpdateParams < ::Stripe::RequestParams
+    class MarketingFeature < ::Stripe::RequestParams
       # The marketing feature name. Up to 80 characters long.
       sig { returns(String) }
       def name; end
@@ -13,7 +13,7 @@ module Stripe
       sig { params(name: String).void }
       def initialize(name: nil); end
     end
-    class PackageDimensions < Stripe::RequestParams
+    class PackageDimensions < ::Stripe::RequestParams
       # Height, in inches. Maximum precision is 2 decimal places.
       sig { returns(Float) }
       def height; end

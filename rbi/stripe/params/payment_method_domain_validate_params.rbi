@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodDomainValidateParams < Stripe::RequestParams
+  class PaymentMethodDomainValidateParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end

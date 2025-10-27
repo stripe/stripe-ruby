@@ -8,8 +8,8 @@ module Stripe
       # An InboundTransfer object, representing a money movement from a
       # user owned PaymentMethod to a FinancialAccount belonging to the same user.
       class InboundTransfer < APIResource
-        class From < Stripe::StripeObject
-          class PaymentMethod < Stripe::StripeObject
+        class From < ::Stripe::StripeObject
+          class PaymentMethod < ::Stripe::StripeObject
             # The type of object this destination represents. For a us bank account, we expect us_bank_account.
             sig { returns(String) }
             def type; end
@@ -24,7 +24,7 @@ module Stripe
             end
           end
           # The amount in specified currency that was debited from the Payment Method.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def debited; end
           # The Payment Method object used to create the InboundTransfer.
           sig { returns(PaymentMethod) }
@@ -36,9 +36,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class To < Stripe::StripeObject
+        class To < ::Stripe::StripeObject
           # The amount by which the FinancialAccount balance is credited.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def credited; end
           # The FinancialAccount that funds will land in.
           sig { returns(String) }
@@ -50,8 +50,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TransferHistory < Stripe::StripeObject
-          class BankDebitFailed < Stripe::StripeObject
+        class TransferHistory < ::Stripe::StripeObject
+          class BankDebitFailed < ::Stripe::StripeObject
             # Open Enum. The return reason for the failed InboundTransfer.
             sig { returns(String) }
             def failure_reason; end
@@ -62,7 +62,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BankDebitReturned < Stripe::StripeObject
+          class BankDebitReturned < ::Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             sig { returns(String) }
             def return_reason; end
@@ -114,7 +114,7 @@ module Stripe
           end
         end
         # The amount in specified currency that will land in the FinancialAccount balance.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Creation time of the InboundTransfer. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }

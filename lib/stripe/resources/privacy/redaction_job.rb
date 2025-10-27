@@ -20,7 +20,7 @@ module Stripe
 
       nested_resource_class_methods :validation_error, operations: %i[list]
 
-      class Objects < Stripe::StripeObject
+      class Objects < ::Stripe::StripeObject
         # Charge object identifiers usually starting with `ch_`
         attr_reader :charges
         # CheckoutSession object identifiers starting with `cs_`

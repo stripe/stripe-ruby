@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class QuoteUpdateParams < Stripe::RequestParams
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+  class QuoteUpdateParams < ::Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -26,9 +26,9 @@ module Stripe
       end
     end
 
-    class Discount < Stripe::RequestParams
-      class DiscountEnd < Stripe::RequestParams
-        class Duration < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -69,8 +69,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::RequestParams
-      class Issuer < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -92,10 +92,10 @@ module Stripe
       end
     end
 
-    class Line < Stripe::RequestParams
-      class Action < Stripe::RequestParams
-        class AddDiscount < Stripe::RequestParams
-          class DiscountEnd < Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
+      class Action < ::Stripe::RequestParams
+        class AddDiscount < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
             # The type of calculation made to determine when the discount ends.
             attr_accessor :type
 
@@ -129,10 +129,10 @@ module Stripe
           end
         end
 
-        class AddItem < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
-            class DiscountEnd < Stripe::RequestParams
-              class Duration < Stripe::RequestParams
+        class AddItem < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -173,7 +173,7 @@ module Stripe
             end
           end
 
-          class Trial < Stripe::RequestParams
+          class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             attr_accessor :converts_to
             # Determines the type of trial for this item.
@@ -214,7 +214,7 @@ module Stripe
           end
         end
 
-        class RemoveDiscount < Stripe::RequestParams
+        class RemoveDiscount < ::Stripe::RequestParams
           # The coupon code to remove from the `discounts` array.
           attr_accessor :coupon
           # The ID of a discount to remove from the `discounts` array.
@@ -229,7 +229,7 @@ module Stripe
           end
         end
 
-        class RemoveItem < Stripe::RequestParams
+        class RemoveItem < ::Stripe::RequestParams
           # ID of a price to remove.
           attr_accessor :price
 
@@ -238,7 +238,7 @@ module Stripe
           end
         end
 
-        class SetDiscount < Stripe::RequestParams
+        class SetDiscount < ::Stripe::RequestParams
           # The coupon code to replace the `discounts` array with.
           attr_accessor :coupon
           # An ID of an existing discount to replace the `discounts` array with.
@@ -253,10 +253,10 @@ module Stripe
           end
         end
 
-        class SetItem < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
-            class DiscountEnd < Stripe::RequestParams
-              class Duration < Stripe::RequestParams
+        class SetItem < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -297,7 +297,7 @@ module Stripe
             end
           end
 
-          class Trial < Stripe::RequestParams
+          class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             attr_accessor :converts_to
             # Determines the type of trial for this item.
@@ -383,7 +383,7 @@ module Stripe
         end
       end
 
-      class AppliesTo < Stripe::RequestParams
+      class AppliesTo < ::Stripe::RequestParams
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         attr_accessor :new_reference
         # The ID of the schedule the line applies to.
@@ -398,7 +398,7 @@ module Stripe
         end
       end
 
-      class CancelSubscriptionSchedule < Stripe::RequestParams
+      class CancelSubscriptionSchedule < ::Stripe::RequestParams
         # Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
         attr_accessor :cancel_at
         # If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
@@ -413,8 +413,8 @@ module Stripe
         end
       end
 
-      class EndsAt < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
+      class EndsAt < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
           # The ID of a specific discount.
           attr_accessor :discount
 
@@ -423,7 +423,7 @@ module Stripe
           end
         end
 
-        class Duration < Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -451,8 +451,8 @@ module Stripe
         end
       end
 
-      class SetPauseCollection < Stripe::RequestParams
-        class Set < Stripe::RequestParams
+      class SetPauseCollection < ::Stripe::RequestParams
+        class Set < ::Stripe::RequestParams
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           attr_accessor :behavior
 
@@ -471,8 +471,8 @@ module Stripe
         end
       end
 
-      class StartsAt < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
+      class StartsAt < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
           # The ID of a specific discount.
           attr_accessor :discount
 
@@ -481,7 +481,7 @@ module Stripe
           end
         end
 
-        class LineEndsAt < Stripe::RequestParams
+        class LineEndsAt < ::Stripe::RequestParams
           # The ID of a quote line.
           attr_accessor :id
           # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
@@ -509,8 +509,8 @@ module Stripe
         end
       end
 
-      class TrialSettings < Stripe::RequestParams
-        class EndBehavior < Stripe::RequestParams
+      class TrialSettings < ::Stripe::RequestParams
+        class EndBehavior < ::Stripe::RequestParams
           # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
           attr_accessor :prorate_up_front
 
@@ -575,10 +575,10 @@ module Stripe
       end
     end
 
-    class LineItem < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+    class LineItem < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -619,8 +619,8 @@ module Stripe
         end
       end
 
-      class PriceData < Stripe::RequestParams
-        class Recurring < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -690,10 +690,10 @@ module Stripe
       end
     end
 
-    class SubscriptionData < Stripe::RequestParams
-      class BillOnAcceptance < Stripe::RequestParams
-        class BillFrom < Stripe::RequestParams
-          class LineStartsAt < Stripe::RequestParams
+    class SubscriptionData < ::Stripe::RequestParams
+      class BillOnAcceptance < ::Stripe::RequestParams
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             attr_accessor :id
             # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
@@ -718,8 +718,8 @@ module Stripe
           end
         end
 
-        class BillUntil < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -731,7 +731,7 @@ module Stripe
             end
           end
 
-          class LineEndsAt < Stripe::RequestParams
+          class LineEndsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             attr_accessor :id
             # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
@@ -769,7 +769,7 @@ module Stripe
         end
       end
 
-      class Prebilling < Stripe::RequestParams
+      class Prebilling < ::Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         attr_accessor :iterations
 
@@ -829,8 +829,8 @@ module Stripe
       end
     end
 
-    class SubscriptionDataOverride < Stripe::RequestParams
-      class AppliesTo < Stripe::RequestParams
+    class SubscriptionDataOverride < ::Stripe::RequestParams
+      class AppliesTo < ::Stripe::RequestParams
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         attr_accessor :new_reference
         # The ID of the schedule the line applies to.
@@ -845,9 +845,9 @@ module Stripe
         end
       end
 
-      class BillOnAcceptance < Stripe::RequestParams
-        class BillFrom < Stripe::RequestParams
-          class LineStartsAt < Stripe::RequestParams
+      class BillOnAcceptance < ::Stripe::RequestParams
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             attr_accessor :id
             # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
@@ -872,8 +872,8 @@ module Stripe
           end
         end
 
-        class BillUntil < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -885,7 +885,7 @@ module Stripe
             end
           end
 
-          class LineEndsAt < Stripe::RequestParams
+          class LineEndsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             attr_accessor :id
             # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
@@ -962,7 +962,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
       attr_accessor :amount
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.

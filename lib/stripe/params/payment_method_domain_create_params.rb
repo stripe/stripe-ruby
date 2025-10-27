@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentMethodDomainCreateParams < Stripe::RequestParams
+  class PaymentMethodDomainCreateParams < ::Stripe::RequestParams
     # The domain name that this payment method domain object represents.
     attr_accessor :domain_name
     # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.

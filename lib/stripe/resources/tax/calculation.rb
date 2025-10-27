@@ -14,8 +14,8 @@ module Stripe
         "tax.calculation"
       end
 
-      class CustomerDetails < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class CustomerDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -38,7 +38,7 @@ module Stripe
           end
         end
 
-        class TaxId < Stripe::StripeObject
+        class TaxId < ::Stripe::StripeObject
           # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
           attr_reader :type
           # The value of the tax ID.
@@ -72,8 +72,8 @@ module Stripe
         end
       end
 
-      class ShipFromDetails < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class ShipFromDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -107,9 +107,9 @@ module Stripe
         end
       end
 
-      class ShippingCost < Stripe::StripeObject
-        class TaxBreakdown < Stripe::StripeObject
-          class Jurisdiction < Stripe::StripeObject
+      class ShippingCost < ::Stripe::StripeObject
+        class TaxBreakdown < ::Stripe::StripeObject
+          class Jurisdiction < ::Stripe::StripeObject
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
             # A human-readable name for the jurisdiction imposing the tax.
@@ -128,7 +128,7 @@ module Stripe
             end
           end
 
-          class TaxRateDetails < Stripe::StripeObject
+          class TaxRateDetails < ::Stripe::StripeObject
             # A localized display name for tax type, intended to be human-readable. For example, "Local Sales and Use Tax", "Value-added tax (VAT)", or "Umsatzsteuer (USt.)".
             attr_reader :display_name
             # The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
@@ -187,9 +187,9 @@ module Stripe
         end
       end
 
-      class TaxBreakdown < Stripe::StripeObject
-        class TaxRateDetails < Stripe::StripeObject
-          class FlatAmount < Stripe::StripeObject
+      class TaxBreakdown < ::Stripe::StripeObject
+        class TaxRateDetails < ::Stripe::StripeObject
+          class FlatAmount < ::Stripe::StripeObject
             # Amount of the tax when the `rate_type` is `flat_amount`. This positive integer represents how much to charge in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
             attr_reader :amount
             # Three-letter ISO currency code, in lowercase.

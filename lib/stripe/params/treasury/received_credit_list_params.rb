@@ -3,8 +3,8 @@
 
 module Stripe
   module Treasury
-    class ReceivedCreditListParams < Stripe::RequestParams
-      class LinkedFlows < Stripe::RequestParams
+    class ReceivedCreditListParams < ::Stripe::RequestParams
+      class LinkedFlows < ::Stripe::RequestParams
         # The source flow type.
         attr_accessor :source_flow_type
 

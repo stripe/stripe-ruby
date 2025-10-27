@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentIntentIncrementAuthorizationParams < Stripe::RequestParams
-    class AmountDetails < Stripe::RequestParams
-      class LineItem < Stripe::RequestParams
-        class PaymentMethodOptions < Stripe::RequestParams
-          class Card < Stripe::RequestParams
+  class PaymentIntentIncrementAuthorizationParams < ::Stripe::RequestParams
+    class AmountDetails < ::Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
             attr_accessor :commodity_code
 
@@ -15,7 +15,7 @@ module Stripe
             end
           end
 
-          class CardPresent < Stripe::RequestParams
+          class CardPresent < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
             attr_accessor :commodity_code
 
@@ -24,22 +24,30 @@ module Stripe
             end
           end
 
-          class Klarna < Stripe::RequestParams
+          class Klarna < ::Stripe::RequestParams
             # URL to an image for the product. Max length, 4096 characters.
             attr_accessor :image_url
             # URL to the product page. Max length, 4096 characters.
             attr_accessor :product_url
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            attr_accessor :reference
             # Reference for the subscription this line item is for.
             attr_accessor :subscription_reference
 
-            def initialize(image_url: nil, product_url: nil, subscription_reference: nil)
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            )
               @image_url = image_url
               @product_url = product_url
+              @reference = reference
               @subscription_reference = subscription_reference
             end
           end
 
-          class Paypal < Stripe::RequestParams
+          class Paypal < ::Stripe::RequestParams
             # Type of the line item.
             attr_accessor :category
             # Description of the line item.
@@ -70,7 +78,7 @@ module Stripe
           end
         end
 
-        class Tax < Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The total tax on an item. Non-negative integer.
           attr_accessor :total_tax_amount
 
@@ -116,7 +124,7 @@ module Stripe
         end
       end
 
-      class Shipping < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
         # Portion of the amount that is for shipping.
         attr_accessor :amount
         # The postal code that represents the shipping source.
@@ -131,7 +139,7 @@ module Stripe
         end
       end
 
-      class Tax < Stripe::RequestParams
+      class Tax < ::Stripe::RequestParams
         # Total portion of the amount that is for tax.
         attr_accessor :total_tax_amount
 
@@ -156,9 +164,9 @@ module Stripe
       end
     end
 
-    class Hooks < Stripe::RequestParams
-      class Inputs < Stripe::RequestParams
-        class Tax < Stripe::RequestParams
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
           attr_accessor :calculation
 
@@ -181,7 +189,7 @@ module Stripe
       end
     end
 
-    class PaymentDetails < Stripe::RequestParams
+    class PaymentDetails < ::Stripe::RequestParams
       # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
       attr_accessor :customer_reference
       # A unique value assigned by the business to identify the transaction.
@@ -193,8 +201,8 @@ module Stripe
       end
     end
 
-    class PaymentMethodOptions < Stripe::RequestParams
-      class Card < Stripe::RequestParams
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
         # Request partial authorization on this PaymentIntent.
         attr_accessor :request_partial_authorization
 
@@ -210,7 +218,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       attr_accessor :amount
 

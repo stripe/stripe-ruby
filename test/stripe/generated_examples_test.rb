@@ -8026,17 +8026,14 @@ module Stripe
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links"
     end
     should "Test v2 core event get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=object_id"
-      ).to_return(
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events").to_return(
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.event","type":"type","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      events = client.v2.core.events.list({ object_id: "object_id" })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=object_id"
+      events = client.v2.core.events.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events"
     end
     should "Test v2 core event get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123").to_return(
@@ -8145,6 +8142,16 @@ module Stripe
       event = client.v2.core.event_destinations.ping("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
     end
+    should "Test v2 core vault gb bank account get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts").to_return(
+        body: '{"data":[{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      gb_bank_accounts = client.v2.core.vault.gb_bank_accounts.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts"
+    end
     should "Test v2 core vault gb bank account post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts").to_return(
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
@@ -8158,7 +8165,7 @@ module Stripe
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts"
     end
-    should "Test v2 core vault gb bank account get (service)" do
+    should "Test v2 core vault gb bank account get 2 (service)" do
       stub_request(
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123"
@@ -8210,9 +8217,19 @@ module Stripe
       gb_bank_account = client.v2.core.vault.gb_bank_accounts.initiate_confirmation_of_payee("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
     end
+    should "Test v2 core vault us bank account get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
+        body: '{"data":[{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","verification":{"status":"verification_failed"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      us_bank_accounts = client.v2.core.vault.us_bank_accounts.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
+    end
     should "Test v2 core vault us bank account post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","livemode":true}',
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","verification":{"status":"verification_failed"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8222,12 +8239,12 @@ module Stripe
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
     end
-    should "Test v2 core vault us bank account get (service)" do
+    should "Test v2 core vault us bank account get 2 (service)" do
       stub_request(
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
       ).to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","livemode":true}',
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","verification":{"status":"verification_failed"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8240,7 +8257,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
       ).to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","livemode":true}',
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","verification":{"status":"verification_failed"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8253,13 +8270,39 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
       ).to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","livemode":true}',
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","verification":{"status":"verification_failed"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       us_bank_account = client.v2.core.vault.us_bank_accounts.archive("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
+    end
+    should "Test v2 core vault us bank account post 4 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits"
+      ).to_return(
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","verification":{"status":"verification_failed"},"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      us_bank_account = client.v2.core.vault.us_bank_accounts.confirm_microdeposits("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits"
+    end
+    should "Test v2 core vault us bank account post 5 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/send_microdeposits"
+      ).to_return(
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","verification":{"status":"verification_failed"},"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      us_bank_account = client.v2.core.vault.us_bank_accounts.send_microdeposits("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/send_microdeposits"
     end
     should "Test v2 money management adjustment get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments").to_return(
@@ -8324,6 +8367,19 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
     end
     should "Test v2 money management financial account post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
+      ).to_return(
+        body: '{"balance":{"available":{"key":{"currency":"USD","value":35}},"inbound_pending":{"key":{"currency":"USD","value":11}},"outbound_pending":{"key":{"currency":"USD","value":60}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      financial_account = client.v2.money_management.financial_accounts.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
+    end
+    should "Test v2 money management financial account post 3 (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123/close"
@@ -9002,7 +9058,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts"
       ).to_return(
-        body: '{"error":{"type":"feature_not_enabled","code":"recipient_feature_not_active"}}',
+        body: '{"error":{"type":"feature_not_enabled","code":"outbound_flow_from_closed_financial_account_unsupported"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")

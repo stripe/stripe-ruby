@@ -10,9 +10,9 @@ module Stripe
         "billing.credit_balance_summary"
       end
 
-      class Balance < Stripe::StripeObject
-        class AvailableBalance < Stripe::StripeObject
-          class Monetary < Stripe::StripeObject
+      class Balance < ::Stripe::StripeObject
+        class AvailableBalance < ::Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.
@@ -40,8 +40,8 @@ module Stripe
           end
         end
 
-        class LedgerBalance < Stripe::StripeObject
-          class Monetary < Stripe::StripeObject
+        class LedgerBalance < ::Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.

@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PriceListParams < Stripe::RequestParams
-    class Created < Stripe::RequestParams
+  class PriceListParams < ::Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)
@@ -21,7 +21,7 @@ module Stripe
       end
     end
 
-    class Recurring < Stripe::RequestParams
+    class Recurring < ::Stripe::RequestParams
       # Filter by billing frequency. Either `day`, `week`, `month` or `year`.
       attr_accessor :interval
       # Filter by the price's meter.

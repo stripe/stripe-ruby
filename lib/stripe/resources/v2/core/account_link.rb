@@ -11,9 +11,9 @@ module Stripe
           "v2.core.account_link"
         end
 
-        class UseCase < Stripe::StripeObject
-          class AccountOnboarding < Stripe::StripeObject
-            class CollectionOptions < Stripe::StripeObject
+        class UseCase < ::Stripe::StripeObject
+          class AccountOnboarding < ::Stripe::StripeObject
+            class CollectionOptions < ::Stripe::StripeObject
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               attr_reader :fields
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
@@ -45,8 +45,8 @@ module Stripe
             end
           end
 
-          class AccountUpdate < Stripe::StripeObject
-            class CollectionOptions < Stripe::StripeObject
+          class AccountUpdate < ::Stripe::StripeObject
+            class CollectionOptions < ::Stripe::StripeObject
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               attr_reader :fields
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.

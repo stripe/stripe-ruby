@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAddressListParams < Stripe::RequestParams
+      class FinancialAddressListParams < ::Stripe::RequestParams
         # The ID of the FinancialAccount for which FinancialAddresses are to be returned.
         sig { returns(T.nilable(String)) }
         def financial_account; end

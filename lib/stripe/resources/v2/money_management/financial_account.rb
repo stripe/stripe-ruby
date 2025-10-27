@@ -11,7 +11,7 @@ module Stripe
           "v2.money_management.financial_account"
         end
 
-        class Balance < Stripe::StripeObject
+        class Balance < ::Stripe::StripeObject
           # Balance that can be used for money movement.
           attr_reader :available
           # Balance of inbound funds that will later transition to the `available` balance.
@@ -28,7 +28,7 @@ module Stripe
           end
         end
 
-        class Other < Stripe::StripeObject
+        class Other < ::Stripe::StripeObject
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           attr_reader :type
 
@@ -41,9 +41,9 @@ module Stripe
           end
         end
 
-        class StatusDetails < Stripe::StripeObject
-          class Closed < Stripe::StripeObject
-            class ForwardingSettings < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Closed < ::Stripe::StripeObject
+            class ForwardingSettings < ::Stripe::StripeObject
               # The address to send forwarded payments to.
               attr_reader :payment_method
               # The address to send forwarded payouts to.
@@ -82,7 +82,7 @@ module Stripe
           end
         end
 
-        class Storage < Stripe::StripeObject
+        class Storage < ::Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
           attr_reader :holds_currencies
 

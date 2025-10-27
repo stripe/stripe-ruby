@@ -3,8 +3,8 @@
 
 module Stripe
   module Terminal
-    class ConfigurationCreateParams < Stripe::RequestParams
-      class BbposWisepad3 < Stripe::RequestParams
+    class ConfigurationCreateParams < ::Stripe::RequestParams
+      class BbposWisepad3 < ::Stripe::RequestParams
         # A File ID representing an image you would like displayed on the reader.
         attr_accessor :splashscreen
 
@@ -13,7 +13,7 @@ module Stripe
         end
       end
 
-      class BbposWiseposE < Stripe::RequestParams
+      class BbposWiseposE < ::Stripe::RequestParams
         # A File ID representing an image to display on the reader
         attr_accessor :splashscreen
 
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class Offline < Stripe::RequestParams
+      class Offline < ::Stripe::RequestParams
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         attr_accessor :enabled
 
@@ -31,7 +31,7 @@ module Stripe
         end
       end
 
-      class ReaderSecurity < Stripe::RequestParams
+      class ReaderSecurity < ::Stripe::RequestParams
         # Passcode used to access a reader's admin menu.
         attr_accessor :admin_menu_passcode
 
@@ -40,7 +40,7 @@ module Stripe
         end
       end
 
-      class RebootWindow < Stripe::RequestParams
+      class RebootWindow < ::Stripe::RequestParams
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         attr_accessor :end_hour
         # Integer between 0 to 23 that represents the start hour of the reboot time window.
@@ -52,7 +52,7 @@ module Stripe
         end
       end
 
-      class StripeS700 < Stripe::RequestParams
+      class StripeS700 < ::Stripe::RequestParams
         # A File ID representing an image you would like displayed on the reader.
         attr_accessor :splashscreen
 
@@ -61,8 +61,8 @@ module Stripe
         end
       end
 
-      class Tipping < Stripe::RequestParams
-        class Aed < Stripe::RequestParams
+      class Tipping < ::Stripe::RequestParams
+        class Aed < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -77,7 +77,7 @@ module Stripe
           end
         end
 
-        class Aud < Stripe::RequestParams
+        class Aud < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -92,7 +92,7 @@ module Stripe
           end
         end
 
-        class Bgn < Stripe::RequestParams
+        class Bgn < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -107,7 +107,7 @@ module Stripe
           end
         end
 
-        class Cad < Stripe::RequestParams
+        class Cad < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -122,7 +122,7 @@ module Stripe
           end
         end
 
-        class Chf < Stripe::RequestParams
+        class Chf < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -137,7 +137,7 @@ module Stripe
           end
         end
 
-        class Czk < Stripe::RequestParams
+        class Czk < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -152,7 +152,7 @@ module Stripe
           end
         end
 
-        class Dkk < Stripe::RequestParams
+        class Dkk < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -167,7 +167,7 @@ module Stripe
           end
         end
 
-        class Eur < Stripe::RequestParams
+        class Eur < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -182,7 +182,7 @@ module Stripe
           end
         end
 
-        class Gbp < Stripe::RequestParams
+        class Gbp < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -197,7 +197,7 @@ module Stripe
           end
         end
 
-        class Hkd < Stripe::RequestParams
+        class Gip < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -212,7 +212,7 @@ module Stripe
           end
         end
 
-        class Huf < Stripe::RequestParams
+        class Hkd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -227,7 +227,7 @@ module Stripe
           end
         end
 
-        class Jpy < Stripe::RequestParams
+        class Huf < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -242,7 +242,7 @@ module Stripe
           end
         end
 
-        class Mxn < Stripe::RequestParams
+        class Jpy < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -257,7 +257,7 @@ module Stripe
           end
         end
 
-        class Myr < Stripe::RequestParams
+        class Mxn < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -272,7 +272,7 @@ module Stripe
           end
         end
 
-        class Nok < Stripe::RequestParams
+        class Myr < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -287,7 +287,7 @@ module Stripe
           end
         end
 
-        class Nzd < Stripe::RequestParams
+        class Nok < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -302,7 +302,7 @@ module Stripe
           end
         end
 
-        class Pln < Stripe::RequestParams
+        class Nzd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -317,7 +317,7 @@ module Stripe
           end
         end
 
-        class Ron < Stripe::RequestParams
+        class Pln < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -332,7 +332,7 @@ module Stripe
           end
         end
 
-        class Sek < Stripe::RequestParams
+        class Ron < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -347,7 +347,7 @@ module Stripe
           end
         end
 
-        class Sgd < Stripe::RequestParams
+        class Sek < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -362,7 +362,22 @@ module Stripe
           end
         end
 
-        class Usd < Stripe::RequestParams
+        class Sgd < ::Stripe::RequestParams
+          # Fixed amounts displayed when collecting a tip
+          attr_accessor :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_accessor :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_accessor :smart_tip_threshold
+
+          def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+            @fixed_amounts = fixed_amounts
+            @percentages = percentages
+            @smart_tip_threshold = smart_tip_threshold
+          end
+        end
+
+        class Usd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -394,6 +409,8 @@ module Stripe
         attr_accessor :eur
         # Tipping configuration for GBP
         attr_accessor :gbp
+        # Tipping configuration for GIP
+        attr_accessor :gip
         # Tipping configuration for HKD
         attr_accessor :hkd
         # Tipping configuration for HUF
@@ -429,6 +446,7 @@ module Stripe
           dkk: nil,
           eur: nil,
           gbp: nil,
+          gip: nil,
           hkd: nil,
           huf: nil,
           jpy: nil,
@@ -451,6 +469,7 @@ module Stripe
           @dkk = dkk
           @eur = eur
           @gbp = gbp
+          @gip = gip
           @hkd = hkd
           @huf = huf
           @jpy = jpy
@@ -466,7 +485,7 @@ module Stripe
         end
       end
 
-      class VerifoneP400 < Stripe::RequestParams
+      class VerifoneP400 < ::Stripe::RequestParams
         # A File ID representing an image you would like displayed on the reader.
         attr_accessor :splashscreen
 
@@ -475,8 +494,8 @@ module Stripe
         end
       end
 
-      class Wifi < Stripe::RequestParams
-        class EnterpriseEapPeap < Stripe::RequestParams
+      class Wifi < ::Stripe::RequestParams
+        class EnterpriseEapPeap < ::Stripe::RequestParams
           # A File ID representing a PEM file containing the server certificate
           attr_accessor :ca_certificate_file
           # Password for connecting to the WiFi network
@@ -494,7 +513,7 @@ module Stripe
           end
         end
 
-        class EnterpriseEapTls < Stripe::RequestParams
+        class EnterpriseEapTls < ::Stripe::RequestParams
           # A File ID representing a PEM file containing the server certificate
           attr_accessor :ca_certificate_file
           # A File ID representing a PEM file containing the client certificate
@@ -521,7 +540,7 @@ module Stripe
           end
         end
 
-        class PersonalPsk < Stripe::RequestParams
+        class PersonalPsk < ::Stripe::RequestParams
           # Password for connecting to the WiFi network
           attr_accessor :password
           # Name of the WiFi network

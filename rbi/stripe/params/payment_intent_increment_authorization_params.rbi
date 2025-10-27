@@ -3,11 +3,11 @@
 
 # typed: true
 module Stripe
-  class PaymentIntentIncrementAuthorizationParams < Stripe::RequestParams
-    class AmountDetails < Stripe::RequestParams
-      class LineItem < Stripe::RequestParams
-        class PaymentMethodOptions < Stripe::RequestParams
-          class Card < Stripe::RequestParams
+  class PaymentIntentIncrementAuthorizationParams < ::Stripe::RequestParams
+    class AmountDetails < ::Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
@@ -16,7 +16,7 @@ module Stripe
             sig { params(commodity_code: T.nilable(String)).void }
             def initialize(commodity_code: nil); end
           end
-          class CardPresent < Stripe::RequestParams
+          class CardPresent < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
@@ -25,7 +25,7 @@ module Stripe
             sig { params(commodity_code: T.nilable(String)).void }
             def initialize(commodity_code: nil); end
           end
-          class Klarna < Stripe::RequestParams
+          class Klarna < ::Stripe::RequestParams
             # URL to an image for the product. Max length, 4096 characters.
             sig { returns(T.nilable(String)) }
             def image_url; end
@@ -36,17 +36,27 @@ module Stripe
             def product_url; end
             sig { params(_product_url: T.nilable(String)).returns(T.nilable(String)) }
             def product_url=(_product_url); end
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def reference=(_reference); end
             # Reference for the subscription this line item is for.
             sig { returns(T.nilable(String)) }
             def subscription_reference; end
             sig { params(_subscription_reference: T.nilable(String)).returns(T.nilable(String)) }
             def subscription_reference=(_subscription_reference); end
             sig {
-              params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
+              params(image_url: T.nilable(String), product_url: T.nilable(String), reference: T.nilable(String), subscription_reference: T.nilable(String)).void
              }
-            def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            ); end
           end
-          class Paypal < Stripe::RequestParams
+          class Paypal < ::Stripe::RequestParams
             # Type of the line item.
             sig { returns(T.nilable(String)) }
             def category; end
@@ -108,7 +118,7 @@ module Stripe
            }
           def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
         end
-        class Tax < Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The total tax on an item. Non-negative integer.
           sig { returns(Integer) }
           def total_tax_amount; end
@@ -179,7 +189,7 @@ module Stripe
           unit_of_measure: nil
         ); end
       end
-      class Shipping < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
         # Portion of the amount that is for shipping.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def amount; end
@@ -202,7 +212,7 @@ module Stripe
          }
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
       end
-      class Tax < Stripe::RequestParams
+      class Tax < ::Stripe::RequestParams
         # Total portion of the amount that is for tax.
         sig { returns(Integer) }
         def total_tax_amount; end
@@ -250,9 +260,9 @@ module Stripe
        }
       def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
     end
-    class Hooks < Stripe::RequestParams
-      class Inputs < Stripe::RequestParams
-        class Tax < Stripe::RequestParams
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
           sig { returns(String) }
           def calculation; end
@@ -285,7 +295,7 @@ module Stripe
        }
       def initialize(inputs: nil); end
     end
-    class PaymentDetails < Stripe::RequestParams
+    class PaymentDetails < ::Stripe::RequestParams
       # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
       sig { returns(T.nilable(String)) }
       def customer_reference; end
@@ -299,8 +309,8 @@ module Stripe
       sig { params(customer_reference: T.nilable(String), order_reference: T.nilable(String)).void }
       def initialize(customer_reference: nil, order_reference: nil); end
     end
-    class PaymentMethodOptions < Stripe::RequestParams
-      class Card < Stripe::RequestParams
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
         # Request partial authorization on this PaymentIntent.
         sig { returns(T.nilable(String)) }
         def request_partial_authorization; end
@@ -323,7 +333,7 @@ module Stripe
        }
       def initialize(card: nil); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       sig { returns(T.nilable(Integer)) }
       def amount; end

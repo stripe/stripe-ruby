@@ -3,8 +3,8 @@
 
 module Stripe
   module Privacy
-    class RedactionJobCreateParams < Stripe::RequestParams
-      class Objects < Stripe::RequestParams
+    class RedactionJobCreateParams < ::Stripe::RequestParams
+      class Objects < ::Stripe::RequestParams
         # Attribute for param field charges
         attr_accessor :charges
         # Attribute for param field checkout_sessions

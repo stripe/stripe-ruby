@@ -4,9 +4,9 @@
 module Stripe
   module TestHelpers
     module Treasury
-      class OutboundTransferUpdateParams < Stripe::RequestParams
-        class TrackingDetails < Stripe::RequestParams
-          class Ach < Stripe::RequestParams
+      class OutboundTransferUpdateParams < ::Stripe::RequestParams
+        class TrackingDetails < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
             # ACH trace ID for funds sent over the `ach` network.
             attr_accessor :trace_id
 
@@ -15,7 +15,7 @@ module Stripe
             end
           end
 
-          class UsDomesticWire < Stripe::RequestParams
+          class UsDomesticWire < ::Stripe::RequestParams
             # CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
             attr_accessor :chips
             # IMAD for funds sent over the `us_domestic_wire` network.

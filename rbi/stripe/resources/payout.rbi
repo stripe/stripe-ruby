@@ -12,7 +12,7 @@ module Stripe
   #
   # Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
   class Payout < APIResource
-    class TraceId < Stripe::StripeObject
+    class TraceId < ::Stripe::StripeObject
       # Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`.
       sig { returns(String) }
       def status; end
@@ -30,7 +30,7 @@ module Stripe
     sig { returns(Integer) }
     def amount; end
     # The application fee (if any) for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
-    sig { returns(T.nilable(T.any(String, Stripe::ApplicationFee))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::ApplicationFee))) }
     def application_fee; end
     # The amount of the application fee (if any) requested for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
     sig { returns(T.nilable(Integer)) }
@@ -42,7 +42,7 @@ module Stripe
     sig { returns(T::Boolean) }
     def automatic; end
     # ID of the balance transaction that describes the impact of this payout on your account balance.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -54,10 +54,10 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def description; end
     # ID of the bank account or card the payout is sent to.
-    sig { returns(T.nilable(T.any(String, T.any(Stripe::BankAccount, Stripe::Card)))) }
+    sig { returns(T.nilable(T.any(String, T.any(::Stripe::BankAccount, ::Stripe::Card)))) }
     def destination; end
     # If the payout fails or cancels, this is the ID of the balance transaction that reverses the initial balance transaction and returns the funds from the failed payout back in your balance.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def failure_balance_transaction; end
     # Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://stripe.com/docs/api#payout_failures).
     sig { returns(T.nilable(String)) }
@@ -81,7 +81,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # If the payout reverses another, this is the ID of the original payout.
-    sig { returns(T.nilable(T.any(String, Stripe::Payout))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Payout))) }
     def original_payout; end
     # ID of the v2 FinancialAccount the funds are sent to.
     sig { returns(T.nilable(String)) }
@@ -90,7 +90,7 @@ module Stripe
     sig { returns(String) }
     def reconciliation_status; end
     # If the payout reverses, this is the ID of the payout that reverses this payout.
-    sig { returns(T.nilable(T.any(String, Stripe::Payout))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Payout))) }
     def reversed_by; end
     # The source balance this payout came from, which can be one of the following: `card`, `fpx`, or `bank_account`.
     sig { returns(String) }
@@ -109,13 +109,13 @@ module Stripe
     def type; end
     # You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
     sig {
-      params(params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
+      params(params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
     def cancel(params = {}, opts = {}); end
 
     # You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
+      params(payout: String, params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
     def self.cancel(payout, params = {}, opts = {}); end
 
@@ -125,35 +125,35 @@ module Stripe
     #
     # If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
     sig {
-      params(params: T.any(::Stripe::PayoutCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
+      params(params: T.any(::Stripe::PayoutCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
     sig {
-      params(params: T.any(::Stripe::PayoutListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PayoutListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
-    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
     #
     # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
     sig {
-      params(params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
+      params(params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
     def reverse(params = {}, opts = {}); end
 
-    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
     #
     # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
+      params(payout: String, params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
     def self.reverse(payout, params = {}, opts = {}); end
 
     # Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
+      params(payout: String, params: T.any(::Stripe::PayoutUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
     def self.update(payout, params = {}, opts = {}); end
   end

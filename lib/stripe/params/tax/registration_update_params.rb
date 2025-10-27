@@ -3,7 +3,7 @@
 
 module Stripe
   module Tax
-    class RegistrationUpdateParams < Stripe::RequestParams
+    class RegistrationUpdateParams < ::Stripe::RequestParams
       # Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
       attr_accessor :active_from
       # Specifies which fields in the response should be expanded.

@@ -7,8 +7,8 @@ module Stripe
     module MoneyManagement
       # A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
       class FinancialAddress < APIResource
-        class Credentials < Stripe::StripeObject
-          class GbBankAccount < Stripe::StripeObject
+        class Credentials < ::Stripe::StripeObject
+          class GbBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transference.
             sig { returns(String) }
             def account_holder_name; end
@@ -29,7 +29,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class SepaBankAccount < Stripe::StripeObject
+          class SepaBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transfers.
             sig { returns(String) }
             def account_holder_name; end
@@ -56,7 +56,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class UsBankAccount < Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
             # The account number of the US Bank Account.
             sig { returns(T.nilable(String)) }
             def account_number; end

@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Issuing
-    class TransactionListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class TransactionListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
         def gt; end

@@ -10,8 +10,8 @@ module Stripe
   # You can also view the information from this API call as [an online
   # guide](https://docs.stripe.com/docs/connect/required-verification-information).
   class CountrySpec < APIResource
-    class VerificationFields < Stripe::StripeObject
-      class Company < Stripe::StripeObject
+    class VerificationFields < ::Stripe::StripeObject
+      class Company < ::Stripe::StripeObject
         # Additional fields which are only required for some users.
         sig { returns(T::Array[String]) }
         def additional; end
@@ -25,7 +25,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Individual < Stripe::StripeObject
+      class Individual < ::Stripe::StripeObject
         # Additional fields which are only required for some users.
         sig { returns(T::Array[String]) }
         def additional; end
@@ -78,7 +78,7 @@ module Stripe
     def verification_fields; end
     # Lists all Country Spec objects available in the API.
     sig {
-      params(params: T.any(::Stripe::CountrySpecListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CountrySpecListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

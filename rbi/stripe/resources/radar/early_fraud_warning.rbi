@@ -13,7 +13,7 @@ module Stripe
       sig { returns(T::Boolean) }
       def actionable; end
       # ID of the charge this early fraud warning is for, optionally expanded.
-      sig { returns(T.any(String, Stripe::Charge)) }
+      sig { returns(T.any(String, ::Stripe::Charge)) }
       def charge; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -31,11 +31,11 @@ module Stripe
       sig { returns(String) }
       def object; end
       # ID of the Payment Intent this early fraud warning is for, optionally expanded.
-      sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
       def payment_intent; end
       # Returns a list of early fraud warnings.
       sig {
-        params(params: T.any(::Stripe::Radar::EarlyFraudWarningListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Radar::EarlyFraudWarningListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

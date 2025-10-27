@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class ProfileRetrieveParams < Stripe::RequestParams; end
+      class ProfileRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

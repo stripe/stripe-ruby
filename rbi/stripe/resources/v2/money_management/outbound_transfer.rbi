@@ -7,7 +7,7 @@ module Stripe
     module MoneyManagement
       # OutboundTransfer represents a single money movement from one FinancialAccount you own to a payout method you also own.
       class OutboundTransfer < APIResource
-        class DeliveryOptions < Stripe::StripeObject
+        class DeliveryOptions < ::Stripe::StripeObject
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
@@ -18,9 +18,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class From < Stripe::StripeObject
+        class From < ::Stripe::StripeObject
           # The monetary amount debited from the sender, only set on responses.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def debited; end
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
@@ -32,8 +32,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusDetails < Stripe::StripeObject
-          class Failed < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             sig { returns(String) }
             def reason; end
@@ -44,7 +44,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Returned < Stripe::StripeObject
+          class Returned < ::Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
             def reason; end
@@ -68,7 +68,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # Timestamp describing when an OutboundTransfer changed status to `canceled`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
@@ -92,9 +92,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class To < Stripe::StripeObject
+        class To < ::Stripe::StripeObject
           # The monetary amount being credited to the destination.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def credited; end
           # The payout method which the OutboundTransfer uses to send payout.
           sig { returns(String) }
@@ -106,7 +106,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TraceId < Stripe::StripeObject
+        class TraceId < ::Stripe::StripeObject
           # Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
           # `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
           # Note that this status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
@@ -124,7 +124,7 @@ module Stripe
           end
         end
         # The "presentment amount" for the OutboundTransfer.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Returns true if the OutboundTransfer can be canceled, and false otherwise.
         sig { returns(T::Boolean) }

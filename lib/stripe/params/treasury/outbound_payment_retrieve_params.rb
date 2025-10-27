@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    class OutboundPaymentRetrieveParams < Stripe::RequestParams
+    class OutboundPaymentRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

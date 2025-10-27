@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class CouponUpdateParams < Stripe::RequestParams
-    class CurrencyOptions < Stripe::RequestParams
+  class CouponUpdateParams < ::Stripe::RequestParams
+    class CurrencyOptions < ::Stripe::RequestParams
       # A positive integer representing the amount to subtract from an invoice total.
       sig { returns(Integer) }
       def amount_off; end

@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Tax
-    class TransactionCreateFromCalculationParams < Stripe::RequestParams
+    class TransactionCreateFromCalculationParams < ::Stripe::RequestParams
       # Tax Calculation ID to be used as input when creating the transaction.
       sig { returns(String) }
       def calculation; end

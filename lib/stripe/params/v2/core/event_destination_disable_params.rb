@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      class EventDestinationDisableParams < Stripe::RequestParams; end
+      class EventDestinationDisableParams < ::Stripe::RequestParams; end
     end
   end
 end

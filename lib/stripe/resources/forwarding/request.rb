@@ -28,7 +28,7 @@ module Stripe
         "forwarding.request"
       end
 
-      class RequestContext < Stripe::StripeObject
+      class RequestContext < ::Stripe::StripeObject
         # The time it took in milliseconds for the destination endpoint to respond.
         attr_reader :destination_duration
         # The IP address of the destination.
@@ -43,8 +43,8 @@ module Stripe
         end
       end
 
-      class RequestDetails < Stripe::StripeObject
-        class Header < Stripe::StripeObject
+      class RequestDetails < ::Stripe::StripeObject
+        class Header < ::Stripe::StripeObject
           # The header name.
           attr_reader :name
           # The header value.
@@ -74,8 +74,8 @@ module Stripe
         end
       end
 
-      class ResponseDetails < Stripe::StripeObject
-        class Header < Stripe::StripeObject
+      class ResponseDetails < ::Stripe::StripeObject
+        class Header < ::Stripe::StripeObject
           # The header name.
           attr_reader :name
           # The header value.

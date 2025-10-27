@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Entitlements
-    class ActiveEntitlementListParams < Stripe::RequestParams
+    class ActiveEntitlementListParams < ::Stripe::RequestParams
       # The ID of the customer.
       sig { returns(String) }
       def customer; end

@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module BillingPortal
-    class ConfigurationUpdateParams < Stripe::RequestParams
-      class BusinessProfile < Stripe::RequestParams
+    class ConfigurationUpdateParams < ::Stripe::RequestParams
+      class BusinessProfile < ::Stripe::RequestParams
         # The messaging shown to customers in the portal.
         sig { returns(T.nilable(String)) }
         def headline; end
@@ -26,8 +26,8 @@ module Stripe
          }
         def initialize(headline: nil, privacy_policy_url: nil, terms_of_service_url: nil); end
       end
-      class Features < Stripe::RequestParams
-        class CustomerUpdate < Stripe::RequestParams
+      class Features < ::Stripe::RequestParams
+        class CustomerUpdate < ::Stripe::RequestParams
           # The types of customer updates that are supported. When empty, customers are not updateable.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           def allowed_updates; end
@@ -45,7 +45,7 @@ module Stripe
            }
           def initialize(allowed_updates: nil, enabled: nil); end
         end
-        class InvoiceHistory < Stripe::RequestParams
+        class InvoiceHistory < ::Stripe::RequestParams
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
@@ -54,17 +54,24 @@ module Stripe
           sig { params(enabled: T::Boolean).void }
           def initialize(enabled: nil); end
         end
-        class PaymentMethodUpdate < Stripe::RequestParams
+        class PaymentMethodUpdate < ::Stripe::RequestParams
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
           sig { params(_enabled: T::Boolean).returns(T::Boolean) }
           def enabled=(_enabled); end
-          sig { params(enabled: T::Boolean).void }
-          def initialize(enabled: nil); end
+          # The [Payment Method Configuration](/api/payment_method_configurations) to use for this portal session. When specified, customers will be able to update their payment method to one of the options specified by the payment method configuration. If not set or set to an empty string, the default payment method configuration is used.
+          sig { returns(T.nilable(String)) }
+          def payment_method_configuration; end
+          sig {
+            params(_payment_method_configuration: T.nilable(String)).returns(T.nilable(String))
+           }
+          def payment_method_configuration=(_payment_method_configuration); end
+          sig { params(enabled: T::Boolean, payment_method_configuration: T.nilable(String)).void }
+          def initialize(enabled: nil, payment_method_configuration: nil); end
         end
-        class SubscriptionCancel < Stripe::RequestParams
-          class CancellationReason < Stripe::RequestParams
+        class SubscriptionCancel < ::Stripe::RequestParams
+          class CancellationReason < ::Stripe::RequestParams
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             def enabled; end
@@ -116,9 +123,9 @@ module Stripe
             proration_behavior: nil
           ); end
         end
-        class SubscriptionUpdate < Stripe::RequestParams
-          class Product < Stripe::RequestParams
-            class AdjustableQuantity < Stripe::RequestParams
+        class SubscriptionUpdate < ::Stripe::RequestParams
+          class Product < ::Stripe::RequestParams
+            class AdjustableQuantity < ::Stripe::RequestParams
               # Set to true if the quantity can be adjusted to any non-negative integer.
               sig { returns(T::Boolean) }
               def enabled; end
@@ -163,8 +170,8 @@ module Stripe
              }
             def initialize(adjustable_quantity: nil, prices: nil, product: nil); end
           end
-          class ScheduleAtPeriodEnd < Stripe::RequestParams
-            class Condition < Stripe::RequestParams
+          class ScheduleAtPeriodEnd < ::Stripe::RequestParams
+            class Condition < ::Stripe::RequestParams
               # The type of condition.
               sig { returns(String) }
               def type; end
@@ -295,7 +302,7 @@ module Stripe
           subscription_update: nil
         ); end
       end
-      class LoginPage < Stripe::RequestParams
+      class LoginPage < ::Stripe::RequestParams
         # Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
         #
         # Set to `false` to deactivate the `login_page.url`.

@@ -18,9 +18,9 @@ module Stripe
         "tax.registration"
       end
 
-      class CountryOptions < Stripe::StripeObject
-        class Ae < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+      class CountryOptions < ::Stripe::StripeObject
+        class Ae < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -46,7 +46,7 @@ module Stripe
           end
         end
 
-        class Al < Stripe::StripeObject
+        class Al < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -59,7 +59,7 @@ module Stripe
           end
         end
 
-        class Am < Stripe::StripeObject
+        class Am < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -72,7 +72,7 @@ module Stripe
           end
         end
 
-        class Ao < Stripe::StripeObject
+        class Ao < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -85,8 +85,8 @@ module Stripe
           end
         end
 
-        class At < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class At < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -112,8 +112,8 @@ module Stripe
           end
         end
 
-        class Au < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Au < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -139,7 +139,7 @@ module Stripe
           end
         end
 
-        class Aw < Stripe::StripeObject
+        class Aw < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -152,7 +152,7 @@ module Stripe
           end
         end
 
-        class Az < Stripe::StripeObject
+        class Az < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -165,7 +165,7 @@ module Stripe
           end
         end
 
-        class Ba < Stripe::StripeObject
+        class Ba < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -178,7 +178,7 @@ module Stripe
           end
         end
 
-        class Bb < Stripe::StripeObject
+        class Bb < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -191,7 +191,7 @@ module Stripe
           end
         end
 
-        class Bd < Stripe::StripeObject
+        class Bd < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -204,8 +204,8 @@ module Stripe
           end
         end
 
-        class Be < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Be < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -231,7 +231,7 @@ module Stripe
           end
         end
 
-        class Bf < Stripe::StripeObject
+        class Bf < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -244,8 +244,8 @@ module Stripe
           end
         end
 
-        class Bg < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Bg < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -271,7 +271,7 @@ module Stripe
           end
         end
 
-        class Bh < Stripe::StripeObject
+        class Bh < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -284,7 +284,7 @@ module Stripe
           end
         end
 
-        class Bj < Stripe::StripeObject
+        class Bj < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -297,7 +297,7 @@ module Stripe
           end
         end
 
-        class Bs < Stripe::StripeObject
+        class Bs < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -310,7 +310,7 @@ module Stripe
           end
         end
 
-        class By < Stripe::StripeObject
+        class By < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -323,8 +323,8 @@ module Stripe
           end
         end
 
-        class Ca < Stripe::StripeObject
-          class ProvinceStandard < Stripe::StripeObject
+        class Ca < ::Stripe::StripeObject
+          class ProvinceStandard < ::Stripe::StripeObject
             # Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :province
 
@@ -350,7 +350,7 @@ module Stripe
           end
         end
 
-        class Cd < Stripe::StripeObject
+        class Cd < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -363,8 +363,8 @@ module Stripe
           end
         end
 
-        class Ch < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ch < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -390,7 +390,7 @@ module Stripe
           end
         end
 
-        class Cl < Stripe::StripeObject
+        class Cl < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -403,7 +403,7 @@ module Stripe
           end
         end
 
-        class Cm < Stripe::StripeObject
+        class Cm < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -416,7 +416,7 @@ module Stripe
           end
         end
 
-        class Co < Stripe::StripeObject
+        class Co < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -429,7 +429,7 @@ module Stripe
           end
         end
 
-        class Cr < Stripe::StripeObject
+        class Cr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -442,7 +442,7 @@ module Stripe
           end
         end
 
-        class Cv < Stripe::StripeObject
+        class Cv < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -455,8 +455,8 @@ module Stripe
           end
         end
 
-        class Cy < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Cy < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -482,8 +482,8 @@ module Stripe
           end
         end
 
-        class Cz < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Cz < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -509,8 +509,8 @@ module Stripe
           end
         end
 
-        class De < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class De < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -536,8 +536,8 @@ module Stripe
           end
         end
 
-        class Dk < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Dk < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -563,7 +563,7 @@ module Stripe
           end
         end
 
-        class Ec < Stripe::StripeObject
+        class Ec < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -576,8 +576,8 @@ module Stripe
           end
         end
 
-        class Ee < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ee < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -603,7 +603,7 @@ module Stripe
           end
         end
 
-        class Eg < Stripe::StripeObject
+        class Eg < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -616,8 +616,8 @@ module Stripe
           end
         end
 
-        class Es < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Es < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -643,7 +643,7 @@ module Stripe
           end
         end
 
-        class Et < Stripe::StripeObject
+        class Et < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -656,8 +656,8 @@ module Stripe
           end
         end
 
-        class Fi < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Fi < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -683,8 +683,8 @@ module Stripe
           end
         end
 
-        class Fr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Fr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -710,8 +710,8 @@ module Stripe
           end
         end
 
-        class Gb < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Gb < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -737,7 +737,7 @@ module Stripe
           end
         end
 
-        class Ge < Stripe::StripeObject
+        class Ge < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -750,7 +750,7 @@ module Stripe
           end
         end
 
-        class Gn < Stripe::StripeObject
+        class Gn < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -763,8 +763,8 @@ module Stripe
           end
         end
 
-        class Gr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Gr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -790,8 +790,8 @@ module Stripe
           end
         end
 
-        class Hr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Hr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -817,8 +817,8 @@ module Stripe
           end
         end
 
-        class Hu < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Hu < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -844,7 +844,7 @@ module Stripe
           end
         end
 
-        class Id < Stripe::StripeObject
+        class Id < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -857,8 +857,8 @@ module Stripe
           end
         end
 
-        class Ie < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ie < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -884,7 +884,7 @@ module Stripe
           end
         end
 
-        class In < Stripe::StripeObject
+        class In < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -897,7 +897,7 @@ module Stripe
           end
         end
 
-        class Is < Stripe::StripeObject
+        class Is < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -910,8 +910,8 @@ module Stripe
           end
         end
 
-        class It < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class It < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -937,8 +937,8 @@ module Stripe
           end
         end
 
-        class Jp < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Jp < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -964,7 +964,7 @@ module Stripe
           end
         end
 
-        class Ke < Stripe::StripeObject
+        class Ke < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -977,7 +977,7 @@ module Stripe
           end
         end
 
-        class Kg < Stripe::StripeObject
+        class Kg < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -990,7 +990,7 @@ module Stripe
           end
         end
 
-        class Kh < Stripe::StripeObject
+        class Kh < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1003,7 +1003,7 @@ module Stripe
           end
         end
 
-        class Kr < Stripe::StripeObject
+        class Kr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1016,7 +1016,7 @@ module Stripe
           end
         end
 
-        class Kz < Stripe::StripeObject
+        class Kz < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1029,7 +1029,7 @@ module Stripe
           end
         end
 
-        class La < Stripe::StripeObject
+        class La < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1042,8 +1042,8 @@ module Stripe
           end
         end
 
-        class Lt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1069,8 +1069,8 @@ module Stripe
           end
         end
 
-        class Lu < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lu < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1096,8 +1096,8 @@ module Stripe
           end
         end
 
-        class Lv < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lv < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1123,7 +1123,7 @@ module Stripe
           end
         end
 
-        class Ma < Stripe::StripeObject
+        class Ma < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1136,7 +1136,7 @@ module Stripe
           end
         end
 
-        class Md < Stripe::StripeObject
+        class Md < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1149,7 +1149,7 @@ module Stripe
           end
         end
 
-        class Me < Stripe::StripeObject
+        class Me < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1162,7 +1162,7 @@ module Stripe
           end
         end
 
-        class Mk < Stripe::StripeObject
+        class Mk < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1175,7 +1175,7 @@ module Stripe
           end
         end
 
-        class Mr < Stripe::StripeObject
+        class Mr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1188,8 +1188,8 @@ module Stripe
           end
         end
 
-        class Mt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Mt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1215,7 +1215,7 @@ module Stripe
           end
         end
 
-        class Mx < Stripe::StripeObject
+        class Mx < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1228,7 +1228,7 @@ module Stripe
           end
         end
 
-        class My < Stripe::StripeObject
+        class My < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1241,7 +1241,7 @@ module Stripe
           end
         end
 
-        class Ng < Stripe::StripeObject
+        class Ng < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1254,8 +1254,8 @@ module Stripe
           end
         end
 
-        class Nl < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Nl < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1281,8 +1281,8 @@ module Stripe
           end
         end
 
-        class No < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class No < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1308,7 +1308,7 @@ module Stripe
           end
         end
 
-        class Np < Stripe::StripeObject
+        class Np < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1321,8 +1321,8 @@ module Stripe
           end
         end
 
-        class Nz < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Nz < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1348,7 +1348,7 @@ module Stripe
           end
         end
 
-        class Om < Stripe::StripeObject
+        class Om < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1361,7 +1361,7 @@ module Stripe
           end
         end
 
-        class Pe < Stripe::StripeObject
+        class Pe < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1374,7 +1374,7 @@ module Stripe
           end
         end
 
-        class Ph < Stripe::StripeObject
+        class Ph < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1387,8 +1387,8 @@ module Stripe
           end
         end
 
-        class Pl < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Pl < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1414,8 +1414,8 @@ module Stripe
           end
         end
 
-        class Pt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Pt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1441,8 +1441,8 @@ module Stripe
           end
         end
 
-        class Ro < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ro < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1468,7 +1468,7 @@ module Stripe
           end
         end
 
-        class Rs < Stripe::StripeObject
+        class Rs < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1481,7 +1481,7 @@ module Stripe
           end
         end
 
-        class Ru < Stripe::StripeObject
+        class Ru < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1494,7 +1494,7 @@ module Stripe
           end
         end
 
-        class Sa < Stripe::StripeObject
+        class Sa < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1507,8 +1507,8 @@ module Stripe
           end
         end
 
-        class Se < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Se < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1534,8 +1534,8 @@ module Stripe
           end
         end
 
-        class Sg < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Sg < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1561,8 +1561,8 @@ module Stripe
           end
         end
 
-        class Si < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Si < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1588,8 +1588,8 @@ module Stripe
           end
         end
 
-        class Sk < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Sk < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
 
@@ -1615,7 +1615,7 @@ module Stripe
           end
         end
 
-        class Sn < Stripe::StripeObject
+        class Sn < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1628,7 +1628,7 @@ module Stripe
           end
         end
 
-        class Sr < Stripe::StripeObject
+        class Sr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1641,7 +1641,7 @@ module Stripe
           end
         end
 
-        class Th < Stripe::StripeObject
+        class Th < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1654,7 +1654,7 @@ module Stripe
           end
         end
 
-        class Tj < Stripe::StripeObject
+        class Tj < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1667,7 +1667,7 @@ module Stripe
           end
         end
 
-        class Tr < Stripe::StripeObject
+        class Tr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1680,7 +1680,7 @@ module Stripe
           end
         end
 
-        class Tz < Stripe::StripeObject
+        class Tw < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1693,7 +1693,7 @@ module Stripe
           end
         end
 
-        class Ua < Stripe::StripeObject
+        class Tz < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1706,7 +1706,7 @@ module Stripe
           end
         end
 
-        class Ug < Stripe::StripeObject
+        class Ua < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1719,8 +1719,21 @@ module Stripe
           end
         end
 
-        class Us < Stripe::StripeObject
-          class LocalAmusementTax < Stripe::StripeObject
+        class Ug < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Us < ::Stripe::StripeObject
+          class LocalAmusementTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
             attr_reader :jurisdiction
 
@@ -1733,7 +1746,7 @@ module Stripe
             end
           end
 
-          class LocalLeaseTax < Stripe::StripeObject
+          class LocalLeaseTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
             attr_reader :jurisdiction
 
@@ -1746,8 +1759,8 @@ module Stripe
             end
           end
 
-          class StateSalesTax < Stripe::StripeObject
-            class Election < Stripe::StripeObject
+          class StateSalesTax < ::Stripe::StripeObject
+            class Election < ::Stripe::StripeObject
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
               attr_reader :jurisdiction
               # The type of the election for the state sales tax registration.
@@ -1796,7 +1809,7 @@ module Stripe
           end
         end
 
-        class Uy < Stripe::StripeObject
+        class Uy < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1809,7 +1822,7 @@ module Stripe
           end
         end
 
-        class Uz < Stripe::StripeObject
+        class Uz < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1822,7 +1835,7 @@ module Stripe
           end
         end
 
-        class Vn < Stripe::StripeObject
+        class Vn < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1835,7 +1848,7 @@ module Stripe
           end
         end
 
-        class Za < Stripe::StripeObject
+        class Za < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1848,7 +1861,7 @@ module Stripe
           end
         end
 
-        class Zm < Stripe::StripeObject
+        class Zm < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1861,7 +1874,7 @@ module Stripe
           end
         end
 
-        class Zw < Stripe::StripeObject
+        class Zw < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -2051,6 +2064,8 @@ module Stripe
         attr_reader :tj
         # Attribute for field tr
         attr_reader :tr
+        # Attribute for field tw
+        attr_reader :tw
         # Attribute for field tz
         attr_reader :tz
         # Attribute for field ua
@@ -2163,6 +2178,7 @@ module Stripe
             th: Th,
             tj: Tj,
             tr: Tr,
+            tw: Tw,
             tz: Tz,
             ua: Ua,
             ug: Ug,

@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentLinkCreateParams < Stripe::RequestParams
-    class AfterCompletion < Stripe::RequestParams
-      class HostedConfirmation < Stripe::RequestParams
+  class PaymentLinkCreateParams < ::Stripe::RequestParams
+    class AfterCompletion < ::Stripe::RequestParams
+      class HostedConfirmation < ::Stripe::RequestParams
         # A custom message to display to the customer after the purchase is complete.
         attr_accessor :custom_message
 
@@ -13,7 +13,7 @@ module Stripe
         end
       end
 
-      class Redirect < Stripe::RequestParams
+      class Redirect < ::Stripe::RequestParams
         # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
         attr_accessor :url
 
@@ -35,8 +35,8 @@ module Stripe
       end
     end
 
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -60,8 +60,8 @@ module Stripe
       end
     end
 
-    class ConsentCollection < Stripe::RequestParams
-      class PaymentMethodReuseAgreement < Stripe::RequestParams
+    class ConsentCollection < ::Stripe::RequestParams
+      class PaymentMethodReuseAgreement < ::Stripe::RequestParams
         # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
         # defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
         attr_accessor :position
@@ -87,9 +87,9 @@ module Stripe
       end
     end
 
-    class CustomField < Stripe::RequestParams
-      class Dropdown < Stripe::RequestParams
-        class Option < Stripe::RequestParams
+    class CustomField < ::Stripe::RequestParams
+      class Dropdown < ::Stripe::RequestParams
+        class Option < ::Stripe::RequestParams
           # The label for the option, displayed to the customer. Up to 100 characters.
           attr_accessor :label
           # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
@@ -111,7 +111,7 @@ module Stripe
         end
       end
 
-      class Label < Stripe::RequestParams
+      class Label < ::Stripe::RequestParams
         # Custom text for the label, displayed to the customer. Up to 50 characters.
         attr_accessor :custom
         # The type of the label.
@@ -123,7 +123,7 @@ module Stripe
         end
       end
 
-      class Numeric < Stripe::RequestParams
+      class Numeric < ::Stripe::RequestParams
         # The value that will pre-fill the field on the payment page.
         attr_accessor :default_value
         # The maximum character length constraint for the customer's input.
@@ -138,7 +138,7 @@ module Stripe
         end
       end
 
-      class Text < Stripe::RequestParams
+      class Text < ::Stripe::RequestParams
         # The value that will pre-fill the field on the payment page.
         attr_accessor :default_value
         # The maximum character length constraint for the customer's input.
@@ -186,8 +186,8 @@ module Stripe
       end
     end
 
-    class CustomText < Stripe::RequestParams
-      class AfterSubmit < Stripe::RequestParams
+    class CustomText < ::Stripe::RequestParams
+      class AfterSubmit < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         attr_accessor :message
 
@@ -196,7 +196,7 @@ module Stripe
         end
       end
 
-      class ShippingAddress < Stripe::RequestParams
+      class ShippingAddress < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         attr_accessor :message
 
@@ -205,7 +205,7 @@ module Stripe
         end
       end
 
-      class Submit < Stripe::RequestParams
+      class Submit < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         attr_accessor :message
 
@@ -214,7 +214,7 @@ module Stripe
         end
       end
 
-      class TermsOfServiceAcceptance < Stripe::RequestParams
+      class TermsOfServiceAcceptance < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         attr_accessor :message
 
@@ -244,9 +244,9 @@ module Stripe
       end
     end
 
-    class InvoiceCreation < Stripe::RequestParams
-      class InvoiceData < Stripe::RequestParams
-        class CustomField < Stripe::RequestParams
+    class InvoiceCreation < ::Stripe::RequestParams
+      class InvoiceData < ::Stripe::RequestParams
+        class CustomField < ::Stripe::RequestParams
           # The name of the custom field. This may be up to 40 characters.
           attr_accessor :name
           # The value of the custom field. This may be up to 140 characters.
@@ -258,7 +258,7 @@ module Stripe
           end
         end
 
-        class Issuer < Stripe::RequestParams
+        class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
           # Type of the account referenced in the request.
@@ -270,7 +270,7 @@ module Stripe
           end
         end
 
-        class RenderingOptions < Stripe::RequestParams
+        class RenderingOptions < ::Stripe::RequestParams
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
           attr_accessor :amount_tax_display
           # ID of the invoice rendering template to use for this invoice.
@@ -325,8 +325,8 @@ module Stripe
       end
     end
 
-    class LineItem < Stripe::RequestParams
-      class AdjustableQuantity < Stripe::RequestParams
+    class LineItem < ::Stripe::RequestParams
+      class AdjustableQuantity < ::Stripe::RequestParams
         # Set to true if the quantity can be adjusted to any non-negative Integer.
         attr_accessor :enabled
         # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
@@ -341,8 +341,8 @@ module Stripe
         end
       end
 
-      class PriceData < Stripe::RequestParams
-        class ProductData < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class ProductData < ::Stripe::RequestParams
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -373,7 +373,7 @@ module Stripe
           end
         end
 
-        class Recurring < Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -434,8 +434,43 @@ module Stripe
       end
     end
 
-    class OptionalItem < Stripe::RequestParams
-      class AdjustableQuantity < Stripe::RequestParams
+    class NameCollection < ::Stripe::RequestParams
+      class Business < ::Stripe::RequestParams
+        # Enable business name collection on the payment link. Defaults to `false`.
+        attr_accessor :enabled
+        # Whether the customer is required to provide their business name before checking out. Defaults to `false`.
+        attr_accessor :optional
+
+        def initialize(enabled: nil, optional: nil)
+          @enabled = enabled
+          @optional = optional
+        end
+      end
+
+      class Individual < ::Stripe::RequestParams
+        # Enable individual name collection on the payment link. Defaults to `false`.
+        attr_accessor :enabled
+        # Whether the customer is required to provide their full name before checking out. Defaults to `false`.
+        attr_accessor :optional
+
+        def initialize(enabled: nil, optional: nil)
+          @enabled = enabled
+          @optional = optional
+        end
+      end
+      # Controls settings applied for collecting the customer's business name.
+      attr_accessor :business
+      # Controls settings applied for collecting the customer's individual name.
+      attr_accessor :individual
+
+      def initialize(business: nil, individual: nil)
+        @business = business
+        @individual = individual
+      end
+    end
+
+    class OptionalItem < ::Stripe::RequestParams
+      class AdjustableQuantity < ::Stripe::RequestParams
         # Set to true if the quantity can be adjusted to any non-negative integer.
         attr_accessor :enabled
         # The maximum quantity of this item the customer can purchase. By default this value is 99.
@@ -463,7 +498,7 @@ module Stripe
       end
     end
 
-    class PaymentIntentData < Stripe::RequestParams
+    class PaymentIntentData < ::Stripe::RequestParams
       # Controls when the funds will be captured from the customer's account.
       attr_accessor :capture_method
       # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -510,7 +545,7 @@ module Stripe
       end
     end
 
-    class PhoneNumberCollection < Stripe::RequestParams
+    class PhoneNumberCollection < ::Stripe::RequestParams
       # Set to `true` to enable phone number collection.
       attr_accessor :enabled
 
@@ -519,8 +554,8 @@ module Stripe
       end
     end
 
-    class Restrictions < Stripe::RequestParams
-      class CompletedSessions < Stripe::RequestParams
+    class Restrictions < ::Stripe::RequestParams
+      class CompletedSessions < ::Stripe::RequestParams
         # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
         attr_accessor :limit
 
@@ -536,7 +571,7 @@ module Stripe
       end
     end
 
-    class ShippingAddressCollection < Stripe::RequestParams
+    class ShippingAddressCollection < ::Stripe::RequestParams
       # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
       # shipping locations.
       attr_accessor :allowed_countries
@@ -546,7 +581,7 @@ module Stripe
       end
     end
 
-    class ShippingOption < Stripe::RequestParams
+    class ShippingOption < ::Stripe::RequestParams
       # The ID of the Shipping Rate to use for this shipping option.
       attr_accessor :shipping_rate
 
@@ -555,9 +590,9 @@ module Stripe
       end
     end
 
-    class SubscriptionData < Stripe::RequestParams
-      class InvoiceSettings < Stripe::RequestParams
-        class Issuer < Stripe::RequestParams
+    class SubscriptionData < ::Stripe::RequestParams
+      class InvoiceSettings < ::Stripe::RequestParams
+        class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
           # Type of the account referenced in the request.
@@ -576,8 +611,8 @@ module Stripe
         end
       end
 
-      class TrialSettings < Stripe::RequestParams
-        class EndBehavior < Stripe::RequestParams
+      class TrialSettings < ::Stripe::RequestParams
+        class EndBehavior < ::Stripe::RequestParams
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           attr_accessor :missing_payment_method
 
@@ -618,7 +653,7 @@ module Stripe
       end
     end
 
-    class TaxIdCollection < Stripe::RequestParams
+    class TaxIdCollection < ::Stripe::RequestParams
       # Enable tax ID collection during checkout. Defaults to `false`.
       attr_accessor :enabled
       # Describes whether a tax ID is required during checkout. Defaults to `never`.
@@ -630,7 +665,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       attr_accessor :amount
       # If specified, successful charges will be attributed to the destination
@@ -676,6 +711,8 @@ module Stripe
     attr_accessor :line_items
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
     attr_accessor :metadata
+    # Controls settings applied for collecting the customer's name.
+    attr_accessor :name_collection
     # The account on behalf of which to charge.
     attr_accessor :on_behalf_of
     # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
@@ -728,6 +765,7 @@ module Stripe
       invoice_creation: nil,
       line_items: nil,
       metadata: nil,
+      name_collection: nil,
       on_behalf_of: nil,
       optional_items: nil,
       payment_intent_data: nil,
@@ -758,6 +796,7 @@ module Stripe
       @invoice_creation = invoice_creation
       @line_items = line_items
       @metadata = metadata
+      @name_collection = name_collection
       @on_behalf_of = on_behalf_of
       @optional_items = optional_items
       @payment_intent_data = payment_intent_data

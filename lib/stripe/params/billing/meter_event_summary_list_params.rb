@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class MeterEventSummaryListParams < Stripe::RequestParams
+    class MeterEventSummaryListParams < ::Stripe::RequestParams
       # The customer for which to fetch event summaries.
       attr_accessor :customer
       # The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.

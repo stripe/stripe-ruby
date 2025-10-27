@@ -19,7 +19,7 @@ module Stripe
       def secret; end
       # To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.
       sig {
-        params(params: T.any(::Stripe::Terminal::ConnectionTokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::ConnectionToken)
+        params(params: T.any(::Stripe::Terminal::ConnectionTokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::ConnectionToken)
        }
       def self.create(params = {}, opts = {}); end
     end

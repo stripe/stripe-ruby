@@ -11,8 +11,8 @@ module Stripe
           "v2.money_management.received_credit"
         end
 
-        class StatusDetails < Stripe::StripeObject
-          class Failed < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             attr_reader :reason
 
@@ -25,7 +25,7 @@ module Stripe
             end
           end
 
-          class Returned < Stripe::StripeObject
+          class Returned < ::Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             attr_reader :reason
 
@@ -51,7 +51,7 @@ module Stripe
           end
         end
 
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # Timestamp describing when the ReceivedCredit was marked as `failed`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           attr_reader :failed_at
@@ -71,7 +71,7 @@ module Stripe
           end
         end
 
-        class BalanceTransfer < Stripe::StripeObject
+        class BalanceTransfer < ::Stripe::StripeObject
           # The ID of the account that owns the source object originated the ReceivedCredit.
           attr_reader :from_account
           # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
@@ -92,8 +92,8 @@ module Stripe
           end
         end
 
-        class BankTransfer < Stripe::StripeObject
-          class GbBankAccount < Stripe::StripeObject
+        class BankTransfer < ::Stripe::StripeObject
+          class GbBankAccount < ::Stripe::StripeObject
             # The bank name the transfer was received from.
             attr_reader :account_holder_name
             # The bank name the transfer was received from.
@@ -114,7 +114,7 @@ module Stripe
             end
           end
 
-          class SepaBankAccount < Stripe::StripeObject
+          class SepaBankAccount < ::Stripe::StripeObject
             # The account holder name of the bank account the transfer was received from.
             attr_reader :account_holder_name
             # The bank name the transfer was received from.
@@ -137,7 +137,7 @@ module Stripe
             end
           end
 
-          class UsBankAccount < Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
             # The bank name the transfer was received from.
             attr_reader :bank_name
             # The last 4 digits of the account number that originated the transfer.

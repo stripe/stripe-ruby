@@ -4,12 +4,12 @@
 module Stripe
   module V2
     module Billing
-      class CollectionSettingUpdateParams < Stripe::RequestParams
-        class EmailDelivery < Stripe::RequestParams
-          class PaymentDue < Stripe::RequestParams
+      class CollectionSettingUpdateParams < ::Stripe::RequestParams
+        class EmailDelivery < ::Stripe::RequestParams
+          class PaymentDue < ::Stripe::RequestParams
             # If true an email for the invoice would be generated and sent out.
             attr_accessor :enabled
-            # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+            # If true the payment link to hosted invoice page would be included in email and PDF of the invoice.
             attr_accessor :include_payment_link
 
             def initialize(enabled: nil, include_payment_link: nil)
@@ -17,7 +17,7 @@ module Stripe
               @include_payment_link = include_payment_link
             end
           end
-          # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+          # Controls emails for when the payment is due. For example after the invoice is finalized and transitions to Open state.
           attr_accessor :payment_due
 
           def initialize(payment_due: nil)
@@ -25,9 +25,9 @@ module Stripe
           end
         end
 
-        class PaymentMethodOptions < Stripe::RequestParams
-          class AcssDebit < Stripe::RequestParams
-            class MandateOptions < Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class AcssDebit < ::Stripe::RequestParams
+            class MandateOptions < ::Stripe::RequestParams
               # Transaction type of the mandate.
               attr_accessor :transaction_type
 
@@ -46,7 +46,7 @@ module Stripe
             end
           end
 
-          class Bancontact < Stripe::RequestParams
+          class Bancontact < ::Stripe::RequestParams
             # Preferred language of the Bancontact authorization page that the customer is redirected to.
             attr_accessor :preferred_language
 
@@ -55,8 +55,8 @@ module Stripe
             end
           end
 
-          class Card < Stripe::RequestParams
-            class MandateOptions < Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
+            class MandateOptions < ::Stripe::RequestParams
               # Amount to be charged for future payments.
               attr_accessor :amount
               # The AmountType for the mandate. One of `fixed` or `maximum`.
@@ -87,9 +87,9 @@ module Stripe
             end
           end
 
-          class CustomerBalance < Stripe::RequestParams
-            class BankTransfer < Stripe::RequestParams
-              class EuBankTransfer < Stripe::RequestParams
+          class CustomerBalance < ::Stripe::RequestParams
+            class BankTransfer < ::Stripe::RequestParams
+              class EuBankTransfer < ::Stripe::RequestParams
                 # The desired country code of the bank account information.
                 attr_accessor :country
 
@@ -118,9 +118,9 @@ module Stripe
             end
           end
 
-          class UsBankAccount < Stripe::RequestParams
-            class FinancialConnections < Stripe::RequestParams
-              class Filters < Stripe::RequestParams
+          class UsBankAccount < ::Stripe::RequestParams
+            class FinancialConnections < ::Stripe::RequestParams
+              class Filters < ::Stripe::RequestParams
                 # The account subcategories to use to filter for selectable accounts.
                 attr_accessor :account_subcategories
 

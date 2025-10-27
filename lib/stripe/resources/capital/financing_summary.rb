@@ -11,8 +11,8 @@ module Stripe
         "capital.financing_summary"
       end
 
-      class Details < Stripe::StripeObject
-        class CurrentRepaymentInterval < Stripe::StripeObject
+      class Details < ::Stripe::StripeObject
+        class CurrentRepaymentInterval < ::Stripe::StripeObject
           # The time at which the minimum payment amount will be due. If not met through withholding, the Connected account's linked bank account or account balance will be debited.
           # Given in seconds since unix epoch.
           attr_reader :due_at

@@ -3,5 +3,5 @@
 
 # typed: true
 module Stripe
-  class InvoiceDeleteParams < Stripe::RequestParams; end
+  class InvoiceDeleteParams < ::Stripe::RequestParams; end
 end

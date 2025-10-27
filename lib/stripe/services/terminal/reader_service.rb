@@ -4,7 +4,7 @@
 module Stripe
   module Terminal
     class ReaderService < StripeService
-      # Cancels the current reader action.
+      # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def cancel_action(reader, params = {}, opts = {})
         request(
           method: :post,
@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Initiates an input collection flow on a Reader.
+      # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
       def collect_inputs(reader, params = {}, opts = {})
         request(
           method: :post,
@@ -26,7 +26,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
       def collect_payment_method(reader, params = {}, opts = {})
         request(
           method: :post,
@@ -37,7 +37,7 @@ module Stripe
         )
       end
 
-      # Finalizes a payment on a Reader.
+      # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
       def confirm_payment_intent(reader, params = {}, opts = {})
         request(
           method: :post,
@@ -81,7 +81,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader.
+      # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
       def process_payment_intent(reader, params = {}, opts = {})
         request(
           method: :post,
@@ -92,7 +92,7 @@ module Stripe
         )
       end
 
-      # Initiates a setup intent flow on a Reader.
+      # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
       def process_setup_intent(reader, params = {}, opts = {})
         request(
           method: :post,
@@ -103,7 +103,7 @@ module Stripe
         )
       end
 
-      # Initiates a refund on a Reader
+      # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
       def refund_payment(reader, params = {}, opts = {})
         request(
           method: :post,
@@ -125,7 +125,7 @@ module Stripe
         )
       end
 
-      # Sets reader display to show cart details.
+      # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       def set_reader_display(reader, params = {}, opts = {})
         request(
           method: :post,

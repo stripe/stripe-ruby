@@ -7,13 +7,13 @@ module Stripe
     class TransactionEntryService < StripeService
       # Retrieves a list of TransactionEntry objects.
       sig {
-        params(params: T.any(::Stripe::Treasury::TransactionEntryListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Treasury::TransactionEntryListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list(params = {}, opts = {}); end
 
       # Retrieves a TransactionEntry object.
       sig {
-        params(id: String, params: T.any(::Stripe::Treasury::TransactionEntryRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::TransactionEntry)
+        params(id: String, params: T.any(::Stripe::Treasury::TransactionEntryRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::TransactionEntry)
        }
       def retrieve(id, params = {}, opts = {}); end
     end

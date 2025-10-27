@@ -3,8 +3,8 @@
 
 module Stripe
   module FinancialConnections
-    class TransactionListParams < Stripe::RequestParams
-      class TransactedAt < Stripe::RequestParams
+    class TransactionListParams < ::Stripe::RequestParams
+      class TransactedAt < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
         # Minimum value to filter by (inclusive)
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class TransactionRefresh < Stripe::RequestParams
+      class TransactionRefresh < ::Stripe::RequestParams
         # Return results where the transactions were created or updated by a refresh that took place after this refresh (non-inclusive).
         attr_accessor :after
 

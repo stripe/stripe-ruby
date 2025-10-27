@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderPresentPaymentMethodParams < Stripe::RequestParams
-      class Card < Stripe::RequestParams
+    class ReaderPresentPaymentMethodParams < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
         # Card security code.
         sig { returns(T.nilable(String)) }
         def cvc; end
@@ -31,7 +31,7 @@ module Stripe
          }
         def initialize(cvc: nil, exp_month: nil, exp_year: nil, number: nil); end
       end
-      class CardPresent < Stripe::RequestParams
+      class CardPresent < ::Stripe::RequestParams
         # The card number, as a string without any separators.
         sig { returns(T.nilable(String)) }
         def number; end
@@ -40,8 +40,8 @@ module Stripe
         sig { params(number: T.nilable(String)).void }
         def initialize(number: nil); end
       end
-      class InteracPresent < Stripe::RequestParams
-        # Card Number
+      class InteracPresent < ::Stripe::RequestParams
+        # The Interac card number.
         sig { returns(T.nilable(String)) }
         def number; end
         sig { params(_number: T.nilable(String)).returns(T.nilable(String)) }

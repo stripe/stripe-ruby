@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CustomerUpdateParams < Stripe::RequestParams
-    class Address < Stripe::RequestParams
+  class CustomerUpdateParams < ::Stripe::RequestParams
+    class Address < ::Stripe::RequestParams
       # City, district, suburb, town, or village.
       attr_accessor :city
       # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -27,8 +27,8 @@ module Stripe
       end
     end
 
-    class CashBalance < Stripe::RequestParams
-      class Settings < Stripe::RequestParams
+    class CashBalance < ::Stripe::RequestParams
+      class Settings < ::Stripe::RequestParams
         # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
         attr_accessor :reconciliation_mode
 
@@ -45,8 +45,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::RequestParams
-      class CustomField < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class CustomField < ::Stripe::RequestParams
         # The name of the custom field. This may be up to 40 characters.
         attr_accessor :name
         # The value of the custom field. This may be up to 140 characters.
@@ -58,7 +58,7 @@ module Stripe
         end
       end
 
-      class RenderingOptions < Stripe::RequestParams
+      class RenderingOptions < ::Stripe::RequestParams
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         attr_accessor :amount_tax_display
         # ID of the invoice rendering template to use for future invoices.
@@ -91,8 +91,8 @@ module Stripe
       end
     end
 
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -136,7 +136,7 @@ module Stripe
       end
     end
 
-    class Tax < Stripe::RequestParams
+    class Tax < ::Stripe::RequestParams
       # A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
       attr_accessor :ip_address
       # A flag that indicates when Stripe should validate the customer tax location. Defaults to `auto`.

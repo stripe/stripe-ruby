@@ -3,9 +3,9 @@
 
 module Stripe
   module Terminal
-    class OnboardingLinkCreateParams < Stripe::RequestParams
-      class LinkOptions < Stripe::RequestParams
-        class AppleTermsAndConditions < Stripe::RequestParams
+    class OnboardingLinkCreateParams < ::Stripe::RequestParams
+      class LinkOptions < ::Stripe::RequestParams
+        class AppleTermsAndConditions < ::Stripe::RequestParams
           # Whether the link should also support users relinking their Apple account.
           attr_accessor :allow_relinking
           # The business name of the merchant accepting Apple's Terms and Conditions.

@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentIntentDecrementAuthorizationParams < Stripe::RequestParams
-    class Hooks < Stripe::RequestParams
-      class Inputs < Stripe::RequestParams
-        class Tax < Stripe::RequestParams
+  class PaymentIntentDecrementAuthorizationParams < ::Stripe::RequestParams
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
           attr_accessor :calculation
 
@@ -28,7 +28,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       attr_accessor :amount
 

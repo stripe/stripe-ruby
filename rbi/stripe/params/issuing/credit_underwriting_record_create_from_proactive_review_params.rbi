@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Issuing
-    class CreditUnderwritingRecordCreateFromProactiveReviewParams < Stripe::RequestParams
-      class CreditUser < Stripe::RequestParams
+    class CreditUnderwritingRecordCreateFromProactiveReviewParams < ::Stripe::RequestParams
+      class CreditUser < ::Stripe::RequestParams
         # Email of the applicant or accountholder.
         sig { returns(String) }
         def email; end
@@ -19,8 +19,8 @@ module Stripe
         sig { params(email: String, name: String).void }
         def initialize(email: nil, name: nil); end
       end
-      class Decision < Stripe::RequestParams
-        class CreditLimitApproved < Stripe::RequestParams
+      class Decision < ::Stripe::RequestParams
+        class CreditLimitApproved < ::Stripe::RequestParams
           # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
@@ -34,7 +34,7 @@ module Stripe
           sig { params(amount: Integer, currency: T.nilable(String)).void }
           def initialize(amount: nil, currency: nil); end
         end
-        class CreditLimitDecreased < Stripe::RequestParams
+        class CreditLimitDecreased < ::Stripe::RequestParams
           # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
@@ -65,7 +65,7 @@ module Stripe
             reasons: nil
           ); end
         end
-        class CreditLineClosed < Stripe::RequestParams
+        class CreditLineClosed < ::Stripe::RequestParams
           # Details about the `reasons.other` when present.
           sig { returns(T.nilable(String)) }
           def reason_other_explanation; end
@@ -123,7 +123,7 @@ module Stripe
           type: nil
         ); end
       end
-      class UnderwritingException < Stripe::RequestParams
+      class UnderwritingException < ::Stripe::RequestParams
         # Written explanation for the exception.
         sig { returns(String) }
         def explanation; end

@@ -7,12 +7,12 @@ module Stripe
     module Billing
       # Settings that configure and manage the behavior of collecting payments.
       class CollectionSetting < APIResource
-        class EmailDelivery < Stripe::StripeObject
-          class PaymentDue < Stripe::StripeObject
+        class EmailDelivery < ::Stripe::StripeObject
+          class PaymentDue < ::Stripe::StripeObject
             # If true an email for the invoice would be generated and sent out.
             sig { returns(T::Boolean) }
             def enabled; end
-            # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+            # If true the payment link to hosted invoice page would be included in email and PDF of the invoice.
             sig { returns(T::Boolean) }
             def include_payment_link; end
             def self.inner_class_types
@@ -22,7 +22,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+          # Controls emails for when the payment is due. For example after the invoice is finalized and transitions to Open state.
           sig { returns(T.nilable(PaymentDue)) }
           def payment_due; end
           def self.inner_class_types
@@ -32,9 +32,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class PaymentMethodOptions < Stripe::StripeObject
-          class AcssDebit < Stripe::StripeObject
-            class MandateOptions < Stripe::StripeObject
+        class PaymentMethodOptions < ::Stripe::StripeObject
+          class AcssDebit < ::Stripe::StripeObject
+            class MandateOptions < ::Stripe::StripeObject
               # Transaction type of the mandate.
               sig { returns(T.nilable(String)) }
               def transaction_type; end
@@ -58,7 +58,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Bancontact < Stripe::StripeObject
+          class Bancontact < ::Stripe::StripeObject
             # Preferred language of the Bancontact authorization page that the customer is redirected to.
             sig { returns(T.nilable(String)) }
             def preferred_language; end
@@ -69,8 +69,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Card < Stripe::StripeObject
-            class MandateOptions < Stripe::StripeObject
+          class Card < ::Stripe::StripeObject
+            class MandateOptions < ::Stripe::StripeObject
               # Amount to be charged for future payments.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -106,9 +106,9 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class CustomerBalance < Stripe::StripeObject
-            class BankTransfer < Stripe::StripeObject
-              class EuBankTransfer < Stripe::StripeObject
+          class CustomerBalance < ::Stripe::StripeObject
+            class BankTransfer < ::Stripe::StripeObject
+              class EuBankTransfer < ::Stripe::StripeObject
                 # The desired country code of the bank account information.
                 sig { returns(String) }
                 def country; end
@@ -145,9 +145,9 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class UsBankAccount < Stripe::StripeObject
-            class FinancialConnections < Stripe::StripeObject
-              class Filters < Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
+            class FinancialConnections < ::Stripe::StripeObject
+              class Filters < ::Stripe::StripeObject
                 # The account subcategories to use to filter for selectable accounts.
                 sig { returns(T::Array[String]) }
                 def account_subcategories; end

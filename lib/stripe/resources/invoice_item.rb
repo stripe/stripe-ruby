@@ -21,8 +21,8 @@ module Stripe
       "invoiceitem"
     end
 
-    class Parent < Stripe::StripeObject
-      class SubscriptionDetails < Stripe::StripeObject
+    class Parent < ::Stripe::StripeObject
+      class SubscriptionDetails < ::Stripe::StripeObject
         # The subscription that generated this invoice item
         attr_reader :subscription
         # The subscription item that generated this invoice item
@@ -50,7 +50,7 @@ module Stripe
       end
     end
 
-    class Period < Stripe::StripeObject
+    class Period < ::Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       attr_reader :end
       # The start of the period. This value is inclusive.
@@ -65,8 +65,8 @@ module Stripe
       end
     end
 
-    class Pricing < Stripe::StripeObject
-      class PriceDetails < Stripe::StripeObject
+    class Pricing < ::Stripe::StripeObject
+      class PriceDetails < ::Stripe::StripeObject
         # The ID of the price this item is associated with.
         attr_reader :price
         # The ID of the product this item is associated with.
@@ -96,8 +96,8 @@ module Stripe
       end
     end
 
-    class ProrationDetails < Stripe::StripeObject
-      class DiscountAmount < Stripe::StripeObject
+    class ProrationDetails < ::Stripe::StripeObject
+      class DiscountAmount < ::Stripe::StripeObject
         # The amount, in cents (or local equivalent), of the discount.
         attr_reader :amount
         # The discount that was applied to get this discount amount.

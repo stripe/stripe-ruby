@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class MeterEventCreateParams < Stripe::RequestParams
+    class MeterEventCreateParams < ::Stripe::RequestParams
       # The name of the meter event. Corresponds with the `event_name` field on a meter.
       attr_accessor :event_name
       # Specifies which fields in the response should be expanded.

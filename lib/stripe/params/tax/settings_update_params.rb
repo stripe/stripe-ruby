@@ -3,8 +3,8 @@
 
 module Stripe
   module Tax
-    class SettingsUpdateParams < Stripe::RequestParams
-      class Defaults < Stripe::RequestParams
+    class SettingsUpdateParams < ::Stripe::RequestParams
+      class Defaults < ::Stripe::RequestParams
         # Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
         attr_accessor :tax_behavior
         # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
@@ -16,8 +16,8 @@ module Stripe
         end
       end
 
-      class HeadOffice < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class HeadOffice < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

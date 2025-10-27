@@ -3,8 +3,8 @@
 
 module Stripe
   module Treasury
-    class OutboundPaymentReturnOutboundPaymentParams < Stripe::RequestParams
-      class ReturnedDetails < Stripe::RequestParams
+    class OutboundPaymentReturnOutboundPaymentParams < ::Stripe::RequestParams
+      class ReturnedDetails < ::Stripe::RequestParams
         # The return code to be set on the OutboundPayment object.
         attr_accessor :code
 

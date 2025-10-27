@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SourceCreateParams < Stripe::RequestParams
-    class Mandate < Stripe::RequestParams
-      class Acceptance < Stripe::RequestParams
-        class Offline < Stripe::RequestParams
+  class SourceCreateParams < ::Stripe::RequestParams
+    class Mandate < ::Stripe::RequestParams
+      class Acceptance < ::Stripe::RequestParams
+        class Offline < ::Stripe::RequestParams
           # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
           attr_accessor :contact_email
 
@@ -14,7 +14,7 @@ module Stripe
           end
         end
 
-        class Online < Stripe::RequestParams
+        class Online < ::Stripe::RequestParams
           # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
           attr_accessor :date
           # The IP address from which the mandate was accepted or refused by the customer.
@@ -87,8 +87,8 @@ module Stripe
       end
     end
 
-    class Owner < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -135,7 +135,7 @@ module Stripe
       end
     end
 
-    class Receiver < Stripe::RequestParams
+    class Receiver < ::Stripe::RequestParams
       # The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
       attr_accessor :refund_attributes_method
 
@@ -144,7 +144,7 @@ module Stripe
       end
     end
 
-    class Redirect < Stripe::RequestParams
+    class Redirect < ::Stripe::RequestParams
       # The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
       attr_accessor :return_url
 
@@ -153,8 +153,8 @@ module Stripe
       end
     end
 
-    class SourceOrder < Stripe::RequestParams
-      class Item < Stripe::RequestParams
+    class SourceOrder < ::Stripe::RequestParams
+      class Item < ::Stripe::RequestParams
         # Attribute for param field amount
         attr_accessor :amount
         # Attribute for param field currency
@@ -185,8 +185,8 @@ module Stripe
         end
       end
 
-      class Shipping < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

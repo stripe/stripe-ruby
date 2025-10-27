@@ -25,7 +25,7 @@ module Stripe
 
     nested_resource_class_methods :feature, operations: %i[create retrieve delete list]
 
-    class MarketingFeature < Stripe::StripeObject
+    class MarketingFeature < ::Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
       attr_reader :name
 
@@ -38,7 +38,7 @@ module Stripe
       end
     end
 
-    class PackageDimensions < Stripe::StripeObject
+    class PackageDimensions < ::Stripe::StripeObject
       # Height, in inches.
       attr_reader :height
       # Length, in inches.

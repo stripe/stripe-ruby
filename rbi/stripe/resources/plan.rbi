@@ -12,7 +12,7 @@ module Stripe
   #
   # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and prices](https://stripe.com/docs/products-prices/overview).
   class Plan < APIResource
-    class Tier < Stripe::StripeObject
+    class Tier < ::Stripe::StripeObject
       # Price for the entire tier.
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
@@ -35,7 +35,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TransformUsage < Stripe::StripeObject
+    class TransformUsage < ::Stripe::StripeObject
       # Divide usage by this number.
       sig { returns(Integer) }
       def divide_by; end
@@ -92,7 +92,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The product whose pricing this plan determines.
-    sig { returns(T.nilable(T.any(String, Stripe::Product))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Product))) }
     def product; end
     # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
     sig { returns(T.nilable(T::Array[Tier])) }
@@ -114,31 +114,31 @@ module Stripe
     def deleted; end
     # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     sig {
-      params(params: T.any(::Stripe::PlanCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
+      params(params: T.any(::Stripe::PlanCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
      }
     def self.create(params = {}, opts = {}); end
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
     sig {
-      params(plan: String, params: T.any(::Stripe::PlanDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
+      params(plan: String, params: T.any(::Stripe::PlanDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
      }
     def self.delete(plan, params = {}, opts = {}); end
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
     sig {
-      params(params: T.any(::Stripe::PlanDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
+      params(params: T.any(::Stripe::PlanDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
      }
     def delete(params = {}, opts = {}); end
 
     # Returns a list of your plans.
     sig {
-      params(params: T.any(::Stripe::PlanListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PlanListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
     sig {
-      params(plan: String, params: T.any(::Stripe::PlanUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
+      params(plan: String, params: T.any(::Stripe::PlanUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
      }
     def self.update(plan, params = {}, opts = {}); end
   end

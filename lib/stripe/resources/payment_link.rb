@@ -17,8 +17,8 @@ module Stripe
       "payment_link"
     end
 
-    class AfterCompletion < Stripe::StripeObject
-      class HostedConfirmation < Stripe::StripeObject
+    class AfterCompletion < ::Stripe::StripeObject
+      class HostedConfirmation < ::Stripe::StripeObject
         # The custom message that is displayed to the customer after the purchase is complete.
         attr_reader :custom_message
 
@@ -31,7 +31,7 @@ module Stripe
         end
       end
 
-      class Redirect < Stripe::StripeObject
+      class Redirect < ::Stripe::StripeObject
         # The URL the customer will be redirected to after the purchase is complete.
         attr_reader :url
 
@@ -59,8 +59,8 @@ module Stripe
       end
     end
 
-    class AutomaticTax < Stripe::StripeObject
-      class Liability < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
+      class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -88,8 +88,8 @@ module Stripe
       end
     end
 
-    class ConsentCollection < Stripe::StripeObject
-      class PaymentMethodReuseAgreement < Stripe::StripeObject
+    class ConsentCollection < ::Stripe::StripeObject
+      class PaymentMethodReuseAgreement < ::Stripe::StripeObject
         # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's defaults will be used.
         #
         # When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
@@ -119,9 +119,9 @@ module Stripe
       end
     end
 
-    class CustomField < Stripe::StripeObject
-      class Dropdown < Stripe::StripeObject
-        class Option < Stripe::StripeObject
+    class CustomField < ::Stripe::StripeObject
+      class Dropdown < ::Stripe::StripeObject
+        class Option < ::Stripe::StripeObject
           # The label for the option, displayed to the customer. Up to 100 characters.
           attr_reader :label
           # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
@@ -149,7 +149,7 @@ module Stripe
         end
       end
 
-      class Label < Stripe::StripeObject
+      class Label < ::Stripe::StripeObject
         # Custom text for the label, displayed to the customer. Up to 50 characters.
         attr_reader :custom
         # The type of the label.
@@ -164,7 +164,7 @@ module Stripe
         end
       end
 
-      class Numeric < Stripe::StripeObject
+      class Numeric < ::Stripe::StripeObject
         # The value that will pre-fill the field on the payment page.
         attr_reader :default_value
         # The maximum character length constraint for the customer's input.
@@ -181,7 +181,7 @@ module Stripe
         end
       end
 
-      class Text < Stripe::StripeObject
+      class Text < ::Stripe::StripeObject
         # The value that will pre-fill the field on the payment page.
         attr_reader :default_value
         # The maximum character length constraint for the customer's input.
@@ -221,8 +221,8 @@ module Stripe
       end
     end
 
-    class CustomText < Stripe::StripeObject
-      class AfterSubmit < Stripe::StripeObject
+    class CustomText < ::Stripe::StripeObject
+      class AfterSubmit < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
 
@@ -235,7 +235,7 @@ module Stripe
         end
       end
 
-      class ShippingAddress < Stripe::StripeObject
+      class ShippingAddress < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
 
@@ -248,7 +248,7 @@ module Stripe
         end
       end
 
-      class Submit < Stripe::StripeObject
+      class Submit < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
 
@@ -261,7 +261,7 @@ module Stripe
         end
       end
 
-      class TermsOfServiceAcceptance < Stripe::StripeObject
+      class TermsOfServiceAcceptance < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
 
@@ -296,9 +296,9 @@ module Stripe
       end
     end
 
-    class InvoiceCreation < Stripe::StripeObject
-      class InvoiceData < Stripe::StripeObject
-        class CustomField < Stripe::StripeObject
+    class InvoiceCreation < ::Stripe::StripeObject
+      class InvoiceData < ::Stripe::StripeObject
+        class CustomField < ::Stripe::StripeObject
           # The name of the custom field.
           attr_reader :name
           # The value of the custom field.
@@ -313,7 +313,7 @@ module Stripe
           end
         end
 
-        class Issuer < Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
           # Type of the account referenced.
@@ -328,7 +328,7 @@ module Stripe
           end
         end
 
-        class RenderingOptions < Stripe::StripeObject
+        class RenderingOptions < ::Stripe::StripeObject
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
           attr_reader :amount_tax_display
           # ID of the invoice rendering template to be used for the generated invoice.
@@ -383,8 +383,52 @@ module Stripe
       end
     end
 
-    class OptionalItem < Stripe::StripeObject
-      class AdjustableQuantity < Stripe::StripeObject
+    class NameCollection < ::Stripe::StripeObject
+      class Business < ::Stripe::StripeObject
+        # Indicates whether business name collection is enabled for the payment link.
+        attr_reader :enabled
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        attr_reader :optional
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Individual < ::Stripe::StripeObject
+        # Indicates whether individual name collection is enabled for the payment link.
+        attr_reader :enabled
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        attr_reader :optional
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field business
+      attr_reader :business
+      # Attribute for field individual
+      attr_reader :individual
+
+      def self.inner_class_types
+        @inner_class_types = { business: Business, individual: Individual }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class OptionalItem < ::Stripe::StripeObject
+      class AdjustableQuantity < ::Stripe::StripeObject
         # Set to true if the quantity can be adjusted to any non-negative integer.
         attr_reader :enabled
         # The maximum quantity of this item the customer can purchase. By default this value is 99.
@@ -416,7 +460,7 @@ module Stripe
       end
     end
 
-    class PaymentIntentData < Stripe::StripeObject
+    class PaymentIntentData < ::Stripe::StripeObject
       # Indicates when the funds will be captured from the customer's account.
       attr_reader :capture_method
       # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -441,7 +485,7 @@ module Stripe
       end
     end
 
-    class PhoneNumberCollection < Stripe::StripeObject
+    class PhoneNumberCollection < ::Stripe::StripeObject
       # If `true`, a phone number will be collected during checkout.
       attr_reader :enabled
 
@@ -454,8 +498,8 @@ module Stripe
       end
     end
 
-    class Restrictions < Stripe::StripeObject
-      class CompletedSessions < Stripe::StripeObject
+    class Restrictions < ::Stripe::StripeObject
+      class CompletedSessions < ::Stripe::StripeObject
         # The current number of checkout sessions that have been completed on the payment link which count towards the `completed_sessions` restriction to be met.
         attr_reader :count
         # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
@@ -481,7 +525,7 @@ module Stripe
       end
     end
 
-    class ShippingAddressCollection < Stripe::StripeObject
+    class ShippingAddressCollection < ::Stripe::StripeObject
       # An array of two-letter ISO country codes representing which countries Checkout should provide as options for shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
       attr_reader :allowed_countries
 
@@ -494,7 +538,7 @@ module Stripe
       end
     end
 
-    class ShippingOption < Stripe::StripeObject
+    class ShippingOption < ::Stripe::StripeObject
       # A non-negative integer in cents representing how much to charge.
       attr_reader :shipping_amount
       # The ID of the Shipping Rate to use for this shipping option.
@@ -509,9 +553,9 @@ module Stripe
       end
     end
 
-    class SubscriptionData < Stripe::StripeObject
-      class InvoiceSettings < Stripe::StripeObject
-        class Issuer < Stripe::StripeObject
+    class SubscriptionData < ::Stripe::StripeObject
+      class InvoiceSettings < ::Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
           # Type of the account referenced.
@@ -537,8 +581,8 @@ module Stripe
         end
       end
 
-      class TrialSettings < Stripe::StripeObject
-        class EndBehavior < Stripe::StripeObject
+      class TrialSettings < ::Stripe::StripeObject
+        class EndBehavior < ::Stripe::StripeObject
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           attr_reader :missing_payment_method
 
@@ -581,7 +625,7 @@ module Stripe
       end
     end
 
-    class TaxIdCollection < Stripe::StripeObject
+    class TaxIdCollection < ::Stripe::StripeObject
       # Indicates whether tax ID collection is enabled for the session.
       attr_reader :enabled
       # Attribute for field required
@@ -596,7 +640,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_reader :amount
       # The connected account receiving the transfer.
@@ -648,6 +692,8 @@ module Stripe
     attr_reader :livemode
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
+    # Attribute for field name_collection
+    attr_reader :name_collection
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
@@ -727,6 +773,7 @@ module Stripe
         custom_fields: CustomField,
         custom_text: CustomText,
         invoice_creation: InvoiceCreation,
+        name_collection: NameCollection,
         optional_items: OptionalItem,
         payment_intent_data: PaymentIntentData,
         phone_number_collection: PhoneNumberCollection,

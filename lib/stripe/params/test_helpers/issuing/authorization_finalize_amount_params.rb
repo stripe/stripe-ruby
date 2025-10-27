@@ -4,9 +4,9 @@
 module Stripe
   module TestHelpers
     module Issuing
-      class AuthorizationFinalizeAmountParams < Stripe::RequestParams
-        class Fleet < Stripe::RequestParams
-          class CardholderPromptData < Stripe::RequestParams
+      class AuthorizationFinalizeAmountParams < ::Stripe::RequestParams
+        class Fleet < ::Stripe::RequestParams
+          class CardholderPromptData < ::Stripe::RequestParams
             # Driver ID.
             attr_accessor :driver_id
             # Odometer reading.
@@ -33,8 +33,8 @@ module Stripe
             end
           end
 
-          class ReportedBreakdown < Stripe::RequestParams
-            class Fuel < Stripe::RequestParams
+          class ReportedBreakdown < ::Stripe::RequestParams
+            class Fuel < ::Stripe::RequestParams
               # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
               attr_accessor :gross_amount_decimal
 
@@ -43,7 +43,7 @@ module Stripe
               end
             end
 
-            class NonFuel < Stripe::RequestParams
+            class NonFuel < ::Stripe::RequestParams
               # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
               attr_accessor :gross_amount_decimal
 
@@ -52,7 +52,7 @@ module Stripe
               end
             end
 
-            class Tax < Stripe::RequestParams
+            class Tax < ::Stripe::RequestParams
               # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
               attr_accessor :local_amount_decimal
               # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
@@ -98,7 +98,7 @@ module Stripe
           end
         end
 
-        class Fuel < Stripe::RequestParams
+        class Fuel < ::Stripe::RequestParams
           # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
           attr_accessor :industry_product_code
           # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundSetupIntentListParams < Stripe::RequestParams
+      class OutboundSetupIntentListParams < ::Stripe::RequestParams
         # The page size.
         attr_accessor :limit
 

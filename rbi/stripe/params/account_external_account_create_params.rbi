@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class AccountExternalAccountCreateParams < Stripe::RequestParams
-    class BankAccount < Stripe::RequestParams
+  class AccountExternalAccountCreateParams < ::Stripe::RequestParams
+    class BankAccount < ::Stripe::RequestParams
       # Attribute for param field object
       sig { returns(String) }
       def object; end
@@ -53,7 +53,7 @@ module Stripe
         routing_number: nil
       ); end
     end
-    class Card < Stripe::RequestParams
+    class Card < ::Stripe::RequestParams
       # Attribute for param field object
       sig { returns(String) }
       def object; end
@@ -146,7 +146,7 @@ module Stripe
         metadata: nil
       ); end
     end
-    class CardToken < Stripe::RequestParams
+    class CardToken < ::Stripe::RequestParams
       # Attribute for param field object
       sig { returns(String) }
       def object; end

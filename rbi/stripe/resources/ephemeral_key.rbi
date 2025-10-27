@@ -24,13 +24,13 @@ module Stripe
     def secret; end
     # Invalidates a short-lived API key for a given resource.
     sig {
-      params(key: String, params: T.any(::Stripe::EphemeralKeyDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
+      params(key: String, params: T.any(::Stripe::EphemeralKeyDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::EphemeralKey)
      }
     def self.delete(key, params = {}, opts = {}); end
 
     # Invalidates a short-lived API key for a given resource.
     sig {
-      params(params: T.any(::Stripe::EphemeralKeyDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
+      params(params: T.any(::Stripe::EphemeralKeyDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::EphemeralKey)
      }
     def delete(params = {}, opts = {}); end
   end

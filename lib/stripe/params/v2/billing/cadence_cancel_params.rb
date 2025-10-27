@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class CadenceCancelParams < Stripe::RequestParams; end
+      class CadenceCancelParams < ::Stripe::RequestParams; end
     end
   end
 end

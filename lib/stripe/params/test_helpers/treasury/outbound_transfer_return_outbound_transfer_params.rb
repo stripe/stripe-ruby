@@ -4,8 +4,8 @@
 module Stripe
   module TestHelpers
     module Treasury
-      class OutboundTransferReturnOutboundTransferParams < Stripe::RequestParams
-        class ReturnedDetails < Stripe::RequestParams
+      class OutboundTransferReturnOutboundTransferParams < ::Stripe::RequestParams
+        class ReturnedDetails < ::Stripe::RequestParams
           # Reason for the return.
           attr_accessor :code
 

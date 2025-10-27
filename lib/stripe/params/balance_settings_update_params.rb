@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  class BalanceSettingsUpdateParams < Stripe::RequestParams
-    class Payments < Stripe::RequestParams
-      class Payouts < Stripe::RequestParams
-        class Schedule < Stripe::RequestParams
+  class BalanceSettingsUpdateParams < ::Stripe::RequestParams
+    class Payments < ::Stripe::RequestParams
+      class Payouts < ::Stripe::RequestParams
+        class Schedule < ::Stripe::RequestParams
           # How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
           attr_accessor :interval
           # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
@@ -33,7 +33,7 @@ module Stripe
         end
       end
 
-      class SettlementTiming < Stripe::RequestParams
+      class SettlementTiming < ::Stripe::RequestParams
         # Change `delay_days` for this account, which determines the number of days charge funds are held before becoming available. The maximum value is 31. Passing an empty string to `delay_days_override` will return `delay_days` to the default, which is the lowest available value for the account. [Learn more about controlling delay days](/connect/manage-payout-schedule).
         attr_accessor :delay_days_override
 

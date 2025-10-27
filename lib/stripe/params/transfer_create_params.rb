@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class TransferCreateParams < Stripe::RequestParams
+  class TransferCreateParams < ::Stripe::RequestParams
     # A positive integer in cents (or local equivalent) representing how much to transfer.
     attr_accessor :amount
     # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).

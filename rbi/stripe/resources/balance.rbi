@@ -10,8 +10,8 @@ module Stripe
   #
   # Related guide: [Balances and settlement time](https://stripe.com/docs/payments/balances), [Understanding Connect account balances](https://stripe.com/docs/connect/account-balances)
   class Balance < SingletonAPIResource
-    class Available < Stripe::StripeObject
-      class SourceTypes < Stripe::StripeObject
+    class Available < ::Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(T.nilable(Integer)) }
         def bank_account; end
@@ -44,8 +44,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ConnectReserved < Stripe::StripeObject
-      class SourceTypes < Stripe::StripeObject
+    class ConnectReserved < ::Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(T.nilable(Integer)) }
         def bank_account; end
@@ -78,9 +78,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class InstantAvailable < Stripe::StripeObject
-      class NetAvailable < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+    class InstantAvailable < ::Stripe::StripeObject
+      class NetAvailable < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           sig { returns(T.nilable(Integer)) }
           def bank_account; end
@@ -113,7 +113,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SourceTypes < Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(T.nilable(Integer)) }
         def bank_account; end
@@ -149,9 +149,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Issuing < Stripe::StripeObject
-      class Available < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+    class Issuing < ::Stripe::StripeObject
+      class Available < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           sig { returns(T.nilable(Integer)) }
           def bank_account; end
@@ -194,8 +194,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Pending < Stripe::StripeObject
-      class SourceTypes < Stripe::StripeObject
+    class Pending < ::Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(T.nilable(Integer)) }
         def bank_account; end
@@ -228,9 +228,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class RefundAndDisputePrefunding < Stripe::StripeObject
-      class Available < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+    class RefundAndDisputePrefunding < ::Stripe::StripeObject
+      class Available < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           sig { returns(T.nilable(Integer)) }
           def bank_account; end
@@ -263,8 +263,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Pending < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+      class Pending < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           sig { returns(T.nilable(Integer)) }
           def bank_account; end

@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SetupIntentUpdateParams < Stripe::RequestParams
-    class PaymentMethodData < Stripe::RequestParams
-      class AcssDebit < Stripe::RequestParams
+  class SetupIntentUpdateParams < ::Stripe::RequestParams
+    class PaymentMethodData < ::Stripe::RequestParams
+      class AcssDebit < ::Stripe::RequestParams
         # Customer's bank account number.
         attr_accessor :account_number
         # Institution number of the customer's bank.
@@ -19,13 +19,13 @@ module Stripe
         end
       end
 
-      class Affirm < Stripe::RequestParams; end
-      class AfterpayClearpay < Stripe::RequestParams; end
-      class Alipay < Stripe::RequestParams; end
-      class Alma < Stripe::RequestParams; end
-      class AmazonPay < Stripe::RequestParams; end
+      class Affirm < ::Stripe::RequestParams; end
+      class AfterpayClearpay < ::Stripe::RequestParams; end
+      class Alipay < ::Stripe::RequestParams; end
+      class Alma < ::Stripe::RequestParams; end
+      class AmazonPay < ::Stripe::RequestParams; end
 
-      class AuBecsDebit < Stripe::RequestParams
+      class AuBecsDebit < ::Stripe::RequestParams
         # The account number for the bank account.
         attr_accessor :account_number
         # Bank-State-Branch number of the bank account.
@@ -37,7 +37,7 @@ module Stripe
         end
       end
 
-      class BacsDebit < Stripe::RequestParams
+      class BacsDebit < ::Stripe::RequestParams
         # Account number of the bank account that the funds will be debited from.
         attr_accessor :account_number
         # Sort code of the bank account. (e.g., `10-20-30`)
@@ -49,11 +49,11 @@ module Stripe
         end
       end
 
-      class Bancontact < Stripe::RequestParams; end
-      class Billie < Stripe::RequestParams; end
+      class Bancontact < ::Stripe::RequestParams; end
+      class Billie < ::Stripe::RequestParams; end
 
-      class BillingDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class BillingDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -103,9 +103,9 @@ module Stripe
         end
       end
 
-      class Blik < Stripe::RequestParams; end
+      class Blik < ::Stripe::RequestParams; end
 
-      class Boleto < Stripe::RequestParams
+      class Boleto < ::Stripe::RequestParams
         # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
         attr_accessor :tax_id
 
@@ -114,11 +114,11 @@ module Stripe
         end
       end
 
-      class Cashapp < Stripe::RequestParams; end
-      class Crypto < Stripe::RequestParams; end
-      class CustomerBalance < Stripe::RequestParams; end
+      class Cashapp < ::Stripe::RequestParams; end
+      class Crypto < ::Stripe::RequestParams; end
+      class CustomerBalance < ::Stripe::RequestParams; end
 
-      class Eps < Stripe::RequestParams
+      class Eps < ::Stripe::RequestParams
         # The customer's bank.
         attr_accessor :bank
 
@@ -127,7 +127,7 @@ module Stripe
         end
       end
 
-      class Fpx < Stripe::RequestParams
+      class Fpx < ::Stripe::RequestParams
         # Account holder type for FPX transaction
         attr_accessor :account_holder_type
         # The customer's bank.
@@ -139,10 +139,10 @@ module Stripe
         end
       end
 
-      class Giropay < Stripe::RequestParams; end
-      class Grabpay < Stripe::RequestParams; end
+      class Giropay < ::Stripe::RequestParams; end
+      class Grabpay < ::Stripe::RequestParams; end
 
-      class Ideal < Stripe::RequestParams
+      class Ideal < ::Stripe::RequestParams
         # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         attr_accessor :bank
 
@@ -151,11 +151,11 @@ module Stripe
         end
       end
 
-      class InteracPresent < Stripe::RequestParams; end
-      class KakaoPay < Stripe::RequestParams; end
+      class InteracPresent < ::Stripe::RequestParams; end
+      class KakaoPay < ::Stripe::RequestParams; end
 
-      class Klarna < Stripe::RequestParams
-        class Dob < Stripe::RequestParams
+      class Klarna < ::Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           attr_accessor :day
           # The month of birth, between 1 and 12.
@@ -177,14 +177,14 @@ module Stripe
         end
       end
 
-      class Konbini < Stripe::RequestParams; end
-      class KrCard < Stripe::RequestParams; end
-      class Link < Stripe::RequestParams; end
-      class MbWay < Stripe::RequestParams; end
-      class Mobilepay < Stripe::RequestParams; end
-      class Multibanco < Stripe::RequestParams; end
+      class Konbini < ::Stripe::RequestParams; end
+      class KrCard < ::Stripe::RequestParams; end
+      class Link < ::Stripe::RequestParams; end
+      class MbWay < ::Stripe::RequestParams; end
+      class Mobilepay < ::Stripe::RequestParams; end
+      class Multibanco < ::Stripe::RequestParams; end
 
-      class NaverPay < Stripe::RequestParams
+      class NaverPay < ::Stripe::RequestParams
         # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         attr_accessor :funding
 
@@ -193,7 +193,7 @@ module Stripe
         end
       end
 
-      class NzBankAccount < Stripe::RequestParams
+      class NzBankAccount < ::Stripe::RequestParams
         # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
         attr_accessor :account_holder_name
         # The account number for the bank account.
@@ -224,9 +224,9 @@ module Stripe
         end
       end
 
-      class Oxxo < Stripe::RequestParams; end
+      class Oxxo < ::Stripe::RequestParams; end
 
-      class P24 < Stripe::RequestParams
+      class P24 < ::Stripe::RequestParams
         # The customer's bank.
         attr_accessor :bank
 
@@ -235,14 +235,14 @@ module Stripe
         end
       end
 
-      class PayByBank < Stripe::RequestParams; end
-      class Payco < Stripe::RequestParams; end
-      class Paynow < Stripe::RequestParams; end
-      class Paypal < Stripe::RequestParams; end
-      class Pix < Stripe::RequestParams; end
-      class Promptpay < Stripe::RequestParams; end
+      class PayByBank < ::Stripe::RequestParams; end
+      class Payco < ::Stripe::RequestParams; end
+      class Paynow < ::Stripe::RequestParams; end
+      class Paypal < ::Stripe::RequestParams; end
+      class Pix < ::Stripe::RequestParams; end
+      class Promptpay < ::Stripe::RequestParams; end
 
-      class RadarOptions < Stripe::RequestParams
+      class RadarOptions < ::Stripe::RequestParams
         # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         attr_accessor :session
 
@@ -251,11 +251,11 @@ module Stripe
         end
       end
 
-      class RevolutPay < Stripe::RequestParams; end
-      class SamsungPay < Stripe::RequestParams; end
-      class Satispay < Stripe::RequestParams; end
+      class RevolutPay < ::Stripe::RequestParams; end
+      class SamsungPay < ::Stripe::RequestParams; end
+      class Satispay < ::Stripe::RequestParams; end
 
-      class SepaDebit < Stripe::RequestParams
+      class SepaDebit < ::Stripe::RequestParams
         # IBAN of the bank account.
         attr_accessor :iban
 
@@ -264,7 +264,7 @@ module Stripe
         end
       end
 
-      class Sofort < Stripe::RequestParams
+      class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         attr_accessor :country
 
@@ -273,10 +273,10 @@ module Stripe
         end
       end
 
-      class Swish < Stripe::RequestParams; end
-      class Twint < Stripe::RequestParams; end
+      class Swish < ::Stripe::RequestParams; end
+      class Twint < ::Stripe::RequestParams; end
 
-      class UsBankAccount < Stripe::RequestParams
+      class UsBankAccount < ::Stripe::RequestParams
         # Account holder type: individual or company.
         attr_accessor :account_holder_type
         # Account number of the bank account.
@@ -303,8 +303,8 @@ module Stripe
         end
       end
 
-      class WechatPay < Stripe::RequestParams; end
-      class Zip < Stripe::RequestParams; end
+      class WechatPay < ::Stripe::RequestParams; end
+      class Zip < ::Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
       attr_accessor :acss_debit
       # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -527,9 +527,9 @@ module Stripe
       end
     end
 
-    class PaymentMethodOptions < Stripe::RequestParams
-      class AcssDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class AcssDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # A URL for custom mandate text to render during confirmation step.
           # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
           # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
@@ -571,10 +571,10 @@ module Stripe
         end
       end
 
-      class AmazonPay < Stripe::RequestParams; end
+      class AmazonPay < ::Stripe::RequestParams; end
 
-      class BacsDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class BacsDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           attr_accessor :reference_prefix
 
@@ -590,8 +590,8 @@ module Stripe
         end
       end
 
-      class Card < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Amount to be charged for future payments.
           attr_accessor :amount
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -638,9 +638,9 @@ module Stripe
           end
         end
 
-        class ThreeDSecure < Stripe::RequestParams
-          class NetworkOptions < Stripe::RequestParams
-            class CartesBancaires < Stripe::RequestParams
+        class ThreeDSecure < ::Stripe::RequestParams
+          class NetworkOptions < ::Stripe::RequestParams
+            class CartesBancaires < ::Stripe::RequestParams
               # The cryptogram calculation algorithm used by the card Issuer's ACS
               # to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
               # messageExtension: CB-AVALGO
@@ -737,10 +737,10 @@ module Stripe
         end
       end
 
-      class CardPresent < Stripe::RequestParams; end
+      class CardPresent < ::Stripe::RequestParams; end
 
-      class Klarna < Stripe::RequestParams
-        class OnDemand < Stripe::RequestParams
+      class Klarna < ::Stripe::RequestParams
+        class OnDemand < ::Stripe::RequestParams
           # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
           attr_accessor :average_amount
           # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
@@ -767,8 +767,8 @@ module Stripe
           end
         end
 
-        class Subscription < Stripe::RequestParams
-          class NextBilling < Stripe::RequestParams
+        class Subscription < ::Stripe::RequestParams
+          class NextBilling < ::Stripe::RequestParams
             # The amount of the next charge for the subscription.
             attr_accessor :amount
             # The date of the next charge for the subscription in YYYY-MM-DD format.
@@ -821,7 +821,7 @@ module Stripe
         end
       end
 
-      class Link < Stripe::RequestParams
+      class Link < ::Stripe::RequestParams
         # [Deprecated] This is a legacy parameter that no longer has any function.
         attr_accessor :persistent_token
 
@@ -830,7 +830,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::RequestParams
+      class Paypal < ::Stripe::RequestParams
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
         attr_accessor :billing_agreement_id
 
@@ -839,8 +839,8 @@ module Stripe
         end
       end
 
-      class SepaDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class SepaDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           attr_accessor :reference_prefix
 
@@ -856,9 +856,9 @@ module Stripe
         end
       end
 
-      class UsBankAccount < Stripe::RequestParams
-        class FinancialConnections < Stripe::RequestParams
-          class Filters < Stripe::RequestParams
+      class UsBankAccount < ::Stripe::RequestParams
+        class FinancialConnections < ::Stripe::RequestParams
+          class Filters < ::Stripe::RequestParams
             # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
             attr_accessor :account_subcategories
 
@@ -883,7 +883,7 @@ module Stripe
           end
         end
 
-        class MandateOptions < Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # The method used to collect offline mandate customer acceptance.
           attr_accessor :collection_method
 
@@ -892,7 +892,7 @@ module Stripe
           end
         end
 
-        class Networks < Stripe::RequestParams
+        class Networks < ::Stripe::RequestParams
           # Triggers validations to run across the selected networks
           attr_accessor :requested
 
@@ -976,6 +976,8 @@ module Stripe
     attr_accessor :customer
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_accessor :description
+    # The list of payment method types to exclude from use with this SetupIntent.
+    attr_accessor :excluded_payment_method_types
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # Indicates the directions of money movement for which this payment method is intended to be used.
@@ -1000,6 +1002,7 @@ module Stripe
       attach_to_self: nil,
       customer: nil,
       description: nil,
+      excluded_payment_method_types: nil,
       expand: nil,
       flow_directions: nil,
       metadata: nil,
@@ -1012,6 +1015,7 @@ module Stripe
       @attach_to_self = attach_to_self
       @customer = customer
       @description = description
+      @excluded_payment_method_types = excluded_payment_method_types
       @expand = expand
       @flow_directions = flow_directions
       @metadata = metadata

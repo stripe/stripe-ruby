@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentMethodAttachParams < Stripe::RequestParams
+  class PaymentMethodAttachParams < ::Stripe::RequestParams
     # The ID of the customer to which to attach the PaymentMethod.
     attr_accessor :customer
     # Specifies which fields in the response should be expanded.

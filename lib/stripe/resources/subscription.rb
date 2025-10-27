@@ -16,8 +16,8 @@ module Stripe
       "subscription"
     end
 
-    class AutomaticTax < Stripe::StripeObject
-      class Liability < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
+      class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -47,7 +47,7 @@ module Stripe
       end
     end
 
-    class BillingCycleAnchorConfig < Stripe::StripeObject
+    class BillingCycleAnchorConfig < ::Stripe::StripeObject
       # The day of the month of the billing_cycle_anchor.
       attr_reader :day_of_month
       # The hour of the day of the billing_cycle_anchor.
@@ -68,8 +68,8 @@ module Stripe
       end
     end
 
-    class BillingMode < Stripe::StripeObject
-      class Flexible < Stripe::StripeObject
+    class BillingMode < ::Stripe::StripeObject
+      class Flexible < ::Stripe::StripeObject
         # Controls how invoices and invoice items display proration amounts and discount amounts.
         attr_reader :proration_discounts
 
@@ -97,7 +97,7 @@ module Stripe
       end
     end
 
-    class BillingThresholds < Stripe::StripeObject
+    class BillingThresholds < ::Stripe::StripeObject
       # Monetary threshold that triggers the subscription to create an invoice
       attr_reader :amount_gte
       # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
@@ -112,7 +112,7 @@ module Stripe
       end
     end
 
-    class CancellationDetails < Stripe::StripeObject
+    class CancellationDetails < ::Stripe::StripeObject
       # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
       attr_reader :comment
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
@@ -129,8 +129,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::StripeObject
-      class Issuer < Stripe::StripeObject
+    class InvoiceSettings < ::Stripe::StripeObject
+      class Issuer < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -158,7 +158,7 @@ module Stripe
       end
     end
 
-    class PauseCollection < Stripe::StripeObject
+    class PauseCollection < ::Stripe::StripeObject
       # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
       attr_reader :behavior
       # The time after which the subscription will resume collecting payments.
@@ -173,10 +173,10 @@ module Stripe
       end
     end
 
-    class PaymentSettings < Stripe::StripeObject
-      class PaymentMethodOptions < Stripe::StripeObject
-        class AcssDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject
+    class PaymentSettings < ::Stripe::StripeObject
+      class PaymentMethodOptions < ::Stripe::StripeObject
+        class AcssDebit < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
             # Transaction type of the mandate.
             attr_reader :transaction_type
 
@@ -202,7 +202,7 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::StripeObject
+        class Bancontact < ::Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_reader :preferred_language
 
@@ -215,8 +215,8 @@ module Stripe
           end
         end
 
-        class Card < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments.
             attr_reader :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -248,9 +248,9 @@ module Stripe
           end
         end
 
-        class CustomerBalance < Stripe::StripeObject
-          class BankTransfer < Stripe::StripeObject
-            class EuBankTransfer < Stripe::StripeObject
+        class CustomerBalance < ::Stripe::StripeObject
+          class BankTransfer < ::Stripe::StripeObject
+            class EuBankTransfer < ::Stripe::StripeObject
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_reader :country
 
@@ -289,7 +289,7 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::StripeObject
+        class Konbini < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -299,7 +299,7 @@ module Stripe
           end
         end
 
-        class SepaDebit < Stripe::StripeObject
+        class SepaDebit < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -309,9 +309,9 @@ module Stripe
           end
         end
 
-        class UsBankAccount < Stripe::StripeObject
-          class FinancialConnections < Stripe::StripeObject
-            class Filters < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
+          class FinancialConnections < ::Stripe::StripeObject
+            class Filters < ::Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               attr_reader :account_subcategories
 
@@ -398,7 +398,7 @@ module Stripe
       end
     end
 
-    class PendingInvoiceItemInterval < Stripe::StripeObject
+    class PendingInvoiceItemInterval < ::Stripe::StripeObject
       # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
       attr_reader :interval
       # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
@@ -413,7 +413,7 @@ module Stripe
       end
     end
 
-    class PendingUpdate < Stripe::StripeObject
+    class PendingUpdate < ::Stripe::StripeObject
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       attr_reader :billing_cycle_anchor
       # The point after which the changes reflected by this update will be discarded and no longer applied.
@@ -434,7 +434,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_reader :amount_percent
       # The account where funds from the payment will be transferred to upon payment success.
@@ -449,8 +449,8 @@ module Stripe
       end
     end
 
-    class TrialSettings < Stripe::StripeObject
-      class EndBehavior < Stripe::StripeObject
+    class TrialSettings < ::Stripe::StripeObject
+      class EndBehavior < ::Stripe::StripeObject
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_reader :missing_payment_method
 

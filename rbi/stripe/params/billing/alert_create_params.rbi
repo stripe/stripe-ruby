@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Billing
-    class AlertCreateParams < Stripe::RequestParams
-      class UsageThreshold < Stripe::RequestParams
-        class Filter < Stripe::RequestParams
+    class AlertCreateParams < ::Stripe::RequestParams
+      class UsageThreshold < ::Stripe::RequestParams
+        class Filter < ::Stripe::RequestParams
           # Limit the scope to this usage alert only to this customer.
           sig { returns(T.nilable(String)) }
           def customer; end

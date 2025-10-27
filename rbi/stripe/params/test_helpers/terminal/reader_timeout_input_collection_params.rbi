@@ -5,7 +5,7 @@
 module Stripe
   module TestHelpers
     module Terminal
-      class ReaderTimeoutInputCollectionParams < Stripe::RequestParams
+      class ReaderTimeoutInputCollectionParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         def expand; end

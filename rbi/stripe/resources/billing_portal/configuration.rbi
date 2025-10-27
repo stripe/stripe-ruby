@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module BillingPortal
-    # A portal configuration describes the functionality and behavior of a portal session.
+    # A portal configuration describes the functionality and behavior you embed in a portal session. Related guide: [Configure the customer portal](https://docs.stripe.com/customer-management/configure-portal).
     class Configuration < APIResource
-      class BusinessProfile < Stripe::StripeObject
+      class BusinessProfile < ::Stripe::StripeObject
         # The messaging shown to customers in the portal.
         sig { returns(T.nilable(String)) }
         def headline; end
@@ -23,8 +23,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Features < Stripe::StripeObject
-        class CustomerUpdate < Stripe::StripeObject
+      class Features < ::Stripe::StripeObject
+        class CustomerUpdate < ::Stripe::StripeObject
           # The types of customer updates that are supported. When empty, customers are not updateable.
           sig { returns(T::Array[String]) }
           def allowed_updates; end
@@ -38,7 +38,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class InvoiceHistory < Stripe::StripeObject
+        class InvoiceHistory < ::Stripe::StripeObject
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
@@ -49,7 +49,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class PaymentMethodUpdate < Stripe::StripeObject
+        class PaymentMethodUpdate < ::Stripe::StripeObject
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
@@ -60,8 +60,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SubscriptionCancel < Stripe::StripeObject
-          class CancellationReason < Stripe::StripeObject
+        class SubscriptionCancel < ::Stripe::StripeObject
+          class CancellationReason < ::Stripe::StripeObject
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             def enabled; end
@@ -94,9 +94,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SubscriptionUpdate < Stripe::StripeObject
-          class Product < Stripe::StripeObject
-            class AdjustableQuantity < Stripe::StripeObject
+        class SubscriptionUpdate < ::Stripe::StripeObject
+          class Product < ::Stripe::StripeObject
+            class AdjustableQuantity < ::Stripe::StripeObject
               # If true, the quantity can be adjusted to any non-negative integer.
               sig { returns(T::Boolean) }
               def enabled; end
@@ -129,8 +129,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ScheduleAtPeriodEnd < Stripe::StripeObject
-            class Condition < Stripe::StripeObject
+          class ScheduleAtPeriodEnd < ::Stripe::StripeObject
+            class Condition < ::Stripe::StripeObject
               # The type of condition.
               sig { returns(String) }
               def type; end
@@ -204,7 +204,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class LoginPage < Stripe::StripeObject
+      class LoginPage < ::Stripe::StripeObject
         # If `true`, a shareable `url` will be generated that will take your customers to a hosted login page for the customer portal.
         #
         # If `false`, the previously generated `url`, if any, will be deactivated.
@@ -224,7 +224,7 @@ module Stripe
       sig { returns(T::Boolean) }
       def active; end
       # ID of the Connect Application that created the configuration.
-      sig { returns(T.nilable(T.any(String, Stripe::Application))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
       def application; end
       # Attribute for field business_profile
       sig { returns(BusinessProfile) }
@@ -264,19 +264,19 @@ module Stripe
       def updated; end
       # Creates a configuration that describes the functionality and behavior of a PortalSession
       sig {
-        params(params: T.any(::Stripe::BillingPortal::ConfigurationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BillingPortal::Configuration)
+        params(params: T.any(::Stripe::BillingPortal::ConfigurationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BillingPortal::Configuration)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of configurations that describe the functionality of the customer portal.
       sig {
-        params(params: T.any(::Stripe::BillingPortal::ConfigurationListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::BillingPortal::ConfigurationListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates a configuration that describes the functionality of the customer portal.
       sig {
-        params(configuration: String, params: T.any(::Stripe::BillingPortal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BillingPortal::Configuration)
+        params(configuration: String, params: T.any(::Stripe::BillingPortal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BillingPortal::Configuration)
        }
       def self.update(configuration, params = {}, opts = {}); end
     end

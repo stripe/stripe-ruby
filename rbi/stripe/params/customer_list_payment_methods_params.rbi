@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class CustomerListPaymentMethodsParams < Stripe::RequestParams
+  class CustomerListPaymentMethodsParams < ::Stripe::RequestParams
     # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
     sig { returns(T.nilable(String)) }
     def allow_redisplay; end

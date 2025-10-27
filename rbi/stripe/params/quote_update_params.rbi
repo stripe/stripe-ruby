@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class QuoteUpdateParams < Stripe::RequestParams
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+  class QuoteUpdateParams < ::Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -36,7 +36,7 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -57,8 +57,8 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, promotion_code: nil); end
     end
-    class InvoiceSettings < Stripe::RequestParams
-      class Issuer < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -89,8 +89,8 @@ module Stripe
        }
       def initialize(days_until_due: nil, issuer: nil); end
     end
-    class LineItem < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
+    class LineItem < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
         def coupon; end
@@ -111,8 +111,8 @@ module Stripe
          }
         def initialize(coupon: nil, discount: nil, promotion_code: nil); end
       end
-      class PriceData < Stripe::RequestParams
-        class Recurring < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -218,7 +218,7 @@ module Stripe
         tax_rates: nil
       ); end
     end
-    class SubscriptionData < Stripe::RequestParams
+    class SubscriptionData < ::Stripe::RequestParams
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }
       def description; end
@@ -255,7 +255,7 @@ module Stripe
         trial_period_days: nil
       ); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
       sig { returns(T.nilable(Integer)) }
       def amount; end

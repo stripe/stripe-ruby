@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module FinancialConnections
-    class AccountSubscribeParams < Stripe::RequestParams
+    class AccountSubscribeParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end

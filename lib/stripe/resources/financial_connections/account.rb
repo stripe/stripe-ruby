@@ -12,7 +12,7 @@ module Stripe
         "financial_connections.account"
       end
 
-      class AccountHolder < Stripe::StripeObject
+      class AccountHolder < ::Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
         attr_reader :account
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
@@ -29,8 +29,8 @@ module Stripe
         end
       end
 
-      class Balance < Stripe::StripeObject
-        class Cash < Stripe::StripeObject
+      class Balance < ::Stripe::StripeObject
+        class Cash < ::Stripe::StripeObject
           # The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
           #
           # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
@@ -47,7 +47,7 @@ module Stripe
           end
         end
 
-        class Credit < Stripe::StripeObject
+        class Credit < ::Stripe::StripeObject
           # The credit that has been used by the account holder.
           #
           # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
@@ -87,7 +87,7 @@ module Stripe
         end
       end
 
-      class BalanceRefresh < Stripe::StripeObject
+      class BalanceRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         attr_reader :last_attempted_at
         # Time at which the next balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
@@ -104,7 +104,7 @@ module Stripe
         end
       end
 
-      class OwnershipRefresh < Stripe::StripeObject
+      class OwnershipRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         attr_reader :last_attempted_at
         # Time at which the next ownership refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
@@ -121,7 +121,7 @@ module Stripe
         end
       end
 
-      class TransactionRefresh < Stripe::StripeObject
+      class TransactionRefresh < ::Stripe::StripeObject
         # Unique identifier for the object.
         attr_reader :id
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
@@ -261,7 +261,7 @@ module Stripe
         )
       end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       def subscribe(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -271,7 +271,7 @@ module Stripe
         )
       end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       def self.subscribe(account, params = {}, opts = {})
         request_stripe_object(
           method: :post,

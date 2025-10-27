@@ -7,12 +7,12 @@ module Stripe
   #
   # Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
   class CreditNote < APIResource
-    class DiscountAmount < Stripe::StripeObject
+    class DiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       sig { returns(Integer) }
       def amount; end
       # The discount that was applied to get this discount amount.
-      sig { returns(T.any(String, Stripe::Discount)) }
+      sig { returns(T.any(String, ::Stripe::Discount)) }
       def discount; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -21,15 +21,15 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PretaxCreditAmount < Stripe::StripeObject
+    class PretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       sig { returns(Integer) }
       def amount; end
       # The credit balance transaction that was applied to get this pretax credit amount.
-      sig { returns(T.nilable(T.any(String, Stripe::Billing::CreditBalanceTransaction))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Billing::CreditBalanceTransaction))) }
       def credit_balance_transaction; end
       # The discount that was applied to get this pretax credit amount.
-      sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Discount))) }
       def discount; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
@@ -41,29 +41,49 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Refund < Stripe::StripeObject
+    class Refund < ::Stripe::StripeObject
+      class PaymentRecordRefund < ::Stripe::StripeObject
+        # ID of the payment record.
+        sig { returns(String) }
+        def payment_record; end
+        # ID of the refund group.
+        sig { returns(String) }
+        def refund_group; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Amount of the refund that applies to this credit note, in cents (or local equivalent).
       sig { returns(Integer) }
       def amount_refunded; end
+      # The PaymentRecord refund details associated with this credit note refund.
+      sig { returns(T.nilable(PaymentRecordRefund)) }
+      def payment_record_refund; end
       # ID of the refund.
-      sig { returns(T.any(String, Stripe::Refund)) }
+      sig { returns(T.any(String, ::Stripe::Refund)) }
       def refund; end
+      # Type of the refund, one of `refund` or `payment_record_refund`.
+      sig { returns(T.nilable(String)) }
+      def type; end
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {payment_record_refund: PaymentRecordRefund}
       end
       def self.field_remappings
         @field_remappings = {}
       end
     end
-    class ShippingCost < Stripe::StripeObject
-      class Tax < Stripe::StripeObject
+    class ShippingCost < ::Stripe::StripeObject
+      class Tax < ::Stripe::StripeObject
         # Amount of tax applied for this rate.
         sig { returns(Integer) }
         def amount; end
         # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
         #
         # Related guide: [Tax rates](/billing/taxes/tax-rates)
-        sig { returns(Stripe::TaxRate) }
+        sig { returns(::Stripe::TaxRate) }
         def rate; end
         # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
         sig { returns(T.nilable(String)) }
@@ -88,7 +108,7 @@ module Stripe
       sig { returns(Integer) }
       def amount_total; end
       # The ID of the ShippingRate for this invoice.
-      sig { returns(T.nilable(T.any(String, Stripe::ShippingRate))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::ShippingRate))) }
       def shipping_rate; end
       # The taxes applied to the shipping rate.
       sig { returns(T.nilable(T::Array[Tax])) }
@@ -100,8 +120,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TotalTax < Stripe::StripeObject
-      class TaxRateDetails < Stripe::StripeObject
+    class TotalTax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
         # Attribute for field tax_rate
         sig { returns(String) }
         def tax_rate; end
@@ -150,10 +170,10 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # ID of the customer.
-    sig { returns(T.any(String, Stripe::Customer)) }
+    sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
     # Customer balance transaction related to this credit note.
-    sig { returns(T.nilable(T.any(String, Stripe::CustomerBalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::CustomerBalanceTransaction))) }
     def customer_balance_transaction; end
     # The integer amount in cents (or local equivalent) representing the total amount of discount that was credited.
     sig { returns(Integer) }
@@ -168,10 +188,10 @@ module Stripe
     sig { returns(String) }
     def id; end
     # ID of the invoice.
-    sig { returns(T.any(String, Stripe::Invoice)) }
+    sig { returns(T.any(String, ::Stripe::Invoice)) }
     def invoice; end
     # Line items that make up the credit note
-    sig { returns(Stripe::ListObject) }
+    sig { returns(::Stripe::ListObject) }
     def lines; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
@@ -250,43 +270,43 @@ module Stripe
     # You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
     # post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
     sig {
-      params(params: T.any(::Stripe::CreditNoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(params: T.any(::Stripe::CreditNoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of credit notes.
     sig {
-      params(params: T.any(::Stripe::CreditNoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CreditNoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
     sig {
-      params(params: T.any(::Stripe::CreditNoteListPreviewLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CreditNoteListPreviewLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list_preview_line_items(params = {}, opts = {}); end
 
     # Get a preview of a credit note without creating it.
     sig {
-      params(params: T.any(::Stripe::CreditNotePreviewParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(params: T.any(::Stripe::CreditNotePreviewParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def self.preview(params = {}, opts = {}); end
 
     # Updates an existing credit note.
     sig {
-      params(id: String, params: T.any(::Stripe::CreditNoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(id: String, params: T.any(::Stripe::CreditNoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def self.update(id, params = {}, opts = {}); end
 
     # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     sig {
-      params(params: T.any(::Stripe::CreditNoteVoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(params: T.any(::Stripe::CreditNoteVoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def void_credit_note(params = {}, opts = {}); end
 
     # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     sig {
-      params(id: String, params: T.any(::Stripe::CreditNoteVoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(id: String, params: T.any(::Stripe::CreditNoteVoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def self.void_credit_note(id, params = {}, opts = {}); end
   end

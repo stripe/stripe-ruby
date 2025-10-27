@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class TaxIdCreateParams < Stripe::RequestParams
-    class Owner < Stripe::RequestParams
+  class TaxIdCreateParams < ::Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
       # Account the tax ID belongs to. Required when `type=account`
       attr_accessor :account
       # Customer the tax ID belongs to. Required when `type=customer`

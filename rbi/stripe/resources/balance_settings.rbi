@@ -5,9 +5,9 @@
 module Stripe
   # Options for customizing account balances and payout settings for a Stripe platform's connected accounts.
   class BalanceSettings < SingletonAPIResource
-    class Payments < Stripe::StripeObject
-      class Payouts < Stripe::StripeObject
-        class Schedule < Stripe::StripeObject
+    class Payments < ::Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
+        class Schedule < ::Stripe::StripeObject
           # How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
           sig { returns(T.nilable(String)) }
           def interval; end
@@ -43,7 +43,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SettlementTiming < Stripe::StripeObject
+      class SettlementTiming < ::Stripe::StripeObject
         # The number of days charge funds are held before becoming available.
         sig { returns(Integer) }
         def delay_days; end

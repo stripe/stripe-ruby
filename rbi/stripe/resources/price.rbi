@@ -10,8 +10,8 @@ module Stripe
   #
   # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/products-prices/overview).
   class Price < APIResource
-    class CurrencyOptions < Stripe::StripeObject
-      class CustomUnitAmount < Stripe::StripeObject
+    class CurrencyOptions < ::Stripe::StripeObject
+      class CustomUnitAmount < ::Stripe::StripeObject
         # The maximum unit amount the customer can specify for this item.
         sig { returns(T.nilable(Integer)) }
         def maximum; end
@@ -28,7 +28,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Tier < Stripe::StripeObject
+      class Tier < ::Stripe::StripeObject
         # Price for the entire tier.
         sig { returns(T.nilable(Integer)) }
         def flat_amount; end
@@ -73,7 +73,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class CustomUnitAmount < Stripe::StripeObject
+    class CustomUnitAmount < ::Stripe::StripeObject
       # The maximum unit amount the customer can specify for this item.
       sig { returns(T.nilable(Integer)) }
       def maximum; end
@@ -90,7 +90,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Recurring < Stripe::StripeObject
+    class Recurring < ::Stripe::StripeObject
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
       sig { returns(String) }
       def interval; end
@@ -113,7 +113,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Tier < Stripe::StripeObject
+    class Tier < ::Stripe::StripeObject
       # Price for the entire tier.
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
@@ -136,7 +136,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TransformQuantity < Stripe::StripeObject
+    class TransformQuantity < ::Stripe::StripeObject
       # Divide usage by this number.
       sig { returns(Integer) }
       def divide_by; end
@@ -187,7 +187,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The ID of the product this price is associated with.
-    sig { returns(T.any(String, Stripe::Product)) }
+    sig { returns(T.any(String, ::Stripe::Product)) }
     def product; end
     # The recurring components of a price such as `interval` and `usage_type`.
     sig { returns(T.nilable(Recurring)) }
@@ -218,29 +218,29 @@ module Stripe
     def deleted; end
     # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     sig {
-      params(params: T.any(::Stripe::PriceCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Price)
+      params(params: T.any(::Stripe::PriceCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
     sig {
-      params(params: T.any(::Stripe::PriceListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PriceListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::PriceSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::PriceSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search(params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::PriceSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::PriceSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search_auto_paging_each(params = {}, opts = {}, &blk); end
 
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
     sig {
-      params(price: String, params: T.any(::Stripe::PriceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Price)
+      params(price: String, params: T.any(::Stripe::PriceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
      }
     def self.update(price, params = {}, opts = {}); end
   end

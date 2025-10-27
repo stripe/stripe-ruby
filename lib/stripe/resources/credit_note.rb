@@ -15,7 +15,7 @@ module Stripe
       "credit_note"
     end
 
-    class DiscountAmount < Stripe::StripeObject
+    class DiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       attr_reader :amount
       # The discount that was applied to get this discount amount.
@@ -30,7 +30,7 @@ module Stripe
       end
     end
 
-    class PretaxCreditAmount < Stripe::StripeObject
+    class PretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       attr_reader :amount
       # The credit balance transaction that was applied to get this pretax credit amount.
@@ -49,14 +49,32 @@ module Stripe
       end
     end
 
-    class Refund < Stripe::StripeObject
+    class Refund < ::Stripe::StripeObject
+      class PaymentRecordRefund < ::Stripe::StripeObject
+        # ID of the payment record.
+        attr_reader :payment_record
+        # ID of the refund group.
+        attr_reader :refund_group
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Amount of the refund that applies to this credit note, in cents (or local equivalent).
       attr_reader :amount_refunded
+      # The PaymentRecord refund details associated with this credit note refund.
+      attr_reader :payment_record_refund
       # ID of the refund.
       attr_reader :refund
+      # Type of the refund, one of `refund` or `payment_record_refund`.
+      attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { payment_record_refund: PaymentRecordRefund }
       end
 
       def self.field_remappings
@@ -64,8 +82,8 @@ module Stripe
       end
     end
 
-    class ShippingCost < Stripe::StripeObject
-      class Tax < Stripe::StripeObject
+    class ShippingCost < ::Stripe::StripeObject
+      class Tax < ::Stripe::StripeObject
         # Amount of tax applied for this rate.
         attr_reader :amount
         # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -105,8 +123,8 @@ module Stripe
       end
     end
 
-    class TotalTax < Stripe::StripeObject
-      class TaxRateDetails < Stripe::StripeObject
+    class TotalTax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
 

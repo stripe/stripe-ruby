@@ -3,12 +3,12 @@
 
 # typed: true
 module Stripe
-  class DisputeUpdateParams < Stripe::RequestParams
-    class Evidence < Stripe::RequestParams
-      class EnhancedEvidence < Stripe::RequestParams
-        class VisaCompellingEvidence3 < Stripe::RequestParams
-          class DisputedTransaction < Stripe::RequestParams
-            class ShippingAddress < Stripe::RequestParams
+  class DisputeUpdateParams < ::Stripe::RequestParams
+    class Evidence < ::Stripe::RequestParams
+      class EnhancedEvidence < ::Stripe::RequestParams
+        class VisaCompellingEvidence3 < ::Stripe::RequestParams
+          class DisputedTransaction < ::Stripe::RequestParams
+            class ShippingAddress < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -111,8 +111,8 @@ module Stripe
               shipping_address: nil
             ); end
           end
-          class PriorUndisputedTransaction < Stripe::RequestParams
-            class ShippingAddress < Stripe::RequestParams
+          class PriorUndisputedTransaction < ::Stripe::RequestParams
+            class ShippingAddress < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -238,7 +238,7 @@ module Stripe
            }
           def initialize(disputed_transaction: nil, prior_undisputed_transactions: nil); end
         end
-        class VisaCompliance < Stripe::RequestParams
+        class VisaCompliance < ::Stripe::RequestParams
           # A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
           sig { returns(T.nilable(T::Boolean)) }
           def fee_acknowledged; end

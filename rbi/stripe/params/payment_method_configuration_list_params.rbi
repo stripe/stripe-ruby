@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodConfigurationListParams < Stripe::RequestParams
+  class PaymentMethodConfigurationListParams < ::Stripe::RequestParams
     # The Connect application to filter by.
     sig { returns(T.nilable(String)) }
     def application; end

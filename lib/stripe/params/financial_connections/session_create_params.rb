@@ -3,8 +3,8 @@
 
 module Stripe
   module FinancialConnections
-    class SessionCreateParams < Stripe::RequestParams
-      class AccountHolder < Stripe::RequestParams
+    class SessionCreateParams < ::Stripe::RequestParams
+      class AccountHolder < ::Stripe::RequestParams
         # The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
         attr_accessor :account
         # The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
@@ -19,7 +19,7 @@ module Stripe
         end
       end
 
-      class Filters < Stripe::RequestParams
+      class Filters < ::Stripe::RequestParams
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         attr_accessor :account_subcategories
         # List of countries from which to collect accounts.

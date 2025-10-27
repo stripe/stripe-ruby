@@ -3,8 +3,8 @@
 
 module Stripe
   module Issuing
-    class PersonalizationDesignRejectParams < Stripe::RequestParams
-      class RejectionReasons < Stripe::RequestParams
+    class PersonalizationDesignRejectParams < ::Stripe::RequestParams
+      class RejectionReasons < ::Stripe::RequestParams
         # The reason(s) the card logo was rejected.
         attr_accessor :card_logo
         # The reason(s) the carrier text was rejected.

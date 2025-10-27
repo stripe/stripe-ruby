@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class RefundCreateParams < Stripe::RequestParams
+  class RefundCreateParams < ::Stripe::RequestParams
     # Attribute for param field amount
     attr_accessor :amount
     # The identifier of the charge to refund.

@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Billing
-    class CreditGrantListParams < Stripe::RequestParams
+    class CreditGrantListParams < ::Stripe::RequestParams
       # Only return credit grants for this customer.
       sig { returns(T.nilable(String)) }
       def customer; end

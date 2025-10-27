@@ -16,6 +16,7 @@ module Stripe
   class PaymentIntent < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::NestedResource
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
@@ -24,8 +25,40 @@ module Stripe
       "payment_intent"
     end
 
-    class AmountDetails < Stripe::StripeObject
-      class Tip < Stripe::StripeObject
+    nested_resource_class_methods :amount_details_line_item, operations: %i[list]
+
+    class AmountDetails < ::Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        # Portion of the amount that is for shipping.
+        attr_reader :amount
+        # The postal code that represents the shipping source.
+        attr_reader :from_postal_code
+        # The postal code that represents the shipping destination.
+        attr_reader :to_postal_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Tax < ::Stripe::StripeObject
+        # Total portion of the amount that is for tax.
+        attr_reader :total_tax_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Tip < ::Stripe::StripeObject
         # Portion of the amount that corresponds to a tip.
         attr_reader :amount
 
@@ -37,11 +70,19 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # The total discount applied on the transaction.
+      attr_reader :discount_amount
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      attr_reader :line_items
+      # Attribute for field shipping
+      attr_reader :shipping
+      # Attribute for field tax
+      attr_reader :tax
       # Attribute for field tip
       attr_reader :tip
 
       def self.inner_class_types
-        @inner_class_types = { tip: Tip }
+        @inner_class_types = { shipping: Shipping, tax: Tax, tip: Tip }
       end
 
       def self.field_remappings
@@ -49,7 +90,7 @@ module Stripe
       end
     end
 
-    class AutomaticPaymentMethods < Stripe::StripeObject
+    class AutomaticPaymentMethods < ::Stripe::StripeObject
       # Controls whether this PaymentIntent will accept redirect-based payment methods.
       #
       # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
@@ -66,7 +107,7 @@ module Stripe
       end
     end
 
-    class LastPaymentError < Stripe::StripeObject
+    class LastPaymentError < ::Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.
@@ -143,8 +184,8 @@ module Stripe
       end
     end
 
-    class NextAction < Stripe::StripeObject
-      class AlipayHandleRedirect < Stripe::StripeObject
+    class NextAction < ::Stripe::StripeObject
+      class AlipayHandleRedirect < ::Stripe::StripeObject
         # The native data to be used with Alipay SDK you must redirect your customer to in order to authenticate the payment in an Android App.
         attr_reader :native_data
         # The native URL you must redirect your customer to in order to authenticate the payment in an iOS App.
@@ -163,7 +204,7 @@ module Stripe
         end
       end
 
-      class BoletoDisplayDetails < Stripe::StripeObject
+      class BoletoDisplayDetails < ::Stripe::StripeObject
         # The timestamp after which the boleto expires.
         attr_reader :expires_at
         # The URL to the hosted boleto voucher page, which allows customers to view the boleto voucher.
@@ -182,7 +223,7 @@ module Stripe
         end
       end
 
-      class CardAwaitNotification < Stripe::StripeObject
+      class CardAwaitNotification < ::Stripe::StripeObject
         # The time that payment will be attempted. If customer approval is required, they need to provide approval before this time.
         attr_reader :charge_attempt_at
         # For payments greater than INR 15000, the customer must provide explicit approval of the payment with their bank. For payments of lower amount, no customer action is required.
@@ -197,8 +238,8 @@ module Stripe
         end
       end
 
-      class CashappHandleRedirectOrDisplayQrCode < Stripe::StripeObject
-        class QrCode < Stripe::StripeObject
+      class CashappHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
           # The date (unix timestamp) when the QR code expires.
           attr_reader :expires_at
           # The image_url_png string used to render QR code
@@ -230,10 +271,10 @@ module Stripe
         end
       end
 
-      class DisplayBankTransferInstructions < Stripe::StripeObject
-        class FinancialAddress < Stripe::StripeObject
-          class Aba < Stripe::StripeObject
-            class AccountHolderAddress < Stripe::StripeObject
+      class DisplayBankTransferInstructions < ::Stripe::StripeObject
+        class FinancialAddress < ::Stripe::StripeObject
+          class Aba < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -256,7 +297,7 @@ module Stripe
               end
             end
 
-            class BankAddress < Stripe::StripeObject
+            class BankAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -305,8 +346,8 @@ module Stripe
             end
           end
 
-          class Iban < Stripe::StripeObject
-            class AccountHolderAddress < Stripe::StripeObject
+          class Iban < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -329,7 +370,7 @@ module Stripe
               end
             end
 
-            class BankAddress < Stripe::StripeObject
+            class BankAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -376,8 +417,8 @@ module Stripe
             end
           end
 
-          class SortCode < Stripe::StripeObject
-            class AccountHolderAddress < Stripe::StripeObject
+          class SortCode < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -400,7 +441,7 @@ module Stripe
               end
             end
 
-            class BankAddress < Stripe::StripeObject
+            class BankAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -445,8 +486,8 @@ module Stripe
             end
           end
 
-          class Spei < Stripe::StripeObject
-            class AccountHolderAddress < Stripe::StripeObject
+          class Spei < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -469,7 +510,7 @@ module Stripe
               end
             end
 
-            class BankAddress < Stripe::StripeObject
+            class BankAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -516,8 +557,8 @@ module Stripe
             end
           end
 
-          class Swift < Stripe::StripeObject
-            class AccountHolderAddress < Stripe::StripeObject
+          class Swift < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -540,7 +581,7 @@ module Stripe
               end
             end
 
-            class BankAddress < Stripe::StripeObject
+            class BankAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -589,8 +630,8 @@ module Stripe
             end
           end
 
-          class Zengin < Stripe::StripeObject
-            class AccountHolderAddress < Stripe::StripeObject
+          class Zengin < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -613,7 +654,7 @@ module Stripe
               end
             end
 
-            class BankAddress < Stripe::StripeObject
+            class BankAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -719,9 +760,9 @@ module Stripe
         end
       end
 
-      class KonbiniDisplayDetails < Stripe::StripeObject
-        class Stores < Stripe::StripeObject
-          class Familymart < Stripe::StripeObject
+      class KonbiniDisplayDetails < ::Stripe::StripeObject
+        class Stores < ::Stripe::StripeObject
+          class Familymart < ::Stripe::StripeObject
             # The confirmation number.
             attr_reader :confirmation_number
             # The payment code.
@@ -736,7 +777,7 @@ module Stripe
             end
           end
 
-          class Lawson < Stripe::StripeObject
+          class Lawson < ::Stripe::StripeObject
             # The confirmation number.
             attr_reader :confirmation_number
             # The payment code.
@@ -751,7 +792,7 @@ module Stripe
             end
           end
 
-          class Ministop < Stripe::StripeObject
+          class Ministop < ::Stripe::StripeObject
             # The confirmation number.
             attr_reader :confirmation_number
             # The payment code.
@@ -766,7 +807,7 @@ module Stripe
             end
           end
 
-          class Seicomart < Stripe::StripeObject
+          class Seicomart < ::Stripe::StripeObject
             # The confirmation number.
             attr_reader :confirmation_number
             # The payment code.
@@ -818,7 +859,7 @@ module Stripe
         end
       end
 
-      class MultibancoDisplayDetails < Stripe::StripeObject
+      class MultibancoDisplayDetails < ::Stripe::StripeObject
         # Entity number associated with this Multibanco payment.
         attr_reader :entity
         # The timestamp at which the Multibanco voucher expires.
@@ -837,7 +878,7 @@ module Stripe
         end
       end
 
-      class OxxoDisplayDetails < Stripe::StripeObject
+      class OxxoDisplayDetails < ::Stripe::StripeObject
         # The timestamp after which the OXXO voucher expires.
         attr_reader :expires_after
         # The URL for the hosted OXXO voucher page, which allows customers to view and print an OXXO voucher.
@@ -854,7 +895,7 @@ module Stripe
         end
       end
 
-      class PaynowDisplayQrCode < Stripe::StripeObject
+      class PaynowDisplayQrCode < ::Stripe::StripeObject
         # The raw data string used to generate QR code, it should be used together with QR code library.
         attr_reader :data
         # The URL to the hosted PayNow instructions page, which allows customers to view the PayNow QR code.
@@ -873,7 +914,7 @@ module Stripe
         end
       end
 
-      class PixDisplayQrCode < Stripe::StripeObject
+      class PixDisplayQrCode < ::Stripe::StripeObject
         # The raw data string used to generate QR code, it should be used together with QR code library.
         attr_reader :data
         # The date (unix timestamp) when the PIX expires.
@@ -894,7 +935,7 @@ module Stripe
         end
       end
 
-      class PromptpayDisplayQrCode < Stripe::StripeObject
+      class PromptpayDisplayQrCode < ::Stripe::StripeObject
         # The raw data string used to generate QR code, it should be used together with QR code library.
         attr_reader :data
         # The URL to the hosted PromptPay instructions page, which allows customers to view the PromptPay QR code.
@@ -913,7 +954,7 @@ module Stripe
         end
       end
 
-      class RedirectToUrl < Stripe::StripeObject
+      class RedirectToUrl < ::Stripe::StripeObject
         # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
         attr_reader :return_url
         # The URL you must redirect your customer to in order to authenticate the payment.
@@ -928,8 +969,8 @@ module Stripe
         end
       end
 
-      class SwishHandleRedirectOrDisplayQrCode < Stripe::StripeObject
-        class QrCode < Stripe::StripeObject
+      class SwishHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
           # The raw data string used to generate QR code, it should be used together with QR code library.
           attr_reader :data
           # The image_url_png string used to render QR code
@@ -961,7 +1002,7 @@ module Stripe
         end
       end
 
-      class VerifyWithMicrodeposits < Stripe::StripeObject
+      class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
         attr_reader :arrival_date
         # The URL for the hosted verification page, which allows customers to verify their bank account.
@@ -978,7 +1019,7 @@ module Stripe
         end
       end
 
-      class WechatPayDisplayQrCode < Stripe::StripeObject
+      class WechatPayDisplayQrCode < ::Stripe::StripeObject
         # The data being used to generate QR code
         attr_reader :data
         # The URL to the hosted WeChat Pay instructions page, which allows customers to view the WeChat Pay QR code.
@@ -999,7 +1040,7 @@ module Stripe
         end
       end
 
-      class WechatPayRedirectToAndroidApp < Stripe::StripeObject
+      class WechatPayRedirectToAndroidApp < ::Stripe::StripeObject
         # app_id is the APP ID registered on WeChat open platform
         attr_reader :app_id
         # nonce_str is a random string
@@ -1024,7 +1065,7 @@ module Stripe
         end
       end
 
-      class WechatPayRedirectToIosApp < Stripe::StripeObject
+      class WechatPayRedirectToIosApp < ::Stripe::StripeObject
         # An universal link that redirect to WeChat Pay app
         attr_reader :native_url
 
@@ -1102,7 +1143,22 @@ module Stripe
       end
     end
 
-    class PaymentMethodConfigurationDetails < Stripe::StripeObject
+    class PaymentDetails < ::Stripe::StripeObject
+      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      attr_reader :customer_reference
+      # A unique value assigned by the business to identify the transaction.
+      attr_reader :order_reference
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class PaymentMethodConfigurationDetails < ::Stripe::StripeObject
       # ID of the payment method configuration used.
       attr_reader :id
       # ID of the parent payment method configuration used.
@@ -1117,9 +1173,9 @@ module Stripe
       end
     end
 
-    class PaymentMethodOptions < Stripe::StripeObject
-      class AcssDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class AcssDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # A URL for custom mandate text
           attr_reader :custom_mandate_url
           # Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
@@ -1161,7 +1217,7 @@ module Stripe
         end
       end
 
-      class Affirm < Stripe::StripeObject
+      class Affirm < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Preferred language of the Affirm authorization page that the customer is redirected to.
@@ -1184,7 +1240,7 @@ module Stripe
         end
       end
 
-      class AfterpayClearpay < Stripe::StripeObject
+      class AfterpayClearpay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
@@ -1208,7 +1264,7 @@ module Stripe
         end
       end
 
-      class Alipay < Stripe::StripeObject
+      class Alipay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1227,7 +1283,7 @@ module Stripe
         end
       end
 
-      class Alma < Stripe::StripeObject
+      class Alma < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
 
@@ -1240,7 +1296,7 @@ module Stripe
         end
       end
 
-      class AmazonPay < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1261,7 +1317,7 @@ module Stripe
         end
       end
 
-      class AuBecsDebit < Stripe::StripeObject
+      class AuBecsDebit < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1282,8 +1338,8 @@ module Stripe
         end
       end
 
-      class BacsDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class BacsDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           attr_reader :reference_prefix
 
@@ -1317,7 +1373,7 @@ module Stripe
         end
       end
 
-      class Bancontact < Stripe::StripeObject
+      class Bancontact < ::Stripe::StripeObject
         # Preferred language of the Bancontact authorization page that the customer is redirected to.
         attr_reader :preferred_language
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1338,7 +1394,7 @@ module Stripe
         end
       end
 
-      class Billie < Stripe::StripeObject
+      class Billie < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
 
@@ -1351,7 +1407,7 @@ module Stripe
         end
       end
 
-      class Blik < Stripe::StripeObject
+      class Blik < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1370,7 +1426,7 @@ module Stripe
         end
       end
 
-      class Boleto < Stripe::StripeObject
+      class Boleto < ::Stripe::StripeObject
         # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
         attr_reader :expires_after_days
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1391,9 +1447,9 @@ module Stripe
         end
       end
 
-      class Card < Stripe::StripeObject
-        class Installments < Stripe::StripeObject
-          class AvailablePlan < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Installments < ::Stripe::StripeObject
+          class AvailablePlan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
             attr_reader :count
             # For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
@@ -1411,7 +1467,7 @@ module Stripe
             end
           end
 
-          class Plan < Stripe::StripeObject
+          class Plan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
             attr_reader :count
             # For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
@@ -1444,7 +1500,7 @@ module Stripe
           end
         end
 
-        class MandateOptions < Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Amount to be charged for future payments.
           attr_reader :amount
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -1516,8 +1572,8 @@ module Stripe
         end
       end
 
-      class CardPresent < Stripe::StripeObject
-        class Routing < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
+        class Routing < ::Stripe::StripeObject
           # Requested routing priority
           attr_reader :requested_priority
 
@@ -1545,7 +1601,7 @@ module Stripe
         end
       end
 
-      class Cashapp < Stripe::StripeObject
+      class Cashapp < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1566,7 +1622,7 @@ module Stripe
         end
       end
 
-      class Crypto < Stripe::StripeObject
+      class Crypto < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1585,9 +1641,9 @@ module Stripe
         end
       end
 
-      class CustomerBalance < Stripe::StripeObject
-        class BankTransfer < Stripe::StripeObject
-          class EuBankTransfer < Stripe::StripeObject
+      class CustomerBalance < ::Stripe::StripeObject
+        class BankTransfer < ::Stripe::StripeObject
+          class EuBankTransfer < ::Stripe::StripeObject
             # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
             attr_reader :country
 
@@ -1638,7 +1694,7 @@ module Stripe
         end
       end
 
-      class Eps < Stripe::StripeObject
+      class Eps < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1657,7 +1713,7 @@ module Stripe
         end
       end
 
-      class Fpx < Stripe::StripeObject
+      class Fpx < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1676,7 +1732,7 @@ module Stripe
         end
       end
 
-      class Giropay < Stripe::StripeObject
+      class Giropay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1695,7 +1751,7 @@ module Stripe
         end
       end
 
-      class Grabpay < Stripe::StripeObject
+      class Grabpay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1714,7 +1770,7 @@ module Stripe
         end
       end
 
-      class Ideal < Stripe::StripeObject
+      class Ideal < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1733,7 +1789,7 @@ module Stripe
         end
       end
 
-      class InteracPresent < Stripe::StripeObject
+      class InteracPresent < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1743,7 +1799,7 @@ module Stripe
         end
       end
 
-      class KakaoPay < Stripe::StripeObject
+      class KakaoPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1764,7 +1820,7 @@ module Stripe
         end
       end
 
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Preferred locale of the Klarna checkout page that the customer is redirected to.
@@ -1787,7 +1843,7 @@ module Stripe
         end
       end
 
-      class Konbini < Stripe::StripeObject
+      class Konbini < ::Stripe::StripeObject
         # An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores.
         attr_reader :confirmation_number
         # The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST.
@@ -1814,7 +1870,7 @@ module Stripe
         end
       end
 
-      class KrCard < Stripe::StripeObject
+      class KrCard < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1835,7 +1891,7 @@ module Stripe
         end
       end
 
-      class Link < Stripe::StripeObject
+      class Link < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # [Deprecated] This is a legacy parameter that no longer has any function.
@@ -1858,7 +1914,7 @@ module Stripe
         end
       end
 
-      class MbWay < Stripe::StripeObject
+      class MbWay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1877,7 +1933,7 @@ module Stripe
         end
       end
 
-      class Mobilepay < Stripe::StripeObject
+      class Mobilepay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1898,7 +1954,7 @@ module Stripe
         end
       end
 
-      class Multibanco < Stripe::StripeObject
+      class Multibanco < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1917,7 +1973,7 @@ module Stripe
         end
       end
 
-      class NaverPay < Stripe::StripeObject
+      class NaverPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1938,7 +1994,7 @@ module Stripe
         end
       end
 
-      class NzBankAccount < Stripe::StripeObject
+      class NzBankAccount < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1959,7 +2015,7 @@ module Stripe
         end
       end
 
-      class Oxxo < Stripe::StripeObject
+      class Oxxo < ::Stripe::StripeObject
         # The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
         attr_reader :expires_after_days
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1980,7 +2036,7 @@ module Stripe
         end
       end
 
-      class P24 < Stripe::StripeObject
+      class P24 < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1999,7 +2055,7 @@ module Stripe
         end
       end
 
-      class PayByBank < Stripe::StripeObject
+      class PayByBank < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -2009,7 +2065,7 @@ module Stripe
         end
       end
 
-      class Payco < Stripe::StripeObject
+      class Payco < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
 
@@ -2022,7 +2078,7 @@ module Stripe
         end
       end
 
-      class Paynow < Stripe::StripeObject
+      class Paynow < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2041,7 +2097,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Preferred locale of the PayPal checkout page that the customer is redirected to.
@@ -2066,7 +2122,7 @@ module Stripe
         end
       end
 
-      class Pix < Stripe::StripeObject
+      class Pix < ::Stripe::StripeObject
         # Determines if the amount includes the IOF tax.
         attr_reader :amount_includes_iof
         # The number of seconds (between 10 and 1209600) after which Pix payment will expire.
@@ -2091,7 +2147,7 @@ module Stripe
         end
       end
 
-      class Promptpay < Stripe::StripeObject
+      class Promptpay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2110,7 +2166,7 @@ module Stripe
         end
       end
 
-      class RevolutPay < Stripe::StripeObject
+      class RevolutPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2131,7 +2187,7 @@ module Stripe
         end
       end
 
-      class SamsungPay < Stripe::StripeObject
+      class SamsungPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
 
@@ -2144,7 +2200,7 @@ module Stripe
         end
       end
 
-      class Satispay < Stripe::StripeObject
+      class Satispay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
 
@@ -2157,8 +2213,8 @@ module Stripe
         end
       end
 
-      class SepaDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class SepaDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           attr_reader :reference_prefix
 
@@ -2192,7 +2248,7 @@ module Stripe
         end
       end
 
-      class Sofort < Stripe::StripeObject
+      class Sofort < ::Stripe::StripeObject
         # Preferred language of the SOFORT authorization page that the customer is redirected to.
         attr_reader :preferred_language
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2213,7 +2269,7 @@ module Stripe
         end
       end
 
-      class Swish < Stripe::StripeObject
+      class Swish < ::Stripe::StripeObject
         # A reference for this payment to be displayed in the Swish app.
         attr_reader :reference
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2234,7 +2290,7 @@ module Stripe
         end
       end
 
-      class Twint < Stripe::StripeObject
+      class Twint < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2253,9 +2309,9 @@ module Stripe
         end
       end
 
-      class UsBankAccount < Stripe::StripeObject
-        class FinancialConnections < Stripe::StripeObject
-          class Filters < Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
+        class FinancialConnections < ::Stripe::StripeObject
+          class Filters < ::Stripe::StripeObject
             # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
             attr_reader :account_subcategories
 
@@ -2285,7 +2341,7 @@ module Stripe
           end
         end
 
-        class MandateOptions < Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Mandate collection method
           attr_reader :collection_method
 
@@ -2328,7 +2384,7 @@ module Stripe
         end
       end
 
-      class WechatPay < Stripe::StripeObject
+      class WechatPay < ::Stripe::StripeObject
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         attr_reader :app_id
         # The client type that the end customer will pay from
@@ -2351,7 +2407,7 @@ module Stripe
         end
       end
 
-      class Zip < Stripe::StripeObject
+      class Zip < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2533,7 +2589,7 @@ module Stripe
       end
     end
 
-    class PresentmentDetails < Stripe::StripeObject
+    class PresentmentDetails < ::Stripe::StripeObject
       # Amount intended to be collected by this payment, denominated in `presentment_currency`.
       attr_reader :presentment_amount
       # Currency presented to the customer during payment.
@@ -2548,9 +2604,9 @@ module Stripe
       end
     end
 
-    class Processing < Stripe::StripeObject
-      class Card < Stripe::StripeObject
-        class CustomerNotification < Stripe::StripeObject
+    class Processing < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class CustomerNotification < ::Stripe::StripeObject
           # Whether customer approval has been requested for this payment. For payments greater than INR 15000 or mandate amount, the customer must provide explicit approval of the payment with their bank.
           attr_reader :approval_requested
           # If customer approval is required, they need to provide approval before this time.
@@ -2589,8 +2645,8 @@ module Stripe
       end
     end
 
-    class Shipping < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Shipping < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2632,7 +2688,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # The amount transferred to the destination account. This transfer will occur automatically after the payment succeeds. If no amount is specified, by default the entire payment amount is transferred to the destination account.
       #  The amount must be less than or equal to the [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
       #  representing how much to transfer in the smallest currency unit (e.g., 100 cents to charge $1.00).
@@ -2706,6 +2762,8 @@ module Stripe
     attr_reader :object
     # The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
     attr_reader :on_behalf_of
+    # Attribute for field payment_details
+    attr_reader :payment_details
     # ID of the payment method used in this PaymentIntent.
     attr_reader :payment_method
     # Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent.
@@ -3041,6 +3099,7 @@ module Stripe
         automatic_payment_methods: AutomaticPaymentMethods,
         last_payment_error: LastPaymentError,
         next_action: NextAction,
+        payment_details: PaymentDetails,
         payment_method_configuration_details: PaymentMethodConfigurationDetails,
         payment_method_options: PaymentMethodOptions,
         presentment_details: PresentmentDetails,

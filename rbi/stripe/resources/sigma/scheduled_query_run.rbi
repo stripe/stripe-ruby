@@ -9,7 +9,7 @@ module Stripe
     # runs. The webhook contains a `ScheduledQueryRun` object, which you can use to
     # retrieve the query results.
     class ScheduledQueryRun < APIResource
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # Information about the run failure.
         sig { returns(String) }
         def message; end
@@ -30,7 +30,7 @@ module Stripe
       sig { returns(T.nilable(Error)) }
       def error; end
       # The file object representing the results of the query.
-      sig { returns(T.nilable(Stripe::File)) }
+      sig { returns(T.nilable(::Stripe::File)) }
       def file; end
       # Unique identifier for the object.
       sig { returns(String) }
@@ -55,7 +55,7 @@ module Stripe
       def title; end
       # Returns a list of scheduled query runs.
       sig {
-        params(params: T.any(::Stripe::Sigma::ScheduledQueryRunListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Sigma::ScheduledQueryRunListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

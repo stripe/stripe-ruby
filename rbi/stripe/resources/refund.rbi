@@ -9,8 +9,8 @@ module Stripe
   #
   # Related guide: [Refunds](https://stripe.com/docs/refunds)
   class Refund < APIResource
-    class DestinationDetails < Stripe::StripeObject
-      class Affirm < Stripe::StripeObject
+    class DestinationDetails < ::Stripe::StripeObject
+      class Affirm < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -18,7 +18,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AfterpayClearpay < Stripe::StripeObject
+      class AfterpayClearpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -26,7 +26,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Alipay < Stripe::StripeObject
+      class Alipay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -34,7 +34,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Alma < Stripe::StripeObject
+      class Alma < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -42,7 +42,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AmazonPay < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -50,7 +50,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AuBankTransfer < Stripe::StripeObject
+      class AuBankTransfer < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -58,7 +58,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Blik < Stripe::StripeObject
+      class Blik < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
         def network_decline_code; end
@@ -75,7 +75,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BrBankTransfer < Stripe::StripeObject
+      class BrBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -89,7 +89,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Card < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
         # Value of the reference number assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -109,7 +109,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Cashapp < Stripe::StripeObject
+      class Cashapp < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -117,7 +117,10 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CustomerCashBalance < Stripe::StripeObject
+      class Crypto < ::Stripe::StripeObject
+        # The transaction hash of the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -125,7 +128,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Eps < Stripe::StripeObject
+      class CustomerCashBalance < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -133,7 +136,15 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class EuBankTransfer < Stripe::StripeObject
+      class Eps < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class EuBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -147,7 +158,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class GbBankTransfer < Stripe::StripeObject
+      class GbBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -161,7 +172,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Giropay < Stripe::StripeObject
+      class Giropay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -169,7 +180,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Grabpay < Stripe::StripeObject
+      class Grabpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -177,7 +188,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class JpBankTransfer < Stripe::StripeObject
+      class JpBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -191,7 +202,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -199,7 +210,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Multibanco < Stripe::StripeObject
+      class Multibanco < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -213,7 +224,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class MxBankTransfer < Stripe::StripeObject
+      class MxBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -227,7 +238,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NzBankTransfer < Stripe::StripeObject
+      class NzBankTransfer < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -235,7 +246,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class P24 < Stripe::StripeObject
+      class P24 < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -249,7 +260,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Paynow < Stripe::StripeObject
+      class Paynow < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -257,7 +268,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
         def network_decline_code; end
@@ -268,7 +279,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Pix < Stripe::StripeObject
+      class Pix < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -276,7 +287,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Revolut < Stripe::StripeObject
+      class Revolut < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -284,7 +295,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Sofort < Stripe::StripeObject
+      class Sofort < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -292,7 +303,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Swish < Stripe::StripeObject
+      class Swish < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
         def network_decline_code; end
@@ -309,7 +320,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ThBankTransfer < Stripe::StripeObject
+      class ThBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -323,7 +334,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class UsBankTransfer < Stripe::StripeObject
+      class UsBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -337,7 +348,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class WechatPay < Stripe::StripeObject
+      class WechatPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -345,7 +356,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Zip < Stripe::StripeObject
+      class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -383,6 +394,9 @@ module Stripe
       # Attribute for field cashapp
       sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
+      # Attribute for field crypto
+      sig { returns(T.nilable(Crypto)) }
+      def crypto; end
       # Attribute for field customer_cash_balance
       sig { returns(T.nilable(CustomerCashBalance)) }
       def customer_cash_balance; end
@@ -464,6 +478,7 @@ module Stripe
           br_bank_transfer: BrBankTransfer,
           card: Card,
           cashapp: Cashapp,
+          crypto: Crypto,
           customer_cash_balance: CustomerCashBalance,
           eps: Eps,
           eu_bank_transfer: EuBankTransfer,
@@ -492,9 +507,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class NextAction < Stripe::StripeObject
-      class DisplayDetails < Stripe::StripeObject
-        class EmailSent < Stripe::StripeObject
+    class NextAction < ::Stripe::StripeObject
+      class DisplayDetails < ::Stripe::StripeObject
+        class EmailSent < ::Stripe::StripeObject
           # The timestamp when the email was sent.
           sig { returns(Integer) }
           def email_sent_at; end
@@ -534,7 +549,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PresentmentDetails < Stripe::StripeObject
+    class PresentmentDetails < ::Stripe::StripeObject
       # Amount intended to be collected by this payment, denominated in `presentment_currency`.
       sig { returns(Integer) }
       def presentment_amount; end
@@ -552,10 +567,10 @@ module Stripe
     sig { returns(Integer) }
     def amount; end
     # Balance transaction that describes the impact on your account balance.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
     # ID of the charge that's refunded.
-    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def charge; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -570,7 +585,7 @@ module Stripe
     sig { returns(T.nilable(DestinationDetails)) }
     def destination_details; end
     # After the refund fails, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def failure_balance_transaction; end
     # Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.
     sig { returns(T.nilable(String)) }
@@ -591,7 +606,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # ID of the PaymentIntent that's refunded.
-    sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
     def payment_intent; end
     # Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
     sig { returns(T.nilable(String)) }
@@ -606,19 +621,19 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def receipt_number; end
     # The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.
-    sig { returns(T.nilable(T.any(String, Stripe::Reversal))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Reversal))) }
     def source_transfer_reversal; end
     # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://stripe.com/docs/refunds#failed-refunds).
     sig { returns(T.nilable(String)) }
     def status; end
     # This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.
-    sig { returns(T.nilable(T.any(String, Stripe::Reversal))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Reversal))) }
     def transfer_reversal; end
     # Cancels a refund with a status of requires_action.
     #
     # You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
     sig {
-      params(params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Refund)
+      params(params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
     def cancel(params = {}, opts = {}); end
 
@@ -626,7 +641,7 @@ module Stripe
     #
     # You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
     sig {
-      params(refund: String, params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Refund)
+      params(refund: String, params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
     def self.cancel(refund, params = {}, opts = {}); end
 
@@ -642,13 +657,13 @@ module Stripe
     # This method will raise an error when called on an already-refunded charge,
     # or when trying to refund more money than is left on a charge.
     sig {
-      params(params: T.any(::Stripe::RefundCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Refund)
+      params(params: T.any(::Stripe::RefundCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
     sig {
-      params(params: T.any(::Stripe::RefundListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::RefundListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
@@ -656,7 +671,7 @@ module Stripe
     #
     # This request only accepts metadata as an argument.
     sig {
-      params(refund: String, params: T.any(::Stripe::RefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Refund)
+      params(refund: String, params: T.any(::Stripe::RefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
     def self.update(refund, params = {}, opts = {}); end
   end

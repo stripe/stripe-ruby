@@ -14,7 +14,7 @@ module Stripe
   #
   # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
   class Source < APIResource
-    class AchCreditTransfer < Stripe::StripeObject
+    class AchCreditTransfer < ::Stripe::StripeObject
       # Attribute for field account_number
       sig { returns(T.nilable(String)) }
       def account_number; end
@@ -46,7 +46,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AchDebit < Stripe::StripeObject
+    class AchDebit < ::Stripe::StripeObject
       # Attribute for field bank_name
       sig { returns(T.nilable(String)) }
       def bank_name; end
@@ -72,7 +72,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AcssDebit < Stripe::StripeObject
+    class AcssDebit < ::Stripe::StripeObject
       # Attribute for field bank_address_city
       sig { returns(T.nilable(String)) }
       def bank_address_city; end
@@ -110,7 +110,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Alipay < Stripe::StripeObject
+    class Alipay < ::Stripe::StripeObject
       # Attribute for field data_string
       sig { returns(T.nilable(String)) }
       def data_string; end
@@ -127,7 +127,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AuBecsDebit < Stripe::StripeObject
+    class AuBecsDebit < ::Stripe::StripeObject
       # Attribute for field bsb_number
       sig { returns(T.nilable(String)) }
       def bsb_number; end
@@ -144,7 +144,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Bancontact < Stripe::StripeObject
+    class Bancontact < ::Stripe::StripeObject
       # Attribute for field bank_code
       sig { returns(T.nilable(String)) }
       def bank_code; end
@@ -170,7 +170,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Card < Stripe::StripeObject
+    class Card < ::Stripe::StripeObject
       # Attribute for field address_line1_check
       sig { returns(T.nilable(String)) }
       def address_line1_check; end
@@ -229,7 +229,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class CardPresent < Stripe::StripeObject
+    class CardPresent < ::Stripe::StripeObject
       # Attribute for field application_cryptogram
       sig { returns(T.nilable(String)) }
       def application_cryptogram; end
@@ -315,7 +315,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class CodeVerification < Stripe::StripeObject
+    class CodeVerification < ::Stripe::StripeObject
       # The number of attempts remaining to authenticate the source object with a verification code.
       sig { returns(Integer) }
       def attempts_remaining; end
@@ -329,7 +329,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Eps < Stripe::StripeObject
+    class Eps < ::Stripe::StripeObject
       # Attribute for field reference
       sig { returns(T.nilable(String)) }
       def reference; end
@@ -343,7 +343,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Giropay < Stripe::StripeObject
+    class Giropay < ::Stripe::StripeObject
       # Attribute for field bank_code
       sig { returns(T.nilable(String)) }
       def bank_code; end
@@ -363,7 +363,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Ideal < Stripe::StripeObject
+    class Ideal < ::Stripe::StripeObject
       # Attribute for field bank
       sig { returns(T.nilable(String)) }
       def bank; end
@@ -383,7 +383,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Klarna < Stripe::StripeObject
+    class Klarna < ::Stripe::StripeObject
       # Attribute for field background_image_url
       sig { returns(T.nilable(String)) }
       def background_image_url; end
@@ -469,7 +469,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Multibanco < Stripe::StripeObject
+    class Multibanco < ::Stripe::StripeObject
       # Attribute for field entity
       sig { returns(T.nilable(String)) }
       def entity; end
@@ -507,8 +507,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Owner < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Owner < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -534,7 +534,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class VerifiedAddress < Stripe::StripeObject
+      class VerifiedAddress < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -591,7 +591,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class P24 < Stripe::StripeObject
+    class P24 < ::Stripe::StripeObject
       # Attribute for field reference
       sig { returns(T.nilable(String)) }
       def reference; end
@@ -602,7 +602,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Receiver < Stripe::StripeObject
+    class Receiver < ::Stripe::StripeObject
       # The address of the receiver source. This is the value that should be communicated to the customer to send their funds to.
       sig { returns(T.nilable(String)) }
       def address; end
@@ -628,7 +628,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Redirect < Stripe::StripeObject
+    class Redirect < ::Stripe::StripeObject
       # The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`.
       sig { returns(T.nilable(String)) }
       def failure_reason; end
@@ -648,7 +648,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SepaCreditTransfer < Stripe::StripeObject
+    class SepaCreditTransfer < ::Stripe::StripeObject
       # Attribute for field bank_name
       sig { returns(T.nilable(String)) }
       def bank_name; end
@@ -689,7 +689,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SepaDebit < Stripe::StripeObject
+    class SepaDebit < ::Stripe::StripeObject
       # Attribute for field bank_code
       sig { returns(T.nilable(String)) }
       def bank_code; end
@@ -718,7 +718,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Sofort < Stripe::StripeObject
+    class Sofort < ::Stripe::StripeObject
       # Attribute for field bank_code
       sig { returns(T.nilable(String)) }
       def bank_code; end
@@ -747,8 +747,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SourceOrder < Stripe::StripeObject
-      class Item < Stripe::StripeObject
+    class SourceOrder < ::Stripe::StripeObject
+      class Item < ::Stripe::StripeObject
         # The amount (price) for this order item.
         sig { returns(T.nilable(Integer)) }
         def amount; end
@@ -774,8 +774,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Shipping < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -845,7 +845,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ThreeDSecure < Stripe::StripeObject
+    class ThreeDSecure < ::Stripe::StripeObject
       # Attribute for field address_line1_check
       sig { returns(T.nilable(String)) }
       def address_line1_check; end
@@ -913,7 +913,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Wechat < Stripe::StripeObject
+    class Wechat < ::Stripe::StripeObject
       # Attribute for field prepay_id
       sig { returns(T.nilable(String)) }
       def prepay_id; end
@@ -1049,7 +1049,7 @@ module Stripe
     def wechat; end
     # Creates a new source object.
     sig {
-      params(params: T.any(::Stripe::SourceCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Source)
+      params(params: T.any(::Stripe::SourceCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
      }
     def self.create(params = {}, opts = {}); end
 
@@ -1057,19 +1057,19 @@ module Stripe
     #
     # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
     sig {
-      params(source: String, params: T.any(::Stripe::SourceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Source)
+      params(source: String, params: T.any(::Stripe::SourceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
      }
     def self.update(source, params = {}, opts = {}); end
 
     # Verify a given source.
     sig {
-      params(params: T.any(::Stripe::SourceVerifyParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Source)
+      params(params: T.any(::Stripe::SourceVerifyParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
      }
     def verify(params = {}, opts = {}); end
 
     # Verify a given source.
     sig {
-      params(source: String, params: T.any(::Stripe::SourceVerifyParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Source)
+      params(source: String, params: T.any(::Stripe::SourceVerifyParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
      }
     def self.verify(source, params = {}, opts = {}); end
   end

@@ -3,8 +3,8 @@
 
 module Stripe
   module Issuing
-    class AuthorizationCreateParams < Stripe::RequestParams
-      class AmountDetails < Stripe::RequestParams
+    class AuthorizationCreateParams < ::Stripe::RequestParams
+      class AmountDetails < ::Stripe::RequestParams
         # The ATM withdrawal fee.
         attr_accessor :atm_fee
         # The amount of cash requested by the cardholder.
@@ -16,8 +16,8 @@ module Stripe
         end
       end
 
-      class Fleet < Stripe::RequestParams
-        class CardholderPromptData < Stripe::RequestParams
+      class Fleet < ::Stripe::RequestParams
+        class CardholderPromptData < ::Stripe::RequestParams
           # Driver ID.
           attr_accessor :driver_id
           # Odometer reading.
@@ -44,8 +44,8 @@ module Stripe
           end
         end
 
-        class ReportedBreakdown < Stripe::RequestParams
-          class Fuel < Stripe::RequestParams
+        class ReportedBreakdown < ::Stripe::RequestParams
+          class Fuel < ::Stripe::RequestParams
             # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
             attr_accessor :gross_amount_decimal
 
@@ -54,7 +54,7 @@ module Stripe
             end
           end
 
-          class NonFuel < Stripe::RequestParams
+          class NonFuel < ::Stripe::RequestParams
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
             attr_accessor :gross_amount_decimal
 
@@ -63,7 +63,7 @@ module Stripe
             end
           end
 
-          class Tax < Stripe::RequestParams
+          class Tax < ::Stripe::RequestParams
             # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
             attr_accessor :local_amount_decimal
             # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
@@ -109,7 +109,7 @@ module Stripe
         end
       end
 
-      class Fuel < Stripe::RequestParams
+      class Fuel < ::Stripe::RequestParams
         # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
         attr_accessor :industry_product_code
         # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
@@ -136,7 +136,7 @@ module Stripe
         end
       end
 
-      class MerchantData < Stripe::RequestParams
+      class MerchantData < ::Stripe::RequestParams
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
         attr_accessor :category
         # City where the seller is located
@@ -179,7 +179,7 @@ module Stripe
         end
       end
 
-      class NetworkData < Stripe::RequestParams
+      class NetworkData < ::Stripe::RequestParams
         # Identifier assigned to the acquirer by the card network.
         attr_accessor :acquiring_institution_id
 
@@ -188,8 +188,8 @@ module Stripe
         end
       end
 
-      class RiskAssessment < Stripe::RequestParams
-        class CardTestingRisk < Stripe::RequestParams
+      class RiskAssessment < ::Stripe::RequestParams
+        class CardTestingRisk < ::Stripe::RequestParams
           # The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
           attr_accessor :invalid_account_number_decline_rate_past_hour
           # The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
@@ -208,7 +208,7 @@ module Stripe
           end
         end
 
-        class MerchantDisputeRisk < Stripe::RequestParams
+        class MerchantDisputeRisk < ::Stripe::RequestParams
           # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
           attr_accessor :dispute_rate
           # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
@@ -230,8 +230,8 @@ module Stripe
         end
       end
 
-      class VerificationData < Stripe::RequestParams
-        class AuthenticationExemption < Stripe::RequestParams
+      class VerificationData < ::Stripe::RequestParams
+        class AuthenticationExemption < ::Stripe::RequestParams
           # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
           attr_accessor :claimed_by
           # The specific exemption claimed for this authorization.
@@ -243,7 +243,7 @@ module Stripe
           end
         end
 
-        class ThreeDSecure < Stripe::RequestParams
+        class ThreeDSecure < ::Stripe::RequestParams
           # The outcome of the 3D Secure authentication request.
           attr_accessor :result
 

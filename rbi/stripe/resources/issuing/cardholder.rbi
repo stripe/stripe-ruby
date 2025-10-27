@@ -8,8 +8,8 @@ module Stripe
     #
     # Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
     class Cardholder < APIResource
-      class Billing < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Billing < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -45,7 +45,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Company < Stripe::StripeObject
+      class Company < ::Stripe::StripeObject
         # Whether the company's business ID number was provided.
         sig { returns(T::Boolean) }
         def tax_id_provided; end
@@ -56,9 +56,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Individual < Stripe::StripeObject
-        class CardIssuing < Stripe::StripeObject
-          class UserTermsAcceptance < Stripe::StripeObject
+      class Individual < ::Stripe::StripeObject
+        class CardIssuing < ::Stripe::StripeObject
+          class UserTermsAcceptance < ::Stripe::StripeObject
             # The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
             sig { returns(T.nilable(Integer)) }
             def date; end
@@ -85,7 +85,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Dob < Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # The day of birth, between 1 and 31.
           sig { returns(T.nilable(Integer)) }
           def day; end
@@ -102,13 +102,13 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Verification < Stripe::StripeObject
-          class Document < Stripe::StripeObject
+        class Verification < ::Stripe::StripeObject
+          class Document < ::Stripe::StripeObject
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-            sig { returns(T.nilable(T.any(String, Stripe::File))) }
+            sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
             def back; end
             # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-            sig { returns(T.nilable(T.any(String, Stripe::File))) }
+            sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
             def front; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -149,7 +149,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Requirements < Stripe::StripeObject
+      class Requirements < ::Stripe::StripeObject
         # If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
         sig { returns(T.nilable(String)) }
         def disabled_reason; end
@@ -163,8 +163,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SpendingControls < Stripe::StripeObject
-        class SpendingLimit < Stripe::StripeObject
+      class SpendingControls < ::Stripe::StripeObject
+        class SpendingLimit < ::Stripe::StripeObject
           # Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
@@ -257,19 +257,19 @@ module Stripe
       def type; end
       # Creates a new Issuing Cardholder object that can be issued cards.
       sig {
-        params(params: T.any(::Stripe::Issuing::CardholderCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Cardholder)
+        params(params: T.any(::Stripe::Issuing::CardholderCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::CardholderListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::CardholderListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(cardholder: String, params: T.any(::Stripe::Issuing::CardholderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Cardholder)
+        params(cardholder: String, params: T.any(::Stripe::Issuing::CardholderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
        }
       def self.update(cardholder, params = {}, opts = {}); end
     end

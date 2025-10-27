@@ -19,7 +19,7 @@ module Stripe
     #
     # Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
     class Session < APIResource
-      class AdaptivePricing < Stripe::StripeObject
+      class AdaptivePricing < ::Stripe::StripeObject
         # If enabled, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions).
         sig { returns(T::Boolean) }
         def enabled; end
@@ -30,8 +30,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AfterExpiration < Stripe::StripeObject
-        class Recovery < Stripe::StripeObject
+      class AfterExpiration < ::Stripe::StripeObject
+        class Recovery < ::Stripe::StripeObject
           # Enables user redeemable promotion codes on the recovered Checkout Sessions. Defaults to `false`
           sig { returns(T::Boolean) }
           def allow_promotion_codes; end
@@ -63,10 +63,10 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AutomaticTax < Stripe::StripeObject
-        class Liability < Stripe::StripeObject
+      class AutomaticTax < ::Stripe::StripeObject
+        class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -97,8 +97,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BrandingSettings < Stripe::StripeObject
-        class Icon < Stripe::StripeObject
+      class BrandingSettings < ::Stripe::StripeObject
+        class Icon < ::Stripe::StripeObject
           # The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
           sig { returns(T.nilable(String)) }
           def file; end
@@ -115,7 +115,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Logo < Stripe::StripeObject
+        class Logo < ::Stripe::StripeObject
           # The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
           sig { returns(T.nilable(String)) }
           def file; end
@@ -160,9 +160,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CollectedInformation < Stripe::StripeObject
-        class ShippingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class CollectedInformation < ::Stripe::StripeObject
+        class ShippingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -217,7 +217,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Consent < Stripe::StripeObject
+      class Consent < ::Stripe::StripeObject
         # If `opt_in`, the customer consents to receiving promotional communications
         # from the merchant about this Checkout Session.
         sig { returns(T.nilable(String)) }
@@ -232,8 +232,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ConsentCollection < Stripe::StripeObject
-        class PaymentMethodReuseAgreement < Stripe::StripeObject
+      class ConsentCollection < ::Stripe::StripeObject
+        class PaymentMethodReuseAgreement < ::Stripe::StripeObject
           # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's defaults will be used.
           #
           # When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
@@ -264,7 +264,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CurrencyConversion < Stripe::StripeObject
+      class CurrencyConversion < ::Stripe::StripeObject
         # Total of all items in source currency before discounts or taxes are applied.
         sig { returns(Integer) }
         def amount_subtotal; end
@@ -284,9 +284,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CustomField < Stripe::StripeObject
-        class Dropdown < Stripe::StripeObject
-          class Option < Stripe::StripeObject
+      class CustomField < ::Stripe::StripeObject
+        class Dropdown < ::Stripe::StripeObject
+          class Option < ::Stripe::StripeObject
             # The label for the option, displayed to the customer. Up to 100 characters.
             sig { returns(String) }
             def label; end
@@ -316,7 +316,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Label < Stripe::StripeObject
+        class Label < ::Stripe::StripeObject
           # Custom text for the label, displayed to the customer. Up to 50 characters.
           sig { returns(T.nilable(String)) }
           def custom; end
@@ -330,7 +330,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Numeric < Stripe::StripeObject
+        class Numeric < ::Stripe::StripeObject
           # The value that will pre-fill the field on the payment page.
           sig { returns(T.nilable(String)) }
           def default_value; end
@@ -350,7 +350,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Text < Stripe::StripeObject
+        class Text < ::Stripe::StripeObject
           # The value that will pre-fill the field on the payment page.
           sig { returns(T.nilable(String)) }
           def default_value; end
@@ -398,8 +398,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CustomText < Stripe::StripeObject
-        class AfterSubmit < Stripe::StripeObject
+      class CustomText < ::Stripe::StripeObject
+        class AfterSubmit < ::Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
@@ -410,7 +410,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ShippingAddress < Stripe::StripeObject
+        class ShippingAddress < ::Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
@@ -421,7 +421,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Submit < Stripe::StripeObject
+        class Submit < ::Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
@@ -432,7 +432,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TermsOfServiceAcceptance < Stripe::StripeObject
+        class TermsOfServiceAcceptance < ::Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
@@ -467,8 +467,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CustomerDetails < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class CustomerDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -494,7 +494,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TaxId < Stripe::StripeObject
+        class TaxId < ::Stripe::StripeObject
           # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
           sig { returns(String) }
           def type; end
@@ -540,12 +540,12 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Discount < Stripe::StripeObject
+      class Discount < ::Stripe::StripeObject
         # Coupon attached to the Checkout Session.
-        sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
         def coupon; end
         # Promotion code attached to the Checkout Session.
-        sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::PromotionCode))) }
         def promotion_code; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -554,9 +554,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class InvoiceCreation < Stripe::StripeObject
-        class InvoiceData < Stripe::StripeObject
-          class CustomField < Stripe::StripeObject
+      class InvoiceCreation < ::Stripe::StripeObject
+        class InvoiceData < ::Stripe::StripeObject
+          class CustomField < ::Stripe::StripeObject
             # The name of the custom field.
             sig { returns(String) }
             def name; end
@@ -570,9 +570,9 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Issuer < Stripe::StripeObject
+          class Issuer < ::Stripe::StripeObject
             # The connected account being referenced when `type` is `account`.
-            sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+            sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
             def account; end
             # Type of the account referenced.
             sig { returns(String) }
@@ -584,7 +584,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class RenderingOptions < Stripe::StripeObject
+          class RenderingOptions < ::Stripe::StripeObject
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
             sig { returns(T.nilable(String)) }
             def amount_tax_display; end
@@ -599,7 +599,7 @@ module Stripe
             end
           end
           # The account tax IDs associated with the invoice.
-          sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxId)])) }
+          sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
           def account_tax_ids; end
           # Custom fields displayed on the invoice.
           sig { returns(T.nilable(T::Array[CustomField])) }
@@ -643,8 +643,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NameCollection < Stripe::StripeObject
-        class Business < Stripe::StripeObject
+      class NameCollection < ::Stripe::StripeObject
+        class Business < ::Stripe::StripeObject
           # Indicates whether business name collection is enabled for the session
           sig { returns(T::Boolean) }
           def enabled; end
@@ -658,7 +658,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Individual < Stripe::StripeObject
+        class Individual < ::Stripe::StripeObject
           # Indicates whether individual name collection is enabled for the session
           sig { returns(T::Boolean) }
           def enabled; end
@@ -685,8 +685,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class OptionalItem < Stripe::StripeObject
-        class AdjustableQuantity < Stripe::StripeObject
+      class OptionalItem < ::Stripe::StripeObject
+        class AdjustableQuantity < ::Stripe::StripeObject
           # Set to true if the quantity can be adjusted to any non-negative integer.
           sig { returns(T::Boolean) }
           def enabled; end
@@ -719,7 +719,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PaymentMethodConfigurationDetails < Stripe::StripeObject
+      class PaymentMethodConfigurationDetails < ::Stripe::StripeObject
         # ID of the payment method configuration used.
         sig { returns(String) }
         def id; end
@@ -733,9 +733,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PaymentMethodOptions < Stripe::StripeObject
-        class AcssDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject
+      class PaymentMethodOptions < ::Stripe::StripeObject
+        class AcssDebit < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
             # A URL for custom mandate text
             sig { returns(T.nilable(String)) }
             def custom_mandate_url; end
@@ -786,7 +786,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Affirm < Stripe::StripeObject
+        class Affirm < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -806,7 +806,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class AfterpayClearpay < Stripe::StripeObject
+        class AfterpayClearpay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -826,7 +826,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Alipay < Stripe::StripeObject
+        class Alipay < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -843,7 +843,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Alma < Stripe::StripeObject
+        class Alma < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -854,7 +854,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class AmazonPay < Stripe::StripeObject
+        class AmazonPay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -874,7 +874,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class AuBecsDebit < Stripe::StripeObject
+        class AuBecsDebit < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -894,8 +894,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class BacsDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject
+        class BacsDebit < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
             sig { returns(T.nilable(String)) }
             def reference_prefix; end
@@ -928,7 +928,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bancontact < Stripe::StripeObject
+        class Bancontact < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -945,7 +945,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Billie < Stripe::StripeObject
+        class Billie < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -956,7 +956,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Boleto < Stripe::StripeObject
+        class Boleto < ::Stripe::StripeObject
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
           sig { returns(Integer) }
           def expires_after_days; end
@@ -976,8 +976,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Card < Stripe::StripeObject
-          class Installments < Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          class Installments < ::Stripe::StripeObject
             # Indicates if installments are enabled
             sig { returns(T.nilable(T::Boolean)) }
             def enabled; end
@@ -988,7 +988,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Restrictions < Stripe::StripeObject
+          class Restrictions < ::Stripe::StripeObject
             # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
             sig { returns(T.nilable(T::Array[String])) }
             def brands_blocked; end
@@ -1045,7 +1045,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Cashapp < Stripe::StripeObject
+        class Cashapp < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1065,9 +1065,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CustomerBalance < Stripe::StripeObject
-          class BankTransfer < Stripe::StripeObject
-            class EuBankTransfer < Stripe::StripeObject
+        class CustomerBalance < ::Stripe::StripeObject
+          class BankTransfer < ::Stripe::StripeObject
+            class EuBankTransfer < ::Stripe::StripeObject
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
@@ -1118,7 +1118,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Eps < Stripe::StripeObject
+        class Eps < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1135,7 +1135,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Fpx < Stripe::StripeObject
+        class Fpx < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1152,7 +1152,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Giropay < Stripe::StripeObject
+        class Giropay < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1169,7 +1169,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Grabpay < Stripe::StripeObject
+        class Grabpay < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1186,7 +1186,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ideal < Stripe::StripeObject
+        class Ideal < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1203,7 +1203,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class KakaoPay < Stripe::StripeObject
+        class KakaoPay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1223,7 +1223,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Klarna < Stripe::StripeObject
+        class Klarna < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1243,7 +1243,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Konbini < Stripe::StripeObject
+        class Konbini < ::Stripe::StripeObject
           # The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST.
           sig { returns(T.nilable(Integer)) }
           def expires_after_days; end
@@ -1263,7 +1263,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class KrCard < Stripe::StripeObject
+        class KrCard < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1283,7 +1283,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Link < Stripe::StripeObject
+        class Link < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1303,7 +1303,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Mobilepay < Stripe::StripeObject
+        class Mobilepay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1323,7 +1323,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Multibanco < Stripe::StripeObject
+        class Multibanco < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1340,7 +1340,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class NaverPay < Stripe::StripeObject
+        class NaverPay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1360,7 +1360,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Oxxo < Stripe::StripeObject
+        class Oxxo < ::Stripe::StripeObject
           # The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
           sig { returns(Integer) }
           def expires_after_days; end
@@ -1380,7 +1380,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class P24 < Stripe::StripeObject
+        class P24 < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1397,7 +1397,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Payco < Stripe::StripeObject
+        class Payco < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1408,7 +1408,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Paynow < Stripe::StripeObject
+        class Paynow < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1425,7 +1425,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Paypal < Stripe::StripeObject
+        class Paypal < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1451,7 +1451,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Pix < Stripe::StripeObject
+        class Pix < ::Stripe::StripeObject
           # Determines if the amount includes the IOF tax.
           sig { returns(T.nilable(String)) }
           def amount_includes_iof; end
@@ -1474,7 +1474,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class RevolutPay < Stripe::StripeObject
+        class RevolutPay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1494,7 +1494,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SamsungPay < Stripe::StripeObject
+        class SamsungPay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1505,7 +1505,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Satispay < Stripe::StripeObject
+        class Satispay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1516,8 +1516,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SepaDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject
+        class SepaDebit < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
             sig { returns(T.nilable(String)) }
             def reference_prefix; end
@@ -1550,7 +1550,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Sofort < Stripe::StripeObject
+        class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1567,7 +1567,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Swish < Stripe::StripeObject
+        class Swish < ::Stripe::StripeObject
           # The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
           sig { returns(T.nilable(String)) }
           def reference; end
@@ -1578,9 +1578,26 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsBankAccount < Stripe::StripeObject
-          class FinancialConnections < Stripe::StripeObject
-            class Filters < Stripe::StripeObject
+        class Twint < ::Stripe::StripeObject
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class UsBankAccount < ::Stripe::StripeObject
+          class FinancialConnections < ::Stripe::StripeObject
+            class Filters < ::Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
@@ -1752,6 +1769,9 @@ module Stripe
         # Attribute for field swish
         sig { returns(T.nilable(Swish)) }
         def swish; end
+        # Attribute for field twint
+        sig { returns(T.nilable(Twint)) }
+        def twint; end
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
@@ -1796,6 +1816,7 @@ module Stripe
             sepa_debit: SepaDebit,
             sofort: Sofort,
             swish: Swish,
+            twint: Twint,
             us_bank_account: UsBankAccount,
           }
         end
@@ -1803,7 +1824,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Permissions < Stripe::StripeObject
+      class Permissions < ::Stripe::StripeObject
         # Determines which entity is allowed to update the shipping details.
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -1818,7 +1839,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PhoneNumberCollection < Stripe::StripeObject
+      class PhoneNumberCollection < ::Stripe::StripeObject
         # Indicates whether phone number collection is enabled for the session
         sig { returns(T::Boolean) }
         def enabled; end
@@ -1829,7 +1850,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PresentmentDetails < Stripe::StripeObject
+      class PresentmentDetails < ::Stripe::StripeObject
         # Amount intended to be collected by this payment, denominated in `presentment_currency`.
         sig { returns(Integer) }
         def presentment_amount; end
@@ -1843,7 +1864,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SavedPaymentMethodOptions < Stripe::StripeObject
+      class SavedPaymentMethodOptions < ::Stripe::StripeObject
         # Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with ’allow_redisplay: ‘always’ are shown in Checkout.
         sig { returns(T.nilable(T::Array[String])) }
         def allow_redisplay_filters; end
@@ -1860,7 +1881,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ShippingAddressCollection < Stripe::StripeObject
+      class ShippingAddressCollection < ::Stripe::StripeObject
         # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
         # shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SY, UM, VI`.
         sig { returns(T::Array[String]) }
@@ -1872,15 +1893,15 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ShippingCost < Stripe::StripeObject
-        class Tax < Stripe::StripeObject
+      class ShippingCost < ::Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
           # Amount of tax applied for this rate.
           sig { returns(Integer) }
           def amount; end
           # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
           #
           # Related guide: [Tax rates](/billing/taxes/tax-rates)
-          sig { returns(Stripe::TaxRate) }
+          sig { returns(::Stripe::TaxRate) }
           def rate; end
           # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
           sig { returns(T.nilable(String)) }
@@ -1905,7 +1926,7 @@ module Stripe
         sig { returns(Integer) }
         def amount_total; end
         # The ID of the ShippingRate for this order.
-        sig { returns(T.nilable(T.any(String, Stripe::ShippingRate))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::ShippingRate))) }
         def shipping_rate; end
         # The taxes applied to the shipping rate.
         sig { returns(T.nilable(T::Array[Tax])) }
@@ -1917,12 +1938,12 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ShippingOption < Stripe::StripeObject
+      class ShippingOption < ::Stripe::StripeObject
         # A non-negative integer in cents representing how much to charge.
         sig { returns(Integer) }
         def shipping_amount; end
         # The shipping rate.
-        sig { returns(T.any(String, Stripe::ShippingRate)) }
+        sig { returns(T.any(String, ::Stripe::ShippingRate)) }
         def shipping_rate; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -1931,7 +1952,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TaxIdCollection < Stripe::StripeObject
+      class TaxIdCollection < ::Stripe::StripeObject
         # Indicates whether tax ID collection is enabled for the session
         sig { returns(T::Boolean) }
         def enabled; end
@@ -1945,9 +1966,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TotalDetails < Stripe::StripeObject
-        class Breakdown < Stripe::StripeObject
-          class Discount < Stripe::StripeObject
+      class TotalDetails < ::Stripe::StripeObject
+        class Breakdown < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
             # The amount discounted.
             sig { returns(Integer) }
             def amount; end
@@ -1955,7 +1976,7 @@ module Stripe
             # It contains information about when the discount began, when it will end, and what it is applied to.
             #
             # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
-            sig { returns(Stripe::Discount) }
+            sig { returns(::Stripe::Discount) }
             def discount; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -1964,14 +1985,14 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Tax < Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
             # Amount of tax applied for this rate.
             sig { returns(Integer) }
             def amount; end
             # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
             #
             # Related guide: [Tax rates](/billing/taxes/tax-rates)
-            sig { returns(Stripe::TaxRate) }
+            sig { returns(::Stripe::TaxRate) }
             def rate; end
             # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
             sig { returns(T.nilable(String)) }
@@ -2018,8 +2039,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class WalletOptions < Stripe::StripeObject
-        class Link < Stripe::StripeObject
+      class WalletOptions < ::Stripe::StripeObject
+        class Link < ::Stripe::StripeObject
           # Describes whether Checkout should display Link. Defaults to `auto`.
           sig { returns(T.nilable(String)) }
           def display; end
@@ -2105,7 +2126,7 @@ module Stripe
       # will create a new customer object based on information provided
       # during the payment flow unless an existing customer was provided when
       # the Session was created.
-      sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
       def customer; end
       # Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
       sig { returns(T.nilable(String)) }
@@ -2133,13 +2154,13 @@ module Stripe
       sig { returns(String) }
       def id; end
       # ID of the invoice created by the Checkout Session, if it exists.
-      sig { returns(T.nilable(T.any(String, Stripe::Invoice))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
       def invoice; end
       # Details on the state of invoice creation for the Checkout Session.
       sig { returns(T.nilable(InvoiceCreation)) }
       def invoice_creation; end
       # The line items purchased by the customer.
-      sig { returns(T.nilable(Stripe::ListObject)) }
+      sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
@@ -2166,10 +2187,10 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def origin_context; end
       # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
-      sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
       def payment_intent; end
       # The ID of the Payment Link that created this Session.
-      sig { returns(T.nilable(T.any(String, Stripe::PaymentLink))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentLink))) }
       def payment_link; end
       # Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
       sig { returns(T.nilable(String)) }
@@ -2212,7 +2233,7 @@ module Stripe
       sig { returns(T.nilable(SavedPaymentMethodOptions)) }
       def saved_payment_method_options; end
       # The ID of the SetupIntent for Checkout Sessions in `setup` mode. You can't confirm or cancel the SetupIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
-      sig { returns(T.nilable(T.any(String, Stripe::SetupIntent))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::SetupIntent))) }
       def setup_intent; end
       # When set, provides configuration for Checkout to collect a shipping address from a customer.
       sig { returns(T.nilable(ShippingAddressCollection)) }
@@ -2232,7 +2253,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def submit_type; end
       # The ID of the [Subscription](https://stripe.com/docs/api/subscriptions) for Checkout Sessions in `subscription` mode.
-      sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Subscription))) }
       def subscription; end
       # The URL the customer will be directed to after the payment or
       # subscription creation is successful.
@@ -2256,7 +2277,7 @@ module Stripe
       def wallet_options; end
       # Creates a Checkout Session object.
       sig {
-        params(params: T.any(::Stripe::Checkout::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
+        params(params: T.any(::Stripe::Checkout::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
       def self.create(params = {}, opts = {}); end
 
@@ -2264,7 +2285,7 @@ module Stripe
       #
       # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
-        params(params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
+        params(params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
       def expire(params = {}, opts = {}); end
 
@@ -2272,25 +2293,25 @@ module Stripe
       #
       # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
+        params(session: String, params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
       def self.expire(session, params = {}, opts = {}); end
 
       # Returns a list of Checkout Sessions.
       sig {
-        params(params: T.any(::Stripe::Checkout::SessionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Checkout::SessionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
       sig {
-        params(params: T.any(::Stripe::Checkout::SessionListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Checkout::SessionListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list_line_items(params = {}, opts = {}); end
 
       # When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(session: String, params: T.any(::Stripe::Checkout::SessionListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list_line_items(session, params = {}, opts = {}); end
 
@@ -2298,7 +2319,7 @@ module Stripe
       #
       # Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
+        params(session: String, params: T.any(::Stripe::Checkout::SessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
       def self.update(session, params = {}, opts = {}); end
     end

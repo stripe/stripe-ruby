@@ -3,6 +3,13 @@
 
 module Stripe
   class PaymentIntentService < StripeService
+    attr_reader :amount_details_line_items
+
+    def initialize(requestor)
+      super
+      @amount_details_line_items = Stripe::PaymentIntentAmountDetailsLineItemService.new(@requestor)
+    end
+
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     def apply_customer_balance(intent, params = {}, opts = {})
       request(

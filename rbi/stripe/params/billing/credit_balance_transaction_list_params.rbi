@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Billing
-    class CreditBalanceTransactionListParams < Stripe::RequestParams
+    class CreditBalanceTransactionListParams < ::Stripe::RequestParams
       # The credit grant for which to fetch credit balance transactions.
       sig { returns(T.nilable(String)) }
       def credit_grant; end

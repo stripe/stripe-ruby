@@ -3,9 +3,9 @@
 
 module Stripe
   module Billing
-    class CreditGrantCreateParams < Stripe::RequestParams
-      class Amount < Stripe::RequestParams
-        class Monetary < Stripe::RequestParams
+    class CreditGrantCreateParams < ::Stripe::RequestParams
+      class Amount < ::Stripe::RequestParams
+        class Monetary < ::Stripe::RequestParams
           # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
           attr_accessor :currency
           # A positive integer representing the amount of the credit grant.
@@ -27,9 +27,9 @@ module Stripe
         end
       end
 
-      class ApplicabilityConfig < Stripe::RequestParams
-        class Scope < Stripe::RequestParams
-          class Price < Stripe::RequestParams
+      class ApplicabilityConfig < ::Stripe::RequestParams
+        class Scope < ::Stripe::RequestParams
+          class Price < ::Stripe::RequestParams
             # The price ID this credit grant should apply to.
             attr_accessor :id
 
@@ -58,7 +58,7 @@ module Stripe
       attr_accessor :amount
       # Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
       attr_accessor :applicability_config
-      # The category of this credit grant.
+      # The category of this credit grant. It defaults to `paid` if not specified.
       attr_accessor :category
       # ID of the customer to receive the billing credits.
       attr_accessor :customer

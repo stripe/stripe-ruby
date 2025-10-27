@@ -10,7 +10,7 @@ module Stripe
     #
     # Related guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)
     class Transaction < APIResource
-      class AmountDetails < Stripe::StripeObject
+      class AmountDetails < ::Stripe::StripeObject
         # The fee charged by the ATM for the cash withdrawal.
         sig { returns(T.nilable(Integer)) }
         def atm_fee; end
@@ -24,7 +24,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class MerchantData < Stripe::StripeObject
+      class MerchantData < ::Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
         sig { returns(String) }
         def category; end
@@ -65,7 +65,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NetworkData < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
         # A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code typically starts with the letter "S", followed by a six-digit number. For example, "S498162". Please note that the code is not guaranteed to be unique across authorizations.
         sig { returns(T.nilable(String)) }
         def authorization_code; end
@@ -82,9 +82,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PurchaseDetails < Stripe::StripeObject
-        class Fleet < Stripe::StripeObject
-          class CardholderPromptData < Stripe::StripeObject
+      class PurchaseDetails < ::Stripe::StripeObject
+        class Fleet < ::Stripe::StripeObject
+          class CardholderPromptData < ::Stripe::StripeObject
             # Driver ID.
             sig { returns(T.nilable(String)) }
             def driver_id; end
@@ -107,8 +107,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ReportedBreakdown < Stripe::StripeObject
-            class Fuel < Stripe::StripeObject
+          class ReportedBreakdown < ::Stripe::StripeObject
+            class Fuel < ::Stripe::StripeObject
               # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(String)) }
               def gross_amount_decimal; end
@@ -119,7 +119,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class NonFuel < Stripe::StripeObject
+            class NonFuel < ::Stripe::StripeObject
               # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
               sig { returns(T.nilable(String)) }
               def gross_amount_decimal; end
@@ -130,7 +130,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
               sig { returns(T.nilable(String)) }
               def local_amount_decimal; end
@@ -182,8 +182,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Flight < Stripe::StripeObject
-          class Segment < Stripe::StripeObject
+        class Flight < ::Stripe::StripeObject
+          class Segment < ::Stripe::StripeObject
             # The three-letter IATA airport code of the flight's destination.
             sig { returns(T.nilable(String)) }
             def arrival_airport_code; end
@@ -231,7 +231,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Fuel < Stripe::StripeObject
+        class Fuel < ::Stripe::StripeObject
           # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
           sig { returns(T.nilable(String)) }
           def industry_product_code; end
@@ -254,7 +254,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Lodging < Stripe::StripeObject
+        class Lodging < ::Stripe::StripeObject
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
           def check_in_at; end
@@ -268,7 +268,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Receipt < Stripe::StripeObject
+        class Receipt < ::Stripe::StripeObject
           # The description of the item. The maximum length of this field is 26 characters.
           sig { returns(T.nilable(String)) }
           def description; end
@@ -319,7 +319,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Treasury < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
         # The Treasury [ReceivedCredit](https://stripe.com/docs/api/treasury/received_credits) representing this Issuing transaction if it is a refund
         sig { returns(T.nilable(String)) }
         def received_credit; end
@@ -340,16 +340,16 @@ module Stripe
       sig { returns(T.nilable(AmountDetails)) }
       def amount_details; end
       # The `Authorization` object that led to this transaction.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Authorization))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Authorization))) }
       def authorization; end
       # ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction.
-      sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
       def balance_transaction; end
       # The card used to make this transaction.
-      sig { returns(T.any(String, Stripe::Issuing::Card)) }
+      sig { returns(T.any(String, ::Stripe::Issuing::Card)) }
       def card; end
       # The cardholder to whom this transaction belongs.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Cardholder))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Cardholder))) }
       def cardholder; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -358,7 +358,7 @@ module Stripe
       sig { returns(String) }
       def currency; end
       # If you've disputed the transaction, the ID of the dispute.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Dispute))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Dispute))) }
       def dispute; end
       # Unique identifier for the object.
       sig { returns(String) }
@@ -388,7 +388,7 @@ module Stripe
       sig { returns(T.nilable(PurchaseDetails)) }
       def purchase_details; end
       # [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Token))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Token))) }
       def token; end
       # [Treasury](https://stripe.com/docs/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
       sig { returns(T.nilable(Treasury)) }
@@ -401,13 +401,13 @@ module Stripe
       def wallet; end
       # Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::TransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::TransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(transaction: String, params: T.any(::Stripe::Issuing::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Transaction)
+        params(transaction: String, params: T.any(::Stripe::Issuing::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
        }
       def self.update(transaction, params = {}, opts = {}); end
     end

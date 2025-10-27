@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class PlanCreateParams < Stripe::RequestParams
-    class Product < Stripe::RequestParams
+  class PlanCreateParams < ::Stripe::RequestParams
+    class Product < ::Stripe::RequestParams
       # Whether the product is currently available for purchase. Defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def active; end
@@ -57,7 +57,7 @@ module Stripe
         unit_label: nil
       ); end
     end
-    class Tier < Stripe::RequestParams
+    class Tier < ::Stripe::RequestParams
       # The flat billing amount for an entire tier, regardless of the number of units in the tier.
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
@@ -94,7 +94,7 @@ module Stripe
         up_to: nil
       ); end
     end
-    class TransformUsage < Stripe::RequestParams
+    class TransformUsage < ::Stripe::RequestParams
       # Divide usage by this number.
       sig { returns(Integer) }
       def divide_by; end

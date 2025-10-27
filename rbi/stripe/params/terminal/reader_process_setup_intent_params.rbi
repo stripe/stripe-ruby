@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderProcessSetupIntentParams < Stripe::RequestParams
-      class ProcessConfig < Stripe::RequestParams
+    class ReaderProcessSetupIntentParams < ::Stripe::RequestParams
+      class ProcessConfig < ::Stripe::RequestParams
         # Enables cancel button on transaction screens.
         sig { returns(T.nilable(T::Boolean)) }
         def enable_customer_cancellation; end
@@ -26,14 +26,14 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Configuration overrides
+      # Configuration overrides for this setup, such as MOTO and customer cancellation settings.
       sig { returns(T.nilable(Terminal::ReaderProcessSetupIntentParams::ProcessConfig)) }
       def process_config; end
       sig {
         params(_process_config: T.nilable(Terminal::ReaderProcessSetupIntentParams::ProcessConfig)).returns(T.nilable(Terminal::ReaderProcessSetupIntentParams::ProcessConfig))
        }
       def process_config=(_process_config); end
-      # SetupIntent ID
+      # The ID of the SetupIntent to process on the reader.
       sig { returns(String) }
       def setup_intent; end
       sig { params(_setup_intent: String).returns(String) }

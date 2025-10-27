@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class MeterEventAdjustment < APIResource
-        class Cancel < Stripe::StripeObject
+        class Cancel < ::Stripe::StripeObject
           # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
           sig { returns(String) }
           def identifier; end

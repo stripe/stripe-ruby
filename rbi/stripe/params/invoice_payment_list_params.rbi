@@ -3,20 +3,27 @@
 
 # typed: true
 module Stripe
-  class InvoicePaymentListParams < Stripe::RequestParams
-    class Payment < Stripe::RequestParams
+  class InvoicePaymentListParams < ::Stripe::RequestParams
+    class Payment < ::Stripe::RequestParams
       # Only return invoice payments associated by this payment intent ID.
       sig { returns(T.nilable(String)) }
       def payment_intent; end
       sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
       def payment_intent=(_payment_intent); end
+      # Only return invoice payments associated by this payment record ID.
+      sig { returns(T.nilable(String)) }
+      def payment_record; end
+      sig { params(_payment_record: T.nilable(String)).returns(T.nilable(String)) }
+      def payment_record=(_payment_record); end
       # Only return invoice payments associated by this payment type.
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }
       def type=(_type); end
-      sig { params(payment_intent: T.nilable(String), type: String).void }
-      def initialize(payment_intent: nil, type: nil); end
+      sig {
+        params(payment_intent: T.nilable(String), payment_record: T.nilable(String), type: String).void
+       }
+      def initialize(payment_intent: nil, payment_record: nil, type: nil); end
     end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     sig { returns(T.nilable(String)) }

@@ -12,13 +12,16 @@ module Stripe
   # This resource and its endpoints allows you to easily track if a payment is associated with a specific invoice and
   # monitor the allocation details of the payments.
   class InvoicePayment < APIResource
-    class Payment < Stripe::StripeObject
+    class Payment < ::Stripe::StripeObject
       # ID of the successful charge for this payment when `type` is `charge`.Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
-      sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
       def charge; end
       # ID of the PaymentIntent associated with this payment when `type` is `payment_intent`. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
-      sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
       def payment_intent; end
+      # ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentRecord))) }
+      def payment_record; end
       # Type of payment object associated with this invoice payment.
       sig { returns(String) }
       def type; end
@@ -29,7 +32,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class StatusTransitions < Stripe::StripeObject
+    class StatusTransitions < ::Stripe::StripeObject
       # The time that the payment was canceled.
       sig { returns(T.nilable(Integer)) }
       def canceled_at; end
@@ -59,7 +62,7 @@ module Stripe
     sig { returns(String) }
     def id; end
     # The invoice that was paid.
-    sig { returns(T.any(String, Stripe::Invoice)) }
+    sig { returns(T.any(String, ::Stripe::Invoice)) }
     def invoice; end
     # Stripe automatically creates a default InvoicePayment when the invoice is finalized, and keeps it synchronized with the invoice’s `amount_remaining`. The PaymentIntent associated with the default payment can’t be edited or canceled directly.
     sig { returns(T::Boolean) }
@@ -81,7 +84,7 @@ module Stripe
     def status_transitions; end
     # When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
     sig {
-      params(params: T.any(::Stripe::InvoicePaymentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::InvoicePaymentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

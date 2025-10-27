@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Billing
-    class CreditGrantCreateParams < Stripe::RequestParams
-      class Amount < Stripe::RequestParams
-        class Monetary < Stripe::RequestParams
+    class CreditGrantCreateParams < ::Stripe::RequestParams
+      class Amount < ::Stripe::RequestParams
+        class Monetary < ::Stripe::RequestParams
           # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
           sig { returns(String) }
           def currency; end
@@ -37,9 +37,9 @@ module Stripe
          }
         def initialize(monetary: nil, type: nil); end
       end
-      class ApplicabilityConfig < Stripe::RequestParams
-        class Scope < Stripe::RequestParams
-          class Price < Stripe::RequestParams
+      class ApplicabilityConfig < ::Stripe::RequestParams
+        class Scope < ::Stripe::RequestParams
+          class Price < ::Stripe::RequestParams
             # The price ID this credit grant should apply to.
             sig { returns(String) }
             def id; end
@@ -91,10 +91,10 @@ module Stripe
         params(_applicability_config: Billing::CreditGrantCreateParams::ApplicabilityConfig).returns(Billing::CreditGrantCreateParams::ApplicabilityConfig)
        }
       def applicability_config=(_applicability_config); end
-      # The category of this credit grant.
-      sig { returns(String) }
+      # The category of this credit grant. It defaults to `paid` if not specified.
+      sig { returns(T.nilable(String)) }
       def category; end
-      sig { params(_category: String).returns(String) }
+      sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
       def category=(_category); end
       # ID of the customer to receive the billing credits.
       sig { returns(String) }
@@ -134,7 +134,7 @@ module Stripe
       sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def priority=(_priority); end
       sig {
-        params(amount: Billing::CreditGrantCreateParams::Amount, applicability_config: Billing::CreditGrantCreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), priority: T.nilable(Integer)).void
+        params(amount: Billing::CreditGrantCreateParams::Amount, applicability_config: Billing::CreditGrantCreateParams::ApplicabilityConfig, category: T.nilable(String), customer: String, effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), priority: T.nilable(Integer)).void
        }
       def initialize(
         amount: nil,

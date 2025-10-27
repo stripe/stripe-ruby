@@ -3,11 +3,261 @@
 
 # typed: true
 module Stripe
-  class PaymentIntentConfirmParams < Stripe::RequestParams
-    class MandateData < Stripe::RequestParams
-      class CustomerAcceptance < Stripe::RequestParams
-        class Offline < Stripe::RequestParams; end
-        class Online < Stripe::RequestParams
+  class PaymentIntentConfirmParams < ::Stripe::RequestParams
+    class AmountDetails < ::Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            sig { returns(T.nilable(String)) }
+            def commodity_code; end
+            sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
+            def commodity_code=(_commodity_code); end
+            sig { params(commodity_code: T.nilable(String)).void }
+            def initialize(commodity_code: nil); end
+          end
+          class CardPresent < ::Stripe::RequestParams
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            sig { returns(T.nilable(String)) }
+            def commodity_code; end
+            sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
+            def commodity_code=(_commodity_code); end
+            sig { params(commodity_code: T.nilable(String)).void }
+            def initialize(commodity_code: nil); end
+          end
+          class Klarna < ::Stripe::RequestParams
+            # URL to an image for the product. Max length, 4096 characters.
+            sig { returns(T.nilable(String)) }
+            def image_url; end
+            sig { params(_image_url: T.nilable(String)).returns(T.nilable(String)) }
+            def image_url=(_image_url); end
+            # URL to the product page. Max length, 4096 characters.
+            sig { returns(T.nilable(String)) }
+            def product_url; end
+            sig { params(_product_url: T.nilable(String)).returns(T.nilable(String)) }
+            def product_url=(_product_url); end
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def reference=(_reference); end
+            # Reference for the subscription this line item is for.
+            sig { returns(T.nilable(String)) }
+            def subscription_reference; end
+            sig { params(_subscription_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def subscription_reference=(_subscription_reference); end
+            sig {
+              params(image_url: T.nilable(String), product_url: T.nilable(String), reference: T.nilable(String), subscription_reference: T.nilable(String)).void
+             }
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            ); end
+          end
+          class Paypal < ::Stripe::RequestParams
+            # Type of the line item.
+            sig { returns(T.nilable(String)) }
+            def category; end
+            sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
+            def category=(_category); end
+            # Description of the line item.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+            def description=(_description); end
+            # The Stripe account ID of the connected account that sells the item.
+            sig { returns(T.nilable(String)) }
+            def sold_by; end
+            sig { params(_sold_by: T.nilable(String)).returns(T.nilable(String)) }
+            def sold_by=(_sold_by); end
+            sig {
+              params(category: T.nilable(String), description: T.nilable(String), sold_by: T.nilable(String)).void
+             }
+            def initialize(category: nil, description: nil, sold_by: nil); end
+          end
+          # This sub-hash contains line item details that are specific to `card` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
+           }
+          def card; end
+          sig {
+            params(_card: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
+           }
+          def card=(_card); end
+          # This sub-hash contains line item details that are specific to `card_present` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
+           }
+          def card_present; end
+          sig {
+            params(_card_present: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
+           }
+          def card_present=(_card_present); end
+          # This sub-hash contains line item details that are specific to `klarna` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
+           }
+          def klarna; end
+          sig {
+            params(_klarna: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
+           }
+          def klarna=(_klarna); end
+          # This sub-hash contains line item details that are specific to `paypal` payment method."
+          sig {
+            returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
+           }
+          def paypal; end
+          sig {
+            params(_paypal: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
+           }
+          def paypal=(_paypal); end
+          sig {
+            params(card: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card), card_present: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent), klarna: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna), paypal: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).void
+           }
+          def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
+        end
+        class Tax < ::Stripe::RequestParams
+          # The total tax on an item. Non-negative integer.
+          sig { returns(Integer) }
+          def total_tax_amount; end
+          sig { params(_total_tax_amount: Integer).returns(Integer) }
+          def total_tax_amount=(_total_tax_amount); end
+          sig { params(total_tax_amount: Integer).void }
+          def initialize(total_tax_amount: nil); end
+        end
+        # The amount an item was discounted for. Positive integer.
+        sig { returns(T.nilable(Integer)) }
+        def discount_amount; end
+        sig { params(_discount_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def discount_amount=(_discount_amount); end
+        # Payment method-specific information for line items.
+        sig {
+          returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions))
+         }
+        def payment_method_options; end
+        sig {
+          params(_payment_method_options: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions))
+         }
+        def payment_method_options=(_payment_method_options); end
+        # Unique identifier of the product. At most 12 characters long.
+        sig { returns(T.nilable(String)) }
+        def product_code; end
+        sig { params(_product_code: T.nilable(String)).returns(T.nilable(String)) }
+        def product_code=(_product_code); end
+        # Name of the product. At most 100 characters long.
+        sig { returns(String) }
+        def product_name; end
+        sig { params(_product_name: String).returns(String) }
+        def product_name=(_product_name); end
+        # Number of items of the product. Positive integer.
+        sig { returns(Integer) }
+        def quantity; end
+        sig { params(_quantity: Integer).returns(Integer) }
+        def quantity=(_quantity); end
+        # Contains information about the tax on the item.
+        sig { returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax)) }
+        def tax; end
+        sig {
+          params(_tax: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax)).returns(T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax))
+         }
+        def tax=(_tax); end
+        # Cost of the product. Non-negative integer.
+        sig { returns(Integer) }
+        def unit_cost; end
+        sig { params(_unit_cost: Integer).returns(Integer) }
+        def unit_cost=(_unit_cost); end
+        # A unit of measure for the line item, such as gallons, feet, meters, etc.
+        sig { returns(T.nilable(String)) }
+        def unit_of_measure; end
+        sig { params(_unit_of_measure: T.nilable(String)).returns(T.nilable(String)) }
+        def unit_of_measure=(_unit_of_measure); end
+        sig {
+          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(PaymentIntentConfirmParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
+         }
+        def initialize(
+          discount_amount: nil,
+          payment_method_options: nil,
+          product_code: nil,
+          product_name: nil,
+          quantity: nil,
+          tax: nil,
+          unit_cost: nil,
+          unit_of_measure: nil
+        ); end
+      end
+      class Shipping < ::Stripe::RequestParams
+        # Portion of the amount that is for shipping.
+        sig { returns(T.nilable(T.any(String, Integer))) }
+        def amount; end
+        sig {
+          params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+         }
+        def amount=(_amount); end
+        # The postal code that represents the shipping source.
+        sig { returns(T.nilable(String)) }
+        def from_postal_code; end
+        sig { params(_from_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def from_postal_code=(_from_postal_code); end
+        # The postal code that represents the shipping destination.
+        sig { returns(T.nilable(String)) }
+        def to_postal_code; end
+        sig { params(_to_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def to_postal_code=(_to_postal_code); end
+        sig {
+          params(amount: T.nilable(T.any(String, Integer)), from_postal_code: T.nilable(String), to_postal_code: T.nilable(String)).void
+         }
+        def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
+      end
+      class Tax < ::Stripe::RequestParams
+        # Total portion of the amount that is for tax.
+        sig { returns(Integer) }
+        def total_tax_amount; end
+        sig { params(_total_tax_amount: Integer).returns(Integer) }
+        def total_tax_amount=(_total_tax_amount); end
+        sig { params(total_tax_amount: Integer).void }
+        def initialize(total_tax_amount: nil); end
+      end
+      # The total discount applied on the transaction.
+      sig { returns(T.nilable(T.any(String, Integer))) }
+      def discount_amount; end
+      sig {
+        params(_discount_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+       }
+      def discount_amount=(_discount_amount); end
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem])))
+       }
+      def line_items; end
+      sig {
+        params(_line_items: T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem]))).returns(T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem])))
+       }
+      def line_items=(_line_items); end
+      # Contains information about the shipping portion of the amount.
+      sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping))) }
+      def shipping; end
+      sig {
+        params(_shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping)))
+       }
+      def shipping=(_shipping); end
+      # Contains information about the tax portion of the amount.
+      sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax))) }
+      def tax; end
+      sig {
+        params(_tax: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax)))
+       }
+      def tax=(_tax); end
+      sig {
+        params(discount_amount: T.nilable(T.any(String, Integer)), line_items: T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails::Tax))).void
+       }
+      def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
+    end
+    class MandateData < ::Stripe::RequestParams
+      class CustomerAcceptance < ::Stripe::RequestParams
+        class Offline < ::Stripe::RequestParams; end
+        class Online < ::Stripe::RequestParams
           # The IP address from which the Mandate was accepted by the customer.
           sig { returns(T.nilable(String)) }
           def ip_address; end
@@ -66,8 +316,22 @@ module Stripe
        }
       def initialize(customer_acceptance: nil); end
     end
-    class PaymentMethodData < Stripe::RequestParams
-      class AcssDebit < Stripe::RequestParams
+    class PaymentDetails < ::Stripe::RequestParams
+      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      sig { returns(T.nilable(String)) }
+      def customer_reference; end
+      sig { params(_customer_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_reference=(_customer_reference); end
+      # A unique value assigned by the business to identify the transaction.
+      sig { returns(T.nilable(String)) }
+      def order_reference; end
+      sig { params(_order_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def order_reference=(_order_reference); end
+      sig { params(customer_reference: T.nilable(String), order_reference: T.nilable(String)).void }
+      def initialize(customer_reference: nil, order_reference: nil); end
+    end
+    class PaymentMethodData < ::Stripe::RequestParams
+      class AcssDebit < ::Stripe::RequestParams
         # Customer's bank account number.
         sig { returns(String) }
         def account_number; end
@@ -88,12 +352,12 @@ module Stripe
          }
         def initialize(account_number: nil, institution_number: nil, transit_number: nil); end
       end
-      class Affirm < Stripe::RequestParams; end
-      class AfterpayClearpay < Stripe::RequestParams; end
-      class Alipay < Stripe::RequestParams; end
-      class Alma < Stripe::RequestParams; end
-      class AmazonPay < Stripe::RequestParams; end
-      class AuBecsDebit < Stripe::RequestParams
+      class Affirm < ::Stripe::RequestParams; end
+      class AfterpayClearpay < ::Stripe::RequestParams; end
+      class Alipay < ::Stripe::RequestParams; end
+      class Alma < ::Stripe::RequestParams; end
+      class AmazonPay < ::Stripe::RequestParams; end
+      class AuBecsDebit < ::Stripe::RequestParams
         # The account number for the bank account.
         sig { returns(String) }
         def account_number; end
@@ -107,7 +371,7 @@ module Stripe
         sig { params(account_number: String, bsb_number: String).void }
         def initialize(account_number: nil, bsb_number: nil); end
       end
-      class BacsDebit < Stripe::RequestParams
+      class BacsDebit < ::Stripe::RequestParams
         # Account number of the bank account that the funds will be debited from.
         sig { returns(T.nilable(String)) }
         def account_number; end
@@ -121,10 +385,10 @@ module Stripe
         sig { params(account_number: T.nilable(String), sort_code: T.nilable(String)).void }
         def initialize(account_number: nil, sort_code: nil); end
       end
-      class Bancontact < Stripe::RequestParams; end
-      class Billie < Stripe::RequestParams; end
-      class BillingDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Bancontact < ::Stripe::RequestParams; end
+      class Billie < ::Stripe::RequestParams; end
+      class BillingDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -201,8 +465,8 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
       end
-      class Blik < Stripe::RequestParams; end
-      class Boleto < Stripe::RequestParams
+      class Blik < ::Stripe::RequestParams; end
+      class Boleto < ::Stripe::RequestParams
         # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
         sig { returns(String) }
         def tax_id; end
@@ -211,10 +475,10 @@ module Stripe
         sig { params(tax_id: String).void }
         def initialize(tax_id: nil); end
       end
-      class Cashapp < Stripe::RequestParams; end
-      class Crypto < Stripe::RequestParams; end
-      class CustomerBalance < Stripe::RequestParams; end
-      class Eps < Stripe::RequestParams
+      class Cashapp < ::Stripe::RequestParams; end
+      class Crypto < ::Stripe::RequestParams; end
+      class CustomerBalance < ::Stripe::RequestParams; end
+      class Eps < ::Stripe::RequestParams
         # The customer's bank.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -223,7 +487,7 @@ module Stripe
         sig { params(bank: T.nilable(String)).void }
         def initialize(bank: nil); end
       end
-      class Fpx < Stripe::RequestParams
+      class Fpx < ::Stripe::RequestParams
         # Account holder type for FPX transaction
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
@@ -237,9 +501,9 @@ module Stripe
         sig { params(account_holder_type: T.nilable(String), bank: String).void }
         def initialize(account_holder_type: nil, bank: nil); end
       end
-      class Giropay < Stripe::RequestParams; end
-      class Grabpay < Stripe::RequestParams; end
-      class Ideal < Stripe::RequestParams
+      class Giropay < ::Stripe::RequestParams; end
+      class Grabpay < ::Stripe::RequestParams; end
+      class Ideal < ::Stripe::RequestParams
         # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -248,10 +512,10 @@ module Stripe
         sig { params(bank: T.nilable(String)).void }
         def initialize(bank: nil); end
       end
-      class InteracPresent < Stripe::RequestParams; end
-      class KakaoPay < Stripe::RequestParams; end
-      class Klarna < Stripe::RequestParams
-        class Dob < Stripe::RequestParams
+      class InteracPresent < ::Stripe::RequestParams; end
+      class KakaoPay < ::Stripe::RequestParams; end
+      class Klarna < ::Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           sig { returns(Integer) }
           def day; end
@@ -282,13 +546,13 @@ module Stripe
          }
         def initialize(dob: nil); end
       end
-      class Konbini < Stripe::RequestParams; end
-      class KrCard < Stripe::RequestParams; end
-      class Link < Stripe::RequestParams; end
-      class MbWay < Stripe::RequestParams; end
-      class Mobilepay < Stripe::RequestParams; end
-      class Multibanco < Stripe::RequestParams; end
-      class NaverPay < Stripe::RequestParams
+      class Konbini < ::Stripe::RequestParams; end
+      class KrCard < ::Stripe::RequestParams; end
+      class Link < ::Stripe::RequestParams; end
+      class MbWay < ::Stripe::RequestParams; end
+      class Mobilepay < ::Stripe::RequestParams; end
+      class Multibanco < ::Stripe::RequestParams; end
+      class NaverPay < ::Stripe::RequestParams
         # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         sig { returns(T.nilable(String)) }
         def funding; end
@@ -297,7 +561,7 @@ module Stripe
         sig { params(funding: T.nilable(String)).void }
         def initialize(funding: nil); end
       end
-      class NzBankAccount < Stripe::RequestParams
+      class NzBankAccount < ::Stripe::RequestParams
         # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
         sig { returns(T.nilable(String)) }
         def account_holder_name; end
@@ -340,8 +604,8 @@ module Stripe
           suffix: nil
         ); end
       end
-      class Oxxo < Stripe::RequestParams; end
-      class P24 < Stripe::RequestParams
+      class Oxxo < ::Stripe::RequestParams; end
+      class P24 < ::Stripe::RequestParams
         # The customer's bank.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -350,13 +614,13 @@ module Stripe
         sig { params(bank: T.nilable(String)).void }
         def initialize(bank: nil); end
       end
-      class PayByBank < Stripe::RequestParams; end
-      class Payco < Stripe::RequestParams; end
-      class Paynow < Stripe::RequestParams; end
-      class Paypal < Stripe::RequestParams; end
-      class Pix < Stripe::RequestParams; end
-      class Promptpay < Stripe::RequestParams; end
-      class RadarOptions < Stripe::RequestParams
+      class PayByBank < ::Stripe::RequestParams; end
+      class Payco < ::Stripe::RequestParams; end
+      class Paynow < ::Stripe::RequestParams; end
+      class Paypal < ::Stripe::RequestParams; end
+      class Pix < ::Stripe::RequestParams; end
+      class Promptpay < ::Stripe::RequestParams; end
+      class RadarOptions < ::Stripe::RequestParams
         # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         sig { returns(T.nilable(String)) }
         def session; end
@@ -365,10 +629,10 @@ module Stripe
         sig { params(session: T.nilable(String)).void }
         def initialize(session: nil); end
       end
-      class RevolutPay < Stripe::RequestParams; end
-      class SamsungPay < Stripe::RequestParams; end
-      class Satispay < Stripe::RequestParams; end
-      class SepaDebit < Stripe::RequestParams
+      class RevolutPay < ::Stripe::RequestParams; end
+      class SamsungPay < ::Stripe::RequestParams; end
+      class Satispay < ::Stripe::RequestParams; end
+      class SepaDebit < ::Stripe::RequestParams
         # IBAN of the bank account.
         sig { returns(String) }
         def iban; end
@@ -377,7 +641,7 @@ module Stripe
         sig { params(iban: String).void }
         def initialize(iban: nil); end
       end
-      class Sofort < Stripe::RequestParams
+      class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(String) }
         def country; end
@@ -386,9 +650,9 @@ module Stripe
         sig { params(country: String).void }
         def initialize(country: nil); end
       end
-      class Swish < Stripe::RequestParams; end
-      class Twint < Stripe::RequestParams; end
-      class UsBankAccount < Stripe::RequestParams
+      class Swish < ::Stripe::RequestParams; end
+      class Twint < ::Stripe::RequestParams; end
+      class UsBankAccount < ::Stripe::RequestParams
         # Account holder type: individual or company.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
@@ -425,8 +689,8 @@ module Stripe
           routing_number: nil
         ); end
       end
-      class WechatPay < Stripe::RequestParams; end
-      class Zip < Stripe::RequestParams; end
+      class WechatPay < ::Stripe::RequestParams; end
+      class Zip < ::Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
       sig { returns(T.nilable(PaymentIntentConfirmParams::PaymentMethodData::AcssDebit)) }
       def acss_debit; end
@@ -861,9 +1125,9 @@ module Stripe
         zip: nil
       ); end
     end
-    class PaymentMethodOptions < Stripe::RequestParams
-      class AcssDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class AcssDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # A URL for custom mandate text to render during confirmation step.
           # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
           # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
@@ -940,7 +1204,7 @@ module Stripe
           verification_method: nil
         ); end
       end
-      class Affirm < Stripe::RequestParams
+      class Affirm < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -973,7 +1237,7 @@ module Stripe
          }
         def initialize(capture_method: nil, preferred_locale: nil, setup_future_usage: nil); end
       end
-      class AfterpayClearpay < Stripe::RequestParams
+      class AfterpayClearpay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1007,7 +1271,7 @@ module Stripe
          }
         def initialize(capture_method: nil, reference: nil, setup_future_usage: nil); end
       end
-      class Alipay < Stripe::RequestParams
+      class Alipay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1026,7 +1290,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
         def initialize(setup_future_usage: nil); end
       end
-      class Alma < Stripe::RequestParams
+      class Alma < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1039,7 +1303,7 @@ module Stripe
         sig { params(capture_method: T.nilable(String)).void }
         def initialize(capture_method: nil); end
       end
-      class AmazonPay < Stripe::RequestParams
+      class AmazonPay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1067,7 +1331,7 @@ module Stripe
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
-      class AuBecsDebit < Stripe::RequestParams
+      class AuBecsDebit < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1093,8 +1357,8 @@ module Stripe
          }
         def initialize(setup_future_usage: nil, target_date: nil); end
       end
-      class BacsDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class BacsDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
@@ -1137,7 +1401,7 @@ module Stripe
          }
         def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
       end
-      class Bancontact < Stripe::RequestParams
+      class Bancontact < ::Stripe::RequestParams
         # Preferred language of the Bancontact authorization page that the customer is redirected to.
         sig { returns(T.nilable(String)) }
         def preferred_language; end
@@ -1163,7 +1427,7 @@ module Stripe
          }
         def initialize(preferred_language: nil, setup_future_usage: nil); end
       end
-      class Billie < Stripe::RequestParams
+      class Billie < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1176,7 +1440,7 @@ module Stripe
         sig { params(capture_method: T.nilable(String)).void }
         def initialize(capture_method: nil); end
       end
-      class Blik < Stripe::RequestParams
+      class Blik < ::Stripe::RequestParams
         # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         sig { returns(T.nilable(String)) }
         def code; end
@@ -1198,7 +1462,7 @@ module Stripe
         sig { params(code: T.nilable(String), setup_future_usage: T.nilable(String)).void }
         def initialize(code: nil, setup_future_usage: nil); end
       end
-      class Boleto < Stripe::RequestParams
+      class Boleto < ::Stripe::RequestParams
         # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
         sig { returns(T.nilable(Integer)) }
         def expires_after_days; end
@@ -1224,9 +1488,9 @@ module Stripe
          }
         def initialize(expires_after_days: nil, setup_future_usage: nil); end
       end
-      class Card < Stripe::RequestParams
-        class Installments < Stripe::RequestParams
-          class Plan < Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class Installments < ::Stripe::RequestParams
+          class Plan < ::Stripe::RequestParams
             # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
             sig { returns(T.nilable(Integer)) }
             def count; end
@@ -1270,7 +1534,7 @@ module Stripe
            }
           def initialize(enabled: nil, plan: nil); end
         end
-        class MandateOptions < Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Amount to be charged for future payments.
           sig { returns(Integer) }
           def amount; end
@@ -1333,9 +1597,9 @@ module Stripe
             supported_types: nil
           ); end
         end
-        class ThreeDSecure < Stripe::RequestParams
-          class NetworkOptions < Stripe::RequestParams
-            class CartesBancaires < Stripe::RequestParams
+        class ThreeDSecure < ::Stripe::RequestParams
+          class NetworkOptions < ::Stripe::RequestParams
+            class CartesBancaires < ::Stripe::RequestParams
               # The cryptogram calculation algorithm used by the card Issuer's ACS
               # to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
               # messageExtension: CB-AVALGO
@@ -1589,8 +1853,8 @@ module Stripe
           three_d_secure: nil
         ); end
       end
-      class CardPresent < Stripe::RequestParams
-        class Routing < Stripe::RequestParams
+      class CardPresent < ::Stripe::RequestParams
+        class Routing < ::Stripe::RequestParams
           # Routing requested priority
           sig { returns(T.nilable(String)) }
           def requested_priority; end
@@ -1633,7 +1897,7 @@ module Stripe
           routing: nil
         ); end
       end
-      class Cashapp < Stripe::RequestParams
+      class Cashapp < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1663,7 +1927,7 @@ module Stripe
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
-      class Crypto < Stripe::RequestParams
+      class Crypto < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1680,9 +1944,9 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class CustomerBalance < Stripe::RequestParams
-        class BankTransfer < Stripe::RequestParams
-          class EuBankTransfer < Stripe::RequestParams
+      class CustomerBalance < ::Stripe::RequestParams
+        class BankTransfer < ::Stripe::RequestParams
+          class EuBankTransfer < ::Stripe::RequestParams
             # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
             sig { returns(String) }
             def country; end
@@ -1751,7 +2015,7 @@ module Stripe
          }
         def initialize(bank_transfer: nil, funding_type: nil, setup_future_usage: nil); end
       end
-      class Eps < Stripe::RequestParams
+      class Eps < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1768,7 +2032,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class Fpx < Stripe::RequestParams
+      class Fpx < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1785,7 +2049,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class Giropay < Stripe::RequestParams
+      class Giropay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1802,7 +2066,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class Grabpay < Stripe::RequestParams
+      class Grabpay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1819,7 +2083,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class Ideal < Stripe::RequestParams
+      class Ideal < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1838,8 +2102,8 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
         def initialize(setup_future_usage: nil); end
       end
-      class InteracPresent < Stripe::RequestParams; end
-      class KakaoPay < Stripe::RequestParams
+      class InteracPresent < ::Stripe::RequestParams; end
+      class KakaoPay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1867,8 +2131,8 @@ module Stripe
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
-      class Klarna < Stripe::RequestParams
-        class OnDemand < Stripe::RequestParams
+      class Klarna < ::Stripe::RequestParams
+        class OnDemand < ::Stripe::RequestParams
           # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
           sig { returns(T.nilable(Integer)) }
           def average_amount; end
@@ -1905,8 +2169,8 @@ module Stripe
             purchase_interval_count: nil
           ); end
         end
-        class Subscription < Stripe::RequestParams
-          class NextBilling < Stripe::RequestParams
+        class Subscription < ::Stripe::RequestParams
+          class NextBilling < ::Stripe::RequestParams
             # The amount of the next charge for the subscription.
             sig { returns(Integer) }
             def amount; end
@@ -2016,7 +2280,7 @@ module Stripe
           subscriptions: nil
         ); end
       end
-      class Konbini < Stripe::RequestParams
+      class Konbini < ::Stripe::RequestParams
         # An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores. Must not consist of only zeroes and could be rejected in case of insufficient uniqueness. We recommend to use the customer's phone number.
         sig { returns(T.nilable(String)) }
         def confirmation_number; end
@@ -2065,7 +2329,7 @@ module Stripe
           setup_future_usage: nil
         ); end
       end
-      class KrCard < Stripe::RequestParams
+      class KrCard < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2093,7 +2357,7 @@ module Stripe
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
-      class Link < Stripe::RequestParams
+      class Link < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2128,7 +2392,7 @@ module Stripe
          }
         def initialize(capture_method: nil, persistent_token: nil, setup_future_usage: nil); end
       end
-      class MbWay < Stripe::RequestParams
+      class MbWay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2145,7 +2409,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class Mobilepay < Stripe::RequestParams
+      class Mobilepay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2173,7 +2437,7 @@ module Stripe
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
-      class Multibanco < Stripe::RequestParams
+      class Multibanco < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2190,7 +2454,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class NaverPay < Stripe::RequestParams
+      class NaverPay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2218,7 +2482,7 @@ module Stripe
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
-      class NzBankAccount < Stripe::RequestParams
+      class NzBankAccount < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2244,7 +2508,7 @@ module Stripe
          }
         def initialize(setup_future_usage: nil, target_date: nil); end
       end
-      class Oxxo < Stripe::RequestParams
+      class Oxxo < ::Stripe::RequestParams
         # The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
         sig { returns(T.nilable(Integer)) }
         def expires_after_days; end
@@ -2268,7 +2532,7 @@ module Stripe
          }
         def initialize(expires_after_days: nil, setup_future_usage: nil); end
       end
-      class P24 < Stripe::RequestParams
+      class P24 < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2294,8 +2558,8 @@ module Stripe
          }
         def initialize(setup_future_usage: nil, tos_shown_and_accepted: nil); end
       end
-      class PayByBank < Stripe::RequestParams; end
-      class Payco < Stripe::RequestParams
+      class PayByBank < ::Stripe::RequestParams; end
+      class Payco < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2308,7 +2572,7 @@ module Stripe
         sig { params(capture_method: T.nilable(String)).void }
         def initialize(capture_method: nil); end
       end
-      class Paynow < Stripe::RequestParams
+      class Paynow < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2325,7 +2589,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class Paypal < Stripe::RequestParams
+      class Paypal < ::Stripe::RequestParams
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
@@ -2372,7 +2636,7 @@ module Stripe
           setup_future_usage: nil
         ); end
       end
-      class Pix < Stripe::RequestParams
+      class Pix < ::Stripe::RequestParams
         # Determines if the amount includes the IOF tax. Defaults to `never`.
         sig { returns(T.nilable(String)) }
         def amount_includes_iof; end
@@ -2411,7 +2675,7 @@ module Stripe
           setup_future_usage: nil
         ); end
       end
-      class Promptpay < Stripe::RequestParams
+      class Promptpay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2428,7 +2692,7 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class RevolutPay < Stripe::RequestParams
+      class RevolutPay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2456,7 +2720,7 @@ module Stripe
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
-      class SamsungPay < Stripe::RequestParams
+      class SamsungPay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2469,7 +2733,7 @@ module Stripe
         sig { params(capture_method: T.nilable(String)).void }
         def initialize(capture_method: nil); end
       end
-      class Satispay < Stripe::RequestParams
+      class Satispay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2482,8 +2746,8 @@ module Stripe
         sig { params(capture_method: T.nilable(String)).void }
         def initialize(capture_method: nil); end
       end
-      class SepaDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class SepaDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
@@ -2526,7 +2790,7 @@ module Stripe
          }
         def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
       end
-      class Sofort < Stripe::RequestParams
+      class Sofort < ::Stripe::RequestParams
         # Language shown to the payer on redirect.
         sig { returns(T.nilable(T.any(String, String))) }
         def preferred_language; end
@@ -2554,7 +2818,7 @@ module Stripe
          }
         def initialize(preferred_language: nil, setup_future_usage: nil); end
       end
-      class Swish < Stripe::RequestParams
+      class Swish < ::Stripe::RequestParams
         # A reference for this payment to be displayed in the Swish app.
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -2576,7 +2840,7 @@ module Stripe
         sig { params(reference: T.nilable(String), setup_future_usage: T.nilable(String)).void }
         def initialize(reference: nil, setup_future_usage: nil); end
       end
-      class Twint < Stripe::RequestParams
+      class Twint < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2593,9 +2857,9 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class UsBankAccount < Stripe::RequestParams
-        class FinancialConnections < Stripe::RequestParams
-          class Filters < Stripe::RequestParams
+      class UsBankAccount < ::Stripe::RequestParams
+        class FinancialConnections < ::Stripe::RequestParams
+          class Filters < ::Stripe::RequestParams
             # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
             sig { returns(T.nilable(T::Array[String])) }
             def account_subcategories; end
@@ -2639,7 +2903,7 @@ module Stripe
            }
           def initialize(filters: nil, permissions: nil, prefetch: nil, return_url: nil); end
         end
-        class MandateOptions < Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # The method used to collect offline mandate customer acceptance.
           sig { returns(T.nilable(String)) }
           def collection_method; end
@@ -2648,7 +2912,7 @@ module Stripe
           sig { params(collection_method: T.nilable(String)).void }
           def initialize(collection_method: nil); end
         end
-        class Networks < Stripe::RequestParams
+        class Networks < ::Stripe::RequestParams
           # Triggers validations to run across the selected networks
           sig { returns(T.nilable(T::Array[String])) }
           def requested; end
@@ -2731,7 +2995,7 @@ module Stripe
           verification_method: nil
         ); end
       end
-      class WechatPay < Stripe::RequestParams
+      class WechatPay < ::Stripe::RequestParams
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         sig { returns(T.nilable(String)) }
         def app_id; end
@@ -2760,7 +3024,7 @@ module Stripe
          }
         def initialize(app_id: nil, client: nil, setup_future_usage: nil); end
       end
-      class Zip < Stripe::RequestParams
+      class Zip < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3293,7 +3557,7 @@ module Stripe
         zip: nil
       ); end
     end
-    class RadarOptions < Stripe::RequestParams
+    class RadarOptions < ::Stripe::RequestParams
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
@@ -3302,8 +3566,8 @@ module Stripe
       sig { params(session: T.nilable(String)).void }
       def initialize(session: nil); end
     end
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -3378,6 +3642,13 @@ module Stripe
        }
       def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
     end
+    # Provides industry-specific information about the amount.
+    sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails))) }
+    def amount_details; end
+    sig {
+      params(_amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)))
+     }
+    def amount_details=(_amount_details); end
     # Controls when the funds will be captured from the customer's account.
     sig { returns(T.nilable(String)) }
     def capture_method; end
@@ -3426,6 +3697,13 @@ module Stripe
       params(_off_session: T.nilable(T.any(T::Boolean, String))).returns(T.nilable(T.any(T::Boolean, String)))
      }
     def off_session=(_off_session); end
+    # Provides industry-specific information about the charge.
+    sig { returns(T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails))) }
+    def payment_details; end
+    sig {
+      params(_payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails))).returns(T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)))
+     }
+    def payment_details=(_payment_details); end
     # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
     # If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
     sig { returns(T.nilable(String)) }
@@ -3502,9 +3780,10 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
+      amount_details: nil,
       capture_method: nil,
       confirmation_token: nil,
       error_on_requires_action: nil,
@@ -3513,6 +3792,7 @@ module Stripe
       mandate: nil,
       mandate_data: nil,
       off_session: nil,
+      payment_details: nil,
       payment_method: nil,
       payment_method_data: nil,
       payment_method_options: nil,

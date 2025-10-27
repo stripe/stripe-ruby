@@ -6,7 +6,7 @@ module Stripe
   # This object represents a customer of your business. Use it to [create recurring charges](https://stripe.com/docs/invoicing/customer), [save payment](https://stripe.com/docs/payments/save-during-payment) and contact information,
   # and track payments that belong to the same customer.
   class Customer < APIResource
-    class Address < Stripe::StripeObject
+    class Address < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -32,8 +32,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class InvoiceSettings < Stripe::StripeObject
-      class CustomField < Stripe::StripeObject
+    class InvoiceSettings < ::Stripe::StripeObject
+      class CustomField < ::Stripe::StripeObject
         # The name of the custom field.
         sig { returns(String) }
         def name; end
@@ -47,7 +47,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RenderingOptions < Stripe::StripeObject
+      class RenderingOptions < ::Stripe::StripeObject
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
         sig { returns(T.nilable(String)) }
         def amount_tax_display; end
@@ -65,7 +65,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[CustomField])) }
       def custom_fields; end
       # ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-      sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
       def default_payment_method; end
       # Default footer to be displayed on invoices for this customer.
       sig { returns(T.nilable(String)) }
@@ -80,8 +80,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Shipping < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Shipping < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -129,8 +129,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Tax < Stripe::StripeObject
-      class Location < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
+      class Location < ::Stripe::StripeObject
         # The identified tax country of the customer.
         sig { returns(String) }
         def country; end
@@ -156,6 +156,9 @@ module Stripe
       # The identified tax location of the customer.
       sig { returns(T.nilable(Location)) }
       def location; end
+      # The tax calculation provider used for location resolution. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
+      sig { returns(String) }
+      def provider; end
       def self.inner_class_types
         @inner_class_types = {location: Location}
       end
@@ -173,7 +176,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def business_name; end
     # The current funds being held by Stripe on behalf of the customer. You can apply these funds towards payment intents when the source is "cash_balance". The `settings[reconciliation_mode]` field describes if these funds apply to these payment intents manually or automatically.
-    sig { returns(T.nilable(Stripe::CashBalance)) }
+    sig { returns(T.nilable(::Stripe::CashBalance)) }
     def cash_balance; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -185,7 +188,7 @@ module Stripe
     #
     # If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
     sig {
-      returns(T.nilable(T.any(String, T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source))))
+      returns(T.nilable(T.any(String, T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source))))
      }
     def default_source; end
     # Tracks the most recent state change on any invoice belonging to the customer. Paying an invoice or marking it uncollectible via the API will set this field to false. An automatic payment failure or passing the `invoice.due_date` will set this field to `true`.
@@ -199,7 +202,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def description; end
     # Describes the current discount active on the customer, if there is one.
-    sig { returns(T.nilable(Stripe::Discount)) }
+    sig { returns(T.nilable(::Stripe::Discount)) }
     def discount; end
     # The customer's email address.
     sig { returns(T.nilable(String)) }
@@ -244,10 +247,10 @@ module Stripe
     sig { returns(T.nilable(Shipping)) }
     def shipping; end
     # The customer's payment sources, if any.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def sources; end
     # The customer's current subscriptions, if any.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def subscriptions; end
     # Attribute for field tax
     sig { returns(T.nilable(Tax)) }
@@ -256,17 +259,17 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def tax_exempt; end
     # The customer's tax IDs.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def tax_ids; end
     # ID of the test clock that this customer belongs to.
-    sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     # Creates a new customer object.
     sig {
-      params(params: T.any(::Stripe::CustomerCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(params: T.any(::Stripe::CustomerCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def self.create(params = {}, opts = {}); end
 
@@ -274,7 +277,7 @@ module Stripe
     # funding instructions will be created. If funding instructions have already been created for a given customer, the same
     # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
     sig {
-      params(params: T.any(::Stripe::CustomerCreateFundingInstructionsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FundingInstructions)
+      params(params: T.any(::Stripe::CustomerCreateFundingInstructionsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FundingInstructions)
      }
     def create_funding_instructions(params = {}, opts = {}); end
 
@@ -282,49 +285,49 @@ module Stripe
     # funding instructions will be created. If funding instructions have already been created for a given customer, the same
     # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerCreateFundingInstructionsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FundingInstructions)
+      params(customer: String, params: T.any(::Stripe::CustomerCreateFundingInstructionsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FundingInstructions)
      }
     def self.create_funding_instructions(customer, params = {}, opts = {}); end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(customer: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def self.delete(customer, params = {}, opts = {}); end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
-      params(params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def delete(params = {}, opts = {}); end
 
     # Removes the currently applied discount on a customer.
     sig {
-      params(params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Discount)
+      params(params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
      }
     def delete_discount(params = {}, opts = {}); end
 
     # Removes the currently applied discount on a customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Discount)
+      params(customer: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
      }
     def self.delete_discount(customer, params = {}, opts = {}); end
 
     # Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
     sig {
-      params(params: T.any(::Stripe::CustomerListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CustomerListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Returns a list of PaymentMethods for a given Customer
     sig {
-      params(params: T.any(::Stripe::CustomerListPaymentMethodsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CustomerListPaymentMethodsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list_payment_methods(params = {}, opts = {}); end
 
     # Returns a list of PaymentMethods for a given Customer
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerListPaymentMethodsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(customer: String, params: T.any(::Stripe::CustomerListPaymentMethodsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list_payment_methods(customer, params = {}, opts = {}); end
 
@@ -336,23 +339,23 @@ module Stripe
 
     # Retrieves a PaymentMethod object for a given Customer.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(payment_method: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def retrieve_payment_method(payment_method, params = {}, opts = {}); end
 
     # Retrieves a PaymentMethod object for a given Customer.
     sig {
-      params(customer: String, payment_method: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(customer: String, payment_method: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::CustomerSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::CustomerSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search(params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::CustomerSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::CustomerSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search_auto_paging_each(params = {}, opts = {}, &blk); end
 
@@ -360,7 +363,7 @@ module Stripe
     #
     # This request accepts mostly the same arguments as the customer creation call.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(customer: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def self.update(customer, params = {}, opts = {}); end
 

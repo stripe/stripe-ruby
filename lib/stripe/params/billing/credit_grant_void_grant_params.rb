@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class CreditGrantVoidGrantParams < Stripe::RequestParams
+    class CreditGrantVoidGrantParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

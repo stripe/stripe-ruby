@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PromotionCodeUpdateParams < Stripe::RequestParams
-    class Restrictions < Stripe::RequestParams
-      class CurrencyOptions < Stripe::RequestParams
+  class PromotionCodeUpdateParams < ::Stripe::RequestParams
+    class Restrictions < ::Stripe::RequestParams
+      class CurrencyOptions < ::Stripe::RequestParams
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         attr_accessor :minimum_amount
 

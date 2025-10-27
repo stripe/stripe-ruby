@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PriceUpdateParams < Stripe::RequestParams
-    class CurrencyOptions < Stripe::RequestParams
-      class CustomUnitAmount < Stripe::RequestParams
+  class PriceUpdateParams < ::Stripe::RequestParams
+    class CurrencyOptions < ::Stripe::RequestParams
+      class CustomUnitAmount < ::Stripe::RequestParams
         # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
         attr_accessor :enabled
         # The maximum unit amount the customer can specify for this item.
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class Tier < Stripe::RequestParams
+      class Tier < ::Stripe::RequestParams
         # The flat billing amount for an entire tier, regardless of the number of units in the tier.
         attr_accessor :flat_amount
         # Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.

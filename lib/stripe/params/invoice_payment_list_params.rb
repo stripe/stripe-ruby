@@ -2,15 +2,18 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoicePaymentListParams < Stripe::RequestParams
-    class Payment < Stripe::RequestParams
+  class InvoicePaymentListParams < ::Stripe::RequestParams
+    class Payment < ::Stripe::RequestParams
       # Only return invoice payments associated by this payment intent ID.
       attr_accessor :payment_intent
+      # Only return invoice payments associated by this payment record ID.
+      attr_accessor :payment_record
       # Only return invoice payments associated by this payment type.
       attr_accessor :type
 
-      def initialize(payment_intent: nil, type: nil)
+      def initialize(payment_intent: nil, payment_record: nil, type: nil)
         @payment_intent = payment_intent
+        @payment_record = payment_record
         @type = type
       end
     end

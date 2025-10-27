@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    class InboundTransferCreateParams < Stripe::RequestParams
+    class InboundTransferCreateParams < ::Stripe::RequestParams
       # Amount (in cents) to be transferred.
       attr_accessor :amount
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentMethodUpdateParams < Stripe::RequestParams
-    class BillingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+  class PaymentMethodUpdateParams < ::Stripe::RequestParams
+    class BillingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -54,8 +54,8 @@ module Stripe
       end
     end
 
-    class Card < Stripe::RequestParams
-      class Networks < Stripe::RequestParams
+    class Card < ::Stripe::RequestParams
+      class Networks < ::Stripe::RequestParams
         # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         attr_accessor :preferred
 
@@ -77,7 +77,7 @@ module Stripe
       end
     end
 
-    class UsBankAccount < Stripe::RequestParams
+    class UsBankAccount < ::Stripe::RequestParams
       # Bank account holder type.
       attr_accessor :account_holder_type
       # Bank account type.

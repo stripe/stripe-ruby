@@ -3,7 +3,7 @@
 
 module Stripe
   module Identity
-    class VerificationSessionRetrieveParams < Stripe::RequestParams
+    class VerificationSessionRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

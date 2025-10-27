@@ -8,15 +8,15 @@ module Stripe
   #
   # Related guides: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids), [Account tax IDs](https://stripe.com/docs/invoicing/connect#account-tax-ids)
   class TaxId < APIResource
-    class Owner < Stripe::StripeObject
+    class Owner < ::Stripe::StripeObject
       # The account being referenced when `type` is `account`.
-      sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
       def account; end
       # The Connect Application being referenced when `type` is `application`.
-      sig { returns(T.nilable(T.any(String, Stripe::Application))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
       def application; end
       # The customer being referenced when `type` is `customer`.
-      sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
       def customer; end
       # Type of owner referenced.
       sig { returns(String) }
@@ -28,7 +28,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Verification < Stripe::StripeObject
+    class Verification < ::Stripe::StripeObject
       # Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
       sig { returns(String) }
       def status; end
@@ -52,7 +52,7 @@ module Stripe
     sig { returns(Integer) }
     def created; end
     # ID of the customer.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # Unique identifier for the object.
     sig { returns(String) }
@@ -80,25 +80,25 @@ module Stripe
     def deleted; end
     # Creates a new account or customer tax_id object.
     sig {
-      params(params: T.any(::Stripe::TaxIdCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TaxId)
+      params(params: T.any(::Stripe::TaxIdCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxId)
      }
     def self.create(params = {}, opts = {}); end
 
     # Deletes an existing account or customer tax_id object.
     sig {
-      params(id: String, params: T.any(::Stripe::TaxIdDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TaxId)
+      params(id: String, params: T.any(::Stripe::TaxIdDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxId)
      }
     def self.delete(id, params = {}, opts = {}); end
 
     # Deletes an existing account or customer tax_id object.
     sig {
-      params(params: T.any(::Stripe::TaxIdDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TaxId)
+      params(params: T.any(::Stripe::TaxIdDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxId)
      }
     def delete(params = {}, opts = {}); end
 
     # Returns a list of tax IDs.
     sig {
-      params(params: T.any(::Stripe::TaxIdListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::TaxIdListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

@@ -3,7 +3,7 @@
 
 module Stripe
   module FinancialConnections
-    class AccountSubscribeParams < Stripe::RequestParams
+    class AccountSubscribeParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The list of account features to which you would like to subscribe.

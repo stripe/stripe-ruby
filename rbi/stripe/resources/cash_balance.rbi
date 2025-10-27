@@ -5,7 +5,7 @@
 module Stripe
   # A customer's `Cash balance` represents real funds. Customers can add funds to their cash balance by sending a bank transfer. These funds can be used for payment and can eventually be paid out to your bank account.
   class CashBalance < APIResource
-    class Settings < Stripe::StripeObject
+    class Settings < ::Stripe::StripeObject
       # The configuration for how funds that land in the customer cash balance are reconciled.
       sig { returns(String) }
       def reconciliation_mode; end

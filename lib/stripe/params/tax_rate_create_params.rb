@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class TaxRateCreateParams < Stripe::RequestParams
+  class TaxRateCreateParams < ::Stripe::RequestParams
     # Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
     attr_accessor :active
     # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

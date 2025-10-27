@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodUpdateParams < Stripe::RequestParams
-    class BillingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+  class PaymentMethodUpdateParams < ::Stripe::RequestParams
+    class BillingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -80,8 +80,8 @@ module Stripe
        }
       def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
     end
-    class Card < Stripe::RequestParams
-      class Networks < Stripe::RequestParams
+    class Card < ::Stripe::RequestParams
+      class Networks < ::Stripe::RequestParams
         # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         sig { returns(T.nilable(T.any(String, String))) }
         def preferred; end
@@ -114,7 +114,7 @@ module Stripe
        }
       def initialize(exp_month: nil, exp_year: nil, networks: nil); end
     end
-    class UsBankAccount < Stripe::RequestParams
+    class UsBankAccount < ::Stripe::RequestParams
       # Bank account holder type.
       sig { returns(T.nilable(String)) }
       def account_holder_type; end

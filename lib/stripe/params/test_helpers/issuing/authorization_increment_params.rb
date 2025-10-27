@@ -4,7 +4,7 @@
 module Stripe
   module TestHelpers
     module Issuing
-      class AuthorizationIncrementParams < Stripe::RequestParams
+      class AuthorizationIncrementParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The amount to increment the authorization by. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).

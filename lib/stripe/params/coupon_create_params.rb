@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CouponCreateParams < Stripe::RequestParams
-    class AppliesTo < Stripe::RequestParams
+  class CouponCreateParams < ::Stripe::RequestParams
+    class AppliesTo < ::Stripe::RequestParams
       # An array of Product IDs that this Coupon will apply to.
       attr_accessor :products
 
@@ -12,7 +12,7 @@ module Stripe
       end
     end
 
-    class CurrencyOptions < Stripe::RequestParams
+    class CurrencyOptions < ::Stripe::RequestParams
       # A positive integer representing the amount to subtract from an invoice total.
       attr_accessor :amount_off
 

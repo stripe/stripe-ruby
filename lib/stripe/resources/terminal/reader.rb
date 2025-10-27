@@ -17,10 +17,10 @@ module Stripe
         "terminal.reader"
       end
 
-      class Action < Stripe::StripeObject
-        class CollectInputs < Stripe::StripeObject
-          class Input < Stripe::StripeObject
-            class CustomText < Stripe::StripeObject
+      class Action < ::Stripe::StripeObject
+        class CollectInputs < ::Stripe::StripeObject
+          class Input < ::Stripe::StripeObject
+            class CustomText < ::Stripe::StripeObject
               # Customize the default description for this input
               attr_reader :description
               # Customize the default label for this input's skip button
@@ -39,7 +39,7 @@ module Stripe
               end
             end
 
-            class Email < Stripe::StripeObject
+            class Email < ::Stripe::StripeObject
               # The collected email address
               attr_reader :value
 
@@ -52,7 +52,7 @@ module Stripe
               end
             end
 
-            class Numeric < Stripe::StripeObject
+            class Numeric < ::Stripe::StripeObject
               # The collected number
               attr_reader :value
 
@@ -65,7 +65,7 @@ module Stripe
               end
             end
 
-            class Phone < Stripe::StripeObject
+            class Phone < ::Stripe::StripeObject
               # The collected phone number
               attr_reader :value
 
@@ -78,13 +78,13 @@ module Stripe
               end
             end
 
-            class Selection < Stripe::StripeObject
-              class Choice < Stripe::StripeObject
-                # The id to be selected
+            class Selection < ::Stripe::StripeObject
+              class Choice < ::Stripe::StripeObject
+                # The identifier for the selected choice. Maximum 50 characters.
                 attr_reader :id
-                # The button style for the choice
+                # The button style for the choice. Can be `primary` or `secondary`.
                 attr_reader :style
-                # The text to be selected
+                # The text to be selected. Maximum 30 characters.
                 attr_reader :text
 
                 def self.inner_class_types
@@ -111,7 +111,7 @@ module Stripe
               end
             end
 
-            class Signature < Stripe::StripeObject
+            class Signature < ::Stripe::StripeObject
               # The File ID of a collected signature image
               attr_reader :value
 
@@ -124,7 +124,7 @@ module Stripe
               end
             end
 
-            class Text < Stripe::StripeObject
+            class Text < ::Stripe::StripeObject
               # The collected text value
               attr_reader :value
 
@@ -137,14 +137,14 @@ module Stripe
               end
             end
 
-            class Toggle < Stripe::StripeObject
-              # The toggle's default value
+            class Toggle < ::Stripe::StripeObject
+              # The toggle's default value. Can be `enabled` or `disabled`.
               attr_reader :default_value
-              # The toggle's description text
+              # The toggle's description text. Maximum 50 characters.
               attr_reader :description
-              # The toggle's title text
+              # The toggle's title text. Maximum 50 characters.
               attr_reader :title
-              # The toggle's collected value
+              # The toggle's collected value. Can be `enabled` or `disabled`.
               attr_reader :value
 
               def self.inner_class_types
@@ -209,9 +209,9 @@ module Stripe
           end
         end
 
-        class CollectPaymentMethod < Stripe::StripeObject
-          class CollectConfig < Stripe::StripeObject
-            class Tipping < Stripe::StripeObject
+        class CollectPaymentMethod < ::Stripe::StripeObject
+          class CollectConfig < ::Stripe::StripeObject
+            class Tipping < ::Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
 
@@ -258,8 +258,8 @@ module Stripe
           end
         end
 
-        class ConfirmPaymentIntent < Stripe::StripeObject
-          class ConfirmConfig < Stripe::StripeObject
+        class ConfirmPaymentIntent < ::Stripe::StripeObject
+          class ConfirmConfig < ::Stripe::StripeObject
             # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             attr_reader :return_url
 
@@ -285,9 +285,9 @@ module Stripe
           end
         end
 
-        class ProcessPaymentIntent < Stripe::StripeObject
-          class ProcessConfig < Stripe::StripeObject
-            class Tipping < Stripe::StripeObject
+        class ProcessPaymentIntent < ::Stripe::StripeObject
+          class ProcessConfig < ::Stripe::StripeObject
+            class Tipping < ::Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
 
@@ -330,8 +330,8 @@ module Stripe
           end
         end
 
-        class ProcessSetupIntent < Stripe::StripeObject
-          class ProcessConfig < Stripe::StripeObject
+        class ProcessSetupIntent < ::Stripe::StripeObject
+          class ProcessConfig < ::Stripe::StripeObject
             # Enable customer-initiated cancellation when processing this SetupIntent.
             attr_reader :enable_customer_cancellation
 
@@ -359,8 +359,8 @@ module Stripe
           end
         end
 
-        class RefundPayment < Stripe::StripeObject
-          class RefundPaymentConfig < Stripe::StripeObject
+        class RefundPayment < ::Stripe::StripeObject
+          class RefundPaymentConfig < ::Stripe::StripeObject
             # Enable customer-initiated cancellation when refunding this payment.
             attr_reader :enable_customer_cancellation
 
@@ -400,9 +400,9 @@ module Stripe
           end
         end
 
-        class SetReaderDisplay < Stripe::StripeObject
-          class Cart < Stripe::StripeObject
-            class LineItem < Stripe::StripeObject
+        class SetReaderDisplay < ::Stripe::StripeObject
+          class Cart < ::Stripe::StripeObject
+            class LineItem < ::Stripe::StripeObject
               # The amount of the line item. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
               attr_reader :amount
               # Description of the line item.
@@ -435,9 +435,9 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Cart object to be displayed by the reader.
+          # Cart object to be displayed by the reader, including line items, amounts, and currency.
           attr_reader :cart
-          # Type of information to be displayed by the reader.
+          # Type of information to be displayed by the reader. Only `cart` is currently supported.
           attr_reader :type
 
           def self.inner_class_types
@@ -499,6 +499,8 @@ module Stripe
       attr_reader :ip_address
       # Custom label given to the reader for easier identification.
       attr_reader :label
+      # The last time this reader reported to Stripe backend.
+      attr_reader :last_seen_at
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # The location identifier of the reader.
@@ -514,7 +516,7 @@ module Stripe
       # Always true for a deleted object
       attr_reader :deleted
 
-      # Cancels the current reader action.
+      # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def cancel_action(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -524,7 +526,7 @@ module Stripe
         )
       end
 
-      # Cancels the current reader action.
+      # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def self.cancel_action(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -534,7 +536,7 @@ module Stripe
         )
       end
 
-      # Initiates an input collection flow on a Reader.
+      # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
       def collect_inputs(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -544,7 +546,7 @@ module Stripe
         )
       end
 
-      # Initiates an input collection flow on a Reader.
+      # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
       def self.collect_inputs(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -554,7 +556,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
       def collect_payment_method(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -564,7 +566,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
       def self.collect_payment_method(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -574,7 +576,7 @@ module Stripe
         )
       end
 
-      # Finalizes a payment on a Reader.
+      # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
       def confirm_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -584,7 +586,7 @@ module Stripe
         )
       end
 
-      # Finalizes a payment on a Reader.
+      # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
       def self.confirm_payment_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -634,7 +636,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader.
+      # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
       def process_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -644,7 +646,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader.
+      # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
       def self.process_payment_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -654,7 +656,7 @@ module Stripe
         )
       end
 
-      # Initiates a setup intent flow on a Reader.
+      # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
       def process_setup_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -664,7 +666,7 @@ module Stripe
         )
       end
 
-      # Initiates a setup intent flow on a Reader.
+      # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
       def self.process_setup_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -674,7 +676,7 @@ module Stripe
         )
       end
 
-      # Initiates a refund on a Reader
+      # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
       def refund_payment(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -684,7 +686,7 @@ module Stripe
         )
       end
 
-      # Initiates a refund on a Reader
+      # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
       def self.refund_payment(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -694,7 +696,7 @@ module Stripe
         )
       end
 
-      # Sets reader display to show cart details.
+      # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       def set_reader_display(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -704,7 +706,7 @@ module Stripe
         )
       end
 
-      # Sets reader display to show cart details.
+      # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       def self.set_reader_display(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,

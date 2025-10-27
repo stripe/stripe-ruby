@@ -33,7 +33,7 @@ module Stripe
       "setup_intent"
     end
 
-    class AutomaticPaymentMethods < Stripe::StripeObject
+    class AutomaticPaymentMethods < ::Stripe::StripeObject
       # Controls whether this SetupIntent will accept redirect-based payment methods.
       #
       # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
@@ -50,7 +50,7 @@ module Stripe
       end
     end
 
-    class LastSetupError < Stripe::StripeObject
+    class LastSetupError < ::Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.
@@ -127,9 +127,9 @@ module Stripe
       end
     end
 
-    class NextAction < Stripe::StripeObject
-      class CashappHandleRedirectOrDisplayQrCode < Stripe::StripeObject
-        class QrCode < Stripe::StripeObject
+    class NextAction < ::Stripe::StripeObject
+      class CashappHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
           # The date (unix timestamp) when the QR code expires.
           attr_reader :expires_at
           # The image_url_png string used to render QR code
@@ -161,7 +161,7 @@ module Stripe
         end
       end
 
-      class RedirectToUrl < Stripe::StripeObject
+      class RedirectToUrl < ::Stripe::StripeObject
         # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
         attr_reader :return_url
         # The URL you must redirect your customer to in order to authenticate.
@@ -176,7 +176,7 @@ module Stripe
         end
       end
 
-      class VerifyWithMicrodeposits < Stripe::StripeObject
+      class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
         attr_reader :arrival_date
         # The URL for the hosted verification page, which allows customers to verify their bank account.
@@ -216,7 +216,7 @@ module Stripe
       end
     end
 
-    class PaymentMethodConfigurationDetails < Stripe::StripeObject
+    class PaymentMethodConfigurationDetails < ::Stripe::StripeObject
       # ID of the payment method configuration used.
       attr_reader :id
       # ID of the parent payment method configuration used.
@@ -231,9 +231,9 @@ module Stripe
       end
     end
 
-    class PaymentMethodOptions < Stripe::StripeObject
-      class AcssDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class AcssDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # A URL for custom mandate text
           attr_reader :custom_mandate_url
           # List of Stripe products where this mandate can be selected automatically.
@@ -269,7 +269,7 @@ module Stripe
         end
       end
 
-      class AmazonPay < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -279,8 +279,8 @@ module Stripe
         end
       end
 
-      class BacsDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class BacsDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           attr_reader :reference_prefix
 
@@ -304,8 +304,8 @@ module Stripe
         end
       end
 
-      class Card < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Amount to be charged for future payments.
           attr_reader :amount
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -351,7 +351,7 @@ module Stripe
         end
       end
 
-      class CardPresent < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -361,7 +361,7 @@ module Stripe
         end
       end
 
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         # The currency of the setup intent. Three letter ISO currency code.
         attr_reader :currency
         # Preferred locale of the Klarna checkout page that the customer is redirected to.
@@ -376,7 +376,7 @@ module Stripe
         end
       end
 
-      class Link < Stripe::StripeObject
+      class Link < ::Stripe::StripeObject
         # [Deprecated] This is a legacy parameter that no longer has any function.
         attr_reader :persistent_token
 
@@ -389,7 +389,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
         attr_reader :billing_agreement_id
 
@@ -402,8 +402,8 @@ module Stripe
         end
       end
 
-      class SepaDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class SepaDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           attr_reader :reference_prefix
 
@@ -427,9 +427,9 @@ module Stripe
         end
       end
 
-      class UsBankAccount < Stripe::StripeObject
-        class FinancialConnections < Stripe::StripeObject
-          class Filters < Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
+        class FinancialConnections < ::Stripe::StripeObject
+          class Filters < ::Stripe::StripeObject
             # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
             attr_reader :account_subcategories
 
@@ -459,7 +459,7 @@ module Stripe
           end
         end
 
-        class MandateOptions < Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Mandate collection method
           attr_reader :collection_method
 
@@ -551,6 +551,8 @@ module Stripe
     attr_reader :customer
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
+    # Payment method types that are excluded from this SetupIntent.
+    attr_reader :excluded_payment_method_types
     # Indicates the directions of money movement for which this payment method is intended to be used.
     #
     # Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.

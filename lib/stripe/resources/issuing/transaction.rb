@@ -17,7 +17,7 @@ module Stripe
         "issuing.transaction"
       end
 
-      class AmountDetails < Stripe::StripeObject
+      class AmountDetails < ::Stripe::StripeObject
         # The fee charged by the ATM for the cash withdrawal.
         attr_reader :atm_fee
         # The amount of cash requested by the cardholder.
@@ -32,7 +32,7 @@ module Stripe
         end
       end
 
-      class MerchantData < Stripe::StripeObject
+      class MerchantData < ::Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
         attr_reader :category
         # The merchant category code for the seller’s business
@@ -65,7 +65,7 @@ module Stripe
         end
       end
 
-      class NetworkData < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
         # A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code typically starts with the letter "S", followed by a six-digit number. For example, "S498162". Please note that the code is not guaranteed to be unique across authorizations.
         attr_reader :authorization_code
         # The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
@@ -82,9 +82,9 @@ module Stripe
         end
       end
 
-      class PurchaseDetails < Stripe::StripeObject
-        class Fleet < Stripe::StripeObject
-          class CardholderPromptData < Stripe::StripeObject
+      class PurchaseDetails < ::Stripe::StripeObject
+        class Fleet < ::Stripe::StripeObject
+          class CardholderPromptData < ::Stripe::StripeObject
             # Driver ID.
             attr_reader :driver_id
             # Odometer reading.
@@ -105,8 +105,8 @@ module Stripe
             end
           end
 
-          class ReportedBreakdown < Stripe::StripeObject
-            class Fuel < Stripe::StripeObject
+          class ReportedBreakdown < ::Stripe::StripeObject
+            class Fuel < ::Stripe::StripeObject
               # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
               attr_reader :gross_amount_decimal
 
@@ -119,7 +119,7 @@ module Stripe
               end
             end
 
-            class NonFuel < Stripe::StripeObject
+            class NonFuel < ::Stripe::StripeObject
               # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
               attr_reader :gross_amount_decimal
 
@@ -132,7 +132,7 @@ module Stripe
               end
             end
 
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
               attr_reader :local_amount_decimal
               # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
@@ -182,8 +182,8 @@ module Stripe
           end
         end
 
-        class Flight < Stripe::StripeObject
-          class Segment < Stripe::StripeObject
+        class Flight < ::Stripe::StripeObject
+          class Segment < ::Stripe::StripeObject
             # The three-letter IATA airport code of the flight's destination.
             attr_reader :arrival_airport_code
             # The airline carrier code.
@@ -225,7 +225,7 @@ module Stripe
           end
         end
 
-        class Fuel < Stripe::StripeObject
+        class Fuel < ::Stripe::StripeObject
           # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
           attr_reader :industry_product_code
           # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
@@ -246,7 +246,7 @@ module Stripe
           end
         end
 
-        class Lodging < Stripe::StripeObject
+        class Lodging < ::Stripe::StripeObject
           # The time of checking into the lodging.
           attr_reader :check_in_at
           # The number of nights stayed at the lodging.
@@ -261,7 +261,7 @@ module Stripe
           end
         end
 
-        class Receipt < Stripe::StripeObject
+        class Receipt < ::Stripe::StripeObject
           # The description of the item. The maximum length of this field is 26 characters.
           attr_reader :description
           # The quantity of the item.
@@ -307,7 +307,7 @@ module Stripe
         end
       end
 
-      class Treasury < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
         # The Treasury [ReceivedCredit](https://stripe.com/docs/api/treasury/received_credits) representing this Issuing transaction if it is a refund
         attr_reader :received_credit
         # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) representing this Issuing transaction if it is a capture

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodListParams < Stripe::RequestParams
+  class PaymentMethodListParams < ::Stripe::RequestParams
     # The ID of the customer whose PaymentMethods will be retrieved.
     sig { returns(T.nilable(String)) }
     def customer; end
@@ -29,7 +29,7 @@ module Stripe
     def starting_after; end
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
-    # An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
+    # Filters the list by the object `type` field. Unfiltered, the list returns all payment method types except `custom`. If your integration expects only one type of payment method in the response, specify that type value in the request to reduce your payload.
     sig { returns(T.nilable(String)) }
     def type; end
     sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }

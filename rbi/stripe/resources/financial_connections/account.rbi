@@ -6,12 +6,12 @@ module Stripe
   module FinancialConnections
     # A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     class Account < APIResource
-      class AccountHolder < Stripe::StripeObject
+      class AccountHolder < ::Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
-        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
-        sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
         def customer; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
@@ -23,8 +23,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Balance < Stripe::StripeObject
-        class Cash < Stripe::StripeObject
+      class Balance < ::Stripe::StripeObject
+        class Cash < ::Stripe::StripeObject
           # The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
           #
           # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
@@ -39,7 +39,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Credit < Stripe::StripeObject
+        class Credit < ::Stripe::StripeObject
           # The credit that has been used by the account holder.
           #
           # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
@@ -80,7 +80,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BalanceRefresh < Stripe::StripeObject
+      class BalanceRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         def last_attempted_at; end
@@ -97,7 +97,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class OwnershipRefresh < Stripe::StripeObject
+      class OwnershipRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         def last_attempted_at; end
@@ -114,7 +114,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TransactionRefresh < Stripe::StripeObject
+      class TransactionRefresh < ::Stripe::StripeObject
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
@@ -168,7 +168,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The most recent information about the account's owners.
-      sig { returns(T.nilable(T.any(String, Stripe::FinancialConnections::AccountOwnership))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::FinancialConnections::AccountOwnership))) }
       def ownership; end
       # The state of the most recent attempt to refresh the account owners.
       sig { returns(T.nilable(OwnershipRefresh)) }
@@ -206,67 +206,67 @@ module Stripe
       def transaction_refresh; end
       # Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::AccountDisconnectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(params: T.any(::Stripe::FinancialConnections::AccountDisconnectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def disconnect(params = {}, opts = {}); end
 
       # Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
       sig {
-        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountDisconnectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountDisconnectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def self.disconnect(account, params = {}, opts = {}); end
 
       # Returns a list of Financial Connections Account objects.
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::AccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::FinancialConnections::AccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Lists all owners for a given Account
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::AccountListOwnersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::FinancialConnections::AccountListOwnersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list_owners(params = {}, opts = {}); end
 
       # Lists all owners for a given Account
       sig {
-        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountListOwnersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountListOwnersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list_owners(account, params = {}, opts = {}); end
 
       # Refreshes the data associated with a Financial Connections Account.
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::AccountRefreshAccountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(params: T.any(::Stripe::FinancialConnections::AccountRefreshAccountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def refresh_account(params = {}, opts = {}); end
 
       # Refreshes the data associated with a Financial Connections Account.
       sig {
-        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountRefreshAccountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountRefreshAccountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def self.refresh_account(account, params = {}, opts = {}); end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::AccountSubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(params: T.any(::Stripe::FinancialConnections::AccountSubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def subscribe(params = {}, opts = {}); end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       sig {
-        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountSubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountSubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def self.subscribe(account, params = {}, opts = {}); end
 
       # Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::AccountUnsubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(params: T.any(::Stripe::FinancialConnections::AccountUnsubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def unsubscribe(params = {}, opts = {}); end
 
       # Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
       sig {
-        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountUnsubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Account)
+        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountUnsubscribeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
       def self.unsubscribe(account, params = {}, opts = {}); end
     end

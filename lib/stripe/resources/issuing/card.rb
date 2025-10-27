@@ -14,8 +14,8 @@ module Stripe
         "issuing.card"
       end
 
-      class Shipping < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -38,8 +38,8 @@ module Stripe
           end
         end
 
-        class AddressValidation < Stripe::StripeObject
-          class NormalizedAddress < Stripe::StripeObject
+        class AddressValidation < ::Stripe::StripeObject
+          class NormalizedAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -77,7 +77,7 @@ module Stripe
           end
         end
 
-        class Customs < Stripe::StripeObject
+        class Customs < ::Stripe::StripeObject
           # A registration number used for customs in Europe. See [https://www.gov.uk/eori](https://www.gov.uk/eori) for the UK and [https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en](https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en) for the EU.
           attr_reader :eori_number
 
@@ -129,8 +129,8 @@ module Stripe
         end
       end
 
-      class SpendingControls < Stripe::StripeObject
-        class SpendingLimit < Stripe::StripeObject
+      class SpendingControls < ::Stripe::StripeObject
+        class SpendingLimit < ::Stripe::StripeObject
           # Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_reader :amount
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
@@ -168,8 +168,8 @@ module Stripe
         end
       end
 
-      class Wallets < Stripe::StripeObject
-        class ApplePay < Stripe::StripeObject
+      class Wallets < ::Stripe::StripeObject
+        class ApplePay < ::Stripe::StripeObject
           # Apple Pay Eligibility
           attr_reader :eligible
           # Reason the card is ineligible for Apple Pay
@@ -184,7 +184,7 @@ module Stripe
           end
         end
 
-        class GooglePay < Stripe::StripeObject
+        class GooglePay < ::Stripe::StripeObject
           # Google Pay Eligibility
           attr_reader :eligible
           # Reason the card is ineligible for Google Pay

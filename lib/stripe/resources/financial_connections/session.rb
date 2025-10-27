@@ -12,7 +12,7 @@ module Stripe
         "financial_connections.session"
       end
 
-      class AccountHolder < Stripe::StripeObject
+      class AccountHolder < ::Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
         attr_reader :account
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
@@ -29,7 +29,7 @@ module Stripe
         end
       end
 
-      class Filters < Stripe::StripeObject
+      class Filters < ::Stripe::StripeObject
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         attr_reader :account_subcategories
         # List of countries from which to filter accounts.

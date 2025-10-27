@@ -8,7 +8,7 @@ module Stripe
   class ProductFeature < APIResource
     # A feature represents a monetizable ability or functionality in your system.
     # Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
-    sig { returns(Stripe::Entitlements::Feature) }
+    sig { returns(::Stripe::Entitlements::Feature) }
     def entitlement_feature; end
     # Unique identifier for the object.
     sig { returns(String) }

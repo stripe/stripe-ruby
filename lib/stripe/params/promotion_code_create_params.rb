@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PromotionCodeCreateParams < Stripe::RequestParams
-    class Promotion < Stripe::RequestParams
+  class PromotionCodeCreateParams < ::Stripe::RequestParams
+    class Promotion < ::Stripe::RequestParams
       # If promotion `type` is `coupon`, the coupon for this promotion code.
       attr_accessor :coupon
       # Specifies the type of promotion.
@@ -15,8 +15,8 @@ module Stripe
       end
     end
 
-    class Restrictions < Stripe::RequestParams
-      class CurrencyOptions < Stripe::RequestParams
+    class Restrictions < ::Stripe::RequestParams
+      class CurrencyOptions < ::Stripe::RequestParams
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         attr_accessor :minimum_amount
 

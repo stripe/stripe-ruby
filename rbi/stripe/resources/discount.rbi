@@ -8,9 +8,9 @@ module Stripe
   #
   # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
   class Discount < StripeObject
-    class Source < Stripe::StripeObject
+    class Source < ::Stripe::StripeObject
       # The coupon that was redeemed to create this discount.
-      sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
       def coupon; end
       # The source type of the discount.
       sig { returns(String) }
@@ -26,7 +26,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def checkout_session; end
     # The ID of the customer associated with this discount.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     sig { returns(T.nilable(Integer)) }
@@ -44,7 +44,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The promotion code applied to create this discount.
-    sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::PromotionCode))) }
     def promotion_code; end
     # Attribute for field source
     sig { returns(Source) }

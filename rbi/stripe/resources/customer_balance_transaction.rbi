@@ -14,19 +14,19 @@ module Stripe
     sig { returns(Integer) }
     def amount; end
     # The ID of the checkout session (if any) that created the transaction.
-    sig { returns(T.nilable(T.any(String, Stripe::Checkout::Session))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Checkout::Session))) }
     def checkout_session; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
     # The ID of the credit note (if any) related to the transaction.
-    sig { returns(T.nilable(T.any(String, Stripe::CreditNote))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::CreditNote))) }
     def credit_note; end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
     # The ID of the customer the transaction belongs to.
-    sig { returns(T.any(String, Stripe::Customer)) }
+    sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
@@ -38,7 +38,7 @@ module Stripe
     sig { returns(String) }
     def id; end
     # The ID of the invoice (if any) related to the transaction.
-    sig { returns(T.nilable(T.any(String, Stripe::Invoice))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def invoice; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }

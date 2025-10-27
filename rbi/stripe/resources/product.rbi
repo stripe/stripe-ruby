@@ -12,7 +12,7 @@ module Stripe
   # [accept payments with Checkout](https://stripe.com/docs/payments/accept-a-payment#create-product-prices-upfront),
   # and more about [Products and Prices](https://stripe.com/docs/products-prices/overview)
   class Product < APIResource
-    class MarketingFeature < Stripe::StripeObject
+    class MarketingFeature < ::Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
       sig { returns(T.nilable(String)) }
       def name; end
@@ -23,7 +23,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PackageDimensions < Stripe::StripeObject
+    class PackageDimensions < ::Stripe::StripeObject
       # Height, in inches.
       sig { returns(Float) }
       def height; end
@@ -50,7 +50,7 @@ module Stripe
     sig { returns(Integer) }
     def created; end
     # The ID of the [Price](https://stripe.com/docs/api/prices) object that is the default price for this product.
-    sig { returns(T.nilable(T.any(String, Stripe::Price))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Price))) }
     def default_price; end
     # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
     sig { returns(T.nilable(String)) }
@@ -86,7 +86,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def statement_descriptor; end
     # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-    sig { returns(T.nilable(T.any(String, Stripe::TaxCode))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TaxCode))) }
     def tax_code; end
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     sig { returns(String) }
@@ -105,41 +105,41 @@ module Stripe
     def deleted; end
     # Creates a new product object.
     sig {
-      params(params: T.any(::Stripe::ProductCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Product)
+      params(params: T.any(::Stripe::ProductCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Product)
      }
     def self.create(params = {}, opts = {}); end
 
     # Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
     sig {
-      params(id: String, params: T.any(::Stripe::ProductDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Product)
+      params(id: String, params: T.any(::Stripe::ProductDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Product)
      }
     def self.delete(id, params = {}, opts = {}); end
 
     # Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
     sig {
-      params(params: T.any(::Stripe::ProductDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Product)
+      params(params: T.any(::Stripe::ProductDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Product)
      }
     def delete(params = {}, opts = {}); end
 
     # Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
     sig {
-      params(params: T.any(::Stripe::ProductListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::ProductListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::ProductSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::ProductSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search(params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::ProductSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::ProductSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search_auto_paging_each(params = {}, opts = {}, &blk); end
 
     # Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     sig {
-      params(id: String, params: T.any(::Stripe::ProductUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Product)
+      params(id: String, params: T.any(::Stripe::ProductUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Product)
      }
     def self.update(id, params = {}, opts = {}); end
   end

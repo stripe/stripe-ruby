@@ -68,12 +68,6 @@ module Stripe
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     sig { returns(T.nilable(String)) }
     def transfer_group; end
-    # Attribute for field application_fee
-    sig { returns(T.nilable(T.any(String, ::Stripe::ApplicationFee))) }
-    def application_fee; end
-    # Attribute for field application_fee_amount
-    sig { returns(T.nilable(Integer)) }
-    def application_fee_amount; end
     # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
     sig {
       params(params: T.any(::Stripe::TransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)

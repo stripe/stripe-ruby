@@ -144,6 +144,41 @@ module Stripe
         end
       end
 
+      class RiskDetails < ::Stripe::RequestParams
+        class ClientDeviceMetadataDetails < ::Stripe::RequestParams
+          # The radar session.
+          attr_accessor :radar_session
+          # The referrer of the client device.
+          attr_accessor :referrer
+          # The remote IP address of the client device.
+          attr_accessor :remote_ip
+          # The time on page in seconds.
+          attr_accessor :time_on_page
+          # The user agent of the client device.
+          attr_accessor :user_agent
+
+          def initialize(
+            radar_session: nil,
+            referrer: nil,
+            remote_ip: nil,
+            time_on_page: nil,
+            user_agent: nil
+          )
+            @radar_session = radar_session
+            @referrer = referrer
+            @remote_ip = remote_ip
+            @time_on_page = time_on_page
+            @user_agent = user_agent
+          end
+        end
+        # The client device metadata details for this requested session.
+        attr_accessor :client_device_metadata_details
+
+        def initialize(client_device_metadata_details: nil)
+          @client_device_metadata_details = client_device_metadata_details
+        end
+      end
+
       class SellerDetails < ::Stripe::RequestParams
         # The network profile for the seller.
         attr_accessor :network_profile
@@ -168,6 +203,8 @@ module Stripe
       attr_accessor :payment_method
       # The payment method data for this requested session.
       attr_accessor :payment_method_data
+      # The risk details for this requested session.
+      attr_accessor :risk_details
       # The details of the seller.
       attr_accessor :seller_details
       # The setup future usage for this requested session.
@@ -184,6 +221,7 @@ module Stripe
         metadata: nil,
         payment_method: nil,
         payment_method_data: nil,
+        risk_details: nil,
         seller_details: nil,
         setup_future_usage: nil,
         shared_metadata: nil
@@ -196,6 +234,7 @@ module Stripe
         @metadata = metadata
         @payment_method = payment_method
         @payment_method_data = payment_method_data
+        @risk_details = risk_details
         @seller_details = seller_details
         @setup_future_usage = setup_future_usage
         @shared_metadata = shared_metadata

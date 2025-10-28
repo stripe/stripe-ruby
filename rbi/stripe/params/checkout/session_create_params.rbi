@@ -2127,7 +2127,7 @@ module Stripe
             def amount; end
             sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def amount=(_amount); end
-            # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+            # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
             sig { returns(T.nilable(String)) }
             def amount_type; end
             sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -2137,7 +2137,7 @@ module Stripe
             def end_date; end
             sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
             def end_date=(_end_date); end
-            # The periodicity at which payments will be collected. Defaults to `adhoc`.
+            # The periodicity at which payments will be collected.
             sig { returns(T.nilable(String)) }
             def payment_schedule; end
             sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
@@ -2147,7 +2147,7 @@ module Stripe
             def payments_per_period; end
             sig { params(_payments_per_period: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def payments_per_period=(_payments_per_period); end
-            # The purpose for which payments are made. Has a default value based on your merchant category code.
+            # The purpose for which payments are made. Defaults to retail.
             sig { returns(T.nilable(String)) }
             def purpose; end
             sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }

@@ -2948,7 +2948,7 @@ module Stripe
         ); end
       end
       class Invoices < ::Stripe::RequestParams
-        # Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
+        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         sig { returns(T.nilable(String)) }
         def hosted_payment_method_save; end
         sig { params(_hosted_payment_method_save: T.nilable(String)).returns(T.nilable(String)) }

@@ -2061,7 +2061,7 @@ module Stripe
       class Invoices < ::Stripe::RequestParams
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         attr_accessor :default_account_tax_ids
-        # Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
+        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         attr_accessor :hosted_payment_method_save
 
         def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil)

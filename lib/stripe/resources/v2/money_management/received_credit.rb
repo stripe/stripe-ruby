@@ -187,6 +187,8 @@ module Stripe
         attr_reader :created
         # Freeform string set by originator of the ReceivedCredit.
         attr_reader :description
+        # The amount and currency of the original/external credit request.
+        attr_reader :external_amount
         # Financial Account ID on which funds for ReceivedCredit were received.
         attr_reader :financial_account
         # Unique identifier for the ReceivedCredit.

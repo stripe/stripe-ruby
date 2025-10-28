@@ -2517,11 +2517,44 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+
+                class CryptoWallets < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
                 attr_reader :bank_accounts
+                # Can provision a crypto wallet like financial address to credit a FinancialAccount.
+                attr_reader :crypto_wallets
 
                 def self.inner_class_types
-                  @inner_class_types = { bank_accounts: BankAccounts }
+                  @inner_class_types = { bank_accounts: BankAccounts, crypto_wallets: CryptoWallets }
                 end
 
                 def self.field_remappings
@@ -2591,13 +2624,46 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+
+                class Usdc < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_reader :gbp
                 # Can hold storage-type funds on Stripe in USD.
                 attr_reader :usd
+                # Can hold storage-type funds on Stripe in USDC.
+                attr_reader :usdc
 
                 def self.inner_class_types
-                  @inner_class_types = { gbp: Gbp, usd: Usd }
+                  @inner_class_types = { gbp: Gbp, usd: Usd, usdc: Usdc }
                 end
 
                 def self.field_remappings
@@ -2711,6 +2777,37 @@ module Stripe
                   end
                 end
 
+                class CryptoWallets < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
                 class FinancialAccounts < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2745,6 +2842,8 @@ module Stripe
                 attr_reader :bank_accounts
                 # Can send funds from a FinancialAccount to a debit card, owned by someone else.
                 attr_reader :cards
+                # Can send funds from a FinancialAccount to a crypto wallet, owned by someone else.
+                attr_reader :crypto_wallets
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
                 attr_reader :financial_accounts
 
@@ -2752,6 +2851,7 @@ module Stripe
                   @inner_class_types = {
                     bank_accounts: BankAccounts,
                     cards: Cards,
+                    crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
                   }
                 end
@@ -2763,6 +2863,37 @@ module Stripe
 
               class OutboundTransfers < ::Stripe::StripeObject
                 class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class CryptoWallets < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
@@ -2825,12 +2956,15 @@ module Stripe
                 end
                 # Can send funds from a FinancialAccount, to a bank account, owned by yourself.
                 attr_reader :bank_accounts
+                # Can send funds from a FinancialAccount to a crypto wallet, owned by yourself.
+                attr_reader :crypto_wallets
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
                 attr_reader :financial_accounts
 
                 def self.inner_class_types
                   @inner_class_types = {
                     bank_accounts: BankAccounts,
+                    crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
                   }
                 end
@@ -2864,13 +2998,55 @@ module Stripe
                 @field_remappings = {}
               end
             end
+
+            class RegulatedActivity < ::Stripe::StripeObject
+              # A detailed description of the regulated activities the business is licensed to conduct.
+              attr_reader :description
+              # The license number or registration number assigned by the business's primary regulator.
+              attr_reader :license_number
+              # The country of the primary regulatory authority that oversees the business's regulated activities.
+              attr_reader :primary_regulatory_authority_country
+              # The name of the primary regulatory authority that oversees the business's regulated activities.
+              attr_reader :primary_regulatory_authority_name
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             attr_reader :applied
             # Capabilities that have been requested on the Storer Configuration.
             attr_reader :capabilities
+            # List of high-risk activities the business is involved in.
+            attr_reader :high_risk_activities
+            # An explanation of the high risk activities that the business performs.
+            attr_reader :high_risk_activities_description
+            # Description of the money services offered by the business.
+            attr_reader :money_services_description
+            # Does the business operate in any prohibited countries.
+            attr_reader :operates_in_prohibited_countries
+            # Does the business participate in any regulated activity.
+            attr_reader :participates_in_regulated_activity
+            # Primary purpose of the stored funds.
+            attr_reader :purpose_of_funds
+            # Description of the purpose of the stored funds.
+            attr_reader :purpose_of_funds_description
+            # Details of the regulated activity if the business participates in one.
+            attr_reader :regulated_activity
+            # The source of funds for the business, e.g. profits, income, venture capital, etc.
+            attr_reader :source_of_funds
+            # Description of the source of funds for the business' account.
+            attr_reader :source_of_funds_description
 
             def self.inner_class_types
-              @inner_class_types = { capabilities: Capabilities }
+              @inner_class_types = {
+                capabilities: Capabilities,
+                regulated_activity: RegulatedActivity,
+              }
             end
 
             def self.field_remappings
@@ -3433,6 +3609,23 @@ module Stripe
                 end
               end
 
+              class CryptoStorer < ::Stripe::StripeObject
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_reader :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_reader :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_reader :user_agent
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class Storer < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_reader :date
@@ -3453,11 +3646,18 @@ module Stripe
               attr_reader :account
               # Details on the Account's acceptance of Issuing-specific terms of service.
               attr_reader :card_creator
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service.
+              attr_reader :crypto_storer
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_reader :storer
 
               def self.inner_class_types
-                @inner_class_types = { account: Account, card_creator: CardCreator, storer: Storer }
+                @inner_class_types = {
+                  account: Account,
+                  card_creator: CardCreator,
+                  crypto_storer: CryptoStorer,
+                  storer: Storer,
+                }
               end
 
               def self.field_remappings
@@ -3871,6 +4071,8 @@ module Stripe
             attr_reader :address
             # The business gross annual revenue for its preceding fiscal year.
             attr_reader :annual_revenue
+            # A detailed description of the business's compliance and anti-money laundering controls and practices.
+            attr_reader :compliance_screening_description
             # Documents that may be submitted to satisfy various informational requests.
             attr_reader :documents
             # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.

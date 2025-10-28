@@ -195,6 +195,9 @@ module Stripe
         # Freeform string set by originator of the ReceivedCredit.
         sig { returns(T.nilable(String)) }
         def description; end
+        # The amount and currency of the original/external credit request.
+        sig { returns(T.nilable(::Stripe::V2::Amount)) }
+        def external_amount; end
         # Financial Account ID on which funds for ReceivedCredit were received.
         sig { returns(String) }
         def financial_account; end

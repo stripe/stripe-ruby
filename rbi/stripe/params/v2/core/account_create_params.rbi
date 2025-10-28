@@ -1685,6 +1685,15 @@ module Stripe
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
+                class CryptoWallets < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
+                  sig { params(requested: T::Boolean).void }
+                  def initialize(requested: nil); end
+                end
                 # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
                 sig {
                   returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
@@ -1694,10 +1703,19 @@ module Stripe
                   params(_bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
                  }
                 def bank_accounts=(_bank_accounts); end
+                # Can provision a crypto wallet like financial address to credit a FinancialAccount.
                 sig {
-                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).void
+                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::CryptoWallets))
                  }
-                def initialize(bank_accounts: nil); end
+                def crypto_wallets; end
+                sig {
+                  params(_crypto_wallets: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::CryptoWallets)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::CryptoWallets))
+                 }
+                def crypto_wallets=(_crypto_wallets); end
+                sig {
+                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts), crypto_wallets: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::CryptoWallets)).void
+                 }
+                def initialize(bank_accounts: nil, crypto_wallets: nil); end
               end
               class HoldsCurrencies < ::Stripe::RequestParams
                 class Gbp < ::Stripe::RequestParams
@@ -1710,6 +1728,15 @@ module Stripe
                   def initialize(requested: nil); end
                 end
                 class Usd < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
+                  sig { params(requested: T::Boolean).void }
+                  def initialize(requested: nil); end
+                end
+                class Usdc < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
                   def requested; end
@@ -1736,10 +1763,19 @@ module Stripe
                   params(_usd: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd))
                  }
                 def usd=(_usd); end
+                # Can hold storage-type funds on Stripe in USDC.
                 sig {
-                  params(gbp: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp), usd: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).void
+                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usdc))
                  }
-                def initialize(gbp: nil, usd: nil); end
+                def usdc; end
+                sig {
+                  params(_usdc: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usdc)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usdc))
+                 }
+                def usdc=(_usdc); end
+                sig {
+                  params(gbp: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp), usd: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd), usdc: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usdc)).void
+                 }
+                def initialize(gbp: nil, usd: nil, usdc: nil); end
               end
               class InboundTransfers < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
@@ -1784,6 +1820,15 @@ module Stripe
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
+                class CryptoWallets < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
+                  sig { params(requested: T::Boolean).void }
+                  def initialize(requested: nil); end
+                end
                 class FinancialAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
@@ -1811,6 +1856,15 @@ module Stripe
                   params(_cards: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
                  }
                 def cards=(_cards); end
+                # Can send funds from a FinancialAccount to a crypto wallet owned by someone else.
+                sig {
+                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::CryptoWallets))
+                 }
+                def crypto_wallets; end
+                sig {
+                  params(_crypto_wallets: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::CryptoWallets)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::CryptoWallets))
+                 }
+                def crypto_wallets=(_crypto_wallets); end
                 # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
                 sig {
                   returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
@@ -1821,12 +1875,26 @@ module Stripe
                  }
                 def financial_accounts=(_financial_accounts); end
                 sig {
-                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
+                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), crypto_wallets: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::CryptoWallets), financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
                  }
-                def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil); end
+                def initialize(
+                  bank_accounts: nil,
+                  cards: nil,
+                  crypto_wallets: nil,
+                  financial_accounts: nil
+                ); end
               end
               class OutboundTransfers < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
+                  sig { params(requested: T::Boolean).void }
+                  def initialize(requested: nil); end
+                end
+                class CryptoWallets < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
                   def requested; end
@@ -1853,6 +1921,15 @@ module Stripe
                   params(_bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
                  }
                 def bank_accounts=(_bank_accounts); end
+                # Can send funds from a FinancialAccount to a crypto wallet owned by yourself.
+                sig {
+                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::CryptoWallets))
+                 }
+                def crypto_wallets; end
+                sig {
+                  params(_crypto_wallets: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::CryptoWallets)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::CryptoWallets))
+                 }
+                def crypto_wallets=(_crypto_wallets); end
                 # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
                 sig {
                   returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
@@ -1863,9 +1940,13 @@ module Stripe
                  }
                 def financial_accounts=(_financial_accounts); end
                 sig {
-                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
+                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), crypto_wallets: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::CryptoWallets), financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
                  }
-                def initialize(bank_accounts: nil, financial_accounts: nil); end
+                def initialize(
+                  bank_accounts: nil,
+                  crypto_wallets: nil,
+                  financial_accounts: nil
+                ); end
               end
               # Can provision a financial address to credit/debit a FinancialAccount.
               sig {
@@ -1923,6 +2004,41 @@ module Stripe
                 outbound_transfers: nil
               ); end
             end
+            class RegulatedActivity < ::Stripe::RequestParams
+              # A detailed description of the regulated activities the business is licensed to conduct.
+              sig { returns(T.nilable(String)) }
+              def description; end
+              sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+              def description=(_description); end
+              # The license number or registration number assigned by the business's primary regulator.
+              sig { returns(T.nilable(String)) }
+              def license_number; end
+              sig { params(_license_number: T.nilable(String)).returns(T.nilable(String)) }
+              def license_number=(_license_number); end
+              # The country of the primary regulatory authority that oversees the business's regulated activities.
+              sig { returns(T.nilable(String)) }
+              def primary_regulatory_authority_country; end
+              sig {
+                params(_primary_regulatory_authority_country: T.nilable(String)).returns(T.nilable(String))
+               }
+              def primary_regulatory_authority_country=(_primary_regulatory_authority_country); end
+              # The name of the primary regulatory authority that oversees the business's regulated activities.
+              sig { returns(T.nilable(String)) }
+              def primary_regulatory_authority_name; end
+              sig {
+                params(_primary_regulatory_authority_name: T.nilable(String)).returns(T.nilable(String))
+               }
+              def primary_regulatory_authority_name=(_primary_regulatory_authority_name); end
+              sig {
+                params(description: T.nilable(String), license_number: T.nilable(String), primary_regulatory_authority_country: T.nilable(String), primary_regulatory_authority_name: T.nilable(String)).void
+               }
+              def initialize(
+                description: nil,
+                license_number: nil,
+                primary_regulatory_authority_country: nil,
+                primary_regulatory_authority_name: nil
+              ); end
+            end
             # Capabilities to request on the Storer Configuration.
             sig {
               returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities))
@@ -1932,10 +2048,90 @@ module Stripe
               params(_capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities))
              }
             def capabilities=(_capabilities); end
+            # List of high-risk activities the business is involved in.
+            sig { returns(T.nilable(T::Array[String])) }
+            def high_risk_activities; end
             sig {
-              params(capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities)).void
+              params(_high_risk_activities: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
-            def initialize(capabilities: nil); end
+            def high_risk_activities=(_high_risk_activities); end
+            # An explanation of the high risk activities that the business performs.
+            sig { returns(T.nilable(String)) }
+            def high_risk_activities_description; end
+            sig {
+              params(_high_risk_activities_description: T.nilable(String)).returns(T.nilable(String))
+             }
+            def high_risk_activities_description=(_high_risk_activities_description); end
+            # Description of the money services offered by the business.
+            sig { returns(T.nilable(String)) }
+            def money_services_description; end
+            sig {
+              params(_money_services_description: T.nilable(String)).returns(T.nilable(String))
+             }
+            def money_services_description=(_money_services_description); end
+            # Does the business operate in any prohibited countries.
+            sig { returns(T.nilable(T::Boolean)) }
+            def operates_in_prohibited_countries; end
+            sig {
+              params(_operates_in_prohibited_countries: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+             }
+            def operates_in_prohibited_countries=(_operates_in_prohibited_countries); end
+            # Does the business participate in any regulated activity.
+            sig { returns(T.nilable(T::Boolean)) }
+            def participates_in_regulated_activity; end
+            sig {
+              params(_participates_in_regulated_activity: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+             }
+            def participates_in_regulated_activity=(_participates_in_regulated_activity); end
+            # Primary purpose of the stored funds.
+            sig { returns(T.nilable(String)) }
+            def purpose_of_funds; end
+            sig { params(_purpose_of_funds: T.nilable(String)).returns(T.nilable(String)) }
+            def purpose_of_funds=(_purpose_of_funds); end
+            # Description of the purpose of the stored funds.
+            sig { returns(T.nilable(String)) }
+            def purpose_of_funds_description; end
+            sig {
+              params(_purpose_of_funds_description: T.nilable(String)).returns(T.nilable(String))
+             }
+            def purpose_of_funds_description=(_purpose_of_funds_description); end
+            # Details of the regulated activity if the business participates in one.
+            sig {
+              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::RegulatedActivity))
+             }
+            def regulated_activity; end
+            sig {
+              params(_regulated_activity: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::RegulatedActivity)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::RegulatedActivity))
+             }
+            def regulated_activity=(_regulated_activity); end
+            # The source of funds for the business, e.g. profits, income, venture capital, etc.
+            sig { returns(T.nilable(String)) }
+            def source_of_funds; end
+            sig { params(_source_of_funds: T.nilable(String)).returns(T.nilable(String)) }
+            def source_of_funds=(_source_of_funds); end
+            # Description of the source of funds for the business' account.
+            sig { returns(T.nilable(String)) }
+            def source_of_funds_description; end
+            sig {
+              params(_source_of_funds_description: T.nilable(String)).returns(T.nilable(String))
+             }
+            def source_of_funds_description=(_source_of_funds_description); end
+            sig {
+              params(capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities), high_risk_activities: T.nilable(T::Array[String]), high_risk_activities_description: T.nilable(String), money_services_description: T.nilable(String), operates_in_prohibited_countries: T.nilable(T::Boolean), participates_in_regulated_activity: T.nilable(T::Boolean), purpose_of_funds: T.nilable(String), purpose_of_funds_description: T.nilable(String), regulated_activity: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::RegulatedActivity), source_of_funds: T.nilable(String), source_of_funds_description: T.nilable(String)).void
+             }
+            def initialize(
+              capabilities: nil,
+              high_risk_activities: nil,
+              high_risk_activities_description: nil,
+              money_services_description: nil,
+              operates_in_prohibited_countries: nil,
+              participates_in_regulated_activity: nil,
+              purpose_of_funds: nil,
+              purpose_of_funds_description: nil,
+              regulated_activity: nil,
+              source_of_funds: nil,
+              source_of_funds_description: nil
+            ); end
           end
           # The CardCreator Configuration allows the Account to create and issue cards to users.
           sig { returns(T.nilable(V2::Core::AccountCreateParams::Configuration::CardCreator)) }
@@ -2649,6 +2845,25 @@ module Stripe
                  }
                 def initialize(commercial: nil); end
               end
+              class CryptoStorer < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                sig { returns(String) }
+                def date; end
+                sig { params(_date: String).returns(String) }
+                def date=(_date); end
+                # The IP address from which the Account's representative accepted the terms of service.
+                sig { returns(String) }
+                def ip; end
+                sig { params(_ip: String).returns(String) }
+                def ip=(_ip); end
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def user_agent; end
+                sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                def user_agent=(_user_agent); end
+                sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
+                def initialize(date: nil, ip: nil, user_agent: nil); end
+              end
               class Storer < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(String) }
@@ -2686,6 +2901,15 @@ module Stripe
                 params(_card_creator: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator))
                }
               def card_creator=(_card_creator); end
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service.
+              sig {
+                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CryptoStorer))
+               }
+              def crypto_storer; end
+              sig {
+                params(_crypto_storer: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CryptoStorer)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CryptoStorer))
+               }
+              def crypto_storer=(_crypto_storer); end
               # Details on the Account's acceptance of Treasury-specific terms of service.
               sig {
                 returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer))
@@ -2696,9 +2920,9 @@ module Stripe
                }
               def storer=(_storer); end
               sig {
-                params(account: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account), card_creator: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator), storer: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer)).void
+                params(account: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account), card_creator: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator), crypto_storer: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CryptoStorer), storer: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer)).void
                }
-              def initialize(account: nil, card_creator: nil, storer: nil); end
+              def initialize(account: nil, card_creator: nil, crypto_storer: nil, storer: nil); end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.
             sig {
@@ -3305,6 +3529,13 @@ module Stripe
               params(_annual_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue))
              }
             def annual_revenue=(_annual_revenue); end
+            # A detailed description of the business's compliance and anti-money laundering controls and practices.
+            sig { returns(T.nilable(String)) }
+            def compliance_screening_description; end
+            sig {
+              params(_compliance_screening_description: T.nilable(String)).returns(T.nilable(String))
+             }
+            def compliance_screening_description=(_compliance_screening_description); end
             # A document verifying the business.
             sig {
               returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents))
@@ -3371,11 +3602,12 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(address: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), compliance_screening_description: T.nilable(String), documents: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
               address: nil,
               annual_revenue: nil,
+              compliance_screening_description: nil,
               documents: nil,
               estimated_worker_count: nil,
               id_numbers: nil,

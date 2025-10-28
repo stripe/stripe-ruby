@@ -2575,11 +2575,45 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                class CryptoWallets < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
+                # Can provision a crypto wallet like financial address to credit a FinancialAccount.
+                sig { returns(T.nilable(CryptoWallets)) }
+                def crypto_wallets; end
                 def self.inner_class_types
-                  @inner_class_types = {bank_accounts: BankAccounts}
+                  @inner_class_types = {bank_accounts: BankAccounts, crypto_wallets: CryptoWallets}
                 end
                 def self.field_remappings
                   @field_remappings = {}
@@ -2648,14 +2682,48 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                class Usdc < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can hold storage-type funds on Stripe in GBP.
                 sig { returns(T.nilable(Gbp)) }
                 def gbp; end
                 # Can hold storage-type funds on Stripe in USD.
                 sig { returns(T.nilable(Usd)) }
                 def usd; end
+                # Can hold storage-type funds on Stripe in USDC.
+                sig { returns(T.nilable(Usdc)) }
+                def usdc; end
                 def self.inner_class_types
-                  @inner_class_types = {gbp: Gbp, usd: Usd}
+                  @inner_class_types = {gbp: Gbp, usd: Usd, usdc: Usdc}
                 end
                 def self.field_remappings
                   @field_remappings = {}
@@ -2766,6 +2834,37 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                class CryptoWallets < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 class FinancialAccounts < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2803,6 +2902,9 @@ module Stripe
                 # Can send funds from a FinancialAccount to a debit card, owned by someone else.
                 sig { returns(T.nilable(Cards)) }
                 def cards; end
+                # Can send funds from a FinancialAccount to a crypto wallet, owned by someone else.
+                sig { returns(T.nilable(CryptoWallets)) }
+                def crypto_wallets; end
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
                 sig { returns(T.nilable(FinancialAccounts)) }
                 def financial_accounts; end
@@ -2810,6 +2912,7 @@ module Stripe
                   @inner_class_types = {
                     bank_accounts: BankAccounts,
                     cards: Cards,
+                    crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
                   }
                 end
@@ -2819,6 +2922,37 @@ module Stripe
               end
               class OutboundTransfers < ::Stripe::StripeObject
                 class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class CryptoWallets < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
@@ -2883,12 +3017,16 @@ module Stripe
                 # Can send funds from a FinancialAccount, to a bank account, owned by yourself.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
+                # Can send funds from a FinancialAccount to a crypto wallet, owned by yourself.
+                sig { returns(T.nilable(CryptoWallets)) }
+                def crypto_wallets; end
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
                 sig { returns(T.nilable(FinancialAccounts)) }
                 def financial_accounts; end
                 def self.inner_class_types
                   @inner_class_types = {
                     bank_accounts: BankAccounts,
+                    crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
                   }
                 end
@@ -2924,14 +3062,67 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class RegulatedActivity < ::Stripe::StripeObject
+              # A detailed description of the regulated activities the business is licensed to conduct.
+              sig { returns(T.nilable(String)) }
+              def description; end
+              # The license number or registration number assigned by the business's primary regulator.
+              sig { returns(T.nilable(String)) }
+              def license_number; end
+              # The country of the primary regulatory authority that oversees the business's regulated activities.
+              sig { returns(T.nilable(String)) }
+              def primary_regulatory_authority_country; end
+              # The name of the primary regulatory authority that oversees the business's regulated activities.
+              sig { returns(T.nilable(String)) }
+              def primary_regulatory_authority_name; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             sig { returns(T::Boolean) }
             def applied; end
             # Capabilities that have been requested on the Storer Configuration.
             sig { returns(T.nilable(Capabilities)) }
             def capabilities; end
+            # List of high-risk activities the business is involved in.
+            sig { returns(T.nilable(T::Array[String])) }
+            def high_risk_activities; end
+            # An explanation of the high risk activities that the business performs.
+            sig { returns(T.nilable(String)) }
+            def high_risk_activities_description; end
+            # Description of the money services offered by the business.
+            sig { returns(T.nilable(String)) }
+            def money_services_description; end
+            # Does the business operate in any prohibited countries.
+            sig { returns(T.nilable(T::Boolean)) }
+            def operates_in_prohibited_countries; end
+            # Does the business participate in any regulated activity.
+            sig { returns(T.nilable(T::Boolean)) }
+            def participates_in_regulated_activity; end
+            # Primary purpose of the stored funds.
+            sig { returns(T.nilable(String)) }
+            def purpose_of_funds; end
+            # Description of the purpose of the stored funds.
+            sig { returns(T.nilable(String)) }
+            def purpose_of_funds_description; end
+            # Details of the regulated activity if the business participates in one.
+            sig { returns(T.nilable(RegulatedActivity)) }
+            def regulated_activity; end
+            # The source of funds for the business, e.g. profits, income, venture capital, etc.
+            sig { returns(T.nilable(String)) }
+            def source_of_funds; end
+            # Description of the source of funds for the business' account.
+            sig { returns(T.nilable(String)) }
+            def source_of_funds_description; end
             def self.inner_class_types
-              @inner_class_types = {capabilities: Capabilities}
+              @inner_class_types = {
+                capabilities: Capabilities,
+                regulated_activity: RegulatedActivity,
+              }
             end
             def self.field_remappings
               @field_remappings = {}
@@ -3514,6 +3705,23 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class CryptoStorer < ::Stripe::StripeObject
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                sig { returns(T.nilable(String)) }
+                def date; end
+                # The IP address from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def ip; end
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def user_agent; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class Storer < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
@@ -3537,11 +3745,19 @@ module Stripe
               # Details on the Account's acceptance of Issuing-specific terms of service.
               sig { returns(T.nilable(CardCreator)) }
               def card_creator; end
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service.
+              sig { returns(T.nilable(CryptoStorer)) }
+              def crypto_storer; end
               # Details on the Account's acceptance of Treasury-specific terms of service.
               sig { returns(T.nilable(Storer)) }
               def storer; end
               def self.inner_class_types
-                @inner_class_types = {account: Account, card_creator: CardCreator, storer: Storer}
+                @inner_class_types = {
+                  account: Account,
+                  card_creator: CardCreator,
+                  crypto_storer: CryptoStorer,
+                  storer: Storer,
+                }
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -3961,6 +4177,9 @@ module Stripe
             # The business gross annual revenue for its preceding fiscal year.
             sig { returns(T.nilable(AnnualRevenue)) }
             def annual_revenue; end
+            # A detailed description of the business's compliance and anti-money laundering controls and practices.
+            sig { returns(T.nilable(String)) }
+            def compliance_screening_description; end
             # Documents that may be submitted to satisfy various informational requests.
             sig { returns(T.nilable(Documents)) }
             def documents; end

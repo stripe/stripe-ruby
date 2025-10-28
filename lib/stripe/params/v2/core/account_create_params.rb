@@ -1112,11 +1112,23 @@ module Stripe
                     @requested = requested
                   end
                 end
+
+                class CryptoWallets < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
                 # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
                 attr_accessor :bank_accounts
+                # Can provision a crypto wallet like financial address to credit a FinancialAccount.
+                attr_accessor :crypto_wallets
 
-                def initialize(bank_accounts: nil)
+                def initialize(bank_accounts: nil, crypto_wallets: nil)
                   @bank_accounts = bank_accounts
+                  @crypto_wallets = crypto_wallets
                 end
               end
 
@@ -1138,14 +1150,26 @@ module Stripe
                     @requested = requested
                   end
                 end
+
+                class Usdc < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_accessor :gbp
                 # Can hold storage-type funds on Stripe in USD.
                 attr_accessor :usd
+                # Can hold storage-type funds on Stripe in USDC.
+                attr_accessor :usdc
 
-                def initialize(gbp: nil, usd: nil)
+                def initialize(gbp: nil, usd: nil, usdc: nil)
                   @gbp = gbp
                   @usd = usd
+                  @usdc = usdc
                 end
               end
 
@@ -1185,6 +1209,15 @@ module Stripe
                   end
                 end
 
+                class CryptoWallets < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
                 class FinancialAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
@@ -1197,18 +1230,35 @@ module Stripe
                 attr_accessor :bank_accounts
                 # Can send funds from a FinancialAccount to a debit card owned by someone else.
                 attr_accessor :cards
+                # Can send funds from a FinancialAccount to a crypto wallet owned by someone else.
+                attr_accessor :crypto_wallets
                 # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
                 attr_accessor :financial_accounts
 
-                def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil)
+                def initialize(
+                  bank_accounts: nil,
+                  cards: nil,
+                  crypto_wallets: nil,
+                  financial_accounts: nil
+                )
                   @bank_accounts = bank_accounts
                   @cards = cards
+                  @crypto_wallets = crypto_wallets
                   @financial_accounts = financial_accounts
                 end
               end
 
               class OutboundTransfers < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class CryptoWallets < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1227,11 +1277,14 @@ module Stripe
                 end
                 # Can send funds from a FinancialAccount to a bank account owned by yourself.
                 attr_accessor :bank_accounts
+                # Can send funds from a FinancialAccount to a crypto wallet owned by yourself.
+                attr_accessor :crypto_wallets
                 # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
                 attr_accessor :financial_accounts
 
-                def initialize(bank_accounts: nil, financial_accounts: nil)
+                def initialize(bank_accounts: nil, crypto_wallets: nil, financial_accounts: nil)
                   @bank_accounts = bank_accounts
+                  @crypto_wallets = crypto_wallets
                   @financial_accounts = financial_accounts
                 end
               end
@@ -1260,11 +1313,76 @@ module Stripe
                 @outbound_transfers = outbound_transfers
               end
             end
+
+            class RegulatedActivity < ::Stripe::RequestParams
+              # A detailed description of the regulated activities the business is licensed to conduct.
+              attr_accessor :description
+              # The license number or registration number assigned by the business's primary regulator.
+              attr_accessor :license_number
+              # The country of the primary regulatory authority that oversees the business's regulated activities.
+              attr_accessor :primary_regulatory_authority_country
+              # The name of the primary regulatory authority that oversees the business's regulated activities.
+              attr_accessor :primary_regulatory_authority_name
+
+              def initialize(
+                description: nil,
+                license_number: nil,
+                primary_regulatory_authority_country: nil,
+                primary_regulatory_authority_name: nil
+              )
+                @description = description
+                @license_number = license_number
+                @primary_regulatory_authority_country = primary_regulatory_authority_country
+                @primary_regulatory_authority_name = primary_regulatory_authority_name
+              end
+            end
             # Capabilities to request on the Storer Configuration.
             attr_accessor :capabilities
+            # List of high-risk activities the business is involved in.
+            attr_accessor :high_risk_activities
+            # An explanation of the high risk activities that the business performs.
+            attr_accessor :high_risk_activities_description
+            # Description of the money services offered by the business.
+            attr_accessor :money_services_description
+            # Does the business operate in any prohibited countries.
+            attr_accessor :operates_in_prohibited_countries
+            # Does the business participate in any regulated activity.
+            attr_accessor :participates_in_regulated_activity
+            # Primary purpose of the stored funds.
+            attr_accessor :purpose_of_funds
+            # Description of the purpose of the stored funds.
+            attr_accessor :purpose_of_funds_description
+            # Details of the regulated activity if the business participates in one.
+            attr_accessor :regulated_activity
+            # The source of funds for the business, e.g. profits, income, venture capital, etc.
+            attr_accessor :source_of_funds
+            # Description of the source of funds for the business' account.
+            attr_accessor :source_of_funds_description
 
-            def initialize(capabilities: nil)
+            def initialize(
+              capabilities: nil,
+              high_risk_activities: nil,
+              high_risk_activities_description: nil,
+              money_services_description: nil,
+              operates_in_prohibited_countries: nil,
+              participates_in_regulated_activity: nil,
+              purpose_of_funds: nil,
+              purpose_of_funds_description: nil,
+              regulated_activity: nil,
+              source_of_funds: nil,
+              source_of_funds_description: nil
+            )
               @capabilities = capabilities
+              @high_risk_activities = high_risk_activities
+              @high_risk_activities_description = high_risk_activities_description
+              @money_services_description = money_services_description
+              @operates_in_prohibited_countries = operates_in_prohibited_countries
+              @participates_in_regulated_activity = participates_in_regulated_activity
+              @purpose_of_funds = purpose_of_funds
+              @purpose_of_funds_description = purpose_of_funds_description
+              @regulated_activity = regulated_activity
+              @source_of_funds = source_of_funds
+              @source_of_funds_description = source_of_funds_description
             end
           end
           # The CardCreator Configuration allows the Account to create and issue cards to users.
@@ -1718,6 +1836,21 @@ module Stripe
                 end
               end
 
+              class CryptoStorer < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
               class Storer < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
@@ -1736,12 +1869,15 @@ module Stripe
               attr_accessor :account
               # Details on the Account's acceptance of Issuing-specific terms of service.
               attr_accessor :card_creator
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service.
+              attr_accessor :crypto_storer
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_accessor :storer
 
-              def initialize(account: nil, card_creator: nil, storer: nil)
+              def initialize(account: nil, card_creator: nil, crypto_storer: nil, storer: nil)
                 @account = account
                 @card_creator = card_creator
+                @crypto_storer = crypto_storer
                 @storer = storer
               end
             end
@@ -2133,6 +2269,8 @@ module Stripe
             attr_accessor :address
             # The business gross annual revenue for its preceding fiscal year.
             attr_accessor :annual_revenue
+            # A detailed description of the business's compliance and anti-money laundering controls and practices.
+            attr_accessor :compliance_screening_description
             # A document verifying the business.
             attr_accessor :documents
             # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
@@ -2155,6 +2293,7 @@ module Stripe
             def initialize(
               address: nil,
               annual_revenue: nil,
+              compliance_screening_description: nil,
               documents: nil,
               estimated_worker_count: nil,
               id_numbers: nil,
@@ -2167,6 +2306,7 @@ module Stripe
             )
               @address = address
               @annual_revenue = annual_revenue
+              @compliance_screening_description = compliance_screening_description
               @documents = documents
               @estimated_worker_count = estimated_worker_count
               @id_numbers = id_numbers

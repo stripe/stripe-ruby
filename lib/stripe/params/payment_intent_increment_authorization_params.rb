@@ -79,26 +79,32 @@ module Stripe
         end
 
         class Tax < ::Stripe::RequestParams
-          # The total tax on an item. Non-negative integer.
+          # The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+          #
+          # This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
           attr_accessor :total_tax_amount
 
           def initialize(total_tax_amount: nil)
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for. Positive integer.
+        # The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+        #
+        # This field is mutually exclusive with the `amount_details[discount_amount]` field.
         attr_accessor :discount_amount
         # Payment method-specific information for line items.
         attr_accessor :payment_method_options
-        # Unique identifier of the product. At most 12 characters long.
+        # The product code of the line item, such as an SKU. Required for L3 rates. At most 12 characters long.
         attr_accessor :product_code
-        # Name of the product. At most 100 characters long.
+        # The product name of the line item. Required for L3 rates. At most 1024 characters long.
+        #
+        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
         attr_accessor :product_name
-        # Number of items of the product. Positive integer.
+        # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
         # Contains information about the tax on the item.
         attr_accessor :tax
-        # Cost of the product. Non-negative integer.
+        # The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
@@ -125,11 +131,11 @@ module Stripe
       end
 
       class Shipping < ::Stripe::RequestParams
-        # Portion of the amount that is for shipping.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_accessor :amount
-        # The postal code that represents the shipping source.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
         attr_accessor :from_postal_code
-        # The postal code that represents the shipping destination.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
         attr_accessor :to_postal_code
 
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
@@ -140,14 +146,18 @@ module Stripe
       end
 
       class Tax < ::Stripe::RequestParams
-        # Total portion of the amount that is for tax.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        #
+        # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         attr_accessor :total_tax_amount
 
         def initialize(total_tax_amount: nil)
           @total_tax_amount = total_tax_amount
         end
       end
-      # The total discount applied on the transaction.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      #
+      # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_accessor :discount_amount
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
       attr_accessor :line_items
@@ -165,9 +175,15 @@ module Stripe
     end
 
     class PaymentDetails < ::Stripe::RequestParams
-      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      # A unique value to identify the customer. This field is available only for card payments.
+      #
+      # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       attr_accessor :customer_reference
-      # A unique value assigned by the business to identify the transaction.
+      # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+      #
+      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+      #
+      # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_accessor :order_reference
 
       def initialize(customer_reference: nil, order_reference: nil)

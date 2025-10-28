@@ -17,13 +17,13 @@ module Stripe
   class PaymentIntent < APIResource
     class AmountDetails < ::Stripe::StripeObject
       class Shipping < ::Stripe::StripeObject
-        # Portion of the amount that is for shipping.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
         sig { returns(T.nilable(Integer)) }
         def amount; end
-        # The postal code that represents the shipping source.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
         sig { returns(T.nilable(String)) }
         def from_postal_code; end
-        # The postal code that represents the shipping destination.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
         sig { returns(T.nilable(String)) }
         def to_postal_code; end
         def self.inner_class_types
@@ -34,7 +34,9 @@ module Stripe
         end
       end
       class Tax < ::Stripe::StripeObject
-        # Total portion of the amount that is for tax.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        #
+        # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         sig { returns(T.nilable(Integer)) }
         def total_tax_amount; end
         def self.inner_class_types
@@ -55,7 +57,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # The total discount applied on the transaction.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      #
+      # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       sig { returns(T.nilable(Integer)) }
       def discount_amount; end
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
@@ -1648,13 +1652,19 @@ module Stripe
       # Attribute for field car_rental
       sig { returns(T.nilable(CarRental)) }
       def car_rental; end
-      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      # A unique value to identify the customer. This field is available only for card payments.
+      #
+      # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       sig { returns(T.nilable(String)) }
       def customer_reference; end
       # Attribute for field event_details
       sig { returns(T.nilable(EventDetails)) }
       def event_details; end
-      # A unique value assigned by the business to identify the transaction.
+      # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+      #
+      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+      #
+      # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       sig { returns(T.nilable(String)) }
       def order_reference; end
       # Attribute for field subscription

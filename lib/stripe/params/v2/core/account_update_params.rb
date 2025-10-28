@@ -1308,6 +1308,21 @@ module Stripe
                 end
               end
 
+              class CryptoStorer < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
               class Storer < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
@@ -1324,11 +1339,14 @@ module Stripe
               end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_accessor :account
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service.
+              attr_accessor :crypto_storer
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_accessor :storer
 
-              def initialize(account: nil, storer: nil)
+              def initialize(account: nil, crypto_storer: nil, storer: nil)
                 @account = account
+                @crypto_storer = crypto_storer
                 @storer = storer
               end
             end

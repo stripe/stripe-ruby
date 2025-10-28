@@ -119,7 +119,9 @@ module Stripe
           def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
         end
         class Tax < ::Stripe::RequestParams
-          # The total tax on an item. Non-negative integer.
+          # The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+          #
+          # This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
           sig { returns(Integer) }
           def total_tax_amount; end
           sig { params(_total_tax_amount: Integer).returns(Integer) }
@@ -127,7 +129,9 @@ module Stripe
           sig { params(total_tax_amount: Integer).void }
           def initialize(total_tax_amount: nil); end
         end
-        # The amount an item was discounted for. Positive integer.
+        # The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+        #
+        # This field is mutually exclusive with the `amount_details[discount_amount]` field.
         sig { returns(T.nilable(Integer)) }
         def discount_amount; end
         sig { params(_discount_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -141,17 +145,19 @@ module Stripe
           params(_payment_method_options: T.nilable(PaymentIntentCreateParams::AmountDetails::LineItem::PaymentMethodOptions)).returns(T.nilable(PaymentIntentCreateParams::AmountDetails::LineItem::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
-        # Unique identifier of the product. At most 12 characters long.
+        # The product code of the line item, such as an SKU. Required for L3 rates. At most 12 characters long.
         sig { returns(T.nilable(String)) }
         def product_code; end
         sig { params(_product_code: T.nilable(String)).returns(T.nilable(String)) }
         def product_code=(_product_code); end
-        # Name of the product. At most 100 characters long.
+        # The product name of the line item. Required for L3 rates. At most 1024 characters long.
+        #
+        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
         sig { returns(String) }
         def product_name; end
         sig { params(_product_name: String).returns(String) }
         def product_name=(_product_name); end
-        # Number of items of the product. Positive integer.
+        # The quantity of items. Required for L3 rates. An integer greater than 0.
         sig { returns(Integer) }
         def quantity; end
         sig { params(_quantity: Integer).returns(Integer) }
@@ -163,7 +169,7 @@ module Stripe
           params(_tax: T.nilable(PaymentIntentCreateParams::AmountDetails::LineItem::Tax)).returns(T.nilable(PaymentIntentCreateParams::AmountDetails::LineItem::Tax))
          }
         def tax=(_tax); end
-        # Cost of the product. Non-negative integer.
+        # The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
         sig { returns(Integer) }
         def unit_cost; end
         sig { params(_unit_cost: Integer).returns(Integer) }
@@ -188,19 +194,19 @@ module Stripe
         ); end
       end
       class Shipping < ::Stripe::RequestParams
-        # Portion of the amount that is for shipping.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def amount; end
         sig {
           params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
          }
         def amount=(_amount); end
-        # The postal code that represents the shipping source.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
         sig { returns(T.nilable(String)) }
         def from_postal_code; end
         sig { params(_from_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def from_postal_code=(_from_postal_code); end
-        # The postal code that represents the shipping destination.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
         sig { returns(T.nilable(String)) }
         def to_postal_code; end
         sig { params(_to_postal_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -211,7 +217,9 @@ module Stripe
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
       end
       class Tax < ::Stripe::RequestParams
-        # Total portion of the amount that is for tax.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        #
+        # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         sig { returns(Integer) }
         def total_tax_amount; end
         sig { params(_total_tax_amount: Integer).returns(Integer) }
@@ -219,7 +227,9 @@ module Stripe
         sig { params(total_tax_amount: Integer).void }
         def initialize(total_tax_amount: nil); end
       end
-      # The total discount applied on the transaction.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      #
+      # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       sig { returns(T.nilable(T.any(String, Integer))) }
       def discount_amount; end
       sig {
@@ -1383,7 +1393,9 @@ module Stripe
         params(_car_rental: T.nilable(PaymentIntentCreateParams::PaymentDetails::CarRental)).returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::CarRental))
        }
       def car_rental=(_car_rental); end
-      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      # A unique value to identify the customer. This field is available only for card payments.
+      #
+      # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       sig { returns(T.nilable(String)) }
       def customer_reference; end
       sig { params(_customer_reference: T.nilable(String)).returns(T.nilable(String)) }
@@ -1409,7 +1421,11 @@ module Stripe
         params(_lodging: T.nilable(PaymentIntentCreateParams::PaymentDetails::Lodging)).returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::Lodging))
        }
       def lodging=(_lodging); end
-      # A unique value assigned by the business to identify the transaction.
+      # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+      #
+      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+      #
+      # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       sig { returns(T.nilable(String)) }
       def order_reference; end
       sig { params(_order_reference: T.nilable(String)).returns(T.nilable(String)) }

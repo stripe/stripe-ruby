@@ -685,7 +685,9 @@ module Stripe
       end
       # Car rental details for this PaymentIntent.
       attr_accessor :car_rental
-      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      # A unique value to identify the customer. This field is available only for card payments.
+      #
+      # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       attr_accessor :customer_reference
       # Event details for this PaymentIntent
       attr_accessor :event_details
@@ -693,7 +695,11 @@ module Stripe
       attr_accessor :flight
       # Lodging reservation details for this PaymentIntent
       attr_accessor :lodging
-      # A unique value assigned by the business to identify the transaction.
+      # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+      #
+      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+      #
+      # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription

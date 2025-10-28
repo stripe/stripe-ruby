@@ -1010,7 +1010,9 @@ module Stripe
         params(_car_rental: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental))
        }
       def car_rental=(_car_rental); end
-      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      # A unique value to identify the customer. This field is available only for card payments.
+      #
+      # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       sig { returns(T.nilable(String)) }
       def customer_reference; end
       sig { params(_customer_reference: T.nilable(String)).returns(T.nilable(String)) }
@@ -1036,7 +1038,11 @@ module Stripe
         params(_lodging: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging))
        }
       def lodging=(_lodging); end
-      # A unique value assigned by the business to identify the transaction.
+      # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+      #
+      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+      #
+      # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       sig { returns(T.nilable(String)) }
       def order_reference; end
       sig { params(_order_reference: T.nilable(String)).returns(T.nilable(String)) }

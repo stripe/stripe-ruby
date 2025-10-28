@@ -1537,6 +1537,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field benefit
+      attr_reader :benefit
       # Attribute for field car_rental
       attr_reader :car_rental
       # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
@@ -1547,15 +1549,13 @@ module Stripe
       attr_reader :order_reference
       # Attribute for field subscription
       attr_reader :subscription
-      # Attribute for field benefit
-      attr_reader :benefit
 
       def self.inner_class_types
         @inner_class_types = {
+          benefit: Benefit,
           car_rental: CarRental,
           event_details: EventDetails,
           subscription: Subscription,
-          benefit: Benefit,
         }
       end
 
@@ -3434,6 +3434,19 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class AllocatedFunds < ::Stripe::StripeObject
+      # Allocated Funds configuration for this PaymentIntent.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_reader :amount
     # Amount that can be captured from this PaymentIntent.
@@ -3546,6 +3559,8 @@ module Stripe
     attr_reader :transfer_data
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
     attr_reader :transfer_group
+    # Allocated Funds configuration for this PaymentIntent.
+    attr_reader :allocated_funds
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     def apply_customer_balance(params = {}, opts = {})
@@ -3919,6 +3934,7 @@ module Stripe
         processing: Processing,
         shipping: Shipping,
         transfer_data: TransferData,
+        allocated_funds: AllocatedFunds,
       }
     end
 

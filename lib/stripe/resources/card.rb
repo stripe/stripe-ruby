@@ -17,9 +17,11 @@ module Stripe
       "card"
     end
 
-    class Networks < ::Stripe::StripeObject
-      # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
-      attr_reader :preferred
+    class Benefits < ::Stripe::StripeObject
+      # Issuer of this benefit card
+      attr_reader :issuer
+      # Available benefit programs for this card
+      attr_reader :programs
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -30,11 +32,9 @@ module Stripe
       end
     end
 
-    class Benefits < ::Stripe::StripeObject
-      # Issuer of this benefit card
-      attr_reader :issuer
-      # Available benefit programs for this card
-      attr_reader :programs
+    class Networks < ::Stripe::StripeObject
+      # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
+      attr_reader :preferred
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -66,6 +66,8 @@ module Stripe
     attr_reader :allow_redisplay
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
+    # Attribute for field benefits
+    attr_reader :benefits
     # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     attr_reader :brand
     # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
@@ -116,8 +118,6 @@ module Stripe
     attr_reader :status
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
     attr_reader :tokenization_method
-    # Attribute for field benefits
-    attr_reader :benefits
     # Always true for a deleted object
     attr_reader :deleted
 
@@ -171,7 +171,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { networks: Networks, benefits: Benefits }
+      @inner_class_types = { benefits: Benefits, networks: Networks }
     end
 
     def self.field_remappings

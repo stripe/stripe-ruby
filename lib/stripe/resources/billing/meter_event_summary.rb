@@ -15,6 +15,8 @@ module Stripe
 
       # Aggregated value of all the events within `start_time` (inclusive) and `end_time` (inclusive). The aggregation strategy is defined on meter via `default_aggregation`.
       attr_reader :aggregated_value
+      # Key-value pairs of dimension values for event summaries with grouping on dimensions.
+      attr_reader :dimensions
       # End timestamp for this event summary (exclusive). Must be aligned with minute boundaries.
       attr_reader :end_time
       # Unique identifier for the object.
@@ -27,8 +29,6 @@ module Stripe
       attr_reader :object
       # Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
       attr_reader :start_time
-      # Key-value pairs of dimension values for event summaries with grouping on dimensions.
-      attr_reader :dimensions
 
       def self.inner_class_types
         @inner_class_types = {}

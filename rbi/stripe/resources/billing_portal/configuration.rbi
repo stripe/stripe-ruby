@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module BillingPortal
-    # A portal configuration describes the functionality and behavior of a portal session.
+    # A portal configuration describes the functionality and behavior you embed in a portal session. Related guide: [Configure the customer portal](https://docs.stripe.com/customer-management/configure-portal).
     class Configuration < APIResource
       class BusinessProfile < ::Stripe::StripeObject
         # The messaging shown to customers in the portal.

@@ -32,7 +32,7 @@ module Stripe
       end
 
       class InteracPresent < ::Stripe::RequestParams
-        # Card Number
+        # The Interac card number.
         attr_accessor :number
 
         def initialize(number: nil)

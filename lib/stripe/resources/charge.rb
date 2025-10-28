@@ -881,6 +881,8 @@ module Stripe
         attr_reader :amount_requested
         # Authorization code on the charge.
         attr_reader :authorization_code
+        # Attribute for field benefits
+        attr_reader :benefits
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
@@ -939,11 +941,10 @@ module Stripe
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         attr_reader :wallet
-        # Attribute for field benefits
-        attr_reader :benefits
 
         def self.inner_class_types
           @inner_class_types = {
+            benefits: Benefits,
             checks: Checks,
             decremental_authorization: DecrementalAuthorization,
             extended_authorization: ExtendedAuthorization,
@@ -955,7 +956,6 @@ module Stripe
             partial_authorization: PartialAuthorization,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
-            benefits: Benefits,
           }
         end
 
@@ -1786,6 +1786,9 @@ module Stripe
       end
 
       class Rechnung < ::Stripe::StripeObject
+        # Payment portal URL.
+        attr_reader :payment_portal_url
+
         def self.inner_class_types
           @inner_class_types = {}
         end

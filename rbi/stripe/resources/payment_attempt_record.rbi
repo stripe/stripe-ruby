@@ -1508,6 +1508,9 @@ module Stripe
         end
       end
       class Rechnung < ::Stripe::StripeObject
+        # Payment portal URL.
+        sig { returns(T.nilable(String)) }
+        def payment_portal_url; end
         def self.inner_class_types
           @inner_class_types = {}
         end

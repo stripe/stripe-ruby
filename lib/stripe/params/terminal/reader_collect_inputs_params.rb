@@ -8,9 +8,9 @@ module Stripe
         class CustomText < ::Stripe::RequestParams
           # The description which will be displayed when collecting this input
           attr_accessor :description
-          # The skip button text
+          # Custom text for the skip button. Maximum 14 characters.
           attr_accessor :skip_button
-          # The submit button text
+          # Custom text for the submit button. Maximum 30 characters.
           attr_accessor :submit_button
           # The title which will be displayed when collecting this input
           attr_accessor :title
@@ -27,7 +27,7 @@ module Stripe
           class Choice < ::Stripe::RequestParams
             # The unique identifier for this choice
             attr_accessor :id
-            # The style of the button which will be shown for this choice
+            # The style of the button which will be shown for this choice. Can be `primary` or `secondary`.
             attr_accessor :style
             # The text which will be shown on the button for this choice
             attr_accessor :text
@@ -47,11 +47,11 @@ module Stripe
         end
 
         class Toggle < ::Stripe::RequestParams
-          # The default value of the toggle
+          # The default value of the toggle. Can be `enabled` or `disabled`.
           attr_accessor :default_value
-          # The description which will be displayed for the toggle
+          # The description which will be displayed for the toggle. Maximum 50 characters. At least one of title or description must be provided.
           attr_accessor :description
-          # The title which will be displayed for the toggle
+          # The title which will be displayed for the toggle. Maximum 50 characters. At least one of title or description must be provided.
           attr_accessor :title
 
           def initialize(default_value: nil, description: nil, title: nil)
@@ -81,7 +81,7 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # List of inputs to be collected using the Reader
+      # List of inputs to be collected from the customer using the Reader. Maximum 5 inputs.
       attr_accessor :inputs
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata

@@ -310,6 +310,88 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class TransitBalancesTotal < ::Stripe::StripeObject
+      class Available < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
+          # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
+          sig { returns(T.nilable(Integer)) }
+          def bank_account; end
+          # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
+          sig { returns(T.nilable(Integer)) }
+          def card; end
+          # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
+          sig { returns(T.nilable(Integer)) }
+          def fpx; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Balance amount.
+        sig { returns(Integer) }
+        def amount; end
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(String) }
+        def currency; end
+        # Attribute for field source_types
+        sig { returns(T.nilable(SourceTypes)) }
+        def source_types; end
+        def self.inner_class_types
+          @inner_class_types = {source_types: SourceTypes}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Pending < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
+          # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
+          sig { returns(T.nilable(Integer)) }
+          def bank_account; end
+          # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
+          sig { returns(T.nilable(Integer)) }
+          def card; end
+          # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
+          sig { returns(T.nilable(Integer)) }
+          def fpx; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Balance amount.
+        sig { returns(Integer) }
+        def amount; end
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(String) }
+        def currency; end
+        # Attribute for field source_types
+        sig { returns(T.nilable(SourceTypes)) }
+        def source_types; end
+        def self.inner_class_types
+          @inner_class_types = {source_types: SourceTypes}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Funds that are available for use.
+      sig { returns(T::Array[Available]) }
+      def available; end
+      # Funds that are pending
+      sig { returns(T::Array[Pending]) }
+      def pending; end
+      def self.inner_class_types
+        @inner_class_types = {available: Available, pending: Pending}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     sig { returns(T::Array[Available]) }
     def available; end
@@ -334,5 +416,8 @@ module Stripe
     # Attribute for field refund_and_dispute_prefunding
     sig { returns(T.nilable(RefundAndDisputePrefunding)) }
     def refund_and_dispute_prefunding; end
+    # Attribute for field transit_balances_total
+    sig { returns(T.nilable(TransitBalancesTotal)) }
+    def transit_balances_total; end
   end
 end

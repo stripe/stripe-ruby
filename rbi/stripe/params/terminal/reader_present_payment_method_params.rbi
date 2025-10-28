@@ -41,7 +41,7 @@ module Stripe
         def initialize(number: nil); end
       end
       class InteracPresent < ::Stripe::RequestParams
-        # Card Number
+        # The Interac card number.
         sig { returns(T.nilable(String)) }
         def number; end
         sig { params(_number: T.nilable(String)).returns(T.nilable(String)) }

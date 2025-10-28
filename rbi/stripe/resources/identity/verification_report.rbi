@@ -111,6 +111,9 @@ module Stripe
         # Address as it appears in the document.
         sig { returns(T.nilable(Address)) }
         def address; end
+        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
+        def blocked_by_entry; end
         # Date of birth as it appears in the document.
         sig { returns(T.nilable(Dob)) }
         def dob; end
@@ -153,9 +156,6 @@ module Stripe
         # Sex as it appears in the document.
         sig { returns(T.nilable(String)) }
         def unparsed_sex; end
-        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
-        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
-        def blocked_by_entry; end
         def self.inner_class_types
           @inner_class_types = {
             address: Address,
@@ -348,6 +348,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
+        def blocked_by_entry; end
         # ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
         sig { returns(T.nilable(String)) }
         def document; end
@@ -360,9 +363,6 @@ module Stripe
         # Status of this `selfie` check.
         sig { returns(String) }
         def status; end
-        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
-        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
-        def blocked_by_entry; end
         def self.inner_class_types
           @inner_class_types = {error: Error}
         end

@@ -735,6 +735,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field benefits
+        attr_reader :benefits
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # Checks on Card address and CVC if provided.
@@ -771,17 +773,15 @@ module Stripe
         attr_reader :three_d_secure_usage
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         attr_reader :wallet
-        # Attribute for field benefits
-        attr_reader :benefits
 
         def self.inner_class_types
           @inner_class_types = {
+            benefits: Benefits,
             checks: Checks,
             generated_from: GeneratedFrom,
             networks: Networks,
             three_d_secure_usage: ThreeDSecureUsage,
             wallet: Wallet,
-            benefits: Benefits,
           }
         end
 

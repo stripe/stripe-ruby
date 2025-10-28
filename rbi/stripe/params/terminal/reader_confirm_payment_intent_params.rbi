@@ -14,7 +14,7 @@ module Stripe
         sig { params(return_url: T.nilable(String)).void }
         def initialize(return_url: nil); end
       end
-      # Configuration overrides.
+      # Configuration overrides for this confirmation, such as surcharge settings and return URL.
       sig { returns(T.nilable(Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig)) }
       def confirm_config; end
       sig {
@@ -26,7 +26,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # PaymentIntent ID.
+      # The ID of the PaymentIntent to confirm.
       sig { returns(String) }
       def payment_intent; end
       sig { params(_payment_intent: String).returns(String) }

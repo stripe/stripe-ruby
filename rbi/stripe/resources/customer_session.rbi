@@ -22,6 +22,83 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class CustomerSheet < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the customer sheet displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+          #
+          # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
+          sig { returns(T.nilable(T::Array[String])) }
+          def payment_method_allow_redisplay_filters; end
+          # Controls whether the customer sheet displays the option to remove a saved payment method."
+          #
+          # Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
+          sig { returns(T.nilable(String)) }
+          def payment_method_remove; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the customer sheet is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # This hash defines whether the customer sheet supports certain features.
+        sig { returns(T.nilable(Features)) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class MobilePaymentElement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the mobile payment element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+          #
+          # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
+          sig { returns(T.nilable(T::Array[String])) }
+          def payment_method_allow_redisplay_filters; end
+          # Controls whether or not the mobile payment element shows saved payment methods.
+          sig { returns(T.nilable(String)) }
+          def payment_method_redisplay; end
+          # Controls whether the mobile payment element displays the option to remove a saved payment method."
+          #
+          # Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
+          sig { returns(T.nilable(String)) }
+          def payment_method_remove; end
+          # Controls whether the mobile payment element displays a checkbox offering to save a new payment method.
+          #
+          # If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
+          sig { returns(T.nilable(String)) }
+          def payment_method_save; end
+          # Allows overriding the value of allow_override when saving a new payment method when payment_method_save is set to disabled. Use values: "always", "limited", or "unspecified".
+          #
+          # If not specified, defaults to `nil` (no override value).
+          sig { returns(T.nilable(String)) }
+          def payment_method_save_allow_redisplay_override; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the mobile payment element is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # This hash defines whether the mobile payment element supports certain features.
+        sig { returns(T.nilable(Features)) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class PaymentElement < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
@@ -81,20 +158,64 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class TaxIdElement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Controls whether the Tax ID Element displays saved tax IDs for the customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, the Tax ID Element will show existing tax IDs associated with the customer, allowing them to select from previously saved tax identification numbers.
+          sig { returns(String) }
+          def tax_id_redisplay; end
+          # Controls whether the Tax ID Element allows merchants to save new tax IDs for their customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, customers can enter and save new tax identification numbers during the payment flow, which will be stored securely and associated with their customer object for future use.
+          sig { returns(String) }
+          def tax_id_save; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the Tax ID Element is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # This hash defines whether the Tax ID Element supports certain features.
+        sig { returns(T.nilable(Features)) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # This hash contains whether the buy button is enabled.
       sig { returns(BuyButton) }
       def buy_button; end
+      # This hash contains whether the customer sheet is enabled and the features it supports.
+      sig { returns(CustomerSheet) }
+      def customer_sheet; end
+      # This hash contains whether the mobile payment element is enabled and the features it supports.
+      sig { returns(MobilePaymentElement) }
+      def mobile_payment_element; end
       # This hash contains whether the Payment Element is enabled and the features it supports.
       sig { returns(PaymentElement) }
       def payment_element; end
       # This hash contains whether the pricing table is enabled.
       sig { returns(PricingTable) }
       def pricing_table; end
+      # This hash contains whether the Tax ID Element is enabled and the features it supports.
+      sig { returns(T.nilable(TaxIdElement)) }
+      def tax_id_element; end
       def self.inner_class_types
         @inner_class_types = {
           buy_button: BuyButton,
+          customer_sheet: CustomerSheet,
+          mobile_payment_element: MobilePaymentElement,
           payment_element: PaymentElement,
           pricing_table: PricingTable,
+          tax_id_element: TaxIdElement,
         }
       end
       def self.field_remappings

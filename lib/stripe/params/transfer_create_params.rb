@@ -23,6 +23,8 @@ module Stripe
     attr_accessor :source_type
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     attr_accessor :transfer_group
+    # Attribute for param field application_fee_amount
+    attr_accessor :application_fee_amount
 
     def initialize(
       amount: nil,
@@ -34,7 +36,8 @@ module Stripe
       metadata: nil,
       source_transaction: nil,
       source_type: nil,
-      transfer_group: nil
+      transfer_group: nil,
+      application_fee_amount: nil
     )
       @amount = amount
       @currency = currency
@@ -46,6 +49,7 @@ module Stripe
       @source_transaction = source_transaction
       @source_type = source_type
       @transfer_group = transfer_group
+      @application_fee_amount = application_fee_amount
     end
   end
 end

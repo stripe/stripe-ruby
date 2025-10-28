@@ -1494,6 +1494,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Tw < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Tz < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
@@ -1934,6 +1945,9 @@ module Stripe
         # Attribute for field tr
         sig { returns(T.nilable(Tr)) }
         def tr; end
+        # Attribute for field tw
+        sig { returns(T.nilable(Tw)) }
+        def tw; end
         # Attribute for field tz
         sig { returns(T.nilable(Tz)) }
         def tz; end
@@ -2055,6 +2069,7 @@ module Stripe
             th: Th,
             tj: Tj,
             tr: Tr,
+            tw: Tw,
             tz: Tz,
             ua: Ua,
             ug: Ug,

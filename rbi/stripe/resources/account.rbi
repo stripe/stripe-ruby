@@ -487,6 +487,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class RepresentativeDeclaration < ::Stripe::StripeObject
+        # The Unix timestamp marking when the representative declaration attestation was made.
+        sig { returns(T.nilable(Integer)) }
+        def date; end
+        # The IP address from which the representative declaration attestation was made.
+        sig { returns(T.nilable(String)) }
+        def ip; end
+        # The user-agent string from the browser where the representative declaration attestation was made.
+        sig { returns(T.nilable(String)) }
+        def user_agent; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
@@ -566,6 +583,9 @@ module Stripe
       # Attribute for field registration_date
       sig { returns(T.nilable(RegistrationDate)) }
       def registration_date; end
+      # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+      sig { returns(T.nilable(RepresentativeDeclaration)) }
+      def representative_declaration; end
       # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       sig { returns(T.nilable(String)) }
       def structure; end
@@ -589,6 +609,7 @@ module Stripe
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
           registration_date: RegistrationDate,
+          representative_declaration: RepresentativeDeclaration,
           verification: Verification,
         }
       end

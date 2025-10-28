@@ -113,6 +113,8 @@ module Stripe
         end
         # Address as it appears in the document.
         attr_reader :address
+        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        attr_reader :blocked_by_entry
         # Date of birth as it appears in the document.
         attr_reader :dob
         # Details on the verification error. Present when status is `unverified`.
@@ -141,8 +143,6 @@ module Stripe
         attr_reader :unparsed_place_of_birth
         # Sex as it appears in the document.
         attr_reader :unparsed_sex
-        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
-        attr_reader :blocked_by_entry
 
         def self.inner_class_types
           @inner_class_types = {
@@ -335,6 +335,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        attr_reader :blocked_by_entry
         # ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
         attr_reader :document
         # Details on the verification error. Present when status is `unverified`.
@@ -343,8 +345,6 @@ module Stripe
         attr_reader :selfie
         # Status of this `selfie` check.
         attr_reader :status
-        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
-        attr_reader :blocked_by_entry
 
         def self.inner_class_types
           @inner_class_types = { error: Error }

@@ -36,15 +36,25 @@ module Stripe
             def product_url; end
             sig { params(_product_url: T.nilable(String)).returns(T.nilable(String)) }
             def product_url=(_product_url); end
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def reference=(_reference); end
             # Reference for the subscription this line item is for.
             sig { returns(T.nilable(String)) }
             def subscription_reference; end
             sig { params(_subscription_reference: T.nilable(String)).returns(T.nilable(String)) }
             def subscription_reference=(_subscription_reference); end
             sig {
-              params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
+              params(image_url: T.nilable(String), product_url: T.nilable(String), reference: T.nilable(String), subscription_reference: T.nilable(String)).void
              }
-            def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            ); end
           end
           class Paypal < ::Stripe::RequestParams
             # Type of the line item.
@@ -1376,6 +1386,13 @@ module Stripe
           starts_at: nil
         ); end
       end
+      # Benefit details for this PaymentIntent
+      sig { returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit)) }
+      def benefit; end
+      sig {
+        params(_benefit: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit)).returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit))
+       }
+      def benefit=(_benefit); end
       # Car rental details for this PaymentIntent.
       sig { returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::CarRental)) }
       def car_rental; end
@@ -1421,25 +1438,18 @@ module Stripe
         params(_subscription: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Subscription)).returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Subscription))
        }
       def subscription=(_subscription); end
-      # Benefit details for this PaymentIntent
-      sig { returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit)) }
-      def benefit; end
       sig {
-        params(_benefit: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit)).returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit))
-       }
-      def benefit=(_benefit); end
-      sig {
-        params(car_rental: T.nilable(PaymentIntentConfirmParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(PaymentIntentConfirmParams::PaymentDetails::EventDetails), flight: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Flight), lodging: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Subscription), benefit: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit)).void
+        params(benefit: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit), car_rental: T.nilable(PaymentIntentConfirmParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(PaymentIntentConfirmParams::PaymentDetails::EventDetails), flight: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Flight), lodging: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Subscription)).void
        }
       def initialize(
+        benefit: nil,
         car_rental: nil,
         customer_reference: nil,
         event_details: nil,
         flight: nil,
         lodging: nil,
         order_reference: nil,
-        subscription: nil,
-        benefit: nil
+        subscription: nil
       ); end
     end
     class PaymentMethodData < ::Stripe::RequestParams

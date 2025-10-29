@@ -14,17 +14,21 @@ module Stripe
           attr_accessor :meter
           # Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
           attr_accessor :tenant_filters
+          # List of high cardinality tenant dimension keys to group by. If specified, usage events will be grouped by the given tenant dimension key's values.
+          attr_accessor :tenant_group_by_keys
 
           def initialize(
             dimension_filters: nil,
             dimension_group_by_keys: nil,
             meter: nil,
-            tenant_filters: nil
+            tenant_filters: nil,
+            tenant_group_by_keys: nil
           )
             @dimension_filters = dimension_filters
             @dimension_group_by_keys = dimension_group_by_keys
             @meter = meter
             @tenant_filters = tenant_filters
+            @tenant_group_by_keys = tenant_group_by_keys
           end
         end
         # The customer id to fetch meter usage data for.

@@ -220,58 +220,6 @@ module Stripe
          }
         def initialize(billing_details: nil, card: nil, type: nil); end
       end
-      class RiskDetails < ::Stripe::RequestParams
-        class ClientDeviceMetadataDetails < ::Stripe::RequestParams
-          # The radar session.
-          sig { returns(T.nilable(String)) }
-          def radar_session; end
-          sig { params(_radar_session: T.nilable(String)).returns(T.nilable(String)) }
-          def radar_session=(_radar_session); end
-          # The referrer of the client device.
-          sig { returns(T.nilable(String)) }
-          def referrer; end
-          sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
-          def referrer=(_referrer); end
-          # The remote IP address of the client device.
-          sig { returns(T.nilable(String)) }
-          def remote_ip; end
-          sig { params(_remote_ip: T.nilable(String)).returns(T.nilable(String)) }
-          def remote_ip=(_remote_ip); end
-          # The time on page in seconds.
-          sig { returns(T.nilable(Integer)) }
-          def time_on_page; end
-          sig { params(_time_on_page: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def time_on_page=(_time_on_page); end
-          # The user agent of the client device.
-          sig { returns(T.nilable(String)) }
-          def user_agent; end
-          sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
-          def user_agent=(_user_agent); end
-          sig {
-            params(radar_session: T.nilable(String), referrer: T.nilable(String), remote_ip: T.nilable(String), time_on_page: T.nilable(Integer), user_agent: T.nilable(String)).void
-           }
-          def initialize(
-            radar_session: nil,
-            referrer: nil,
-            remote_ip: nil,
-            time_on_page: nil,
-            user_agent: nil
-          ); end
-        end
-        # The client device metadata details for this requested session.
-        sig {
-          returns(T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails::ClientDeviceMetadataDetails))
-         }
-        def client_device_metadata_details; end
-        sig {
-          params(_client_device_metadata_details: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails::ClientDeviceMetadataDetails)).returns(T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails::ClientDeviceMetadataDetails))
-         }
-        def client_device_metadata_details=(_client_device_metadata_details); end
-        sig {
-          params(client_device_metadata_details: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails::ClientDeviceMetadataDetails)).void
-         }
-        def initialize(client_device_metadata_details: nil); end
-      end
       class SellerDetails < ::Stripe::RequestParams
         # The network profile for the seller.
         sig { returns(String) }
@@ -331,13 +279,6 @@ module Stripe
         params(_payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData)).returns(T.nilable(DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData))
        }
       def payment_method_data=(_payment_method_data); end
-      # The risk details for this requested session.
-      sig { returns(T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails)) }
-      def risk_details; end
-      sig {
-        params(_risk_details: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails)).returns(T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails))
-       }
-      def risk_details=(_risk_details); end
       # The details of the seller.
       sig { returns(DelegatedCheckout::RequestedSessionCreateParams::SellerDetails) }
       def seller_details; end
@@ -358,7 +299,7 @@ module Stripe
        }
       def shared_metadata=(_shared_metadata); end
       sig {
-        params(currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData), risk_details: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::RiskDetails), seller_details: DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String])).void
+        params(currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData), seller_details: DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String])).void
        }
       def initialize(
         currency: nil,
@@ -369,7 +310,6 @@ module Stripe
         metadata: nil,
         payment_method: nil,
         payment_method_data: nil,
-        risk_details: nil,
         seller_details: nil,
         setup_future_usage: nil,
         shared_metadata: nil

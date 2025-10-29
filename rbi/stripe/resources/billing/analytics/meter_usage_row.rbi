@@ -27,6 +27,9 @@ module Stripe
         # The aggregated meter usage value for the specified bucket.
         sig { returns(Float) }
         def value; end
+        # A set of key-value pairs representing the tenants of the meter usage.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def tenants; end
       end
     end
   end

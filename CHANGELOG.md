@@ -1,5 +1,8 @@
 # Changelog
 ## 17.1.0 - 2025-10-29
+
+This release changes the pinned API version to `2025-10-29.clover`.
+
 * [#1715](https://github.com/stripe/stripe-ruby/pull/1715) Update generated code
   * Improve docs for PaymentIntent related endpoints
 * [#1700](https://github.com/stripe/stripe-ruby/pull/1700) Update generated code

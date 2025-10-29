@@ -1667,6 +1667,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field benefit
+      sig { returns(T.nilable(Benefit)) }
+      def benefit; end
       # Attribute for field car_rental
       sig { returns(T.nilable(CarRental)) }
       def car_rental; end
@@ -1682,15 +1685,12 @@ module Stripe
       # Attribute for field subscription
       sig { returns(T.nilable(Subscription)) }
       def subscription; end
-      # Attribute for field benefit
-      sig { returns(T.nilable(Benefit)) }
-      def benefit; end
       def self.inner_class_types
         @inner_class_types = {
+          benefit: Benefit,
           car_rental: CarRental,
           event_details: EventDetails,
           subscription: Subscription,
-          benefit: Benefit,
         }
       end
       def self.field_remappings
@@ -3605,6 +3605,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class AllocatedFunds < ::Stripe::StripeObject
+      # Allocated Funds configuration for this PaymentIntent.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(Integer) }
     def amount; end
@@ -3765,6 +3776,9 @@ module Stripe
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
     sig { returns(T.nilable(String)) }
     def transfer_group; end
+    # Allocated Funds configuration for this PaymentIntent.
+    sig { returns(T.nilable(AllocatedFunds)) }
+    def allocated_funds; end
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     sig {
       params(params: T.any(::Stripe::PaymentIntentApplyCustomerBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)

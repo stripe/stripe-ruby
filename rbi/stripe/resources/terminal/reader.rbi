@@ -66,13 +66,13 @@ module Stripe
             end
             class Selection < ::Stripe::StripeObject
               class Choice < ::Stripe::StripeObject
-                # The id to be selected
+                # The identifier for the selected choice. Maximum 50 characters.
                 sig { returns(T.nilable(String)) }
                 def id; end
-                # The button style for the choice
+                # The button style for the choice. Can be `primary` or `secondary`.
                 sig { returns(T.nilable(String)) }
                 def style; end
-                # The text to be selected
+                # The text to be selected. Maximum 30 characters.
                 sig { returns(String) }
                 def text; end
                 def self.inner_class_types
@@ -121,16 +121,16 @@ module Stripe
               end
             end
             class Toggle < ::Stripe::StripeObject
-              # The toggle's default value
+              # The toggle's default value. Can be `enabled` or `disabled`.
               sig { returns(T.nilable(String)) }
               def default_value; end
-              # The toggle's description text
+              # The toggle's description text. Maximum 50 characters.
               sig { returns(T.nilable(String)) }
               def description; end
-              # The toggle's title text
+              # The toggle's title text. Maximum 50 characters.
               sig { returns(T.nilable(String)) }
               def title; end
-              # The toggle's collected value
+              # The toggle's collected value. Can be `enabled` or `disabled`.
               sig { returns(T.nilable(String)) }
               def value; end
               def self.inner_class_types
@@ -445,10 +445,10 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Cart object to be displayed by the reader.
+          # Cart object to be displayed by the reader, including line items, amounts, and currency.
           sig { returns(T.nilable(Cart)) }
           def cart; end
-          # Type of information to be displayed by the reader.
+          # Type of information to be displayed by the reader. Only `cart` is currently supported.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
@@ -524,6 +524,9 @@ module Stripe
       # Custom label given to the reader for easier identification.
       sig { returns(String) }
       def label; end
+      # The last time this reader reported to Stripe backend.
+      sig { returns(T.nilable(Integer)) }
+      def last_seen_at; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
@@ -545,49 +548,49 @@ module Stripe
       # Always true for a deleted object
       sig { returns(T.nilable(T::Boolean)) }
       def deleted; end
-      # Cancels the current reader action.
+      # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderCancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def cancel_action(params = {}, opts = {}); end
 
-      # Cancels the current reader action.
+      # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderCancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.cancel_action(reader, params = {}, opts = {}); end
 
-      # Initiates an input collection flow on a Reader.
+      # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderCollectInputsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def collect_inputs(params = {}, opts = {}); end
 
-      # Initiates an input collection flow on a Reader.
+      # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderCollectInputsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.collect_inputs(reader, params = {}, opts = {}); end
 
-      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderCollectPaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def collect_payment_method(params = {}, opts = {}); end
 
-      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderCollectPaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.collect_payment_method(reader, params = {}, opts = {}); end
 
-      # Finalizes a payment on a Reader.
+      # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderConfirmPaymentIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def confirm_payment_intent(params = {}, opts = {}); end
 
-      # Finalizes a payment on a Reader.
+      # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderConfirmPaymentIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
@@ -617,49 +620,49 @@ module Stripe
        }
       def self.list(params = {}, opts = {}); end
 
-      # Initiates a payment flow on a Reader.
+      # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderProcessPaymentIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def process_payment_intent(params = {}, opts = {}); end
 
-      # Initiates a payment flow on a Reader.
+      # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderProcessPaymentIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.process_payment_intent(reader, params = {}, opts = {}); end
 
-      # Initiates a setup intent flow on a Reader.
+      # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderProcessSetupIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def process_setup_intent(params = {}, opts = {}); end
 
-      # Initiates a setup intent flow on a Reader.
+      # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderProcessSetupIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.process_setup_intent(reader, params = {}, opts = {}); end
 
-      # Initiates a refund on a Reader
+      # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderRefundPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def refund_payment(params = {}, opts = {}); end
 
-      # Initiates a refund on a Reader
+      # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderRefundPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.refund_payment(reader, params = {}, opts = {}); end
 
-      # Sets reader display to show cart details.
+      # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderSetReaderDisplayParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def set_reader_display(params = {}, opts = {}); end
 
-      # Sets reader display to show cart details.
+      # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderSetReaderDisplayParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }

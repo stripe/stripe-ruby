@@ -12,6 +12,9 @@ module Stripe
       # Aggregated value of all the events within `start_time` (inclusive) and `end_time` (inclusive). The aggregation strategy is defined on meter via `default_aggregation`.
       sig { returns(Float) }
       def aggregated_value; end
+      # Key-value pairs of dimension values for event summaries with grouping on dimensions.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def dimensions; end
       # End timestamp for this event summary (exclusive). Must be aligned with minute boundaries.
       sig { returns(Integer) }
       def end_time; end
@@ -30,9 +33,6 @@ module Stripe
       # Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
       sig { returns(Integer) }
       def start_time; end
-      # Key-value pairs of dimension values for event summaries with grouping on dimensions.
-      sig { returns(T.nilable(T::Hash[String, String])) }
-      def dimensions; end
     end
   end
 end

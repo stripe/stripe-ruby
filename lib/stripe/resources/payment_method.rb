@@ -639,6 +639,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field benefits
+      attr_reader :benefits
       # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
       attr_reader :brand
       # Checks on Card address and CVC if provided.
@@ -675,17 +677,15 @@ module Stripe
       attr_reader :three_d_secure_usage
       # If this Card is part of a card wallet, this contains the details of the card wallet.
       attr_reader :wallet
-      # Attribute for field benefits
-      attr_reader :benefits
 
       def self.inner_class_types
         @inner_class_types = {
+          benefits: Benefits,
           checks: Checks,
           generated_from: GeneratedFrom,
           networks: Networks,
           three_d_secure_usage: ThreeDSecureUsage,
           wallet: Wallet,
-          benefits: Benefits,
         }
       end
 
@@ -801,6 +801,37 @@ module Stripe
     class Crypto < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Custom < ::Stripe::StripeObject
+      class Logo < ::Stripe::StripeObject
+        # Content type of the Dashboard-only CustomPaymentMethodType logo.
+        attr_reader :content_type
+        # URL of the Dashboard-only CustomPaymentMethodType logo.
+        attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Display name of the Dashboard-only CustomPaymentMethodType.
+      attr_reader :display_name
+      # Contains information about the Dashboard-only CustomPaymentMethodType logo.
+      attr_reader :logo
+      # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { logo: Logo }
       end
 
       def self.field_remappings
@@ -1541,6 +1572,8 @@ module Stripe
     attr_reader :created
     # Attribute for field crypto
     attr_reader :crypto
+    # Attribute for field custom
+    attr_reader :custom
     # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     attr_reader :customer
     # Attribute for field customer_account
@@ -1771,6 +1804,7 @@ module Stripe
         card_present: CardPresent,
         cashapp: Cashapp,
         crypto: Crypto,
+        custom: Custom,
         customer_balance: CustomerBalance,
         eps: Eps,
         fpx: Fpx,

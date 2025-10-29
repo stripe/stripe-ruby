@@ -1347,6 +1347,21 @@ module Stripe
         end
       end
 
+      class RepresentativeDeclaration < ::Stripe::RequestParams
+        # The Unix timestamp marking when the representative declaration attestation was made.
+        attr_accessor :date
+        # The IP address from which the representative declaration attestation was made.
+        attr_accessor :ip
+        # The user agent of the browser from which the representative declaration attestation was made.
+        attr_accessor :user_agent
+
+        def initialize(date: nil, ip: nil, user_agent: nil)
+          @date = date
+          @ip = ip
+          @user_agent = user_agent
+        end
+      end
+
       class Verification < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1400,6 +1415,8 @@ module Stripe
       attr_accessor :registration_date
       # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
       attr_accessor :registration_number
+      # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+      attr_accessor :representative_declaration
       # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
       attr_accessor :structure
       # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
@@ -1429,6 +1446,7 @@ module Stripe
         phone: nil,
         registration_date: nil,
         registration_number: nil,
+        representative_declaration: nil,
         structure: nil,
         tax_id: nil,
         tax_id_registrar: nil,
@@ -1452,6 +1470,7 @@ module Stripe
         @phone = phone
         @registration_date = registration_date
         @registration_number = registration_number
+        @representative_declaration = representative_declaration
         @structure = structure
         @tax_id = tax_id
         @tax_id_registrar = tax_id_registrar

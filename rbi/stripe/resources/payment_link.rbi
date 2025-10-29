@@ -369,6 +369,48 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class NameCollection < ::Stripe::StripeObject
+      class Business < ::Stripe::StripeObject
+        # Indicates whether business name collection is enabled for the payment link.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        sig { returns(T::Boolean) }
+        def optional; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Individual < ::Stripe::StripeObject
+        # Indicates whether individual name collection is enabled for the payment link.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        sig { returns(T::Boolean) }
+        def optional; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field business
+      sig { returns(T.nilable(Business)) }
+      def business; end
+      # Attribute for field individual
+      sig { returns(T.nilable(Individual)) }
+      def individual; end
+      def self.inner_class_types
+        @inner_class_types = {business: Business, individual: Individual}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class OptionalItem < ::Stripe::StripeObject
       class AdjustableQuantity < ::Stripe::StripeObject
         # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -648,6 +690,9 @@ module Stripe
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
+    # Attribute for field name_collection
+    sig { returns(T.nilable(NameCollection)) }
+    def name_collection; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end

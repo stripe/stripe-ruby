@@ -80,6 +80,8 @@ module Stripe
       attr_reader :customer_mapping
       # Attribute for field default_aggregation
       attr_reader :default_aggregation
+      # Set of keys that will be used to group meter events by.
+      attr_reader :dimension_payload_keys
       # The meter's name.
       attr_reader :display_name
       # The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
@@ -100,8 +102,6 @@ module Stripe
       attr_reader :updated
       # Attribute for field value_settings
       attr_reader :value_settings
-      # Set of keys that will be used to group meter events by.
-      attr_reader :dimension_payload_keys
 
       # Creates a billing meter.
       def self.create(params = {}, opts = {})

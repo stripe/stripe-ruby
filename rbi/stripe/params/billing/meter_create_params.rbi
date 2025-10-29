@@ -51,6 +51,13 @@ module Stripe
         params(_default_aggregation: Billing::MeterCreateParams::DefaultAggregation).returns(Billing::MeterCreateParams::DefaultAggregation)
        }
       def default_aggregation=(_default_aggregation); end
+      # Set of keys that will be used to group meter events by. Each key must be present in the event payload.
+      sig { returns(T.nilable(T::Array[String])) }
+      def dimension_payload_keys; end
+      sig {
+        params(_dimension_payload_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def dimension_payload_keys=(_dimension_payload_keys); end
       # The meter’s name. Not visible to the customer.
       sig { returns(String) }
       def display_name; end
@@ -78,25 +85,18 @@ module Stripe
         params(_value_settings: T.nilable(Billing::MeterCreateParams::ValueSettings)).returns(T.nilable(Billing::MeterCreateParams::ValueSettings))
        }
       def value_settings=(_value_settings); end
-      # Set of keys that will be used to group meter events by. Each key must be present in the event payload.
-      sig { returns(T.nilable(T::Array[String])) }
-      def dimension_payload_keys; end
       sig {
-        params(_dimension_payload_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-       }
-      def dimension_payload_keys=(_dimension_payload_keys); end
-      sig {
-        params(customer_mapping: T.nilable(Billing::MeterCreateParams::CustomerMapping), default_aggregation: Billing::MeterCreateParams::DefaultAggregation, display_name: String, event_name: String, event_time_window: T.nilable(String), expand: T.nilable(T::Array[String]), value_settings: T.nilable(Billing::MeterCreateParams::ValueSettings), dimension_payload_keys: T.nilable(T::Array[String])).void
+        params(customer_mapping: T.nilable(Billing::MeterCreateParams::CustomerMapping), default_aggregation: Billing::MeterCreateParams::DefaultAggregation, dimension_payload_keys: T.nilable(T::Array[String]), display_name: String, event_name: String, event_time_window: T.nilable(String), expand: T.nilable(T::Array[String]), value_settings: T.nilable(Billing::MeterCreateParams::ValueSettings)).void
        }
       def initialize(
         customer_mapping: nil,
         default_aggregation: nil,
+        dimension_payload_keys: nil,
         display_name: nil,
         event_name: nil,
         event_time_window: nil,
         expand: nil,
-        value_settings: nil,
-        dimension_payload_keys: nil
+        value_settings: nil
       ); end
     end
   end

@@ -1959,11 +1959,6 @@ module Stripe
     def return_url; end
     sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
     def return_url=(_return_url); end
-    # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
-    sig { returns(T.nilable(T::Boolean)) }
-    def use_stripe_sdk; end
-    sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-    def use_stripe_sdk=(_use_stripe_sdk); end
     # Provides industry-specific information about the SetupIntent.
     sig { returns(T.nilable(SetupIntentConfirmParams::SetupDetails)) }
     def setup_details; end
@@ -1971,8 +1966,13 @@ module Stripe
       params(_setup_details: T.nilable(SetupIntentConfirmParams::SetupDetails)).returns(T.nilable(SetupIntentConfirmParams::SetupDetails))
      }
     def setup_details=(_setup_details); end
+    # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+    sig { returns(T.nilable(T::Boolean)) }
+    def use_stripe_sdk; end
+    sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean), setup_details: T.nilable(SetupIntentConfirmParams::SetupDetails)).void
+      params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), setup_details: T.nilable(SetupIntentConfirmParams::SetupDetails), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
       confirmation_token: nil,
@@ -1982,8 +1982,8 @@ module Stripe
       payment_method_data: nil,
       payment_method_options: nil,
       return_url: nil,
-      use_stripe_sdk: nil,
-      setup_details: nil
+      setup_details: nil,
+      use_stripe_sdk: nil
     ); end
   end
 end

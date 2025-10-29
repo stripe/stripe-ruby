@@ -230,6 +230,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Gip < ::Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          def fixed_amounts; end
+          # Percentages displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          def percentages; end
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          sig { returns(T.nilable(Integer)) }
+          def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Hkd < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
@@ -461,6 +478,9 @@ module Stripe
         # Attribute for field gbp
         sig { returns(T.nilable(Gbp)) }
         def gbp; end
+        # Attribute for field gip
+        sig { returns(T.nilable(Gip)) }
+        def gip; end
         # Attribute for field hkd
         sig { returns(T.nilable(Hkd)) }
         def hkd; end
@@ -508,6 +528,7 @@ module Stripe
             dkk: Dkk,
             eur: Eur,
             gbp: Gbp,
+            gip: Gip,
             hkd: Hkd,
             huf: Huf,
             jpy: Jpy,

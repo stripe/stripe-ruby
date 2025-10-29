@@ -64,6 +64,9 @@ module Stripe
       # Attribute for field default_aggregation
       sig { returns(DefaultAggregation) }
       def default_aggregation; end
+      # Set of keys that will be used to group meter events by.
+      sig { returns(T.nilable(T::Array[String])) }
+      def dimension_payload_keys; end
       # The meter's name.
       sig { returns(String) }
       def display_name; end
@@ -94,9 +97,6 @@ module Stripe
       # Attribute for field value_settings
       sig { returns(ValueSettings) }
       def value_settings; end
-      # Set of keys that will be used to group meter events by.
-      sig { returns(T.nilable(T::Array[String])) }
-      def dimension_payload_keys; end
       # Creates a billing meter.
       sig {
         params(params: T.any(::Stripe::Billing::MeterCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Meter)

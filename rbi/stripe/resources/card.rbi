@@ -9,17 +9,6 @@ module Stripe
   #
   # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
   class Card < APIResource
-    class Networks < ::Stripe::StripeObject
-      # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
-      sig { returns(T.nilable(String)) }
-      def preferred; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     class Benefits < ::Stripe::StripeObject
       # Issuer of this benefit card
       sig { returns(T.nilable(String)) }
@@ -27,6 +16,17 @@ module Stripe
       # Available benefit programs for this card
       sig { returns(T.nilable(T::Array[String])) }
       def programs; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Networks < ::Stripe::StripeObject
+      # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
+      sig { returns(T.nilable(String)) }
+      def preferred; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -67,6 +67,9 @@ module Stripe
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     sig { returns(T.nilable(T::Array[String])) }
     def available_payout_methods; end
+    # Attribute for field benefits
+    sig { returns(T.nilable(Benefits)) }
+    def benefits; end
     # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     sig { returns(String) }
     def brand; end
@@ -141,9 +144,6 @@ module Stripe
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
     sig { returns(T.nilable(String)) }
     def tokenization_method; end
-    # Attribute for field benefits
-    sig { returns(T.nilable(Benefits)) }
-    def benefits; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

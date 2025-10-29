@@ -33,14 +33,22 @@ module Stripe
             params(_tenant_filters: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
            }
           def tenant_filters=(_tenant_filters); end
+          # List of high cardinality tenant dimension keys to group by. If specified, usage events will be grouped by the given tenant dimension key's values.
+          sig { returns(T.nilable(T::Array[String])) }
+          def tenant_group_by_keys; end
           sig {
-            params(dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), meter: String, tenant_filters: T.nilable(T::Hash[String, String])).void
+            params(_tenant_group_by_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def tenant_group_by_keys=(_tenant_group_by_keys); end
+          sig {
+            params(dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), meter: String, tenant_filters: T.nilable(T::Hash[String, String]), tenant_group_by_keys: T.nilable(T::Array[String])).void
            }
           def initialize(
             dimension_filters: nil,
             dimension_group_by_keys: nil,
             meter: nil,
-            tenant_filters: nil
+            tenant_filters: nil,
+            tenant_group_by_keys: nil
           ); end
         end
         # The customer id to fetch meter usage data for.

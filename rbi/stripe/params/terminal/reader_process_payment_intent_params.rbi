@@ -62,12 +62,12 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # PaymentIntent ID
+      # The ID of the PaymentIntent to process on the reader.
       sig { returns(String) }
       def payment_intent; end
       sig { params(_payment_intent: String).returns(String) }
       def payment_intent=(_payment_intent); end
-      # Configuration overrides
+      # Configuration overrides for this transaction, such as tipping and customer cancellation settings.
       sig { returns(T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig)) }
       def process_config; end
       sig {

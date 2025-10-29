@@ -51,7 +51,7 @@ module Stripe
           tipping: nil
         ); end
       end
-      # Configuration overrides.
+      # Configuration overrides for this collection, such as tipping, surcharging, and customer cancellation settings.
       sig { returns(T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig)) }
       def collect_config; end
       sig {
@@ -63,7 +63,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # PaymentIntent ID.
+      # The ID of the PaymentIntent to collect a payment method for.
       sig { returns(String) }
       def payment_intent; end
       sig { params(_payment_intent: String).returns(String) }

@@ -100,6 +100,8 @@ module Stripe
         attr_reader :created
         # Freeform string sent by the originator of the ReceivedDebit.
         attr_reader :description
+        # The amount and currency of the original/external debit request.
+        attr_reader :external_amount
         # Financial Account on which funds for ReceivedDebit were debited.
         attr_reader :financial_account
         # Unique identifier for the ReceivedDebit.

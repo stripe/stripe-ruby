@@ -100,6 +100,9 @@ module Stripe
         # Freeform string sent by the originator of the ReceivedDebit.
         sig { returns(T.nilable(String)) }
         def description; end
+        # The amount and currency of the original/external debit request.
+        sig { returns(T.nilable(::Stripe::V2::Amount)) }
+        def external_amount; end
         # Financial Account on which funds for ReceivedDebit were debited.
         sig { returns(String) }
         def financial_account; end

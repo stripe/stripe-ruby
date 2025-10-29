@@ -1271,10 +1271,10 @@ module Stripe
     # If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
     # This parameter is only used for cards and other redirect-based payment methods.
     attr_accessor :return_url
-    # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
-    attr_accessor :use_stripe_sdk
     # Provides industry-specific information about the SetupIntent.
     attr_accessor :setup_details
+    # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+    attr_accessor :use_stripe_sdk
 
     def initialize(
       confirmation_token: nil,
@@ -1284,8 +1284,8 @@ module Stripe
       payment_method_data: nil,
       payment_method_options: nil,
       return_url: nil,
-      use_stripe_sdk: nil,
-      setup_details: nil
+      setup_details: nil,
+      use_stripe_sdk: nil
     )
       @confirmation_token = confirmation_token
       @expand = expand
@@ -1294,8 +1294,8 @@ module Stripe
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
       @return_url = return_url
-      @use_stripe_sdk = use_stripe_sdk
       @setup_details = setup_details
+      @use_stripe_sdk = use_stripe_sdk
     end
   end
 end

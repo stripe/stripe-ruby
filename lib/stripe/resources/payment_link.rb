@@ -383,6 +383,50 @@ module Stripe
       end
     end
 
+    class NameCollection < ::Stripe::StripeObject
+      class Business < ::Stripe::StripeObject
+        # Indicates whether business name collection is enabled for the payment link.
+        attr_reader :enabled
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        attr_reader :optional
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Individual < ::Stripe::StripeObject
+        # Indicates whether individual name collection is enabled for the payment link.
+        attr_reader :enabled
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        attr_reader :optional
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field business
+      attr_reader :business
+      # Attribute for field individual
+      attr_reader :individual
+
+      def self.inner_class_types
+        @inner_class_types = { business: Business, individual: Individual }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class OptionalItem < ::Stripe::StripeObject
       class AdjustableQuantity < ::Stripe::StripeObject
         # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -648,6 +692,8 @@ module Stripe
     attr_reader :livemode
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
+    # Attribute for field name_collection
+    attr_reader :name_collection
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
@@ -727,6 +773,7 @@ module Stripe
         custom_fields: CustomField,
         custom_text: CustomText,
         invoice_creation: InvoiceCreation,
+        name_collection: NameCollection,
         optional_items: OptionalItem,
         payment_intent_data: PaymentIntentData,
         phone_number_collection: PhoneNumberCollection,

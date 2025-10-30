@@ -166,6 +166,8 @@ module Stripe
       class OrderDetails < ::Stripe::StripeObject
         # The URL to the order status.
         attr_reader :order_status_url
+        # The seller's order identifier.
+        attr_reader :order_id
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -196,6 +198,80 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PaymentMethodPreview < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The billing address.
+          attr_reader :address
+          # The email address for the billing details.
+          attr_reader :email
+          # The name for the billing details.
+          attr_reader :name
+          # The phone number for the billing details.
+          attr_reader :phone
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Card < ::Stripe::StripeObject
+          # The expiry month of the card.
+          attr_reader :exp_month
+          # The expiry year of the card.
+          attr_reader :exp_year
+          # The last 4 digits of the card number.
+          attr_reader :last4
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The billing details of the payment method.
+        attr_reader :billing_details
+        # The card details of the payment method.
+        attr_reader :card
+        # The type of the payment method.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { billing_details: BillingDetails, card: Card }
         end
 
         def self.field_remappings
@@ -244,6 +320,8 @@ module Stripe
       attr_reader :total_details
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated_at
+      # The preview of the payment method to be created when the requested session is confirmed.
+      attr_reader :payment_method_preview
 
       # Confirms a requested session
       def confirm(params = {}, opts = {})
@@ -312,6 +390,7 @@ module Stripe
           order_details: OrderDetails,
           seller_details: SellerDetails,
           total_details: TotalDetails,
+          payment_method_preview: PaymentMethodPreview,
         }
       end
 

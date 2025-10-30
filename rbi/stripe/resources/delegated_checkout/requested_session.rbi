@@ -171,6 +171,9 @@ module Stripe
         # The URL to the order status.
         sig { returns(T.nilable(String)) }
         def order_status_url; end
+        # The seller's order identifier.
+        sig { returns(T.nilable(String)) }
+        def order_id; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -198,6 +201,86 @@ module Stripe
         def amount_tax; end
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PaymentMethodPreview < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(String) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(String) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(String) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(String) }
+            def postal_code; end
+            # State, county, province, or region.
+            sig { returns(String) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The billing address.
+          sig { returns(T.nilable(Address)) }
+          def address; end
+          # The email address for the billing details.
+          sig { returns(T.nilable(String)) }
+          def email; end
+          # The name for the billing details.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          # The phone number for the billing details.
+          sig { returns(T.nilable(String)) }
+          def phone; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Card < ::Stripe::StripeObject
+          # The expiry month of the card.
+          sig { returns(Integer) }
+          def exp_month; end
+          # The expiry year of the card.
+          sig { returns(Integer) }
+          def exp_year; end
+          # The last 4 digits of the card number.
+          sig { returns(String) }
+          def last4; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The billing details of the payment method.
+        sig { returns(T.nilable(BillingDetails)) }
+        def billing_details; end
+        # The card details of the payment method.
+        sig { returns(T.nilable(Card)) }
+        def card; end
+        # The type of the payment method.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {billing_details: BillingDetails, card: Card}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -266,6 +349,9 @@ module Stripe
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def updated_at; end
+      # The preview of the payment method to be created when the requested session is confirmed.
+      sig { returns(T.nilable(PaymentMethodPreview)) }
+      def payment_method_preview; end
       # Confirms a requested session
       sig {
         params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

@@ -94,6 +94,30 @@ module Stripe
                    }
                   def initialize(charge_card: nil, spend_card: nil); end
                 end
+                class Lead < ::Stripe::RequestParams
+                  class PrepaidCard < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can create commercial issuing prepaid cards with Lead as BIN sponsor.
+                  sig {
+                    returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead::PrepaidCard))
+                   }
+                  def prepaid_card; end
+                  sig {
+                    params(_prepaid_card: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead::PrepaidCard)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead::PrepaidCard))
+                   }
+                  def prepaid_card=(_prepaid_card); end
+                  sig {
+                    params(prepaid_card: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead::PrepaidCard)).void
+                   }
+                  def initialize(prepaid_card: nil); end
+                end
                 class Stripe < ::Stripe::RequestParams
                   class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -154,6 +178,15 @@ module Stripe
                   params(_cross_river_bank: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::CrossRiverBank)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::CrossRiverBank))
                  }
                 def cross_river_bank=(_cross_river_bank); end
+                # Can create commercial issuing cards with Lead as BIN sponsor.
+                sig {
+                  returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead))
+                 }
+                def lead; end
+                sig {
+                  params(_lead: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead))
+                 }
+                def lead=(_lead); end
                 # Can create commercial issuing cards with Stripe as BIN sponsor.
                 sig {
                   returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe))
@@ -164,9 +197,9 @@ module Stripe
                  }
                 def stripe=(_stripe); end
                 sig {
-                  params(celtic: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Celtic), cross_river_bank: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::CrossRiverBank), stripe: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe)).void
+                  params(celtic: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Celtic), cross_river_bank: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::CrossRiverBank), lead: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Lead), stripe: T.nilable(V2::Core::AccountUpdateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe)).void
                  }
-                def initialize(celtic: nil, cross_river_bank: nil, stripe: nil); end
+                def initialize(celtic: nil, cross_river_bank: nil, lead: nil, stripe: nil); end
               end
               # Can create cards for commercial issuing use cases.
               sig {
@@ -2877,6 +2910,138 @@ module Stripe
                      }
                     def initialize(apple_pay: nil, charge_card: nil, spend_card: nil); end
                   end
+                  class GlobalAccountHolder < ::Stripe::RequestParams
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    sig { returns(T.nilable(String)) }
+                    def date; end
+                    sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                    def date=(_date); end
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    sig { returns(T.nilable(String)) }
+                    def ip; end
+                    sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                    def ip=(_ip); end
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    sig { returns(T.nilable(String)) }
+                    def user_agent; end
+                    sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                    def user_agent=(_user_agent); end
+                    sig {
+                      params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+                     }
+                    def initialize(date: nil, ip: nil, user_agent: nil); end
+                  end
+                  class Lead < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      sig { returns(T.nilable(String)) }
+                      def date; end
+                      sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                      def date=(_date); end
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      sig { returns(T.nilable(String)) }
+                      def ip; end
+                      sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                      def ip=(_ip); end
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      sig { returns(T.nilable(String)) }
+                      def user_agent; end
+                      sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                      def user_agent=(_user_agent); end
+                      sig {
+                        params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+                       }
+                      def initialize(date: nil, ip: nil, user_agent: nil); end
+                    end
+                    class PrepaidCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                        def date=(_date); end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                        def ip=(_ip); end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                        def user_agent=(_user_agent); end
+                        sig {
+                          params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+                         }
+                        def initialize(date: nil, ip: nil, user_agent: nil); end
+                      end
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                        def date=(_date); end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                        def ip=(_ip); end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                        def user_agent=(_user_agent); end
+                        sig {
+                          params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+                         }
+                        def initialize(date: nil, ip: nil, user_agent: nil); end
+                      end
+                      # Bank terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+                      sig {
+                        returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::BankTerms))
+                       }
+                      def bank_terms; end
+                      sig {
+                        params(_bank_terms: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::BankTerms)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::BankTerms))
+                       }
+                      def bank_terms=(_bank_terms); end
+                      # Platform terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+                      sig {
+                        returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::Platform))
+                       }
+                      def platform; end
+                      sig {
+                        params(_platform: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::Platform)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::Platform))
+                       }
+                      def platform=(_platform); end
+                      sig {
+                        params(bank_terms: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::BankTerms), platform: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard::Platform)).void
+                       }
+                      def initialize(bank_terms: nil, platform: nil); end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Lead as BIN sponsor.
+                    sig {
+                      returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::ApplePay))
+                     }
+                    def apple_pay; end
+                    sig {
+                      params(_apple_pay: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::ApplePay)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::ApplePay))
+                     }
+                    def apple_pay=(_apple_pay); end
+                    # Terms of service acceptances for commercial issuing prepaid cards with Lead as BIN sponsor.
+                    sig {
+                      returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard))
+                     }
+                    def prepaid_card; end
+                    sig {
+                      params(_prepaid_card: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard))
+                     }
+                    def prepaid_card=(_prepaid_card); end
+                    sig {
+                      params(apple_pay: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::ApplePay), prepaid_card: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead::PrepaidCard)).void
+                     }
+                    def initialize(apple_pay: nil, prepaid_card: nil); end
+                  end
                   # Terms of service acceptances for Stripe commercial card issuing.
                   sig {
                     returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::AccountHolder))
@@ -2904,10 +3069,34 @@ module Stripe
                     params(_cross_river_bank: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank))
                    }
                   def cross_river_bank=(_cross_river_bank); end
+                  # Terms of service acceptances for Stripe commercial card Global issuing.
                   sig {
-                    params(account_holder: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::AccountHolder), celtic: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic), cross_river_bank: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank)).void
+                    returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::GlobalAccountHolder))
                    }
-                  def initialize(account_holder: nil, celtic: nil, cross_river_bank: nil); end
+                  def global_account_holder; end
+                  sig {
+                    params(_global_account_holder: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::GlobalAccountHolder)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::GlobalAccountHolder))
+                   }
+                  def global_account_holder=(_global_account_holder); end
+                  # Terms of service acceptances for commercial issuing cards with Lead as BIN sponsor.
+                  sig {
+                    returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead))
+                   }
+                  def lead; end
+                  sig {
+                    params(_lead: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead))
+                   }
+                  def lead=(_lead); end
+                  sig {
+                    params(account_holder: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::AccountHolder), celtic: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic), cross_river_bank: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank), global_account_holder: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::GlobalAccountHolder), lead: T.nilable(V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Lead)).void
+                   }
+                  def initialize(
+                    account_holder: nil,
+                    celtic: nil,
+                    cross_river_bank: nil,
+                    global_account_holder: nil,
+                    lead: nil
+                  ); end
                 end
                 # Terms of service acceptances to create cards for commercial issuing use cases.
                 sig {

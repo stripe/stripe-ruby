@@ -67,6 +67,23 @@ module Stripe
                   end
                 end
 
+                class Lead < ::Stripe::RequestParams
+                  class PrepaidCard < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing prepaid cards with Lead as BIN sponsor.
+                  attr_accessor :prepaid_card
+
+                  def initialize(prepaid_card: nil)
+                    @prepaid_card = prepaid_card
+                  end
+                end
+
                 class Stripe < ::Stripe::RequestParams
                   class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -100,11 +117,14 @@ module Stripe
                 # Can create commercial issuing cards with Cross River Bank as BIN sponsor.
                 attr_accessor :cross_river_bank
                 # Can create commercial issuing cards with Stripe as BIN sponsor.
+                attr_accessor :lead
+                # Can create commercial issuing cards with Stripe as BIN sponsor.
                 attr_accessor :stripe
 
-                def initialize(celtic: nil, cross_river_bank: nil, stripe: nil)
+                def initialize(celtic: nil, cross_river_bank: nil, lead: nil, stripe: nil)
                   @celtic = celtic
                   @cross_river_bank = cross_river_bank
+                  @lead = lead
                   @stripe = stripe
                 end
               end
@@ -1815,17 +1835,111 @@ module Stripe
                       @spend_card = spend_card
                     end
                   end
+
+                  class GlobalAccountHolder < ::Stripe::RequestParams
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    attr_accessor :date
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    attr_accessor :ip
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    attr_accessor :user_agent
+
+                    def initialize(date: nil, ip: nil, user_agent: nil)
+                      @date = date
+                      @ip = ip
+                      @user_agent = user_agent
+                    end
+                  end
+
+                  class Lead < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class PrepaidCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Platform terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Lead as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing prepaid cards with Lead as BIN sponsor.
+                    attr_accessor :prepaid_card
+
+                    def initialize(apple_pay: nil, prepaid_card: nil)
+                      @apple_pay = apple_pay
+                      @prepaid_card = prepaid_card
+                    end
+                  end
                   # Terms of service acceptances for Stripe commercial card issuing.
                   attr_accessor :account_holder
                   # Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
                   attr_accessor :celtic
                   # Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
                   attr_accessor :cross_river_bank
+                  # Terms of service acceptances for Stripe commercial card Global issuing.
+                  attr_accessor :global_account_holder
+                  # Terms of service acceptances for commercial issuing cards with Lead as BIN sponsor.
+                  attr_accessor :lead
 
-                  def initialize(account_holder: nil, celtic: nil, cross_river_bank: nil)
+                  def initialize(
+                    account_holder: nil,
+                    celtic: nil,
+                    cross_river_bank: nil,
+                    global_account_holder: nil,
+                    lead: nil
+                  )
                     @account_holder = account_holder
                     @celtic = celtic
                     @cross_river_bank = cross_river_bank
+                    @global_account_holder = global_account_holder
+                    @lead = lead
                   end
                 end
                 # Terms of service acceptances to create cards for commercial issuing use cases.

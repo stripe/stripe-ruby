@@ -129,11 +129,11 @@ module Stripe
         sig { params(_key: String).returns(String) }
         def key=(_key); end
         # The quantity of the line item.
-        sig { returns(T.nilable(Integer)) }
+        sig { returns(Integer) }
         def quantity; end
-        sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        sig { params(_quantity: Integer).returns(Integer) }
         def quantity=(_quantity); end
-        sig { params(key: String, quantity: T.nilable(Integer)).void }
+        sig { params(key: String, quantity: Integer).void }
         def initialize(key: nil, quantity: nil); end
       end
       class PaymentMethodData < ::Stripe::RequestParams

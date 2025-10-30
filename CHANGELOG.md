@@ -1,5 +1,13 @@
 # Changelog
 
+## 17.2.0-alpha.2 - 2025-10-30
+* [#1719](https://github.com/stripe/stripe-ruby/pull/1719) Update generated code for private-preview
+  * Change `DelegatedCheckout::RequestedSessionUpdateParams::LineItemDetail.quantity` to be required
+  * Add support for `payment_method_preview` on `DelegatedCheckout::RequestedSession`
+  * Add support for `order_id` on `DelegatedCheckout::RequestedSession::OrderDetail`
+  * Add support for `lead` on `V2::Core::Account::Configuration::CardCreator::Capability::Commercial`, `V2::Core::Account::Identity::Attestation::TermsOfService::CardCreator::Commercial`, `V2::Core::AccountCreateParams::Configuration::CardCreator::Capability::Commercial`, `V2::Core::AccountCreateParams::Identity::Attestation::TermsOfService::CardCreator::Commercial`, `V2::Core::AccountUpdateParams::Configuration::CardCreator::Capability::Commercial`, and `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService::CardCreator::Commercial`
+  * Add support for `global_account_holder` on `V2::Core::Account::Identity::Attestation::TermsOfService::CardCreator::Commercial`, `V2::Core::AccountCreateParams::Identity::Attestation::TermsOfService::CardCreator::Commercial`, and `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService::CardCreator::Commercial`
+
 ## 17.2.0-alpha.1 - 2025-10-29
 
 * [#1713](https://github.com/stripe/stripe-ruby/pull/1713) Update generated code for private-preview

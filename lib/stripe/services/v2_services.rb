@@ -3,7 +3,7 @@
 
 module Stripe
   class V2Services < StripeService
-    attr_reader :billing, :core, :money_management, :payments, :tax, :test_helpers
+    attr_reader :billing, :core, :money_management, :payments, :reporting, :tax, :test_helpers
 
     def initialize(requestor)
       super
@@ -11,6 +11,7 @@ module Stripe
       @core = Stripe::V2::CoreService.new(@requestor)
       @money_management = Stripe::V2::MoneyManagementService.new(@requestor)
       @payments = Stripe::V2::PaymentService.new(@requestor)
+      @reporting = Stripe::V2::ReportingService.new(@requestor)
       @tax = Stripe::V2::TaxService.new(@requestor)
       @test_helpers = Stripe::V2::TestHelperService.new(@requestor)
     end

@@ -34,7 +34,7 @@ module Stripe
               attr_reader :ip_address
               # The customer’s identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
               attr_reader :location
-              # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               attr_reader :location_source
 
               def self.inner_class_types
@@ -1833,6 +1833,93 @@ module Stripe
               end
             end
 
+            class KonbiniPayments < ::Stripe::StripeObject
+              class Support < ::Stripe::StripeObject
+                class Hours < ::Stripe::StripeObject
+                  # Support hours end time (JST time of day) for in `HH:MM` format.
+                  attr_reader :end_time
+                  # Support hours start time (JST time of day) for in `HH:MM` format.
+                  attr_reader :start_time
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Support email address for Konbini payments.
+                attr_reader :email
+                # Support hours for Konbini payments.
+                attr_reader :hours
+                # Support phone number for Konbini payments.
+                attr_reader :phone
+
+                def self.inner_class_types
+                  @inner_class_types = { hours: Hours }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Support for Konbini payments.
+              attr_reader :support
+
+              def self.inner_class_types
+                @inner_class_types = { support: Support }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class ScriptStatementDescriptor < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :prefix
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class Kanji < ::Stripe::StripeObject
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :prefix
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_reader :kana
+              # The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_reader :kanji
+
+              def self.inner_class_types
+                @inner_class_types = { kana: Kana, kanji: Kanji }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class SepaDebitPayments < ::Stripe::StripeObject
               # Creditor ID for SEPA debit payments.
               attr_reader :creditor_id
@@ -1913,8 +2000,12 @@ module Stripe
             attr_reader :capabilities
             # Card payments settings.
             attr_reader :card_payments
+            # Settings specific to Konbini payments on the account.
+            attr_reader :konbini_payments
             # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
             attr_reader :mcc
+            # Settings for the default text that appears on statements for language variations.
+            attr_reader :script_statement_descriptor
             # Settings used for SEPA debit payments.
             attr_reader :sepa_debit_payments
             # Statement descriptor.
@@ -1928,6 +2019,8 @@ module Stripe
                 branding: Branding,
                 capabilities: Capabilities,
                 card_payments: CardPayments,
+                konbini_payments: KonbiniPayments,
+                script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
                 statement_descriptor: StatementDescriptor,
                 support: Support,
@@ -2222,6 +2315,37 @@ module Stripe
               end
 
               class HoldsCurrencies < ::Stripe::StripeObject
+                class Eur < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
                 class Gbp < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2283,13 +2407,15 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                # Can hold storage-type funds on Stripe in EUR.
+                attr_reader :eur
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_reader :gbp
                 # Can hold storage-type funds on Stripe in USD.
                 attr_reader :usd
 
                 def self.inner_class_types
-                  @inner_class_types = { gbp: Gbp, usd: Usd }
+                  @inner_class_types = { eur: Eur, gbp: Gbp, usd: Usd }
                 end
 
                 def self.field_remappings

@@ -19,7 +19,7 @@ module Stripe
               def ip_address; end
               sig { params(_ip_address: T.nilable(String)).returns(T.nilable(String)) }
               def ip_address=(_ip_address); end
-              # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               sig { returns(T.nilable(String)) }
               def location_source; end
               sig { params(_location_source: T.nilable(String)).returns(T.nilable(String)) }
@@ -1194,6 +1194,112 @@ module Stripe
                }
               def initialize(decline_on: nil); end
             end
+            class KonbiniPayments < ::Stripe::RequestParams
+              class Support < ::Stripe::RequestParams
+                class Hours < ::Stripe::RequestParams
+                  # Support hours end time (JST time of day) for in `HH:MM` format.
+                  sig { returns(T.nilable(String)) }
+                  def end_time; end
+                  sig { params(_end_time: T.nilable(String)).returns(T.nilable(String)) }
+                  def end_time=(_end_time); end
+                  # Support hours start time (JST time of day) for in `HH:MM` format.
+                  sig { returns(T.nilable(String)) }
+                  def start_time; end
+                  sig { params(_start_time: T.nilable(String)).returns(T.nilable(String)) }
+                  def start_time=(_start_time); end
+                  sig { params(end_time: T.nilable(String), start_time: T.nilable(String)).void }
+                  def initialize(end_time: nil, start_time: nil); end
+                end
+                # Support email address for Konbini payments.
+                sig { returns(T.nilable(String)) }
+                def email; end
+                sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+                def email=(_email); end
+                # Support hours for Konbini payments.
+                sig {
+                  returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support::Hours))
+                 }
+                def hours; end
+                sig {
+                  params(_hours: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support::Hours)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support::Hours))
+                 }
+                def hours=(_hours); end
+                # Support phone number for Konbini payments.
+                sig { returns(T.nilable(String)) }
+                def phone; end
+                sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+                def phone=(_phone); end
+                sig {
+                  params(email: T.nilable(String), hours: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support::Hours), phone: T.nilable(String)).void
+                 }
+                def initialize(email: nil, hours: nil, phone: nil); end
+              end
+              # Support for Konbini payments.
+              sig {
+                returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support))
+               }
+              def support; end
+              sig {
+                params(_support: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support))
+               }
+              def support=(_support); end
+              sig {
+                params(support: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments::Support)).void
+               }
+              def initialize(support: nil); end
+            end
+            class ScriptStatementDescriptor < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def descriptor; end
+                sig { params(_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+                def descriptor=(_descriptor); end
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def prefix; end
+                sig { params(_prefix: T.nilable(String)).returns(T.nilable(String)) }
+                def prefix=(_prefix); end
+                sig { params(descriptor: T.nilable(String), prefix: T.nilable(String)).void }
+                def initialize(descriptor: nil, prefix: nil); end
+              end
+              class Kanji < ::Stripe::RequestParams
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def descriptor; end
+                sig { params(_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+                def descriptor=(_descriptor); end
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def prefix; end
+                sig { params(_prefix: T.nilable(String)).returns(T.nilable(String)) }
+                def prefix=(_prefix); end
+                sig { params(descriptor: T.nilable(String), prefix: T.nilable(String)).void }
+                def initialize(descriptor: nil, prefix: nil); end
+              end
+              # The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              sig {
+                returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana))
+               }
+              def kana; end
+              sig {
+                params(_kana: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana))
+               }
+              def kana=(_kana); end
+              # The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              sig {
+                returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji))
+               }
+              def kanji; end
+              sig {
+                params(_kanji: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji))
+               }
+              def kanji=(_kanji); end
+              sig {
+                params(kana: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana), kanji: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji)).void
+               }
+              def initialize(kana: nil, kanji: nil); end
+            end
             class StatementDescriptor < ::Stripe::RequestParams
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               sig { returns(T.nilable(String)) }
@@ -1328,11 +1434,29 @@ module Stripe
               params(_card_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::CardPayments)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::CardPayments))
              }
             def card_payments=(_card_payments); end
+            # Settings specific to Konbini payments on the account.
+            sig {
+              returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments))
+             }
+            def konbini_payments; end
+            sig {
+              params(_konbini_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments))
+             }
+            def konbini_payments=(_konbini_payments); end
             # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
             sig { returns(T.nilable(String)) }
             def mcc; end
             sig { params(_mcc: T.nilable(String)).returns(T.nilable(String)) }
             def mcc=(_mcc); end
+            # Settings for the default text that appears on statements for language variations.
+            sig {
+              returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor))
+             }
+            def script_statement_descriptor; end
+            sig {
+              params(_script_statement_descriptor: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor))
+             }
+            def script_statement_descriptor=(_script_statement_descriptor); end
             # Statement descriptor.
             sig {
               returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor))
@@ -1352,7 +1476,7 @@ module Stripe
              }
             def support=(_support); end
             sig {
-              params(applied: T.nilable(T::Boolean), bacs_debit_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::Branding), capabilities: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::CardPayments), mcc: T.nilable(String), statement_descriptor: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::Support)).void
+              params(applied: T.nilable(T::Boolean), bacs_debit_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::Branding), capabilities: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor), statement_descriptor: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::Support)).void
              }
             def initialize(
               applied: nil,
@@ -1360,7 +1484,9 @@ module Stripe
               branding: nil,
               capabilities: nil,
               card_payments: nil,
+              konbini_payments: nil,
               mcc: nil,
+              script_statement_descriptor: nil,
               statement_descriptor: nil,
               support: nil
             ); end
@@ -1527,6 +1653,15 @@ module Stripe
                 def initialize(bank_accounts: nil); end
               end
               class HoldsCurrencies < ::Stripe::RequestParams
+                class Eur < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
                 class Gbp < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
@@ -1545,6 +1680,15 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
+                # Can hold storage-type funds on Stripe in EUR.
+                sig {
+                  returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur))
+                 }
+                def eur; end
+                sig {
+                  params(_eur: T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur))
+                 }
+                def eur=(_eur); end
                 # Can hold storage-type funds on Stripe in GBP.
                 sig {
                   returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
@@ -1564,9 +1708,9 @@ module Stripe
                  }
                 def usd=(_usd); end
                 sig {
-                  params(gbp: T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp), usd: T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).void
+                  params(eur: T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur), gbp: T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp), usd: T.nilable(V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).void
                  }
-                def initialize(gbp: nil, usd: nil); end
+                def initialize(eur: nil, gbp: nil, usd: nil); end
               end
               class InboundTransfers < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams

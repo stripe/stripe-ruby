@@ -130,6 +130,47 @@ module Stripe
         )
       end
 
+      def test_helpers
+        TestHelpers.new(self)
+      end
+
+      class TestHelpers < APIResourceTestHelpers
+        RESOURCE_CLASS = FinancingOffer
+        def self.resource_class
+          "FinancingOffer"
+        end
+
+        # Creates a test financing offer for a connected account.
+        def self.create(params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: "/v1/test_helpers/capital/financing_offers",
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Refills a test financing offer for a connected account.
+        def self.refill(financing_offer, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/capital/financing_offers/%<financing_offer>s/refill", { financing_offer: CGI.escape(financing_offer) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Refills a test financing offer for a connected account.
+        def refill(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/capital/financing_offers/%<financing_offer>s/refill", { financing_offer: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+      end
+
       def self.inner_class_types
         @inner_class_types = { accepted_terms: AcceptedTerms, offered_terms: OfferedTerms }
       end

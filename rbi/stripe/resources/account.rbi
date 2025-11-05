@@ -1035,7 +1035,7 @@ module Stripe
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def default_account_tax_ids; end
-        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+        # Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
         sig { returns(T.nilable(String)) }
         def hosted_payment_method_save; end
         def self.inner_class_types

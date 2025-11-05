@@ -3179,6 +3179,15 @@ module Stripe
           sig { params(requested_priority: T.nilable(String)).void }
           def initialize(requested_priority: nil); end
         end
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_method=(_capture_method); end
         # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         sig { returns(T.nilable(T::Boolean)) }
         def request_extended_authorization; end
@@ -3205,9 +3214,10 @@ module Stripe
          }
         def routing=(_routing); end
         sig {
-          params(request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), routing: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::Routing)).void
+          params(capture_method: T.nilable(String), request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), routing: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::Routing)).void
          }
         def initialize(
+          capture_method: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
           routing: nil
@@ -4115,7 +4125,7 @@ module Stripe
           def amount; end
           sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def amount=(_amount); end
-          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
           sig { returns(T.nilable(String)) }
           def amount_type; end
           sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -4125,7 +4135,7 @@ module Stripe
           def end_date; end
           sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
           def end_date=(_end_date); end
-          # The periodicity at which payments will be collected.
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
           sig { returns(T.nilable(String)) }
           def payment_schedule; end
           sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
@@ -4135,7 +4145,7 @@ module Stripe
           def payments_per_period; end
           sig { params(_payments_per_period: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def payments_per_period=(_payments_per_period); end
-          # The purpose for which payments are made. Defaults to retail.
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
           sig { returns(T.nilable(String)) }
           def purpose; end
           sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }

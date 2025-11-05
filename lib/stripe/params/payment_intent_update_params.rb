@@ -3,6 +3,15 @@
 
 module Stripe
   class PaymentIntentUpdateParams < ::Stripe::RequestParams
+    class AllocatedFunds < ::Stripe::RequestParams
+      # Whether Allocated Funds creation is enabled for this PaymentIntent.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
+      end
+    end
+
     class AmountDetails < ::Stripe::RequestParams
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
@@ -3725,6 +3734,8 @@ module Stripe
     attr_accessor :transfer_data
     # A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     attr_accessor :transfer_group
+    # Allocated Funds configuration for this PaymentIntent.
+    attr_accessor :allocated_funds
 
     def initialize(
       amount: nil,
@@ -3753,7 +3764,8 @@ module Stripe
       statement_descriptor: nil,
       statement_descriptor_suffix: nil,
       transfer_data: nil,
-      transfer_group: nil
+      transfer_group: nil,
+      allocated_funds: nil
     )
       @amount = amount
       @amount_details = amount_details
@@ -3782,6 +3794,7 @@ module Stripe
       @statement_descriptor_suffix = statement_descriptor_suffix
       @transfer_data = transfer_data
       @transfer_group = transfer_group
+      @allocated_funds = allocated_funds
     end
   end
 end

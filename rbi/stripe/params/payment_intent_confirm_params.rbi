@@ -4,6 +4,15 @@
 # typed: true
 module Stripe
   class PaymentIntentConfirmParams < ::Stripe::RequestParams
+    class AllocatedFunds < ::Stripe::RequestParams
+      # Whether Allocated Funds creation is enabled for this PaymentIntent.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
+      sig { params(enabled: T.nilable(T::Boolean)).void }
+      def initialize(enabled: nil); end
+    end
     class AmountDetails < ::Stripe::RequestParams
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
@@ -5608,8 +5617,15 @@ module Stripe
     def use_stripe_sdk; end
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
+    # Allocated Funds configuration for this PaymentIntent.
+    sig { returns(T.nilable(PaymentIntentConfirmParams::AllocatedFunds)) }
+    def allocated_funds; end
     sig {
-      params(amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(_allocated_funds: T.nilable(PaymentIntentConfirmParams::AllocatedFunds)).returns(T.nilable(PaymentIntentConfirmParams::AllocatedFunds))
+     }
+    def allocated_funds=(_allocated_funds); end
+    sig {
+      params(amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean), allocated_funds: T.nilable(PaymentIntentConfirmParams::AllocatedFunds)).void
      }
     def initialize(
       amount_details: nil,
@@ -5634,7 +5650,8 @@ module Stripe
       return_url: nil,
       setup_future_usage: nil,
       shipping: nil,
-      use_stripe_sdk: nil
+      use_stripe_sdk: nil,
+      allocated_funds: nil
     ); end
   end
 end

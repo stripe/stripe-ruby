@@ -2677,6 +2677,9 @@ module Stripe
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     sig { returns(T.nilable(String)) }
     def transfer_group; end
+    # Funds that are in transit and destined for another balance or another connected account.
+    sig { returns(T.nilable(::Stripe::TransitBalance)) }
+    def allocated_funds; end
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #
     # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.

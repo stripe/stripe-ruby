@@ -169,6 +169,7 @@ module Stripe
         Token.object_name => Token,
         Topup.object_name => Topup,
         Transfer.object_name => Transfer,
+        TransitBalance.object_name => TransitBalance,
         Treasury::CreditReversal.object_name => Treasury::CreditReversal,
         Treasury::DebitReversal.object_name => Treasury::DebitReversal,
         Treasury::FinancialAccount.object_name => Treasury::FinancialAccount,

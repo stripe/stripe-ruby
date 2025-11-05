@@ -5,7 +5,7 @@ module Stripe
   module Terminal
     class ConfigurationUpdateParams < ::Stripe::RequestParams
       class BbposWisepad3 < ::Stripe::RequestParams
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image you want to display on the reader.
         attr_accessor :splashscreen
 
         def initialize(splashscreen: nil)
@@ -44,7 +44,7 @@ module Stripe
       end
 
       class StripeS700 < ::Stripe::RequestParams
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image you want to display on the reader.
         attr_accessor :splashscreen
 
         def initialize(splashscreen: nil)
@@ -477,7 +477,7 @@ module Stripe
       end
 
       class VerifoneP400 < ::Stripe::RequestParams
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image you want to display on the reader.
         attr_accessor :splashscreen
 
         def initialize(splashscreen: nil)
@@ -563,9 +563,9 @@ module Stripe
           @type = type
         end
       end
-      # An object containing device type specific settings for BBPOS WisePad 3 readers
+      # An object containing device type specific settings for BBPOS WisePad 3 readers.
       attr_accessor :bbpos_wisepad3
-      # An object containing device type specific settings for BBPOS WisePOS E readers
+      # An object containing device type specific settings for BBPOS WisePOS E readers.
       attr_accessor :bbpos_wisepos_e
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
@@ -573,13 +573,13 @@ module Stripe
       attr_accessor :name
       # Configurations for collecting transactions offline.
       attr_accessor :offline
-      # Reboot time settings for readers that support customized reboot time configuration.
+      # Reboot time settings for readers. that support customized reboot time configuration.
       attr_accessor :reboot_window
-      # An object containing device type specific settings for Stripe S700 readers
+      # An object containing device type specific settings for Stripe S700 readers.
       attr_accessor :stripe_s700
-      # Tipping configurations for readers supporting on-reader tips
+      # Tipping configurations for readers. supporting on-reader tips
       attr_accessor :tipping
-      # An object containing device type specific settings for Verifone P400 readers
+      # An object containing device type specific settings for Verifone P400 readers.
       attr_accessor :verifone_p400
       # Configurations for connecting to a WiFi network.
       attr_accessor :wifi

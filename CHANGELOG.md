@@ -1,4 +1,8 @@
 # Changelog
+## 17.2.0 - 2025-11-05
+* [#1721](https://github.com/stripe/stripe-ruby/pull/1721) Update generated code
+  * Add support for `capture_method` on `PaymentIntent::PaymentMethodOption::CardPresent`, `PaymentIntentConfirmParams::PaymentMethodOption::CardPresent`, `PaymentIntentCreateParams::PaymentMethodOption::CardPresent`, and `PaymentIntentUpdateParams::PaymentMethodOption::CardPresent`
+
 ## 17.1.0 - 2025-10-29
 
 This release changes the pinned API version to `2025-10-29.clover`.

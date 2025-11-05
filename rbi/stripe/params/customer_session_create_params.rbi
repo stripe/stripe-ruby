@@ -258,7 +258,7 @@ module Stripe
         pricing_table: nil
       ); end
     end
-    # Configuration for each component. Exactly 1 component must be enabled.
+    # Configuration for each component. At least 1 component must be enabled.
     sig { returns(CustomerSessionCreateParams::Components) }
     def components; end
     sig {

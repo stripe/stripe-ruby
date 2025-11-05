@@ -1702,6 +1702,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
         # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         sig { returns(T.nilable(T::Boolean)) }
         def request_extended_authorization; end

@@ -6,7 +6,7 @@ module Stripe
   module Terminal
     class ConfigurationUpdateParams < ::Stripe::RequestParams
       class BbposWisepad3 < ::Stripe::RequestParams
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image you want to display on the reader.
         sig { returns(T.nilable(String)) }
         def splashscreen; end
         sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
@@ -47,7 +47,7 @@ module Stripe
         def initialize(end_hour: nil, start_hour: nil); end
       end
       class StripeS700 < ::Stripe::RequestParams
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image you want to display on the reader.
         sig { returns(T.nilable(String)) }
         def splashscreen; end
         sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
@@ -789,7 +789,7 @@ module Stripe
         ); end
       end
       class VerifoneP400 < ::Stripe::RequestParams
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image you want to display on the reader.
         sig { returns(T.nilable(String)) }
         def splashscreen; end
         sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
@@ -911,14 +911,14 @@ module Stripe
           type: nil
         ); end
       end
-      # An object containing device type specific settings for BBPOS WisePad 3 readers
+      # An object containing device type specific settings for BBPOS WisePad 3 readers.
       sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWisepad3))) }
       def bbpos_wisepad3; end
       sig {
         params(_bbpos_wisepad3: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWisepad3))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWisepad3)))
        }
       def bbpos_wisepad3=(_bbpos_wisepad3); end
-      # An object containing device type specific settings for BBPOS WisePOS E readers
+      # An object containing device type specific settings for BBPOS WisePOS E readers.
       sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWiseposE))) }
       def bbpos_wisepos_e; end
       sig {
@@ -942,28 +942,28 @@ module Stripe
         params(_offline: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Offline))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Offline)))
        }
       def offline=(_offline); end
-      # Reboot time settings for readers that support customized reboot time configuration.
+      # Reboot time settings for readers. that support customized reboot time configuration.
       sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::RebootWindow))) }
       def reboot_window; end
       sig {
         params(_reboot_window: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::RebootWindow))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::RebootWindow)))
        }
       def reboot_window=(_reboot_window); end
-      # An object containing device type specific settings for Stripe S700 readers
+      # An object containing device type specific settings for Stripe S700 readers.
       sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::StripeS700))) }
       def stripe_s700; end
       sig {
         params(_stripe_s700: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::StripeS700))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::StripeS700)))
        }
       def stripe_s700=(_stripe_s700); end
-      # Tipping configurations for readers supporting on-reader tips
+      # Tipping configurations for readers. supporting on-reader tips
       sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Tipping))) }
       def tipping; end
       sig {
         params(_tipping: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Tipping))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Tipping)))
        }
       def tipping=(_tipping); end
-      # An object containing device type specific settings for Verifone P400 readers
+      # An object containing device type specific settings for Verifone P400 readers.
       sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::VerifoneP400))) }
       def verifone_p400; end
       sig {

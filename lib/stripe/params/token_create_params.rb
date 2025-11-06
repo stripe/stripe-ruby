@@ -462,6 +462,30 @@ module Stripe
           end
         end
 
+        class SelfReportedIncome < ::Stripe::RequestParams
+          # Attribute for param field amount
+          attr_accessor :amount
+          # Attribute for param field currency
+          attr_accessor :currency
+
+          def initialize(amount: nil, currency: nil)
+            @amount = amount
+            @currency = currency
+          end
+        end
+
+        class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+          # Attribute for param field amount
+          attr_accessor :amount
+          # Attribute for param field currency
+          attr_accessor :currency
+
+          def initialize(amount: nil, currency: nil)
+            @amount = amount
+            @currency = currency
+          end
+        end
+
         class Verification < ::Stripe::RequestParams
           class AdditionalDocument < ::Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -542,6 +566,10 @@ module Stripe
         attr_accessor :ssn_last_4
         # The individual's verification document information.
         attr_accessor :verification
+        # The credit applicant's self-reported yearly income in minor units.
+        attr_accessor :self_reported_income
+        # The credit applicant's self-reported monthly housing payment in minor units.
+        attr_accessor :self_reported_monthly_housing_payment
 
         def initialize(
           address: nil,
@@ -566,7 +594,9 @@ module Stripe
           registered_address: nil,
           relationship: nil,
           ssn_last_4: nil,
-          verification: nil
+          verification: nil,
+          self_reported_income: nil,
+          self_reported_monthly_housing_payment: nil
         )
           @address = address
           @address_kana = address_kana
@@ -591,6 +621,8 @@ module Stripe
           @relationship = relationship
           @ssn_last_4 = ssn_last_4
           @verification = verification
+          @self_reported_income = self_reported_income
+          @self_reported_monthly_housing_payment = self_reported_monthly_housing_payment
         end
       end
       # The business type.
@@ -976,6 +1008,30 @@ module Stripe
         end
       end
 
+      class SelfReportedIncome < ::Stripe::RequestParams
+        # Attribute for param field amount
+        attr_accessor :amount
+        # Attribute for param field currency
+        attr_accessor :currency
+
+        def initialize(amount: nil, currency: nil)
+          @amount = amount
+          @currency = currency
+        end
+      end
+
+      class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+        # Attribute for param field amount
+        attr_accessor :amount
+        # Attribute for param field currency
+        attr_accessor :currency
+
+        def initialize(amount: nil, currency: nil)
+          @amount = amount
+          @currency = currency
+        end
+      end
+
       class UsCfpbData < ::Stripe::RequestParams
         class EthnicityDetails < ::Stripe::RequestParams
           # The persons ethnicity
@@ -1102,6 +1158,10 @@ module Stripe
       attr_accessor :us_cfpb_data
       # The person's verification status.
       attr_accessor :verification
+      # The credit applicant's self-reported yearly income in minor units.
+      attr_accessor :self_reported_income
+      # The credit applicant's self-reported monthly housing payment in minor units.
+      attr_accessor :self_reported_monthly_housing_payment
 
       def initialize(
         additional_tos_acceptances: nil,
@@ -1130,7 +1190,9 @@ module Stripe
         relationship: nil,
         ssn_last_4: nil,
         us_cfpb_data: nil,
-        verification: nil
+        verification: nil,
+        self_reported_income: nil,
+        self_reported_monthly_housing_payment: nil
       )
         @additional_tos_acceptances = additional_tos_acceptances
         @address = address
@@ -1159,6 +1221,8 @@ module Stripe
         @ssn_last_4 = ssn_last_4
         @us_cfpb_data = us_cfpb_data
         @verification = verification
+        @self_reported_income = self_reported_income
+        @self_reported_monthly_housing_payment = self_reported_monthly_housing_payment
       end
     end
 

@@ -395,6 +395,36 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class SelfReportedIncome < ::Stripe::StripeObject
+      # Amount in the minor currency unit (e.g., cents for USD)
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class SelfReportedMonthlyHousingPayment < ::Stripe::StripeObject
+      # Amount in the minor currency unit (e.g., cents for USD)
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The account the person is associated with.
     attr_reader :account
     # Attribute for field additional_tos_acceptances
@@ -459,6 +489,10 @@ module Stripe
     attr_reader :us_cfpb_data
     # Attribute for field verification
     attr_reader :verification
+    # Attribute for field self_reported_income
+    attr_reader :self_reported_income
+    # Attribute for field self_reported_monthly_housing_payment
+    attr_reader :self_reported_monthly_housing_payment
     # Always true for a deleted object
     attr_reader :deleted
 
@@ -496,6 +530,8 @@ module Stripe
         requirements: Requirements,
         us_cfpb_data: UsCfpbData,
         verification: Verification,
+        self_reported_income: SelfReportedIncome,
+        self_reported_monthly_housing_payment: SelfReportedMonthlyHousingPayment,
       }
     end
 

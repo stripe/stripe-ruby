@@ -6,7 +6,7 @@ module Stripe
   module TestHelpers
     module Capital
       class FinancingOfferCreateParams < ::Stripe::RequestParams
-        # Attribute for param field advance_amount
+        # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         sig { returns(Integer) }
         def advance_amount; end
         sig { params(_advance_amount: Integer).returns(Integer) }
@@ -16,22 +16,22 @@ module Stripe
         def expand; end
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
-        # Attribute for param field fee_amount
+        # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         sig { returns(Integer) }
         def fee_amount; end
         sig { params(_fee_amount: Integer).returns(Integer) }
         def fee_amount=(_fee_amount); end
-        # Attribute for param field financing_type
+        # The type of financing offer.
         sig { returns(String) }
         def financing_type; end
         sig { params(_financing_type: String).returns(String) }
         def financing_type=(_financing_type); end
-        # Attribute for param field status
+        # The status of the financing offer.
         sig { returns(T.nilable(String)) }
         def status; end
         sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
         def status=(_status); end
-        # Attribute for param field withhold_rate
+        # Per-transaction rate at which Stripe withholds funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end
         sig { params(_withhold_rate: Float).returns(Float) }

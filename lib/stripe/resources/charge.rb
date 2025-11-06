@@ -2467,6 +2467,8 @@ module Stripe
     attr_reader :transfer_data
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     attr_reader :transfer_group
+    # Funds that are in transit and destined for another balance or another connected account.
+    attr_reader :allocated_funds
 
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #

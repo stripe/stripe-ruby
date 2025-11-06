@@ -3,6 +3,15 @@
 
 module Stripe
   class PaymentIntentCreateParams < ::Stripe::RequestParams
+    class AllocatedFunds < ::Stripe::RequestParams
+      # Whether Allocated Funds creation is enabled for this PaymentIntent.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
+      end
+    end
+
     class AmountDetails < ::Stripe::RequestParams
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
@@ -3797,6 +3806,8 @@ module Stripe
     attr_accessor :transfer_group
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     attr_accessor :use_stripe_sdk
+    # Allocated Funds configuration for this PaymentIntent.
+    attr_accessor :allocated_funds
 
     def initialize(
       amount: nil,
@@ -3837,7 +3848,8 @@ module Stripe
       statement_descriptor_suffix: nil,
       transfer_data: nil,
       transfer_group: nil,
-      use_stripe_sdk: nil
+      use_stripe_sdk: nil,
+      allocated_funds: nil
     )
       @amount = amount
       @amount_details = amount_details
@@ -3878,6 +3890,7 @@ module Stripe
       @transfer_data = transfer_data
       @transfer_group = transfer_group
       @use_stripe_sdk = use_stripe_sdk
+      @allocated_funds = allocated_funds
     end
   end
 end

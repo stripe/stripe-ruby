@@ -169,6 +169,7 @@ module Stripe
         Token.object_name => Token,
         Topup.object_name => Topup,
         Transfer.object_name => Transfer,
+        TransitBalance.object_name => TransitBalance,
         Treasury::CreditReversal.object_name => Treasury::CreditReversal,
         Treasury::DebitReversal.object_name => Treasury::DebitReversal,
         Treasury::FinancialAccount.object_name => Treasury::FinancialAccount,
@@ -247,6 +248,8 @@ module Stripe
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Payments::OffSessionPayment.object_name => V2::Payments::OffSessionPayment,
+        V2::Reporting::Report.object_name => V2::Reporting::Report,
+        V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
         V2::Tax::AutomaticRule.object_name => V2::Tax::AutomaticRule,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }

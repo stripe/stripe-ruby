@@ -480,6 +480,11 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent,
         Events::V2PaymentsOffSessionPaymentSucceededEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentSucceededEvent,
+        Events::V2ReportingReportRunCreatedEvent.lookup_type => Events::V2ReportingReportRunCreatedEvent,
+        Events::V2ReportingReportRunFailedEvent.lookup_type => Events::V2ReportingReportRunFailedEvent,
+        Events::V2ReportingReportRunSucceededEvent.lookup_type =>
+        Events::V2ReportingReportRunSucceededEvent,
+        Events::V2ReportingReportRunUpdatedEvent.lookup_type => Events::V2ReportingReportRunUpdatedEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -1059,6 +1064,14 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
         Events::V2PaymentsOffSessionPaymentSucceededEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentSucceededEventNotification,
+        Events::V2ReportingReportRunCreatedEventNotification.lookup_type =>
+        Events::V2ReportingReportRunCreatedEventNotification,
+        Events::V2ReportingReportRunFailedEventNotification.lookup_type =>
+        Events::V2ReportingReportRunFailedEventNotification,
+        Events::V2ReportingReportRunSucceededEventNotification.lookup_type =>
+        Events::V2ReportingReportRunSucceededEventNotification,
+        Events::V2ReportingReportRunUpdatedEventNotification.lookup_type =>
+        Events::V2ReportingReportRunUpdatedEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

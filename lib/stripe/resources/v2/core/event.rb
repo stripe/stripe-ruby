@@ -47,6 +47,8 @@ module Stripe
         attr_reader :created
         # Unique identifier for the event.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Reason for the event.
@@ -55,8 +57,6 @@ module Stripe
         attr_reader :type
         # For interop events, this is the snapshot event ID.
         attr_reader :v1_event_id
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { reason: Reason }

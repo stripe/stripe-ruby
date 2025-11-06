@@ -4,6 +4,15 @@
 # typed: true
 module Stripe
   class PaymentIntentUpdateParams < ::Stripe::RequestParams
+    class AllocatedFunds < ::Stripe::RequestParams
+      # Whether Allocated Funds creation is enabled for this PaymentIntent.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
+      sig { params(enabled: T.nilable(T::Boolean)).void }
+      def initialize(enabled: nil); end
+    end
     class AmountDetails < ::Stripe::RequestParams
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
@@ -5614,8 +5623,15 @@ module Stripe
     def transfer_group; end
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
+    # Allocated Funds configuration for this PaymentIntent.
+    sig { returns(T.nilable(PaymentIntentUpdateParams::AllocatedFunds)) }
+    def allocated_funds; end
     sig {
-      params(amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(PaymentIntentUpdateParams::Hooks), mandate_data: T.nilable(PaymentIntentUpdateParams::MandateData), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String)).void
+      params(_allocated_funds: T.nilable(PaymentIntentUpdateParams::AllocatedFunds)).returns(T.nilable(PaymentIntentUpdateParams::AllocatedFunds))
+     }
+    def allocated_funds=(_allocated_funds); end
+    sig {
+      params(amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(PaymentIntentUpdateParams::Hooks), mandate_data: T.nilable(PaymentIntentUpdateParams::MandateData), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String), allocated_funds: T.nilable(PaymentIntentUpdateParams::AllocatedFunds)).void
      }
     def initialize(
       amount: nil,
@@ -5644,7 +5660,8 @@ module Stripe
       statement_descriptor: nil,
       statement_descriptor_suffix: nil,
       transfer_data: nil,
-      transfer_group: nil
+      transfer_group: nil,
+      allocated_funds: nil
     ); end
   end
 end

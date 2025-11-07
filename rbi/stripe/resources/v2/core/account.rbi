@@ -2803,6 +2803,9 @@ module Stripe
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
             sig { returns(String) }
             def losses_collector; end
+            # A value indicating responsibility for collecting requirements on this account.
+            sig { returns(String) }
+            def requirements_collector; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -4003,7 +4006,8 @@ module Stripe
               # If `resource` is the type, the resource token.
               sig { returns(T.nilable(String)) }
               def resource; end
-              # The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
               sig { returns(String) }
               def type; end
               def self.inner_class_types
@@ -4083,9 +4087,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # A value indicating responsibility for collecting requirements on this account.
-          sig { returns(String) }
-          def collector; end
           # A list of requirements for the Account.
           sig { returns(T.nilable(T::Array[Entry])) }
           def entries; end

@@ -3,11 +3,10 @@
 
 module Stripe
   module Events
-    # Sent after a failed authorization if there are still retries available on the OffSessionPayment.
-    # This event has been renamed this to attempt_failed, but we are keeping this around for backwards compatibility.
-    class V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent < Stripe::V2::Core::Event
+    # Sent after a failed attempt if there are still retries available on the OffSessionPayment.
+    class V2PaymentsOffSessionPaymentAttemptFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v2.payments.off_session_payment.authorization_attempt_failed"
+        "v2.payments.off_session_payment.attempt_failed"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -22,11 +21,10 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Sent after a failed authorization if there are still retries available on the OffSessionPayment.
-    # This event has been renamed this to attempt_failed, but we are keeping this around for backwards compatibility.
-    class V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification < Stripe::V2::Core::EventNotification
+    # Sent after a failed attempt if there are still retries available on the OffSessionPayment.
+    class V2PaymentsOffSessionPaymentAttemptFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v2.payments.off_session_payment.authorization_attempt_failed"
+        "v2.payments.off_session_payment.attempt_failed"
       end
 
       attr_reader :related_object

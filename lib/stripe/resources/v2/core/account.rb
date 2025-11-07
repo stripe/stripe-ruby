@@ -2741,6 +2741,8 @@ module Stripe
             attr_reader :fees_collector
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
             attr_reader :losses_collector
+            # A value indicating responsibility for collecting requirements on this account.
+            attr_reader :requirements_collector
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -3890,7 +3892,8 @@ module Stripe
               attr_reader :inquiry
               # If `resource` is the type, the resource token.
               attr_reader :resource
-              # The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
               attr_reader :type
 
               def self.inner_class_types
@@ -3970,8 +3973,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # A value indicating responsibility for collecting requirements on this account.
-          attr_reader :collector
           # A list of requirements for the Account.
           attr_reader :entries
           # An object containing an overview of requirements for the Account.

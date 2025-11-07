@@ -8955,10 +8955,7 @@ module Stripe
 
       off_session_payment = client.v2.payments.off_session_payments.capture(
         "id_123",
-        {
-          amount_to_capture: 1_374_310_455,
-          metadata: { key: "metadata" },
-        }
+        { metadata: { key: "metadata" } }
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
     end

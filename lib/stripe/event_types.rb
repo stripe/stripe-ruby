@@ -108,6 +108,10 @@ module Stripe
         Events::V2MoneyManagementTransactionCreatedEvent,
         Events::V2MoneyManagementTransactionUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementTransactionUpdatedEvent,
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEvent,
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEvent,
         Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
         Events::V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent.lookup_type =>
@@ -241,6 +245,10 @@ module Stripe
         Events::V2MoneyManagementTransactionCreatedEventNotification,
         Events::V2MoneyManagementTransactionUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementTransactionUpdatedEventNotification,
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEventNotification,
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEventNotification,
         Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
         Events::V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification.lookup_type =>

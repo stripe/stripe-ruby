@@ -5,86 +5,6 @@ module Stripe
   module V2
     module Payments
       class OffSessionPaymentCreateParams < ::Stripe::RequestParams
-        class AmountDetails < ::Stripe::RequestParams
-          class LineItem < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
-              # Total portion of the amount that is for tax.
-              attr_accessor :total_tax_amount
-
-              def initialize(total_tax_amount: nil)
-                @total_tax_amount = total_tax_amount
-              end
-            end
-            # The amount an item was discounted for. Positive integer.
-            attr_accessor :discount_amount
-            # Unique identifier of the product. At most 12 characters long.
-            attr_accessor :product_code
-            # Name of the product. At most 100 characters long.
-            attr_accessor :product_name
-            # Number of items of the product. Positive integer.
-            attr_accessor :quantity
-            # Contains information about the tax on the item.
-            attr_accessor :tax
-            # Cost of the product. Non-negative integer.
-            attr_accessor :unit_cost
-
-            def initialize(
-              discount_amount: nil,
-              product_code: nil,
-              product_name: nil,
-              quantity: nil,
-              tax: nil,
-              unit_cost: nil
-            )
-              @discount_amount = discount_amount
-              @product_code = product_code
-              @product_name = product_name
-              @quantity = quantity
-              @tax = tax
-              @unit_cost = unit_cost
-            end
-          end
-
-          class Shipping < ::Stripe::RequestParams
-            # Portion of the amount that is for shipping.
-            attr_accessor :amount
-            # The postal code that represents the shipping source.
-            attr_accessor :from_postal_code
-            # The postal code that represents the shipping destination.
-            attr_accessor :to_postal_code
-
-            def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
-              @amount = amount
-              @from_postal_code = from_postal_code
-              @to_postal_code = to_postal_code
-            end
-          end
-
-          class Tax < ::Stripe::RequestParams
-            # Total portion of the amount that is for tax.
-            attr_accessor :total_tax_amount
-
-            def initialize(total_tax_amount: nil)
-              @total_tax_amount = total_tax_amount
-            end
-          end
-          # The amount the total transaction was discounted for.
-          attr_accessor :discount_amount
-          # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-          attr_accessor :line_items
-          # Contains information about the shipping portion of the amount.
-          attr_accessor :shipping
-          # Contains information about the tax portion of the amount.
-          attr_accessor :tax
-
-          def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
-            @discount_amount = discount_amount
-            @line_items = line_items
-            @shipping = shipping
-            @tax = tax
-          end
-        end
-
         class Capture < ::Stripe::RequestParams
           # The method to use to capture the payment.
           attr_accessor :capture_method
@@ -157,14 +77,10 @@ module Stripe
         end
         # The “presentment amount” to be collected from the customer.
         attr_accessor :amount
-        # Provides industry-specific information about the amount.
-        attr_accessor :amount_details
         # The frequency of the underlying payment.
         attr_accessor :cadence
         # Details about the capture configuration for the OffSessionPayment.
         attr_accessor :capture
-        # Whether the OffSessionPayment should be captured automatically or manually.
-        attr_accessor :capture_method
         # ID of the Customer to which this OffSessionPayment belongs.
         attr_accessor :customer
         # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
@@ -198,10 +114,8 @@ module Stripe
 
         def initialize(
           amount: nil,
-          amount_details: nil,
           cadence: nil,
           capture: nil,
-          capture_method: nil,
           customer: nil,
           metadata: nil,
           on_behalf_of: nil,
@@ -215,10 +129,8 @@ module Stripe
           transfer_data: nil
         )
           @amount = amount
-          @amount_details = amount_details
           @cadence = cadence
           @capture = capture
-          @capture_method = capture_method
           @customer = customer
           @metadata = metadata
           @on_behalf_of = on_behalf_of

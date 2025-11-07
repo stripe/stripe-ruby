@@ -149,7 +149,7 @@ module Stripe
               attr_accessor :exempt
               # A recent IP address of the customer used for tax reporting and tax location inference.
               attr_accessor :ip_address
-              # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               attr_accessor :location_source
 
               def initialize(exempt: nil, ip_address: nil, location_source: nil)
@@ -930,6 +930,75 @@ module Stripe
               end
             end
 
+            class KonbiniPayments < ::Stripe::RequestParams
+              class Support < ::Stripe::RequestParams
+                class Hours < ::Stripe::RequestParams
+                  # Support hours end time (JST time of day) for in `HH:MM` format.
+                  attr_accessor :end_time
+                  # Support hours start time (JST time of day) for in `HH:MM` format.
+                  attr_accessor :start_time
+
+                  def initialize(end_time: nil, start_time: nil)
+                    @end_time = end_time
+                    @start_time = start_time
+                  end
+                end
+                # Support email address for Konbini payments.
+                attr_accessor :email
+                # Support hours for Konbini payments.
+                attr_accessor :hours
+                # Support phone number for Konbini payments.
+                attr_accessor :phone
+
+                def initialize(email: nil, hours: nil, phone: nil)
+                  @email = email
+                  @hours = hours
+                  @phone = phone
+                end
+              end
+              # Support for Konbini payments.
+              attr_accessor :support
+
+              def initialize(support: nil)
+                @support = support
+              end
+            end
+
+            class ScriptStatementDescriptor < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :prefix
+
+                def initialize(descriptor: nil, prefix: nil)
+                  @descriptor = descriptor
+                  @prefix = prefix
+                end
+              end
+
+              class Kanji < ::Stripe::RequestParams
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :prefix
+
+                def initialize(descriptor: nil, prefix: nil)
+                  @descriptor = descriptor
+                  @prefix = prefix
+                end
+              end
+              # The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_accessor :kana
+              # The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_accessor :kanji
+
+              def initialize(kana: nil, kanji: nil)
+                @kana = kana
+                @kanji = kanji
+              end
+            end
+
             class StatementDescriptor < ::Stripe::RequestParams
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               attr_accessor :descriptor
@@ -1001,8 +1070,12 @@ module Stripe
             attr_accessor :capabilities
             # Card payments settings.
             attr_accessor :card_payments
+            # Settings specific to Konbini payments on the account.
+            attr_accessor :konbini_payments
             # The merchant category code for the Merchant Configuration. MCCs are used to classify businesses based on the goods or services they provide.
             attr_accessor :mcc
+            # Settings for the default text that appears on statements for language variations.
+            attr_accessor :script_statement_descriptor
             # Statement descriptor.
             attr_accessor :statement_descriptor
             # Publicly available contact information for sending support issues to.
@@ -1013,7 +1086,9 @@ module Stripe
               branding: nil,
               capabilities: nil,
               card_payments: nil,
+              konbini_payments: nil,
               mcc: nil,
+              script_statement_descriptor: nil,
               statement_descriptor: nil,
               support: nil
             )
@@ -1021,7 +1096,9 @@ module Stripe
               @branding = branding
               @capabilities = capabilities
               @card_payments = card_payments
+              @konbini_payments = konbini_payments
               @mcc = mcc
+              @script_statement_descriptor = script_statement_descriptor
               @statement_descriptor = statement_descriptor
               @support = support
             end
@@ -1153,6 +1230,15 @@ module Stripe
               end
 
               class HoldsCurrencies < ::Stripe::RequestParams
+                class Eur < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
                 class Gbp < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
@@ -1179,6 +1265,8 @@ module Stripe
                     @requested = requested
                   end
                 end
+                # Can hold storage-type funds on Stripe in EUR.
+                attr_accessor :eur
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_accessor :gbp
                 # Can hold storage-type funds on Stripe in USD.
@@ -1186,7 +1274,8 @@ module Stripe
                 # Can hold storage-type funds on Stripe in USDC.
                 attr_accessor :usdc
 
-                def initialize(gbp: nil, usd: nil, usdc: nil)
+                def initialize(eur: nil, gbp: nil, usd: nil, usdc: nil)
+                  @eur = eur
                   @gbp = gbp
                   @usd = usd
                   @usdc = usdc

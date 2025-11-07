@@ -18,19 +18,13 @@ module Stripe
           def amount; end
           sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def amount=(_amount); end
-          # The account (if any) that the payment is attributed to for tax reporting, and
-          # where funds from the payment are transferred to after payment success.
-          sig { returns(String) }
-          def destination; end
-          sig { params(_destination: String).returns(String) }
-          def destination=(_destination); end
-          sig { params(amount: T.nilable(Integer), destination: String).void }
-          def initialize(amount: nil, destination: nil); end
+          sig { params(amount: T.nilable(Integer)).void }
+          def initialize(amount: nil); end
         end
         # The amount to capture.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def amount_to_capture; end
-        sig { params(_amount_to_capture: Integer).returns(Integer) }
+        sig { params(_amount_to_capture: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def amount_to_capture=(_amount_to_capture); end
         # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
@@ -63,7 +57,7 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount_to_capture: Integer, metadata: T::Hash[String, String], statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
+          params(amount_to_capture: T.nilable(Integer), metadata: T::Hash[String, String], statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
          }
         def initialize(
           amount_to_capture: nil,

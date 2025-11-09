@@ -38,6 +38,8 @@ module Stripe
         Events::V2CoreAccountPersonUpdatedEvent.lookup_type => Events::V2CoreAccountPersonUpdatedEvent,
         Events::V2CoreAccountUpdatedEvent.lookup_type => Events::V2CoreAccountUpdatedEvent,
         Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
+        Events::V2CoreHealthEventGenerationFailureResolvedEvent.lookup_type =>
+        Events::V2CoreHealthEventGenerationFailureResolvedEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
@@ -175,6 +177,8 @@ module Stripe
         Events::V2CoreAccountUpdatedEventNotification,
         Events::V2CoreEventDestinationPingEventNotification.lookup_type =>
         Events::V2CoreEventDestinationPingEventNotification,
+        Events::V2CoreHealthEventGenerationFailureResolvedEventNotification.lookup_type =>
+        Events::V2CoreHealthEventGenerationFailureResolvedEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>

@@ -171,6 +171,15 @@ module Stripe
       def product_description; end
       sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
       def product_description=(_product_description); end
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Used by the Checkout product and for Japanese payment methods.
+      sig { returns(T.nilable(String)) }
+      def specified_commercial_transactions_act_url; end
+      sig {
+        params(_specified_commercial_transactions_act_url: T.nilable(String)).returns(T.nilable(String))
+       }
+      def specified_commercial_transactions_act_url=(
+        _specified_commercial_transactions_act_url
+      ); end
       # A publicly available mailing address for sending support issues to.
       sig { returns(T.nilable(AccountCreateParams::BusinessProfile::SupportAddress)) }
       def support_address; end
@@ -199,7 +208,7 @@ module Stripe
       sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
       def url=(_url); end
       sig {
-        params(annual_revenue: T.nilable(AccountCreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(AccountCreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(AccountCreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
+        params(annual_revenue: T.nilable(AccountCreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(AccountCreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), specified_commercial_transactions_act_url: T.nilable(String), support_address: T.nilable(AccountCreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
        }
       def initialize(
         annual_revenue: nil,
@@ -209,6 +218,7 @@ module Stripe
         monthly_estimated_revenue: nil,
         name: nil,
         product_description: nil,
+        specified_commercial_transactions_act_url: nil,
         support_address: nil,
         support_email: nil,
         support_phone: nil,
@@ -3055,6 +3065,15 @@ module Stripe
          }
         def initialize(debit_negative_balances: nil, schedule: nil, statement_descriptor: nil); end
       end
+      class PaypayPayments < ::Stripe::RequestParams
+        # Whether your business sells digital content or not.
+        sig { returns(T.nilable(String)) }
+        def goods_type; end
+        sig { params(_goods_type: T.nilable(String)).returns(T.nilable(String)) }
+        def goods_type=(_goods_type); end
+        sig { params(goods_type: T.nilable(String)).void }
+        def initialize(goods_type: nil); end
+      end
       class TaxForms < ::Stripe::RequestParams
         # Whether the account opted out of receiving their tax forms by postal delivery.
         sig { returns(T.nilable(T::Boolean)) }
@@ -3163,6 +3182,13 @@ module Stripe
         params(_payouts: T.nilable(AccountCreateParams::Settings::Payouts)).returns(T.nilable(AccountCreateParams::Settings::Payouts))
        }
       def payouts=(_payouts); end
+      # Settings specific to the PayPay payments method.
+      sig { returns(T.nilable(AccountCreateParams::Settings::PaypayPayments)) }
+      def paypay_payments; end
+      sig {
+        params(_paypay_payments: T.nilable(AccountCreateParams::Settings::PaypayPayments)).returns(T.nilable(AccountCreateParams::Settings::PaypayPayments))
+       }
+      def paypay_payments=(_paypay_payments); end
       # Settings specific to the account's tax forms.
       sig { returns(T.nilable(AccountCreateParams::Settings::TaxForms)) }
       def tax_forms; end
@@ -3178,7 +3204,7 @@ module Stripe
        }
       def treasury=(_treasury); end
       sig {
-        params(bacs_debit_payments: T.nilable(AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(AccountCreateParams::Settings::Branding), capital: T.nilable(AccountCreateParams::Settings::Capital), card_issuing: T.nilable(AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(AccountCreateParams::Settings::CardPayments), invoices: T.nilable(AccountCreateParams::Settings::Invoices), payments: T.nilable(AccountCreateParams::Settings::Payments), payouts: T.nilable(AccountCreateParams::Settings::Payouts), tax_forms: T.nilable(AccountCreateParams::Settings::TaxForms), treasury: T.nilable(AccountCreateParams::Settings::Treasury)).void
+        params(bacs_debit_payments: T.nilable(AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(AccountCreateParams::Settings::Branding), capital: T.nilable(AccountCreateParams::Settings::Capital), card_issuing: T.nilable(AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(AccountCreateParams::Settings::CardPayments), invoices: T.nilable(AccountCreateParams::Settings::Invoices), payments: T.nilable(AccountCreateParams::Settings::Payments), payouts: T.nilable(AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(AccountCreateParams::Settings::PaypayPayments), tax_forms: T.nilable(AccountCreateParams::Settings::TaxForms), treasury: T.nilable(AccountCreateParams::Settings::Treasury)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3190,6 +3216,7 @@ module Stripe
         invoices: nil,
         payments: nil,
         payouts: nil,
+        paypay_payments: nil,
         tax_forms: nil,
         treasury: nil
       ); end

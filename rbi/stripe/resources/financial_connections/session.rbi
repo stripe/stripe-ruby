@@ -91,7 +91,7 @@ module Stripe
       sig { returns(::Stripe::ListObject) }
       def accounts; end
       # A value that will be passed to the client to launch the authentication flow.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def client_secret; end
       # Attribute for field filters
       sig { returns(T.nilable(Filters)) }

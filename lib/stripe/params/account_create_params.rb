@@ -110,6 +110,8 @@ module Stripe
       attr_accessor :name
       # Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
       attr_accessor :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Used by the Checkout product and for Japanese payment methods.
+      attr_accessor :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_accessor :support_address
       # A publicly available email address for sending support issues to.
@@ -129,6 +131,7 @@ module Stripe
         monthly_estimated_revenue: nil,
         name: nil,
         product_description: nil,
+        specified_commercial_transactions_act_url: nil,
         support_address: nil,
         support_email: nil,
         support_phone: nil,
@@ -142,6 +145,7 @@ module Stripe
         @monthly_estimated_revenue = monthly_estimated_revenue
         @name = name
         @product_description = product_description
+        @specified_commercial_transactions_act_url = specified_commercial_transactions_act_url
         @support_address = support_address
         @support_email = support_email
         @support_phone = support_phone
@@ -2212,6 +2216,15 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::RequestParams
+        # Whether your business sells digital content or not.
+        attr_accessor :goods_type
+
+        def initialize(goods_type: nil)
+          @goods_type = goods_type
+        end
+      end
+
       class TaxForms < ::Stripe::RequestParams
         # Whether the account opted out of receiving their tax forms by postal delivery.
         attr_accessor :consented_to_paperless_delivery
@@ -2261,6 +2274,8 @@ module Stripe
       attr_accessor :payments
       # Settings specific to the account's payouts.
       attr_accessor :payouts
+      # Settings specific to the PayPay payments method.
+      attr_accessor :paypay_payments
       # Settings specific to the account's tax forms.
       attr_accessor :tax_forms
       # Settings specific to the account's Treasury FinancialAccounts.
@@ -2276,6 +2291,7 @@ module Stripe
         invoices: nil,
         payments: nil,
         payouts: nil,
+        paypay_payments: nil,
         tax_forms: nil,
         treasury: nil
       )
@@ -2288,6 +2304,7 @@ module Stripe
         @invoices = invoices
         @payments = payments
         @payouts = payouts
+        @paypay_payments = paypay_payments
         @tax_forms = tax_forms
         @treasury = treasury
       end

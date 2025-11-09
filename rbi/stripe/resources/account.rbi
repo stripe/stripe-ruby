@@ -95,6 +95,9 @@ module Stripe
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       sig { returns(T.nilable(String)) }
       def product_description; end
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      sig { returns(T.nilable(String)) }
+      def specified_commercial_transactions_act_url; end
       # A publicly available mailing address for sending support issues to.
       sig { returns(T.nilable(SupportAddress)) }
       def support_address; end
@@ -1111,6 +1114,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PaypayPayments < ::Stripe::StripeObject
+        # Whether your business sells digital content or not.
+        sig { returns(T.nilable(String)) }
+        def goods_type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         sig { returns(T.nilable(String)) }
@@ -1191,6 +1205,9 @@ module Stripe
       # Attribute for field payouts
       sig { returns(T.nilable(Payouts)) }
       def payouts; end
+      # Attribute for field paypay_payments
+      sig { returns(T.nilable(PaypayPayments)) }
+      def paypay_payments; end
       # Attribute for field sepa_debit_payments
       sig { returns(T.nilable(SepaDebitPayments)) }
       def sepa_debit_payments; end
@@ -1212,6 +1229,7 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
           tax_forms: TaxForms,
           treasury: Treasury,

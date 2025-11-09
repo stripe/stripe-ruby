@@ -103,6 +103,8 @@ module Stripe
       attr_reader :name
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       attr_reader :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      attr_reader :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_reader :support_address
       # A publicly available email address for sending support issues to.
@@ -1010,6 +1012,19 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::StripeObject
+        # Whether your business sells digital content or not.
+        attr_reader :goods_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         attr_reader :creditor_id
@@ -1084,6 +1099,8 @@ module Stripe
       attr_reader :payments
       # Attribute for field payouts
       attr_reader :payouts
+      # Attribute for field paypay_payments
+      attr_reader :paypay_payments
       # Attribute for field sepa_debit_payments
       attr_reader :sepa_debit_payments
       # Attribute for field tax_forms
@@ -1103,6 +1120,7 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
           tax_forms: TaxForms,
           treasury: Treasury,

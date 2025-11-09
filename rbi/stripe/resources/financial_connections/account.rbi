@@ -23,6 +23,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AccountNumber < ::Stripe::StripeObject
+        # When the account number is expected to expire, if applicable.
+        sig { returns(T.nilable(Integer)) }
+        def expected_expiry_date; end
+        # The type of account number associated with the account.
+        sig { returns(String) }
+        def identifier_type; end
+        # Whether the account number is currently active and usable for transactions.
+        sig { returns(String) }
+        def status; end
+        # The payment networks that the account number can be used for.
+        sig { returns(T::Array[String]) }
+        def supported_networks; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Balance < ::Stripe::StripeObject
         class Cash < ::Stripe::StripeObject
           # The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
@@ -137,6 +157,9 @@ module Stripe
       # The account holder that this account belongs to.
       sig { returns(T.nilable(AccountHolder)) }
       def account_holder; end
+      # Details about the account numbers.
+      sig { returns(T.nilable(T::Array[AccountNumber])) }
+      def account_numbers; end
       # The most recent information about the account's balance.
       sig { returns(T.nilable(Balance)) }
       def balance; end

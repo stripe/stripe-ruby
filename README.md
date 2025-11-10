@@ -346,6 +346,8 @@ Stripe has features in the [private preview phase](https://docs.stripe.com/relea
 
 ### Custom requests
 
+> This feature is only available from version 13 of this SDK.
+
 If you:
 
 - would like to send a request to an undocumented API (for example you are in a private beta)

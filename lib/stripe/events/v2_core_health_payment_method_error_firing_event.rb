@@ -15,8 +15,6 @@ module Stripe
           attr_reader :error_code
           # The number of impacted requests.
           attr_reader :impacted_requests
-          # The percentage of impacted requests.
-          attr_reader :impacted_requests_percentage
           # The type of the payment method.
           attr_reader :payment_method_type
 

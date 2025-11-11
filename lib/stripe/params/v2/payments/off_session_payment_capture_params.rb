@@ -14,9 +14,13 @@ module Stripe
           # and must be a positive integer representing how much to transfer in the smallest
           # currency unit (e.g., 100 cents to charge $1.00).
           attr_accessor :amount
+          # The account (if any) that the payment is attributed to for tax reporting, and
+          # where funds from the payment are transferred to after payment success.
+          attr_accessor :destination
 
-          def initialize(amount: nil)
+          def initialize(amount: nil, destination: nil)
             @amount = amount
+            @destination = destination
           end
         end
         # The amount to capture.

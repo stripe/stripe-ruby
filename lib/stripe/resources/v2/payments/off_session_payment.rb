@@ -11,6 +11,89 @@ module Stripe
           "v2.payments.off_session_payment"
         end
 
+        class AmountDetails < ::Stripe::StripeObject
+          class LineItem < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Total portion of the amount that is for tax.
+              attr_reader :total_tax_amount
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The amount an item was discounted for. Positive integer.
+            attr_reader :discount_amount
+            # Unique identifier of the product. At most 12 characters long.
+            attr_reader :product_code
+            # Name of the product. At most 100 characters long.
+            attr_reader :product_name
+            # Number of items of the product. Positive integer.
+            attr_reader :quantity
+            # Contains information about the tax on the item.
+            attr_reader :tax
+            # Cost of the product. Non-negative integer.
+            attr_reader :unit_cost
+
+            def self.inner_class_types
+              @inner_class_types = { tax: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Shipping < ::Stripe::StripeObject
+            # Portion of the amount that is for shipping.
+            attr_reader :amount
+            # The postal code that represents the shipping source.
+            attr_reader :from_postal_code
+            # The postal code that represents the shipping destination.
+            attr_reader :to_postal_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < ::Stripe::StripeObject
+            # Total portion of the amount that is for tax.
+            attr_reader :total_tax_amount
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The amount the total transaction was discounted for.
+          attr_reader :discount_amount
+          # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+          attr_reader :line_items
+          # Contains information about the shipping portion of the amount.
+          attr_reader :shipping
+          # Contains information about the tax portion of the amount.
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { line_items: LineItem, shipping: Shipping, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Capture < ::Stripe::StripeObject
           # The timestamp when this payment is no longer eligible to be captured.
           attr_reader :capture_before
@@ -79,12 +162,16 @@ module Stripe
         end
         # The amount available to be captured.
         attr_reader :amount_capturable
+        # Provides industry-specific information about the amount.
+        attr_reader :amount_details
         # The “presentment amount” to be collected from the customer.
         attr_reader :amount_requested
         # The frequency of the underlying payment.
         attr_reader :cadence
         # Details about the capture configuration for the OffSessionPayment.
         attr_reader :capture
+        # Whether the OffSessionPayment should be captured automatically or manually.
+        attr_reader :capture_method
         # ID of the owning compartment.
         attr_reader :compartment_id
         # Creation time of the OffSessionPayment. Represented as a RFC 3339 date & time UTC
@@ -138,6 +225,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            amount_details: AmountDetails,
             capture: Capture,
             payments_orchestration: PaymentsOrchestration,
             retry_details: RetryDetails,

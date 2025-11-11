@@ -11,31 +11,19 @@ module Stripe
 
       class V2CoreHealthEventGenerationFailureResolvedEventData < ::Stripe::StripeObject
         class Impact < ::Stripe::StripeObject
-          class RelatedObject < ::Stripe::StripeObject
-            # The ID of the related object (e.g., "pi_...").
-            attr_reader :id
-            # The type of the related object (e.g., "payment_intent").
-            attr_reader :type
-            # The API URL for the related object (e.g., "/v1/payment_intents/pi_...").
-            attr_reader :url
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # The context the event should have been generated for. Only present when the account is a connected account.
-          attr_reader :context
+          # The account id the event should have been generated for. Only present when the account is a connected account.
+          attr_reader :account
           # The type of event that Stripe failed to generate.
           attr_reader :event_type
-          # The related object details.
-          attr_reader :related_object
+          # Indicates if the event was for livemode or not.
+          attr_reader :livemode
+          # The number of webhooks that Stripe failed to create and deliver.
+          attr_reader :missing_delivery_attempts
+          # The related object id.
+          attr_reader :related_object_id
 
           def self.inner_class_types
-            @inner_class_types = { related_object: RelatedObject }
+            @inner_class_types = {}
           end
 
           def self.field_remappings

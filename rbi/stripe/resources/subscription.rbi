@@ -104,7 +104,84 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class BillFrom < ::Stripe::StripeObject
+        class AmendmentStart < ::Stripe::StripeObject
+          # Use an index to specify the position of an amendment to start prebilling with.
+          sig { returns(Integer) }
+          def index; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class LineStartsAt < ::Stripe::StripeObject
+          # Unique identifier for the object.
+          sig { returns(String) }
+          def id; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Relative < ::Stripe::StripeObject
+          # Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
+          sig { returns(String) }
+          def interval; end
+          # The multiplier applied to the interval.
+          sig { returns(T.nilable(Integer)) }
+          def interval_count; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Use an index to specify the position of an amendment to start prebilling with.
+        sig { returns(T.nilable(AmendmentStart)) }
+        def amendment_start; end
+        # The time the billing schedule applies from.
+        sig { returns(T.nilable(Integer)) }
+        def computed_timestamp; end
+        # Lets you bill the period starting from a particular Quote line.
+        sig { returns(T.nilable(LineStartsAt)) }
+        def line_starts_at; end
+        # Timestamp is calculated from the request time.
+        sig { returns(T.nilable(Relative)) }
+        def relative; end
+        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        # Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            amendment_start: AmendmentStart,
+            line_starts_at: LineStartsAt,
+            relative: Relative,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class BillUntil < ::Stripe::StripeObject
+        class AmendmentEnd < ::Stripe::StripeObject
+          # Use an index to specify the position of an amendment to end prebilling with.
+          sig { returns(Integer) }
+          def index; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Duration < ::Stripe::StripeObject
           # Specifies billing duration. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
@@ -112,6 +189,17 @@ module Stripe
           # The multiplier applied to the interval.
           sig { returns(T.nilable(Integer)) }
           def interval_count; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class LineEndsAt < ::Stripe::StripeObject
+          # Unique identifier for the object.
+          sig { returns(String) }
+          def id; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -131,8 +219,18 @@ module Stripe
         # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
         sig { returns(String) }
         def type; end
+        # Use an index to specify the position of an amendment to end prebilling with.
+        sig { returns(T.nilable(AmendmentEnd)) }
+        def amendment_end; end
+        # Lets you bill the period ending at a particular Quote line.
+        sig { returns(T.nilable(LineEndsAt)) }
+        def line_ends_at; end
         def self.inner_class_types
-          @inner_class_types = {duration: Duration}
+          @inner_class_types = {
+            duration: Duration,
+            amendment_end: AmendmentEnd,
+            line_ends_at: LineEndsAt,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -147,8 +245,11 @@ module Stripe
       # Unique identifier for the billing schedule.
       sig { returns(String) }
       def key; end
+      # Specifies the start of the billing period.
+      sig { returns(T.nilable(BillFrom)) }
+      def bill_from; end
       def self.inner_class_types
-        @inner_class_types = {applies_to: AppliesTo, bill_until: BillUntil}
+        @inner_class_types = {applies_to: AppliesTo, bill_until: BillUntil, bill_from: BillFrom}
       end
       def self.field_remappings
         @field_remappings = {}

@@ -588,6 +588,173 @@ module Stripe
         end
       end
 
+      class BillingSchedule < ::Stripe::StripeObject
+        class AppliesTo < ::Stripe::StripeObject
+          # The billing schedule will apply to the subscription item with the given price ID.
+          attr_reader :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BillFrom < ::Stripe::StripeObject
+          class AmendmentStart < ::Stripe::StripeObject
+            # Use an index to specify the position of an amendment to start prebilling with.
+            attr_reader :index
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class LineStartsAt < ::Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Relative < ::Stripe::StripeObject
+            # Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
+            attr_reader :interval
+            # The multiplier applied to the interval.
+            attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Use an index to specify the position of an amendment to start prebilling with.
+          attr_reader :amendment_start
+          # The time the billing schedule applies from.
+          attr_reader :computed_timestamp
+          # Lets you bill the period starting from a particular Quote line.
+          attr_reader :line_starts_at
+          # Timestamp is calculated from the request time.
+          attr_reader :relative
+          # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
+          attr_reader :timestamp
+          # Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              amendment_start: AmendmentStart,
+              line_starts_at: LineStartsAt,
+              relative: Relative,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BillUntil < ::Stripe::StripeObject
+          class AmendmentEnd < ::Stripe::StripeObject
+            # Use an index to specify the position of an amendment to end prebilling with.
+            attr_reader :index
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Duration < ::Stripe::StripeObject
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_reader :interval
+            # The multiplier applied to the interval.
+            attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class LineEndsAt < ::Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The timestamp the billing schedule will apply until.
+          attr_reader :computed_timestamp
+          # Specifies the billing period.
+          attr_reader :duration
+          # If specified, the billing schedule will apply until the specified timestamp.
+          attr_reader :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_reader :type
+          # Use an index to specify the position of an amendment to end prebilling with.
+          attr_reader :amendment_end
+          # Lets you bill the period ending at a particular Quote line.
+          attr_reader :line_ends_at
+
+          def self.inner_class_types
+            @inner_class_types = {
+              duration: Duration,
+              amendment_end: AmendmentEnd,
+              line_ends_at: LineEndsAt,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Specifies which subscription items the billing schedule applies to.
+        attr_reader :applies_to
+        # Specifies the billing period.
+        attr_reader :bill_until
+        # Unique identifier for the billing schedule.
+        attr_reader :key
+        # Specifies the start of the billing period.
+        attr_reader :bill_from
+
+        def self.inner_class_types
+          @inner_class_types = { applies_to: AppliesTo, bill_until: BillUntil, bill_from: BillFrom }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Prebilling < ::Stripe::StripeObject
         # Attribute for field iterations
         attr_reader :iterations
@@ -624,12 +791,17 @@ module Stripe
       attr_reader :proration_behavior
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
+      # Billing schedules that will be applied to the subscription or subscription schedule created from this quote.
+      attr_reader :billing_schedules
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_reader :phase_effective_at
 
       def self.inner_class_types
         @inner_class_types = {
           bill_on_acceptance: BillOnAcceptance,
           billing_mode: BillingMode,
           prebilling: Prebilling,
+          billing_schedules: BillingSchedule,
         }
       end
 
@@ -748,6 +920,173 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class BillingSchedule < ::Stripe::StripeObject
+        class AppliesTo < ::Stripe::StripeObject
+          # The billing schedule will apply to the subscription item with the given price ID.
+          attr_reader :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BillFrom < ::Stripe::StripeObject
+          class AmendmentStart < ::Stripe::StripeObject
+            # Use an index to specify the position of an amendment to start prebilling with.
+            attr_reader :index
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class LineStartsAt < ::Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Relative < ::Stripe::StripeObject
+            # Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
+            attr_reader :interval
+            # The multiplier applied to the interval.
+            attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Use an index to specify the position of an amendment to start prebilling with.
+          attr_reader :amendment_start
+          # The time the billing schedule applies from.
+          attr_reader :computed_timestamp
+          # Lets you bill the period starting from a particular Quote line.
+          attr_reader :line_starts_at
+          # Timestamp is calculated from the request time.
+          attr_reader :relative
+          # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
+          attr_reader :timestamp
+          # Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              amendment_start: AmendmentStart,
+              line_starts_at: LineStartsAt,
+              relative: Relative,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BillUntil < ::Stripe::StripeObject
+          class AmendmentEnd < ::Stripe::StripeObject
+            # Use an index to specify the position of an amendment to end prebilling with.
+            attr_reader :index
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Duration < ::Stripe::StripeObject
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_reader :interval
+            # The multiplier applied to the interval.
+            attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class LineEndsAt < ::Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The timestamp the billing schedule will apply until.
+          attr_reader :computed_timestamp
+          # Specifies the billing period.
+          attr_reader :duration
+          # If specified, the billing schedule will apply until the specified timestamp.
+          attr_reader :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_reader :type
+          # Use an index to specify the position of an amendment to end prebilling with.
+          attr_reader :amendment_end
+          # Lets you bill the period ending at a particular Quote line.
+          attr_reader :line_ends_at
+
+          def self.inner_class_types
+            @inner_class_types = {
+              duration: Duration,
+              amendment_end: AmendmentEnd,
+              line_ends_at: LineEndsAt,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Specifies which subscription items the billing schedule applies to.
+        attr_reader :applies_to
+        # Specifies the billing period.
+        attr_reader :bill_until
+        # Unique identifier for the billing schedule.
+        attr_reader :key
+        # Specifies the start of the billing period.
+        attr_reader :bill_from
+
+        def self.inner_class_types
+          @inner_class_types = { applies_to: AppliesTo, bill_until: BillUntil, bill_from: BillFrom }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field applies_to
       attr_reader :applies_to
       # Describes the period to bill for upon accepting the quote.
@@ -762,9 +1101,17 @@ module Stripe
       attr_reader :end_behavior
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior
+      # Billing schedules that will be applied to the subscription or subscription schedule created from this quote.
+      attr_reader :billing_schedules
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_reader :phase_effective_at
 
       def self.inner_class_types
-        @inner_class_types = { applies_to: AppliesTo, bill_on_acceptance: BillOnAcceptance }
+        @inner_class_types = {
+          applies_to: AppliesTo,
+          bill_on_acceptance: BillOnAcceptance,
+          billing_schedules: BillingSchedule,
+        }
       end
 
       def self.field_remappings

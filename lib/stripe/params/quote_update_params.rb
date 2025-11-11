@@ -769,6 +769,102 @@ module Stripe
         end
       end
 
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of a Quote line to start the bill period from.
+          attr_accessor :line_starts_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_from` time.
+          attr_accessor :type
+
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil)
+            @line_starts_at = line_starts_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of the duration over which to bill.
+          attr_accessor :duration
+          # Details of a Quote line item from which to bill until.
+          attr_accessor :line_ends_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_until` time.
+          attr_accessor :type
+
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @line_ends_at = line_ends_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The start of the period to bill from when the Quote is accepted.
+        attr_accessor :bill_from
+        # The end of the period to bill until when the Quote is accepted.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_from: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_from = bill_from
+          @bill_until = bill_until
+          @key = key
+        end
+      end
+
       class Prebilling < ::Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         attr_accessor :iterations
@@ -803,6 +899,10 @@ module Stripe
       attr_accessor :proration_behavior
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_accessor :trial_period_days
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      attr_accessor :billing_schedules
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_accessor :phase_effective_at
 
       def initialize(
         bill_on_acceptance: nil,
@@ -814,7 +914,9 @@ module Stripe
         metadata: nil,
         prebilling: nil,
         proration_behavior: nil,
-        trial_period_days: nil
+        trial_period_days: nil,
+        billing_schedules: nil,
+        phase_effective_at: nil
       )
         @bill_on_acceptance = bill_on_acceptance
         @billing_behavior = billing_behavior
@@ -826,6 +928,8 @@ module Stripe
         @prebilling = prebilling
         @proration_behavior = proration_behavior
         @trial_period_days = trial_period_days
+        @billing_schedules = billing_schedules
+        @phase_effective_at = phase_effective_at
       end
     end
 
@@ -922,6 +1026,102 @@ module Stripe
           @bill_until = bill_until
         end
       end
+
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of a Quote line to start the bill period from.
+          attr_accessor :line_starts_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_from` time.
+          attr_accessor :type
+
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil)
+            @line_starts_at = line_starts_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of the duration over which to bill.
+          attr_accessor :duration
+          # Details of a Quote line item from which to bill until.
+          attr_accessor :line_ends_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_until` time.
+          attr_accessor :type
+
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @line_ends_at = line_ends_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The start of the period to bill from when the Quote is accepted.
+        attr_accessor :bill_from
+        # The end of the period to bill until when the Quote is accepted.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_from: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_from = bill_from
+          @bill_until = bill_until
+          @key = key
+        end
+      end
       # Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
       attr_accessor :applies_to
       # Describes the period to bill for upon accepting the quote.
@@ -942,6 +1142,10 @@ module Stripe
       #
       # Prorations can be disabled by passing `none`.
       attr_accessor :proration_behavior
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      attr_accessor :billing_schedules
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_accessor :phase_effective_at
 
       def initialize(
         applies_to: nil,
@@ -950,7 +1154,9 @@ module Stripe
         customer: nil,
         description: nil,
         end_behavior: nil,
-        proration_behavior: nil
+        proration_behavior: nil,
+        billing_schedules: nil,
+        phase_effective_at: nil
       )
         @applies_to = applies_to
         @bill_on_acceptance = bill_on_acceptance
@@ -959,6 +1165,8 @@ module Stripe
         @description = description
         @end_behavior = end_behavior
         @proration_behavior = proration_behavior
+        @billing_schedules = billing_schedules
+        @phase_effective_at = phase_effective_at
       end
     end
 

@@ -61,6 +61,9 @@ module Stripe
     # The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     sig { returns(T.nilable(String)) }
     def subscription_item; end
+    # The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
+    sig { returns(T.nilable(String)) }
+    def schedule; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

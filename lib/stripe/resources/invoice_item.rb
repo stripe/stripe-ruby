@@ -60,6 +60,19 @@ module Stripe
         end
       end
 
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The subscription schedule that generated this invoice item
+        attr_reader :schedule
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SubscriptionDetails < ::Stripe::StripeObject
         # The subscription that generated this invoice item
         attr_reader :subscription
@@ -82,12 +95,15 @@ module Stripe
       attr_reader :subscription_details
       # The type of parent that generated this invoice item
       attr_reader :type
+      # Details about the subscription schedule that generated this invoice item
+      attr_reader :schedule_details
 
       def self.inner_class_types
         @inner_class_types = {
           license_fee_subscription_details: LicenseFeeSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           subscription_details: SubscriptionDetails,
+          schedule_details: ScheduleDetails,
         }
       end
 

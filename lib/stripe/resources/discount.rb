@@ -52,6 +52,8 @@ module Stripe
     attr_reader :subscription
     # The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     attr_reader :subscription_item
+    # The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
+    attr_reader :schedule
     # Always true for a deleted object
     attr_reader :deleted
 

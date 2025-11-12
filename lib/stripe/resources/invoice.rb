@@ -356,6 +356,19 @@ module Stripe
         end
       end
 
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The schedule that generated this invoice
+        attr_reader :schedule
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SubscriptionDetails < ::Stripe::StripeObject
         class PauseCollection < ::Stripe::StripeObject
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
@@ -397,12 +410,15 @@ module Stripe
       attr_reader :subscription_details
       # The type of parent that generated this invoice
       attr_reader :type
+      # Details about the schedule that generated this invoice
+      attr_reader :schedule_details
 
       def self.inner_class_types
         @inner_class_types = {
           billing_cadence_details: BillingCadenceDetails,
           quote_details: QuoteDetails,
           subscription_details: SubscriptionDetails,
+          schedule_details: ScheduleDetails,
         }
       end
 

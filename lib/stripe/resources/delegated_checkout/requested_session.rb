@@ -189,15 +189,33 @@ module Stripe
       end
 
       class TotalDetails < ::Stripe::StripeObject
+        class ApplicableFee < ::Stripe::StripeObject
+          # The amount of the applicable fee.
+          attr_reader :amount
+          # The description of the applicable fee.
+          attr_reader :description
+          # The display name of the applicable fee.
+          attr_reader :display_name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount discount of the total details.
         attr_reader :amount_discount
         # The amount fulfillment of the total details.
         attr_reader :amount_fulfillment
         # The amount tax of the total details.
         attr_reader :amount_tax
+        # The applicable fees of the total details.
+        attr_reader :applicable_fees
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { applicable_fees: ApplicableFee }
         end
 
         def self.field_remappings

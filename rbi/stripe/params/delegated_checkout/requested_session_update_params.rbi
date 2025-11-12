@@ -78,7 +78,7 @@ module Stripe
            }
           def initialize(shipping: nil, type: nil); end
         end
-        # Attribute for param field address
+        # The customer's address.
         sig {
           returns(T.nilable(DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::Address))
          }

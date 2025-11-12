@@ -55,7 +55,7 @@ module Stripe
             @type = type
           end
         end
-        # Attribute for param field address
+        # The customer's address.
         attr_accessor :address
         # The customer's email address.
         attr_accessor :email

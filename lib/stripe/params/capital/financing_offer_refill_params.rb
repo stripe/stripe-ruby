@@ -4,17 +4,17 @@
 module Stripe
   module Capital
     class FinancingOfferRefillParams < ::Stripe::RequestParams
-      # Attribute for param field advance_amount
+      # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
       attr_accessor :advance_amount
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # Attribute for param field fee_amount
+      # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
       attr_accessor :fee_amount
-      # Attribute for param field financing_type
+      # The type of financing offer
       attr_accessor :financing_type
-      # Attribute for param field status
+      # The status of the financing offer
       attr_accessor :status
-      # Attribute for param field withhold_rate
+      # Per-transaction rate at which Stripe withholds funds to repay the financing.
       attr_accessor :withhold_rate
 
       def initialize(

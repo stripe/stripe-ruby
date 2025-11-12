@@ -9,6 +9,34 @@
   * Add support for `allocated_funds` on `Charge`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, and `PaymentIntentUpdateParams`
   * Add support for thin events `V2ReportingReportRunCreatedEvent`, `V2ReportingReportRunFailedEvent`, `V2ReportingReportRunSucceededEvent`, and `V2ReportingReportRunUpdatedEvent` with related object `V2::Reporting::ReportRun`
 
+## 17.2.0 - 2025-11-05
+* [#1721](https://github.com/stripe/stripe-ruby/pull/1721) Update generated code
+  * Add support for `capture_method` on `PaymentIntent::PaymentMethodOption::CardPresent`, `PaymentIntentConfirmParams::PaymentMethodOption::CardPresent`, `PaymentIntentCreateParams::PaymentMethodOption::CardPresent`, and `PaymentIntentUpdateParams::PaymentMethodOption::CardPresent`
+
+## 17.2.0-beta.1 - 2025-10-29
+
+This release changes the pinned API version to `2025-10-29.preview`.
+
+* [#1714](https://github.com/stripe/stripe-ruby/pull/1714) Update generated code for beta
+  * Add support for `crypto_storer` on `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
+* [#1696](https://github.com/stripe/stripe-ruby/pull/1696) Update generated code for beta
+  * Add support for `update` method on resource `V2::MoneyManagement::FinancialAccount`
+  * Add support for `confirm_microdeposits`, `list`, and `send_microdeposits` methods on resource `V2::Core::Vault::UsBankAccount`
+  * Add support for `list` method on resource `V2::Core::Vault::GbBankAccount`
+  * Add support for `payment_portal_url` on `Charge::PaymentMethodDetail::Rechnung`, `PaymentAttemptRecord::PaymentMethodDetail::Rechnung`, and `PaymentRecord::PaymentMethodDetail::Rechnung`
+  * Add support for `tax_id_element` on `CustomerSession::Component` and `CustomerSessionCreateParams::Component`
+  * Add support for `starting_after` on `PaymentAttemptRecordListParams`
+  * Add support for `reference` on `PaymentIntentAmountDetailsLineItem::PaymentMethodOption::Klarna`, `PaymentIntentCaptureParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, `PaymentIntentConfirmParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, `PaymentIntentCreateParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, `PaymentIntentIncrementAuthorizationParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, and `PaymentIntentUpdateParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`
+  * Change `PaymentIntent::PaymentDetail.customer_reference` to be required
+  * Change `PaymentIntent::PaymentDetail.order_reference` to be required
+  * Add support for `subscription_reference` on `PaymentIntentAmountDetailsLineItem::PaymentMethodOption::Klarna`
+  * Add support for `closed` on `V2::Core::AccountListParams` and `V2::Core::Account`
+  * Add support for `usd` on `V2::Core::Account::Configuration::Storer::Capability::HoldsCurrency`, `V2::Core::AccountCreateParams::Configuration::Storer::Capability::HoldsCurrency`, and `V2::Core::AccountUpdateParams::Configuration::Storer::Capability::HoldsCurrency`
+  * Add support for `representative_declaration` on `V2::Core::Account::Identity::Attestation`, `V2::Core::AccountCreateParams::Identity::Attestation`, and `V2::Core::AccountUpdateParams::Identity::Attestation`
+  * Add support for `verification` on `V2::Core::Vault::UsBankAccount`
+  * Add support for `v1_id` on `EventsV2MoneyManagementTransactionCreatedEvent`
+  * Remove support for thin event `V2BillingBillSettingUpdatedEvent` with related object `V2::Billing::BillSetting`
+
 ## 17.2.0-alpha.2 - 2025-10-30
 * [#1719](https://github.com/stripe/stripe-ruby/pull/1719) Update generated code for private-preview
   * Change `DelegatedCheckout::RequestedSessionUpdateParams::LineItemDetail.quantity` to be required
@@ -60,30 +88,6 @@
   * Add support for `compliance_screening_description` on `V2::Core::Account::Identity::BusinessDetail`, `V2::Core::AccountCreateParams::Identity::BusinessDetail`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail`
   * Add support for `external_amount` on `V2::MoneyManagement::ReceivedCredit` and `V2::MoneyManagement::ReceivedDebit`
 
-## 17.2.0-beta.1 - 2025-10-29
-
-This release changes the pinned API version to `2025-10-29.preview`.
-
-* [#1714](https://github.com/stripe/stripe-ruby/pull/1714) Update generated code for beta
-  * Add support for `crypto_storer` on `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
-* [#1696](https://github.com/stripe/stripe-ruby/pull/1696) Update generated code for beta
-  * Add support for `update` method on resource `V2::MoneyManagement::FinancialAccount`
-  * Add support for `confirm_microdeposits`, `list`, and `send_microdeposits` methods on resource `V2::Core::Vault::UsBankAccount`
-  * Add support for `list` method on resource `V2::Core::Vault::GbBankAccount`
-  * Add support for `payment_portal_url` on `Charge::PaymentMethodDetail::Rechnung`, `PaymentAttemptRecord::PaymentMethodDetail::Rechnung`, and `PaymentRecord::PaymentMethodDetail::Rechnung`
-  * Add support for `tax_id_element` on `CustomerSession::Component` and `CustomerSessionCreateParams::Component`
-  * Add support for `starting_after` on `PaymentAttemptRecordListParams`
-  * Add support for `reference` on `PaymentIntentAmountDetailsLineItem::PaymentMethodOption::Klarna`, `PaymentIntentCaptureParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, `PaymentIntentConfirmParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, `PaymentIntentCreateParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, `PaymentIntentIncrementAuthorizationParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`, and `PaymentIntentUpdateParams::AmountDetail::LineItem::PaymentMethodOption::Klarna`
-  * Change `PaymentIntent::PaymentDetail.customer_reference` to be required
-  * Change `PaymentIntent::PaymentDetail.order_reference` to be required
-  * Add support for `subscription_reference` on `PaymentIntentAmountDetailsLineItem::PaymentMethodOption::Klarna`
-  * Add support for `closed` on `V2::Core::AccountListParams` and `V2::Core::Account`
-  * Add support for `usd` on `V2::Core::Account::Configuration::Storer::Capability::HoldsCurrency`, `V2::Core::AccountCreateParams::Configuration::Storer::Capability::HoldsCurrency`, and `V2::Core::AccountUpdateParams::Configuration::Storer::Capability::HoldsCurrency`
-  * Add support for `representative_declaration` on `V2::Core::Account::Identity::Attestation`, `V2::Core::AccountCreateParams::Identity::Attestation`, and `V2::Core::AccountUpdateParams::Identity::Attestation`
-  * Add support for `verification` on `V2::Core::Vault::UsBankAccount`
-  * Add support for `v1_id` on `EventsV2MoneyManagementTransactionCreatedEvent`
-  * Remove support for thin event `V2BillingBillSettingUpdatedEvent` with related object `V2::Billing::BillSetting`
-  
 ## 17.1.0 - 2025-10-29
 
 This release changes the pinned API version to `2025-10-29.clover`.

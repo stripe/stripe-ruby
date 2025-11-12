@@ -9880,65 +9880,6 @@ module Stripe
       report_run = client.v2.reporting.report_runs.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs/id_123"
     end
-    should "Test v2 tax automatic rule post (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules").to_return(
-        body: '{"billable_item":"billable_item","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.automatic_rule","status":"active","tax_code":"tax_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      automatic_rule = client.v2.tax.automatic_rules.create({
-        billable_item: "billable_item",
-        tax_code: "tax_code",
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules"
-    end
-    should "Test v2 tax automatic rule get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/find?billable_item=billable_item"
-      ).to_return(
-        body: '{"billable_item":"billable_item","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.automatic_rule","status":"active","tax_code":"tax_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      automatic_rule = client.v2.tax.automatic_rules.find({ billable_item: "billable_item" })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/find?billable_item=billable_item"
-    end
-    should "Test v2 tax automatic rule get 2 (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/id_123").to_return(
-        body: '{"billable_item":"billable_item","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.automatic_rule","status":"active","tax_code":"tax_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      automatic_rule = client.v2.tax.automatic_rules.retrieve("id_123")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/id_123"
-    end
-    should "Test v2 tax automatic rule post 2 (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/id_123").to_return(
-        body: '{"billable_item":"billable_item","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.automatic_rule","status":"active","tax_code":"tax_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      automatic_rule = client.v2.tax.automatic_rules.update("id_123", { tax_code: "tax_code" })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/id_123"
-    end
-    should "Test v2 tax automatic rule post 3 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/id_123/deactivate"
-      ).to_return(
-        body: '{"billable_item":"billable_item","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.automatic_rule","status":"active","tax_code":"tax_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      automatic_rule = client.v2.tax.automatic_rules.deactivate("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules/id_123/deactivate"
-    end
     should "Test v2 test helpers financial address post (service)" do
       stub_request(
         :post,

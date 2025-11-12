@@ -1192,6 +1192,155 @@ module Stripe
          }
         def initialize(flexible: nil, type: nil); end
       end
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          sig { returns(T.nilable(String)) }
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
+          # Controls which subscription items the billing schedule applies to.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(price: T.nilable(String), type: String).void }
+          def initialize(price: nil, type: nil); end
+        end
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            sig { returns(T.nilable(String)) }
+            def id; end
+            sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+            def id=(_id); end
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            sig { returns(T.nilable(Integer)) }
+            def index; end
+            sig { params(_index: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def index=(_index); end
+            sig { params(id: T.nilable(String), index: T.nilable(Integer)).void }
+            def initialize(id: nil, index: nil); end
+          end
+          # Details of a Quote line to start the bill period from.
+          sig {
+            returns(T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom::LineStartsAt))
+           }
+          def line_starts_at; end
+          sig {
+            params(_line_starts_at: T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom::LineStartsAt)).returns(T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom::LineStartsAt))
+           }
+          def line_starts_at=(_line_starts_at); end
+          # A precise Unix timestamp.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # The type of method to specify the `bill_from` time.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(line_starts_at: T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom::LineStartsAt), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil); end
+        end
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            sig { returns(Integer) }
+            def interval_count; end
+            sig { params(_interval_count: Integer).returns(Integer) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: Integer).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            sig { returns(T.nilable(String)) }
+            def id; end
+            sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+            def id=(_id); end
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            sig { returns(T.nilable(Integer)) }
+            def index; end
+            sig { params(_index: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def index=(_index); end
+            sig { params(id: T.nilable(String), index: T.nilable(Integer)).void }
+            def initialize(id: nil, index: nil); end
+          end
+          # Details of the duration over which to bill.
+          sig {
+            returns(T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::Duration)).returns(T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::Duration))
+           }
+          def duration=(_duration); end
+          # Details of a Quote line item from which to bill until.
+          sig {
+            returns(T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::LineEndsAt))
+           }
+          def line_ends_at; end
+          sig {
+            params(_line_ends_at: T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::LineEndsAt)).returns(T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::LineEndsAt))
+           }
+          def line_ends_at=(_line_ends_at); end
+          # A precise Unix timestamp.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # The type of method to specify the `bill_until` time.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(duration: T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::Duration), line_ends_at: T.nilable(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil::LineEndsAt), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil); end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        sig {
+          returns(T.nilable(T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule::AppliesTo]))
+         }
+        def applies_to; end
+        sig {
+          params(_applies_to: T.nilable(T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule::AppliesTo]))
+         }
+        def applies_to=(_applies_to); end
+        # The start of the period to bill from when the Quote is accepted.
+        sig { returns(QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom) }
+        def bill_from; end
+        sig {
+          params(_bill_from: QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom).returns(QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom)
+         }
+        def bill_from=(_bill_from); end
+        # The end of the period to bill until when the Quote is accepted.
+        sig { returns(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil) }
+        def bill_until; end
+        sig {
+          params(_bill_until: QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil).returns(QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil)
+         }
+        def bill_until=(_bill_until); end
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        sig { returns(T.nilable(String)) }
+        def key; end
+        sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
+        def key=(_key); end
+        sig {
+          params(applies_to: T.nilable(T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule::AppliesTo]), bill_from: QuoteCreateParams::SubscriptionData::BillingSchedule::BillFrom, bill_until: QuoteCreateParams::SubscriptionData::BillingSchedule::BillUntil, key: T.nilable(String)).void
+         }
+        def initialize(applies_to: nil, bill_from: nil, bill_until: nil, key: nil); end
+      end
       class Prebilling < ::Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         sig { returns(Integer) }
@@ -1279,8 +1428,22 @@ module Stripe
         params(_trial_period_days: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
        }
       def trial_period_days=(_trial_period_days); end
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
       sig {
-        params(bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(String), billing_mode: T.nilable(QuoteCreateParams::SubscriptionData::BillingMode), description: T.nilable(String), effective_date: T.nilable(T.any(String, T.any(String, Integer))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), prebilling: T.nilable(T.any(String, QuoteCreateParams::SubscriptionData::Prebilling)), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.any(String, Integer))).void
+        returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])))
+       }
+      def billing_schedules; end
+      sig {
+        params(_billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])))
+       }
+      def billing_schedules=(_billing_schedules); end
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def phase_effective_at; end
+      sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def phase_effective_at=(_phase_effective_at); end
+      sig {
+        params(bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(String), billing_mode: T.nilable(QuoteCreateParams::SubscriptionData::BillingMode), description: T.nilable(String), effective_date: T.nilable(T.any(String, T.any(String, Integer))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), prebilling: T.nilable(T.any(String, QuoteCreateParams::SubscriptionData::Prebilling)), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.any(String, Integer)), billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])), phase_effective_at: T.nilable(String)).void
        }
       def initialize(
         bill_on_acceptance: nil,
@@ -1294,7 +1457,9 @@ module Stripe
         metadata: nil,
         prebilling: nil,
         proration_behavior: nil,
-        trial_period_days: nil
+        trial_period_days: nil,
+        billing_schedules: nil,
+        phase_effective_at: nil
       ); end
     end
     class SubscriptionDataOverride < ::Stripe::RequestParams
@@ -1444,6 +1609,155 @@ module Stripe
          }
         def initialize(bill_from: nil, bill_until: nil); end
       end
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          sig { returns(T.nilable(String)) }
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
+          # Controls which subscription items the billing schedule applies to.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(price: T.nilable(String), type: String).void }
+          def initialize(price: nil, type: nil); end
+        end
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            sig { returns(T.nilable(String)) }
+            def id; end
+            sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+            def id=(_id); end
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            sig { returns(T.nilable(Integer)) }
+            def index; end
+            sig { params(_index: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def index=(_index); end
+            sig { params(id: T.nilable(String), index: T.nilable(Integer)).void }
+            def initialize(id: nil, index: nil); end
+          end
+          # Details of a Quote line to start the bill period from.
+          sig {
+            returns(T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom::LineStartsAt))
+           }
+          def line_starts_at; end
+          sig {
+            params(_line_starts_at: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom::LineStartsAt)).returns(T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom::LineStartsAt))
+           }
+          def line_starts_at=(_line_starts_at); end
+          # A precise Unix timestamp.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # The type of method to specify the `bill_from` time.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(line_starts_at: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom::LineStartsAt), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil); end
+        end
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            sig { returns(Integer) }
+            def interval_count; end
+            sig { params(_interval_count: Integer).returns(Integer) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: Integer).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            sig { returns(T.nilable(String)) }
+            def id; end
+            sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+            def id=(_id); end
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            sig { returns(T.nilable(Integer)) }
+            def index; end
+            sig { params(_index: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def index=(_index); end
+            sig { params(id: T.nilable(String), index: T.nilable(Integer)).void }
+            def initialize(id: nil, index: nil); end
+          end
+          # Details of the duration over which to bill.
+          sig {
+            returns(T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::Duration)).returns(T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::Duration))
+           }
+          def duration=(_duration); end
+          # Details of a Quote line item from which to bill until.
+          sig {
+            returns(T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::LineEndsAt))
+           }
+          def line_ends_at; end
+          sig {
+            params(_line_ends_at: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::LineEndsAt)).returns(T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::LineEndsAt))
+           }
+          def line_ends_at=(_line_ends_at); end
+          # A precise Unix timestamp.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # The type of method to specify the `bill_until` time.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(duration: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::Duration), line_ends_at: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil::LineEndsAt), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil); end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        sig {
+          returns(T.nilable(T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::AppliesTo]))
+         }
+        def applies_to; end
+        sig {
+          params(_applies_to: T.nilable(T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::AppliesTo]))
+         }
+        def applies_to=(_applies_to); end
+        # The start of the period to bill from when the Quote is accepted.
+        sig { returns(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom) }
+        def bill_from; end
+        sig {
+          params(_bill_from: QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom).returns(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom)
+         }
+        def bill_from=(_bill_from); end
+        # The end of the period to bill until when the Quote is accepted.
+        sig { returns(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil) }
+        def bill_until; end
+        sig {
+          params(_bill_until: QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil).returns(QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil)
+         }
+        def bill_until=(_bill_until); end
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        sig { returns(T.nilable(String)) }
+        def key; end
+        sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
+        def key=(_key); end
+        sig {
+          params(applies_to: T.nilable(T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::AppliesTo]), bill_from: QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillFrom, bill_until: QuoteCreateParams::SubscriptionDataOverride::BillingSchedule::BillUntil, key: T.nilable(String)).void
+         }
+        def initialize(applies_to: nil, bill_from: nil, bill_until: nil, key: nil); end
+      end
       # Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
       sig { returns(QuoteCreateParams::SubscriptionDataOverride::AppliesTo) }
       def applies_to; end
@@ -1489,8 +1803,22 @@ module Stripe
       def proration_behavior; end
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
       sig {
-        params(applies_to: QuoteCreateParams::SubscriptionDataOverride::AppliesTo, bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillOnAcceptance), billing_behavior: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), end_behavior: T.nilable(String), proration_behavior: T.nilable(String)).void
+        returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])))
+       }
+      def billing_schedules; end
+      sig {
+        params(_billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])))
+       }
+      def billing_schedules=(_billing_schedules); end
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def phase_effective_at; end
+      sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def phase_effective_at=(_phase_effective_at); end
+      sig {
+        params(applies_to: QuoteCreateParams::SubscriptionDataOverride::AppliesTo, bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillOnAcceptance), billing_behavior: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), end_behavior: T.nilable(String), proration_behavior: T.nilable(String), billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])), phase_effective_at: T.nilable(String)).void
        }
       def initialize(
         applies_to: nil,
@@ -1499,7 +1827,9 @@ module Stripe
         customer: nil,
         description: nil,
         end_behavior: nil,
-        proration_behavior: nil
+        proration_behavior: nil,
+        billing_schedules: nil,
+        phase_effective_at: nil
       ); end
     end
     class TransferData < ::Stripe::RequestParams

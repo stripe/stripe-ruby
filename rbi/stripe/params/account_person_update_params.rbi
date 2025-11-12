@@ -352,6 +352,34 @@ module Stripe
         title: nil
       ); end
     end
+    class SelfReportedIncome < ::Stripe::RequestParams
+      # Attribute for param field amount
+      sig { returns(Integer) }
+      def amount; end
+      sig { params(_amount: Integer).returns(Integer) }
+      def amount=(_amount); end
+      # Attribute for param field currency
+      sig { returns(String) }
+      def currency; end
+      sig { params(_currency: String).returns(String) }
+      def currency=(_currency); end
+      sig { params(amount: Integer, currency: String).void }
+      def initialize(amount: nil, currency: nil); end
+    end
+    class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+      # Attribute for param field amount
+      sig { returns(Integer) }
+      def amount; end
+      sig { params(_amount: Integer).returns(Integer) }
+      def amount=(_amount); end
+      # Attribute for param field currency
+      sig { returns(String) }
+      def currency; end
+      sig { params(_currency: String).returns(String) }
+      def currency=(_currency); end
+      sig { params(amount: Integer, currency: String).void }
+      def initialize(amount: nil, currency: nil); end
+    end
     class UsCfpbData < ::Stripe::RequestParams
       class EthnicityDetails < ::Stripe::RequestParams
         # The persons ethnicity
@@ -624,8 +652,22 @@ module Stripe
       params(_verification: T.nilable(AccountPersonUpdateParams::Verification)).returns(T.nilable(AccountPersonUpdateParams::Verification))
      }
     def verification=(_verification); end
+    # The credit applicant's self-reported yearly income in minor units.
+    sig { returns(T.nilable(AccountPersonUpdateParams::SelfReportedIncome)) }
+    def self_reported_income; end
     sig {
-      params(additional_tos_acceptances: T.nilable(AccountPersonUpdateParams::AdditionalTosAcceptances), address: T.nilable(AccountPersonUpdateParams::Address), address_kana: T.nilable(AccountPersonUpdateParams::AddressKana), address_kanji: T.nilable(AccountPersonUpdateParams::AddressKanji), dob: T.nilable(T.any(String, AccountPersonUpdateParams::Dob)), documents: T.nilable(AccountPersonUpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(AccountPersonUpdateParams::RegisteredAddress), relationship: T.nilable(AccountPersonUpdateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(AccountPersonUpdateParams::UsCfpbData), verification: T.nilable(AccountPersonUpdateParams::Verification)).void
+      params(_self_reported_income: T.nilable(AccountPersonUpdateParams::SelfReportedIncome)).returns(T.nilable(AccountPersonUpdateParams::SelfReportedIncome))
+     }
+    def self_reported_income=(_self_reported_income); end
+    # The credit applicant's self-reported monthly housing payment in minor units.
+    sig { returns(T.nilable(AccountPersonUpdateParams::SelfReportedMonthlyHousingPayment)) }
+    def self_reported_monthly_housing_payment; end
+    sig {
+      params(_self_reported_monthly_housing_payment: T.nilable(AccountPersonUpdateParams::SelfReportedMonthlyHousingPayment)).returns(T.nilable(AccountPersonUpdateParams::SelfReportedMonthlyHousingPayment))
+     }
+    def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
+    sig {
+      params(additional_tos_acceptances: T.nilable(AccountPersonUpdateParams::AdditionalTosAcceptances), address: T.nilable(AccountPersonUpdateParams::Address), address_kana: T.nilable(AccountPersonUpdateParams::AddressKana), address_kanji: T.nilable(AccountPersonUpdateParams::AddressKanji), dob: T.nilable(T.any(String, AccountPersonUpdateParams::Dob)), documents: T.nilable(AccountPersonUpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(AccountPersonUpdateParams::RegisteredAddress), relationship: T.nilable(AccountPersonUpdateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(AccountPersonUpdateParams::UsCfpbData), verification: T.nilable(AccountPersonUpdateParams::Verification), self_reported_income: T.nilable(AccountPersonUpdateParams::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(AccountPersonUpdateParams::SelfReportedMonthlyHousingPayment)).void
      }
     def initialize(
       additional_tos_acceptances: nil,
@@ -656,7 +698,9 @@ module Stripe
       relationship: nil,
       ssn_last_4: nil,
       us_cfpb_data: nil,
-      verification: nil
+      verification: nil,
+      self_reported_income: nil,
+      self_reported_monthly_housing_payment: nil
     ); end
   end
 end

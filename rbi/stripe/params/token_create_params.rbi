@@ -673,6 +673,34 @@ module Stripe
             title: nil
           ); end
         end
+        class SelfReportedIncome < ::Stripe::RequestParams
+          # Attribute for param field amount
+          sig { returns(Integer) }
+          def amount; end
+          sig { params(_amount: Integer).returns(Integer) }
+          def amount=(_amount); end
+          # Attribute for param field currency
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          sig { params(amount: Integer, currency: String).void }
+          def initialize(amount: nil, currency: nil); end
+        end
+        class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+          # Attribute for param field amount
+          sig { returns(Integer) }
+          def amount; end
+          sig { params(_amount: Integer).returns(Integer) }
+          def amount=(_amount); end
+          # Attribute for param field currency
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          sig { params(amount: Integer, currency: String).void }
+          def initialize(amount: nil, currency: nil); end
+        end
         class Verification < ::Stripe::RequestParams
           class AdditionalDocument < ::Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -856,8 +884,24 @@ module Stripe
           params(_verification: T.nilable(TokenCreateParams::Account::Individual::Verification)).returns(T.nilable(TokenCreateParams::Account::Individual::Verification))
          }
         def verification=(_verification); end
+        # The credit applicant's self-reported yearly income in minor units.
+        sig { returns(T.nilable(TokenCreateParams::Account::Individual::SelfReportedIncome)) }
+        def self_reported_income; end
         sig {
-          params(address: T.nilable(TokenCreateParams::Account::Individual::Address), address_kana: T.nilable(TokenCreateParams::Account::Individual::AddressKana), address_kanji: T.nilable(TokenCreateParams::Account::Individual::AddressKanji), dob: T.nilable(T.any(String, TokenCreateParams::Account::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(TokenCreateParams::Account::Individual::RegisteredAddress), relationship: T.nilable(TokenCreateParams::Account::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(TokenCreateParams::Account::Individual::Verification)).void
+          params(_self_reported_income: T.nilable(TokenCreateParams::Account::Individual::SelfReportedIncome)).returns(T.nilable(TokenCreateParams::Account::Individual::SelfReportedIncome))
+         }
+        def self_reported_income=(_self_reported_income); end
+        # The credit applicant's self-reported monthly housing payment in minor units.
+        sig {
+          returns(T.nilable(TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment))
+         }
+        def self_reported_monthly_housing_payment; end
+        sig {
+          params(_self_reported_monthly_housing_payment: T.nilable(TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment)).returns(T.nilable(TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment))
+         }
+        def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
+        sig {
+          params(address: T.nilable(TokenCreateParams::Account::Individual::Address), address_kana: T.nilable(TokenCreateParams::Account::Individual::AddressKana), address_kanji: T.nilable(TokenCreateParams::Account::Individual::AddressKanji), dob: T.nilable(T.any(String, TokenCreateParams::Account::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(TokenCreateParams::Account::Individual::RegisteredAddress), relationship: T.nilable(TokenCreateParams::Account::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(TokenCreateParams::Account::Individual::Verification), self_reported_income: T.nilable(TokenCreateParams::Account::Individual::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment)).void
          }
         def initialize(
           address: nil,
@@ -882,7 +926,9 @@ module Stripe
           registered_address: nil,
           relationship: nil,
           ssn_last_4: nil,
-          verification: nil
+          verification: nil,
+          self_reported_income: nil,
+          self_reported_monthly_housing_payment: nil
         ); end
       end
       # The business type.
@@ -1428,6 +1474,34 @@ module Stripe
           title: nil
         ); end
       end
+      class SelfReportedIncome < ::Stripe::RequestParams
+        # Attribute for param field amount
+        sig { returns(Integer) }
+        def amount; end
+        sig { params(_amount: Integer).returns(Integer) }
+        def amount=(_amount); end
+        # Attribute for param field currency
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        sig { params(amount: Integer, currency: String).void }
+        def initialize(amount: nil, currency: nil); end
+      end
+      class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+        # Attribute for param field amount
+        sig { returns(Integer) }
+        def amount; end
+        sig { params(_amount: Integer).returns(Integer) }
+        def amount=(_amount); end
+        # Attribute for param field currency
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        sig { params(amount: Integer, currency: String).void }
+        def initialize(amount: nil, currency: nil); end
+      end
       class UsCfpbData < ::Stripe::RequestParams
         class EthnicityDetails < ::Stripe::RequestParams
           # The persons ethnicity
@@ -1692,8 +1766,22 @@ module Stripe
         params(_verification: T.nilable(TokenCreateParams::Person::Verification)).returns(T.nilable(TokenCreateParams::Person::Verification))
        }
       def verification=(_verification); end
+      # The credit applicant's self-reported yearly income in minor units.
+      sig { returns(T.nilable(TokenCreateParams::Person::SelfReportedIncome)) }
+      def self_reported_income; end
       sig {
-        params(additional_tos_acceptances: T.nilable(TokenCreateParams::Person::AdditionalTosAcceptances), address: T.nilable(TokenCreateParams::Person::Address), address_kana: T.nilable(TokenCreateParams::Person::AddressKana), address_kanji: T.nilable(TokenCreateParams::Person::AddressKanji), dob: T.nilable(T.any(String, TokenCreateParams::Person::Dob)), documents: T.nilable(TokenCreateParams::Person::Documents), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(TokenCreateParams::Person::RegisteredAddress), relationship: T.nilable(TokenCreateParams::Person::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(TokenCreateParams::Person::UsCfpbData), verification: T.nilable(TokenCreateParams::Person::Verification)).void
+        params(_self_reported_income: T.nilable(TokenCreateParams::Person::SelfReportedIncome)).returns(T.nilable(TokenCreateParams::Person::SelfReportedIncome))
+       }
+      def self_reported_income=(_self_reported_income); end
+      # The credit applicant's self-reported monthly housing payment in minor units.
+      sig { returns(T.nilable(TokenCreateParams::Person::SelfReportedMonthlyHousingPayment)) }
+      def self_reported_monthly_housing_payment; end
+      sig {
+        params(_self_reported_monthly_housing_payment: T.nilable(TokenCreateParams::Person::SelfReportedMonthlyHousingPayment)).returns(T.nilable(TokenCreateParams::Person::SelfReportedMonthlyHousingPayment))
+       }
+      def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
+      sig {
+        params(additional_tos_acceptances: T.nilable(TokenCreateParams::Person::AdditionalTosAcceptances), address: T.nilable(TokenCreateParams::Person::Address), address_kana: T.nilable(TokenCreateParams::Person::AddressKana), address_kanji: T.nilable(TokenCreateParams::Person::AddressKanji), dob: T.nilable(T.any(String, TokenCreateParams::Person::Dob)), documents: T.nilable(TokenCreateParams::Person::Documents), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(TokenCreateParams::Person::RegisteredAddress), relationship: T.nilable(TokenCreateParams::Person::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(TokenCreateParams::Person::UsCfpbData), verification: T.nilable(TokenCreateParams::Person::Verification), self_reported_income: T.nilable(TokenCreateParams::Person::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(TokenCreateParams::Person::SelfReportedMonthlyHousingPayment)).void
        }
       def initialize(
         additional_tos_acceptances: nil,
@@ -1722,7 +1810,9 @@ module Stripe
         relationship: nil,
         ssn_last_4: nil,
         us_cfpb_data: nil,
-        verification: nil
+        verification: nil,
+        self_reported_income: nil,
+        self_reported_monthly_housing_payment: nil
       ); end
     end
     class Pii < ::Stripe::RequestParams

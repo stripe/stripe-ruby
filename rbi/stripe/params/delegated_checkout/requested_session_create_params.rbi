@@ -49,7 +49,7 @@ module Stripe
             state: nil
           ); end
         end
-        # Attribute for param field address
+        # The customer's address.
         sig {
           returns(T.nilable(DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails::Address))
          }

@@ -13,6 +13,7 @@ module Stripe
     attr_reader :fraud_liability_debits
     attr_reader :personalization_designs
     attr_reader :physical_bundles
+    attr_reader :programs
     attr_reader :tokens
     attr_reader :transactions
   end

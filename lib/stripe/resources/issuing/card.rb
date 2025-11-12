@@ -14,6 +14,21 @@ module Stripe
         "issuing.card"
       end
 
+      class LatestFraudWarning < ::Stripe::StripeObject
+        # Timestamp of the most recent fraud warning.
+        attr_reader :started_at
+        # The type of fraud warning that most recently took place on this card. This field updates with every new fraud warning, so the value changes over time. If populated, cancel and reissue the card.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shipping < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -237,6 +252,8 @@ module Stripe
       attr_reader :id
       # The last 4 digits of the card number.
       attr_reader :last4
+      # Stripe’s assessment of whether this card’s details have been compromised. If this property isn't null, cancel and reissue the card to prevent fraudulent activity risk.
+      attr_reader :latest_fraud_warning
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -399,6 +416,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          latest_fraud_warning: LatestFraudWarning,
           shipping: Shipping,
           spending_controls: SpendingControls,
           wallets: Wallets,

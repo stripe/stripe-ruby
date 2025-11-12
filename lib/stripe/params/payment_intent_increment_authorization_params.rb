@@ -174,6 +174,31 @@ module Stripe
       end
     end
 
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
+          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          attr_accessor :calculation
+
+          def initialize(calculation: nil)
+            @calculation = calculation
+          end
+        end
+        # Tax arguments for automations
+        attr_accessor :tax
+
+        def initialize(tax: nil)
+          @tax = tax
+        end
+      end
+      # Arguments passed in automations
+      attr_accessor :inputs
+
+      def initialize(inputs: nil)
+        @inputs = inputs
+      end
+    end
+
     class PaymentDetails < ::Stripe::RequestParams
       # A unique value to identify the customer. This field is available only for card payments.
       #
@@ -210,6 +235,8 @@ module Stripe
     attr_accessor :description
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Automations to be run during the PaymentIntent lifecycle
+    attr_accessor :hooks
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # Provides industry-specific information about the charge.
@@ -226,6 +253,7 @@ module Stripe
       application_fee_amount: nil,
       description: nil,
       expand: nil,
+      hooks: nil,
       metadata: nil,
       payment_details: nil,
       statement_descriptor: nil,
@@ -236,6 +264,7 @@ module Stripe
       @application_fee_amount = application_fee_amount
       @description = description
       @expand = expand
+      @hooks = hooks
       @metadata = metadata
       @payment_details = payment_details
       @statement_descriptor = statement_descriptor

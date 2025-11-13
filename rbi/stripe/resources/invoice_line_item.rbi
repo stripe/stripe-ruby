@@ -127,6 +127,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The subscription schedule that generated this line item
+        sig { returns(String) }
+        def schedule; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SubscriptionItemDetails < ::Stripe::StripeObject
         class ProrationDetails < ::Stripe::StripeObject
           class CreditedItems < ::Stripe::StripeObject
@@ -190,12 +201,16 @@ module Stripe
       # The type of parent that generated this line item
       sig { returns(String) }
       def type; end
+      # Details about the subscription schedule that generated this line item
+      sig { returns(T.nilable(ScheduleDetails)) }
+      def schedule_details; end
       def self.inner_class_types
         @inner_class_types = {
           invoice_item_details: InvoiceItemDetails,
           license_fee_subscription_details: LicenseFeeSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           subscription_item_details: SubscriptionItemDetails,
+          schedule_details: ScheduleDetails,
         }
       end
       def self.field_remappings

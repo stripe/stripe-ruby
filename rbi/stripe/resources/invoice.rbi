@@ -365,6 +365,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The schedule that generated this invoice
+        sig { returns(String) }
+        def schedule; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SubscriptionDetails < ::Stripe::StripeObject
         class PauseCollection < ::Stripe::StripeObject
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
@@ -412,11 +423,15 @@ module Stripe
       # The type of parent that generated this invoice
       sig { returns(String) }
       def type; end
+      # Details about the schedule that generated this invoice
+      sig { returns(T.nilable(ScheduleDetails)) }
+      def schedule_details; end
       def self.inner_class_types
         @inner_class_types = {
           billing_cadence_details: BillingCadenceDetails,
           quote_details: QuoteDetails,
           subscription_details: SubscriptionDetails,
+          schedule_details: ScheduleDetails,
         }
       end
       def self.field_remappings

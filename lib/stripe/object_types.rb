@@ -98,6 +98,7 @@ module Stripe
         Issuing::FraudLiabilityDebit.object_name => Issuing::FraudLiabilityDebit,
         Issuing::PersonalizationDesign.object_name => Issuing::PersonalizationDesign,
         Issuing::PhysicalBundle.object_name => Issuing::PhysicalBundle,
+        Issuing::Program.object_name => Issuing::Program,
         Issuing::Settlement.object_name => Issuing::Settlement,
         Issuing::Token.object_name => Issuing::Token,
         Issuing::Transaction.object_name => Issuing::Transaction,

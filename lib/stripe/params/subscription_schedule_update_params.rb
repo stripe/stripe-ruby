@@ -3,6 +3,58 @@
 
 module Stripe
   class SubscriptionScheduleUpdateParams < ::Stripe::RequestParams
+    class BillingSchedule < ::Stripe::RequestParams
+      class AppliesTo < ::Stripe::RequestParams
+        # The ID of the price object.
+        attr_accessor :price
+        # Controls which subscription items the billing schedule applies to.
+        attr_accessor :type
+
+        def initialize(price: nil, type: nil)
+          @price = price
+          @type = type
+        end
+      end
+
+      class BillUntil < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The multiplier applied to the interval.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Specifies the billing period.
+        attr_accessor :duration
+        # The end date of the billing schedule.
+        attr_accessor :timestamp
+        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+      # Configure billing schedule differently for individual subscription items.
+      attr_accessor :applies_to
+      # The end date for the billing schedule.
+      attr_accessor :bill_until
+      # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+      attr_accessor :key
+
+      def initialize(applies_to: nil, bill_until: nil, key: nil)
+        @applies_to = applies_to
+        @bill_until = bill_until
+        @key = key
+      end
+    end
+
     class DefaultSettings < ::Stripe::RequestParams
       class AutomaticTax < ::Stripe::RequestParams
         class Liability < ::Stripe::RequestParams
@@ -96,6 +148,8 @@ module Stripe
       attr_accessor :on_behalf_of
       # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
       attr_accessor :transfer_data
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_accessor :phase_effective_at
 
       def initialize(
         application_fee_percent: nil,
@@ -107,7 +161,8 @@ module Stripe
         description: nil,
         invoice_settings: nil,
         on_behalf_of: nil,
-        transfer_data: nil
+        transfer_data: nil,
+        phase_effective_at: nil
       )
         @application_fee_percent = application_fee_percent
         @automatic_tax = automatic_tax
@@ -119,6 +174,7 @@ module Stripe
         @invoice_settings = invoice_settings
         @on_behalf_of = on_behalf_of
         @transfer_data = transfer_data
+        @phase_effective_at = phase_effective_at
       end
     end
 
@@ -696,6 +752,8 @@ module Stripe
     attr_accessor :prebilling
     # If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
     attr_accessor :proration_behavior
+    # Sets the billing schedules for the subscription schedule.
+    attr_accessor :billing_schedules
 
     def initialize(
       billing_behavior: nil,
@@ -705,7 +763,8 @@ module Stripe
       metadata: nil,
       phases: nil,
       prebilling: nil,
-      proration_behavior: nil
+      proration_behavior: nil,
+      billing_schedules: nil
     )
       @billing_behavior = billing_behavior
       @default_settings = default_settings
@@ -715,6 +774,7 @@ module Stripe
       @phases = phases
       @prebilling = prebilling
       @proration_behavior = proration_behavior
+      @billing_schedules = billing_schedules
     end
   end
 end

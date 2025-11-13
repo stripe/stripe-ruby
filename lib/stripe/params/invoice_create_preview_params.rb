@@ -823,6 +823,58 @@ module Stripe
         end
       end
 
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Specifies the billing period.
+          attr_accessor :duration
+          # The end date of the billing schedule.
+          attr_accessor :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The end date for the billing schedule.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_until = bill_until
+          @key = key
+        end
+      end
+
       class Phase < ::Stripe::RequestParams
         class AddInvoiceItem < ::Stripe::RequestParams
           class Discount < ::Stripe::RequestParams
@@ -1432,6 +1484,8 @@ module Stripe
       attr_accessor :prebilling
       # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
       attr_accessor :proration_behavior
+      # Sets the billing schedules for the subscription schedule.
+      attr_accessor :billing_schedules
 
       def initialize(
         amendments: nil,
@@ -1440,7 +1494,8 @@ module Stripe
         end_behavior: nil,
         phases: nil,
         prebilling: nil,
-        proration_behavior: nil
+        proration_behavior: nil,
+        billing_schedules: nil
       )
         @amendments = amendments
         @billing_behavior = billing_behavior
@@ -1449,6 +1504,7 @@ module Stripe
         @phases = phases
         @prebilling = prebilling
         @proration_behavior = proration_behavior
+        @billing_schedules = billing_schedules
       end
     end
 

@@ -190,6 +190,23 @@ module Stripe
         end
       end
       class TotalDetails < ::Stripe::StripeObject
+        class ApplicableFee < ::Stripe::StripeObject
+          # The amount of the applicable fee.
+          sig { returns(Integer) }
+          def amount; end
+          # The description of the applicable fee.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # The display name of the applicable fee.
+          sig { returns(String) }
+          def display_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount discount of the total details.
         sig { returns(T.nilable(Integer)) }
         def amount_discount; end
@@ -199,8 +216,11 @@ module Stripe
         # The amount tax of the total details.
         sig { returns(T.nilable(Integer)) }
         def amount_tax; end
+        # The applicable fees of the total details.
+        sig { returns(T.nilable(T::Array[ApplicableFee])) }
+        def applicable_fees; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {applicable_fees: ApplicableFee}
         end
         def self.field_remappings
           @field_remappings = {}

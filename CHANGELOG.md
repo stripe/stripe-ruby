@@ -1,5 +1,25 @@
 # Changelog
 
+## 17.3.0-alpha.2 - 2025-11-13
+This release changes the pinned API version to `2025-10-29.preview`.
+
+* [#1728](https://github.com/stripe/stripe-ruby/pull/1728) Update generated code for private-preview
+  * Add support for new resource `Issuing::Program`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `Issuing::Program`
+  * Add support for `schedule` on `Discount`
+  * Add support for `applicable_fees` on `DelegatedCheckout::RequestedSession::TotalDetail`
+  * Add support for `schedule_details` on `Invoice::Parent`, `InvoiceItem::Parent`, `InvoiceLineItem::Parent`, and `QuotePreviewInvoice::Parent`
+  * Add support for `billing_schedules` on `InvoiceCreatePreviewParams::ScheduleDetail`, `QuotePreviewSubscriptionSchedule`, `SubscriptionScheduleCreateParams`, `SubscriptionScheduleUpdateParams`, and `SubscriptionSchedule`
+  * Add support for `latest_invoice` on `QuotePreviewSubscriptionSchedule` and `SubscriptionSchedule`
+  * Add support for `phase_effective_at` on `QuotePreviewSubscriptionSchedule::DefaultSetting`, `SubscriptionSchedule::DefaultSetting`, `SubscriptionScheduleCreateParams::DefaultSetting`, and `SubscriptionScheduleUpdateParams::DefaultSetting`
+* [#1723](https://github.com/stripe/stripe-ruby/pull/1723) Update generated code for private-preview
+  * Remove support for resource `V2::Tax::AutomaticRule`
+  * Remove support for `create`, `deactivate`, `find`, `retrieve`, and `update` methods on resource `V2::Tax::AutomaticRule`
+  * Add support for `self_reported_income` and `self_reported_monthly_housing_payment` on `AccountCreateParams::Individual`, `AccountPersonCreateParams`, `AccountPersonUpdateParams`, `AccountUpdateParams::Individual`, `Person`, `TokenCreateParams::Account::Individual`, and `TokenCreateParams::Person`
+  * Add support for `billing_schedules` and `phase_effective_at` on `Quote::SubscriptionDataOverride`, `Quote::SubscriptionDatum`, `QuoteCreateParams::SubscriptionDataOverride`, `QuoteCreateParams::SubscriptionDatum`, `QuoteUpdateParams::SubscriptionDataOverride`, and `QuoteUpdateParams::SubscriptionDatum`
+  * Add support for `bill_from` on `Subscription::BillingSchedule`
+  * Add support for `amendment_end` and `line_ends_at` on `Subscription::BillingSchedule::BillUntil`
+
 ## 17.3.0-alpha.1 - 2025-11-06
 * [#1720](https://github.com/stripe/stripe-ruby/pull/1720) Update generated code for private-preview
   * Add support for new resources `TransitBalance`, `V2::Reporting::ReportRun`, `V2::Reporting::Report`

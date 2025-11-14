@@ -30,10 +30,10 @@ module Stripe
               # A recent IP address of the customer used for tax reporting and tax location inference.
               sig { returns(T.nilable(String)) }
               def ip_address; end
-              # The customer’s identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+              # The [identified](https://docs.stripe.com/tax/customer-locations#address-hierarchy-other) tax location of the customer. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
               sig { returns(T.nilable(Location)) }
               def location; end
-              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               sig { returns(T.nilable(String)) }
               def location_source; end
               def self.inner_class_types
@@ -140,7 +140,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
+              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions.
               sig { returns(T.nilable(AutomaticIndirectTax)) }
               def automatic_indirect_tax; end
               def self.inner_class_types
@@ -2832,6 +2832,176 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class FutureRequirements < ::Stripe::StripeObject
+          class Entry < ::Stripe::StripeObject
+            class Error < ::Stripe::StripeObject
+              # Machine-readable code describing the error.
+              sig { returns(String) }
+              def code; end
+              # Human-readable description of the error.
+              sig { returns(String) }
+              def description; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Impact < ::Stripe::StripeObject
+              class RestrictsCapability < ::Stripe::StripeObject
+                class Deadline < ::Stripe::StripeObject
+                  # The current status of the requirement's impact.
+                  sig { returns(String) }
+                  def status; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The name of the Capability which will be restricted.
+                sig { returns(String) }
+                def capability; end
+                # The configuration which specifies the Capability which will be restricted.
+                sig { returns(String) }
+                def configuration; end
+                # Details about when in the account lifecycle the requirement must be collected by the avoid the Capability restriction.
+                sig { returns(Deadline) }
+                def deadline; end
+                def self.inner_class_types
+                  @inner_class_types = {deadline: Deadline}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
+              sig { returns(T.nilable(T::Array[RestrictsCapability])) }
+              def restricts_capabilities; end
+              def self.inner_class_types
+                @inner_class_types = {restricts_capabilities: RestrictsCapability}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current status of the requirement's impact.
+              sig { returns(String) }
+              def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Reference < ::Stripe::StripeObject
+              # If `inquiry` is the type, the inquiry token.
+              sig { returns(T.nilable(String)) }
+              def inquiry; end
+              # If `resource` is the type, the resource token.
+              sig { returns(T.nilable(String)) }
+              def resource; end
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class RequestedReason < ::Stripe::StripeObject
+              # Machine-readable description of Stripe's reason for collecting the requirement.
+              sig { returns(String) }
+              def code; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            sig { returns(String) }
+            def awaiting_action_from; end
+            # Machine-readable string describing the requirement.
+            sig { returns(String) }
+            def description; end
+            # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+            sig { returns(T::Array[Error]) }
+            def errors; end
+            # A hash describing the impact of not collecting the requirement, or Stripe not being able to verify the collected information.
+            sig { returns(Impact) }
+            def impact; end
+            # The soonest point when the account will be impacted by not providing the requirement.
+            sig { returns(MinimumDeadline) }
+            def minimum_deadline; end
+            # A reference to the location of the requirement.
+            sig { returns(T.nilable(Reference)) }
+            def reference; end
+            # A list of reasons why Stripe is collecting the requirement.
+            sig { returns(T::Array[RequestedReason]) }
+            def requested_reasons; end
+            def self.inner_class_types
+              @inner_class_types = {
+                errors: Error,
+                impact: Impact,
+                minimum_deadline: MinimumDeadline,
+                reference: Reference,
+                requested_reasons: RequestedReason,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Summary < ::Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current strictest status of all requirements on the Account.
+              sig { returns(String) }
+              def status; end
+              # The soonest RFC3339 date & time UTC value a requirement can impact the Account.
+              sig { returns(T.nilable(String)) }
+              def time; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+            sig { returns(T.nilable(MinimumDeadline)) }
+            def minimum_deadline; end
+            def self.inner_class_types
+              @inner_class_types = {minimum_deadline: MinimumDeadline}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # A list of requirements for the Account.
+          sig { returns(T.nilable(T::Array[Entry])) }
+          def entries; end
+          # The time at which the future requirements become effective.
+          sig { returns(T.nilable(String)) }
+          def minimum_transition_date; end
+          # An object containing an overview of requirements for the Account.
+          sig { returns(T.nilable(Summary)) }
+          def summary; end
+          def self.inner_class_types
+            @inner_class_types = {entries: Entry, summary: Summary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Identity < ::Stripe::StripeObject
           class Attestations < ::Stripe::StripeObject
             class DirectorshipDeclaration < ::Stripe::StripeObject
@@ -4124,6 +4294,9 @@ module Stripe
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
         sig { returns(T.nilable(String)) }
         def display_name; end
+        # Information about the future requirements for the Account that will eventually come into effect, including what information needs to be collected, and by when.
+        sig { returns(T.nilable(FutureRequirements)) }
+        def future_requirements; end
         # Unique identifier for the Account.
         sig { returns(String) }
         def id; end
@@ -4136,7 +4309,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Information about the requirements for the Account, including what information needs to be collected, and by when.
+        # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         sig { returns(T.nilable(Requirements)) }
         def requirements; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

@@ -32,9 +32,9 @@ module Stripe
               attr_reader :exempt
               # A recent IP address of the customer used for tax reporting and tax location inference.
               attr_reader :ip_address
-              # The customer’s identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+              # The [identified](https://docs.stripe.com/tax/customer-locations#address-hierarchy-other) tax location of the customer. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
               attr_reader :location
-              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               attr_reader :location_source
 
               def self.inner_class_types
@@ -141,7 +141,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
+              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions.
               attr_reader :automatic_indirect_tax
 
               def self.inner_class_types
@@ -2770,6 +2770,179 @@ module Stripe
           end
         end
 
+        class FutureRequirements < ::Stripe::StripeObject
+          class Entry < ::Stripe::StripeObject
+            class Error < ::Stripe::StripeObject
+              # Machine-readable code describing the error.
+              attr_reader :code
+              # Human-readable description of the error.
+              attr_reader :description
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Impact < ::Stripe::StripeObject
+              class RestrictsCapability < ::Stripe::StripeObject
+                class Deadline < ::Stripe::StripeObject
+                  # The current status of the requirement's impact.
+                  attr_reader :status
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The name of the Capability which will be restricted.
+                attr_reader :capability
+                # The configuration which specifies the Capability which will be restricted.
+                attr_reader :configuration
+                # Details about when in the account lifecycle the requirement must be collected by the avoid the Capability restriction.
+                attr_reader :deadline
+
+                def self.inner_class_types
+                  @inner_class_types = { deadline: Deadline }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
+              attr_reader :restricts_capabilities
+
+              def self.inner_class_types
+                @inner_class_types = { restricts_capabilities: RestrictsCapability }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current status of the requirement's impact.
+              attr_reader :status
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Reference < ::Stripe::StripeObject
+              # If `inquiry` is the type, the inquiry token.
+              attr_reader :inquiry
+              # If `resource` is the type, the resource token.
+              attr_reader :resource
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class RequestedReason < ::Stripe::StripeObject
+              # Machine-readable description of Stripe's reason for collecting the requirement.
+              attr_reader :code
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            attr_reader :awaiting_action_from
+            # Machine-readable string describing the requirement.
+            attr_reader :description
+            # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+            attr_reader :errors
+            # A hash describing the impact of not collecting the requirement, or Stripe not being able to verify the collected information.
+            attr_reader :impact
+            # The soonest point when the account will be impacted by not providing the requirement.
+            attr_reader :minimum_deadline
+            # A reference to the location of the requirement.
+            attr_reader :reference
+            # A list of reasons why Stripe is collecting the requirement.
+            attr_reader :requested_reasons
+
+            def self.inner_class_types
+              @inner_class_types = {
+                errors: Error,
+                impact: Impact,
+                minimum_deadline: MinimumDeadline,
+                reference: Reference,
+                requested_reasons: RequestedReason,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Summary < ::Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current strictest status of all requirements on the Account.
+              attr_reader :status
+              # The soonest RFC3339 date & time UTC value a requirement can impact the Account.
+              attr_reader :time
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+            attr_reader :minimum_deadline
+
+            def self.inner_class_types
+              @inner_class_types = { minimum_deadline: MinimumDeadline }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # A list of requirements for the Account.
+          attr_reader :entries
+          # The time at which the future requirements become effective.
+          attr_reader :minimum_transition_date
+          # An object containing an overview of requirements for the Account.
+          attr_reader :summary
+
+          def self.inner_class_types
+            @inner_class_types = { entries: Entry, summary: Summary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Identity < ::Stripe::StripeObject
           class Attestations < ::Stripe::StripeObject
             class DirectorshipDeclaration < ::Stripe::StripeObject
@@ -4002,6 +4175,8 @@ module Stripe
         attr_reader :defaults
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
         attr_reader :display_name
+        # Information about the future requirements for the Account that will eventually come into effect, including what information needs to be collected, and by when.
+        attr_reader :future_requirements
         # Unique identifier for the Account.
         attr_reader :id
         # Information about the company, individual, and business represented by the Account.
@@ -4010,7 +4185,7 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Information about the requirements for the Account, including what information needs to be collected, and by when.
+        # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         attr_reader :requirements
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
@@ -4019,6 +4194,7 @@ module Stripe
           @inner_class_types = {
             configuration: Configuration,
             defaults: Defaults,
+            future_requirements: FutureRequirements,
             identity: Identity,
             requirements: Requirements,
           }

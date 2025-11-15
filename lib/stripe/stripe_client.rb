@@ -87,5 +87,9 @@ module Stripe
       data = JSON.parse(data) if data.is_a?(String)
       Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
     end
+
+    def router(webhook_secret, &blk)
+      return ::Stripe::StripeEventRouter.new(self, webhook_secret, &blk)
+    end
   end
 end

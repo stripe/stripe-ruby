@@ -39,6 +39,10 @@ module Stripe
       end
     end
 
+    def registered_event_types
+      @registered_handlers.keys
+    end
+
     private def register(event_type, &handler)
       raise "Cannot register new event handlers after handling events" if @has_handled_events
       if @registered_handlers.key?(event_type)

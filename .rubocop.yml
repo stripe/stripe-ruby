@@ -18,7 +18,7 @@ Layout/LineLength:
   Exclude:
     - "lib/stripe/object_types.rb"
     - "lib/stripe/stripe_client.rb"
-    - "lib/stripe/stripe_event_handler.rb"
+    - "lib/stripe/stripe_event_router.rb"
     - "lib/stripe/resources/**/*.rb"
     - "lib/stripe/services/**/*.rb"
     - "lib/stripe/events/**/*.rb"
@@ -89,7 +89,7 @@ Metrics/ParameterLists:
 
 Naming/MethodName:
   Exclude:
-    - "lib/stripe/stripe_event_handler.rb"
+    - "lib/stripe/stripe_event_router.rb"
 
 Naming/MethodParameterName:
   # We have many parameters that are less than 3 characters for tax codes

@@ -35,9 +35,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Before and after changes for the primary related object.
-        sig { returns(T.nilable(T::Hash[String, T.untyped])) }
-        def changes; end
         # Authentication context needed to fetch the event or related object.
         sig { returns(T.nilable(String)) }
         def context; end

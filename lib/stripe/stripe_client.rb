@@ -13,6 +13,10 @@ module Stripe
 
     # For internal use only. Does not provide a stable API and may be broken
     # with future non-major changes.
+    attr_reader :requestor
+
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
     CLIENT_OPTIONS = Set.new(%i[api_key stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
 
     # Initializes a new StripeClient
@@ -89,7 +93,7 @@ module Stripe
     end
 
     def router(webhook_secret, &blk)
-      return ::Stripe::StripeEventRouter.new(self, webhook_secret, &blk)
+      ::Stripe::StripeEventRouter.new(self, webhook_secret, &blk)
     end
   end
 end

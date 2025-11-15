@@ -31,16 +31,22 @@ module Stripe
       )
 
       @handler = @registered_handlers[notif.type]
-      if @handler
-        @handler.call(notif, @client)
-      else
-        @on_unhandled_handler.call(notif, @client,
-                                   UnhandledNotificationDetails.new(notif.is_a?(Stripe::Events::UnknownEventNotification)))
+      original_context = @client.requestor.config.stripe_context
+      @client.requestor.config.stripe_context = notif.context
+      begin
+        if @handler
+          @handler.call(notif, @client)
+        else
+          @on_unhandled_handler.call(notif, @client,
+                                     UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
+        end
+      ensure
+        @client.requestor.config.stripe_context = original_context
       end
     end
 
     def registered_event_types
-      @registered_handlers.keys
+      @registered_handlers.keys.sort
     end
 
     private def register(event_type, &handler)

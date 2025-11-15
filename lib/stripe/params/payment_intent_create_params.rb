@@ -188,6 +188,31 @@ module Stripe
       end
     end
 
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
+          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          attr_accessor :calculation
+
+          def initialize(calculation: nil)
+            @calculation = calculation
+          end
+        end
+        # Tax arguments for automations
+        attr_accessor :tax
+
+        def initialize(tax: nil)
+          @tax = tax
+        end
+      end
+      # Arguments passed in automations
+      attr_accessor :inputs
+
+      def initialize(inputs: nil)
+        @inputs = inputs
+      end
+    end
+
     class MandateData < ::Stripe::RequestParams
       class CustomerAcceptance < ::Stripe::RequestParams
         class Offline < ::Stripe::RequestParams; end
@@ -2550,6 +2575,8 @@ module Stripe
     attr_accessor :excluded_payment_method_types
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Automations to be run during the PaymentIntent lifecycle
+    attr_accessor :hooks
     # ID of the mandate that's used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
     attr_accessor :mandate
     # This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
@@ -2623,6 +2650,7 @@ module Stripe
       error_on_requires_action: nil,
       excluded_payment_method_types: nil,
       expand: nil,
+      hooks: nil,
       mandate: nil,
       mandate_data: nil,
       metadata: nil,
@@ -2659,6 +2687,7 @@ module Stripe
       @error_on_requires_action = error_on_requires_action
       @excluded_payment_method_types = excluded_payment_method_types
       @expand = expand
+      @hooks = hooks
       @mandate = mandate
       @mandate_data = mandate_data
       @metadata = metadata

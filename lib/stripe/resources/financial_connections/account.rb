@@ -29,6 +29,25 @@ module Stripe
         end
       end
 
+      class AccountNumber < ::Stripe::StripeObject
+        # When the account number is expected to expire, if applicable.
+        attr_reader :expected_expiry_date
+        # The type of account number associated with the account.
+        attr_reader :identifier_type
+        # Whether the account number is currently active and usable for transactions.
+        attr_reader :status
+        # The payment networks that the account number can be used for.
+        attr_reader :supported_networks
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Balance < ::Stripe::StripeObject
         class Cash < ::Stripe::StripeObject
           # The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
@@ -141,6 +160,8 @@ module Stripe
       end
       # The account holder that this account belongs to.
       attr_reader :account_holder
+      # Details about the account numbers.
+      attr_reader :account_numbers
       # The most recent information about the account's balance.
       attr_reader :balance
       # The state of the most recent attempt to refresh the account balance.
@@ -304,6 +325,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           account_holder: AccountHolder,
+          account_numbers: AccountNumber,
           balance: Balance,
           balance_refresh: BalanceRefresh,
           ownership_refresh: OwnershipRefresh,

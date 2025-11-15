@@ -264,6 +264,37 @@ module Stripe
        }
       def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
     end
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
+          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          sig { returns(String) }
+          def calculation; end
+          sig { params(_calculation: String).returns(String) }
+          def calculation=(_calculation); end
+          sig { params(calculation: String).void }
+          def initialize(calculation: nil); end
+        end
+        # Tax arguments for automations
+        sig { returns(T.nilable(PaymentIntentUpdateParams::Hooks::Inputs::Tax)) }
+        def tax; end
+        sig {
+          params(_tax: T.nilable(PaymentIntentUpdateParams::Hooks::Inputs::Tax)).returns(T.nilable(PaymentIntentUpdateParams::Hooks::Inputs::Tax))
+         }
+        def tax=(_tax); end
+        sig { params(tax: T.nilable(PaymentIntentUpdateParams::Hooks::Inputs::Tax)).void }
+        def initialize(tax: nil); end
+      end
+      # Arguments passed in automations
+      sig { returns(T.nilable(PaymentIntentUpdateParams::Hooks::Inputs)) }
+      def inputs; end
+      sig {
+        params(_inputs: T.nilable(PaymentIntentUpdateParams::Hooks::Inputs)).returns(T.nilable(PaymentIntentUpdateParams::Hooks::Inputs))
+       }
+      def inputs=(_inputs); end
+      sig { params(inputs: T.nilable(PaymentIntentUpdateParams::Hooks::Inputs)).void }
+      def initialize(inputs: nil); end
+    end
     class PaymentDetails < ::Stripe::RequestParams
       # A unique value to identify the customer. This field is available only for card payments.
       #
@@ -3661,6 +3692,13 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Automations to be run during the PaymentIntent lifecycle
+    sig { returns(T.nilable(PaymentIntentUpdateParams::Hooks)) }
+    def hooks; end
+    sig {
+      params(_hooks: T.nilable(PaymentIntentUpdateParams::Hooks)).returns(T.nilable(PaymentIntentUpdateParams::Hooks))
+     }
+    def hooks=(_hooks); end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
@@ -3760,7 +3798,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String)).void
+      params(amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), hooks: T.nilable(PaymentIntentUpdateParams::Hooks), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String)).void
      }
     def initialize(
       amount: nil,
@@ -3772,6 +3810,7 @@ module Stripe
       description: nil,
       excluded_payment_method_types: nil,
       expand: nil,
+      hooks: nil,
       metadata: nil,
       payment_details: nil,
       payment_method: nil,

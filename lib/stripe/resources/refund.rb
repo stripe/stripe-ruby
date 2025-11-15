@@ -247,6 +247,21 @@ module Stripe
         end
       end
 
+      class MbWay < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        attr_reader :reference
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        attr_reader :reference_status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Multibanco < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
@@ -387,6 +402,16 @@ module Stripe
         end
       end
 
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class UsBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
@@ -459,6 +484,8 @@ module Stripe
       attr_reader :jp_bank_transfer
       # Attribute for field klarna
       attr_reader :klarna
+      # Attribute for field mb_way
+      attr_reader :mb_way
       # Attribute for field multibanco
       attr_reader :multibanco
       # Attribute for field mx_bank_transfer
@@ -481,6 +508,8 @@ module Stripe
       attr_reader :swish
       # Attribute for field th_bank_transfer
       attr_reader :th_bank_transfer
+      # Attribute for field twint
+      attr_reader :twint
       # The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
       attr_reader :type
       # Attribute for field us_bank_transfer
@@ -511,6 +540,7 @@ module Stripe
           grabpay: Grabpay,
           jp_bank_transfer: JpBankTransfer,
           klarna: Klarna,
+          mb_way: MbWay,
           multibanco: Multibanco,
           mx_bank_transfer: MxBankTransfer,
           nz_bank_transfer: NzBankTransfer,
@@ -522,6 +552,7 @@ module Stripe
           sofort: Sofort,
           swish: Swish,
           th_bank_transfer: ThBankTransfer,
+          twint: Twint,
           us_bank_transfer: UsBankTransfer,
           wechat_pay: WechatPay,
           zip: Zip,

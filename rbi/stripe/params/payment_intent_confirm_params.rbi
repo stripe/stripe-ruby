@@ -264,6 +264,37 @@ module Stripe
        }
       def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
     end
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
+          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          sig { returns(String) }
+          def calculation; end
+          sig { params(_calculation: String).returns(String) }
+          def calculation=(_calculation); end
+          sig { params(calculation: String).void }
+          def initialize(calculation: nil); end
+        end
+        # Tax arguments for automations
+        sig { returns(T.nilable(PaymentIntentConfirmParams::Hooks::Inputs::Tax)) }
+        def tax; end
+        sig {
+          params(_tax: T.nilable(PaymentIntentConfirmParams::Hooks::Inputs::Tax)).returns(T.nilable(PaymentIntentConfirmParams::Hooks::Inputs::Tax))
+         }
+        def tax=(_tax); end
+        sig { params(tax: T.nilable(PaymentIntentConfirmParams::Hooks::Inputs::Tax)).void }
+        def initialize(tax: nil); end
+      end
+      # Arguments passed in automations
+      sig { returns(T.nilable(PaymentIntentConfirmParams::Hooks::Inputs)) }
+      def inputs; end
+      sig {
+        params(_inputs: T.nilable(PaymentIntentConfirmParams::Hooks::Inputs)).returns(T.nilable(PaymentIntentConfirmParams::Hooks::Inputs))
+       }
+      def inputs=(_inputs); end
+      sig { params(inputs: T.nilable(PaymentIntentConfirmParams::Hooks::Inputs)).void }
+      def initialize(inputs: nil); end
+    end
     class MandateData < ::Stripe::RequestParams
       class CustomerAcceptance < ::Stripe::RequestParams
         class Offline < ::Stripe::RequestParams; end
@@ -3704,6 +3735,13 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Automations to be run during the PaymentIntent lifecycle
+    sig { returns(T.nilable(PaymentIntentConfirmParams::Hooks)) }
+    def hooks; end
+    sig {
+      params(_hooks: T.nilable(PaymentIntentConfirmParams::Hooks)).returns(T.nilable(PaymentIntentConfirmParams::Hooks))
+     }
+    def hooks=(_hooks); end
     # ID of the mandate that's used for this payment.
     sig { returns(T.nilable(String)) }
     def mandate; end
@@ -3806,7 +3844,7 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(amount_details: T.nilable(T.any(String, PaymentIntentConfirmParams::AmountDetails)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), hooks: T.nilable(PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
       amount_details: nil,
@@ -3815,6 +3853,7 @@ module Stripe
       error_on_requires_action: nil,
       excluded_payment_method_types: nil,
       expand: nil,
+      hooks: nil,
       mandate: nil,
       mandate_data: nil,
       off_session: nil,

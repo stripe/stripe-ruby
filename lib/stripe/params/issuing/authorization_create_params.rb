@@ -208,6 +208,18 @@ module Stripe
           end
         end
 
+        class FraudRisk < ::Stripe::RequestParams
+          # Stripe’s assessment of the likelihood of fraud on an authorization.
+          attr_accessor :level
+          # Stripe’s numerical model score assessing the likelihood of fraudulent activity. A higher score means a higher likelihood of fraudulent activity, and anything above 25 is considered high risk.
+          attr_accessor :score
+
+          def initialize(level: nil, score: nil)
+            @level = level
+            @score = score
+          end
+        end
+
         class MerchantDisputeRisk < ::Stripe::RequestParams
           # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
           attr_accessor :dispute_rate
@@ -221,11 +233,14 @@ module Stripe
         end
         # Stripe's assessment of this authorization's likelihood of being card testing activity.
         attr_accessor :card_testing_risk
+        # Stripe’s assessment of this authorization’s likelihood to be fraudulent.
+        attr_accessor :fraud_risk
         # The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
         attr_accessor :merchant_dispute_risk
 
-        def initialize(card_testing_risk: nil, merchant_dispute_risk: nil)
+        def initialize(card_testing_risk: nil, fraud_risk: nil, merchant_dispute_risk: nil)
           @card_testing_risk = card_testing_risk
+          @fraud_risk = fraud_risk
           @merchant_dispute_risk = merchant_dispute_risk
         end
       end

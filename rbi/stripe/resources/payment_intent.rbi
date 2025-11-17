@@ -97,6 +97,39 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Hooks < ::Stripe::StripeObject
+      class Inputs < ::Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
+          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          sig { returns(String) }
+          def calculation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field tax
+        sig { returns(T.nilable(Tax)) }
+        def tax; end
+        def self.inner_class_types
+          @inner_class_types = {tax: Tax}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field inputs
+      sig { returns(T.nilable(Inputs)) }
+      def inputs; end
+      def self.inner_class_types
+        @inner_class_types = {inputs: Inputs}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class LastPaymentError < ::Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       sig { returns(T.nilable(String)) }
@@ -2894,6 +2927,9 @@ module Stripe
     # The list of payment method types to exclude from use with this payment.
     sig { returns(T.nilable(T::Array[String])) }
     def excluded_payment_method_types; end
+    # Attribute for field hooks
+    sig { returns(T.nilable(Hooks)) }
+    def hooks; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end

@@ -111,6 +111,43 @@ module Stripe
       end
     end
 
+    class Hooks < ::Stripe::StripeObject
+      class Inputs < ::Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
+          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          attr_reader :calculation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field tax
+        attr_reader :tax
+
+        def self.inner_class_types
+          @inner_class_types = { tax: Tax }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field inputs
+      attr_reader :inputs
+
+      def self.inner_class_types
+        @inner_class_types = { inputs: Inputs }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class LastPaymentError < ::Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
@@ -2758,6 +2795,8 @@ module Stripe
     attr_reader :description
     # The list of payment method types to exclude from use with this payment.
     attr_reader :excluded_payment_method_types
+    # Attribute for field hooks
+    attr_reader :hooks
     # Unique identifier for the object.
     attr_reader :id
     # The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.
@@ -3109,6 +3148,7 @@ module Stripe
       @inner_class_types = {
         amount_details: AmountDetails,
         automatic_payment_methods: AutomaticPaymentMethods,
+        hooks: Hooks,
         last_payment_error: LastPaymentError,
         next_action: NextAction,
         payment_details: PaymentDetails,

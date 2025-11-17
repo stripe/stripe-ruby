@@ -9,6 +9,11 @@ module Stripe
     def amount; end
     sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def amount=(_amount); end
+    # Attribute for param field application_fee_amount
+    sig { returns(T.nilable(Integer)) }
+    def application_fee_amount; end
+    sig { params(_application_fee_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def application_fee_amount=(_application_fee_amount); end
     # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
     sig { returns(String) }
     def currency; end
@@ -56,16 +61,12 @@ module Stripe
     def transfer_group; end
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
-    # Attribute for param field application_fee_amount
-    sig { returns(T.nilable(Integer)) }
-    def application_fee_amount; end
-    sig { params(_application_fee_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-    def application_fee_amount=(_application_fee_amount); end
     sig {
-      params(amount: T.nilable(Integer), currency: String, description: T.nilable(String), destination: String, expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), source_transaction: T.nilable(String), source_type: T.nilable(String), transfer_group: T.nilable(String), application_fee_amount: T.nilable(Integer)).void
+      params(amount: T.nilable(Integer), application_fee_amount: T.nilable(Integer), currency: String, description: T.nilable(String), destination: String, expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), source_transaction: T.nilable(String), source_type: T.nilable(String), transfer_group: T.nilable(String)).void
      }
     def initialize(
       amount: nil,
+      application_fee_amount: nil,
       currency: nil,
       description: nil,
       destination: nil,
@@ -74,8 +75,7 @@ module Stripe
       metadata: nil,
       source_transaction: nil,
       source_type: nil,
-      transfer_group: nil,
-      application_fee_amount: nil
+      transfer_group: nil
     ); end
   end
 end

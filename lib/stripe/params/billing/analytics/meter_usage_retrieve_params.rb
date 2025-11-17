@@ -6,13 +6,13 @@ module Stripe
     module Analytics
       class MeterUsageRetrieveParams < ::Stripe::RequestParams
         class Meter < ::Stripe::RequestParams
-          # Key-value pairs used to filter usage events by meter dimension values. If specified, usage will be filtered for matching usage events.
+          # Key-value pairs used to filter usage events by meter dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
           attr_accessor :dimension_filters
           # List of meter dimension keys to group by. If specified, usage events will be grouped by the given meter dimension key's values.
           attr_accessor :dimension_group_by_keys
           # Meter id to query usage for.
           attr_accessor :meter
-          # Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
+          # Key-value pairs used to filter usage events by high cardinality tenant dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
           attr_accessor :tenant_filters
           # List of high cardinality tenant dimension keys to group by. If specified, usage events will be grouped by the given tenant dimension key's values.
           attr_accessor :tenant_group_by_keys

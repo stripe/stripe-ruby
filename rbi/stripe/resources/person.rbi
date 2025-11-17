@@ -310,6 +310,34 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class SelfReportedIncome < ::Stripe::StripeObject
+      # Amount in the minor currency unit (e.g., cents for USD)
+      sig { returns(Integer) }
+      def amount; end
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      sig { returns(String) }
+      def currency; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class SelfReportedMonthlyHousingPayment < ::Stripe::StripeObject
+      # Amount in the minor currency unit (e.g., cents for USD)
+      sig { returns(Integer) }
+      def amount; end
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      sig { returns(String) }
+      def currency; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class UsCfpbData < ::Stripe::StripeObject
       class EthnicityDetails < ::Stripe::StripeObject
         # The persons ethnicity
@@ -418,34 +446,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SelfReportedIncome < ::Stripe::StripeObject
-      # Amount in the minor currency unit (e.g., cents for USD)
-      sig { returns(Integer) }
-      def amount; end
-      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-      sig { returns(String) }
-      def currency; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class SelfReportedMonthlyHousingPayment < ::Stripe::StripeObject
-      # Amount in the minor currency unit (e.g., cents for USD)
-      sig { returns(Integer) }
-      def amount; end
-      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-      sig { returns(String) }
-      def currency; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     # The account the person is associated with.
     sig { returns(T.nilable(String)) }
     def account; end
@@ -533,6 +533,12 @@ module Stripe
     # Information about the requirements for this person, including what information needs to be collected, and by when.
     sig { returns(T.nilable(Requirements)) }
     def requirements; end
+    # Attribute for field self_reported_income
+    sig { returns(T.nilable(SelfReportedIncome)) }
+    def self_reported_income; end
+    # Attribute for field self_reported_monthly_housing_payment
+    sig { returns(T.nilable(SelfReportedMonthlyHousingPayment)) }
+    def self_reported_monthly_housing_payment; end
     # Whether the last four digits of the person's Social Security number have been provided (U.S. only).
     sig { returns(T.nilable(T::Boolean)) }
     def ssn_last_4_provided; end
@@ -542,12 +548,6 @@ module Stripe
     # Attribute for field verification
     sig { returns(T.nilable(Verification)) }
     def verification; end
-    # Attribute for field self_reported_income
-    sig { returns(T.nilable(SelfReportedIncome)) }
-    def self_reported_income; end
-    # Attribute for field self_reported_monthly_housing_payment
-    sig { returns(T.nilable(SelfReportedMonthlyHousingPayment)) }
-    def self_reported_monthly_housing_payment; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

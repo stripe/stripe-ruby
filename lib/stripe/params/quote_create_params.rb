@@ -896,6 +896,8 @@ module Stripe
       attr_accessor :billing_cycle_anchor
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      attr_accessor :billing_schedules
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_accessor :description
       # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
@@ -906,6 +908,8 @@ module Stripe
       attr_accessor :from_subscription
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_accessor :phase_effective_at
       # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
       attr_accessor :prebilling
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
@@ -918,41 +922,37 @@ module Stripe
       attr_accessor :proration_behavior
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_accessor :trial_period_days
-      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
-      attr_accessor :billing_schedules
-      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      attr_accessor :phase_effective_at
 
       def initialize(
         bill_on_acceptance: nil,
         billing_behavior: nil,
         billing_cycle_anchor: nil,
         billing_mode: nil,
+        billing_schedules: nil,
         description: nil,
         effective_date: nil,
         end_behavior: nil,
         from_subscription: nil,
         metadata: nil,
+        phase_effective_at: nil,
         prebilling: nil,
         proration_behavior: nil,
-        trial_period_days: nil,
-        billing_schedules: nil,
-        phase_effective_at: nil
+        trial_period_days: nil
       )
         @bill_on_acceptance = bill_on_acceptance
         @billing_behavior = billing_behavior
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_mode = billing_mode
+        @billing_schedules = billing_schedules
         @description = description
         @effective_date = effective_date
         @end_behavior = end_behavior
         @from_subscription = from_subscription
         @metadata = metadata
+        @phase_effective_at = phase_effective_at
         @prebilling = prebilling
         @proration_behavior = proration_behavior
         @trial_period_days = trial_period_days
-        @billing_schedules = billing_schedules
-        @phase_effective_at = phase_effective_at
       end
     end
 
@@ -1151,12 +1151,16 @@ module Stripe
       attr_accessor :bill_on_acceptance
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       attr_accessor :billing_behavior
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      attr_accessor :billing_schedules
       # The customer the Subscription Data override applies to. This is only relevant when `applies_to.type=new_reference`.
       attr_accessor :customer
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_accessor :description
       # Behavior of the subscription schedule and underlying subscription when it ends.
       attr_accessor :end_behavior
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_accessor :phase_effective_at
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
       #
       # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -1165,31 +1169,27 @@ module Stripe
       #
       # Prorations can be disabled by passing `none`.
       attr_accessor :proration_behavior
-      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
-      attr_accessor :billing_schedules
-      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      attr_accessor :phase_effective_at
 
       def initialize(
         applies_to: nil,
         bill_on_acceptance: nil,
         billing_behavior: nil,
+        billing_schedules: nil,
         customer: nil,
         description: nil,
         end_behavior: nil,
-        proration_behavior: nil,
-        billing_schedules: nil,
-        phase_effective_at: nil
+        phase_effective_at: nil,
+        proration_behavior: nil
       )
         @applies_to = applies_to
         @bill_on_acceptance = bill_on_acceptance
         @billing_behavior = billing_behavior
+        @billing_schedules = billing_schedules
         @customer = customer
         @description = description
         @end_behavior = end_behavior
-        @proration_behavior = proration_behavior
-        @billing_schedules = billing_schedules
         @phase_effective_at = phase_effective_at
+        @proration_behavior = proration_behavior
       end
     end
 

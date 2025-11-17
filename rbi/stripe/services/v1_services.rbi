@@ -14,6 +14,7 @@ module Stripe
     attr_reader :balance
     attr_reader :balance_settings
     attr_reader :balance_transactions
+    attr_reader :balance_transfers
     attr_reader :billing
     attr_reader :billing_portal
     attr_reader :capital

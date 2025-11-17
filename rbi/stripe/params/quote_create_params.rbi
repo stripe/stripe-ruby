@@ -1374,6 +1374,15 @@ module Stripe
         params(_billing_mode: T.nilable(QuoteCreateParams::SubscriptionData::BillingMode)).returns(T.nilable(QuoteCreateParams::SubscriptionData::BillingMode))
        }
       def billing_mode=(_billing_mode); end
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])))
+       }
+      def billing_schedules; end
+      sig {
+        params(_billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])))
+       }
+      def billing_schedules=(_billing_schedules); end
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }
       def description; end
@@ -1403,6 +1412,11 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def phase_effective_at; end
+      sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def phase_effective_at=(_phase_effective_at); end
       # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
       sig { returns(T.nilable(T.any(String, QuoteCreateParams::SubscriptionData::Prebilling))) }
       def prebilling; end
@@ -1428,38 +1442,24 @@ module Stripe
         params(_trial_period_days: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
        }
       def trial_period_days=(_trial_period_days); end
-      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
       sig {
-        returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])))
-       }
-      def billing_schedules; end
-      sig {
-        params(_billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])))
-       }
-      def billing_schedules=(_billing_schedules); end
-      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      sig { returns(T.nilable(String)) }
-      def phase_effective_at; end
-      sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
-      def phase_effective_at=(_phase_effective_at); end
-      sig {
-        params(bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(String), billing_mode: T.nilable(QuoteCreateParams::SubscriptionData::BillingMode), description: T.nilable(String), effective_date: T.nilable(T.any(String, T.any(String, Integer))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), prebilling: T.nilable(T.any(String, QuoteCreateParams::SubscriptionData::Prebilling)), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.any(String, Integer)), billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])), phase_effective_at: T.nilable(String)).void
+        params(bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(String), billing_mode: T.nilable(QuoteCreateParams::SubscriptionData::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionData::BillingSchedule])), description: T.nilable(String), effective_date: T.nilable(T.any(String, T.any(String, Integer))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), phase_effective_at: T.nilable(String), prebilling: T.nilable(T.any(String, QuoteCreateParams::SubscriptionData::Prebilling)), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.any(String, Integer))).void
        }
       def initialize(
         bill_on_acceptance: nil,
         billing_behavior: nil,
         billing_cycle_anchor: nil,
         billing_mode: nil,
+        billing_schedules: nil,
         description: nil,
         effective_date: nil,
         end_behavior: nil,
         from_subscription: nil,
         metadata: nil,
+        phase_effective_at: nil,
         prebilling: nil,
         proration_behavior: nil,
-        trial_period_days: nil,
-        billing_schedules: nil,
-        phase_effective_at: nil
+        trial_period_days: nil
       ); end
     end
     class SubscriptionDataOverride < ::Stripe::RequestParams
@@ -1777,6 +1777,15 @@ module Stripe
       def billing_behavior; end
       sig { params(_billing_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def billing_behavior=(_billing_behavior); end
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])))
+       }
+      def billing_schedules; end
+      sig {
+        params(_billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])))
+       }
+      def billing_schedules=(_billing_schedules); end
       # The customer the Subscription Data override applies to. This is only relevant when `applies_to.type=new_reference`.
       sig { returns(T.nilable(String)) }
       def customer; end
@@ -1792,6 +1801,11 @@ module Stripe
       def end_behavior; end
       sig { params(_end_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def end_behavior=(_end_behavior); end
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def phase_effective_at; end
+      sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def phase_effective_at=(_phase_effective_at); end
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
       #
       # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -1803,33 +1817,19 @@ module Stripe
       def proration_behavior; end
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
-      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
       sig {
-        returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])))
-       }
-      def billing_schedules; end
-      sig {
-        params(_billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])))
-       }
-      def billing_schedules=(_billing_schedules); end
-      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      sig { returns(T.nilable(String)) }
-      def phase_effective_at; end
-      sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
-      def phase_effective_at=(_phase_effective_at); end
-      sig {
-        params(applies_to: QuoteCreateParams::SubscriptionDataOverride::AppliesTo, bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillOnAcceptance), billing_behavior: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), end_behavior: T.nilable(String), proration_behavior: T.nilable(String), billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])), phase_effective_at: T.nilable(String)).void
+        params(applies_to: QuoteCreateParams::SubscriptionDataOverride::AppliesTo, bill_on_acceptance: T.nilable(QuoteCreateParams::SubscriptionDataOverride::BillOnAcceptance), billing_behavior: T.nilable(String), billing_schedules: T.nilable(T.any(String, T::Array[QuoteCreateParams::SubscriptionDataOverride::BillingSchedule])), customer: T.nilable(String), description: T.nilable(String), end_behavior: T.nilable(String), phase_effective_at: T.nilable(String), proration_behavior: T.nilable(String)).void
        }
       def initialize(
         applies_to: nil,
         bill_on_acceptance: nil,
         billing_behavior: nil,
+        billing_schedules: nil,
         customer: nil,
         description: nil,
         end_behavior: nil,
-        proration_behavior: nil,
-        billing_schedules: nil,
-        phase_effective_at: nil
+        phase_effective_at: nil,
+        proration_behavior: nil
       ); end
     end
     class TransferData < ::Stripe::RequestParams

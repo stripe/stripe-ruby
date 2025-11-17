@@ -15,15 +15,26 @@ module Stripe
   #
   # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
   class PaymentIntent < APIResource
+    class AllocatedFunds < ::Stripe::StripeObject
+      # Allocated Funds configuration for this PaymentIntent.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class AmountDetails < ::Stripe::StripeObject
       class Shipping < ::Stripe::StripeObject
-        # Portion of the amount that is for shipping.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
         sig { returns(T.nilable(Integer)) }
         def amount; end
-        # The postal code that represents the shipping source.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
         sig { returns(T.nilable(String)) }
         def from_postal_code; end
-        # The postal code that represents the shipping destination.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
         sig { returns(T.nilable(String)) }
         def to_postal_code; end
         def self.inner_class_types
@@ -34,7 +45,9 @@ module Stripe
         end
       end
       class Tax < ::Stripe::StripeObject
-        # Total portion of the amount that is for tax.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        #
+        # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         sig { returns(T.nilable(Integer)) }
         def total_tax_amount; end
         def self.inner_class_types
@@ -55,7 +68,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # The total discount applied on the transaction.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      #
+      # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       sig { returns(T.nilable(Integer)) }
       def discount_amount; end
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
@@ -1673,13 +1688,19 @@ module Stripe
       # Attribute for field car_rental
       sig { returns(T.nilable(CarRental)) }
       def car_rental; end
-      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      # A unique value to identify the customer. This field is available only for card payments.
+      #
+      # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       sig { returns(T.nilable(String)) }
       def customer_reference; end
       # Attribute for field event_details
       sig { returns(T.nilable(EventDetails)) }
       def event_details; end
-      # A unique value assigned by the business to identify the transaction.
+      # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+      #
+      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+      #
+      # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       sig { returns(T.nilable(String)) }
       def order_reference; end
       # Attribute for field subscription
@@ -2183,6 +2204,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
         # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         sig { returns(T.nilable(T::Boolean)) }
         def request_extended_authorization; end
@@ -2798,19 +2822,19 @@ module Stripe
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
           sig { returns(T.nilable(Integer)) }
           def amount; end
-          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
           sig { returns(T.nilable(String)) }
           def amount_type; end
           # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
           sig { returns(T.nilable(String)) }
           def end_date; end
-          # The periodicity at which payments will be collected.
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
           sig { returns(T.nilable(String)) }
           def payment_schedule; end
           # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
           sig { returns(T.nilable(Integer)) }
           def payments_per_period; end
-          # The purpose for which payments are made. Defaults to retail.
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
           sig { returns(T.nilable(String)) }
           def purpose; end
           def self.inner_class_types
@@ -3605,17 +3629,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AllocatedFunds < ::Stripe::StripeObject
-      # Allocated Funds configuration for this PaymentIntent.
-      sig { returns(T.nilable(T::Boolean)) }
-      def enabled; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    # Allocated Funds configuration for this PaymentIntent.
+    sig { returns(T.nilable(AllocatedFunds)) }
+    def allocated_funds; end
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(Integer) }
     def amount; end
@@ -3776,9 +3792,6 @@ module Stripe
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
     sig { returns(T.nilable(String)) }
     def transfer_group; end
-    # Allocated Funds configuration for this PaymentIntent.
-    sig { returns(T.nilable(AllocatedFunds)) }
-    def allocated_funds; end
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     sig {
       params(params: T.any(::Stripe::PaymentIntentApplyCustomerBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)

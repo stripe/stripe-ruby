@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   class RadarService < StripeService
+    attr_reader :account_evaluations
     attr_reader :early_fraud_warnings
     attr_reader :value_lists
     attr_reader :value_list_items

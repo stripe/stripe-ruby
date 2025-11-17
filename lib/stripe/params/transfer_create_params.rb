@@ -5,6 +5,8 @@ module Stripe
   class TransferCreateParams < ::Stripe::RequestParams
     # A positive integer in cents (or local equivalent) representing how much to transfer.
     attr_accessor :amount
+    # Attribute for param field application_fee_amount
+    attr_accessor :application_fee_amount
     # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
     attr_accessor :currency
     # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -23,11 +25,10 @@ module Stripe
     attr_accessor :source_type
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     attr_accessor :transfer_group
-    # Attribute for param field application_fee_amount
-    attr_accessor :application_fee_amount
 
     def initialize(
       amount: nil,
+      application_fee_amount: nil,
       currency: nil,
       description: nil,
       destination: nil,
@@ -36,10 +37,10 @@ module Stripe
       metadata: nil,
       source_transaction: nil,
       source_type: nil,
-      transfer_group: nil,
-      application_fee_amount: nil
+      transfer_group: nil
     )
       @amount = amount
+      @application_fee_amount = application_fee_amount
       @currency = currency
       @description = description
       @destination = destination
@@ -49,7 +50,6 @@ module Stripe
       @source_transaction = source_transaction
       @source_type = source_type
       @transfer_group = transfer_group
-      @application_fee_amount = application_fee_amount
     end
   end
 end

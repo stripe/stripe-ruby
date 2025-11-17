@@ -387,16 +387,16 @@ module Stripe
     attr_accessor :registered_address
     # The relationship that this person has with the account's legal entity.
     attr_accessor :relationship
+    # The credit applicant's self-reported yearly income in minor units.
+    attr_accessor :self_reported_income
+    # The credit applicant's self-reported monthly housing payment in minor units.
+    attr_accessor :self_reported_monthly_housing_payment
     # The last four digits of the person's Social Security number (U.S. only).
     attr_accessor :ssn_last_4
     # Demographic data related to the person.
     attr_accessor :us_cfpb_data
     # The person's verification status.
     attr_accessor :verification
-    # The credit applicant's self-reported yearly income in minor units.
-    attr_accessor :self_reported_income
-    # The credit applicant's self-reported monthly housing payment in minor units.
-    attr_accessor :self_reported_monthly_housing_payment
 
     def initialize(
       additional_tos_acceptances: nil,
@@ -425,11 +425,11 @@ module Stripe
       political_exposure: nil,
       registered_address: nil,
       relationship: nil,
+      self_reported_income: nil,
+      self_reported_monthly_housing_payment: nil,
       ssn_last_4: nil,
       us_cfpb_data: nil,
-      verification: nil,
-      self_reported_income: nil,
-      self_reported_monthly_housing_payment: nil
+      verification: nil
     )
       @additional_tos_acceptances = additional_tos_acceptances
       @address = address
@@ -457,11 +457,11 @@ module Stripe
       @political_exposure = political_exposure
       @registered_address = registered_address
       @relationship = relationship
+      @self_reported_income = self_reported_income
+      @self_reported_monthly_housing_payment = self_reported_monthly_housing_payment
       @ssn_last_4 = ssn_last_4
       @us_cfpb_data = us_cfpb_data
       @verification = verification
-      @self_reported_income = self_reported_income
-      @self_reported_monthly_housing_payment = self_reported_monthly_housing_payment
     end
   end
 end

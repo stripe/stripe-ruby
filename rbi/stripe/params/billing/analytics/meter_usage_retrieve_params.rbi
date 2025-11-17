@@ -7,11 +7,11 @@ module Stripe
     module Analytics
       class MeterUsageRetrieveParams < ::Stripe::RequestParams
         class Meter < ::Stripe::RequestParams
-          # Key-value pairs used to filter usage events by meter dimension values. If specified, usage will be filtered for matching usage events.
-          sig { returns(T.nilable(T::Hash[String, String])) }
+          # Key-value pairs used to filter usage events by meter dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
+          sig { returns(T.nilable(T::Hash[String, T::Array[String]])) }
           def dimension_filters; end
           sig {
-            params(_dimension_filters: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+            params(_dimension_filters: T.nilable(T::Hash[String, T::Array[String]])).returns(T.nilable(T::Hash[String, T::Array[String]]))
            }
           def dimension_filters=(_dimension_filters); end
           # List of meter dimension keys to group by. If specified, usage events will be grouped by the given meter dimension key's values.
@@ -26,11 +26,11 @@ module Stripe
           def meter; end
           sig { params(_meter: String).returns(String) }
           def meter=(_meter); end
-          # Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
-          sig { returns(T.nilable(T::Hash[String, String])) }
+          # Key-value pairs used to filter usage events by high cardinality tenant dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
+          sig { returns(T.nilable(T::Hash[String, T::Array[String]])) }
           def tenant_filters; end
           sig {
-            params(_tenant_filters: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+            params(_tenant_filters: T.nilable(T::Hash[String, T::Array[String]])).returns(T.nilable(T::Hash[String, T::Array[String]]))
            }
           def tenant_filters=(_tenant_filters); end
           # List of high cardinality tenant dimension keys to group by. If specified, usage events will be grouped by the given tenant dimension key's values.
@@ -41,7 +41,7 @@ module Stripe
            }
           def tenant_group_by_keys=(_tenant_group_by_keys); end
           sig {
-            params(dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), meter: String, tenant_filters: T.nilable(T::Hash[String, String]), tenant_group_by_keys: T.nilable(T::Array[String])).void
+            params(dimension_filters: T.nilable(T::Hash[String, T::Array[String]]), dimension_group_by_keys: T.nilable(T::Array[String]), meter: String, tenant_filters: T.nilable(T::Hash[String, T::Array[String]]), tenant_group_by_keys: T.nilable(T::Array[String])).void
            }
           def initialize(
             dimension_filters: nil,

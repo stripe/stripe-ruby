@@ -168,59 +168,14 @@ module Stripe
         end
       end
       class OrderDetails < ::Stripe::StripeObject
-        # The URL to the order status.
-        sig { returns(T.nilable(String)) }
-        def order_status_url; end
         # The seller's order identifier.
         sig { returns(T.nilable(String)) }
         def order_id; end
+        # The URL to the order status.
+        sig { returns(T.nilable(String)) }
+        def order_status_url; end
         def self.inner_class_types
           @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class SellerDetails < ::Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class TotalDetails < ::Stripe::StripeObject
-        class ApplicableFee < ::Stripe::StripeObject
-          # The amount of the applicable fee.
-          sig { returns(Integer) }
-          def amount; end
-          # The description of the applicable fee.
-          sig { returns(T.nilable(String)) }
-          def description; end
-          # The display name of the applicable fee.
-          sig { returns(String) }
-          def display_name; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The amount discount of the total details.
-        sig { returns(T.nilable(Integer)) }
-        def amount_discount; end
-        # The amount fulfillment of the total details.
-        sig { returns(T.nilable(Integer)) }
-        def amount_fulfillment; end
-        # The amount tax of the total details.
-        sig { returns(T.nilable(Integer)) }
-        def amount_tax; end
-        # The applicable fees of the total details.
-        sig { returns(T.nilable(T::Array[ApplicableFee])) }
-        def applicable_fees; end
-        def self.inner_class_types
-          @inner_class_types = {applicable_fees: ApplicableFee}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -306,6 +261,51 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class SellerDetails < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TotalDetails < ::Stripe::StripeObject
+        class ApplicableFee < ::Stripe::StripeObject
+          # The amount of the applicable fee.
+          sig { returns(Integer) }
+          def amount; end
+          # The description of the applicable fee.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # The display name of the applicable fee.
+          sig { returns(String) }
+          def display_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The amount discount of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_discount; end
+        # The amount fulfillment of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_fulfillment; end
+        # The amount tax of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_tax; end
+        # The applicable fees of the total details.
+        sig { returns(T.nilable(T::Array[ApplicableFee])) }
+        def applicable_fees; end
+        def self.inner_class_types
+          @inner_class_types = {applicable_fees: ApplicableFee}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The subtotal amount of the requested session.
       sig { returns(Integer) }
       def amount_subtotal; end
@@ -348,6 +348,9 @@ module Stripe
       # The payment method used for the requested session.
       sig { returns(T.nilable(String)) }
       def payment_method; end
+      # The preview of the payment method to be created when the requested session is confirmed.
+      sig { returns(T.nilable(PaymentMethodPreview)) }
+      def payment_method_preview; end
       # Attribute for field seller_details
       sig { returns(SellerDetails) }
       def seller_details; end
@@ -369,9 +372,6 @@ module Stripe
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def updated_at; end
-      # The preview of the payment method to be created when the requested session is confirmed.
-      sig { returns(T.nilable(PaymentMethodPreview)) }
-      def payment_method_preview; end
       # Confirms a requested session
       sig {
         params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

@@ -200,7 +200,7 @@ module Stripe
         @tax_id_element = tax_id_element
       end
     end
-    # Configuration for each component. Exactly 1 component must be enabled.
+    # Configuration for each component. At least 1 component must be enabled.
     attr_accessor :components
     # The ID of an existing customer for which to create the Customer Session.
     attr_accessor :customer

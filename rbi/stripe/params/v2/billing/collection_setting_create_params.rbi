@@ -111,9 +111,9 @@ module Stripe
             sig { params(_network: T.nilable(String)).returns(T.nilable(String)) }
             def network=(_network); end
             # An advanced option 3D Secure. We strongly recommend that you rely on our SCA Engine to automatically prompt your customers
-            # for authentication based on risk level and [other requirements](https://docs.corp.stripe.com/strong-customer-authentication).
+            # for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication).
             # However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option.
-            # Read our guide on [manually requesting 3D Secure](https://docs.corp.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            # Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             sig { returns(T.nilable(String)) }
             def request_three_d_secure; end
             sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }

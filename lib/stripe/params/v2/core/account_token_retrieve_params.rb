@@ -3,8 +3,8 @@
 
 module Stripe
   module V2
-    module Payments
-      class OffSessionPaymentCancelParams < ::Stripe::RequestParams; end
+    module Core
+      class AccountTokenRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

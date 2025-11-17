@@ -53,6 +53,9 @@ module Stripe
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
+          # The [Payment Method Configuration](/api/payment_method_configurations) to use for this portal session. When specified, customers will be able to update their payment method to one of the options specified by the payment method configuration. If not set, the default payment method configuration is used.
+          sig { returns(T.nilable(String)) }
+          def payment_method_configuration; end
           def self.inner_class_types
             @inner_class_types = {}
           end

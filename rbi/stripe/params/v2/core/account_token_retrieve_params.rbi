@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module V2
-    class PaymentService < StripeService
-      attr_reader :off_session_payments
+    module Core
+      class AccountTokenRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

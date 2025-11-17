@@ -147,7 +147,7 @@ module Stripe
       end
       # Specifies which subscription items the billing schedule applies to.
       attr_reader :applies_to
-      # Specifies the billing period.
+      # Specifies the end of billing period.
       attr_reader :bill_until
       # Unique identifier for the billing schedule.
       attr_reader :key

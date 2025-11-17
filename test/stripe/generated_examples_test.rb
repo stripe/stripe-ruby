@@ -7840,7 +7840,7 @@ module Stripe
     should "Test v2 billing profile get (service)" do
       stub_request(
         :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys=lookup_keys"
+        "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys[0]=lookup_keys"
       ).to_return(
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.billing.profile","status":"active","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
@@ -7848,7 +7848,7 @@ module Stripe
       client = Stripe::StripeClient.new("sk_test_123")
 
       profiles = client.v2.billing.profiles.list({ lookup_keys: ["lookup_keys"] })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys=lookup_keys"
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys[0]=lookup_keys"
     end
     should "Test v2 billing profile post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles").to_return(

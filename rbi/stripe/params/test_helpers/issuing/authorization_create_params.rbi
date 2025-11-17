@@ -304,6 +304,20 @@ module Stripe
               risk_level: nil
             ); end
           end
+          class FraudRisk < ::Stripe::RequestParams
+            # Stripe’s assessment of the likelihood of fraud on an authorization.
+            sig { returns(String) }
+            def level; end
+            sig { params(_level: String).returns(String) }
+            def level=(_level); end
+            # Stripe’s numerical model score assessing the likelihood of fraudulent activity. A higher score means a higher likelihood of fraudulent activity, and anything above 25 is considered high risk.
+            sig { returns(T.nilable(Float)) }
+            def score; end
+            sig { params(_score: T.nilable(Float)).returns(T.nilable(Float)) }
+            def score=(_score); end
+            sig { params(level: String, score: T.nilable(Float)).void }
+            def initialize(level: nil, score: nil); end
+          end
           class MerchantDisputeRisk < ::Stripe::RequestParams
             # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
             sig { returns(T.nilable(Integer)) }
@@ -327,6 +341,15 @@ module Stripe
             params(_card_testing_risk: T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk)).returns(T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk))
            }
           def card_testing_risk=(_card_testing_risk); end
+          # Stripe’s assessment of this authorization’s likelihood to be fraudulent.
+          sig {
+            returns(T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk))
+           }
+          def fraud_risk; end
+          sig {
+            params(_fraud_risk: T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk)).returns(T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk))
+           }
+          def fraud_risk=(_fraud_risk); end
           # The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
           sig {
             returns(T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk))
@@ -337,9 +360,9 @@ module Stripe
            }
           def merchant_dispute_risk=(_merchant_dispute_risk); end
           sig {
-            params(card_testing_risk: T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk), merchant_dispute_risk: T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk)).void
+            params(card_testing_risk: T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk), fraud_risk: T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk), merchant_dispute_risk: T.nilable(TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk)).void
            }
-          def initialize(card_testing_risk: nil, merchant_dispute_risk: nil); end
+          def initialize(card_testing_risk: nil, fraud_risk: nil, merchant_dispute_risk: nil); end
         end
         class VerificationData < ::Stripe::RequestParams
           class AuthenticationExemption < ::Stripe::RequestParams

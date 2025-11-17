@@ -29,6 +29,10 @@ module Stripe
     attr_reader :amount
     # Amount in cents (or local equivalent) reversed (can be less than the amount attribute on the transfer if a partial reversal was issued).
     attr_reader :amount_reversed
+    # Attribute for field application_fee
+    attr_reader :application_fee
+    # Attribute for field application_fee_amount
+    attr_reader :application_fee_amount
     # Balance transaction that describes the impact of this transfer on your account balance.
     attr_reader :balance_transaction
     # Time that this record of the transfer was first created.
@@ -61,10 +65,6 @@ module Stripe
     attr_reader :source_type
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     attr_reader :transfer_group
-    # Attribute for field application_fee
-    attr_reader :application_fee
-    # Attribute for field application_fee_amount
-    attr_reader :application_fee_amount
 
     # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
     def self.create(params = {}, opts = {})

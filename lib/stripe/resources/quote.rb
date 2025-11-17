@@ -712,23 +712,23 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Use an index to specify the position of an amendment to end prebilling with.
+          attr_reader :amendment_end
           # The timestamp the billing schedule will apply until.
           attr_reader :computed_timestamp
           # Specifies the billing period.
           attr_reader :duration
+          # Lets you bill the period ending at a particular Quote line.
+          attr_reader :line_ends_at
           # If specified, the billing schedule will apply until the specified timestamp.
           attr_reader :timestamp
           # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
           attr_reader :type
-          # Use an index to specify the position of an amendment to end prebilling with.
-          attr_reader :amendment_end
-          # Lets you bill the period ending at a particular Quote line.
-          attr_reader :line_ends_at
 
           def self.inner_class_types
             @inner_class_types = {
-              duration: Duration,
               amendment_end: AmendmentEnd,
+              duration: Duration,
               line_ends_at: LineEndsAt,
             }
           end
@@ -739,15 +739,15 @@ module Stripe
         end
         # Specifies which subscription items the billing schedule applies to.
         attr_reader :applies_to
-        # Specifies the billing period.
+        # Specifies the start of the billing period.
+        attr_reader :bill_from
+        # Specifies the end of billing period.
         attr_reader :bill_until
         # Unique identifier for the billing schedule.
         attr_reader :key
-        # Specifies the start of the billing period.
-        attr_reader :bill_from
 
         def self.inner_class_types
-          @inner_class_types = { applies_to: AppliesTo, bill_until: BillUntil, bill_from: BillFrom }
+          @inner_class_types = { applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil }
         end
 
         def self.field_remappings
@@ -775,6 +775,8 @@ module Stripe
       attr_reader :billing_cycle_anchor
       # The billing mode of the quote.
       attr_reader :billing_mode
+      # Billing schedules that will be applied to the subscription or subscription schedule created from this quote.
+      attr_reader :billing_schedules
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
       # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
@@ -785,23 +787,21 @@ module Stripe
       attr_reader :from_subscription
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_reader :metadata
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_reader :phase_effective_at
       # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
       attr_reader :prebilling
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
-      # Billing schedules that will be applied to the subscription or subscription schedule created from this quote.
-      attr_reader :billing_schedules
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      attr_reader :phase_effective_at
 
       def self.inner_class_types
         @inner_class_types = {
           bill_on_acceptance: BillOnAcceptance,
           billing_mode: BillingMode,
-          prebilling: Prebilling,
           billing_schedules: BillingSchedule,
+          prebilling: Prebilling,
         }
       end
 
@@ -1045,23 +1045,23 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Use an index to specify the position of an amendment to end prebilling with.
+          attr_reader :amendment_end
           # The timestamp the billing schedule will apply until.
           attr_reader :computed_timestamp
           # Specifies the billing period.
           attr_reader :duration
+          # Lets you bill the period ending at a particular Quote line.
+          attr_reader :line_ends_at
           # If specified, the billing schedule will apply until the specified timestamp.
           attr_reader :timestamp
           # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
           attr_reader :type
-          # Use an index to specify the position of an amendment to end prebilling with.
-          attr_reader :amendment_end
-          # Lets you bill the period ending at a particular Quote line.
-          attr_reader :line_ends_at
 
           def self.inner_class_types
             @inner_class_types = {
-              duration: Duration,
               amendment_end: AmendmentEnd,
+              duration: Duration,
               line_ends_at: LineEndsAt,
             }
           end
@@ -1072,15 +1072,15 @@ module Stripe
         end
         # Specifies which subscription items the billing schedule applies to.
         attr_reader :applies_to
-        # Specifies the billing period.
+        # Specifies the start of the billing period.
+        attr_reader :bill_from
+        # Specifies the end of billing period.
         attr_reader :bill_until
         # Unique identifier for the billing schedule.
         attr_reader :key
-        # Specifies the start of the billing period.
-        attr_reader :bill_from
 
         def self.inner_class_types
-          @inner_class_types = { applies_to: AppliesTo, bill_until: BillUntil, bill_from: BillFrom }
+          @inner_class_types = { applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil }
         end
 
         def self.field_remappings
@@ -1093,18 +1093,18 @@ module Stripe
       attr_reader :bill_on_acceptance
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       attr_reader :billing_behavior
+      # Billing schedules that will be applied to the subscription or subscription schedule created from this quote.
+      attr_reader :billing_schedules
       # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       attr_reader :customer
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
       # Behavior of the subscription schedule and underlying subscription when it ends.
       attr_reader :end_behavior
-      # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
-      attr_reader :proration_behavior
-      # Billing schedules that will be applied to the subscription or subscription schedule created from this quote.
-      attr_reader :billing_schedules
       # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
       attr_reader :phase_effective_at
+      # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
+      attr_reader :proration_behavior
 
       def self.inner_class_types
         @inner_class_types = {

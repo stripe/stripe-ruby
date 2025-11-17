@@ -171,6 +171,15 @@ module Stripe
       def product_description; end
       sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
       def product_description=(_product_description); end
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Used by the Checkout product and for Japanese payment methods.
+      sig { returns(T.nilable(String)) }
+      def specified_commercial_transactions_act_url; end
+      sig {
+        params(_specified_commercial_transactions_act_url: T.nilable(String)).returns(T.nilable(String))
+       }
+      def specified_commercial_transactions_act_url=(
+        _specified_commercial_transactions_act_url
+      ); end
       # A publicly available mailing address for sending support issues to.
       sig { returns(T.nilable(AccountCreateParams::BusinessProfile::SupportAddress)) }
       def support_address; end
@@ -199,7 +208,7 @@ module Stripe
       sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
       def url=(_url); end
       sig {
-        params(annual_revenue: T.nilable(AccountCreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(AccountCreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(AccountCreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
+        params(annual_revenue: T.nilable(AccountCreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(AccountCreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), specified_commercial_transactions_act_url: T.nilable(String), support_address: T.nilable(AccountCreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
        }
       def initialize(
         annual_revenue: nil,
@@ -209,6 +218,7 @@ module Stripe
         monthly_estimated_revenue: nil,
         name: nil,
         product_description: nil,
+        specified_commercial_transactions_act_url: nil,
         support_address: nil,
         support_email: nil,
         support_phone: nil,
@@ -2735,18 +2745,6 @@ module Stripe
         params(_relationship: T.nilable(AccountCreateParams::Individual::Relationship)).returns(T.nilable(AccountCreateParams::Individual::Relationship))
        }
       def relationship=(_relationship); end
-      # The last four digits of the individual's Social Security Number (U.S. only).
-      sig { returns(T.nilable(String)) }
-      def ssn_last_4; end
-      sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
-      def ssn_last_4=(_ssn_last_4); end
-      # The individual's verification document information.
-      sig { returns(T.nilable(AccountCreateParams::Individual::Verification)) }
-      def verification; end
-      sig {
-        params(_verification: T.nilable(AccountCreateParams::Individual::Verification)).returns(T.nilable(AccountCreateParams::Individual::Verification))
-       }
-      def verification=(_verification); end
       # The credit applicant's self-reported yearly income in minor units.
       sig { returns(T.nilable(AccountCreateParams::Individual::SelfReportedIncome)) }
       def self_reported_income; end
@@ -2761,8 +2759,20 @@ module Stripe
         params(_self_reported_monthly_housing_payment: T.nilable(AccountCreateParams::Individual::SelfReportedMonthlyHousingPayment)).returns(T.nilable(AccountCreateParams::Individual::SelfReportedMonthlyHousingPayment))
        }
       def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
+      # The last four digits of the individual's Social Security Number (U.S. only).
+      sig { returns(T.nilable(String)) }
+      def ssn_last_4; end
+      sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
+      def ssn_last_4=(_ssn_last_4); end
+      # The individual's verification document information.
+      sig { returns(T.nilable(AccountCreateParams::Individual::Verification)) }
+      def verification; end
       sig {
-        params(address: T.nilable(AccountCreateParams::Individual::Address), address_kana: T.nilable(AccountCreateParams::Individual::AddressKana), address_kanji: T.nilable(AccountCreateParams::Individual::AddressKanji), dob: T.nilable(T.any(String, AccountCreateParams::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(AccountCreateParams::Individual::RegisteredAddress), relationship: T.nilable(AccountCreateParams::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(AccountCreateParams::Individual::Verification), self_reported_income: T.nilable(AccountCreateParams::Individual::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(AccountCreateParams::Individual::SelfReportedMonthlyHousingPayment)).void
+        params(_verification: T.nilable(AccountCreateParams::Individual::Verification)).returns(T.nilable(AccountCreateParams::Individual::Verification))
+       }
+      def verification=(_verification); end
+      sig {
+        params(address: T.nilable(AccountCreateParams::Individual::Address), address_kana: T.nilable(AccountCreateParams::Individual::AddressKana), address_kanji: T.nilable(AccountCreateParams::Individual::AddressKanji), dob: T.nilable(T.any(String, AccountCreateParams::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(AccountCreateParams::Individual::RegisteredAddress), relationship: T.nilable(AccountCreateParams::Individual::Relationship), self_reported_income: T.nilable(AccountCreateParams::Individual::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(AccountCreateParams::Individual::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), verification: T.nilable(AccountCreateParams::Individual::Verification)).void
        }
       def initialize(
         address: nil,
@@ -2786,10 +2796,10 @@ module Stripe
         political_exposure: nil,
         registered_address: nil,
         relationship: nil,
-        ssn_last_4: nil,
-        verification: nil,
         self_reported_income: nil,
-        self_reported_monthly_housing_payment: nil
+        self_reported_monthly_housing_payment: nil,
+        ssn_last_4: nil,
+        verification: nil
       ); end
     end
     class RiskControls < ::Stripe::RequestParams
@@ -2992,7 +3002,7 @@ module Stripe
         ); end
       end
       class Invoices < ::Stripe::RequestParams
-        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+        # Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
         sig { returns(T.nilable(String)) }
         def hosted_payment_method_save; end
         sig { params(_hosted_payment_method_save: T.nilable(String)).returns(T.nilable(String)) }
@@ -3098,6 +3108,15 @@ module Stripe
           params(debit_negative_balances: T.nilable(T::Boolean), schedule: T.nilable(AccountCreateParams::Settings::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
          }
         def initialize(debit_negative_balances: nil, schedule: nil, statement_descriptor: nil); end
+      end
+      class PaypayPayments < ::Stripe::RequestParams
+        # Whether your business sells digital content or not.
+        sig { returns(T.nilable(String)) }
+        def goods_type; end
+        sig { params(_goods_type: T.nilable(String)).returns(T.nilable(String)) }
+        def goods_type=(_goods_type); end
+        sig { params(goods_type: T.nilable(String)).void }
+        def initialize(goods_type: nil); end
       end
       class TaxForms < ::Stripe::RequestParams
         # Whether the account opted out of receiving their tax forms by postal delivery.
@@ -3207,6 +3226,13 @@ module Stripe
         params(_payouts: T.nilable(AccountCreateParams::Settings::Payouts)).returns(T.nilable(AccountCreateParams::Settings::Payouts))
        }
       def payouts=(_payouts); end
+      # Settings specific to the PayPay payments method.
+      sig { returns(T.nilable(AccountCreateParams::Settings::PaypayPayments)) }
+      def paypay_payments; end
+      sig {
+        params(_paypay_payments: T.nilable(AccountCreateParams::Settings::PaypayPayments)).returns(T.nilable(AccountCreateParams::Settings::PaypayPayments))
+       }
+      def paypay_payments=(_paypay_payments); end
       # Settings specific to the account's tax forms.
       sig { returns(T.nilable(AccountCreateParams::Settings::TaxForms)) }
       def tax_forms; end
@@ -3222,7 +3248,7 @@ module Stripe
        }
       def treasury=(_treasury); end
       sig {
-        params(bacs_debit_payments: T.nilable(AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(AccountCreateParams::Settings::Branding), capital: T.nilable(AccountCreateParams::Settings::Capital), card_issuing: T.nilable(AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(AccountCreateParams::Settings::CardPayments), invoices: T.nilable(AccountCreateParams::Settings::Invoices), payments: T.nilable(AccountCreateParams::Settings::Payments), payouts: T.nilable(AccountCreateParams::Settings::Payouts), tax_forms: T.nilable(AccountCreateParams::Settings::TaxForms), treasury: T.nilable(AccountCreateParams::Settings::Treasury)).void
+        params(bacs_debit_payments: T.nilable(AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(AccountCreateParams::Settings::Branding), capital: T.nilable(AccountCreateParams::Settings::Capital), card_issuing: T.nilable(AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(AccountCreateParams::Settings::CardPayments), invoices: T.nilable(AccountCreateParams::Settings::Invoices), payments: T.nilable(AccountCreateParams::Settings::Payments), payouts: T.nilable(AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(AccountCreateParams::Settings::PaypayPayments), tax_forms: T.nilable(AccountCreateParams::Settings::TaxForms), treasury: T.nilable(AccountCreateParams::Settings::Treasury)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3234,6 +3260,7 @@ module Stripe
         invoices: nil,
         payments: nil,
         payouts: nil,
+        paypay_payments: nil,
         tax_forms: nil,
         treasury: nil
       ); end

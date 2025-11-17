@@ -24,12 +24,12 @@ module Stripe
         # Timestamp indicating the start of the bucket. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         def starts_at; end
-        # The aggregated meter usage value for the specified bucket.
-        sig { returns(Float) }
-        def value; end
         # A set of key-value pairs representing the tenants of the meter usage.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def tenants; end
+        # The aggregated meter usage value for the specified bucket.
+        sig { returns(Float) }
+        def value; end
       end
     end
   end

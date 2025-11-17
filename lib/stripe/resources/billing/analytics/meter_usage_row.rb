@@ -22,10 +22,10 @@ module Stripe
         attr_reader :object
         # Timestamp indicating the start of the bucket. Measured in seconds since the Unix epoch.
         attr_reader :starts_at
-        # The aggregated meter usage value for the specified bucket.
-        attr_reader :value
         # A set of key-value pairs representing the tenants of the meter usage.
         attr_reader :tenants
+        # The aggregated meter usage value for the specified bucket.
+        attr_reader :value
 
         def self.inner_class_types
           @inner_class_types = {}

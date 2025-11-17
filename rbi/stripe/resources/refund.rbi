@@ -224,6 +224,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class MbWay < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Multibanco < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
@@ -348,6 +362,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class UsBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
@@ -438,6 +460,9 @@ module Stripe
       # Attribute for field klarna
       sig { returns(T.nilable(Klarna)) }
       def klarna; end
+      # Attribute for field mb_way
+      sig { returns(T.nilable(MbWay)) }
+      def mb_way; end
       # Attribute for field multibanco
       sig { returns(T.nilable(Multibanco)) }
       def multibanco; end
@@ -471,6 +496,9 @@ module Stripe
       # Attribute for field th_bank_transfer
       sig { returns(T.nilable(ThBankTransfer)) }
       def th_bank_transfer; end
+      # Attribute for field twint
+      sig { returns(T.nilable(Twint)) }
+      def twint; end
       # The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
       sig { returns(String) }
       def type; end
@@ -505,6 +533,7 @@ module Stripe
           id_bank_transfer: IdBankTransfer,
           jp_bank_transfer: JpBankTransfer,
           klarna: Klarna,
+          mb_way: MbWay,
           multibanco: Multibanco,
           mx_bank_transfer: MxBankTransfer,
           nz_bank_transfer: NzBankTransfer,
@@ -516,6 +545,7 @@ module Stripe
           sofort: Sofort,
           swish: Swish,
           th_bank_transfer: ThBankTransfer,
+          twint: Twint,
           us_bank_transfer: UsBankTransfer,
           wechat_pay: WechatPay,
           zip: Zip,

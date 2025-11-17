@@ -103,6 +103,8 @@ module Stripe
       attr_reader :name
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       attr_reader :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      attr_reader :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_reader :support_address
       # A publicly available email address for sending support issues to.
@@ -938,7 +940,7 @@ module Stripe
       class Invoices < ::Stripe::StripeObject
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         attr_reader :default_account_tax_ids
-        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+        # Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
         attr_reader :hosted_payment_method_save
 
         def self.inner_class_types
@@ -1003,6 +1005,19 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { schedule: Schedule }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PaypayPayments < ::Stripe::StripeObject
+        # Whether your business sells digital content or not.
+        attr_reader :goods_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -1084,6 +1099,8 @@ module Stripe
       attr_reader :payments
       # Attribute for field payouts
       attr_reader :payouts
+      # Attribute for field paypay_payments
+      attr_reader :paypay_payments
       # Attribute for field sepa_debit_payments
       attr_reader :sepa_debit_payments
       # Attribute for field tax_forms
@@ -1103,6 +1120,7 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
           tax_forms: TaxForms,
           treasury: Treasury,

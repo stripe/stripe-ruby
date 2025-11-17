@@ -207,28 +207,28 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Use an index to specify the position of an amendment to end prebilling with.
+        sig { returns(T.nilable(AmendmentEnd)) }
+        def amendment_end; end
         # The timestamp the billing schedule will apply until.
         sig { returns(Integer) }
         def computed_timestamp; end
         # Specifies the billing period.
         sig { returns(T.nilable(Duration)) }
         def duration; end
+        # Lets you bill the period ending at a particular Quote line.
+        sig { returns(T.nilable(LineEndsAt)) }
+        def line_ends_at; end
         # If specified, the billing schedule will apply until the specified timestamp.
         sig { returns(T.nilable(Integer)) }
         def timestamp; end
         # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
         sig { returns(String) }
         def type; end
-        # Use an index to specify the position of an amendment to end prebilling with.
-        sig { returns(T.nilable(AmendmentEnd)) }
-        def amendment_end; end
-        # Lets you bill the period ending at a particular Quote line.
-        sig { returns(T.nilable(LineEndsAt)) }
-        def line_ends_at; end
         def self.inner_class_types
           @inner_class_types = {
-            duration: Duration,
             amendment_end: AmendmentEnd,
+            duration: Duration,
             line_ends_at: LineEndsAt,
           }
         end
@@ -239,17 +239,17 @@ module Stripe
       # Specifies which subscription items the billing schedule applies to.
       sig { returns(T.nilable(T::Array[AppliesTo])) }
       def applies_to; end
-      # Specifies the billing period.
+      # Specifies the start of the billing period.
+      sig { returns(T.nilable(BillFrom)) }
+      def bill_from; end
+      # Specifies the end of billing period.
       sig { returns(BillUntil) }
       def bill_until; end
       # Unique identifier for the billing schedule.
       sig { returns(String) }
       def key; end
-      # Specifies the start of the billing period.
-      sig { returns(T.nilable(BillFrom)) }
-      def bill_from; end
       def self.inner_class_types
-        @inner_class_types = {applies_to: AppliesTo, bill_until: BillUntil, bill_from: BillFrom}
+        @inner_class_types = {applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil}
       end
       def self.field_remappings
         @field_remappings = {}

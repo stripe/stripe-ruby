@@ -89,7 +89,9 @@ module Stripe
     end
 
     class Tax < ::Stripe::StripeObject
-      # Total portion of the amount that is for tax.
+      # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+      #
+      # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
       attr_reader :total_tax_amount
 
       def self.inner_class_types
@@ -100,7 +102,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The amount an item was discounted for. Positive integer.
+    # The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    #
+    # This field is mutually exclusive with the `amount_details[discount_amount]` field.
     attr_reader :discount_amount
     # Unique identifier for the object.
     attr_reader :id
@@ -108,17 +112,19 @@ module Stripe
     attr_reader :object
     # Payment method-specific information for line items.
     attr_reader :payment_method_options
-    # Unique identifier of the product. At most 12 characters long.
+    # The product code of the line item, such as an SKU. Required for L3 rates. At most 12 characters long.
     attr_reader :product_code
-    # Name of the product. At most 100 characters long.
+    # The product name of the line item. Required for L3 rates. At most 1024 characters long.
+    #
+    # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
     attr_reader :product_name
-    # Number of items of the product. Positive integer.
+    # The quantity of items. Required for L3 rates. An integer greater than 0.
     attr_reader :quantity
     # Contains information about the tax on the item.
     attr_reader :tax
-    # Cost of the product. Non-negative integer.
+    # The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     attr_reader :unit_cost
-    # A unit of measure for the line item, such as gallons, feet, meters, etc.
+    # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     attr_reader :unit_of_measure
 
     def self.inner_class_types

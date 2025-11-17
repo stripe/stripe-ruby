@@ -27,13 +27,26 @@ module Stripe
 
     nested_resource_class_methods :amount_details_line_item, operations: %i[list]
 
+    class AllocatedFunds < ::Stripe::StripeObject
+      # Allocated Funds configuration for this PaymentIntent.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class AmountDetails < ::Stripe::StripeObject
       class Shipping < ::Stripe::StripeObject
-        # Portion of the amount that is for shipping.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_reader :amount
-        # The postal code that represents the shipping source.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
         attr_reader :from_postal_code
-        # The postal code that represents the shipping destination.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
         attr_reader :to_postal_code
 
         def self.inner_class_types
@@ -46,7 +59,9 @@ module Stripe
       end
 
       class Tax < ::Stripe::StripeObject
-        # Total portion of the amount that is for tax.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        #
+        # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         attr_reader :total_tax_amount
 
         def self.inner_class_types
@@ -70,7 +85,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # The total discount applied on the transaction.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      #
+      # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_reader :discount_amount
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
       attr_reader :line_items
@@ -1541,11 +1558,17 @@ module Stripe
       attr_reader :benefit
       # Attribute for field car_rental
       attr_reader :car_rental
-      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      # A unique value to identify the customer. This field is available only for card payments.
+      #
+      # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       attr_reader :customer_reference
       # Attribute for field event_details
       attr_reader :event_details
-      # A unique value assigned by the business to identify the transaction.
+      # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+      #
+      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+      #
+      # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_reader :order_reference
       # Attribute for field subscription
       attr_reader :subscription
@@ -2038,6 +2061,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
         # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         attr_reader :request_extended_authorization
         # Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
@@ -2677,15 +2702,15 @@ module Stripe
         class MandateOptions < ::Stripe::StripeObject
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
           attr_reader :amount
-          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
           attr_reader :amount_type
           # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
           attr_reader :end_date
-          # The periodicity at which payments will be collected.
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
           attr_reader :payment_schedule
           # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
           attr_reader :payments_per_period
-          # The purpose for which payments are made. Defaults to retail.
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
           attr_reader :purpose
 
           def self.inner_class_types
@@ -3434,19 +3459,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-
-    class AllocatedFunds < ::Stripe::StripeObject
-      # Allocated Funds configuration for this PaymentIntent.
-      attr_reader :enabled
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    # Allocated Funds configuration for this PaymentIntent.
+    attr_reader :allocated_funds
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_reader :amount
     # Amount that can be captured from this PaymentIntent.
@@ -3559,8 +3573,6 @@ module Stripe
     attr_reader :transfer_data
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
     attr_reader :transfer_group
-    # Allocated Funds configuration for this PaymentIntent.
-    attr_reader :allocated_funds
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     def apply_customer_balance(params = {}, opts = {})
@@ -3922,6 +3934,7 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        allocated_funds: AllocatedFunds,
         amount_details: AmountDetails,
         automatic_payment_methods: AutomaticPaymentMethods,
         hooks: Hooks,
@@ -3934,7 +3947,6 @@ module Stripe
         processing: Processing,
         shipping: Shipping,
         transfer_data: TransferData,
-        allocated_funds: AllocatedFunds,
       }
     end
 

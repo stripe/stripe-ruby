@@ -14,16 +14,16 @@ module Stripe
       end
 
       class AcceptedTerms < ::Stripe::StripeObject
-        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
+        # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         attr_reader :advance_amount
         # Currency that the financing offer is transacted in. For example, `usd`.
         attr_reader :currency
-        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
+        # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         attr_reader :fee_amount
         # Populated when the `product_type` of the `financingoffer` is `refill`.
         # Represents the discount amount on remaining premium for the existing loan at payout time.
         attr_reader :previous_financing_fee_discount_amount
-        # Per-transaction rate at which Stripe will withhold funds to repay the financing.
+        # Per-transaction rate at which Stripe withholds funds to repay the financing.
         attr_reader :withhold_rate
 
         def self.inner_class_types
@@ -36,20 +36,20 @@ module Stripe
       end
 
       class OfferedTerms < ::Stripe::StripeObject
-        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
+        # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         attr_reader :advance_amount
         # Describes the type of user the offer is being extended to.
         attr_reader :campaign_type
         # Currency that the financing offer is transacted in. For example, `usd`.
         attr_reader :currency
-        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
+        # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         attr_reader :fee_amount
         # Populated when the `product_type` of the `financingoffer` is `refill`.
         # Represents the discount rate percentage on remaining fee on the existing loan. When the `financing_offer`
         # is paid out, the `previous_financing_fee_discount_amount` will be computed as the multiple of this rate
         # and the remaining fee.
         attr_reader :previous_financing_fee_discount_rate
-        # Per-transaction rate at which Stripe will withhold funds to repay the financing.
+        # Per-transaction rate at which Stripe withholds funds to repay the financing.
         attr_reader :withhold_rate
 
         def self.inner_class_types

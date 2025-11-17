@@ -164,58 +164,13 @@ module Stripe
       end
 
       class OrderDetails < ::Stripe::StripeObject
-        # The URL to the order status.
-        attr_reader :order_status_url
         # The seller's order identifier.
         attr_reader :order_id
+        # The URL to the order status.
+        attr_reader :order_status_url
 
         def self.inner_class_types
           @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class SellerDetails < ::Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class TotalDetails < ::Stripe::StripeObject
-        class ApplicableFee < ::Stripe::StripeObject
-          # The amount of the applicable fee.
-          attr_reader :amount
-          # The description of the applicable fee.
-          attr_reader :description
-          # The display name of the applicable fee.
-          attr_reader :display_name
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The amount discount of the total details.
-        attr_reader :amount_discount
-        # The amount fulfillment of the total details.
-        attr_reader :amount_fulfillment
-        # The amount tax of the total details.
-        attr_reader :amount_tax
-        # The applicable fees of the total details.
-        attr_reader :applicable_fees
-
-        def self.inner_class_types
-          @inner_class_types = { applicable_fees: ApplicableFee }
         end
 
         def self.field_remappings
@@ -296,6 +251,51 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class SellerDetails < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TotalDetails < ::Stripe::StripeObject
+        class ApplicableFee < ::Stripe::StripeObject
+          # The amount of the applicable fee.
+          attr_reader :amount
+          # The description of the applicable fee.
+          attr_reader :description
+          # The display name of the applicable fee.
+          attr_reader :display_name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The amount discount of the total details.
+        attr_reader :amount_discount
+        # The amount fulfillment of the total details.
+        attr_reader :amount_fulfillment
+        # The amount tax of the total details.
+        attr_reader :amount_tax
+        # The applicable fees of the total details.
+        attr_reader :applicable_fees
+
+        def self.inner_class_types
+          @inner_class_types = { applicable_fees: ApplicableFee }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The subtotal amount of the requested session.
       attr_reader :amount_subtotal
       # The total amount of the requested session.
@@ -324,6 +324,8 @@ module Stripe
       attr_reader :order_details
       # The payment method used for the requested session.
       attr_reader :payment_method
+      # The preview of the payment method to be created when the requested session is confirmed.
+      attr_reader :payment_method_preview
       # Attribute for field seller_details
       attr_reader :seller_details
       # Whether or not the payment method should be saved for future use.
@@ -338,8 +340,6 @@ module Stripe
       attr_reader :total_details
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated_at
-      # The preview of the payment method to be created when the requested session is confirmed.
-      attr_reader :payment_method_preview
 
       # Confirms a requested session
       def confirm(params = {}, opts = {})
@@ -406,9 +406,9 @@ module Stripe
           fulfillment_details: FulfillmentDetails,
           line_item_details: LineItemDetail,
           order_details: OrderDetails,
+          payment_method_preview: PaymentMethodPreview,
           seller_details: SellerDetails,
           total_details: TotalDetails,
-          payment_method_preview: PaymentMethodPreview,
         }
       end
 

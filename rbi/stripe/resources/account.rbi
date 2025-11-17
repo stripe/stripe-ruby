@@ -95,6 +95,9 @@ module Stripe
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       sig { returns(T.nilable(String)) }
       def product_description; end
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      sig { returns(T.nilable(String)) }
+      def specified_commercial_transactions_act_url; end
       # A publicly available mailing address for sending support issues to.
       sig { returns(T.nilable(SupportAddress)) }
       def support_address; end
@@ -1035,7 +1038,7 @@ module Stripe
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def default_account_tax_ids; end
-        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+        # Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
         sig { returns(T.nilable(String)) }
         def hosted_payment_method_save; end
         def self.inner_class_types
@@ -1106,6 +1109,17 @@ module Stripe
         def statement_descriptor; end
         def self.inner_class_types
           @inner_class_types = {schedule: Schedule}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PaypayPayments < ::Stripe::StripeObject
+        # Whether your business sells digital content or not.
+        sig { returns(T.nilable(String)) }
+        def goods_type; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1191,6 +1205,9 @@ module Stripe
       # Attribute for field payouts
       sig { returns(T.nilable(Payouts)) }
       def payouts; end
+      # Attribute for field paypay_payments
+      sig { returns(T.nilable(PaypayPayments)) }
+      def paypay_payments; end
       # Attribute for field sepa_debit_payments
       sig { returns(T.nilable(SepaDebitPayments)) }
       def sepa_debit_payments; end
@@ -1212,6 +1229,7 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
           tax_forms: TaxForms,
           treasury: Treasury,

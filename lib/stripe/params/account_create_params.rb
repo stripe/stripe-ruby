@@ -110,6 +110,8 @@ module Stripe
       attr_accessor :name
       # Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
       attr_accessor :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Used by the Checkout product and for Japanese payment methods.
+      attr_accessor :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_accessor :support_address
       # A publicly available email address for sending support issues to.
@@ -129,6 +131,7 @@ module Stripe
         monthly_estimated_revenue: nil,
         name: nil,
         product_description: nil,
+        specified_commercial_transactions_act_url: nil,
         support_address: nil,
         support_email: nil,
         support_phone: nil,
@@ -142,6 +145,7 @@ module Stripe
         @monthly_estimated_revenue = monthly_estimated_revenue
         @name = name
         @product_description = product_description
+        @specified_commercial_transactions_act_url = specified_commercial_transactions_act_url
         @support_address = support_address
         @support_email = support_email
         @support_phone = support_phone
@@ -1967,14 +1971,14 @@ module Stripe
       attr_accessor :registered_address
       # Describes the person’s relationship to the account.
       attr_accessor :relationship
-      # The last four digits of the individual's Social Security Number (U.S. only).
-      attr_accessor :ssn_last_4
-      # The individual's verification document information.
-      attr_accessor :verification
       # The credit applicant's self-reported yearly income in minor units.
       attr_accessor :self_reported_income
       # The credit applicant's self-reported monthly housing payment in minor units.
       attr_accessor :self_reported_monthly_housing_payment
+      # The last four digits of the individual's Social Security Number (U.S. only).
+      attr_accessor :ssn_last_4
+      # The individual's verification document information.
+      attr_accessor :verification
 
       def initialize(
         address: nil,
@@ -1998,10 +2002,10 @@ module Stripe
         political_exposure: nil,
         registered_address: nil,
         relationship: nil,
-        ssn_last_4: nil,
-        verification: nil,
         self_reported_income: nil,
-        self_reported_monthly_housing_payment: nil
+        self_reported_monthly_housing_payment: nil,
+        ssn_last_4: nil,
+        verification: nil
       )
         @address = address
         @address_kana = address_kana
@@ -2024,10 +2028,10 @@ module Stripe
         @political_exposure = political_exposure
         @registered_address = registered_address
         @relationship = relationship
-        @ssn_last_4 = ssn_last_4
-        @verification = verification
         @self_reported_income = self_reported_income
         @self_reported_monthly_housing_payment = self_reported_monthly_housing_payment
+        @ssn_last_4 = ssn_last_4
+        @verification = verification
       end
     end
 
@@ -2172,7 +2176,7 @@ module Stripe
       end
 
       class Invoices < ::Stripe::RequestParams
-        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+        # Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
         attr_accessor :hosted_payment_method_save
 
         def initialize(hosted_payment_method_save: nil)
@@ -2244,6 +2248,15 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::RequestParams
+        # Whether your business sells digital content or not.
+        attr_accessor :goods_type
+
+        def initialize(goods_type: nil)
+          @goods_type = goods_type
+        end
+      end
+
       class TaxForms < ::Stripe::RequestParams
         # Whether the account opted out of receiving their tax forms by postal delivery.
         attr_accessor :consented_to_paperless_delivery
@@ -2293,6 +2306,8 @@ module Stripe
       attr_accessor :payments
       # Settings specific to the account's payouts.
       attr_accessor :payouts
+      # Settings specific to the PayPay payments method.
+      attr_accessor :paypay_payments
       # Settings specific to the account's tax forms.
       attr_accessor :tax_forms
       # Settings specific to the account's Treasury FinancialAccounts.
@@ -2308,6 +2323,7 @@ module Stripe
         invoices: nil,
         payments: nil,
         payouts: nil,
+        paypay_payments: nil,
         tax_forms: nil,
         treasury: nil
       )
@@ -2320,6 +2336,7 @@ module Stripe
         @invoices = invoices
         @payments = payments
         @payouts = payouts
+        @paypay_payments = paypay_payments
         @tax_forms = tax_forms
         @treasury = treasury
       end

@@ -1194,14 +1194,16 @@ module Stripe
     sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def proration_behavior=(_proration_behavior); end
     # Sets the billing schedules for the subscription schedule.
-    sig { returns(T.nilable(T::Array[SubscriptionScheduleUpdateParams::BillingSchedule])) }
+    sig {
+      returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleUpdateParams::BillingSchedule])))
+     }
     def billing_schedules; end
     sig {
-      params(_billing_schedules: T.nilable(T::Array[SubscriptionScheduleUpdateParams::BillingSchedule])).returns(T.nilable(T::Array[SubscriptionScheduleUpdateParams::BillingSchedule]))
+      params(_billing_schedules: T.nilable(T.any(String, T::Array[SubscriptionScheduleUpdateParams::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleUpdateParams::BillingSchedule])))
      }
     def billing_schedules=(_billing_schedules); end
     sig {
-      params(billing_behavior: T.nilable(String), default_settings: T.nilable(SubscriptionScheduleUpdateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[SubscriptionScheduleUpdateParams::Phase]), prebilling: T.nilable(SubscriptionScheduleUpdateParams::Prebilling), proration_behavior: T.nilable(String), billing_schedules: T.nilable(T::Array[SubscriptionScheduleUpdateParams::BillingSchedule])).void
+      params(billing_behavior: T.nilable(String), default_settings: T.nilable(SubscriptionScheduleUpdateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[SubscriptionScheduleUpdateParams::Phase]), prebilling: T.nilable(SubscriptionScheduleUpdateParams::Prebilling), proration_behavior: T.nilable(String), billing_schedules: T.nilable(T.any(String, T::Array[SubscriptionScheduleUpdateParams::BillingSchedule]))).void
      }
     def initialize(
       billing_behavior: nil,

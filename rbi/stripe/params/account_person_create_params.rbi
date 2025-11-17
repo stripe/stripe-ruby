@@ -633,6 +633,20 @@ module Stripe
       params(_relationship: T.nilable(AccountPersonCreateParams::Relationship)).returns(T.nilable(AccountPersonCreateParams::Relationship))
      }
     def relationship=(_relationship); end
+    # The credit applicant's self-reported yearly income in minor units.
+    sig { returns(T.nilable(AccountPersonCreateParams::SelfReportedIncome)) }
+    def self_reported_income; end
+    sig {
+      params(_self_reported_income: T.nilable(AccountPersonCreateParams::SelfReportedIncome)).returns(T.nilable(AccountPersonCreateParams::SelfReportedIncome))
+     }
+    def self_reported_income=(_self_reported_income); end
+    # The credit applicant's self-reported monthly housing payment in minor units.
+    sig { returns(T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)) }
+    def self_reported_monthly_housing_payment; end
+    sig {
+      params(_self_reported_monthly_housing_payment: T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)).returns(T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment))
+     }
+    def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
     # The last four digits of the person's Social Security number (U.S. only).
     sig { returns(T.nilable(String)) }
     def ssn_last_4; end
@@ -652,22 +666,8 @@ module Stripe
       params(_verification: T.nilable(AccountPersonCreateParams::Verification)).returns(T.nilable(AccountPersonCreateParams::Verification))
      }
     def verification=(_verification); end
-    # The credit applicant's self-reported yearly income in minor units.
-    sig { returns(T.nilable(AccountPersonCreateParams::SelfReportedIncome)) }
-    def self_reported_income; end
     sig {
-      params(_self_reported_income: T.nilable(AccountPersonCreateParams::SelfReportedIncome)).returns(T.nilable(AccountPersonCreateParams::SelfReportedIncome))
-     }
-    def self_reported_income=(_self_reported_income); end
-    # The credit applicant's self-reported monthly housing payment in minor units.
-    sig { returns(T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)) }
-    def self_reported_monthly_housing_payment; end
-    sig {
-      params(_self_reported_monthly_housing_payment: T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)).returns(T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment))
-     }
-    def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
-    sig {
-      params(additional_tos_acceptances: T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances), address: T.nilable(AccountPersonCreateParams::Address), address_kana: T.nilable(AccountPersonCreateParams::AddressKana), address_kanji: T.nilable(AccountPersonCreateParams::AddressKanji), dob: T.nilable(T.any(String, AccountPersonCreateParams::Dob)), documents: T.nilable(AccountPersonCreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(AccountPersonCreateParams::RegisteredAddress), relationship: T.nilable(AccountPersonCreateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(AccountPersonCreateParams::UsCfpbData), verification: T.nilable(AccountPersonCreateParams::Verification), self_reported_income: T.nilable(AccountPersonCreateParams::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)).void
+      params(additional_tos_acceptances: T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances), address: T.nilable(AccountPersonCreateParams::Address), address_kana: T.nilable(AccountPersonCreateParams::AddressKana), address_kanji: T.nilable(AccountPersonCreateParams::AddressKanji), dob: T.nilable(T.any(String, AccountPersonCreateParams::Dob)), documents: T.nilable(AccountPersonCreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(AccountPersonCreateParams::RegisteredAddress), relationship: T.nilable(AccountPersonCreateParams::Relationship), self_reported_income: T.nilable(AccountPersonCreateParams::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(AccountPersonCreateParams::UsCfpbData), verification: T.nilable(AccountPersonCreateParams::Verification)).void
      }
     def initialize(
       additional_tos_acceptances: nil,
@@ -696,11 +696,11 @@ module Stripe
       political_exposure: nil,
       registered_address: nil,
       relationship: nil,
+      self_reported_income: nil,
+      self_reported_monthly_housing_payment: nil,
       ssn_last_4: nil,
       us_cfpb_data: nil,
-      verification: nil,
-      self_reported_income: nil,
-      self_reported_monthly_housing_payment: nil
+      verification: nil
     ); end
   end
 end

@@ -39,8 +39,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Before and after changes for the primary related object.
-        attr_reader :changes
         # Authentication context needed to fetch the event or related object.
         attr_reader :context
         # Time at which the object was created.

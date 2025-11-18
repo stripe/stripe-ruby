@@ -77,6 +77,29 @@ module Stripe
         end
       end
 
+      class BillingSchedulesAction < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+        # Specify which subscription items the billing schedule applies to.
+        attr_accessor :applies_to
+        # Select the action.
+        attr_accessor :type
+
+        def initialize(applies_to: nil, type: nil)
+          @applies_to = applies_to
+          @type = type
+        end
+      end
+
       class DiscountAction < ::Stripe::RequestParams
         class Add < ::Stripe::RequestParams
           class DiscountEnd < ::Stripe::RequestParams
@@ -429,6 +452,8 @@ module Stripe
       attr_accessor :set_schedule_end
       # Settings related to subscription trials.
       attr_accessor :trial_settings
+      # Actions to apply to the billing schedules.
+      attr_accessor :billing_schedules_actions
 
       def initialize(
         amendment_end: nil,
@@ -440,7 +465,8 @@ module Stripe
         proration_behavior: nil,
         set_pause_collection: nil,
         set_schedule_end: nil,
-        trial_settings: nil
+        trial_settings: nil,
+        billing_schedules_actions: nil
       )
         @amendment_end = amendment_end
         @amendment_start = amendment_start
@@ -452,6 +478,7 @@ module Stripe
         @set_pause_collection = set_pause_collection
         @set_schedule_end = set_schedule_end
         @trial_settings = trial_settings
+        @billing_schedules_actions = billing_schedules_actions
       end
     end
 

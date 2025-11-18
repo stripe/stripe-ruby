@@ -114,6 +114,40 @@ module Stripe
          }
         def initialize(amendment_end: nil, discount_end: nil, timestamp: nil, type: nil); end
       end
+      class BillingSchedulesAction < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          sig { returns(T.nilable(String)) }
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
+          # Controls which subscription items the billing schedule applies to.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(price: T.nilable(String), type: String).void }
+          def initialize(price: nil, type: nil); end
+        end
+        # Specify which subscription items the billing schedule applies to.
+        sig {
+          returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]))
+         }
+        def applies_to; end
+        sig {
+          params(_applies_to: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]))
+         }
+        def applies_to=(_applies_to); end
+        # Select the action.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(applies_to: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]), type: String).void
+         }
+        def initialize(applies_to: nil, type: nil); end
+      end
       class DiscountAction < ::Stripe::RequestParams
         class Add < ::Stripe::RequestParams
           class DiscountEnd < ::Stripe::RequestParams
@@ -712,8 +746,17 @@ module Stripe
         params(_trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
+      # Actions to apply to the billing schedules.
       sig {
-        params(amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd), amendment_start: SubscriptionScheduleAmendParams::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), discount_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]), item_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings)).void
+        returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
+       }
+      def billing_schedules_actions; end
+      sig {
+        params(_billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
+       }
+      def billing_schedules_actions=(_billing_schedules_actions); end
+      sig {
+        params(amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd), amendment_start: SubscriptionScheduleAmendParams::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), discount_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]), item_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings), billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction])).void
        }
       def initialize(
         amendment_end: nil,
@@ -725,7 +768,8 @@ module Stripe
         proration_behavior: nil,
         set_pause_collection: nil,
         set_schedule_end: nil,
-        trial_settings: nil
+        trial_settings: nil,
+        billing_schedules_actions: nil
       ); end
     end
     class Prebilling < ::Stripe::RequestParams

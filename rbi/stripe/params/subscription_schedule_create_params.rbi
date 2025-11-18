@@ -1116,8 +1116,13 @@ module Stripe
         params(_trial_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def effective_at; end
+      sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def effective_at=(_effective_at); end
       sig {
-        params(add_invoice_items: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Discount])), duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Duration), end_date: T.nilable(Integer), invoice_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings), items: T::Array[SubscriptionScheduleCreateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(SubscriptionScheduleCreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(SubscriptionScheduleCreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings)).void
+        params(add_invoice_items: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Discount])), duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Duration), end_date: T.nilable(Integer), invoice_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings), items: T::Array[SubscriptionScheduleCreateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(SubscriptionScheduleCreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(SubscriptionScheduleCreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings), effective_at: T.nilable(String)).void
        }
       def initialize(
         add_invoice_items: nil,
@@ -1143,7 +1148,8 @@ module Stripe
         trial: nil,
         trial_continuation: nil,
         trial_end: nil,
-        trial_settings: nil
+        trial_settings: nil,
+        effective_at: nil
       ); end
     end
     class Prebilling < ::Stripe::RequestParams

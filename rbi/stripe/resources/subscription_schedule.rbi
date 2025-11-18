@@ -640,6 +640,9 @@ module Stripe
       # Settings related to any trials on the subscription during this phase.
       sig { returns(T.nilable(TrialSettings)) }
       def trial_settings; end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def effective_at; end
       def self.inner_class_types
         @inner_class_types = {
           add_invoice_items: AddInvoiceItem,

@@ -618,6 +618,8 @@ module Stripe
       attr_reader :trial_end
       # Settings related to any trials on the subscription during this phase.
       attr_reader :trial_settings
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_reader :effective_at
 
       def self.inner_class_types
         @inner_class_types = {

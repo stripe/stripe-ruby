@@ -8,20 +8,20 @@ module Stripe
     # Stripe Capital to a Connect subaccount.
     class FinancingOffer < APIResource
       class AcceptedTerms < ::Stripe::StripeObject
-        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
+        # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         sig { returns(Integer) }
         def advance_amount; end
         # Currency that the financing offer is transacted in. For example, `usd`.
         sig { returns(String) }
         def currency; end
-        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
+        # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         sig { returns(Integer) }
         def fee_amount; end
         # Populated when the `product_type` of the `financingoffer` is `refill`.
         # Represents the discount amount on remaining premium for the existing loan at payout time.
         sig { returns(T.nilable(Integer)) }
         def previous_financing_fee_discount_amount; end
-        # Per-transaction rate at which Stripe will withhold funds to repay the financing.
+        # Per-transaction rate at which Stripe withholds funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end
         def self.inner_class_types
@@ -32,7 +32,7 @@ module Stripe
         end
       end
       class OfferedTerms < ::Stripe::StripeObject
-        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
+        # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         sig { returns(Integer) }
         def advance_amount; end
         # Describes the type of user the offer is being extended to.
@@ -41,7 +41,7 @@ module Stripe
         # Currency that the financing offer is transacted in. For example, `usd`.
         sig { returns(String) }
         def currency; end
-        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
+        # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         sig { returns(Integer) }
         def fee_amount; end
         # Populated when the `product_type` of the `financingoffer` is `refill`.
@@ -50,7 +50,7 @@ module Stripe
         # and the remaining fee.
         sig { returns(T.nilable(Float)) }
         def previous_financing_fee_discount_rate; end
-        # Per-transaction rate at which Stripe will withhold funds to repay the financing.
+        # Per-transaction rate at which Stripe withholds funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end
         def self.inner_class_types

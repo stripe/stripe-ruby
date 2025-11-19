@@ -43,7 +43,7 @@ module Stripe
           g: [],
         }
         assert_equal(
-          "d[a]=a&d[b]=b&e=0&e=1",
+          "d[a]=a&d[b]=b&e[0]=0&e[1]=1",
           Stripe::Util.encode_parameters(params, :v2)
         )
       end
@@ -94,7 +94,7 @@ module Stripe
           [:d, { a: "a", b: "b" }],
           [:e, [0, 1]],
         ]
-        assert_equal([["d[a]", "a"], ["d[b]", "b"], ["e", 0], ["e", 1]], Stripe::Util.flatten_params(params, :v2))
+        assert_equal([["d[a]", "a"], ["d[b]", "b"], ["e[0]", 0], ["e[1]", 1]], Stripe::Util.flatten_params(params, :v2))
       end
     end
 

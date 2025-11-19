@@ -985,7 +985,7 @@ module Stripe
     end
     should "Test core events get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/ll_123").to_return(
-        body: '{"context":"context","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.event","reason":{"type":"request","request":{"id":"obj_123","idempotency_key":"idempotency_key"}},"type":"type","livemode":true}'
+        body: '{"changes":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]},"context":"context","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":{"type":"request","request":{"id":"obj_123","idempotency_key":"idempotency_key"}},"type":"type"}'
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
@@ -7840,7 +7840,7 @@ module Stripe
     should "Test v2 billing profile get (service)" do
       stub_request(
         :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys=lookup_keys"
+        "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys[0]=lookup_keys"
       ).to_return(
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.billing.profile","status":"active","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
@@ -7848,7 +7848,7 @@ module Stripe
       client = Stripe::StripeClient.new("sk_test_123")
 
       profiles = client.v2.billing.profiles.list({ lookup_keys: ["lookup_keys"] })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys=lookup_keys"
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles?lookup_keys[0]=lookup_keys"
     end
     should "Test v2 billing profile post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/profiles").to_return(
@@ -7992,6 +7992,35 @@ module Stripe
       account_person = client.v2.core.accounts.persons.update("account_id_123", "id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
     end
+    should "Test v2 core accounts person token post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/person_tokens"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_person_token","used":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_person_token = client.v2.core.accounts.person_tokens.create("account_id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/person_tokens"
+    end
+    should "Test v2 core accounts person token get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/person_tokens/id_123"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_person_token","used":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_person_token = client.v2.core.accounts.person_tokens.retrieve(
+        "account_id_123",
+        "id_123"
+      )
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/person_tokens/id_123"
+    end
     should "Test v2 core account link post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links").to_return(
         body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","object":"v2.core.account_link","url":"url","use_case":{"type":"account_onboarding"},"livemode":true}',
@@ -8025,9 +8054,267 @@ module Stripe
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links"
     end
+    should "Test v2 core account token post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_token","used":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_token = client.v2.core.account_tokens.create({
+        identity: {
+          attestations: {
+            directorship_declaration: { attested: true },
+            ownership_declaration: { attested: true },
+            persons_provided: {
+              directors: true,
+              executives: true,
+              owners: true,
+              ownership_exemption_reason: "qualified_entity_exceeds_ownership_threshold",
+            },
+            representative_declaration: { attested: true },
+            terms_of_service: {
+              account: { shown_and_accepted: true },
+              storer: { shown_and_accepted: true },
+            },
+          },
+          business_details: {
+            address: {
+              city: "city",
+              country: "country",
+              line1: "line1",
+              line2: "line2",
+              postal_code: "postal_code",
+              state: "state",
+              town: "town",
+            },
+            annual_revenue: {
+              amount: {
+                currency: "USD",
+                value: 96,
+              },
+              fiscal_year_end: "fiscal_year_end",
+            },
+            documents: {
+              bank_account_ownership_verification: {
+                files: ["files"],
+                type: "files",
+              },
+              company_license: {
+                files: ["files"],
+                type: "files",
+              },
+              company_memorandum_of_association: {
+                files: ["files"],
+                type: "files",
+              },
+              company_ministerial_decree: {
+                files: ["files"],
+                type: "files",
+              },
+              company_registration_verification: {
+                files: ["files"],
+                type: "files",
+              },
+              company_tax_id_verification: {
+                files: ["files"],
+                type: "files",
+              },
+              primary_verification: {
+                front_back: {
+                  back: "back",
+                  front: "front",
+                },
+                type: "front_back",
+              },
+              proof_of_address: {
+                files: ["files"],
+                type: "files",
+              },
+              proof_of_registration: {
+                files: ["files"],
+                type: "files",
+              },
+              proof_of_ultimate_beneficial_ownership: {
+                files: ["files"],
+                type: "files",
+              },
+            },
+            estimated_worker_count: 884_794_319,
+            id_numbers: [
+              {
+                registrar: "registrar",
+                type: "th_prn",
+                value: "value",
+              },
+            ],
+            monthly_estimated_revenue: {
+              amount: {
+                currency: "USD",
+                value: 96,
+              },
+            },
+            phone: "phone",
+            registered_name: "registered_name",
+            script_addresses: {
+              kana: {
+                city: "city",
+                country: "country",
+                line1: "line1",
+                line2: "line2",
+                postal_code: "postal_code",
+                state: "state",
+                town: "town",
+              },
+              kanji: {
+                city: "city",
+                country: "country",
+                line1: "line1",
+                line2: "line2",
+                postal_code: "postal_code",
+                state: "state",
+                town: "town",
+              },
+            },
+            script_names: {
+              kana: { registered_name: "registered_name" },
+              kanji: { registered_name: "registered_name" },
+            },
+            structure: "public_listed_corporation",
+          },
+          entity_type: "individual",
+          individual: {
+            additional_addresses: [
+              {
+                city: "city",
+                country: "country",
+                line1: "line1",
+                line2: "line2",
+                postal_code: "postal_code",
+                purpose: "registered",
+                state: "state",
+                town: "town",
+              },
+            ],
+            additional_names: [
+              {
+                full_name: "full_name",
+                given_name: "given_name",
+                purpose: "alias",
+                surname: "surname",
+              },
+            ],
+            address: {
+              city: "city",
+              country: "country",
+              line1: "line1",
+              line2: "line2",
+              postal_code: "postal_code",
+              state: "state",
+              town: "town",
+            },
+            date_of_birth: {
+              day: 99_228,
+              month: 104_080_000,
+              year: 3_704_893,
+            },
+            documents: {
+              company_authorization: {
+                files: ["files"],
+                type: "files",
+              },
+              passport: {
+                files: ["files"],
+                type: "files",
+              },
+              primary_verification: {
+                front_back: {
+                  back: "back",
+                  front: "front",
+                },
+                type: "front_back",
+              },
+              secondary_verification: {
+                front_back: {
+                  back: "back",
+                  front: "front",
+                },
+                type: "front_back",
+              },
+              visa: {
+                files: ["files"],
+                type: "files",
+              },
+            },
+            email: "email",
+            given_name: "given_name",
+            id_numbers: [
+              {
+                type: "th_lc",
+                value: "value",
+              },
+            ],
+            legal_gender: "male",
+            metadata: { key: "metadata" },
+            nationalities: ["nationalities"],
+            phone: "phone",
+            political_exposure: "none",
+            relationship: {
+              director: true,
+              executive: true,
+              owner: true,
+              percent_ownership: "percent_ownership",
+              title: "title",
+            },
+            script_addresses: {
+              kana: {
+                city: "city",
+                country: "country",
+                line1: "line1",
+                line2: "line2",
+                postal_code: "postal_code",
+                state: "state",
+                town: "town",
+              },
+              kanji: {
+                city: "city",
+                country: "country",
+                line1: "line1",
+                line2: "line2",
+                postal_code: "postal_code",
+                state: "state",
+                town: "town",
+              },
+            },
+            script_names: {
+              kana: {
+                given_name: "given_name",
+                surname: "surname",
+              },
+              kanji: {
+                given_name: "given_name",
+                surname: "surname",
+              },
+            },
+            surname: "surname",
+          },
+        },
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens"
+    end
+    should "Test v2 core account token get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_token","used":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_token = client.v2.core.account_tokens.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens/id_123"
+    end
     should "Test v2 core event get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events").to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.event","type":"type","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","type":"type"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8037,7 +8324,7 @@ module Stripe
     end
     should "Test v2 core event get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.event","type":"type","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","type":"type"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8134,7 +8421,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.event","type":"type","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","type":"type"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8887,80 +9174,6 @@ module Stripe
 
       transaction_entry = client.v2.money_management.transaction_entries.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries/id_123"
-    end
-    should "Test v2 payments off session payment get (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments").to_return(
-        body: '{"data":[{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"object":"v2.payments.off_session_payment","payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"pending"}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payments = client.v2.payments.off_session_payments.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
-    end
-    should "Test v2 payments off session payment post (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments").to_return(
-        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"object":"v2.payments.off_session_payment","payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"pending"}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.create({
-        amount: {
-          currency: "USD",
-          value: 96,
-        },
-        cadence: "unscheduled",
-        customer: "customer",
-        metadata: { key: "metadata" },
-        payment_method: "payment_method",
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
-    end
-    should "Test v2 payments off session payment get 2 (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123"
-      ).to_return(
-        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"object":"v2.payments.off_session_payment","payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"pending"}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.retrieve("id_123")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123"
-    end
-    should "Test v2 payments off session payment post 2 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/cancel"
-      ).to_return(
-        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"object":"v2.payments.off_session_payment","payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"pending"}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.cancel("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/cancel"
-    end
-    should "Test v2 payments off session payment post 3 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
-      ).to_return(
-        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"object":"v2.payments.off_session_payment","payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"pending"}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.capture(
-        "id_123",
-        {
-          amount_to_capture: 1_374_310_455,
-          metadata: { key: "metadata" },
-        }
-      )
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
     end
     should "Test v2 test helpers financial address post (service)" do
       stub_request(

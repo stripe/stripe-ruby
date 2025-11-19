@@ -4,8 +4,10 @@
 # typed: true
 module Stripe
   module V2
-    module Payments
-      class OffSessionPaymentCancelParams < ::Stripe::RequestParams; end
+    module Core
+      module Accounts
+        class PersonTokenRetrieveParams < ::Stripe::RequestParams; end
+      end
     end
   end
 end

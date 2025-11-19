@@ -6,6 +6,20 @@ module Stripe
   module Issuing
     # You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
     class Card < APIResource
+      class LatestFraudWarning < ::Stripe::StripeObject
+        # Timestamp of the most recent fraud warning.
+        sig { returns(T.nilable(Integer)) }
+        def started_at; end
+        # The type of fraud warning that most recently took place on this card. This field updates with every new fraud warning, so the value changes over time. If populated, cancel and reissue the card.
+        sig { returns(T.nilable(String)) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shipping < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -260,6 +274,9 @@ module Stripe
       # The last 4 digits of the card number.
       sig { returns(String) }
       def last4; end
+      # Stripe’s assessment of whether this card’s details have been compromised. If this property isn't null, cancel and reissue the card to prevent fraudulent activity risk.
+      sig { returns(T.nilable(LatestFraudWarning)) }
+      def latest_fraud_warning; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end

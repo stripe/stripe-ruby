@@ -141,7 +141,7 @@ module Stripe
       # Specifies which subscription items the billing schedule applies to.
       sig { returns(T.nilable(T::Array[AppliesTo])) }
       def applies_to; end
-      # Specifies the billing period.
+      # Specifies the end of billing period.
       sig { returns(BillUntil) }
       def bill_until; end
       # Unique identifier for the billing schedule.

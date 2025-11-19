@@ -2167,6 +2167,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
         # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         sig { returns(T.nilable(T::Boolean)) }
         def request_extended_authorization; end
@@ -2782,19 +2785,19 @@ module Stripe
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
           sig { returns(T.nilable(Integer)) }
           def amount; end
-          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
           sig { returns(T.nilable(String)) }
           def amount_type; end
           # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
           sig { returns(T.nilable(String)) }
           def end_date; end
-          # The periodicity at which payments will be collected.
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
           sig { returns(T.nilable(String)) }
           def payment_schedule; end
           # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
           sig { returns(T.nilable(Integer)) }
           def payments_per_period; end
-          # The purpose for which payments are made. Defaults to retail.
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
           sig { returns(T.nilable(String)) }
           def purpose; end
           def self.inner_class_types

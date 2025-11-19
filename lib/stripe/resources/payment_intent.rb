@@ -2020,6 +2020,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
         # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         attr_reader :request_extended_authorization
         # Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
@@ -2659,15 +2661,15 @@ module Stripe
         class MandateOptions < ::Stripe::StripeObject
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
           attr_reader :amount
-          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
           attr_reader :amount_type
           # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
           attr_reader :end_date
-          # The periodicity at which payments will be collected.
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
           attr_reader :payment_schedule
           # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
           attr_reader :payments_per_period
-          # The purpose for which payments are made. Defaults to retail.
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
           attr_reader :purpose
 
           def self.inner_class_types

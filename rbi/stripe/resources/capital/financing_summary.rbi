@@ -13,10 +13,10 @@ module Stripe
           # Given in seconds since unix epoch.
           sig { returns(Float) }
           def due_at; end
-          # The amount that has already been paid in the current repayment interval, in minor units. For example, $100 USD will be represented as 10000.
+          # The amount that has already been paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
           sig { returns(T.nilable(Integer)) }
           def paid_amount; end
-          # The amount that is yet to be paid in the current repayment interval, in minor units. For example, $100 USD will be represented as 10000.
+          # The amount that is yet to be paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
           sig { returns(Integer) }
           def remaining_amount; end
           def self.inner_class_types
@@ -26,7 +26,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
+        # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         sig { returns(Integer) }
         def advance_amount; end
         # The time at which the funds were paid out to the connected account's Stripe balance. Given in milliseconds since unix epoch.
@@ -38,19 +38,19 @@ module Stripe
         # The chronologically current repayment interval for the financing offer.
         sig { returns(T.nilable(CurrentRepaymentInterval)) }
         def current_repayment_interval; end
-        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
+        # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         sig { returns(Integer) }
         def fee_amount; end
-        # The amount the Connected account has paid toward the financing debt so far, in minor units. For example, $1,000 USD will be represented as 100000.
+        # The amount the Connected account has paid toward the financing debt so far, in minor units. For example, 1,000 USD is represented as 100000.
         sig { returns(Integer) }
         def paid_amount; end
-        # The balance remaining to be paid on the financing, in minor units. For example, $1,000 USD will be represented as 100000.
+        # The balance remaining to be paid on the financing, in minor units. For example, 1,000 USD is represented as 100000.
         sig { returns(Integer) }
         def remaining_amount; end
         # The time at which Capital will begin withholding from payments. Given in seconds since unix epoch.
         sig { returns(T.nilable(Float)) }
         def repayments_begin_at; end
-        # Per-transaction rate at which Stripe will withhold funds to repay the financing.
+        # Per-transaction rate at which Stripe withholds funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end
         def self.inner_class_types

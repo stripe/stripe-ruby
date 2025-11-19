@@ -38,6 +38,8 @@ module Stripe
         Events::V2CoreAccountPersonUpdatedEvent.lookup_type => Events::V2CoreAccountPersonUpdatedEvent,
         Events::V2CoreAccountUpdatedEvent.lookup_type => Events::V2CoreAccountUpdatedEvent,
         Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
+        Events::V2CoreHealthEventGenerationFailureResolvedEvent.lookup_type =>
+        Events::V2CoreHealthEventGenerationFailureResolvedEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
@@ -108,20 +110,6 @@ module Stripe
         Events::V2MoneyManagementTransactionCreatedEvent,
         Events::V2MoneyManagementTransactionUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementTransactionUpdatedEvent,
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
-        Events::V2PaymentsOffSessionPaymentCanceledEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentCanceledEvent,
-        Events::V2PaymentsOffSessionPaymentCreatedEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentCreatedEvent,
-        Events::V2PaymentsOffSessionPaymentFailedEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentFailedEvent,
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent,
-        Events::V2PaymentsOffSessionPaymentSucceededEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentSucceededEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -171,6 +159,8 @@ module Stripe
         Events::V2CoreAccountUpdatedEventNotification,
         Events::V2CoreEventDestinationPingEventNotification.lookup_type =>
         Events::V2CoreEventDestinationPingEventNotification,
+        Events::V2CoreHealthEventGenerationFailureResolvedEventNotification.lookup_type =>
+        Events::V2CoreHealthEventGenerationFailureResolvedEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>
@@ -241,20 +231,6 @@ module Stripe
         Events::V2MoneyManagementTransactionCreatedEventNotification,
         Events::V2MoneyManagementTransactionUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementTransactionUpdatedEventNotification,
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification,
-        Events::V2PaymentsOffSessionPaymentCanceledEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentCanceledEventNotification,
-        Events::V2PaymentsOffSessionPaymentCreatedEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentCreatedEventNotification,
-        Events::V2PaymentsOffSessionPaymentFailedEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentFailedEventNotification,
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-        Events::V2PaymentsOffSessionPaymentSucceededEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentSucceededEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

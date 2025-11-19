@@ -191,6 +191,12 @@ module Stripe
       register("v2.core.event_destination.ping", &handler)
     end
 
+    def on_V2CoreHealthEventGenerationFailureResolvedEventNotification(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.health.event_generation_failure.resolved", &handler)
+    end
+
     def on_V2MoneyManagementAdjustmentCreatedEventNotification(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -399,48 +405,6 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.money_management.transaction.updated", &handler)
-    end
-
-    def on_V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.payments.off_session_payment.authorization_attempt_failed", &handler)
-    end
-
-    def on_V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.payments.off_session_payment.authorization_attempt_started", &handler)
-    end
-
-    def on_V2PaymentsOffSessionPaymentCanceledEventNotification(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.payments.off_session_payment.canceled", &handler)
-    end
-
-    def on_V2PaymentsOffSessionPaymentCreatedEventNotification(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.payments.off_session_payment.created", &handler)
-    end
-
-    def on_V2PaymentsOffSessionPaymentFailedEventNotification(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.payments.off_session_payment.failed", &handler)
-    end
-
-    def on_V2PaymentsOffSessionPaymentRequiresCaptureEventNotification(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.payments.off_session_payment.requires_capture", &handler)
-    end
-
-    def on_V2PaymentsOffSessionPaymentSucceededEventNotification(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.payments.off_session_payment.succeeded", &handler)
     end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end

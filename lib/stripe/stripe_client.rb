@@ -8,7 +8,6 @@ module Stripe
     # attr_readers: The beginning of the section generated from our OpenAPI spec
     attr_reader :v1
     attr_reader :v2
-
     # attr_readers: The end of the section generated from our OpenAPI spec
 
     # For internal use only. Does not provide a stable API and may be broken

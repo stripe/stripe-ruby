@@ -31,6 +31,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      sig { returns(Integer) }
+      def end_date; end
+      # Attribute for field start_date
+      sig { returns(Integer) }
+      def start_date; end
+      # Attribute for field trial_offer
+      sig { returns(String) }
+      def trial_offer; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The time period the subscription item has been billed for.
     sig { returns(T.nilable(Integer)) }
     def billed_until; end
@@ -88,6 +105,9 @@ module Stripe
     # Options that configure the trial on the subscription item.
     sig { returns(T.nilable(Trial)) }
     def trial; end
+    # The current trial that is applied to this subscription item.
+    sig { returns(T.nilable(CurrentTrial)) }
+    def current_trial; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

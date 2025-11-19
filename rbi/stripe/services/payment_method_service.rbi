@@ -22,7 +22,7 @@ module Stripe
      }
     def attach(payment_method, params = {}, opts = {}); end
 
-    # Retrieves a payment method's balance.
+    # Retrieves a PaymentMethod's Balance.
     sig {
       params(payment_method: String, params: T.any(::Stripe::PaymentMethodCheckBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodBalance)
      }

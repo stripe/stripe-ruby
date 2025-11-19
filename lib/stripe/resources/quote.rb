@@ -605,19 +605,6 @@ module Stripe
         end
 
         class BillFrom < ::Stripe::StripeObject
-          class AmendmentStart < ::Stripe::StripeObject
-            # Use an index to specify the position of an amendment to start prebilling with.
-            attr_reader :index
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class LineStartsAt < ::Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
@@ -630,40 +617,17 @@ module Stripe
               @field_remappings = {}
             end
           end
-
-          class Relative < ::Stripe::StripeObject
-            # Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
-            attr_reader :interval
-            # The multiplier applied to the interval.
-            attr_reader :interval_count
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Use an index to specify the position of an amendment to start prebilling with.
-          attr_reader :amendment_start
           # The time the billing schedule applies from.
           attr_reader :computed_timestamp
           # Lets you bill the period starting from a particular Quote line.
           attr_reader :line_starts_at
-          # Timestamp is calculated from the request time.
-          attr_reader :relative
           # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
           attr_reader :timestamp
           # Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = {
-              amendment_start: AmendmentStart,
-              line_starts_at: LineStartsAt,
-              relative: Relative,
-            }
+            @inner_class_types = { line_starts_at: LineStartsAt }
           end
 
           def self.field_remappings
@@ -672,19 +636,6 @@ module Stripe
         end
 
         class BillUntil < ::Stripe::StripeObject
-          class AmendmentEnd < ::Stripe::StripeObject
-            # Use an index to specify the position of an amendment to end prebilling with.
-            attr_reader :index
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class Duration < ::Stripe::StripeObject
             # Specifies billing duration. Either `day`, `week`, `month` or `year`.
             attr_reader :interval
@@ -712,8 +663,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Use an index to specify the position of an amendment to end prebilling with.
-          attr_reader :amendment_end
           # The timestamp the billing schedule will apply until.
           attr_reader :computed_timestamp
           # Specifies the billing period.
@@ -726,11 +675,7 @@ module Stripe
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = {
-              amendment_end: AmendmentEnd,
-              duration: Duration,
-              line_ends_at: LineEndsAt,
-            }
+            @inner_class_types = { duration: Duration, line_ends_at: LineEndsAt }
           end
 
           def self.field_remappings
@@ -741,7 +686,7 @@ module Stripe
         attr_reader :applies_to
         # Specifies the start of the billing period.
         attr_reader :bill_from
-        # Specifies the end of billing period.
+        # Attribute for field bill_until
         attr_reader :bill_until
         # Unique identifier for the billing schedule.
         attr_reader :key
@@ -787,7 +732,7 @@ module Stripe
       attr_reader :from_subscription
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_reader :metadata
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
       attr_reader :phase_effective_at
       # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
       attr_reader :prebilling
@@ -938,19 +883,6 @@ module Stripe
         end
 
         class BillFrom < ::Stripe::StripeObject
-          class AmendmentStart < ::Stripe::StripeObject
-            # Use an index to specify the position of an amendment to start prebilling with.
-            attr_reader :index
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class LineStartsAt < ::Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
@@ -963,40 +895,17 @@ module Stripe
               @field_remappings = {}
             end
           end
-
-          class Relative < ::Stripe::StripeObject
-            # Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
-            attr_reader :interval
-            # The multiplier applied to the interval.
-            attr_reader :interval_count
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Use an index to specify the position of an amendment to start prebilling with.
-          attr_reader :amendment_start
           # The time the billing schedule applies from.
           attr_reader :computed_timestamp
           # Lets you bill the period starting from a particular Quote line.
           attr_reader :line_starts_at
-          # Timestamp is calculated from the request time.
-          attr_reader :relative
           # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
           attr_reader :timestamp
           # Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = {
-              amendment_start: AmendmentStart,
-              line_starts_at: LineStartsAt,
-              relative: Relative,
-            }
+            @inner_class_types = { line_starts_at: LineStartsAt }
           end
 
           def self.field_remappings
@@ -1005,19 +914,6 @@ module Stripe
         end
 
         class BillUntil < ::Stripe::StripeObject
-          class AmendmentEnd < ::Stripe::StripeObject
-            # Use an index to specify the position of an amendment to end prebilling with.
-            attr_reader :index
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class Duration < ::Stripe::StripeObject
             # Specifies billing duration. Either `day`, `week`, `month` or `year`.
             attr_reader :interval
@@ -1045,8 +941,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Use an index to specify the position of an amendment to end prebilling with.
-          attr_reader :amendment_end
           # The timestamp the billing schedule will apply until.
           attr_reader :computed_timestamp
           # Specifies the billing period.
@@ -1059,11 +953,7 @@ module Stripe
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = {
-              amendment_end: AmendmentEnd,
-              duration: Duration,
-              line_ends_at: LineEndsAt,
-            }
+            @inner_class_types = { duration: Duration, line_ends_at: LineEndsAt }
           end
 
           def self.field_remappings
@@ -1074,7 +964,7 @@ module Stripe
         attr_reader :applies_to
         # Specifies the start of the billing period.
         attr_reader :bill_from
-        # Specifies the end of billing period.
+        # Attribute for field bill_until
         attr_reader :bill_until
         # Unique identifier for the billing schedule.
         attr_reader :key
@@ -1101,7 +991,7 @@ module Stripe
       attr_reader :description
       # Behavior of the subscription schedule and underlying subscription when it ends.
       attr_reader :end_behavior
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
       attr_reader :phase_effective_at
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior

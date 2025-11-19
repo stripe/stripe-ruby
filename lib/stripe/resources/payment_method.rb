@@ -1723,7 +1723,7 @@ module Stripe
       )
     end
 
-    # Retrieves a payment method's balance.
+    # Retrieves a PaymentMethod's Balance.
     def check_balance(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -1733,7 +1733,7 @@ module Stripe
       )
     end
 
-    # Retrieves a payment method's balance.
+    # Retrieves a PaymentMethod's Balance.
     def self.check_balance(payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :post,

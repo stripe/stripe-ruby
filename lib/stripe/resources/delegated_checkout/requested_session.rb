@@ -151,8 +151,20 @@ module Stripe
         attr_reader :quantity
         # The SKU ID of the line item.
         attr_reader :sku_id
-        # The unit amount of the line item.
+        # The per-unit amount of the item before any discounts or taxes are applied.
         attr_reader :unit_amount
+        # The total discount for this line item. If no discount were applied, defaults to 0.
+        attr_reader :amount_discount
+        # The total before any discounts or taxes are applied.
+        attr_reader :amount_subtotal
+        # The total after discounts but before taxes are applied.
+        attr_reader :amount_subtotal_after_discount
+        # The total after discounts and taxes.
+        attr_reader :amount_total
+        # The per-unit amount of the item after discounts but before taxes are applied.
+        attr_reader :unit_amount_after_discount
+        # The per-unit discount amount. If no discount were applied, defaults to 0.
+        attr_reader :unit_discount
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -285,6 +297,8 @@ module Stripe
         attr_reader :amount_fulfillment
         # The amount tax of the total details.
         attr_reader :amount_tax
+        # Total of all items after discounts but before taxes are applied.
+        attr_reader :amount_subtotal_after_discount
         # The applicable fees of the total details.
         attr_reader :applicable_fees
 

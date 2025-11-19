@@ -906,8 +906,13 @@ module Stripe
           params(_trial: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial))
          }
         def trial=(_trial); end
+        # The ID of the trial offer to apply to the configuration item.
+        sig { returns(T.nilable(String)) }
+        def trial_offer; end
+        sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+        def trial_offer=(_trial_offer); end
         sig {
-          params(billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial)).void
+          params(billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial), trial_offer: T.nilable(String)).void
          }
         def initialize(
           billing_thresholds: nil,
@@ -918,7 +923,8 @@ module Stripe
           price_data: nil,
           quantity: nil,
           tax_rates: nil,
-          trial: nil
+          trial: nil,
+          trial_offer: nil
         ); end
       end
       class PauseCollection < ::Stripe::RequestParams

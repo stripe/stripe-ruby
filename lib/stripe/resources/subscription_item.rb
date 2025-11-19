@@ -42,6 +42,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      attr_reader :end_date
+      # Attribute for field start_date
+      attr_reader :start_date
+      # Attribute for field trial_offer
+      attr_reader :trial_offer
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The time period the subscription item has been billed for.
     attr_reader :billed_until
     # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
@@ -84,6 +101,8 @@ module Stripe
     attr_reader :tax_rates
     # Options that configure the trial on the subscription item.
     attr_reader :trial
+    # The current trial that is applied to this subscription item.
+    attr_reader :current_trial
     # Always true for a deleted object
     attr_reader :deleted
 
@@ -138,7 +157,11 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { billing_thresholds: BillingThresholds, trial: Trial }
+      @inner_class_types = {
+        billing_thresholds: BillingThresholds,
+        trial: Trial,
+        current_trial: CurrentTrial,
+      }
     end
 
     def self.field_remappings

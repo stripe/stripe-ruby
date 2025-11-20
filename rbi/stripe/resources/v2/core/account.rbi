@@ -350,10 +350,10 @@ module Stripe
               # A recent IP address of the customer used for tax reporting and tax location inference.
               sig { returns(T.nilable(String)) }
               def ip_address; end
-              # The customer’s identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+              # The [identified](https://docs.stripe.com/tax/customer-locations#address-hierarchy-other) tax location of the customer. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
               sig { returns(T.nilable(Location)) }
               def location; end
-              # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               sig { returns(T.nilable(String)) }
               def location_source; end
               def self.inner_class_types
@@ -460,7 +460,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
+              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions.
               sig { returns(T.nilable(AutomaticIndirectTax)) }
               def automatic_indirect_tax; end
               def self.inner_class_types
@@ -2198,6 +2198,90 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class KonbiniPayments < ::Stripe::StripeObject
+              class Support < ::Stripe::StripeObject
+                class Hours < ::Stripe::StripeObject
+                  # Support hours end time (JST time of day) for in `HH:MM` format.
+                  sig { returns(T.nilable(String)) }
+                  def end_time; end
+                  # Support hours start time (JST time of day) for in `HH:MM` format.
+                  sig { returns(T.nilable(String)) }
+                  def start_time; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Support email address for Konbini payments.
+                sig { returns(T.nilable(String)) }
+                def email; end
+                # Support hours for Konbini payments.
+                sig { returns(T.nilable(Hours)) }
+                def hours; end
+                # Support phone number for Konbini payments.
+                sig { returns(T.nilable(String)) }
+                def phone; end
+                def self.inner_class_types
+                  @inner_class_types = {hours: Hours}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Support for Konbini payments.
+              sig { returns(T.nilable(Support)) }
+              def support; end
+              def self.inner_class_types
+                @inner_class_types = {support: Support}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class ScriptStatementDescriptor < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def descriptor; end
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def prefix; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class Kanji < ::Stripe::StripeObject
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def descriptor; end
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                sig { returns(T.nilable(String)) }
+                def prefix; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              sig { returns(T.nilable(Kana)) }
+              def kana; end
+              # The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              sig { returns(T.nilable(Kanji)) }
+              def kanji; end
+              def self.inner_class_types
+                @inner_class_types = {kana: Kana, kanji: Kanji}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class SepaDebitPayments < ::Stripe::StripeObject
               # Creditor ID for SEPA debit payments.
               sig { returns(T.nilable(String)) }
@@ -2287,9 +2371,15 @@ module Stripe
             # Card payments settings.
             sig { returns(T.nilable(CardPayments)) }
             def card_payments; end
+            # Settings specific to Konbini payments on the account.
+            sig { returns(T.nilable(KonbiniPayments)) }
+            def konbini_payments; end
             # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
             sig { returns(T.nilable(String)) }
             def mcc; end
+            # Settings for the default text that appears on statements for language variations.
+            sig { returns(T.nilable(ScriptStatementDescriptor)) }
+            def script_statement_descriptor; end
             # Settings used for SEPA debit payments.
             sig { returns(T.nilable(SepaDebitPayments)) }
             def sepa_debit_payments; end
@@ -2305,6 +2395,8 @@ module Stripe
                 branding: Branding,
                 capabilities: Capabilities,
                 card_payments: CardPayments,
+                konbini_payments: KonbiniPayments,
+                script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
                 statement_descriptor: StatementDescriptor,
                 support: Support,
@@ -2666,6 +2758,37 @@ module Stripe
                 end
               end
               class HoldsCurrencies < ::Stripe::StripeObject
+                class Eur < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 class Gbp < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2759,6 +2882,9 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                # Can hold storage-type funds on Stripe in EUR.
+                sig { returns(T.nilable(Eur)) }
+                def eur; end
                 # Can hold storage-type funds on Stripe in GBP.
                 sig { returns(T.nilable(Gbp)) }
                 def gbp; end
@@ -2769,7 +2895,7 @@ module Stripe
                 sig { returns(T.nilable(Usdc)) }
                 def usdc; end
                 def self.inner_class_types
-                  @inner_class_types = {gbp: Gbp, usd: Usd, usdc: Usdc}
+                  @inner_class_types = {eur: Eur, gbp: Gbp, usd: Usd, usdc: Usdc}
                 end
                 def self.field_remappings
                   @field_remappings = {}
@@ -3227,6 +3353,9 @@ module Stripe
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
             sig { returns(String) }
             def losses_collector; end
+            # A value indicating responsibility for collecting requirements on this account.
+            sig { returns(String) }
+            def requirements_collector; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -3248,6 +3377,176 @@ module Stripe
           def responsibilities; end
           def self.inner_class_types
             @inner_class_types = {profile: Profile, responsibilities: Responsibilities}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FutureRequirements < ::Stripe::StripeObject
+          class Entry < ::Stripe::StripeObject
+            class Error < ::Stripe::StripeObject
+              # Machine-readable code describing the error.
+              sig { returns(String) }
+              def code; end
+              # Human-readable description of the error.
+              sig { returns(String) }
+              def description; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Impact < ::Stripe::StripeObject
+              class RestrictsCapability < ::Stripe::StripeObject
+                class Deadline < ::Stripe::StripeObject
+                  # The current status of the requirement's impact.
+                  sig { returns(String) }
+                  def status; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The name of the Capability which will be restricted.
+                sig { returns(String) }
+                def capability; end
+                # The configuration which specifies the Capability which will be restricted.
+                sig { returns(String) }
+                def configuration; end
+                # Details about when in the account lifecycle the requirement must be collected by the avoid the Capability restriction.
+                sig { returns(Deadline) }
+                def deadline; end
+                def self.inner_class_types
+                  @inner_class_types = {deadline: Deadline}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
+              sig { returns(T.nilable(T::Array[RestrictsCapability])) }
+              def restricts_capabilities; end
+              def self.inner_class_types
+                @inner_class_types = {restricts_capabilities: RestrictsCapability}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current status of the requirement's impact.
+              sig { returns(String) }
+              def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Reference < ::Stripe::StripeObject
+              # If `inquiry` is the type, the inquiry token.
+              sig { returns(T.nilable(String)) }
+              def inquiry; end
+              # If `resource` is the type, the resource token.
+              sig { returns(T.nilable(String)) }
+              def resource; end
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class RequestedReason < ::Stripe::StripeObject
+              # Machine-readable description of Stripe's reason for collecting the requirement.
+              sig { returns(String) }
+              def code; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            sig { returns(String) }
+            def awaiting_action_from; end
+            # Machine-readable string describing the requirement.
+            sig { returns(String) }
+            def description; end
+            # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+            sig { returns(T::Array[Error]) }
+            def errors; end
+            # A hash describing the impact of not collecting the requirement, or Stripe not being able to verify the collected information.
+            sig { returns(Impact) }
+            def impact; end
+            # The soonest point when the account will be impacted by not providing the requirement.
+            sig { returns(MinimumDeadline) }
+            def minimum_deadline; end
+            # A reference to the location of the requirement.
+            sig { returns(T.nilable(Reference)) }
+            def reference; end
+            # A list of reasons why Stripe is collecting the requirement.
+            sig { returns(T::Array[RequestedReason]) }
+            def requested_reasons; end
+            def self.inner_class_types
+              @inner_class_types = {
+                errors: Error,
+                impact: Impact,
+                minimum_deadline: MinimumDeadline,
+                reference: Reference,
+                requested_reasons: RequestedReason,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Summary < ::Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current strictest status of all requirements on the Account.
+              sig { returns(String) }
+              def status; end
+              # The soonest RFC3339 date & time UTC value a requirement can impact the Account.
+              sig { returns(T.nilable(String)) }
+              def time; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+            sig { returns(T.nilable(MinimumDeadline)) }
+            def minimum_deadline; end
+            def self.inner_class_types
+              @inner_class_types = {minimum_deadline: MinimumDeadline}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # A list of requirements for the Account.
+          sig { returns(T.nilable(T::Array[Entry])) }
+          def entries; end
+          # The time at which the future requirements become effective.
+          sig { returns(T.nilable(String)) }
+          def minimum_transition_date; end
+          # An object containing an overview of requirements for the Account.
+          sig { returns(T.nilable(Summary)) }
+          def summary; end
+          def self.inner_class_types
+            @inner_class_types = {entries: Entry, summary: Summary}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -3984,14 +4283,28 @@ module Stripe
               end
             end
             class AnnualRevenue < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig { returns(T.nilable(Amount)) }
               def amount; end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               sig { returns(T.nilable(String)) }
               def fiscal_year_end; end
               def self.inner_class_types
-                @inner_class_types = {}
+                @inner_class_types = {amount: Amount}
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -4215,11 +4528,25 @@ module Stripe
               end
             end
             class MonthlyEstimatedRevenue < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig { returns(T.nilable(Amount)) }
               def amount; end
               def self.inner_class_types
-                @inner_class_types = {}
+                @inner_class_types = {amount: Amount}
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -4981,7 +5308,8 @@ module Stripe
               # If `resource` is the type, the resource token.
               sig { returns(T.nilable(String)) }
               def resource; end
-              # The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
               sig { returns(String) }
               def type; end
               def self.inner_class_types
@@ -5061,9 +5389,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # A value indicating responsibility for collecting requirements on this account.
-          sig { returns(String) }
-          def collector; end
           # A list of requirements for the Account.
           sig { returns(T.nilable(T::Array[Entry])) }
           def entries; end
@@ -5101,6 +5426,9 @@ module Stripe
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
         sig { returns(T.nilable(String)) }
         def display_name; end
+        # Information about the future requirements for the Account that will eventually come into effect, including what information needs to be collected, and by when.
+        sig { returns(T.nilable(FutureRequirements)) }
+        def future_requirements; end
         # Unique identifier for the Account.
         sig { returns(String) }
         def id; end
@@ -5113,7 +5441,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Information about the requirements for the Account, including what information needs to be collected, and by when.
+        # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         sig { returns(T.nilable(Requirements)) }
         def requirements; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

@@ -11,6 +11,35 @@ module Stripe
 
       class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventData < ::Stripe::StripeObject
         class Impact < ::Stripe::StripeObject
+          class ApprovedAmount < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            attr_reader :value
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class DeclinedAmount < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            attr_reader :value
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Estimated aggregated amount for the approved requests.
           attr_reader :approved_amount
           # The number of approved requests which are impacted.
@@ -21,7 +50,7 @@ module Stripe
           attr_reader :declined_impacted_requests
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { approved_amount: ApprovedAmount, declined_amount: DeclinedAmount }
           end
 
           def self.field_remappings

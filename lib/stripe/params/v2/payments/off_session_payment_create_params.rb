@@ -5,83 +5,15 @@ module Stripe
   module V2
     module Payments
       class OffSessionPaymentCreateParams < ::Stripe::RequestParams
-        class AmountDetails < ::Stripe::RequestParams
-          class LineItem < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
-              # Total portion of the amount that is for tax.
-              attr_accessor :total_tax_amount
+        class Amount < ::Stripe::RequestParams
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          attr_accessor :value
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_accessor :currency
 
-              def initialize(total_tax_amount: nil)
-                @total_tax_amount = total_tax_amount
-              end
-            end
-            # The amount an item was discounted for. Positive integer.
-            attr_accessor :discount_amount
-            # Unique identifier of the product. At most 12 characters long.
-            attr_accessor :product_code
-            # Name of the product. At most 100 characters long.
-            attr_accessor :product_name
-            # Number of items of the product. Positive integer.
-            attr_accessor :quantity
-            # Contains information about the tax on the item.
-            attr_accessor :tax
-            # Cost of the product. Non-negative integer.
-            attr_accessor :unit_cost
-
-            def initialize(
-              discount_amount: nil,
-              product_code: nil,
-              product_name: nil,
-              quantity: nil,
-              tax: nil,
-              unit_cost: nil
-            )
-              @discount_amount = discount_amount
-              @product_code = product_code
-              @product_name = product_name
-              @quantity = quantity
-              @tax = tax
-              @unit_cost = unit_cost
-            end
-          end
-
-          class Shipping < ::Stripe::RequestParams
-            # Portion of the amount that is for shipping.
-            attr_accessor :amount
-            # The postal code that represents the shipping source.
-            attr_accessor :from_postal_code
-            # The postal code that represents the shipping destination.
-            attr_accessor :to_postal_code
-
-            def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
-              @amount = amount
-              @from_postal_code = from_postal_code
-              @to_postal_code = to_postal_code
-            end
-          end
-
-          class Tax < ::Stripe::RequestParams
-            # Total portion of the amount that is for tax.
-            attr_accessor :total_tax_amount
-
-            def initialize(total_tax_amount: nil)
-              @total_tax_amount = total_tax_amount
-            end
-          end
-          # The amount the total transaction was discounted for.
-          attr_accessor :discount_amount
-          # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-          attr_accessor :line_items
-          # Contains information about the shipping portion of the amount.
-          attr_accessor :shipping
-          # Contains information about the tax portion of the amount.
-          attr_accessor :tax
-
-          def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
-            @discount_amount = discount_amount
-            @line_items = line_items
-            @shipping = shipping
-            @tax = tax
+          def initialize(value: nil, currency: nil)
+            @value = value
+            @currency = currency
           end
         end
 
@@ -142,7 +74,7 @@ module Stripe
           # automatically after the payment succeeds. If no amount is specified, by default
           # the entire payment amount is transferred to the destination account. The amount
           # must be less than or equal to the
-          # [amount_requested](https://docs.corp.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
+          # [amount_requested](https://docs.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
           # and must be a positive integer representing how much to transfer in the smallest
           # currency unit (e.g., 100 cents to charge $1.00).
           attr_accessor :amount
@@ -157,20 +89,16 @@ module Stripe
         end
         # The “presentment amount” to be collected from the customer.
         attr_accessor :amount
-        # Provides industry-specific information about the amount.
-        attr_accessor :amount_details
         # The frequency of the underlying payment.
         attr_accessor :cadence
         # Details about the capture configuration for the OffSessionPayment.
         attr_accessor :capture
-        # Whether the OffSessionPayment should be captured automatically or manually.
-        attr_accessor :capture_method
         # ID of the Customer to which this OffSessionPayment belongs.
         attr_accessor :customer
-        # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
-        # [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
+        # [storing information in metadata](https://docs.stripe.com/payments/payment-intents#storing-information-in-metadata).
         attr_accessor :metadata
         # The account (if any) for which the funds of the OffSessionPayment are intended.
         attr_accessor :on_behalf_of
@@ -193,15 +121,13 @@ module Stripe
         attr_accessor :statement_descriptor_suffix
         # Test clock that can be used to advance the retry attempts in a sandbox.
         attr_accessor :test_clock
-        # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
+        # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
         attr_accessor :transfer_data
 
         def initialize(
           amount: nil,
-          amount_details: nil,
           cadence: nil,
           capture: nil,
-          capture_method: nil,
           customer: nil,
           metadata: nil,
           on_behalf_of: nil,
@@ -215,10 +141,8 @@ module Stripe
           transfer_data: nil
         )
           @amount = amount
-          @amount_details = amount_details
           @cadence = cadence
           @capture = capture
-          @capture_method = capture_method
           @customer = customer
           @metadata = metadata
           @on_behalf_of = on_behalf_of

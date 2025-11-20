@@ -5,11 +5,12 @@ module Stripe
   module V2
     module Core
       class AccountService < StripeService
-        attr_reader :persons
+        attr_reader :persons, :person_tokens
 
         def initialize(requestor)
           super
           @persons = Stripe::V2::Core::Accounts::PersonService.new(@requestor)
+          @person_tokens = Stripe::V2::Core::Accounts::PersonTokenService.new(@requestor)
         end
 
         # Removes access to the Account and its associated resources. Closed Accounts can no longer be operated on, but limited information can still be retrieved through the API in order to be able to track their history.

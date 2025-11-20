@@ -59,9 +59,6 @@ module Stripe
         # The type of the event.
         sig { returns(String) }
         def type; end
-        # For interop events, this is the snapshot event ID.
-        sig { returns(T.nilable(String)) }
-        def v1_event_id; end
       end
     end
   end

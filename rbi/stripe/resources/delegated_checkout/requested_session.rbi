@@ -328,10 +328,10 @@ module Stripe
         end
       end
       # The subtotal amount of the requested session.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def amount_subtotal; end
       # The total amount of the requested session.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def amount_total; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

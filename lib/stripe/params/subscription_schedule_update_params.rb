@@ -558,6 +558,8 @@ module Stripe
         attr_accessor :tax_rates
         # Options that configure the trial on the subscription item.
         attr_accessor :trial
+        # The ID of the trial offer to apply to the configuration item.
+        attr_accessor :trial_offer
 
         def initialize(
           billing_thresholds: nil,
@@ -568,7 +570,8 @@ module Stripe
           price_data: nil,
           quantity: nil,
           tax_rates: nil,
-          trial: nil
+          trial: nil,
+          trial_offer: nil
         )
           @billing_thresholds = billing_thresholds
           @discounts = discounts
@@ -579,6 +582,7 @@ module Stripe
           @quantity = quantity
           @tax_rates = tax_rates
           @trial = trial
+          @trial_offer = trial_offer
         end
       end
 
@@ -669,6 +673,8 @@ module Stripe
       attr_accessor :trial_end
       # Settings related to subscription trials.
       attr_accessor :trial_settings
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_accessor :effective_at
 
       def initialize(
         add_invoice_items: nil,
@@ -695,7 +701,8 @@ module Stripe
         trial: nil,
         trial_continuation: nil,
         trial_end: nil,
-        trial_settings: nil
+        trial_settings: nil,
+        effective_at: nil
       )
         @add_invoice_items = add_invoice_items
         @application_fee_percent = application_fee_percent
@@ -722,6 +729,7 @@ module Stripe
         @trial_continuation = trial_continuation
         @trial_end = trial_end
         @trial_settings = trial_settings
+        @effective_at = effective_at
       end
     end
 

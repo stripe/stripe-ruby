@@ -7,6 +7,7 @@ module Stripe
     module Core
       class AccountService < StripeService
         attr_reader :persons
+        attr_reader :person_tokens
         # Removes access to the Account and its associated resources. Closed Accounts can no longer be operated on, but limited information can still be retrieved through the API in order to be able to track their history.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)

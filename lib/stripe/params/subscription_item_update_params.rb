@@ -12,6 +12,18 @@ module Stripe
       end
     end
 
+    class CurrentTrial < ::Stripe::RequestParams
+      # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+      attr_accessor :trial_end
+      # The ID of the trial offer to apply to the subscription item.
+      attr_accessor :trial_offer
+
+      def initialize(trial_end: nil, trial_offer: nil)
+        @trial_end = trial_end
+        @trial_offer = trial_offer
+      end
+    end
+
     class Discount < ::Stripe::RequestParams
       class DiscountEnd < ::Stripe::RequestParams
         class Duration < ::Stripe::RequestParams
@@ -128,6 +140,8 @@ module Stripe
     attr_accessor :quantity
     # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
     attr_accessor :tax_rates
+    # The trial offer to apply to this subscription item.
+    attr_accessor :current_trial
 
     def initialize(
       billing_thresholds: nil,
@@ -142,7 +156,8 @@ module Stripe
       proration_behavior: nil,
       proration_date: nil,
       quantity: nil,
-      tax_rates: nil
+      tax_rates: nil,
+      current_trial: nil
     )
       @billing_thresholds = billing_thresholds
       @discounts = discounts
@@ -157,6 +172,7 @@ module Stripe
       @proration_date = proration_date
       @quantity = quantity
       @tax_rates = tax_rates
+      @current_trial = current_trial
     end
   end
 end

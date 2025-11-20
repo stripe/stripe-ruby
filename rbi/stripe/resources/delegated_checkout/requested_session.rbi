@@ -157,9 +157,27 @@ module Stripe
         # The SKU ID of the line item.
         sig { returns(String) }
         def sku_id; end
-        # The unit amount of the line item.
+        # The per-unit amount of the item before any discounts or taxes are applied.
         sig { returns(Integer) }
         def unit_amount; end
+        # The total discount for this line item. If no discount were applied, defaults to 0.
+        sig { returns(Integer) }
+        def amount_discount; end
+        # The total before any discounts or taxes are applied.
+        sig { returns(Integer) }
+        def amount_subtotal; end
+        # The total after discounts but before taxes are applied.
+        sig { returns(Integer) }
+        def amount_subtotal_after_discount; end
+        # The total after discounts and taxes.
+        sig { returns(Integer) }
+        def amount_total; end
+        # The per-unit amount of the item after discounts but before taxes are applied.
+        sig { returns(Integer) }
+        def unit_amount_after_discount; end
+        # The per-unit discount amount. If no discount were applied, defaults to 0.
+        sig { returns(Integer) }
+        def unit_discount; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -296,6 +314,9 @@ module Stripe
         # The amount tax of the total details.
         sig { returns(T.nilable(Integer)) }
         def amount_tax; end
+        # Total of all items after discounts but before taxes are applied.
+        sig { returns(T.nilable(Integer)) }
+        def amount_subtotal_after_discount; end
         # The applicable fees of the total details.
         sig { returns(T.nilable(T::Array[ApplicableFee])) }
         def applicable_fees; end
@@ -307,10 +328,10 @@ module Stripe
         end
       end
       # The subtotal amount of the requested session.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def amount_subtotal; end
       # The total amount of the requested session.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def amount_total; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

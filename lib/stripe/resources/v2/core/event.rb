@@ -55,8 +55,6 @@ module Stripe
         attr_reader :reason
         # The type of the event.
         attr_reader :type
-        # For interop events, this is the snapshot event ID.
-        attr_reader :v1_event_id
 
         def self.inner_class_types
           @inner_class_types = { reason: Reason }

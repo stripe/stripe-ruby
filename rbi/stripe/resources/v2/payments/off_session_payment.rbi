@@ -7,86 +7,29 @@ module Stripe
     module Payments
       # OffSessionPayment resource.
       class OffSessionPayment < APIResource
-        class AmountDetails < ::Stripe::StripeObject
-          class LineItem < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
-              # Total portion of the amount that is for tax.
-              sig { returns(T.nilable(Integer)) }
-              def total_tax_amount; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # The amount an item was discounted for. Positive integer.
-            sig { returns(T.nilable(Integer)) }
-            def discount_amount; end
-            # Unique identifier of the product. At most 12 characters long.
-            sig { returns(T.nilable(String)) }
-            def product_code; end
-            # Name of the product. At most 100 characters long.
-            sig { returns(String) }
-            def product_name; end
-            # Number of items of the product. Positive integer.
-            sig { returns(Integer) }
-            def quantity; end
-            # Contains information about the tax on the item.
-            sig { returns(T.nilable(Tax)) }
-            def tax; end
-            # Cost of the product. Non-negative integer.
-            sig { returns(Integer) }
-            def unit_cost; end
-            def self.inner_class_types
-              @inner_class_types = {tax: Tax}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Shipping < ::Stripe::StripeObject
-            # Portion of the amount that is for shipping.
-            sig { returns(T.nilable(Integer)) }
-            def amount; end
-            # The postal code that represents the shipping source.
-            sig { returns(T.nilable(String)) }
-            def from_postal_code; end
-            # The postal code that represents the shipping destination.
-            sig { returns(T.nilable(String)) }
-            def to_postal_code; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Tax < ::Stripe::StripeObject
-            # Total portion of the amount that is for tax.
-            sig { returns(T.nilable(Integer)) }
-            def total_tax_amount; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # The amount the total transaction was discounted for.
+        class AmountCapturable < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           sig { returns(T.nilable(Integer)) }
-          def discount_amount; end
-          # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-          sig { returns(T::Array[LineItem]) }
-          def line_items; end
-          # Contains information about the shipping portion of the amount.
-          sig { returns(T.nilable(Shipping)) }
-          def shipping; end
-          # Contains information about the tax portion of the amount.
-          sig { returns(T.nilable(Tax)) }
-          def tax; end
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
           def self.inner_class_types
-            @inner_class_types = {line_items: LineItem, shipping: Shipping, tax: Tax}
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class AmountRequested < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(T.nilable(Integer)) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -139,7 +82,7 @@ module Stripe
           # automatically after the payment succeeds. If no amount is specified, by default
           # the entire payment amount is transferred to the destination account. The amount
           # must be less than or equal to the
-          # [amount_requested](https://docs.corp.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
+          # [amount_requested](https://docs.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
           # and must be a positive integer representing how much to transfer in the smallest
           # currency unit (e.g., 100 cents to charge $1.00).
           sig { returns(T.nilable(Integer)) }
@@ -156,13 +99,10 @@ module Stripe
           end
         end
         # The amount available to be captured.
-        sig { returns(T.nilable(::Stripe::V2::Amount)) }
+        sig { returns(T.nilable(AmountCapturable)) }
         def amount_capturable; end
-        # Provides industry-specific information about the amount.
-        sig { returns(T.nilable(AmountDetails)) }
-        def amount_details; end
         # The “presentment amount” to be collected from the customer.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(AmountRequested) }
         def amount_requested; end
         # The frequency of the underlying payment.
         sig { returns(String) }
@@ -170,9 +110,6 @@ module Stripe
         # Details about the capture configuration for the OffSessionPayment.
         sig { returns(T.nilable(Capture)) }
         def capture; end
-        # Whether the OffSessionPayment should be captured automatically or manually.
-        sig { returns(T.nilable(String)) }
-        def capture_method; end
         # ID of the owning compartment.
         sig { returns(String) }
         def compartment_id; end
@@ -198,10 +135,10 @@ module Stripe
         # Has the value true if the object exists in live mode or the value false if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
-        # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
-        # [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
+        # [storing information in metadata](https://docs.stripe.com/payments/payment-intents#storing-information-in-metadata).
         sig { returns(T::Hash[String, String]) }
         def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -240,7 +177,7 @@ module Stripe
         # Test clock that can be used to advance the retry attempts in a sandbox.
         sig { returns(T.nilable(String)) }
         def test_clock; end
-        # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
+        # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
         sig { returns(T.nilable(TransferData)) }
         def transfer_data; end
       end

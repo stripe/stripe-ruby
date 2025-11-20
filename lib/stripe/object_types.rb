@@ -225,6 +225,8 @@ module Stripe
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
+        V2::Core::AccountPersonToken.object_name => V2::Core::AccountPersonToken,
+        V2::Core::AccountToken.object_name => V2::Core::AccountToken,
         V2::Core::ClaimableSandbox.object_name => V2::Core::ClaimableSandbox,
         V2::Core::Event.object_name => V2::Core::Event,
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
@@ -234,6 +236,7 @@ module Stripe
         V2::FinancialAddressGeneratedMicrodeposits.object_name =>
         V2::FinancialAddressGeneratedMicrodeposits,
         V2::MoneyManagement::Adjustment.object_name => V2::MoneyManagement::Adjustment,
+        V2::MoneyManagement::CurrencyConversion.object_name => V2::MoneyManagement::CurrencyConversion,
         V2::MoneyManagement::FinancialAccount.object_name => V2::MoneyManagement::FinancialAccount,
         V2::MoneyManagement::FinancialAddress.object_name => V2::MoneyManagement::FinancialAddress,
         V2::MoneyManagement::InboundTransfer.object_name => V2::MoneyManagement::InboundTransfer,

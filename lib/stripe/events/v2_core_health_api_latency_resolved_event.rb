@@ -19,6 +19,8 @@ module Stripe
           attr_reader :http_status
           # The number of impacted requests.
           attr_reader :impacted_requests
+          # The percentage of impacted requests.
+          attr_reader :impacted_requests_percentage
 
           def self.inner_class_types
             @inner_class_types = {}

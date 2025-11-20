@@ -352,9 +352,9 @@ module Stripe
               attr_reader :exempt
               # A recent IP address of the customer used for tax reporting and tax location inference.
               attr_reader :ip_address
-              # The customer’s identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+              # The [identified](https://docs.stripe.com/tax/customer-locations#address-hierarchy-other) tax location of the customer. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
               attr_reader :location
-              # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               attr_reader :location_source
 
               def self.inner_class_types
@@ -461,7 +461,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
+              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions.
               attr_reader :automatic_indirect_tax
 
               def self.inner_class_types
@@ -2153,6 +2153,93 @@ module Stripe
               end
             end
 
+            class KonbiniPayments < ::Stripe::StripeObject
+              class Support < ::Stripe::StripeObject
+                class Hours < ::Stripe::StripeObject
+                  # Support hours end time (JST time of day) for in `HH:MM` format.
+                  attr_reader :end_time
+                  # Support hours start time (JST time of day) for in `HH:MM` format.
+                  attr_reader :start_time
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Support email address for Konbini payments.
+                attr_reader :email
+                # Support hours for Konbini payments.
+                attr_reader :hours
+                # Support phone number for Konbini payments.
+                attr_reader :phone
+
+                def self.inner_class_types
+                  @inner_class_types = { hours: Hours }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Support for Konbini payments.
+              attr_reader :support
+
+              def self.inner_class_types
+                @inner_class_types = { support: Support }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class ScriptStatementDescriptor < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :prefix
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class Kanji < ::Stripe::StripeObject
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_reader :prefix
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_reader :kana
+              # The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_reader :kanji
+
+              def self.inner_class_types
+                @inner_class_types = { kana: Kana, kanji: Kanji }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class SepaDebitPayments < ::Stripe::StripeObject
               # Creditor ID for SEPA debit payments.
               attr_reader :creditor_id
@@ -2233,8 +2320,12 @@ module Stripe
             attr_reader :capabilities
             # Card payments settings.
             attr_reader :card_payments
+            # Settings specific to Konbini payments on the account.
+            attr_reader :konbini_payments
             # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
             attr_reader :mcc
+            # Settings for the default text that appears on statements for language variations.
+            attr_reader :script_statement_descriptor
             # Settings used for SEPA debit payments.
             attr_reader :sepa_debit_payments
             # Statement descriptor.
@@ -2248,6 +2339,8 @@ module Stripe
                 branding: Branding,
                 capabilities: Capabilities,
                 card_payments: CardPayments,
+                konbini_payments: KonbiniPayments,
+                script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
                 statement_descriptor: StatementDescriptor,
                 support: Support,
@@ -2609,6 +2702,37 @@ module Stripe
               end
 
               class HoldsCurrencies < ::Stripe::StripeObject
+                class Eur < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
                 class Gbp < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2701,6 +2825,8 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                # Can hold storage-type funds on Stripe in EUR.
+                attr_reader :eur
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_reader :gbp
                 # Can hold storage-type funds on Stripe in USD.
@@ -2709,7 +2835,7 @@ module Stripe
                 attr_reader :usdc
 
                 def self.inner_class_types
-                  @inner_class_types = { gbp: Gbp, usd: Usd, usdc: Usdc }
+                  @inner_class_types = { eur: Eur, gbp: Gbp, usd: Usd, usdc: Usdc }
                 end
 
                 def self.field_remappings
@@ -3148,6 +3274,8 @@ module Stripe
             attr_reader :fees_collector
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
             attr_reader :losses_collector
+            # A value indicating responsibility for collecting requirements on this account.
+            attr_reader :requirements_collector
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -3168,6 +3296,179 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { profile: Profile, responsibilities: Responsibilities }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FutureRequirements < ::Stripe::StripeObject
+          class Entry < ::Stripe::StripeObject
+            class Error < ::Stripe::StripeObject
+              # Machine-readable code describing the error.
+              attr_reader :code
+              # Human-readable description of the error.
+              attr_reader :description
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Impact < ::Stripe::StripeObject
+              class RestrictsCapability < ::Stripe::StripeObject
+                class Deadline < ::Stripe::StripeObject
+                  # The current status of the requirement's impact.
+                  attr_reader :status
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The name of the Capability which will be restricted.
+                attr_reader :capability
+                # The configuration which specifies the Capability which will be restricted.
+                attr_reader :configuration
+                # Details about when in the account lifecycle the requirement must be collected by the avoid the Capability restriction.
+                attr_reader :deadline
+
+                def self.inner_class_types
+                  @inner_class_types = { deadline: Deadline }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
+              attr_reader :restricts_capabilities
+
+              def self.inner_class_types
+                @inner_class_types = { restricts_capabilities: RestrictsCapability }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current status of the requirement's impact.
+              attr_reader :status
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Reference < ::Stripe::StripeObject
+              # If `inquiry` is the type, the inquiry token.
+              attr_reader :inquiry
+              # If `resource` is the type, the resource token.
+              attr_reader :resource
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class RequestedReason < ::Stripe::StripeObject
+              # Machine-readable description of Stripe's reason for collecting the requirement.
+              attr_reader :code
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            attr_reader :awaiting_action_from
+            # Machine-readable string describing the requirement.
+            attr_reader :description
+            # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+            attr_reader :errors
+            # A hash describing the impact of not collecting the requirement, or Stripe not being able to verify the collected information.
+            attr_reader :impact
+            # The soonest point when the account will be impacted by not providing the requirement.
+            attr_reader :minimum_deadline
+            # A reference to the location of the requirement.
+            attr_reader :reference
+            # A list of reasons why Stripe is collecting the requirement.
+            attr_reader :requested_reasons
+
+            def self.inner_class_types
+              @inner_class_types = {
+                errors: Error,
+                impact: Impact,
+                minimum_deadline: MinimumDeadline,
+                reference: Reference,
+                requested_reasons: RequestedReason,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Summary < ::Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
+              # The current strictest status of all requirements on the Account.
+              attr_reader :status
+              # The soonest RFC3339 date & time UTC value a requirement can impact the Account.
+              attr_reader :time
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+            attr_reader :minimum_deadline
+
+            def self.inner_class_types
+              @inner_class_types = { minimum_deadline: MinimumDeadline }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # A list of requirements for the Account.
+          attr_reader :entries
+          # The time at which the future requirements become effective.
+          attr_reader :minimum_transition_date
+          # An object containing an overview of requirements for the Account.
+          attr_reader :summary
+
+          def self.inner_class_types
+            @inner_class_types = { entries: Entry, summary: Summary }
           end
 
           def self.field_remappings
@@ -3873,13 +4174,27 @@ module Stripe
             end
 
             class AnnualRevenue < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                attr_reader :value
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                attr_reader :currency
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_reader :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               attr_reader :fiscal_year_end
 
               def self.inner_class_types
-                @inner_class_types = {}
+                @inner_class_types = { amount: Amount }
               end
 
               def self.field_remappings
@@ -4108,11 +4423,25 @@ module Stripe
             end
 
             class MonthlyEstimatedRevenue < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                attr_reader :value
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                attr_reader :currency
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_reader :amount
 
               def self.inner_class_types
-                @inner_class_types = {}
+                @inner_class_types = { amount: Amount }
               end
 
               def self.field_remappings
@@ -4825,7 +5154,8 @@ module Stripe
               attr_reader :inquiry
               # If `resource` is the type, the resource token.
               attr_reader :resource
-              # The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
+              # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+              # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
               attr_reader :type
 
               def self.inner_class_types
@@ -4905,8 +5235,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # A value indicating responsibility for collecting requirements on this account.
-          attr_reader :collector
           # A list of requirements for the Account.
           attr_reader :entries
           # An object containing an overview of requirements for the Account.
@@ -4936,6 +5264,8 @@ module Stripe
         attr_reader :defaults
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
         attr_reader :display_name
+        # Information about the future requirements for the Account that will eventually come into effect, including what information needs to be collected, and by when.
+        attr_reader :future_requirements
         # Unique identifier for the Account.
         attr_reader :id
         # Information about the company, individual, and business represented by the Account.
@@ -4944,7 +5274,7 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Information about the requirements for the Account, including what information needs to be collected, and by when.
+        # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         attr_reader :requirements
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
@@ -4953,6 +5283,7 @@ module Stripe
           @inner_class_types = {
             configuration: Configuration,
             defaults: Defaults,
+            future_requirements: FutureRequirements,
             identity: Identity,
             requirements: Requirements,
           }

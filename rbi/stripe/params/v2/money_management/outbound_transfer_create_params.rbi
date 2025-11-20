@@ -6,6 +6,20 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundTransferCreateParams < ::Stripe::RequestParams
+        class Amount < ::Stripe::RequestParams
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(T.nilable(Integer)) }
+          def value; end
+          sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def value=(_value); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+          def currency=(_currency); end
+          sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+          def initialize(value: nil, currency: nil); end
+        end
         class DeliveryOptions < ::Stripe::RequestParams
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
@@ -50,9 +64,11 @@ module Stripe
           def initialize(currency: nil, payout_method: nil); end
         end
         # The "presentment amount" for the OutboundPayment.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(V2::MoneyManagement::OutboundTransferCreateParams::Amount) }
         def amount; end
-        sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+        sig {
+          params(_amount: V2::MoneyManagement::OutboundTransferCreateParams::Amount).returns(V2::MoneyManagement::OutboundTransferCreateParams::Amount)
+         }
         def amount=(_amount); end
         # Delivery options to be used to send the OutboundTransfer.
         sig {
@@ -95,7 +111,7 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, delivery_options: T.nilable(V2::MoneyManagement::OutboundTransferCreateParams::DeliveryOptions), description: T.nilable(String), from: V2::MoneyManagement::OutboundTransferCreateParams::From, metadata: T.nilable(T::Hash[String, String]), recipient_verification: T.nilable(String), to: V2::MoneyManagement::OutboundTransferCreateParams::To).void
+          params(amount: V2::MoneyManagement::OutboundTransferCreateParams::Amount, delivery_options: T.nilable(V2::MoneyManagement::OutboundTransferCreateParams::DeliveryOptions), description: T.nilable(String), from: V2::MoneyManagement::OutboundTransferCreateParams::From, metadata: T.nilable(T::Hash[String, String]), recipient_verification: T.nilable(String), to: V2::MoneyManagement::OutboundTransferCreateParams::To).void
          }
         def initialize(
           amount: nil,

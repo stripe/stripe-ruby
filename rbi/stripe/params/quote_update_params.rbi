@@ -307,8 +307,13 @@ module Stripe
             params(_trial: T.nilable(QuoteUpdateParams::Line::Action::AddItem::Trial)).returns(T.nilable(QuoteUpdateParams::Line::Action::AddItem::Trial))
            }
           def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[QuoteUpdateParams::Line::Action::AddItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(QuoteUpdateParams::Line::Action::AddItem::Trial)).void
+            params(discounts: T.nilable(T::Array[QuoteUpdateParams::Line::Action::AddItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(QuoteUpdateParams::Line::Action::AddItem::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -316,7 +321,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           ); end
         end
         class RemoveDiscount < ::Stripe::RequestParams
@@ -494,8 +500,13 @@ module Stripe
             params(_trial: T.nilable(QuoteUpdateParams::Line::Action::SetItem::Trial)).returns(T.nilable(QuoteUpdateParams::Line::Action::SetItem::Trial))
            }
           def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[QuoteUpdateParams::Line::Action::SetItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(QuoteUpdateParams::Line::Action::SetItem::Trial)).void
+            params(discounts: T.nilable(T::Array[QuoteUpdateParams::Line::Action::SetItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(QuoteUpdateParams::Line::Action::SetItem::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -503,7 +514,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           ); end
         end
         # Details for the `add_discount` type.
@@ -856,8 +868,13 @@ module Stripe
         params(_trial_settings: T.nilable(QuoteUpdateParams::Line::TrialSettings)).returns(T.nilable(QuoteUpdateParams::Line::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def effective_at; end
+      sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def effective_at=(_effective_at); end
       sig {
-        params(actions: T.nilable(T::Array[QuoteUpdateParams::Line::Action]), applies_to: T.nilable(QuoteUpdateParams::Line::AppliesTo), billing_cycle_anchor: T.nilable(String), cancel_subscription_schedule: T.nilable(QuoteUpdateParams::Line::CancelSubscriptionSchedule), ends_at: T.nilable(QuoteUpdateParams::Line::EndsAt), id: T.nilable(String), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(QuoteUpdateParams::Line::SetPauseCollection), set_schedule_end: T.nilable(String), starts_at: T.nilable(QuoteUpdateParams::Line::StartsAt), trial_settings: T.nilable(QuoteUpdateParams::Line::TrialSettings)).void
+        params(actions: T.nilable(T::Array[QuoteUpdateParams::Line::Action]), applies_to: T.nilable(QuoteUpdateParams::Line::AppliesTo), billing_cycle_anchor: T.nilable(String), cancel_subscription_schedule: T.nilable(QuoteUpdateParams::Line::CancelSubscriptionSchedule), ends_at: T.nilable(QuoteUpdateParams::Line::EndsAt), id: T.nilable(String), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(QuoteUpdateParams::Line::SetPauseCollection), set_schedule_end: T.nilable(String), starts_at: T.nilable(QuoteUpdateParams::Line::StartsAt), trial_settings: T.nilable(QuoteUpdateParams::Line::TrialSettings), effective_at: T.nilable(String)).void
        }
       def initialize(
         actions: nil,
@@ -870,7 +887,8 @@ module Stripe
         set_pause_collection: nil,
         set_schedule_end: nil,
         starts_at: nil,
-        trial_settings: nil
+        trial_settings: nil,
+        effective_at: nil
       ); end
     end
     class LineItem < ::Stripe::RequestParams

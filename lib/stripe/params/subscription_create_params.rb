@@ -346,6 +346,18 @@ module Stripe
         end
       end
 
+      class CurrentTrial < ::Stripe::RequestParams
+        # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+        attr_accessor :trial_end
+        # The ID of the trial offer to apply to the subscription item.
+        attr_accessor :trial_offer
+
+        def initialize(trial_end: nil, trial_offer: nil)
+          @trial_end = trial_end
+          @trial_offer = trial_offer
+        end
+      end
+
       class Discount < ::Stripe::RequestParams
         class DiscountEnd < ::Stripe::RequestParams
           class Duration < ::Stripe::RequestParams
@@ -460,6 +472,8 @@ module Stripe
       attr_accessor :tax_rates
       # Define options to configure the trial on the subscription item.
       attr_accessor :trial
+      # The trial offer to apply to this subscription item.
+      attr_accessor :current_trial
 
       def initialize(
         billing_thresholds: nil,
@@ -470,7 +484,8 @@ module Stripe
         price_data: nil,
         quantity: nil,
         tax_rates: nil,
-        trial: nil
+        trial: nil,
+        current_trial: nil
       )
         @billing_thresholds = billing_thresholds
         @discounts = discounts
@@ -481,6 +496,7 @@ module Stripe
         @quantity = quantity
         @tax_rates = tax_rates
         @trial = trial
+        @current_trial = current_trial
       end
     end
 

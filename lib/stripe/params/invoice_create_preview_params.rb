@@ -598,6 +598,8 @@ module Stripe
             attr_accessor :tax_rates
             # Options that configure the trial on the subscription item.
             attr_accessor :trial
+            # The ID of the trial offer to apply to the configuration item.
+            attr_accessor :trial_offer
 
             def initialize(
               discounts: nil,
@@ -605,7 +607,8 @@ module Stripe
               price: nil,
               quantity: nil,
               tax_rates: nil,
-              trial: nil
+              trial: nil,
+              trial_offer: nil
             )
               @discounts = discounts
               @metadata = metadata
@@ -613,6 +616,7 @@ module Stripe
               @quantity = quantity
               @tax_rates = tax_rates
               @trial = trial
+              @trial_offer = trial_offer
             end
           end
 
@@ -692,6 +696,8 @@ module Stripe
             attr_accessor :tax_rates
             # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
             attr_accessor :trial
+            # The ID of the trial offer to apply to the configuration item.
+            attr_accessor :trial_offer
 
             def initialize(
               discounts: nil,
@@ -699,7 +705,8 @@ module Stripe
               price: nil,
               quantity: nil,
               tax_rates: nil,
-              trial: nil
+              trial: nil,
+              trial_offer: nil
             )
               @discounts = discounts
               @metadata = metadata
@@ -707,6 +714,7 @@ module Stripe
               @quantity = quantity
               @tax_rates = tax_rates
               @trial = trial
+              @trial_offer = trial_offer
             end
           end
           # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
@@ -802,6 +810,8 @@ module Stripe
         attr_accessor :trial_settings
         # Actions to apply to the billing schedules.
         attr_accessor :billing_schedules_actions
+        # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+        attr_accessor :effective_at
 
         def initialize(
           amendment_end: nil,
@@ -814,7 +824,8 @@ module Stripe
           set_pause_collection: nil,
           set_schedule_end: nil,
           trial_settings: nil,
-          billing_schedules_actions: nil
+          billing_schedules_actions: nil,
+          effective_at: nil
         )
           @amendment_end = amendment_end
           @amendment_start = amendment_start
@@ -827,6 +838,7 @@ module Stripe
           @set_schedule_end = set_schedule_end
           @trial_settings = trial_settings
           @billing_schedules_actions = billing_schedules_actions
+          @effective_at = effective_at
         end
       end
 
@@ -1282,6 +1294,8 @@ module Stripe
           attr_accessor :tax_rates
           # Options that configure the trial on the subscription item.
           attr_accessor :trial
+          # The ID of the trial offer to apply to the configuration item.
+          attr_accessor :trial_offer
 
           def initialize(
             billing_thresholds: nil,
@@ -1292,7 +1306,8 @@ module Stripe
             price_data: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           )
             @billing_thresholds = billing_thresholds
             @discounts = discounts
@@ -1303,6 +1318,7 @@ module Stripe
             @quantity = quantity
             @tax_rates = tax_rates
             @trial = trial
+            @trial_offer = trial_offer
           end
         end
 
@@ -1393,6 +1409,8 @@ module Stripe
         attr_accessor :trial_end
         # Settings related to subscription trials.
         attr_accessor :trial_settings
+        # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+        attr_accessor :effective_at
 
         def initialize(
           add_invoice_items: nil,
@@ -1419,7 +1437,8 @@ module Stripe
           trial: nil,
           trial_continuation: nil,
           trial_end: nil,
-          trial_settings: nil
+          trial_settings: nil,
+          effective_at: nil
         )
           @add_invoice_items = add_invoice_items
           @application_fee_percent = application_fee_percent
@@ -1446,6 +1465,7 @@ module Stripe
           @trial_continuation = trial_continuation
           @trial_end = trial_end
           @trial_settings = trial_settings
+          @effective_at = effective_at
         end
       end
 
@@ -1618,6 +1638,18 @@ module Stripe
           end
         end
 
+        class CurrentTrial < ::Stripe::RequestParams
+          # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+          attr_accessor :trial_end
+          # The ID of the trial offer to apply to the subscription item.
+          attr_accessor :trial_offer
+
+          def initialize(trial_end: nil, trial_offer: nil)
+            @trial_end = trial_end
+            @trial_offer = trial_offer
+          end
+        end
+
         class Discount < ::Stripe::RequestParams
           class DiscountEnd < ::Stripe::RequestParams
             class Duration < ::Stripe::RequestParams
@@ -1724,6 +1756,8 @@ module Stripe
         attr_accessor :quantity
         # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         attr_accessor :tax_rates
+        # The trial offer to apply to this subscription item.
+        attr_accessor :current_trial
 
         def initialize(
           billing_thresholds: nil,
@@ -1736,7 +1770,8 @@ module Stripe
           price: nil,
           price_data: nil,
           quantity: nil,
-          tax_rates: nil
+          tax_rates: nil,
+          current_trial: nil
         )
           @billing_thresholds = billing_thresholds
           @clear_usage = clear_usage
@@ -1749,6 +1784,7 @@ module Stripe
           @price_data = price_data
           @quantity = quantity
           @tax_rates = tax_rates
+          @current_trial = current_trial
         end
       end
 

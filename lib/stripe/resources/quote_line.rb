@@ -103,6 +103,8 @@ module Stripe
         attr_reader :tax_rates
         # Options that configure the trial on the subscription item.
         attr_reader :trial
+        # The ID of the trial offer to apply to the configuration item.
+        attr_reader :trial_offer
 
         def self.inner_class_types
           @inner_class_types = { discounts: Discount, trial: Trial }
@@ -252,6 +254,8 @@ module Stripe
         attr_reader :tax_rates
         # Options that configure the trial on the subscription item.
         attr_reader :trial
+        # The ID of the trial offer to apply to the configuration item.
+        attr_reader :trial_offer
 
         def self.inner_class_types
           @inner_class_types = { discounts: Discount, trial: Trial }
@@ -501,6 +505,8 @@ module Stripe
     attr_reader :starts_at
     # Settings related to subscription trials.
     attr_reader :trial_settings
+    # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    attr_reader :effective_at
 
     def self.inner_class_types
       @inner_class_types = {

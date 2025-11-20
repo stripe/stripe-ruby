@@ -13,6 +13,20 @@ module Stripe
       sig { params(usage_gte: Integer).void }
       def initialize(usage_gte: nil); end
     end
+    class CurrentTrial < ::Stripe::RequestParams
+      # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+      sig { returns(T.nilable(Integer)) }
+      def trial_end; end
+      sig { params(_trial_end: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def trial_end=(_trial_end); end
+      # The ID of the trial offer to apply to the subscription item.
+      sig { returns(String) }
+      def trial_offer; end
+      sig { params(_trial_offer: String).returns(String) }
+      def trial_offer=(_trial_offer); end
+      sig { params(trial_end: T.nilable(Integer), trial_offer: String).void }
+      def initialize(trial_end: nil, trial_offer: nil); end
+    end
     class Discount < ::Stripe::RequestParams
       class DiscountEnd < ::Stripe::RequestParams
         class Duration < ::Stripe::RequestParams
@@ -218,8 +232,15 @@ module Stripe
       params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
      }
     def tax_rates=(_tax_rates); end
+    # The trial offer to apply to this subscription item.
+    sig { returns(T.nilable(SubscriptionItemUpdateParams::CurrentTrial)) }
+    def current_trial; end
     sig {
-      params(billing_thresholds: T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(_current_trial: T.nilable(SubscriptionItemUpdateParams::CurrentTrial)).returns(T.nilable(SubscriptionItemUpdateParams::CurrentTrial))
+     }
+    def current_trial=(_current_trial); end
+    sig {
+      params(billing_thresholds: T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), current_trial: T.nilable(SubscriptionItemUpdateParams::CurrentTrial)).void
      }
     def initialize(
       billing_thresholds: nil,
@@ -234,7 +255,8 @@ module Stripe
       proration_behavior: nil,
       proration_date: nil,
       quantity: nil,
-      tax_rates: nil
+      tax_rates: nil,
+      current_trial: nil
     ); end
   end
 end

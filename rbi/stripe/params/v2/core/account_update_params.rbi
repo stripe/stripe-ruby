@@ -2312,11 +2312,27 @@ module Stripe
               ); end
             end
             class AnnualRevenue < ::Stripe::RequestParams
+              class Amount < ::Stripe::RequestParams
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def value=(_value); end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+                def currency=(_currency); end
+                sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+                def initialize(value: nil, currency: nil); end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig {
+                returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
+               }
               def amount; end
               sig {
-                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
+                params(_amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
                }
               def amount=(_amount); end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -2325,7 +2341,7 @@ module Stripe
               sig { params(_fiscal_year_end: T.nilable(String)).returns(T.nilable(String)) }
               def fiscal_year_end=(_fiscal_year_end); end
               sig {
-                params(amount: T.nilable(::Stripe::V2::Amount), fiscal_year_end: T.nilable(String)).void
+                params(amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount), fiscal_year_end: T.nilable(String)).void
                }
               def initialize(amount: nil, fiscal_year_end: nil); end
             end
@@ -2618,14 +2634,32 @@ module Stripe
               def initialize(registrar: nil, type: nil, value: nil); end
             end
             class MonthlyEstimatedRevenue < ::Stripe::RequestParams
+              class Amount < ::Stripe::RequestParams
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def value=(_value); end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+                def currency=(_currency); end
+                sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+                def initialize(value: nil, currency: nil); end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig {
+                returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
+               }
               def amount; end
               sig {
-                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
+                params(_amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
                }
               def amount=(_amount); end
-              sig { params(amount: T.nilable(::Stripe::V2::Amount)).void }
+              sig {
+                params(amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).void
+               }
               def initialize(amount: nil); end
             end
             class ScriptAddresses < ::Stripe::RequestParams

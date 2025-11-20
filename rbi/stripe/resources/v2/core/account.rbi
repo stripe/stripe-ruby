@@ -3182,14 +3182,28 @@ module Stripe
               end
             end
             class AnnualRevenue < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig { returns(T.nilable(Amount)) }
               def amount; end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               sig { returns(T.nilable(String)) }
               def fiscal_year_end; end
               def self.inner_class_types
-                @inner_class_types = {}
+                @inner_class_types = {amount: Amount}
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -3413,11 +3427,25 @@ module Stripe
               end
             end
             class MonthlyEstimatedRevenue < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig { returns(T.nilable(Amount)) }
               def amount; end
               def self.inner_class_types
-                @inner_class_types = {}
+                @inner_class_types = {amount: Amount}
               end
               def self.field_remappings
                 @field_remappings = {}

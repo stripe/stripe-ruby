@@ -7,18 +7,78 @@ module Stripe
     module MoneyManagement
       # Use Transactions to view changes to your FinancialAccount balance over time. Every flow that moves money, such as OutboundPayments or ReceivedCredits, will have one or more Transactions that describes how the flow impacted your balance. Note that while the FinancialAccount balance will always be up to date, be aware that Transactions and TransactionEntries are created shortly after to reflect changes.
       class Transaction < APIResource
-        class BalanceImpact < ::Stripe::StripeObject
-          # Impact to the available balance.
-          sig { returns(::Stripe::V2::Amount) }
-          def available; end
-          # Impact to the inbound_pending balance.
-          sig { returns(::Stripe::V2::Amount) }
-          def inbound_pending; end
-          # Impact to the outbound_pending balance.
-          sig { returns(::Stripe::V2::Amount) }
-          def outbound_pending; end
+        class Amount < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(T.nilable(Integer)) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class BalanceImpact < ::Stripe::StripeObject
+          class Available < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class InboundPending < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class OutboundPending < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Impact to the available balance.
+          sig { returns(Available) }
+          def available; end
+          # Impact to the inbound_pending balance.
+          sig { returns(InboundPending) }
+          def inbound_pending; end
+          # Impact to the outbound_pending balance.
+          sig { returns(OutboundPending) }
+          def outbound_pending; end
+          def self.inner_class_types
+            @inner_class_types = {
+              available: Available,
+              inbound_pending: InboundPending,
+              outbound_pending: OutboundPending,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
@@ -74,7 +134,7 @@ module Stripe
           end
         end
         # The amount of the Transaction.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(Amount) }
         def amount; end
         # The delta to the FinancialAccount's balance. The balance_impact for the Transaction is equal to sum of its
         # TransactionEntries that have `effective_at`s in the past.

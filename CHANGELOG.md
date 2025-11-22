@@ -28,6 +28,9 @@ This release changes the pinned API version to `2025-11-17.preview`.
   * Add support for thin event `V2CoreHealthEventGenerationFailureResolvedEvent`
   * Remove support for thin events `V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent`, `V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent`, `V2PaymentsOffSessionPaymentCanceledEvent`, `V2PaymentsOffSessionPaymentCreatedEvent`, `V2PaymentsOffSessionPaymentFailedEvent`, `V2PaymentsOffSessionPaymentRequiresCaptureEvent`, and `V2PaymentsOffSessionPaymentSucceededEvent` with related object `V2::Payments::OffSessionPayment`
 
+## 18.0.1 - 2025-11-21
+* [#1736](https://github.com/stripe/stripe-ruby/pull/1736) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging.
+
 ## 18.0.0 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.clover`.
 

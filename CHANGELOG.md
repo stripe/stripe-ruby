@@ -1,4 +1,7 @@
 # Changelog
+## 18.0.1 - 2025-11-21
+* [#1736](https://github.com/stripe/stripe-ruby/pull/1736) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging. 
+
 ## 18.0.0 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.clover`.
 

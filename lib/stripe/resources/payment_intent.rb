@@ -3459,6 +3459,19 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class PaymentsOrchestration < ::Stripe::StripeObject
+      # Whether this feature is enabled.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Allocated Funds configuration for this PaymentIntent.
     attr_reader :allocated_funds
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
@@ -3573,6 +3586,8 @@ module Stripe
     attr_reader :transfer_data
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
     attr_reader :transfer_group
+    # When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
+    attr_reader :payments_orchestration
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     def apply_customer_balance(params = {}, opts = {})
@@ -3947,6 +3962,7 @@ module Stripe
         processing: Processing,
         shipping: Shipping,
         transfer_data: TransferData,
+        payments_orchestration: PaymentsOrchestration,
       }
     end
 

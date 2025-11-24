@@ -60,6 +60,7 @@ module Stripe
     attr_reader :prices
     attr_reader :privacy
     attr_reader :products
+    attr_reader :product_catalog
     attr_reader :promotion_codes
     attr_reader :quotes
     attr_reader :radar

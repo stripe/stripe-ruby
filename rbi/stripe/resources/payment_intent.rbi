@@ -3629,6 +3629,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class PaymentsOrchestration < ::Stripe::StripeObject
+      # Whether this feature is enabled.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Allocated Funds configuration for this PaymentIntent.
     sig { returns(T.nilable(AllocatedFunds)) }
     def allocated_funds; end
@@ -3792,6 +3803,9 @@ module Stripe
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
     sig { returns(T.nilable(String)) }
     def transfer_group; end
+    # When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
+    sig { returns(T.nilable(PaymentsOrchestration)) }
+    def payments_orchestration; end
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     sig {
       params(params: T.any(::Stripe::PaymentIntentApplyCustomerBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)

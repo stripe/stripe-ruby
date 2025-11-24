@@ -124,6 +124,7 @@ module Stripe
         Privacy::RedactionJob.object_name => Privacy::RedactionJob,
         Privacy::RedactionJobValidationError.object_name => Privacy::RedactionJobValidationError,
         Product.object_name => Product,
+        ProductCatalog::TrialOffer.object_name => ProductCatalog::TrialOffer,
         ProductFeature.object_name => ProductFeature,
         PromotionCode.object_name => PromotionCode,
         Quote.object_name => Quote,

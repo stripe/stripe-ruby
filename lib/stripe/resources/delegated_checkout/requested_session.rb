@@ -157,14 +157,6 @@ module Stripe
         attr_reader :amount_discount
         # The total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
-        # The total after discounts but before taxes are applied.
-        attr_reader :amount_subtotal_after_discount
-        # The total after discounts and taxes.
-        attr_reader :amount_total
-        # The per-unit amount of the item after discounts but before taxes are applied.
-        attr_reader :unit_amount_after_discount
-        # The per-unit discount amount. If no discount were applied, defaults to 0.
-        attr_reader :unit_discount
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -291,14 +283,14 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount discount of the total details.
-        attr_reader :amount_discount
         # The amount fulfillment of the total details.
         attr_reader :amount_fulfillment
         # The amount tax of the total details.
         attr_reader :amount_tax
-        # Total of all items after discounts but before taxes are applied.
-        attr_reader :amount_subtotal_after_discount
+        # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
+        attr_reader :amount_cart_discount
+        # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
+        attr_reader :amount_items_discount
         # The applicable fees of the total details.
         attr_reader :applicable_fees
 

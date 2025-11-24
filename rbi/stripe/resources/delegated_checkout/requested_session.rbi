@@ -166,18 +166,6 @@ module Stripe
         # The total before any discounts or taxes are applied.
         sig { returns(Integer) }
         def amount_subtotal; end
-        # The total after discounts but before taxes are applied.
-        sig { returns(Integer) }
-        def amount_subtotal_after_discount; end
-        # The total after discounts and taxes.
-        sig { returns(Integer) }
-        def amount_total; end
-        # The per-unit amount of the item after discounts but before taxes are applied.
-        sig { returns(Integer) }
-        def unit_amount_after_discount; end
-        # The per-unit discount amount. If no discount were applied, defaults to 0.
-        sig { returns(Integer) }
-        def unit_discount; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -305,18 +293,18 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount discount of the total details.
-        sig { returns(T.nilable(Integer)) }
-        def amount_discount; end
         # The amount fulfillment of the total details.
         sig { returns(T.nilable(Integer)) }
         def amount_fulfillment; end
         # The amount tax of the total details.
         sig { returns(T.nilable(Integer)) }
         def amount_tax; end
-        # Total of all items after discounts but before taxes are applied.
+        # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         sig { returns(T.nilable(Integer)) }
-        def amount_subtotal_after_discount; end
+        def amount_cart_discount; end
+        # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
+        sig { returns(T.nilable(Integer)) }
+        def amount_items_discount; end
         # The applicable fees of the total details.
         sig { returns(T.nilable(T::Array[ApplicableFee])) }
         def applicable_fees; end

@@ -5517,6 +5517,15 @@ module Stripe
       end
     end
 
+    class PaymentsOrchestration < ::Stripe::RequestParams
+      # Whether this feature is enabled.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
+      end
+    end
+
     class RadarOptions < ::Stripe::RequestParams
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_accessor :session
@@ -5702,6 +5711,8 @@ module Stripe
     attr_accessor :transfer_group
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     attr_accessor :use_stripe_sdk
+    # When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
+    attr_accessor :payments_orchestration
 
     def initialize(
       allocated_funds: nil,
@@ -5743,7 +5754,8 @@ module Stripe
       statement_descriptor_suffix: nil,
       transfer_data: nil,
       transfer_group: nil,
-      use_stripe_sdk: nil
+      use_stripe_sdk: nil,
+      payments_orchestration: nil
     )
       @allocated_funds = allocated_funds
       @amount = amount
@@ -5785,6 +5797,7 @@ module Stripe
       @transfer_data = transfer_data
       @transfer_group = transfer_group
       @use_stripe_sdk = use_stripe_sdk
+      @payments_orchestration = payments_orchestration
     end
   end
 end

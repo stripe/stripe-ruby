@@ -311,7 +311,7 @@ module Stripe
       end
     end
     class SelfReportedIncome < ::Stripe::StripeObject
-      # Amount in the minor currency unit (e.g., cents for USD)
+      # The amount in the minor currency unit (for example, cents for USD).
       sig { returns(Integer) }
       def amount; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -325,7 +325,7 @@ module Stripe
       end
     end
     class SelfReportedMonthlyHousingPayment < ::Stripe::StripeObject
-      # Amount in the minor currency unit (e.g., cents for USD)
+      # The amount in the minor currency unit (for example, cents for USD).
       sig { returns(Integer) }
       def amount; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

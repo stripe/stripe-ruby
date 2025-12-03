@@ -78,6 +78,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class BalanceTransfer < ::Stripe::StripeObject
+          # Open Enum. The type of balance transfer that originated the ReceivedDebit.
+          sig { returns(String) }
+          def type; end
+          # The ID of the topup object that originated the ReceivedDebit.
+          sig { returns(T.nilable(String)) }
+          def topup; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class BankTransfer < ::Stripe::StripeObject
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
@@ -118,6 +132,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StripeBalancePayment < ::Stripe::StripeObject
+          # ID of the debit agreement associated with this payment.
+          sig { returns(T.nilable(String)) }
+          def debit_agreement; end
+          # Statement descriptor for the Stripe Balance Payment.
+          sig { returns(T.nilable(String)) }
+          def statement_descriptor; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Amount and currency of the ReceivedDebit.
         sig { returns(Amount) }
         def amount; end
@@ -152,15 +180,21 @@ module Stripe
         # The time at which the ReceivedDebit transitioned to a particular status.
         sig { returns(T.nilable(StatusTransitions)) }
         def status_transitions; end
-        # Open Enum. The type of the ReceivedDebit.
+        # Open enum, the type of the received debit.
         sig { returns(String) }
         def type; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
+        # This object stores details about the balance transfer object that resulted in the ReceivedDebit.
+        sig { returns(T.nilable(BalanceTransfer)) }
+        def balance_transfer; end
         # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
         sig { returns(T.nilable(BankTransfer)) }
         def bank_transfer; end
+        # This object stores details about the Stripe Balance Payment that resulted in the ReceivedDebit.
+        sig { returns(T.nilable(StripeBalancePayment)) }
+        def stripe_balance_payment; end
       end
     end
   end

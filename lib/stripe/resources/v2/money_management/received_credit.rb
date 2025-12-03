@@ -210,6 +210,19 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class StripeBalancePayment < ::Stripe::StripeObject
+          # Statement descriptor for the Stripe Balance Payment.
+          attr_reader :statement_descriptor
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount and currency of the ReceivedCredit.
         attr_reader :amount
         # Time at which the ReceivedCredit was created.
@@ -241,6 +254,8 @@ module Stripe
         attr_reader :balance_transfer
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
         attr_reader :bank_transfer
+        # This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
+        attr_reader :stripe_balance_payment
 
         def self.inner_class_types
           @inner_class_types = {
@@ -250,6 +265,7 @@ module Stripe
             status_transitions: StatusTransitions,
             balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
+            stripe_balance_payment: StripeBalancePayment,
           }
         end
 

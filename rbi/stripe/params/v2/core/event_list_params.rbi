@@ -39,6 +39,11 @@ module Stripe
           params(_created: T.nilable(V2::Core::EventListParams::Created)).returns(T.nilable(V2::Core::EventListParams::Created))
          }
         def created=(_created); end
+        # Additional fields to include in the response.
+        sig { returns(T.nilable(T::Array[String])) }
+        def include; end
+        sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def include=(_include); end
         # The page size.
         sig { returns(T.nilable(Integer)) }
         def limit; end
@@ -57,9 +62,9 @@ module Stripe
         sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def types=(_types); end
         sig {
-          params(created: T.nilable(V2::Core::EventListParams::Created), limit: T.nilable(Integer), object_id_: T.nilable(String), types: T.nilable(T::Array[String])).void
+          params(created: T.nilable(V2::Core::EventListParams::Created), include: T.nilable(T::Array[String]), limit: T.nilable(Integer), object_id_: T.nilable(String), types: T.nilable(T::Array[String])).void
          }
-        def initialize(created: nil, limit: nil, object_id_: nil, types: nil); end
+        def initialize(created: nil, include: nil, limit: nil, object_id_: nil, types: nil); end
       end
     end
   end

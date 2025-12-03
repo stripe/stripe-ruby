@@ -213,6 +213,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StripeBalancePayment < ::Stripe::StripeObject
+          # Statement descriptor for the Stripe Balance Payment.
+          sig { returns(T.nilable(String)) }
+          def statement_descriptor; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount and currency of the ReceivedCredit.
         sig { returns(Amount) }
         def amount; end
@@ -259,6 +270,9 @@ module Stripe
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
         sig { returns(T.nilable(BankTransfer)) }
         def bank_transfer; end
+        # This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
+        sig { returns(T.nilable(StripeBalancePayment)) }
+        def stripe_balance_payment; end
       end
     end
   end

@@ -171,6 +171,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class CheckScanning < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class DisputesList < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -706,6 +728,9 @@ module Stripe
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      sig { returns(T.nilable(CheckScanning)) }
+      def check_scanning; end
       def self.inner_class_types
         @inner_class_types = {
           account_management: AccountManagement,
@@ -730,6 +755,7 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          check_scanning: CheckScanning,
         }
       end
       def self.field_remappings

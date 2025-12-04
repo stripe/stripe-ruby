@@ -1,5 +1,15 @@
 # Changelog
 
+## 18.1.0-alpha.4 - 2025-12-04
+* [#1740](https://github.com/stripe/stripe-ruby/pull/1740) Update generated code for private-preview
+  * Add support for event notifications `V2IamApiKeyCreatedEvent`, `V2IamApiKeyDefaultSecretRevealedEvent`, `V2IamApiKeyExpiredEvent`, `V2IamApiKeyPermissionsUpdatedEvent`, `V2IamApiKeyRotatedEvent`, and `V2IamApiKeyUpdatedEvent`
+* [#1739](https://github.com/stripe/stripe-ruby/pull/1739) Update generated code for private-preview
+  * Add support for `check_scanning` on `AccountSession::Component`
+  * Add support for `client` on `V2::Core::Event::Reason::Request`
+  * Add support for `stripe_balance_payment` on `V2::MoneyManagement::ReceivedCredit` and `V2::MoneyManagement::ReceivedDebit`
+  * Add support for `balance_transfer` on `V2::MoneyManagement::ReceivedDebit`
+  * Add support for `include` on `V2::Core::EventListParams` and `V2::Core::EventRetrieveParams`
+
 ## 18.1.0-alpha.3 - 2025-11-24
 * [#1737](https://github.com/stripe/stripe-ruby/pull/1737) Update generated code for private-preview
   * Add support for new resource `ProductCatalog::TrialOffer`

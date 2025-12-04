@@ -87,6 +87,21 @@ module Stripe
           end
         end
 
+        class BalanceTransfer < ::Stripe::StripeObject
+          # Open Enum. The type of balance transfer that originated the ReceivedDebit.
+          attr_reader :type
+          # The ID of the topup object that originated the ReceivedDebit.
+          attr_reader :topup
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class BankTransfer < ::Stripe::StripeObject
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
@@ -123,6 +138,21 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class StripeBalancePayment < ::Stripe::StripeObject
+          # ID of the debit agreement associated with this payment.
+          attr_reader :debit_agreement
+          # Statement descriptor for the Stripe Balance Payment.
+          attr_reader :statement_descriptor
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Amount and currency of the ReceivedDebit.
         attr_reader :amount
         # The time at which the ReceivedDebit was created.
@@ -146,12 +176,16 @@ module Stripe
         attr_reader :status_details
         # The time at which the ReceivedDebit transitioned to a particular status.
         attr_reader :status_transitions
-        # Open Enum. The type of the ReceivedDebit.
+        # Open enum, the type of the received debit.
         attr_reader :type
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+        # This object stores details about the balance transfer object that resulted in the ReceivedDebit.
+        attr_reader :balance_transfer
         # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
         attr_reader :bank_transfer
+        # This object stores details about the Stripe Balance Payment that resulted in the ReceivedDebit.
+        attr_reader :stripe_balance_payment
 
         def self.inner_class_types
           @inner_class_types = {
@@ -159,7 +193,9 @@ module Stripe
             external_amount: ExternalAmount,
             status_details: StatusDetails,
             status_transitions: StatusTransitions,
+            balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
+            stripe_balance_payment: StripeBalancePayment,
           }
         end
 

@@ -2547,12 +2547,12 @@ module Stripe
         ); end
       end
       class SelfReportedIncome < ::Stripe::RequestParams
-        # Attribute for param field amount
+        # The amount in the minor currency unit (for example, cents for USD).
         sig { returns(Integer) }
         def amount; end
         sig { params(_amount: Integer).returns(Integer) }
         def amount=(_amount); end
-        # Attribute for param field currency
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
         sig { params(_currency: String).returns(String) }
@@ -2561,12 +2561,12 @@ module Stripe
         def initialize(amount: nil, currency: nil); end
       end
       class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
-        # Attribute for param field amount
+        # The amount in the minor currency unit (for example, cents for USD).
         sig { returns(Integer) }
         def amount; end
         sig { params(_amount: Integer).returns(Integer) }
         def amount=(_amount); end
-        # Attribute for param field currency
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
         sig { params(_currency: String).returns(String) }

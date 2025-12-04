@@ -32,7 +32,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: String).returns(String) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(String) }
           def state; end
           sig { params(_state: String).returns(String) }
@@ -164,7 +164,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: String).returns(String) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(String) }
             def state; end
             sig { params(_state: String).returns(String) }

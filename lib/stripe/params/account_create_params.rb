@@ -1872,9 +1872,9 @@ module Stripe
       end
 
       class SelfReportedIncome < ::Stripe::RequestParams
-        # Attribute for param field amount
+        # The amount in the minor currency unit (for example, cents for USD).
         attr_accessor :amount
-        # Attribute for param field currency
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
 
         def initialize(amount: nil, currency: nil)
@@ -1884,9 +1884,9 @@ module Stripe
       end
 
       class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
-        # Attribute for param field amount
+        # The amount in the minor currency unit (for example, cents for USD).
         attr_accessor :amount
-        # Attribute for param field currency
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
 
         def initialize(amount: nil, currency: nil)

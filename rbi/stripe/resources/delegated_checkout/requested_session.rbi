@@ -23,7 +23,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -205,7 +205,7 @@ module Stripe
             # ZIP or postal code.
             sig { returns(String) }
             def postal_code; end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(String) }
             def state; end
             def self.inner_class_types

@@ -145,6 +145,14 @@ module Stripe
         Events::V2CoreHealthWebhookLatencyFiringEvent,
         Events::V2CoreHealthWebhookLatencyResolvedEvent.lookup_type =>
         Events::V2CoreHealthWebhookLatencyResolvedEvent,
+        Events::V2IamApiKeyCreatedEvent.lookup_type => Events::V2IamApiKeyCreatedEvent,
+        Events::V2IamApiKeyDefaultSecretRevealedEvent.lookup_type =>
+        Events::V2IamApiKeyDefaultSecretRevealedEvent,
+        Events::V2IamApiKeyExpiredEvent.lookup_type => Events::V2IamApiKeyExpiredEvent,
+        Events::V2IamApiKeyPermissionsUpdatedEvent.lookup_type =>
+        Events::V2IamApiKeyPermissionsUpdatedEvent,
+        Events::V2IamApiKeyRotatedEvent.lookup_type => Events::V2IamApiKeyRotatedEvent,
+        Events::V2IamApiKeyUpdatedEvent.lookup_type => Events::V2IamApiKeyUpdatedEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
@@ -415,6 +423,18 @@ module Stripe
         Events::V2CoreHealthWebhookLatencyFiringEventNotification,
         Events::V2CoreHealthWebhookLatencyResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthWebhookLatencyResolvedEventNotification,
+        Events::V2IamApiKeyCreatedEventNotification.lookup_type =>
+        Events::V2IamApiKeyCreatedEventNotification,
+        Events::V2IamApiKeyDefaultSecretRevealedEventNotification.lookup_type =>
+        Events::V2IamApiKeyDefaultSecretRevealedEventNotification,
+        Events::V2IamApiKeyExpiredEventNotification.lookup_type =>
+        Events::V2IamApiKeyExpiredEventNotification,
+        Events::V2IamApiKeyPermissionsUpdatedEventNotification.lookup_type =>
+        Events::V2IamApiKeyPermissionsUpdatedEventNotification,
+        Events::V2IamApiKeyRotatedEventNotification.lookup_type =>
+        Events::V2IamApiKeyRotatedEventNotification,
+        Events::V2IamApiKeyUpdatedEventNotification.lookup_type =>
+        Events::V2IamApiKeyUpdatedEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>

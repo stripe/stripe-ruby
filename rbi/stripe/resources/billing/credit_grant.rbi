@@ -23,7 +23,7 @@ module Stripe
             # A lookup key for the custom pricing unit.
             sig { returns(T.nilable(String)) }
             def lookup_key; end
-            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             sig { returns(T::Hash[String, String]) }
             def metadata; end
             # The status of the custom pricing unit.

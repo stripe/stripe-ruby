@@ -139,6 +139,60 @@ module Stripe
         end
       end
       class LineItemDetail < ::Stripe::StripeObject
+        class ProductDetails < ::Stripe::StripeObject
+          class CustomAttribute < ::Stripe::StripeObject
+            # The display name of the custom attribute.
+            sig { returns(String) }
+            def display_name; end
+            # The value of the custom attribute.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Disclosure < ::Stripe::StripeObject
+            # The content of the disclosure.
+            sig { returns(String) }
+            def content; end
+            # The content type of the disclosure.
+            sig { returns(String) }
+            def content_type; end
+            # The type of disclosure.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Custom attributes for the product.
+          sig { returns(T.nilable(T::Array[CustomAttribute])) }
+          def custom_attributes; end
+          # The description of the product.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # Disclosures for the product.
+          sig { returns(T.nilable(T::Array[Disclosure])) }
+          def disclosures; end
+          # The images of the product.
+          sig { returns(T.nilable(T::Array[String])) }
+          def images; end
+          # The title of the product.
+          sig { returns(String) }
+          def title; end
+          def self.inner_class_types
+            @inner_class_types = {custom_attributes: CustomAttribute, disclosures: Disclosure}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The description of the line item.
         sig { returns(T.nilable(String)) }
         def description; end
@@ -166,8 +220,11 @@ module Stripe
         # The total before any discounts or taxes are applied.
         sig { returns(Integer) }
         def amount_subtotal; end
+        # Attribute for field product_details
+        sig { returns(T.nilable(ProductDetails)) }
+        def product_details; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {product_details: ProductDetails}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -345,7 +402,7 @@ module Stripe
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       # String representing the object's type. Objects of the same type share the same value.

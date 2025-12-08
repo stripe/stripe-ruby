@@ -31,6 +31,44 @@ module Stripe
          }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
+      class Wallets < ::Stripe::RequestParams
+        class ApplePay < ::Stripe::RequestParams
+          # Query by Apple Pay primary account identifier.
+          sig { returns(T.nilable(String)) }
+          def primary_account_identifier; end
+          sig { params(_primary_account_identifier: T.nilable(String)).returns(T.nilable(String)) }
+          def primary_account_identifier=(_primary_account_identifier); end
+          sig { params(primary_account_identifier: T.nilable(String)).void }
+          def initialize(primary_account_identifier: nil); end
+        end
+        class GooglePay < ::Stripe::RequestParams
+          # Query by Google Pay primary account identifier.
+          sig { returns(T.nilable(String)) }
+          def primary_account_identifier; end
+          sig { params(_primary_account_identifier: T.nilable(String)).returns(T.nilable(String)) }
+          def primary_account_identifier=(_primary_account_identifier); end
+          sig { params(primary_account_identifier: T.nilable(String)).void }
+          def initialize(primary_account_identifier: nil); end
+        end
+        # Filter cards by Apple Pay wallet details.
+        sig { returns(T.nilable(Issuing::CardListParams::Wallets::ApplePay)) }
+        def apple_pay; end
+        sig {
+          params(_apple_pay: T.nilable(Issuing::CardListParams::Wallets::ApplePay)).returns(T.nilable(Issuing::CardListParams::Wallets::ApplePay))
+         }
+        def apple_pay=(_apple_pay); end
+        # Filter cards by Google Pay wallet details.
+        sig { returns(T.nilable(Issuing::CardListParams::Wallets::GooglePay)) }
+        def google_pay; end
+        sig {
+          params(_google_pay: T.nilable(Issuing::CardListParams::Wallets::GooglePay)).returns(T.nilable(Issuing::CardListParams::Wallets::GooglePay))
+         }
+        def google_pay=(_google_pay); end
+        sig {
+          params(apple_pay: T.nilable(Issuing::CardListParams::Wallets::ApplePay), google_pay: T.nilable(Issuing::CardListParams::Wallets::GooglePay)).void
+         }
+        def initialize(apple_pay: nil, google_pay: nil); end
+      end
       # Only return cards belonging to the Cardholder with the provided ID.
       sig { returns(T.nilable(String)) }
       def cardholder; end
@@ -93,8 +131,15 @@ module Stripe
       def type; end
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
+      # Filter cards by wallet settings.
+      sig { returns(T.nilable(Issuing::CardListParams::Wallets)) }
+      def wallets; end
       sig {
-        params(cardholder: T.nilable(String), created: T.nilable(T.any(Issuing::CardListParams::Created, Integer)), ending_before: T.nilable(String), exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), last4: T.nilable(String), limit: T.nilable(Integer), personalization_design: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String)).void
+        params(_wallets: T.nilable(Issuing::CardListParams::Wallets)).returns(T.nilable(Issuing::CardListParams::Wallets))
+       }
+      def wallets=(_wallets); end
+      sig {
+        params(cardholder: T.nilable(String), created: T.nilable(T.any(Issuing::CardListParams::Created, Integer)), ending_before: T.nilable(String), exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), last4: T.nilable(String), limit: T.nilable(Integer), personalization_design: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String), wallets: T.nilable(Issuing::CardListParams::Wallets)).void
        }
       def initialize(
         cardholder: nil,
@@ -108,7 +153,8 @@ module Stripe
         personalization_design: nil,
         starting_after: nil,
         status: nil,
-        type: nil
+        type: nil,
+        wallets: nil
       ); end
     end
   end

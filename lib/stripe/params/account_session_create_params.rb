@@ -180,6 +180,19 @@ module Stripe
         end
       end
 
+      class CheckScanning < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class DisputesList < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -740,6 +753,8 @@ module Stripe
       attr_accessor :tax_settings
       # Configuration for the [tax threshold monitoring](/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
       attr_accessor :tax_threshold_monitoring
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      attr_accessor :check_scanning
 
       def initialize(
         account_management: nil,
@@ -772,7 +787,8 @@ module Stripe
         reporting_chart: nil,
         tax_registrations: nil,
         tax_settings: nil,
-        tax_threshold_monitoring: nil
+        tax_threshold_monitoring: nil,
+        check_scanning: nil
       )
         @account_management = account_management
         @account_onboarding = account_onboarding
@@ -805,6 +821,7 @@ module Stripe
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings
         @tax_threshold_monitoring = tax_threshold_monitoring
+        @check_scanning = check_scanning
       end
     end
     # The identifier of the account to create an Account Session for.

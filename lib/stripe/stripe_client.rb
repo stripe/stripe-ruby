@@ -91,8 +91,8 @@ module Stripe
       Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
     end
 
-    def notification_handler(webhook_secret, &blk)
-      ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &blk)
+    def notification_handler(webhook_secret, &fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &fallback_callback)
     end
   end
 end

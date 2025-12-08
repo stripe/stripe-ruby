@@ -10,12 +10,12 @@ module Stripe
   end
 
   class StripeEventNotificationHandler
-    def initialize(client, webhook_secret, &on_unhandled_handler)
-      raise ArgumentError, "You must pass a block to respond to unhandled events" if on_unhandled_handler.nil?
+    def initialize(client, webhook_secret, &fallback_callback)
+      raise ArgumentError, "You must pass a block to act as a fallback" if fallback_callback.nil?
 
       @client = client
       @webhook_secret = webhook_secret
-      @on_unhandled_handler = on_unhandled_handler
+      @fallback_callback = fallback_callback
 
       @registered_handlers = {}
       @has_handled_events = false
@@ -39,7 +39,7 @@ module Stripe
       if handler
         handler.call(notif, event_client)
       else
-        @on_unhandled_handler.call(notif, event_client,
+        @fallback_callback.call(notif, event_client,
                                    UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
       end
     end

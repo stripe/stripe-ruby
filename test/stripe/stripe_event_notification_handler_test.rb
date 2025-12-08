@@ -4,7 +4,7 @@ require File.expand_path("../test_helper", __dir__)
 require "json"
 
 module Stripe
-  class StripeEventRouterTest < Test::Unit::TestCase
+  class StripeEventNotificationHandlerTest < Test::Unit::TestCase
     V1_BILLING_METER_PAYLOAD = {
       "id" => "evt_123",
       "object" => "v2.core.event",
@@ -69,28 +69,28 @@ module Stripe
       }
     end
 
-    context "StripeEventRouter" do
+    context "StripeEventNotificationHandler" do
       should "raise ArgumentError when initialized without block" do
         assert_raises(ArgumentError, "You must pass a block to respond to unhandled events") do
-          StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET)
+          StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET)
         end
       end
 
       should "route event to registered handler" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         handler_called = false
         received_notif = nil
         received_client = nil
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |notif, client|
+        handler.on_v1_billing_meter_error_report_triggered do |notif, client|
           handler_called = true
           received_notif = notif
           received_client = client
         end
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert handler_called
         assert_not_nil received_notif
@@ -102,29 +102,29 @@ module Stripe
       end
 
       should "route different events to correct handlers" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         billing_handler_called = false
         account_handler_num_calls = 0
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |notif, _client|
+        handler.on_v1_billing_meter_error_report_triggered do |notif, _client|
           billing_handler_called = true
           assert notif.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
         end
 
-        router.on_V2CoreAccountCreatedEventNotification do |notif, _client|
+        handler.on_v2_core_account_created do |notif, _client|
           account_handler_num_calls += 1
           assert notif.is_a?(Stripe::Events::V2CoreAccountCreatedEventNotification)
         end
 
         sig_header1 = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header1)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header1)
 
         sig_header2 = Test::WebhookHelpers.generate_header(payload: V2_ACCOUNT_CREATED_PAYLOAD)
-        router.handle(V2_ACCOUNT_CREATED_PAYLOAD, sig_header2)
+        handler.handle(V2_ACCOUNT_CREATED_PAYLOAD, sig_header2)
 
         sig_header2 = Test::WebhookHelpers.generate_header(payload: V2_ACCOUNT_CREATED_PAYLOAD)
-        router.handle(V2_ACCOUNT_CREATED_PAYLOAD, sig_header2)
+        handler.handle(V2_ACCOUNT_CREATED_PAYLOAD, sig_header2)
 
         assert billing_handler_called
         assert_equal 2, account_handler_num_calls
@@ -132,18 +132,18 @@ module Stripe
       end
 
       should "handler receives correct event type and data" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         received_event = nil
         received_client = nil
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |notif, client|
+        handler.on_v1_billing_meter_error_report_triggered do |notif, client|
           received_event = notif
           received_client = client
         end
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert received_event.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
         assert_equal "v1.billing.meter.error_report_triggered", received_event.type
@@ -153,17 +153,17 @@ module Stripe
       end
 
       should "not allow registering handlers after handling events" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, _client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
           # Handler body
         end
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         e = assert_raises(RuntimeError) do
-          router.on_V2CoreAccountCreatedEventNotification do |_notif, _client|
+          handler.on_v2_core_account_created do |_notif, _client|
             # Handler body
           end
         end
@@ -171,14 +171,14 @@ module Stripe
       end
 
       should "not allow registering duplicate handlers" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, _client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
           # First handler
         end
 
         e = assert_raises(ArgumentError) do
-          router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, _client|
+          handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
             # Duplicate handler
           end
         end
@@ -186,10 +186,10 @@ module Stripe
       end
 
       should "route unknown event to on_unhandled handler" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         sig_header = Test::WebhookHelpers.generate_header(payload: UNKNOWN_EVENT_PAYLOAD)
-        router.handle(UNKNOWN_EVENT_PAYLOAD, sig_header)
+        handler.handle(UNKNOWN_EVENT_PAYLOAD, sig_header)
 
         assert_equal 1, @on_unhandled_calls.length
 
@@ -202,10 +202,10 @@ module Stripe
       end
 
       should "route known unregistered event to on_unhandled handler" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert_equal 1, @on_unhandled_calls.length
 
@@ -218,79 +218,79 @@ module Stripe
       end
 
       should "not call on_unhandled for registered events" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, _client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
           # Handler body
         end
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert_equal 0, @on_unhandled_calls.length
       end
 
       should "raise error when handler is registered without block" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         e = assert_raises(ArgumentError) do
-          router.on_V1BillingMeterErrorReportTriggeredEventNotification
+          handler.on_v1_billing_meter_error_report_triggered
         end
         assert_match(/Block required to register event handler/, e.message)
       end
 
       should "validate webhook signature" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         assert_raises(Stripe::SignatureVerificationError) do
-          router.handle(V1_BILLING_METER_PAYLOAD, "invalid_signature")
+          handler.handle(V1_BILLING_METER_PAYLOAD, "invalid_signature")
         end
       end
 
       should "return empty list when no event types registered" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        assert_equal [], router.registered_event_types
+        assert_equal [], handler.registered_event_types
       end
 
       should "return single registered event type" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, _client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
           # Handler body
         end
 
-        assert_equal ["v1.billing.meter.error_report_triggered"], router.registered_event_types
+        assert_equal ["v1.billing.meter.error_report_triggered"], handler.registered_event_types
       end
 
       should "return multiple registered event types" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         # Register in non-alphabetical order
-        router.on_V2CoreAccountUpdatedEventNotification do |_notif, _client|
+        handler.on_v2_core_account_updated do |_notif, _client|
           # Handler body
         end
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, _client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
           # Handler body
         end
-        router.on_V2CoreAccountCreatedEventNotification do |_notif, _client|
+        handler.on_v2_core_account_created do |_notif, _client|
           # Handler body
         end
 
-        assert_equal ["v1.billing.meter.error_report_triggered", "v2.core.account.created", "v2.core.account.updated"], router.registered_event_types
+        assert_equal ["v1.billing.meter.error_report_triggered", "v2.core.account.created", "v2.core.account.updated"], handler.registered_event_types
       end
 
-      should "handler can raise errors without breaking router" do
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+      should "handler can raise errors without breaking handler" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, _client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
           raise StandardError, "Handler error!"
         end
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
 
         e = assert_raises(StandardError) do
-          router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+          handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
         end
         assert_equal "Handler error!", e.message
       end
@@ -300,55 +300,55 @@ module Stripe
           raise StandardError, "Unhandled error!"
         }
 
-        router = StripeEventRouter.new(@client, Test::WebhookHelpers::SECRET, &error_handler)
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &error_handler)
 
         sig_header = Test::WebhookHelpers.generate_header(payload: UNKNOWN_EVENT_PAYLOAD)
 
         e = assert_raises(StandardError) do
-          router.handle(UNKNOWN_EVENT_PAYLOAD, sig_header)
+          handler.handle(UNKNOWN_EVENT_PAYLOAD, sig_header)
         end
         assert_equal "Unhandled error!", e.message
       end
 
       should "handler uses event stripe_context" do
         client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
-        router = StripeEventRouter.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         received_context = nil
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
           received_context = client.requestor.config.stripe_context
         end
 
         assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert_equal "event_context_456", received_context.to_s
       end
 
       should "restore stripe_context after handler success" do
         client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
-        router = StripeEventRouter.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
           assert_equal "event_context_456", client.requestor.config.stripe_context.to_s
         end
 
         assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
       end
 
       should "restore stripe_context after handler error" do
         client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
-        router = StripeEventRouter.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
           assert_equal "event_context_456", client.requestor.config.stripe_context.to_s
           raise StandardError, "Handler error!"
         end
@@ -358,7 +358,7 @@ module Stripe
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
 
         e = assert_raises(StandardError) do
-          router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+          handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
         end
         assert_equal "Handler error!", e.message
 
@@ -367,18 +367,18 @@ module Stripe
 
       should "set stripe_context to nil when event has no context" do
         client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
-        router = StripeEventRouter.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         received_context = "not_nil"
 
-        router.on_V2CoreAccountCreatedEventNotification do |_notif, client|
+        handler.on_v2_core_account_created do |_notif, client|
           received_context = client.requestor.config.stripe_context
         end
 
         assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V2_ACCOUNT_CREATED_PAYLOAD)
-        router.handle(V2_ACCOUNT_CREATED_PAYLOAD, sig_header)
+        handler.handle(V2_ACCOUNT_CREATED_PAYLOAD, sig_header)
 
         assert_nil received_context
         assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
@@ -389,18 +389,18 @@ module Stripe
         original_context = "original_context_xyz"
 
         client_with_config = StripeClient.new(api_key, stripe_context: original_context)
-        router = StripeEventRouter.new(client_with_config, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        handler = StripeEventNotificationHandler.new(client_with_config, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         received_api_key = nil
         received_context = nil
 
-        router.on_V1BillingMeterErrorReportTriggeredEventNotification do |_notif, client|
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
           received_api_key = client.requestor.config.api_key
           received_context = client.requestor.config.stripe_context
         end
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
-        router.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert_equal api_key, received_api_key
         assert_equal "event_context_456", received_context.to_s

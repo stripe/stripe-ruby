@@ -23,8 +23,8 @@ module Stripe
           details: ::Stripe::UnhandledNotificationDetails
         ).void
       )
-      .returns(::Stripe::StripeEventRouter)
+      .returns(::Stripe::StripeEventNotificationHandler)
     end
-    def router(webhook_secret, &blk); end
+    def notification_handler(webhook_secret, &blk); end
   end
 end

@@ -91,8 +91,8 @@ module Stripe
       Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
     end
 
-    def router(webhook_secret, &blk)
-      ::Stripe::StripeEventRouter.new(self, webhook_secret, &blk)
+    def notification_handler(webhook_secret, &blk)
+      ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &blk)
     end
   end
 end

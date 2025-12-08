@@ -22,6 +22,7 @@ module Stripe
     end
 
     def handle(webhook_body, sig_header)
+      # we're ok with this not being a thread-safe write since registering handlers should happen synchronously on startup before any multi-threaded reads happen
       @has_handled_events = true
 
       notif = @client.parse_event_notification(
@@ -30,18 +31,15 @@ module Stripe
         @webhook_secret
       )
 
-      @handler = @registered_handlers[notif.type]
-      original_context = @client.requestor.config.stripe_context
-      @client.requestor.config.stripe_context = notif.context
-      begin
-        if @handler
-          @handler.call(notif, @client)
-        else
-          @on_unhandled_handler.call(notif, @client,
-                                     UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
-        end
-      ensure
-        @client.requestor.config.stripe_context = original_context
+      # Create a new client with the event's context to ensure thread-safety
+      event_client = new_client_with_context(notif.context)
+
+      handler = @registered_handlers[notif.type]
+      if handler
+        handler.call(notif, event_client)
+      else
+        @on_unhandled_handler.call(notif, event_client,
+                                   UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
       end
     end
 
@@ -58,9 +56,20 @@ module Stripe
       @registered_handlers[event_type] = handler
     end
 
-    # def on_UnknownEventNotification(event_notification, _client)
-    #   raise "Received event type that the SDK doesn't have a corresponding class for: \"#{event_notification.type}\". Consider upgrading your SDK to handle this more gracefully."
-    # end
+    private def new_client_with_context(context)
+      config = @client.requestor.config
+      StripeClient.new(
+        config.api_key,
+        stripe_account: config.stripe_account,
+        stripe_context: context,
+        stripe_version: config.api_version,
+        api_base: config.api_base,
+        uploads_base: config.uploads_base,
+        connect_base: config.connect_base,
+        meter_events_base: config.meter_events_base,
+        client_id: config.client_id
+      )
+    end
 
     # event-handler-methods: The beginning of the section generated from our OpenAPI spec
     def on_V1BillingMeterErrorReportTriggeredEventNotification(&handler)

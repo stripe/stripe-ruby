@@ -266,18 +266,23 @@ module Stripe
      }
     def components=(_components); end
     # The ID of an existing customer for which to create the Customer Session.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def customer; end
-    sig { params(_customer: String).returns(String) }
+    sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
+    # The ID of an existing Account for which to create the Customer Session.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
+    sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_account=(_customer_account); end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     sig {
-      params(components: CustomerSessionCreateParams::Components, customer: String, expand: T.nilable(T::Array[String])).void
+      params(components: CustomerSessionCreateParams::Components, customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String])).void
      }
-    def initialize(components: nil, customer: nil, expand: nil); end
+    def initialize(components: nil, customer: nil, customer_account: nil, expand: nil); end
   end
 end

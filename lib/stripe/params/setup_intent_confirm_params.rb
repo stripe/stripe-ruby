@@ -103,7 +103,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -278,11 +278,27 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+
+      class Payto < ::Stripe::RequestParams
+        # The account number for the bank account.
+        attr_accessor :account_number
+        # Bank-State-Branch number of the bank account.
+        attr_accessor :bsb_number
+        # The PayID alias for the bank account.
+        attr_accessor :pay_id
+
+        def initialize(account_number: nil, bsb_number: nil, pay_id: nil)
+          @account_number = account_number
+          @bsb_number = bsb_number
+          @pay_id = pay_id
+        end
+      end
+
       class Pix < ::Stripe::RequestParams; end
       class Promptpay < ::Stripe::RequestParams; end
 
       class RadarOptions < ::Stripe::RequestParams
-        # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         attr_accessor :session
 
         def initialize(session: nil)
@@ -402,7 +418,7 @@ module Stripe
       attr_accessor :link
       # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
       attr_accessor :mb_way
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
       attr_accessor :mobilepay
@@ -424,11 +440,13 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+      attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
       attr_accessor :pix
       # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
       attr_accessor :promptpay
-      # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+      # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
       attr_accessor :radar_options
       # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
       attr_accessor :revolut_pay
@@ -494,6 +512,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        payto: nil,
         pix: nil,
         promptpay: nil,
         radar_options: nil,
@@ -549,6 +568,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @payto = payto
         @pix = pix
         @promptpay = promptpay
         @radar_options = radar_options
@@ -755,7 +775,7 @@ module Stripe
         attr_accessor :moto
         # Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
         attr_accessor :network
-        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_accessor :request_three_d_secure
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this setup.
@@ -878,6 +898,49 @@ module Stripe
         end
       end
 
+      class Payto < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount that will be collected. It is required when `amount_type` is `fixed`.
+          attr_accessor :amount
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+          attr_accessor :amount_type
+          # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+          attr_accessor :end_date
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
+          attr_accessor :payment_schedule
+          # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+          attr_accessor :payments_per_period
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
+          attr_accessor :purpose
+          # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+          attr_accessor :start_date
+
+          def initialize(
+            amount: nil,
+            amount_type: nil,
+            end_date: nil,
+            payment_schedule: nil,
+            payments_per_period: nil,
+            purpose: nil,
+            start_date: nil
+          )
+            @amount = amount
+            @amount_type = amount_type
+            @end_date = end_date
+            @payment_schedule = payment_schedule
+            @payments_per_period = payments_per_period
+            @purpose = purpose
+            @start_date = start_date
+          end
+        end
+        # Additional fields for Mandate creation.
+        attr_accessor :mandate_options
+
+        def initialize(mandate_options: nil)
+          @mandate_options = mandate_options
+        end
+      end
+
       class SepaDebit < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -976,6 +1039,8 @@ module Stripe
       attr_accessor :link
       # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
       attr_accessor :paypal
+      # If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
+      attr_accessor :payto
       # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
       # If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
@@ -990,6 +1055,7 @@ module Stripe
         klarna: nil,
         link: nil,
         paypal: nil,
+        payto: nil,
         sepa_debit: nil,
         us_bank_account: nil
       )
@@ -1001,6 +1067,7 @@ module Stripe
         @klarna = klarna
         @link = link
         @paypal = paypal
+        @payto = payto
         @sepa_debit = sepa_debit
         @us_bank_account = us_bank_account
       end
@@ -1015,7 +1082,7 @@ module Stripe
     attr_accessor :mandate_data
     # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
     attr_accessor :payment_method
-    # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
+    # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-payment_method)
     # value in the SetupIntent.
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this SetupIntent.

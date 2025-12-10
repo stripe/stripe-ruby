@@ -28,7 +28,7 @@ module Stripe
     attr_accessor :ending_before
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # Only return products with the given IDs. Cannot be used with [starting_after](https://stripe.com/docs/api#list_products-starting_after) or [ending_before](https://stripe.com/docs/api#list_products-ending_before).
+    # Only return products with the given IDs. Cannot be used with [starting_after](https://api.stripe.com#list_products-starting_after) or [ending_before](https://api.stripe.com#list_products-ending_before).
     attr_accessor :ids
     # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     attr_accessor :limit

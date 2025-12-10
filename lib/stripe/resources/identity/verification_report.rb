@@ -9,11 +9,11 @@ module Stripe
     # appropriate sub-resource: `document`, `id_number`, `selfie`.
     #
     # Each VerificationReport contains a copy of any data collected by the user as well as
-    # reference IDs which can be used to access collected images through the [FileUpload](https://stripe.com/docs/api/files)
+    # reference IDs which can be used to access collected images through the [FileUpload](https://docs.stripe.com/api/files)
     # API. To configure and create VerificationReports, use the
-    # [VerificationSession](https://stripe.com/docs/api/identity/verification_sessions) API.
+    # [VerificationSession](https://docs.stripe.com/api/identity/verification_sessions) API.
     #
-    # Related guide: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
+    # Related guide: [Accessing verification results](https://docs.stripe.com/identity/verification-sessions#results).
     class VerificationReport < APIResource
       extend Stripe::APIOperations::List
 
@@ -34,7 +34,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -119,7 +119,7 @@ module Stripe
         attr_reader :error
         # Expiration date of the document.
         attr_reader :expiration_date
-        # Array of [File](https://stripe.com/docs/api/files) ids containing images for this document.
+        # Array of [File](https://docs.stripe.com/api/files) ids containing images for this document.
         attr_reader :files
         # First name as it appears in the document.
         attr_reader :first_name
@@ -248,11 +248,11 @@ module Stripe
         class Document < ::Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           attr_reader :allowed_types
-          # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
+          # Collect an ID number and perform an [ID number check](https://docs.stripe.com/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
           attr_reader :require_id_number
           # Disable image uploads, identity document images have to be captured using the device’s camera.
           attr_reader :require_live_capture
-          # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
+          # Capture a face image and perform a [selfie check](https://docs.stripe.com/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://docs.stripe.com/identity/selfie).
           attr_reader :require_matching_selfie
 
           def self.inner_class_types
@@ -333,11 +333,11 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
+        # ID of the [File](https://docs.stripe.com/api/files) holding the image of the identity document used in this check.
         attr_reader :document
         # Details on the verification error. Present when status is `unverified`.
         attr_reader :error
-        # ID of the [File](https://stripe.com/docs/api/files) holding the image of the selfie used in this check.
+        # ID of the [File](https://docs.stripe.com/api/files) holding the image of the selfie used in this check.
         attr_reader :selfie
         # Status of this `selfie` check.
         attr_reader :status

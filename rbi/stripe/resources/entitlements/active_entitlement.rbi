@@ -6,7 +6,7 @@ module Stripe
   module Entitlements
     # An active entitlement describes access to a feature for a customer.
     class ActiveEntitlement < APIResource
-      # The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.
+      # The [Feature](https://docs.stripe.com/api/entitlements/feature) that the customer is entitled to.
       sig { returns(T.any(String, ::Stripe::Entitlements::Feature)) }
       def feature; end
       # Unique identifier for the object.

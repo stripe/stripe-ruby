@@ -5,7 +5,7 @@
 module Stripe
   # Issue a credit note to adjust an invoice's amount after the invoice is finalized.
   #
-  # Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
+  # Related guide: [Credit notes](https://docs.stripe.com/billing/invoices/credit-notes)
   class CreditNote < APIResource
     class DiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
@@ -122,7 +122,7 @@ module Stripe
     end
     class TotalTax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
-        # Attribute for field tax_rate
+        # ID of the tax rate
         sig { returns(String) }
         def tax_rate; end
         def self.inner_class_types
@@ -172,6 +172,9 @@ module Stripe
     # ID of the customer.
     sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
+    # ID of the account representing the customer.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
     # Customer balance transaction related to this credit note.
     sig { returns(T.nilable(T.any(String, ::Stripe::CustomerBalanceTransaction))) }
     def customer_balance_transaction; end
@@ -199,7 +202,7 @@ module Stripe
     # Customer-facing text that appears on the credit note PDF.
     sig { returns(T.nilable(String)) }
     def memo; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice.
@@ -232,7 +235,7 @@ module Stripe
     # The details of the cost of shipping, including the ShippingRate applied to the invoice.
     sig { returns(T.nilable(ShippingCost)) }
     def shipping_cost; end
-    # Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    # Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://docs.stripe.com/billing/invoices/credit-notes#voiding).
     sig { returns(String) }
     def status; end
     # The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding exclusive tax and invoice level discounts.

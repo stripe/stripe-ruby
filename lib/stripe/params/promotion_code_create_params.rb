@@ -51,15 +51,17 @@ module Stripe
     #
     # If left blank, we will generate one automatically.
     attr_accessor :code
-    # The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
+    # The customer who can use this promotion code. If not set, all customers can use the promotion code.
     attr_accessor :customer
+    # The account representing the customer who can use this promotion code. If not set, all customers can use the promotion code.
+    attr_accessor :customer_account
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # The timestamp at which this promotion code will expire. If the coupon has specified a `redeems_by`, then this value cannot be after the coupon's `redeems_by`.
     attr_accessor :expires_at
     # A positive integer specifying the number of times the promotion code can be redeemed. If the coupon has specified a `max_redemptions`, then this value cannot be greater than the coupon's `max_redemptions`.
     attr_accessor :max_redemptions
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The promotion referenced by this promotion code.
     attr_accessor :promotion
@@ -70,6 +72,7 @@ module Stripe
       active: nil,
       code: nil,
       customer: nil,
+      customer_account: nil,
       expand: nil,
       expires_at: nil,
       max_redemptions: nil,
@@ -80,6 +83,7 @@ module Stripe
       @active = active
       @code = code
       @customer = customer
+      @customer_account = customer_account
       @expand = expand
       @expires_at = expires_at
       @max_redemptions = max_redemptions

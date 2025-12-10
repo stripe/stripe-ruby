@@ -37,15 +37,18 @@ module Stripe
           @type = type
         end
       end
-      # The customer for which to fetch credit balance summary.
+      # The customer whose credit balance summary you're retrieving.
       attr_accessor :customer
+      # The account representing the customer whose credit balance summary you're retrieving.
+      attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The filter criteria for the credit balance summary.
       attr_accessor :filter
 
-      def initialize(customer: nil, expand: nil, filter: nil)
+      def initialize(customer: nil, customer_account: nil, expand: nil, filter: nil)
         @customer = customer
+        @customer_account = customer_account
         @expand = expand
         @filter = filter
       end

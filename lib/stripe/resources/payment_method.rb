@@ -3,10 +3,10 @@
 
 module Stripe
   # PaymentMethod objects represent your customer's payment instruments.
-  # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+  # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
   # Customer objects to store instrument details for future payments.
   #
-  # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+  # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
   class PaymentMethod < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -154,7 +154,7 @@ module Stripe
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_reader :state
 
         def self.inner_class_types
@@ -315,7 +315,7 @@ module Stripe
             attr_reader :generated_card
             # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
             attr_reader :iin
-            # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+            # Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
             attr_reader :incremental_authorization_supported
             # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
             attr_reader :issuer
@@ -456,7 +456,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -479,7 +479,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -533,7 +533,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -556,7 +556,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -878,7 +878,7 @@ module Stripe
     end
 
     class Ideal < ::Stripe::StripeObject
-      # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+      # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
       attr_reader :bank
       # The Bank Identifier Code of the customer's bank, if the bank was provided.
       attr_reader :bic
@@ -1165,6 +1165,23 @@ module Stripe
       end
     end
 
+    class Payto < ::Stripe::StripeObject
+      # Bank-State-Branch number of the bank account.
+      attr_reader :bsb_number
+      # Last four digits of the bank account number.
+      attr_reader :last4
+      # The PayID alias for the bank account.
+      attr_reader :pay_id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Pix < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1186,7 +1203,7 @@ module Stripe
     end
 
     class RadarOptions < ::Stripe::StripeObject
-      # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_reader :session
 
       def self.inner_class_types
@@ -1429,6 +1446,8 @@ module Stripe
     attr_reader :custom
     # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     attr_reader :customer
+    # Attribute for field customer_account
+    attr_reader :customer_account
     # Attribute for field customer_balance
     attr_reader :customer_balance
     # Attribute for field eps
@@ -1459,7 +1478,7 @@ module Stripe
     attr_reader :livemode
     # Attribute for field mb_way
     attr_reader :mb_way
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Attribute for field mobilepay
     attr_reader :mobilepay
@@ -1483,11 +1502,13 @@ module Stripe
     attr_reader :paynow
     # Attribute for field paypal
     attr_reader :paypal
+    # Attribute for field payto
+    attr_reader :payto
     # Attribute for field pix
     attr_reader :pix
     # Attribute for field promptpay
     attr_reader :promptpay
-    # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     attr_reader :radar_options
     # Attribute for field revolut_pay
     attr_reader :revolut_pay
@@ -1583,7 +1604,7 @@ module Stripe
       )
     end
 
-    # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
+    # Returns a list of all PaymentMethods.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/payment_methods", params: params, opts: opts)
     end
@@ -1641,6 +1662,7 @@ module Stripe
         payco: Payco,
         paynow: Paynow,
         paypal: Paypal,
+        payto: Payto,
         pix: Pix,
         promptpay: Promptpay,
         radar_options: RadarOptions,

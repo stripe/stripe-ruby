@@ -151,7 +151,7 @@ module Stripe
         params(_automatic_tax: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax)).returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax))
        }
       def automatic_tax=(_automatic_tax); end
-      # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
@@ -299,7 +299,7 @@ module Stripe
           def product; end
           sig { params(_product: String).returns(String) }
           def product=(_product); end
-          # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+          # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           sig { returns(T.nilable(String)) }
           def tax_behavior; end
           sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -334,7 +334,7 @@ module Stripe
           params(_discounts: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount])).returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount]))
          }
         def discounts=(_discounts); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -353,7 +353,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
         sig {
           returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData))
          }
@@ -513,7 +513,7 @@ module Stripe
       end
       class Item < ::Stripe::RequestParams
         class BillingThresholds < ::Stripe::RequestParams
-          # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+          # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
           sig { returns(Integer) }
           def usage_gte; end
           sig { params(_usage_gte: Integer).returns(Integer) }
@@ -574,7 +574,7 @@ module Stripe
             params(_recurring: SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring).returns(SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring)
            }
           def recurring=(_recurring); end
-          # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+          # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           sig { returns(T.nilable(String)) }
           def tax_behavior; end
           sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -619,7 +619,7 @@ module Stripe
           params(_discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount]))).returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount])))
          }
         def discounts=(_discounts); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -636,7 +636,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
         sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::PriceData)) }
         def price_data; end
         sig {
@@ -648,7 +648,7 @@ module Stripe
         def quantity; end
         sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def quantity=(_quantity); end
-        # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        # A list of [Tax Rate](https://docs.stripe.com/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://docs.stripe.com/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         def tax_rates; end
         sig {
@@ -702,7 +702,7 @@ module Stripe
         params(_automatic_tax: T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax))
        }
       def automatic_tax=(_automatic_tax); end
-      # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
@@ -731,7 +731,7 @@ module Stripe
       def default_payment_method; end
       sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
       def default_payment_method=(_default_payment_method); end
-      # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://stripe.com/docs/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
+      # A list of [Tax Rate](https://docs.stripe.com/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://docs.stripe.com/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://docs.stripe.com/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
       sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       def default_tax_rates; end
       sig {
@@ -759,7 +759,7 @@ module Stripe
         params(_duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Duration)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Duration))
        }
       def duration=(_duration); end
-      # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
+      # The date at which this phase of the subscription schedule ends. If set, `duration` must not be set.
       sig { returns(T.nilable(Integer)) }
       def end_date; end
       sig { params(_end_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -778,7 +778,7 @@ module Stripe
         params(_items: T::Array[SubscriptionScheduleCreateParams::Phase::Item]).returns(T::Array[SubscriptionScheduleCreateParams::Phase::Item])
        }
       def items=(_items); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -790,7 +790,7 @@ module Stripe
       def on_behalf_of; end
       sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
       def on_behalf_of=(_on_behalf_of); end
-      # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
+      # Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
       sig { returns(T.nilable(String)) }
       def proration_behavior; end
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -851,6 +851,11 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
+    # The identifier of the account to create the subscription schedule for.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
+    sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_account=(_customer_account); end
     # Object representing the subscription schedule's default settings.
     sig { returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings)) }
     def default_settings; end
@@ -873,7 +878,7 @@ module Stripe
     def from_subscription; end
     sig { params(_from_subscription: T.nilable(String)).returns(T.nilable(String)) }
     def from_subscription=(_from_subscription); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -895,11 +900,12 @@ module Stripe
      }
     def start_date=(_start_date); end
     sig {
-      params(billing_mode: T.nilable(SubscriptionScheduleCreateParams::BillingMode), customer: T.nilable(String), default_settings: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase]), start_date: T.nilable(T.any(Integer, String))).void
+      params(billing_mode: T.nilable(SubscriptionScheduleCreateParams::BillingMode), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase]), start_date: T.nilable(T.any(Integer, String))).void
      }
     def initialize(
       billing_mode: nil,
       customer: nil,
+      customer_account: nil,
       default_settings: nil,
       end_behavior: nil,
       expand: nil,

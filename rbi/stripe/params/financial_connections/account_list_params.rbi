@@ -6,18 +6,25 @@ module Stripe
   module FinancialConnections
     class AccountListParams < ::Stripe::RequestParams
       class AccountHolder < ::Stripe::RequestParams
-        # The ID of the Stripe account whose accounts will be retrieved.
+        # The ID of the Stripe account whose accounts you will retrieve.
         sig { returns(T.nilable(String)) }
         def account; end
         sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
         def account=(_account); end
-        # The ID of the Stripe customer whose accounts will be retrieved.
+        # The ID of the Stripe customer whose accounts you will retrieve.
         sig { returns(T.nilable(String)) }
         def customer; end
         sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
         def customer=(_customer); end
-        sig { params(account: T.nilable(String), customer: T.nilable(String)).void }
-        def initialize(account: nil, customer: nil); end
+        # The ID of the Account representing a customer whose accounts you will retrieve.
+        sig { returns(T.nilable(String)) }
+        def customer_account; end
+        sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+        def customer_account=(_customer_account); end
+        sig {
+          params(account: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String)).void
+         }
+        def initialize(account: nil, customer: nil, customer_account: nil); end
       end
       # If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
       sig { returns(T.nilable(FinancialConnections::AccountListParams::AccountHolder)) }

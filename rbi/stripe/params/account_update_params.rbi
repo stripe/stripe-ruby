@@ -113,7 +113,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -604,6 +604,15 @@ module Stripe
         sig { params(requested: T.nilable(T::Boolean)).void }
         def initialize(requested: nil); end
       end
+      class PaytoPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        sig { returns(T.nilable(T::Boolean)) }
+        def requested; end
+        sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def requested=(_requested); end
+        sig { params(requested: T.nilable(T::Boolean)).void }
+        def initialize(requested: nil); end
+      end
       class PixPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         sig { returns(T.nilable(T::Boolean)) }
@@ -1058,6 +1067,13 @@ module Stripe
         params(_paynow_payments: T.nilable(AccountUpdateParams::Capabilities::PaynowPayments)).returns(T.nilable(AccountUpdateParams::Capabilities::PaynowPayments))
        }
       def paynow_payments=(_paynow_payments); end
+      # The payto_payments capability.
+      sig { returns(T.nilable(AccountUpdateParams::Capabilities::PaytoPayments)) }
+      def payto_payments; end
+      sig {
+        params(_payto_payments: T.nilable(AccountUpdateParams::Capabilities::PaytoPayments)).returns(T.nilable(AccountUpdateParams::Capabilities::PaytoPayments))
+       }
+      def payto_payments=(_payto_payments); end
       # The pix_payments capability.
       sig { returns(T.nilable(AccountUpdateParams::Capabilities::PixPayments)) }
       def pix_payments; end
@@ -1178,7 +1194,7 @@ module Stripe
        }
       def zip_payments=(_zip_payments); end
       sig {
-        params(acss_debit_payments: T.nilable(AccountUpdateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(AccountUpdateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(AccountUpdateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(AccountUpdateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(AccountUpdateParams::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(AccountUpdateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(AccountUpdateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(AccountUpdateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(AccountUpdateParams::Capabilities::BilliePayments), blik_payments: T.nilable(AccountUpdateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(AccountUpdateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(AccountUpdateParams::Capabilities::CardIssuing), card_payments: T.nilable(AccountUpdateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(AccountUpdateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(AccountUpdateParams::Capabilities::CashappPayments), crypto_payments: T.nilable(AccountUpdateParams::Capabilities::CryptoPayments), eps_payments: T.nilable(AccountUpdateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(AccountUpdateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(AccountUpdateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(AccountUpdateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(AccountUpdateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(AccountUpdateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(AccountUpdateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(AccountUpdateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(AccountUpdateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(AccountUpdateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(AccountUpdateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(AccountUpdateParams::Capabilities::LegacyPayments), link_payments: T.nilable(AccountUpdateParams::Capabilities::LinkPayments), mb_way_payments: T.nilable(AccountUpdateParams::Capabilities::MbWayPayments), mobilepay_payments: T.nilable(AccountUpdateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(AccountUpdateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(AccountUpdateParams::Capabilities::NaverPayPayments), nz_bank_account_becs_debit_payments: T.nilable(AccountUpdateParams::Capabilities::NzBankAccountBecsDebitPayments), oxxo_payments: T.nilable(AccountUpdateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(AccountUpdateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(AccountUpdateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(AccountUpdateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(AccountUpdateParams::Capabilities::PaynowPayments), pix_payments: T.nilable(AccountUpdateParams::Capabilities::PixPayments), promptpay_payments: T.nilable(AccountUpdateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(AccountUpdateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(AccountUpdateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(AccountUpdateParams::Capabilities::SatispayPayments), sepa_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(AccountUpdateParams::Capabilities::SepaDebitPayments), sofort_payments: T.nilable(AccountUpdateParams::Capabilities::SofortPayments), swish_payments: T.nilable(AccountUpdateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(AccountUpdateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(AccountUpdateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(AccountUpdateParams::Capabilities::Transfers), treasury: T.nilable(AccountUpdateParams::Capabilities::Treasury), twint_payments: T.nilable(AccountUpdateParams::Capabilities::TwintPayments), us_bank_account_ach_payments: T.nilable(AccountUpdateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(AccountUpdateParams::Capabilities::ZipPayments)).void
+        params(acss_debit_payments: T.nilable(AccountUpdateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(AccountUpdateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(AccountUpdateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(AccountUpdateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(AccountUpdateParams::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(AccountUpdateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(AccountUpdateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(AccountUpdateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(AccountUpdateParams::Capabilities::BilliePayments), blik_payments: T.nilable(AccountUpdateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(AccountUpdateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(AccountUpdateParams::Capabilities::CardIssuing), card_payments: T.nilable(AccountUpdateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(AccountUpdateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(AccountUpdateParams::Capabilities::CashappPayments), crypto_payments: T.nilable(AccountUpdateParams::Capabilities::CryptoPayments), eps_payments: T.nilable(AccountUpdateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(AccountUpdateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(AccountUpdateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(AccountUpdateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(AccountUpdateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(AccountUpdateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(AccountUpdateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(AccountUpdateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(AccountUpdateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(AccountUpdateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(AccountUpdateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(AccountUpdateParams::Capabilities::LegacyPayments), link_payments: T.nilable(AccountUpdateParams::Capabilities::LinkPayments), mb_way_payments: T.nilable(AccountUpdateParams::Capabilities::MbWayPayments), mobilepay_payments: T.nilable(AccountUpdateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(AccountUpdateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(AccountUpdateParams::Capabilities::NaverPayPayments), nz_bank_account_becs_debit_payments: T.nilable(AccountUpdateParams::Capabilities::NzBankAccountBecsDebitPayments), oxxo_payments: T.nilable(AccountUpdateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(AccountUpdateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(AccountUpdateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(AccountUpdateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(AccountUpdateParams::Capabilities::PaynowPayments), payto_payments: T.nilable(AccountUpdateParams::Capabilities::PaytoPayments), pix_payments: T.nilable(AccountUpdateParams::Capabilities::PixPayments), promptpay_payments: T.nilable(AccountUpdateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(AccountUpdateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(AccountUpdateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(AccountUpdateParams::Capabilities::SatispayPayments), sepa_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(AccountUpdateParams::Capabilities::SepaDebitPayments), sofort_payments: T.nilable(AccountUpdateParams::Capabilities::SofortPayments), swish_payments: T.nilable(AccountUpdateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(AccountUpdateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(AccountUpdateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(AccountUpdateParams::Capabilities::Transfers), treasury: T.nilable(AccountUpdateParams::Capabilities::Treasury), twint_payments: T.nilable(AccountUpdateParams::Capabilities::TwintPayments), us_bank_account_ach_payments: T.nilable(AccountUpdateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(AccountUpdateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(AccountUpdateParams::Capabilities::ZipPayments)).void
        }
       def initialize(
         acss_debit_payments: nil,
@@ -1224,6 +1240,7 @@ module Stripe
         pay_by_bank_payments: nil,
         payco_payments: nil,
         paynow_payments: nil,
+        payto_payments: nil,
         pix_payments: nil,
         promptpay_payments: nil,
         revolut_pay_payments: nil,
@@ -1388,7 +1405,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1587,12 +1604,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
-          # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -1778,7 +1795,7 @@ module Stripe
     end
     class Documents < ::Stripe::RequestParams
       class BankAccountOwnershipVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1787,7 +1804,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyLicense < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1796,7 +1813,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1805,7 +1822,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyMinisterialDecree < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1814,7 +1831,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyRegistrationVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1823,7 +1840,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyTaxIdVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1832,7 +1849,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class ProofOfAddress < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1841,22 +1858,60 @@ module Stripe
         def initialize(files: nil); end
       end
       class ProofOfRegistration < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        class Signer < ::Stripe::RequestParams
+          # The token of the person signing the document, if applicable.
+          sig { returns(T.nilable(String)) }
+          def person; end
+          sig { params(_person: T.nilable(String)).returns(T.nilable(String)) }
+          def person=(_person); end
+          sig { params(person: T.nilable(String)).void }
+          def initialize(person: nil); end
+        end
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        sig { params(files: T.nilable(T::Array[String])).void }
-        def initialize(files: nil); end
+        # Attribute for param field signer
+        sig { returns(T.nilable(AccountUpdateParams::Documents::ProofOfRegistration::Signer)) }
+        def signer; end
+        sig {
+          params(_signer: T.nilable(AccountUpdateParams::Documents::ProofOfRegistration::Signer)).returns(T.nilable(AccountUpdateParams::Documents::ProofOfRegistration::Signer))
+         }
+        def signer=(_signer); end
+        sig {
+          params(files: T.nilable(T::Array[String]), signer: T.nilable(AccountUpdateParams::Documents::ProofOfRegistration::Signer)).void
+         }
+        def initialize(files: nil, signer: nil); end
       end
       class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        class Signer < ::Stripe::RequestParams
+          # The token of the person signing the document, if applicable.
+          sig { returns(T.nilable(String)) }
+          def person; end
+          sig { params(_person: T.nilable(String)).returns(T.nilable(String)) }
+          def person=(_person); end
+          sig { params(person: T.nilable(String)).void }
+          def initialize(person: nil); end
+        end
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        sig { params(files: T.nilable(T::Array[String])).void }
-        def initialize(files: nil); end
+        # Attribute for param field signer
+        sig {
+          returns(T.nilable(AccountUpdateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+         }
+        def signer; end
+        sig {
+          params(_signer: T.nilable(AccountUpdateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer)).returns(T.nilable(AccountUpdateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+         }
+        def signer=(_signer); end
+        sig {
+          params(files: T.nilable(T::Array[String]), signer: T.nilable(AccountUpdateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer)).void
+         }
+        def initialize(files: nil, signer: nil); end
       end
       # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
       sig { returns(T.nilable(AccountUpdateParams::Documents::BankAccountOwnershipVerification)) }
@@ -1937,7 +1992,7 @@ module Stripe
       ); end
     end
     class Groups < ::Stripe::RequestParams
-      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://docs.stripe.com/connect/platform-pricing-tools) for details.
       sig { returns(T.nilable(String)) }
       def payments_pricing; end
       sig { params(_payments_pricing: T.nilable(String)).returns(T.nilable(String)) }
@@ -1972,7 +2027,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -2132,7 +2187,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -2190,12 +2245,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2204,12 +2259,12 @@ module Stripe
           def initialize(back: nil, front: nil); end
         end
         class Document < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2328,7 +2383,7 @@ module Stripe
       def maiden_name; end
       sig { params(_maiden_name: T.nilable(String)).returns(T.nilable(String)) }
       def maiden_name=(_maiden_name); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {
@@ -2770,7 +2825,7 @@ module Stripe
        }
       def initialize(date: nil, ip: nil, service_agreement: nil, user_agent: nil); end
     end
-    # An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
+    # An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
     sig { returns(T.nilable(String)) }
     def account_token; end
     sig { params(_account_token: T.nilable(String)).returns(T.nilable(String)) }
@@ -2853,7 +2908,7 @@ module Stripe
       params(_individual: T.nilable(AccountUpdateParams::Individual)).returns(T.nilable(AccountUpdateParams::Individual))
      }
     def individual=(_individual); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {

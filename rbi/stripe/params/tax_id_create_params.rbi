@@ -5,7 +5,7 @@
 module Stripe
   class TaxIdCreateParams < ::Stripe::RequestParams
     class Owner < ::Stripe::RequestParams
-      # Account the tax ID belongs to. Required when `type=account`
+      # Connected Account the tax ID belongs to. Required when `type=account`
       sig { returns(T.nilable(String)) }
       def account; end
       sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
@@ -15,13 +15,20 @@ module Stripe
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
+      # ID of the Account representing the customer that the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+      sig { returns(T.nilable(String)) }
+      def customer_account; end
+      sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_account=(_customer_account); end
       # Type of owner referenced.
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }
       def type=(_type); end
-      sig { params(account: T.nilable(String), customer: T.nilable(String), type: String).void }
-      def initialize(account: nil, customer: nil, type: nil); end
+      sig {
+        params(account: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), type: String).void
+       }
+      def initialize(account: nil, customer: nil, customer_account: nil, type: nil); end
     end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }

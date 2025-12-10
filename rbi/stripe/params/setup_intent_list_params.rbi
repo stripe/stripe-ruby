@@ -49,6 +49,11 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
+    # Only return SetupIntents for the account specified by this customer ID.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
+    sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_account=(_customer_account); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     sig { returns(T.nilable(String)) }
     def ending_before; end
@@ -75,12 +80,13 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), created: T.nilable(T.any(SetupIntentListParams::Created, Integer)), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_method: T.nilable(String), starting_after: T.nilable(String)).void
+      params(attach_to_self: T.nilable(T::Boolean), created: T.nilable(T.any(SetupIntentListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_method: T.nilable(String), starting_after: T.nilable(String)).void
      }
     def initialize(
       attach_to_self: nil,
       created: nil,
       customer: nil,
+      customer_account: nil,
       ending_before: nil,
       expand: nil,
       limit: nil,

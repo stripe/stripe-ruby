@@ -60,8 +60,10 @@ module Stripe
       attr_accessor :applicability_config
       # The category of this credit grant. It defaults to `paid` if not specified.
       attr_accessor :category
-      # ID of the customer to receive the billing credits.
+      # ID of the customer receiving the billing credits.
       attr_accessor :customer
+      # ID of the account representing the customer receiving the billing credits.
+      attr_accessor :customer_account
       # The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
       attr_accessor :effective_at
       # Specifies which fields in the response should be expanded.
@@ -80,6 +82,7 @@ module Stripe
         applicability_config: nil,
         category: nil,
         customer: nil,
+        customer_account: nil,
         effective_at: nil,
         expand: nil,
         expires_at: nil,
@@ -91,6 +94,7 @@ module Stripe
         @applicability_config = applicability_config
         @category = category
         @customer = customer
+        @customer_account = customer_account
         @effective_at = effective_at
         @expand = expand
         @expires_at = expires_at

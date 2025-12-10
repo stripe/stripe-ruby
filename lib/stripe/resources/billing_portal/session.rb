@@ -139,11 +139,11 @@ module Stripe
           end
 
           class Item < ::Stripe::StripeObject
-            # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
+            # The ID of the [subscription item](https://docs.stripe.com/api/subscriptions/object#subscription_object-items-data-id) to be updated.
             attr_reader :id
-            # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
+            # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://docs.stripe.com/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
             attr_reader :price
-            # [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
+            # [Quantity](https://docs.stripe.com/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
             attr_reader :quantity
 
             def self.inner_class_types
@@ -156,7 +156,7 @@ module Stripe
           end
           # The coupon or promotion code to apply to this subscription update.
           attr_reader :discounts
-          # The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
+          # The [subscription item](https://docs.stripe.com/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
           attr_reader :items
           # The ID of the subscription to be updated.
           attr_reader :subscription
@@ -199,7 +199,9 @@ module Stripe
       attr_reader :created
       # The ID of the customer for this session.
       attr_reader :customer
-      # Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
+      # The ID of the account for this session.
+      attr_reader :customer_account
+      # Information about a specific flow for the customer to go through. See the [docs](https://docs.stripe.com/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
       attr_reader :flow
       # Unique identifier for the object.
       attr_reader :id
@@ -209,7 +211,7 @@ module Stripe
       attr_reader :locale
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-      # The account for which the session was created on behalf of. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.
+      # The account for which the session was created on behalf of. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://docs.stripe.com/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://docs.stripe.com/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.
       attr_reader :on_behalf_of
       # The URL to redirect customers to when they click on the portal's link to return to your website.
       attr_reader :return_url

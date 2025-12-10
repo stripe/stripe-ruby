@@ -157,7 +157,7 @@ module Stripe
           params(_recurring: T.nilable(QuoteCreateParams::LineItem::PriceData::Recurring)).returns(T.nilable(QuoteCreateParams::LineItem::PriceData::Recurring))
          }
         def recurring=(_recurring); end
-        # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         sig { returns(T.nilable(String)) }
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -196,7 +196,7 @@ module Stripe
       def price; end
       sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
       def price=(_price); end
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
       sig { returns(T.nilable(QuoteCreateParams::LineItem::PriceData)) }
       def price_data; end
       sig {
@@ -273,7 +273,7 @@ module Stripe
         params(_effective_date: T.nilable(T.any(String, T.any(String, Integer)))).returns(T.nilable(T.any(String, T.any(String, Integer))))
        }
       def effective_date=(_effective_date); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -350,6 +350,11 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
+    # The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
+    sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_account=(_customer_account); end
     # The tax rates that will apply to any line item that does not have `tax_rates` set.
     sig { returns(T.nilable(T.any(String, T::Array[String]))) }
     def default_tax_rates; end
@@ -410,7 +415,7 @@ module Stripe
       params(_line_items: T.nilable(T::Array[QuoteCreateParams::LineItem])).returns(T.nilable(T::Array[QuoteCreateParams::LineItem]))
      }
     def line_items=(_line_items); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {
@@ -442,7 +447,7 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(application_fee_amount: T.nilable(T.any(String, Integer)), application_fee_percent: T.nilable(T.any(String, Float)), automatic_tax: T.nilable(QuoteCreateParams::AutomaticTax), collection_method: T.nilable(String), customer: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[QuoteCreateParams::Discount])), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), footer: T.nilable(String), from_quote: T.nilable(QuoteCreateParams::FromQuote), header: T.nilable(String), invoice_settings: T.nilable(QuoteCreateParams::InvoiceSettings), line_items: T.nilable(T::Array[QuoteCreateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), subscription_data: T.nilable(QuoteCreateParams::SubscriptionData), test_clock: T.nilable(String), transfer_data: T.nilable(T.any(String, QuoteCreateParams::TransferData))).void
+      params(application_fee_amount: T.nilable(T.any(String, Integer)), application_fee_percent: T.nilable(T.any(String, Float)), automatic_tax: T.nilable(QuoteCreateParams::AutomaticTax), collection_method: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[QuoteCreateParams::Discount])), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), footer: T.nilable(String), from_quote: T.nilable(QuoteCreateParams::FromQuote), header: T.nilable(String), invoice_settings: T.nilable(QuoteCreateParams::InvoiceSettings), line_items: T.nilable(T::Array[QuoteCreateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), subscription_data: T.nilable(QuoteCreateParams::SubscriptionData), test_clock: T.nilable(String), transfer_data: T.nilable(T.any(String, QuoteCreateParams::TransferData))).void
      }
     def initialize(
       application_fee_amount: nil,
@@ -450,6 +455,7 @@ module Stripe
       automatic_tax: nil,
       collection_method: nil,
       customer: nil,
+      customer_account: nil,
       default_tax_rates: nil,
       description: nil,
       discounts: nil,

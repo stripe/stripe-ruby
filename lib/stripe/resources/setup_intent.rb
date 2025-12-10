@@ -4,7 +4,7 @@
 module Stripe
   # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
   # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-  # Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+  # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
   #
   # Create a SetupIntent when you're ready to collect your customer's payment credentials.
   # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -15,9 +15,9 @@ module Stripe
   # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
   # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
   # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-  # If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+  # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
   # it automatically attaches the resulting payment method to that Customer after successful setup.
-  # We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+  # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
   # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
   #
   # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -36,7 +36,7 @@ module Stripe
     class AutomaticPaymentMethods < ::Stripe::StripeObject
       # Controls whether this SetupIntent will accept redirect-based payment methods.
       #
-      # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
+      # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://docs.stripe.com/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
       attr_reader :allow_redirects
       # Automatically calculates compatible payment methods
       attr_reader :enabled
@@ -51,15 +51,15 @@ module Stripe
     end
 
     class LastSetupError < ::Stripe::StripeObject
-      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.
       attr_reader :charge
-      # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+      # For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :code
-      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
       attr_reader :decline_code
-      # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+      # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :doc_url
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       attr_reader :message
@@ -75,17 +75,17 @@ module Stripe
       # see the history of payment attempts for a particular session.
       #
       # A PaymentIntent transitions through
-      # [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+      # [multiple statuses](https://docs.stripe.com/payments/intents#intent-statuses)
       # throughout its lifetime as it interfaces with Stripe.js to perform
       # authentication flows and ultimately creates at most one successful charge.
       #
-      # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+      # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
       attr_reader :payment_intent
       # PaymentMethod objects represent your customer's payment instruments.
-      # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+      # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
-      # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+      # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
       attr_reader :payment_method
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
       attr_reader :payment_method_type
@@ -93,7 +93,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -104,9 +104,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -339,7 +339,7 @@ module Stripe
         attr_reader :mandate_options
         # Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
         attr_reader :network
-        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_reader :request_three_d_secure
 
         def self.inner_class_types
@@ -395,6 +395,43 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Payto < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Amount that will be collected. It is required when `amount_type` is `fixed`.
+          attr_reader :amount
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+          attr_reader :amount_type
+          # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+          attr_reader :end_date
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
+          attr_reader :payment_schedule
+          # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+          attr_reader :payments_per_period
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
+          attr_reader :purpose
+          # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+          attr_reader :start_date
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
         end
 
         def self.field_remappings
@@ -505,6 +542,8 @@ module Stripe
       attr_reader :link
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field payto
+      attr_reader :payto
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
       # Attribute for field us_bank_account
@@ -520,6 +559,7 @@ module Stripe
           klarna: Klarna,
           link: Link,
           paypal: Paypal,
+          payto: Payto,
           sepa_debit: SepaDebit,
           us_bank_account: UsBankAccount,
         }
@@ -549,6 +589,10 @@ module Stripe
     #
     # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
     attr_reader :customer
+    # ID of the Account this SetupIntent belongs to, if one exists.
+    #
+    # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+    attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
     # Payment method types that are excluded from this SetupIntent.
@@ -567,7 +611,7 @@ module Stripe
     attr_reader :livemode
     # ID of the multi use Mandate generated by the SetupIntent.
     attr_reader :mandate
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # If present, this property tells you what actions you need to take in order for your customer to continue payment setup.
     attr_reader :next_action
@@ -577,7 +621,7 @@ module Stripe
     attr_reader :on_behalf_of
     # ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead.
     attr_reader :payment_method
-    # Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent.
+    # Information about the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) used for this Setup Intent.
     attr_reader :payment_method_configuration_details
     # Payment method-specific configuration for this SetupIntent.
     attr_reader :payment_method_options
@@ -585,7 +629,7 @@ module Stripe
     attr_reader :payment_method_types
     # ID of the single_use Mandate generated by the SetupIntent.
     attr_reader :single_use_mandate
-    # [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
+    # [Status](https://docs.stripe.com/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
     attr_reader :status
     # Indicates how the payment method is intended to be used in the future.
     #

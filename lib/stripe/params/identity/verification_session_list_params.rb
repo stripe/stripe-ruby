@@ -31,11 +31,13 @@ module Stripe
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-      # Attribute for param field related_customer
+      # Customer ID
       attr_accessor :related_customer
+      # The ID of the Account representing a customer.
+      attr_accessor :related_customer_account
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-      # Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
+      # Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://docs.stripe.com/identity/how-sessions-work).
       attr_accessor :status
 
       def initialize(
@@ -45,6 +47,7 @@ module Stripe
         expand: nil,
         limit: nil,
         related_customer: nil,
+        related_customer_account: nil,
         starting_after: nil,
         status: nil
       )
@@ -54,6 +57,7 @@ module Stripe
         @expand = expand
         @limit = limit
         @related_customer = related_customer
+        @related_customer_account = related_customer_account
         @starting_after = starting_after
         @status = status
       end

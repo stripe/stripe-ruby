@@ -34,6 +34,8 @@ module Stripe
       attr_accessor :created
       # Only return the Checkout Sessions for the Customer specified.
       attr_accessor :customer
+      # Only return the Checkout Sessions for the Account specified.
+      attr_accessor :customer_account
       # Only return the Checkout Sessions for the Customer details specified.
       attr_accessor :customer_details
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -56,6 +58,7 @@ module Stripe
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         customer_details: nil,
         ending_before: nil,
         expand: nil,
@@ -68,6 +71,7 @@ module Stripe
       )
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @customer_details = customer_details
         @ending_before = ending_before
         @expand = expand

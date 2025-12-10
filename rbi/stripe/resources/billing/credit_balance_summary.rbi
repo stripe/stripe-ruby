@@ -82,6 +82,9 @@ module Stripe
       # The customer the balance is for.
       sig { returns(T.any(String, ::Stripe::Customer)) }
       def customer; end
+      # The account the balance is for.
+      sig { returns(T.nilable(String)) }
+      def customer_account; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end

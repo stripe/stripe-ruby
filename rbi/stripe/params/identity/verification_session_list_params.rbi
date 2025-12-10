@@ -58,23 +58,28 @@ module Stripe
       def limit; end
       sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def limit=(_limit); end
-      # Attribute for param field related_customer
+      # Customer ID
       sig { returns(T.nilable(String)) }
       def related_customer; end
       sig { params(_related_customer: T.nilable(String)).returns(T.nilable(String)) }
       def related_customer=(_related_customer); end
+      # The ID of the Account representing a customer.
+      sig { returns(T.nilable(String)) }
+      def related_customer_account; end
+      sig { params(_related_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def related_customer_account=(_related_customer_account); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
-      # Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
+      # Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://docs.stripe.com/identity/how-sessions-work).
       sig { returns(T.nilable(String)) }
       def status; end
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(client_reference_id: T.nilable(String), created: T.nilable(T.any(Identity::VerificationSessionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), related_customer: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String)).void
+        params(client_reference_id: T.nilable(String), created: T.nilable(T.any(Identity::VerificationSessionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), related_customer: T.nilable(String), related_customer_account: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
       def initialize(
         client_reference_id: nil,
@@ -83,6 +88,7 @@ module Stripe
         expand: nil,
         limit: nil,
         related_customer: nil,
+        related_customer_account: nil,
         starting_after: nil,
         status: nil
       ); end

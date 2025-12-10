@@ -53,7 +53,7 @@ module Stripe
       # ZIP or postal code.
       sig { returns(T.nilable(String)) }
       def postal_code; end
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       sig { returns(T.nilable(String)) }
       def state; end
       def self.inner_class_types
@@ -140,10 +140,10 @@ module Stripe
     end
     class FutureRequirements < ::Stripe::StripeObject
       class Alternative < ::Stripe::StripeObject
-        # Fields that can be provided to satisfy all fields in `original_fields_due`.
+        # Fields that can be provided to resolve all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
-        # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+        # Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
         def self.inner_class_types
@@ -170,22 +170,22 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+      # Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
       sig { returns(T.nilable(T::Array[Alternative])) }
       def alternatives; end
-      # Fields that need to be collected to keep the person's account enabled. If not collected by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
+      # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
       sig { returns(T::Array[String]) }
       def currently_due; end
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       sig { returns(T::Array[Error]) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set.
       sig { returns(T::Array[String]) }
       def eventually_due; end
-      # Fields that weren't collected by the account's `requirements.current_deadline`. These fields need to be collected to enable the person's account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+      # Fields that haven't been resolved by the account's `requirements.current_deadline`. These fields need to be resolved to enable the person's account. `future_requirements.past_due` is a subset of `requirements.past_due`.
       sig { returns(T::Array[String]) }
       def past_due; end
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       sig { returns(T::Array[String]) }
       def pending_verification; end
       def self.inner_class_types
@@ -211,7 +211,7 @@ module Stripe
       # ZIP or postal code.
       sig { returns(T.nilable(String)) }
       def postal_code; end
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       sig { returns(T.nilable(String)) }
       def state; end
       def self.inner_class_types
@@ -255,10 +255,10 @@ module Stripe
     end
     class Requirements < ::Stripe::StripeObject
       class Alternative < ::Stripe::StripeObject
-        # Fields that can be provided to satisfy all fields in `original_fields_due`.
+        # Fields that can be provided to resolve all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
-        # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+        # Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
         def self.inner_class_types
@@ -285,22 +285,22 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+      # Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
       sig { returns(T.nilable(T::Array[Alternative])) }
       def alternatives; end
-      # Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       sig { returns(T::Array[String]) }
       def currently_due; end
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       sig { returns(T::Array[Error]) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set.
       sig { returns(T::Array[String]) }
       def eventually_due; end
-      # Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable the person's account.
+      # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the person's account.
       sig { returns(T::Array[String]) }
       def past_due; end
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       sig { returns(T::Array[String]) }
       def pending_verification; end
       def self.inner_class_types
@@ -357,7 +357,7 @@ module Stripe
     end
     class Verification < ::Stripe::StripeObject
       class AdditionalDocument < ::Stripe::StripeObject
-        # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+        # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
         sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def back; end
         # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
@@ -366,7 +366,7 @@ module Stripe
         # One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
         sig { returns(T.nilable(String)) }
         def details_code; end
-        # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+        # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
         sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def front; end
         def self.inner_class_types
@@ -377,7 +377,7 @@ module Stripe
         end
       end
       class Document < ::Stripe::StripeObject
-        # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+        # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
         sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def back; end
         # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
@@ -386,7 +386,7 @@ module Stripe
         # One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
         sig { returns(T.nilable(String)) }
         def details_code; end
-        # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+        # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
         sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def front; end
         def self.inner_class_types
@@ -408,7 +408,7 @@ module Stripe
       # Attribute for field document
       sig { returns(T.nilable(Document)) }
       def document; end
-      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
+      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://docs.stripe.com/connect/handling-api-verification) to handle verification updates.
       sig { returns(String) }
       def status; end
       def self.inner_class_types
@@ -454,7 +454,7 @@ module Stripe
     # A list of alternate names or aliases that the person is known by. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
     sig { returns(T.nilable(T::Array[String])) }
     def full_name_aliases; end
-    # Information about the [upcoming new requirements for this person](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
+    # Information about the [upcoming new requirements for this person](https://docs.stripe.com/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     sig { returns(T.nilable(FutureRequirements)) }
     def future_requirements; end
     # The person's gender.
@@ -481,7 +481,7 @@ module Stripe
     # The person's maiden name.
     sig { returns(T.nilable(String)) }
     def maiden_name; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # The country where the person is a national.

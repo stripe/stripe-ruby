@@ -6,7 +6,7 @@ module Stripe
     module Core
       module Accounts
         class PersonService < StripeService
-          # Create a Person associated with an Account.
+          # Create a Person. Adds an individual to an Account's identity. You can set relationship attributes and identity information at creation.
           def create(account_id, params = {}, opts = {})
             request(
               method: :post,
@@ -28,7 +28,7 @@ module Stripe
             )
           end
 
-          # Returns a list of Persons associated with an Account.
+          # Returns a paginated list of Persons associated with an Account.
           def list(account_id, params = {}, opts = {})
             request(
               method: :get,

@@ -859,6 +859,8 @@ module Stripe
         AlreadyExistsError.new(error_data[:message], **opts)
       when "blocked_by_stripe"
         BlockedByStripeError.new(error_data[:message], **opts)
+      when "controlled_by_alternate_resource"
+        ControlledByAlternateResourceError.new(error_data[:message], **opts)
       when "controlled_by_dashboard"
         ControlledByDashboardError.new(error_data[:message], **opts)
       when "feature_not_enabled"
@@ -883,8 +885,6 @@ module Stripe
         NotCancelableError.new(error_data[:message], **opts)
       when "quota_exceeded"
         QuotaExceededError.new(error_data[:message], **opts)
-      when "rate_limit"
-        RateLimitError.new(error_data[:message], **opts)
       when "recipient_not_notifiable"
         RecipientNotNotifiableError.new(error_data[:message], **opts)
       when "temporary_session_expired"

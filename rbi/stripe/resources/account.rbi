@@ -64,7 +64,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -371,7 +371,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -509,7 +509,7 @@ module Stripe
       end
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def back; end
           # A user-displayable string describing the verification state of this document.
@@ -518,7 +518,7 @@ module Stripe
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           sig { returns(T.nilable(String)) }
           def details_code; end
-          # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def front; end
           def self.inner_class_types
@@ -547,13 +547,13 @@ module Stripe
       # The Kanji variation of the company's primary address (Japan only).
       sig { returns(T.nilable(AddressKanji)) }
       def address_kanji; end
-      # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
+      # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-directors_provided).
       sig { returns(T.nilable(T::Boolean)) }
       def directors_provided; end
       # This hash is used to attest that the director information provided to Stripe is both current and correct.
       sig { returns(T.nilable(DirectorshipDeclaration)) }
       def directorship_declaration; end
-      # Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
+      # Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
       sig { returns(T.nilable(T::Boolean)) }
       def executives_provided; end
       # The export license ID number of the company, also referred as Import Export Code (India only).
@@ -571,7 +571,7 @@ module Stripe
       # The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       sig { returns(T.nilable(String)) }
       def name_kanji; end
-      # Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
+      # Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
       sig { returns(T.nilable(T::Boolean)) }
       def owners_provided; end
       # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
@@ -589,7 +589,7 @@ module Stripe
       # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
       sig { returns(T.nilable(RepresentativeDeclaration)) }
       def representative_declaration; end
-      # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+      # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details.
       sig { returns(T.nilable(String)) }
       def structure; end
       # Whether the company's business ID number was provided.
@@ -691,7 +691,7 @@ module Stripe
       # Attribute for field fees
       sig { returns(T.nilable(Fees)) }
       def fees; end
-      # `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://stripe.com/docs/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
+      # `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://docs.stripe.com/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
       sig { returns(T.nilable(T::Boolean)) }
       def is_controller; end
       # Attribute for field losses
@@ -721,10 +721,10 @@ module Stripe
     end
     class FutureRequirements < ::Stripe::StripeObject
       class Alternative < ::Stripe::StripeObject
-        # Fields that can be provided to satisfy all fields in `original_fields_due`.
+        # Fields that can be provided to resolve all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
-        # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+        # Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
         def self.inner_class_types
@@ -751,28 +751,28 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+      # Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
       sig { returns(T.nilable(T::Array[Alternative])) }
       def alternatives; end
       # Date on which `future_requirements` becomes the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
       sig { returns(T.nilable(Integer)) }
       def current_deadline; end
-      # Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
+      # Fields that need to be resolved to keep the account enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
       # This is typed as an enum for consistency with `requirements.disabled_reason`.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
       sig { returns(T.nilable(T::Array[String])) }
       def eventually_due; end
-      # Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+      # Fields that haven't been resolved by `requirements.current_deadline`. These fields need to be resolved to enable the capability on the account. `future_requirements.past_due` is a subset of `requirements.past_due`.
       sig { returns(T.nilable(T::Array[String])) }
       def past_due; end
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       sig { returns(T.nilable(T::Array[String])) }
       def pending_verification; end
       def self.inner_class_types
@@ -783,7 +783,7 @@ module Stripe
       end
     end
     class Groups < ::Stripe::StripeObject
-      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://docs.stripe.com/connect/platform-pricing-tools) for details.
       sig { returns(T.nilable(String)) }
       def payments_pricing; end
       def self.inner_class_types
@@ -795,10 +795,10 @@ module Stripe
     end
     class Requirements < ::Stripe::StripeObject
       class Alternative < ::Stripe::StripeObject
-        # Fields that can be provided to satisfy all fields in `original_fields_due`.
+        # Fields that can be provided to resolve all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
-        # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+        # Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
         def self.inner_class_types
@@ -825,28 +825,28 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+      # Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
       sig { returns(T.nilable(T::Array[Alternative])) }
       def alternatives; end
       # Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
       sig { returns(T.nilable(Integer)) }
       def current_deadline; end
-      # Fields that need to be collected to keep the account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
+      # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
       sig { returns(T.nilable(T::Array[String])) }
       def eventually_due; end
-      # Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the account.
+      # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the account.
       sig { returns(T.nilable(T::Array[String])) }
       def past_due; end
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       sig { returns(T.nilable(T::Array[String])) }
       def pending_verification; end
       def self.inner_class_types
@@ -885,7 +885,7 @@ module Stripe
       # Attribute for field payouts
       sig { returns(Payouts) }
       def payouts; end
-      # Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://stripe.com/docs/connect/)
+      # Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://docs.stripe.com/connect/)
       sig { returns(T.nilable(String)) }
       def rejected_reason; end
       def self.inner_class_types
@@ -1311,7 +1311,7 @@ module Stripe
     # See the [Standard onboarding](/connect/standard-accounts) or [Express onboarding](/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](/connect/handling-api-verification#person-information).
     sig { returns(T.nilable(::Stripe::Person)) }
     def individual; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.

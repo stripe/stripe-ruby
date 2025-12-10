@@ -21,6 +21,7 @@ module Stripe
         # ** raises BlockedByStripeError
         # ** raises InvalidPayoutMethodError
         # ** raises QuotaExceededError
+        # ** raises ControlledByAlternateResourceError
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -58,6 +59,7 @@ module Stripe
         # ** raises QuotaExceededError
         # ** raises BlockedByStripeError
         # ** raises InvalidPayoutMethodError
+        # ** raises ControlledByAlternateResourceError
         def update(id, params = {}, opts = {})
           request(
             method: :post,

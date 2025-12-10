@@ -30,7 +30,7 @@ module Stripe
       def postal_code; end
       sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
       def postal_code=(_postal_code); end
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       sig { returns(T.nilable(String)) }
       def state; end
       sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -49,7 +49,7 @@ module Stripe
     end
     class CashBalance < ::Stripe::RequestParams
       class Settings < ::Stripe::RequestParams
-        # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
+        # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://docs.stripe.com/payments/customer-balance/reconciliation).
         sig { returns(T.nilable(String)) }
         def reconciliation_mode; end
         sig { params(_reconciliation_mode: T.nilable(String)).returns(T.nilable(String)) }
@@ -166,7 +166,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -219,7 +219,7 @@ module Stripe
       sig { params(ip_address: T.nilable(String), validate_location: T.nilable(String)).void }
       def initialize(ip_address: nil, validate_location: nil); end
     end
-    # The customer's address.
+    # The customer's address. Learn about [country-specific requirements for calculating tax](https://docs.stripe.com/invoicing/taxes?dashboard-or-api=dashboard#set-up-customer).
     sig { returns(T.nilable(T.any(String, CustomerUpdateParams::Address))) }
     def address; end
     sig {
@@ -243,11 +243,11 @@ module Stripe
       params(_cash_balance: T.nilable(CustomerUpdateParams::CashBalance)).returns(T.nilable(CustomerUpdateParams::CashBalance))
      }
     def cash_balance=(_cash_balance); end
-    # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
+    # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
     #
     # Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
     #
-    # If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
+    # If you want to add a new payment source and make it the default, see the [source](https://docs.stripe.com/api/customers/update#update_customer-source) property.
     sig { returns(T.nilable(String)) }
     def default_source; end
     sig { params(_default_source: T.nilable(String)).returns(T.nilable(String)) }
@@ -284,7 +284,7 @@ module Stripe
       params(_invoice_settings: T.nilable(CustomerUpdateParams::InvoiceSettings)).returns(T.nilable(CustomerUpdateParams::InvoiceSettings))
      }
     def invoice_settings=(_invoice_settings); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {

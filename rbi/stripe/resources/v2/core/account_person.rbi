@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Core
-      # Person retrieval response schema.
+      # A Person represents an individual associated with an Account's identity (for example, an owner, director, executive, or representative). Use Persons to provide and update identity information for verification and compliance.
       class AccountPerson < APIResource
         class AdditionalAddress < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -29,7 +29,7 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
-          # Town or cho-me.
+          # Town or district.
           sig { returns(T.nilable(String)) }
           def town; end
           def self.inner_class_types
@@ -106,7 +106,7 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
-          # Town or cho-me.
+          # Town or district.
           sig { returns(T.nilable(String)) }
           def town; end
           def self.inner_class_types
@@ -272,22 +272,22 @@ module Stripe
           end
         end
         class Relationship < ::Stripe::StripeObject
-          # Whether the individual is an authorizer of the Account’s legal entity.
+          # Whether the individual is an authorizer of the Account's identity.
           sig { returns(T.nilable(T::Boolean)) }
           def authorizer; end
-          # Whether the individual is a director of the Account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+          # Whether the individual is a director of the Account's identity. Directors are typically members of the governing board of the company or are responsible for making sure that the company meets its regulatory obligations.
           sig { returns(T.nilable(T::Boolean)) }
           def director; end
           # Whether the individual has significant responsibility to control, manage, or direct the organization.
           sig { returns(T.nilable(T::Boolean)) }
           def executive; end
-          # Whether the individual is the legal guardian of the Account’s representative.
+          # Whether the individual is the legal guardian of the Account's representative.
           sig { returns(T.nilable(T::Boolean)) }
           def legal_guardian; end
-          # Whether the individual is an owner of the Account’s legal entity.
+          # Whether the individual is an owner of the Account's identity.
           sig { returns(T.nilable(T::Boolean)) }
           def owner; end
-          # The percent owned by the individual of the Account’s legal entity.
+          # The percentage of the Account's identity that the individual owns.
           sig { returns(T.nilable(String)) }
           def percent_ownership; end
           # Whether the individual is authorized as the primary representative of the Account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
@@ -323,7 +323,7 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
-            # Town or cho-me.
+            # Town or district.
             sig { returns(T.nilable(String)) }
             def town; end
             def self.inner_class_types
@@ -352,7 +352,7 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
-            # Town or cho-me.
+            # Town or district.
             sig { returns(T.nilable(String)) }
             def town; end
             def self.inner_class_types

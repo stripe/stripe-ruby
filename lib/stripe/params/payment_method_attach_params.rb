@@ -5,7 +5,7 @@ module Stripe
   class PaymentMethodAttachParams < ::Stripe::RequestParams
     # The ID of the customer to which to attach the PaymentMethod.
     attr_accessor :customer
-    # The ID of the account to which to attach the PaymentMethod.
+    # The ID of the Account representing the customer to which to attach the PaymentMethod.
     attr_accessor :customer_account
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand

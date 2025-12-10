@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      # Person retrieval response schema.
+      # A Person represents an individual associated with an Account's identity (for example, an owner, director, executive, or representative). Use Persons to provide and update identity information for verification and compliance.
       class AccountPerson < APIResource
         OBJECT_NAME = "v2.core.account_person"
         def self.object_name
@@ -26,7 +26,7 @@ module Stripe
           attr_reader :purpose
           # State, county, province, or region.
           attr_reader :state
-          # Town or cho-me.
+          # Town or district.
           attr_reader :town
 
           def self.inner_class_types
@@ -99,7 +99,7 @@ module Stripe
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
-          # Town or cho-me.
+          # Town or district.
           attr_reader :town
 
           def self.inner_class_types
@@ -271,17 +271,17 @@ module Stripe
         end
 
         class Relationship < ::Stripe::StripeObject
-          # Whether the individual is an authorizer of the Account’s legal entity.
+          # Whether the individual is an authorizer of the Account's identity.
           attr_reader :authorizer
-          # Whether the individual is a director of the Account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+          # Whether the individual is a director of the Account's identity. Directors are typically members of the governing board of the company or are responsible for making sure that the company meets its regulatory obligations.
           attr_reader :director
           # Whether the individual has significant responsibility to control, manage, or direct the organization.
           attr_reader :executive
-          # Whether the individual is the legal guardian of the Account’s representative.
+          # Whether the individual is the legal guardian of the Account's representative.
           attr_reader :legal_guardian
-          # Whether the individual is an owner of the Account’s legal entity.
+          # Whether the individual is an owner of the Account's identity.
           attr_reader :owner
-          # The percent owned by the individual of the Account’s legal entity.
+          # The percentage of the Account's identity that the individual owns.
           attr_reader :percent_ownership
           # Whether the individual is authorized as the primary representative of the Account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
           attr_reader :representative
@@ -311,7 +311,7 @@ module Stripe
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
-            # Town or cho-me.
+            # Town or district.
             attr_reader :town
 
             def self.inner_class_types
@@ -336,7 +336,7 @@ module Stripe
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
-            # Town or cho-me.
+            # Town or district.
             attr_reader :town
 
             def self.inner_class_types

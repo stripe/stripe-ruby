@@ -8061,245 +8061,7 @@ module Stripe
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account_token = client.v2.core.account_tokens.create({
-        identity: {
-          attestations: {
-            directorship_declaration: { attested: true },
-            ownership_declaration: { attested: true },
-            persons_provided: {
-              directors: true,
-              executives: true,
-              owners: true,
-              ownership_exemption_reason: "qualified_entity_exceeds_ownership_threshold",
-            },
-            representative_declaration: { attested: true },
-            terms_of_service: {
-              account: { shown_and_accepted: true },
-              storer: { shown_and_accepted: true },
-            },
-          },
-          business_details: {
-            address: {
-              city: "city",
-              country: "country",
-              line1: "line1",
-              line2: "line2",
-              postal_code: "postal_code",
-              state: "state",
-              town: "town",
-            },
-            annual_revenue: {
-              amount: {
-                value: 111_972_721,
-                currency: "usd",
-              },
-              fiscal_year_end: "fiscal_year_end",
-            },
-            documents: {
-              bank_account_ownership_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              company_license: {
-                files: ["files"],
-                type: "files",
-              },
-              company_memorandum_of_association: {
-                files: ["files"],
-                type: "files",
-              },
-              company_ministerial_decree: {
-                files: ["files"],
-                type: "files",
-              },
-              company_registration_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              company_tax_id_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              primary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              proof_of_address: {
-                files: ["files"],
-                type: "files",
-              },
-              proof_of_registration: {
-                files: ["files"],
-                type: "files",
-              },
-              proof_of_ultimate_beneficial_ownership: {
-                files: ["files"],
-                type: "files",
-              },
-            },
-            estimated_worker_count: 884_794_319,
-            id_numbers: [
-              {
-                registrar: "registrar",
-                type: "th_prn",
-                value: "value",
-              },
-            ],
-            monthly_estimated_revenue: {
-              amount: {
-                value: 111_972_721,
-                currency: "usd",
-              },
-            },
-            phone: "phone",
-            registered_name: "registered_name",
-            script_addresses: {
-              kana: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-              kanji: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-            },
-            script_names: {
-              kana: { registered_name: "registered_name" },
-              kanji: { registered_name: "registered_name" },
-            },
-            structure: "public_listed_corporation",
-          },
-          entity_type: "individual",
-          individual: {
-            additional_addresses: [
-              {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                purpose: "registered",
-                state: "state",
-                town: "town",
-              },
-            ],
-            additional_names: [
-              {
-                full_name: "full_name",
-                given_name: "given_name",
-                purpose: "alias",
-                surname: "surname",
-              },
-            ],
-            address: {
-              city: "city",
-              country: "country",
-              line1: "line1",
-              line2: "line2",
-              postal_code: "postal_code",
-              state: "state",
-              town: "town",
-            },
-            date_of_birth: {
-              day: 99_228,
-              month: 104_080_000,
-              year: 3_704_893,
-            },
-            documents: {
-              company_authorization: {
-                files: ["files"],
-                type: "files",
-              },
-              passport: {
-                files: ["files"],
-                type: "files",
-              },
-              primary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              secondary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              visa: {
-                files: ["files"],
-                type: "files",
-              },
-            },
-            email: "email",
-            given_name: "given_name",
-            id_numbers: [
-              {
-                type: "th_lc",
-                value: "value",
-              },
-            ],
-            legal_gender: "male",
-            metadata: { key: "metadata" },
-            nationalities: ["nationalities"],
-            phone: "phone",
-            political_exposure: "none",
-            relationship: {
-              director: true,
-              executive: true,
-              owner: true,
-              percent_ownership: "percent_ownership",
-              title: "title",
-            },
-            script_addresses: {
-              kana: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-              kanji: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-            },
-            script_names: {
-              kana: {
-                given_name: "given_name",
-                surname: "surname",
-              },
-              kanji: {
-                given_name: "given_name",
-                surname: "surname",
-              },
-            },
-            surname: "surname",
-          },
-        },
-      })
+      account_token = client.v2.core.account_tokens.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens"
     end
     should "Test v2 core account token get (service)" do
@@ -9251,6 +9013,21 @@ module Stripe
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
     end
+    should "Test controlled by alternate resource error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+      ).to_return(
+        body: '{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::ControlledByAlternateResourceError do
+        outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+    end
     should "Test controlled by dashboard error (service)" do
       stub_request(
         :post,
@@ -9393,18 +9170,6 @@ module Stripe
         })
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
-    end
-    should "Test rate limit error (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
-        body: '{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::RateLimitError do
-        account = client.v2.core.accounts.retrieve("id_123")
-      end
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123"
     end
     should "Test recipient not notifiable error (service)" do
       stub_request(

@@ -4,9 +4,9 @@
 module Stripe
   # A payment link is a shareable URL that will take your customers to a hosted payment page. A payment link can be shared and used multiple times.
   #
-  # When a customer opens a payment link it will open a new [checkout session](https://stripe.com/docs/api/checkout/sessions) to render the payment page. You can use [checkout session events](https://stripe.com/docs/api/events/types#event_types-checkout.session.completed) to track payments through payment links.
+  # When a customer opens a payment link it will open a new [checkout session](https://docs.stripe.com/api/checkout/sessions) to render the payment page. You can use [checkout session events](https://docs.stripe.com/api/events/types#event_types-checkout.session.completed) to track payments through payment links.
   #
-  # Related guide: [Payment Links API](https://stripe.com/docs/payment-links)
+  # Related guide: [Payment Links API](https://docs.stripe.com/payment-links)
   class PaymentLink < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -352,7 +352,7 @@ module Stripe
         attr_reader :footer
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         attr_reader :issuer
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # Options for invoice PDF rendering.
         attr_reader :rendering_options
@@ -465,7 +465,7 @@ module Stripe
       attr_reader :capture_method
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_reader :description
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link.
       attr_reader :metadata
       # Indicates that you intend to make future payments with the payment method collected during checkout.
       attr_reader :setup_future_usage
@@ -473,7 +473,7 @@ module Stripe
       attr_reader :statement_descriptor
       # For a card payment, information about the charge that appears on the customer's statement when this payment succeeds in creating a charge. Concatenated with the account's statement descriptor prefix to form the complete statement descriptor.
       attr_reader :statement_descriptor_suffix
-      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
       attr_reader :transfer_group
 
       def self.inner_class_types
@@ -609,7 +609,7 @@ module Stripe
       attr_reader :description
       # Attribute for field invoice_settings
       attr_reader :invoice_settings
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link.
       attr_reader :metadata
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
@@ -690,7 +690,7 @@ module Stripe
     attr_reader :line_items
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Attribute for field name_collection
     attr_reader :name_collection

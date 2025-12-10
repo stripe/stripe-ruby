@@ -333,7 +333,7 @@ module Stripe
           attr_accessor :currency
           # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
           attr_accessor :duration
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
           attr_accessor :name
@@ -358,7 +358,7 @@ module Stripe
         end
         # The ID of the coupon to apply to this Session.
         attr_accessor :coupon
-        # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
         attr_accessor :coupon_data
         # The ID of a promotion code to apply to this Session.
         attr_accessor :promotion_code
@@ -417,7 +417,7 @@ module Stripe
           attr_accessor :footer
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # Default options for invoice PDF rendering for this customer.
           attr_accessor :rendering_options
@@ -473,11 +473,11 @@ module Stripe
             attr_accessor :description
             # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
             attr_accessor :images
-            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             attr_accessor :metadata
             # The product's name, meant to be displayable to the customer.
             attr_accessor :name
-            # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             attr_accessor :tax_code
             # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
             attr_accessor :unit_label
@@ -518,7 +518,7 @@ module Stripe
           attr_accessor :product_data
           # The recurring components of a price such as `interval` and `interval_count`.
           attr_accessor :recurring
-          # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+          # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           attr_accessor :tax_behavior
           # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
           attr_accessor :unit_amount
@@ -545,17 +545,17 @@ module Stripe
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
         attr_accessor :adjustable_quantity
-        # The [tax rates](https://stripe.com/docs/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
         attr_accessor :dynamic_tax_rates
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object. One of `price` or `price_data` is required.
+        # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
         attr_accessor :price
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
         attr_accessor :price_data
         # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         attr_accessor :quantity
-        # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
         attr_accessor :tax_rates
 
         def initialize(
@@ -629,7 +629,7 @@ module Stripe
         end
         # When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
         attr_accessor :adjustable_quantity
-        # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object.
         attr_accessor :price
         # The initial quantity of the line item created when a customer chooses to add this optional item to their order.
         attr_accessor :quantity
@@ -654,7 +654,7 @@ module Stripe
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_accessor :state
 
             def initialize(
@@ -707,13 +707,13 @@ module Stripe
             @destination = destination
           end
         end
-        # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
         attr_accessor :application_fee_amount
         # Controls when the funds will be captured from the customer's account.
         attr_accessor :capture_method
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # The Stripe account ID for which these funds are intended. For details,
         # see the PaymentIntents [use case for connected
@@ -721,7 +721,7 @@ module Stripe
         attr_accessor :on_behalf_of
         # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
         attr_accessor :receipt_email
-        # Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
         # method collected by this Checkout Session.
         #
         # When setting this to `on_session`, Checkout will show a notice to the
@@ -751,9 +751,9 @@ module Stripe
         # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         attr_accessor :statement_descriptor_suffix
         # The parameters used to automatically create a Transfer when the payment succeeds.
-        # For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        # For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
         attr_accessor :transfer_data
-        # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
         attr_accessor :transfer_group
 
         def initialize(
@@ -1056,7 +1056,7 @@ module Stripe
           attr_accessor :request_multicapture
           # Request ability to [overcapture](/payments/overcapture) for this CheckoutSession.
           attr_accessor :request_overcapture
-          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           attr_accessor :request_three_d_secure
           # Restrictions to apply to the card payment method. For example, you can block specific card brands.
           attr_accessor :restrictions
@@ -1501,7 +1501,7 @@ module Stripe
         class Paypal < ::Stripe::RequestParams
           # Controls when the funds will be captured from the customer's account.
           attr_accessor :capture_method
-          # [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+          # [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
           attr_accessor :preferred_locale
           # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
           attr_accessor :reference
@@ -2095,7 +2095,7 @@ module Stripe
       class SetupIntentData < ::Stripe::RequestParams
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # The Stripe account for which the setup is intended.
         attr_accessor :on_behalf_of
@@ -2185,11 +2185,11 @@ module Stripe
           attr_accessor :display_name
           # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
           attr_accessor :fixed_amount
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
           attr_accessor :tax_behavior
-          # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
           attr_accessor :tax_code
           # The type of calculation to use on the shipping rate.
           attr_accessor :type
@@ -2304,11 +2304,11 @@ module Stripe
         attr_accessor :default_tax_rates
         # The subscription's description, meant to be displayable to the customer.
         # Use this field to optionally store an explanation of the subscription
-        # for rendering in the [customer portal](https://stripe.com/docs/customer-management).
+        # for rendering in the [customer portal](https://docs.stripe.com/customer-management).
         attr_accessor :description
         # All invoices will be billed using the specified settings.
         attr_accessor :invoice_settings
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # The account on behalf of which to charge, for each of the subscription's invoices.
         attr_accessor :on_behalf_of
@@ -2410,24 +2410,24 @@ module Stripe
       attr_accessor :custom_text
       # ID of an existing Customer, if one exists. In `payment` mode, the customer’s most recently saved card
       # payment method will be used to prefill the email, name, card details, and billing address
-      # on the Checkout page. In `subscription` mode, the customer’s [default payment method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method)
+      # on the Checkout page. In `subscription` mode, the customer’s [default payment method](https://docs.stripe.com/api/customers/update#update_customer-invoice_settings-default_payment_method)
       # will be used if it’s a card, otherwise the most recently saved card will be used. A valid billing address, billing name and billing email are required on the payment method for Checkout to prefill the customer's card details.
       #
-      # If the Customer already has a valid [email](https://stripe.com/docs/api/customers/object#customer_object-email) set, the email will be prefilled and not editable in Checkout.
+      # If the Customer already has a valid [email](https://docs.stripe.com/api/customers/object#customer_object-email) set, the email will be prefilled and not editable in Checkout.
       # If the Customer does not have a valid `email`, Checkout will set the email entered during the session on the Customer.
       #
       # If blank for Checkout Sessions in `subscription` mode or with `customer_creation` set as `always` in `payment` mode, Checkout will create a new Customer object based on information provided during the payment flow.
       #
-      # You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
+      # You can set [`payment_intent_data.setup_future_usage`](https://docs.stripe.com/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
       attr_accessor :customer
       # ID of an existing Account, if one exists. Has the same behavior as `customer`.
       attr_accessor :customer_account
-      # Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
+      # Configure whether a Checkout Session creates a [Customer](https://docs.stripe.com/api/customers) during Session confirmation.
       #
       # When a Customer is not created, you can still retrieve email, address, and other customer data entered in Checkout
-      # with [customer_details](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-customer_details).
+      # with [customer_details](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-customer_details).
       #
-      # Sessions that don't create Customers instead are grouped by [guest customers](https://stripe.com/docs/payments/checkout/guest-customers)
+      # Sessions that don't create Customers instead are grouped by [guest customers](https://docs.stripe.com/payments/checkout/guest-customers)
       # in the Dashboard. Promotion codes limited to first time customers will return invalid for these Sessions.
       #
       # Can only be set in `payment` and `setup` mode.
@@ -2450,7 +2450,7 @@ module Stripe
       attr_accessor :expires_at
       # Generate a post-purchase Invoice for one-time payments.
       attr_accessor :invoice_creation
-      # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
+      # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
       #
       # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
       #
@@ -2458,7 +2458,7 @@ module Stripe
       attr_accessor :line_items
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
       attr_accessor :locale
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
       attr_accessor :mode
@@ -2466,9 +2466,9 @@ module Stripe
       #
       # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
       #
-      # If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+      # If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
       attr_accessor :name_collection
-      # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+      # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
       #
       # There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
       #
@@ -2485,7 +2485,7 @@ module Stripe
       #
       # Can only be set in `subscription` mode. Defaults to `always`.
       #
-      # If you'd like information on how to collect a payment method outside of Checkout, read the guide on configuring [subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
+      # If you'd like information on how to collect a payment method outside of Checkout, read the guide on configuring [subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
       attr_accessor :payment_method_collection
       # The ID of the payment method configuration to use with this Checkout session.
       attr_accessor :payment_method_configuration
@@ -2496,7 +2496,7 @@ module Stripe
       # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
       #
       # You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-      # See [Dynamic Payment Methods](https://stripe.com/docs/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
+      # See [Dynamic Payment Methods](https://docs.stripe.com/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
       #
       # Read more about the supported payment methods and their requirements in our [payment
       # method details guide](/docs/payments/checkout/payment-methods).
@@ -2512,9 +2512,9 @@ module Stripe
       # Controls phone number collection settings for the session.
       #
       # We recommend that you review your privacy policy and check with your legal contacts
-      # before using this feature. Learn more about [collecting phone numbers with Checkout](https://stripe.com/docs/payments/checkout/phone-numbers).
+      # before using this feature. Learn more about [collecting phone numbers with Checkout](https://docs.stripe.com/payments/checkout/phone-numbers).
       attr_accessor :phone_number_collection
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_accessor :redirect_on_completion
       # The URL to redirect your customer back to after they authenticate or cancel their payment on the
       # payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
@@ -2539,7 +2539,7 @@ module Stripe
       # is complete.
       # This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
       # information from the successful Checkout Session on your page, read the
-      # guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
+      # guide on [customizing your success page](https://docs.stripe.com/payments/checkout/custom-success-page).
       attr_accessor :success_url
       # Controls tax ID collection during checkout.
       attr_accessor :tax_id_collection

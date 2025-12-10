@@ -24,16 +24,16 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
+              # The customer account's tax exemption status: `none`, `exempt`, or `reverse`. When `reverse`, invoice and receipt PDFs include "Reverse charge".
               sig { returns(T.nilable(String)) }
               def exempt; end
               # A recent IP address of the customer used for tax reporting and tax location inference.
               sig { returns(T.nilable(String)) }
               def ip_address; end
-              # The [identified](https://docs.stripe.com/tax/customer-locations#address-hierarchy-other) tax location of the customer. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+              # The customer account's identified tax location, derived from `location_source`. Only rendered if the `automatic_indirect_tax` feature is requested and `active`.
               sig { returns(T.nilable(Location)) }
               def location; end
-              # The data source used to identify the customer's tax location. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # Data source used to identify the customer account's tax location. Defaults to `identity_address`. Used for automatic indirect tax calculation.
               sig { returns(T.nilable(String)) }
               def location_source; end
               def self.inner_class_types
@@ -60,7 +60,7 @@ module Stripe
                   end
                 end
                 class Rendering < ::Stripe::StripeObject
-                  # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+                  # Indicates whether displayed line item prices and amounts on invoice PDFs include inclusive tax amounts. Must be either `include_inclusive_tax` or `exclude_tax`.
                   sig { returns(T.nilable(String)) }
                   def amount_tax_display; end
                   # ID of the invoice rendering template to use for future invoices.
@@ -76,16 +76,16 @@ module Stripe
                 # The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
                 sig { returns(T::Array[CustomField]) }
                 def custom_fields; end
-                # Default footer to be displayed on invoices for this customer.
+                # Default invoice footer.
                 sig { returns(T.nilable(String)) }
                 def footer; end
-                # The sequence to be used on the customer's next invoice. Defaults to 1.
+                # Sequence number to use on the customer account's next invoice. Defaults to 1.
                 sig { returns(T.nilable(Integer)) }
                 def next_sequence; end
-                # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+                # Prefix used to generate unique invoice numbers. Must be 3-12 uppercase letters or numbers.
                 sig { returns(T.nilable(String)) }
                 def prefix; end
-                # Default options for invoice PDF rendering for this customer.
+                # Default invoice PDF rendering options.
                 sig { returns(T.nilable(Rendering)) }
                 def rendering; end
                 def self.inner_class_types
@@ -95,10 +95,10 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # ID of a payment method that’s attached to the customer, to be used as the customer’s default payment method for invoices and subscriptions.
+              # ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
               sig { returns(T.nilable(String)) }
               def default_payment_method; end
-              # Default settings used on invoices for this customer.
+              # Default invoice settings for the customer account.
               sig { returns(T.nilable(Invoice)) }
               def invoice; end
               def self.inner_class_types
@@ -124,13 +124,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -193,13 +190,13 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            # Indicates whether the customer configuration is active. You can deactivate or reactivate the customer configuration by updating this property. Deactivating the configuration by setting this value to false will unrequest all capabilities within the configuration. It will not delete any of the configuration's other properties.
             sig { returns(T::Boolean) }
             def applied; end
-            # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
+            # Settings for automatic indirect tax calculation on the customer's invoices, subscriptions, Checkout Sessions, and Payment Links. Available when automatic tax calculation is available for the customer account's location.
             sig { returns(T.nilable(AutomaticIndirectTax)) }
             def automatic_indirect_tax; end
-            # Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
+            # Default Billing settings for the customer account, used in Invoices and Subscriptions.
             sig { returns(T.nilable(Billing)) }
             def billing; end
             # Capabilities that have been requested on the Customer Configuration.
@@ -225,10 +222,10 @@ module Stripe
           end
           class Merchant < ::Stripe::StripeObject
             class BacsDebitPayments < ::Stripe::StripeObject
-              # Display name for Bacs debit payments.
+              # Display name for Bacs Direct Debit payments.
               sig { returns(T.nilable(String)) }
               def display_name; end
-              # Service user number for Bacs debit payments.
+              # Service User Number (SUN) for Bacs Direct Debit payments.
               sig { returns(T.nilable(String)) }
               def service_user_number; end
               def self.inner_class_types
@@ -274,13 +271,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -305,13 +299,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -336,13 +327,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -367,13 +355,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -398,13 +383,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -429,13 +411,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -460,13 +439,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -491,13 +467,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -522,13 +495,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -553,13 +523,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -584,13 +551,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -615,13 +579,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -646,13 +607,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -677,13 +635,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -708,13 +663,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -739,13 +691,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -770,13 +719,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -801,13 +747,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -832,13 +775,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -863,13 +803,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -894,13 +831,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -925,13 +859,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -956,13 +887,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -987,13 +915,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1018,13 +943,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1049,13 +971,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1080,13 +999,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1111,13 +1027,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1142,13 +1055,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1173,13 +1083,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1204,13 +1111,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1235,13 +1139,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1266,13 +1167,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1297,13 +1195,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1328,13 +1223,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1359,13 +1251,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1390,13 +1279,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1421,13 +1307,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1452,13 +1335,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1483,13 +1363,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1515,13 +1392,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -1531,7 +1405,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
                 def self.inner_class_types
@@ -1556,13 +1430,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1587,13 +1458,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1618,13 +1486,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1649,13 +1514,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -1963,7 +1825,7 @@ module Stripe
               end
             end
             class SepaDebitPayments < ::Stripe::StripeObject
-              # Creditor ID for SEPA debit payments.
+              # Creditor ID for SEPA Direct Debit payments.
               sig { returns(T.nilable(String)) }
               def creditor_id; end
               def self.inner_class_types
@@ -2007,7 +1869,7 @@ module Stripe
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
                 def state; end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 def self.inner_class_types
@@ -2036,10 +1898,10 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            # Indicates whether the merchant configuration is active. You can deactivate or reactivate the merchant configuration by updating this property. Deactivating the configuration by setting this value to false doesn't delete the configuration's properties.
             sig { returns(T::Boolean) }
             def applied; end
-            # Settings used for Bacs debit payments.
+            # Settings for Bacs Direct Debit payments.
             sig { returns(T.nilable(BacsDebitPayments)) }
             def bacs_debit_payments; end
             # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
@@ -2054,13 +1916,13 @@ module Stripe
             # Settings specific to Konbini payments on the account.
             sig { returns(T.nilable(KonbiniPayments)) }
             def konbini_payments; end
-            # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
+            # The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             sig { returns(T.nilable(String)) }
             def mcc; end
             # Settings for the default text that appears on statements for language variations.
             sig { returns(T.nilable(ScriptStatementDescriptor)) }
             def script_statement_descriptor; end
-            # Settings used for SEPA debit payments.
+            # Settings for SEPA Direct Debit payments.
             sig { returns(T.nilable(SepaDebitPayments)) }
             def sepa_debit_payments; end
             # Statement descriptor.
@@ -2104,13 +1966,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2135,13 +1994,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2179,13 +2035,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Whether the Capability has been requested.
-                sig { returns(T::Boolean) }
-                def requested; end
                 # The status of the Capability.
                 sig { returns(String) }
                 def status; end
-                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
                 def self.inner_class_types
@@ -2211,13 +2064,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2242,13 +2092,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2258,10 +2105,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
-                # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(StripeTransfers)) }
                 def stripe_transfers; end
                 def self.inner_class_types
@@ -2274,7 +2121,7 @@ module Stripe
               # Capabilities that enable OutboundPayments to a bank account linked to this Account.
               sig { returns(T.nilable(BankAccounts)) }
               def bank_accounts; end
-              # Capability that enable OutboundPayments to a debit card linked to this Account.
+              # Enables this Account to receive OutboundPayments to a linked debit card.
               sig { returns(T.nilable(Cards)) }
               def cards; end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
@@ -2305,7 +2152,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            # Indicates whether the recipient configuration is active. You can deactivate or reactivate the recipient configuration by updating this property. Deactivating the configuration by setting this value to false  unrequest all capabilities within the configuration. It will not delete any of the configuration's other properties.
             sig { returns(T::Boolean) }
             def applied; end
             # Capabilities that have been requested on the Recipient Configuration.
@@ -2342,13 +2189,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2384,13 +2228,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2415,13 +2256,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2446,13 +2284,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2494,13 +2329,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2510,7 +2342,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Can pull funds from an external bank account, owned by yourself, to a FinancialAccount.
+                # Can pull funds into a FinancialAccount from an external bank account owned by the user.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
                 def self.inner_class_types
@@ -2536,13 +2368,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2567,13 +2396,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2598,13 +2424,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2614,13 +2437,13 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Can send funds from a FinancialAccount to a bank account, owned by someone else.
+                # Can send funds from a FinancialAccount to a bank account owned by a different entity.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
-                # Can send funds from a FinancialAccount to a debit card, owned by someone else.
+                # Can send funds from a FinancialAccount to a debit card owned by a different entity.
                 sig { returns(T.nilable(Cards)) }
                 def cards; end
-                # Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
+                # Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
                 sig { returns(T.nilable(FinancialAccounts)) }
                 def financial_accounts; end
                 def self.inner_class_types
@@ -2650,13 +2473,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2681,13 +2501,10 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
-                  # Whether the Capability has been requested.
-                  sig { returns(T::Boolean) }
-                  def requested; end
                   # The status of the Capability.
                   sig { returns(String) }
                   def status; end
-                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
                   def self.inner_class_types
@@ -2697,10 +2514,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Can send funds from a FinancialAccount, to a bank account, owned by yourself.
+                # Can send funds from a FinancialAccount to a bank account belonging to the same user.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
-                # Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
+                # Can send funds from a FinancialAccount to another FinancialAccount belonging to the same user.
                 sig { returns(T.nilable(FinancialAccounts)) }
                 def financial_accounts; end
                 def self.inner_class_types
@@ -2719,13 +2536,13 @@ module Stripe
               # Can hold storage-type funds on Stripe.
               sig { returns(T.nilable(HoldsCurrencies)) }
               def holds_currencies; end
-              # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+              # Hash containing capabilities related to InboundTransfers.
               sig { returns(T.nilable(InboundTransfers)) }
               def inbound_transfers; end
-              # Can send funds from a FinancialAccount to a destination owned by someone else.
+              # Hash containing capabilities related to [OutboundPayments](/api/treasury/outbound_payments?api-version=preview).
               sig { returns(T.nilable(OutboundPayments)) }
               def outbound_payments; end
-              # Can send funds from a FinancialAccount to a destination owned by yourself.
+              # Hash containing capabilities related to [OutboundTransfers](/api/treasury/outbound_transfers?api-version=preview).
               sig { returns(T.nilable(OutboundTransfers)) }
               def outbound_transfers; end
               def self.inner_class_types
@@ -2741,7 +2558,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            # Indicates whether the storer configuration is active. You cannot deactivate (or reactivate) the storer configuration by updating this property.
             sig { returns(T::Boolean) }
             def applied; end
             # Capabilities that have been requested on the Storer Configuration.
@@ -2757,10 +2574,10 @@ module Stripe
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           sig { returns(T.nilable(Customer)) }
           def customer; end
-          # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
+          # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           sig { returns(T.nilable(Merchant)) }
           def merchant; end
-          # The Recipient Configuration allows the Account to receive funds.
+          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
           sig { returns(T.nilable(Recipient)) }
           def recipient; end
           # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
@@ -2783,7 +2600,7 @@ module Stripe
             # The business's publicly-available website.
             sig { returns(T.nilable(String)) }
             def business_url; end
-            # The company’s legal name.
+            # The customer-facing business name.
             sig { returns(T.nilable(String)) }
             def doing_business_as; end
             # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
@@ -2797,11 +2614,11 @@ module Stripe
             end
           end
           class Responsibilities < ::Stripe::StripeObject
-            # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
-            sig { returns(String) }
+            # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
+            sig { returns(T.nilable(String)) }
             def fees_collector; end
-            # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
-            sig { returns(String) }
+            # A value indicating responsibility for collecting requirements on this account.
+            sig { returns(T.nilable(String)) }
             def losses_collector; end
             # A value indicating responsibility for collecting requirements on this account.
             sig { returns(String) }
@@ -2823,7 +2640,7 @@ module Stripe
           sig { returns(T.nilable(Profile)) }
           def profile; end
           # Default responsibilities held by either Stripe or the platform.
-          sig { returns(T.nilable(Responsibilities)) }
+          sig { returns(Responsibilities) }
           def responsibilities; end
           def self.inner_class_types
             @inner_class_types = {profile: Profile, responsibilities: Responsibilities}
@@ -2927,7 +2744,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            # Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             sig { returns(String) }
             def awaiting_action_from; end
             # Machine-readable string describing the requirement.
@@ -3171,7 +2988,7 @@ module Stripe
               # State, county, province, or region.
               sig { returns(T.nilable(String)) }
               def state; end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               def self.inner_class_types
@@ -3196,7 +3013,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # A non-negative integer representing the amount in the smallest currency unit.
+              # Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
               sig { returns(T.nilable(Amount)) }
               def amount; end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -3441,7 +3258,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # A non-negative integer representing the amount in the smallest currency unit.
+              # Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
               sig { returns(T.nilable(Amount)) }
               def amount; end
               def self.inner_class_types
@@ -3471,7 +3288,7 @@ module Stripe
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
                 def state; end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 def self.inner_class_types
@@ -3500,7 +3317,7 @@ module Stripe
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
                 def state; end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 def self.inner_class_types
@@ -3568,13 +3385,13 @@ module Stripe
             # Documents that may be submitted to satisfy various informational requests.
             sig { returns(T.nilable(Documents)) }
             def documents; end
-            # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             sig { returns(T.nilable(Integer)) }
             def estimated_worker_count; end
             # The provided ID numbers of a business entity.
             sig { returns(T.nilable(T::Array[IdNumber])) }
             def id_numbers; end
-            # An estimate of the monthly revenue of the business.
+            # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
             sig { returns(T.nilable(MonthlyEstimatedRevenue)) }
             def monthly_estimated_revenue; end
             # The company’s phone number (used for verification).
@@ -3630,7 +3447,7 @@ module Stripe
               # State, county, province, or region.
               sig { returns(T.nilable(String)) }
               def state; end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               def self.inner_class_types
@@ -3707,7 +3524,7 @@ module Stripe
               # State, county, province, or region.
               sig { returns(T.nilable(String)) }
               def state; end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               def self.inner_class_types
@@ -3873,22 +3690,22 @@ module Stripe
               end
             end
             class Relationship < ::Stripe::StripeObject
-              # Whether the individual is an authorizer of the Account’s legal entity.
+              # Whether the individual is an authorizer of the Account's identity.
               sig { returns(T.nilable(T::Boolean)) }
               def authorizer; end
-              # Whether the individual is a director of the Account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+              # Whether the individual is a director of the Account's identity. Directors are typically members of the governing board of the company or are responsible for making sure that the company meets its regulatory obligations.
               sig { returns(T.nilable(T::Boolean)) }
               def director; end
               # Whether the individual has significant responsibility to control, manage, or direct the organization.
               sig { returns(T.nilable(T::Boolean)) }
               def executive; end
-              # Whether the individual is the legal guardian of the Account’s representative.
+              # Whether the individual is the legal guardian of the Account's representative.
               sig { returns(T.nilable(T::Boolean)) }
               def legal_guardian; end
-              # Whether the individual is an owner of the Account’s legal entity.
+              # Whether the individual is an owner of the Account's identity.
               sig { returns(T.nilable(T::Boolean)) }
               def owner; end
-              # The percent owned by the individual of the Account’s legal entity.
+              # The percentage of the Account's identity that the individual owns.
               sig { returns(T.nilable(String)) }
               def percent_ownership; end
               # Whether the individual is authorized as the primary representative of the Account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
@@ -3924,7 +3741,7 @@ module Stripe
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
                 def state; end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 def self.inner_class_types
@@ -3953,7 +3770,7 @@ module Stripe
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
                 def state; end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 def self.inner_class_types
@@ -4226,7 +4043,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            # Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             sig { returns(String) }
             def awaiting_action_from; end
             # Machine-readable string describing the requirement.
@@ -4298,13 +4115,13 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
+        # The configurations that have been applied to this account.
         sig { returns(T::Array[String]) }
         def applied_configurations; end
-        # A value indicating if the Account has been closed.
+        # Indicates whether the account has been closed.
         sig { returns(T.nilable(T::Boolean)) }
         def closed; end
-        # An Account Configuration which allows the Account to take on a key persona across Stripe products.
+        # An Account represents a company, individual, or other entity that a user interacts with. Accounts store identity information and one or more configurations that enable product-specific capabilities. You can assign configurations at creation or add them later.
         sig { returns(T.nilable(Configuration)) }
         def configuration; end
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
@@ -4316,7 +4133,7 @@ module Stripe
         # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
         sig { returns(T.nilable(String)) }
         def dashboard; end
-        # Default values to be used on Account Configurations.
+        # Default values for settings shared across Account configurations.
         sig { returns(T.nilable(Defaults)) }
         def defaults; end
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.

@@ -96,12 +96,12 @@ module Stripe
       def category; end
       sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
       def category=(_category); end
-      # ID of the customer to receive the billing credits.
+      # ID of the customer receiving the billing credits.
       sig { returns(T.nilable(String)) }
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
-      # ID of the account to receive the billing credits.
+      # ID of the account representing the customer receiving the billing credits.
       sig { returns(T.nilable(String)) }
       def customer_account; end
       sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

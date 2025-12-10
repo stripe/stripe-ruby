@@ -43,7 +43,7 @@ module Stripe
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
             def state=(_state); end
-            # Town or cho-me.
+            # Town or district.
             sig { returns(T.nilable(String)) }
             def town; end
             sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -153,7 +153,7 @@ module Stripe
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
             def state=(_state); end
-            # Town or cho-me.
+            # Town or district.
             sig { returns(T.nilable(String)) }
             def town; end
             sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -368,7 +368,7 @@ module Stripe
             def initialize(type: nil, value: nil); end
           end
           class Relationship < ::Stripe::RequestParams
-            # Whether the individual is an authorizer of the Account’s legal entity.
+            # Whether the individual is an authorizer of the Account's identity.
             sig { returns(T.nilable(T::Boolean)) }
             def authorizer; end
             sig { params(_authorizer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -454,7 +454,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -503,7 +503,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }

@@ -125,7 +125,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -396,7 +396,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -431,7 +431,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -497,7 +497,7 @@ module Stripe
             attr_accessor :annual_revenue
             # A document verifying the business.
             attr_accessor :documents
-            # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             attr_accessor :estimated_worker_count
             # The ID numbers of a business entity.
             attr_accessor :id_numbers
@@ -557,7 +557,7 @@ module Stripe
               attr_accessor :purpose
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -612,7 +612,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -810,7 +810,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -845,7 +845,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(

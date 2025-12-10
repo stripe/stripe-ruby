@@ -17,7 +17,7 @@ module Stripe
     class Amount < ::Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
 
       def self.inner_class_types
@@ -32,7 +32,7 @@ module Stripe
     class AmountAuthorized < ::Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
 
       def self.inner_class_types
@@ -47,7 +47,7 @@ module Stripe
     class AmountCanceled < ::Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
 
       def self.inner_class_types
@@ -62,7 +62,7 @@ module Stripe
     class AmountFailed < ::Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
 
       def self.inner_class_types
@@ -77,7 +77,7 @@ module Stripe
     class AmountGuaranteed < ::Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
 
       def self.inner_class_types
@@ -92,7 +92,7 @@ module Stripe
     class AmountRefunded < ::Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
 
       def self.inner_class_types
@@ -107,7 +107,7 @@ module Stripe
     class AmountRequested < ::Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
 
       def self.inner_class_types
@@ -205,9 +205,9 @@ module Stripe
       end
 
       class Affirm < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         attr_reader :transaction_id
@@ -425,7 +425,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -491,6 +491,35 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Installments < ::Stripe::StripeObject
+          class Plan < ::Stripe::StripeObject
+            # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+            attr_reader :count
+            # For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card. One of `month`.
+            attr_reader :interval
+            # Type of installment plan, one of `fixed_count`, `revolving`, or `bonus`.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field plan
+          attr_reader :plan
+
+          def self.inner_class_types
+            @inner_class_types = { plan: Plan }
           end
 
           def self.field_remappings
@@ -570,6 +599,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The authorization code of the payment.
+        attr_reader :authorization_code
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
@@ -578,6 +609,8 @@ module Stripe
         attr_reader :checks
         # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
         attr_reader :country
+        # A high-level description of the type of cards issued in this range.
+        attr_reader :description
         # Two-digit number representing the card's expiration month.
         attr_reader :exp_month
         # Four-digit number representing the card's expiration year.
@@ -588,16 +621,28 @@ module Stripe
         attr_reader :fingerprint
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
         attr_reader :funding
+        # Issuer identification number of the card.
+        attr_reader :iin
+        # Installment details for this payment.
+        attr_reader :installments
+        # The name of the card's issuing bank.
+        attr_reader :issuer
         # The last four digits of the card.
         attr_reader :last4
         # True if this payment was marked as MOTO and out of scope for SCA.
         attr_reader :moto
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
+        # Advice code from the card network for the failed payment.
+        attr_reader :network_advice_code
+        # Decline code from the card network for the failed payment.
+        attr_reader :network_decline_code
         # If this card has network token credentials, this contains the details of the network token credentials.
         attr_reader :network_token
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         attr_reader :network_transaction_id
+        # The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
+        attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
@@ -606,6 +651,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             checks: Checks,
+            installments: Installments,
             network_token: NetworkToken,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
@@ -704,7 +750,7 @@ module Stripe
         attr_reader :generated_card
         # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
         attr_reader :iin
-        # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+        # Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
         attr_reader :incremental_authorization_supported
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
         attr_reader :issuer
@@ -897,7 +943,7 @@ module Stripe
       end
 
       class Ideal < ::Stripe::StripeObject
-        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         attr_reader :bank
         # The Bank Identifier Code of the customer's bank.
         attr_reader :bic
@@ -1269,9 +1315,9 @@ module Stripe
       end
 
       class Paynow < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         attr_reader :reader
         # Reference number associated with this PayNow payment
         attr_reader :reference
@@ -1312,7 +1358,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -1335,7 +1381,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -1577,7 +1623,7 @@ module Stripe
         attr_reader :fingerprint
         # Last four characters of the IBAN.
         attr_reader :last4
-        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
+        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
         attr_reader :mandate
 
         def self.inner_class_types
@@ -1722,9 +1768,9 @@ module Stripe
       class WechatPay < ::Stripe::StripeObject
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         attr_reader :fingerprint
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         attr_reader :reader
         # Transaction ID of this particular WeChat Pay transaction.
         attr_reader :transaction_id
@@ -1875,7 +1921,7 @@ module Stripe
       attr_reader :swish
       # Attribute for field twint
       attr_reader :twint
-      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
+      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
       # An additional hash is included on `payment_method_details` with a name matching this value.
       # It contains information specific to the payment method.
       attr_reader :type
@@ -2005,7 +2051,7 @@ module Stripe
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_reader :state
 
         def self.inner_class_types
@@ -2059,7 +2105,7 @@ module Stripe
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

@@ -126,7 +126,7 @@ module Stripe
         end
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-        # The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_accessor :final_amount
         # Fleet-specific information for authorizations using Fleet cards.
         attr_accessor :fleet

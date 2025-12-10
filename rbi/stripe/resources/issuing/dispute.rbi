@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Issuing
-    # As a [card issuer](https://stripe.com/docs/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
+    # As a [card issuer](https://docs.stripe.com/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
     #
-    # Related guide: [Issuing disputes](https://stripe.com/docs/issuing/purchases/disputes)
+    # Related guide: [Issuing disputes](https://docs.stripe.com/issuing/purchases/disputes)
     class Dispute < APIResource
       class Evidence < ::Stripe::StripeObject
         class Canceled < ::Stripe::StripeObject
@@ -237,10 +237,10 @@ module Stripe
         end
       end
       class Treasury < ::Stripe::StripeObject
-        # The Treasury [DebitReversal](https://stripe.com/docs/api/treasury/debit_reversals) representing this Issuing dispute
+        # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         sig { returns(T.nilable(String)) }
         def debit_reversal; end
-        # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed.
+        # The Treasury [ReceivedDebit](https://docs.stripe.com/api/treasury/received_debits) that is being disputed.
         sig { returns(String) }
         def received_debit; end
         def self.inner_class_types
@@ -250,7 +250,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Disputed amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
+      # Disputed amount in the card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
       sig { returns(Integer) }
       def amount; end
       # List of balance transactions associated with the dispute.
@@ -274,7 +274,7 @@ module Stripe
       # The enum that describes the dispute loss outcome. If the dispute is not lost, this field will be absent. New enum values may be added in the future, so be sure to handle unknown values.
       sig { returns(T.nilable(String)) }
       def loss_reason; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       def metadata; end
       # String representing the object's type. Objects of the same type share the same value.
@@ -286,7 +286,7 @@ module Stripe
       # The transaction being disputed.
       sig { returns(T.any(String, ::Stripe::Issuing::Transaction)) }
       def transaction; end
-      # [Treasury](https://stripe.com/docs/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
+      # [Treasury](https://docs.stripe.com/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
       # Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.

@@ -5,7 +5,7 @@ module Stripe
   module Tax
     # You can use Tax `Settings` to manage configurations used by Stripe Tax calculations.
     #
-    # Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
+    # Related guide: [Using the Settings API](https://docs.stripe.com/tax/settings-api)
     class Settings < SingletonAPIResource
       include Stripe::APIOperations::SingletonSave
 
@@ -43,7 +43,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types

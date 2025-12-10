@@ -4,11 +4,11 @@
 # typed: true
 module Stripe
   module Issuing
-    # When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
-    # object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
+    # When an [issued card](https://docs.stripe.com/issuing) is used to make a purchase, an Issuing `Authorization`
+    # object is created. [Authorizations](https://docs.stripe.com/issuing/purchases/authorizations) must be approved for the
     # purchase to be completed successfully.
     #
-    # Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
+    # Related guide: [Issued card authorizations](https://docs.stripe.com/issuing/purchases/authorizations)
     class Authorization < APIResource
       class AmountDetails < ::Stripe::StripeObject
         # The fee charged by the ATM for the cash withdrawal.
@@ -167,7 +167,7 @@ module Stripe
         end
       end
       class MerchantData < ::Stripe::StripeObject
-        # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         sig { returns(String) }
         def category; end
         # The merchant category code for the seller’s business
@@ -239,19 +239,19 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://docs.stripe.com/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def amount; end
-        # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(T.nilable(AmountDetails)) }
         def amount_details; end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
-        # If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+        # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
         sig { returns(T::Boolean) }
         def is_amount_controllable; end
-        # The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def merchant_amount; end
         # The local currency the merchant is requesting to authorize.
@@ -282,10 +282,10 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
+        # The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
         sig { returns(Integer) }
         def amount; end
-        # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(T.nilable(AmountDetails)) }
         def amount_details; end
         # Whether this request was approved.
@@ -300,7 +300,7 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
-        # The `pending_request.merchant_amount` at the time of the request, presented in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The `pending_request.merchant_amount` at the time of the request, presented in the `merchant_currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def merchant_amount; end
         # The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -326,13 +326,13 @@ module Stripe
         end
       end
       class Treasury < ::Stripe::StripeObject
-        # The array of [ReceivedCredits](https://stripe.com/docs/api/treasury/received_credits) associated with this authorization
+        # The array of [ReceivedCredits](https://docs.stripe.com/api/treasury/received_credits) associated with this authorization
         sig { returns(T::Array[String]) }
         def received_credits; end
-        # The array of [ReceivedDebits](https://stripe.com/docs/api/treasury/received_debits) associated with this authorization
+        # The array of [ReceivedDebits](https://docs.stripe.com/api/treasury/received_debits) associated with this authorization
         sig { returns(T::Array[String]) }
         def received_debits; end
-        # The Treasury [Transaction](https://stripe.com/docs/api/treasury/transactions) associated with this authorization
+        # The Treasury [Transaction](https://docs.stripe.com/api/treasury/transactions) associated with this authorization
         sig { returns(T.nilable(String)) }
         def transaction; end
         def self.inner_class_types
@@ -402,7 +402,7 @@ module Stripe
       # The total amount that was authorized or rejected. This amount is in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `amount` should be the same as `merchant_amount`, unless `currency` and `merchant_currency` are different.
       sig { returns(Integer) }
       def amount; end
-      # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+      # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(T.nilable(AmountDetails)) }
       def amount_details; end
       # Whether the authorization has been approved.
@@ -414,7 +414,7 @@ module Stripe
       # List of balance transactions associated with this authorization.
       sig { returns(T::Array[::Stripe::BalanceTransaction]) }
       def balance_transactions; end
-      # You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
+      # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
       sig { returns(::Stripe::Issuing::Card) }
       def card; end
       # The cardholder to whom this authorization belongs.
@@ -450,7 +450,7 @@ module Stripe
       # Attribute for field merchant_data
       sig { returns(MerchantData) }
       def merchant_data; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       def metadata; end
       # Details about the authorization, such as identifiers, set by the card network.
@@ -468,13 +468,13 @@ module Stripe
       # The current status of the authorization in its lifecycle.
       sig { returns(String) }
       def status; end
-      # [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
+      # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Token))) }
       def token; end
-      # List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization.
+      # List of [transactions](https://docs.stripe.com/api/issuing/transactions) associated with this authorization.
       sig { returns(T::Array[::Stripe::Issuing::Transaction]) }
       def transactions; end
-      # [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts).
+      # [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
       # Attribute for field verification_data

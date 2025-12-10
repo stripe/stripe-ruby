@@ -8,13 +8,13 @@ module Stripe
         class Configuration < ::Stripe::RequestParams
           class Customer < ::Stripe::RequestParams
             class AutomaticIndirectTax < ::Stripe::RequestParams
-              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
+              # The customer account's tax exemption status: `none`, `exempt`, or `reverse`. When `reverse`, invoice and receipt PDFs include "Reverse charge".
               attr_accessor :exempt
               # A recent IP address of the customer used for tax reporting and tax location inference.
               attr_accessor :ip_address
-              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions. This behavior is now deprecated for new users.
+              # Data source used to identify the customer account's tax location. Defaults to `identity_address`. Used for automatic indirect tax calculation.
               attr_accessor :location_source
-              # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to 'auto'.
+              # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to `auto`.
               attr_accessor :validate_location
 
               def initialize(
@@ -45,7 +45,7 @@ module Stripe
                 end
 
                 class Rendering < ::Stripe::RequestParams
-                  # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+                  # Indicates whether displayed line item prices and amounts on invoice PDFs include inclusive tax amounts. Must be either `include_inclusive_tax` or `exclude_tax`.
                   attr_accessor :amount_tax_display
                   # ID of the invoice rendering template to use for future invoices.
                   attr_accessor :template
@@ -57,13 +57,13 @@ module Stripe
                 end
                 # The list of up to 4 default custom fields to be displayed on invoices for this customer.
                 attr_accessor :custom_fields
-                # Default footer to be displayed on invoices for this customer.
+                # Default invoice footer.
                 attr_accessor :footer
-                # The sequence to be used on the customer's next invoice. Defaults to 1.
+                # Sequence number to use on the customer account's next invoice. Defaults to 1.
                 attr_accessor :next_sequence
-                # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+                # Prefix used to generate unique invoice numbers. Must be 3-12 uppercase letters or numbers.
                 attr_accessor :prefix
-                # Default options for invoice PDF rendering for this customer.
+                # Default invoice PDF rendering options.
                 attr_accessor :rendering
 
                 def initialize(
@@ -80,9 +80,9 @@ module Stripe
                   @rendering = rendering
                 end
               end
-              # ID of a payment method that’s attached to the customer, to be used as the customer’s default payment method for invoices and subscriptions.
+              # ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
               attr_accessor :default_payment_method
-              # Default settings used on invoices for this customer.
+              # Default invoice settings for the customer account.
               attr_accessor :invoice
 
               def initialize(default_payment_method: nil, invoice: nil)
@@ -184,7 +184,7 @@ module Stripe
 
           class Merchant < ::Stripe::RequestParams
             class BacsDebitPayments < ::Stripe::RequestParams
-              # Display name for Bacs debit payments.
+              # Display name for Bacs Direct Debit payments.
               attr_accessor :display_name
 
               def initialize(display_name: nil)
@@ -903,7 +903,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -942,7 +942,7 @@ module Stripe
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             attr_accessor :applied
-            # Settings used for Bacs debit payments.
+            # Settings for Bacs Direct Debit payments.
             attr_accessor :bacs_debit_payments
             # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
             attr_accessor :branding
@@ -952,11 +952,11 @@ module Stripe
             attr_accessor :card_payments
             # Settings specific to Konbini payments on the account.
             attr_accessor :konbini_payments
-            # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
+            # The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             attr_accessor :mcc
             # Settings for the default text that appears on statements for language variations.
             attr_accessor :script_statement_descriptor
-            # Statement descriptor.
+            # Settings for the default [statement descriptor](/connect/statement-descriptors) text.
             attr_accessor :statement_descriptor
             # Publicly available contact information for sending support issues to.
             attr_accessor :support
@@ -1035,7 +1035,7 @@ module Stripe
                     @requested = requested
                   end
                 end
-                # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 attr_accessor :stripe_transfers
 
                 def initialize(stripe_transfers: nil)
@@ -1252,9 +1252,9 @@ module Stripe
           end
           # The Customer Configuration allows the Account to be charged.
           attr_accessor :customer
-          # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
+          # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_accessor :merchant
-          # The Recipient Configuration allows the Account to receive funds.
+          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
           attr_accessor :recipient
           # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
           attr_accessor :storer
@@ -1479,7 +1479,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -1750,7 +1750,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -1785,7 +1785,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -1851,7 +1851,7 @@ module Stripe
             attr_accessor :annual_revenue
             # A document verifying the business.
             attr_accessor :documents
-            # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             attr_accessor :estimated_worker_count
             # The ID numbers of a business entity.
             attr_accessor :id_numbers
@@ -1911,7 +1911,7 @@ module Stripe
               attr_accessor :purpose
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -1966,7 +1966,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -2164,7 +2164,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -2199,7 +2199,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(

@@ -202,7 +202,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -603,7 +603,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -652,7 +652,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -762,7 +762,7 @@ module Stripe
               params(_documents: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents)).returns(T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents))
              }
             def documents=(_documents); end
-            # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             sig { returns(T.nilable(Integer)) }
             def estimated_worker_count; end
             sig { params(_estimated_worker_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -872,7 +872,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -948,7 +948,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -1235,7 +1235,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -1284,7 +1284,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -1572,14 +1572,14 @@ module Stripe
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
         # Information about the company, individual, and business represented by the Account.
-        sig { returns(V2::Core::AccountTokenCreateParams::Identity) }
+        sig { returns(T.nilable(V2::Core::AccountTokenCreateParams::Identity)) }
         def identity; end
         sig {
-          params(_identity: V2::Core::AccountTokenCreateParams::Identity).returns(V2::Core::AccountTokenCreateParams::Identity)
+          params(_identity: T.nilable(V2::Core::AccountTokenCreateParams::Identity)).returns(T.nilable(V2::Core::AccountTokenCreateParams::Identity))
          }
         def identity=(_identity); end
         sig {
-          params(contact_email: T.nilable(String), display_name: T.nilable(String), identity: V2::Core::AccountTokenCreateParams::Identity).void
+          params(contact_email: T.nilable(String), display_name: T.nilable(String), identity: T.nilable(V2::Core::AccountTokenCreateParams::Identity)).void
          }
         def initialize(contact_email: nil, display_name: nil, identity: nil); end
       end

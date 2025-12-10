@@ -37,6 +37,15 @@ module Stripe
       sig { params(height: Float, length: Float, weight: Float, width: Float).void }
       def initialize(height: nil, length: nil, weight: nil, width: nil); end
     end
+    class TaxDetails < ::Stripe::RequestParams
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      sig { returns(String) }
+      def tax_code; end
+      sig { params(_tax_code: String).returns(String) }
+      def tax_code=(_tax_code); end
+      sig { params(tax_code: String).void }
+      def initialize(tax_code: nil); end
+    end
     # Whether the product is available for purchase.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end
@@ -118,8 +127,15 @@ module Stripe
     def url; end
     sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
     def url=(_url); end
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    sig { returns(T.nilable(T.any(String, ProductUpdateParams::TaxDetails))) }
+    def tax_details; end
     sig {
-      params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), images: T.nilable(T.any(String, T::Array[String])), marketing_features: T.nilable(T.any(String, T::Array[ProductUpdateParams::MarketingFeature])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), package_dimensions: T.nilable(T.any(String, ProductUpdateParams::PackageDimensions)), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
+      params(_tax_details: T.nilable(T.any(String, ProductUpdateParams::TaxDetails))).returns(T.nilable(T.any(String, ProductUpdateParams::TaxDetails)))
+     }
+    def tax_details=(_tax_details); end
+    sig {
+      params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), images: T.nilable(T.any(String, T::Array[String])), marketing_features: T.nilable(T.any(String, T::Array[ProductUpdateParams::MarketingFeature])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), package_dimensions: T.nilable(T.any(String, ProductUpdateParams::PackageDimensions)), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String), tax_details: T.nilable(T.any(String, ProductUpdateParams::TaxDetails))).void
      }
     def initialize(
       active: nil,
@@ -135,7 +151,8 @@ module Stripe
       statement_descriptor: nil,
       tax_code: nil,
       unit_label: nil,
-      url: nil
+      url: nil,
+      tax_details: nil
     ); end
   end
 end

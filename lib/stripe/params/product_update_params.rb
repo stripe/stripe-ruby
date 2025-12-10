@@ -29,6 +29,15 @@ module Stripe
         @width = width
       end
     end
+
+    class TaxDetails < ::Stripe::RequestParams
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      attr_accessor :tax_code
+
+      def initialize(tax_code: nil)
+        @tax_code = tax_code
+      end
+    end
     # Whether the product is available for purchase.
     attr_accessor :active
     # The ID of the [Price](https://stripe.com/docs/api/prices) object that is the default price for this product.
@@ -60,6 +69,8 @@ module Stripe
     attr_accessor :unit_label
     # A URL of a publicly-accessible webpage for this product.
     attr_accessor :url
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    attr_accessor :tax_details
 
     def initialize(
       active: nil,
@@ -75,7 +86,8 @@ module Stripe
       statement_descriptor: nil,
       tax_code: nil,
       unit_label: nil,
-      url: nil
+      url: nil,
+      tax_details: nil
     )
       @active = active
       @default_price = default_price
@@ -91,6 +103,7 @@ module Stripe
       @tax_code = tax_code
       @unit_label = unit_label
       @url = url
+      @tax_details = tax_details
     end
   end
 end

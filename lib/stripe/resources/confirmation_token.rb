@@ -7,8 +7,8 @@ module Stripe
   # is successful, values present on the ConfirmationToken are written onto the Intent.
   #
   # To learn more about how to use ConfirmationToken, visit the related guides:
-  # - [Finalize payments on the server](https://stripe.com/docs/payments/finalize-payments-on-the-server)
-  # - [Build two-step confirmation](https://stripe.com/docs/payments/build-a-two-step-confirmation).
+  # - [Finalize payments on the server](https://docs.stripe.com/payments/finalize-payments-on-the-server)
+  # - [Build two-step confirmation](https://docs.stripe.com/payments/build-a-two-step-confirmation).
   class ConfirmationToken < APIResource
     OBJECT_NAME = "confirmation_token"
     def self.object_name
@@ -252,7 +252,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -428,7 +428,7 @@ module Stripe
               attr_reader :generated_card
               # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
               attr_reader :iin
-              # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+              # Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
               attr_reader :incremental_authorization_supported
               # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
               attr_reader :issuer
@@ -569,7 +569,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -592,7 +592,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -646,7 +646,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -669,7 +669,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -992,7 +992,7 @@ module Stripe
       end
 
       class Ideal < ::Stripe::StripeObject
-        # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+        # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         attr_reader :bank
         # The Bank Identifier Code of the customer's bank, if the bank was provided.
         attr_reader :bic
@@ -1797,7 +1797,7 @@ module Stripe
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_reader :state
 
         def self.inner_class_types
@@ -1845,7 +1845,7 @@ module Stripe
     attr_reader :return_url
     # Indicates that you intend to make future payments with this ConfirmationToken's payment method.
     #
-    # The presence of this property will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
+    # The presence of this property will [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
     attr_reader :setup_future_usage
     # ID of the SetupIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used.
     attr_reader :setup_intent

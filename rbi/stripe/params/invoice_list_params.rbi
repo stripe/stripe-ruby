@@ -78,7 +78,7 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # Only return invoices for the account specified by this account ID.
+    # Only return invoices for the account representing the customer specified by this account ID.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
@@ -110,7 +110,7 @@ module Stripe
     def starting_after; end
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
-    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     sig { returns(T.nilable(String)) }
     def status; end
     sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }

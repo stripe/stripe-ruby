@@ -6,9 +6,9 @@ module Stripe
     class CreditBalanceTransactionListParams < ::Stripe::RequestParams
       # The credit grant for which to fetch credit balance transactions.
       attr_accessor :credit_grant
-      # The customer for which to fetch credit balance transactions.
+      # The customer whose credit balance transactions you're retrieving.
       attr_accessor :customer
-      # The account for which to fetch credit balance transactions.
+      # The account representing the customer whose credit balance transactions you're retrieving.
       attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before

@@ -859,6 +859,8 @@ module Stripe
         AlreadyExistsError.new(error_data[:message], **opts)
       when "blocked_by_stripe"
         BlockedByStripeError.new(error_data[:message], **opts)
+      when "controlled_by_alternate_resource"
+        ControlledByAlternateResourceError.new(error_data[:message], **opts)
       when "controlled_by_dashboard"
         ControlledByDashboardError.new(error_data[:message], **opts)
       when "feature_not_enabled"

@@ -122,16 +122,16 @@ module Stripe
       attr_accessor :expand
       # The PaymentMethod to use with the requested session.
       attr_accessor :payment_method
-      # Risk details/signals associated with the requested session
-      attr_accessor :risk_details
       # The payment method data for this requested session.
       attr_accessor :payment_method_data
+      # Risk details/signals associated with the requested session
+      attr_accessor :risk_details
 
-      def initialize(expand: nil, payment_method: nil, risk_details: nil, payment_method_data: nil)
+      def initialize(expand: nil, payment_method: nil, payment_method_data: nil, risk_details: nil)
         @expand = expand
         @payment_method = payment_method
-        @risk_details = risk_details
         @payment_method_data = payment_method_data
+        @risk_details = risk_details
       end
     end
   end

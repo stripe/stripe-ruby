@@ -5,7 +5,7 @@ module Stripe
   # Balance transactions represent funds moving through your Stripe account.
   # Stripe creates them for every type of transaction that enters or leaves your Stripe account balance.
   #
-  # Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
+  # Related guide: [Balance transaction types](https://docs.stripe.com/reports/balance-transaction-types)
   class BalanceTransaction < APIResource
     extend Stripe::APIOperations::List
 

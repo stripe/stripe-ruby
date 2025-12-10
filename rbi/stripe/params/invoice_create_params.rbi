@@ -45,7 +45,7 @@ module Stripe
         sig { params(account: T.nilable(String), type: String).void }
         def initialize(account: nil, type: nil); end
       end
-      # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+      # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
       sig { returns(T::Boolean) }
       def enabled; end
       sig { params(_enabled: T::Boolean).returns(T::Boolean) }
@@ -255,7 +255,7 @@ module Stripe
           end
           # Installment configuration for payments attempted on this invoice.
           #
-          # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+          # For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
           sig {
             returns(T.nilable(InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Card::Installments))
            }
@@ -264,7 +264,7 @@ module Stripe
             params(_installments: T.nilable(InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Card::Installments)).returns(T.nilable(InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Card::Installments))
            }
           def installments=(_installments); end
-          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(T.nilable(String)) }
           def request_three_d_secure; end
           sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }
@@ -325,6 +325,35 @@ module Stripe
         end
         class IdBankTransfer < ::Stripe::RequestParams; end
         class Konbini < ::Stripe::RequestParams; end
+        class Payto < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def amount=(_amount); end
+            # The purpose for which payments are made. Has a default value based on your merchant category code.
+            sig { returns(T.nilable(String)) }
+            def purpose; end
+            sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+            def purpose=(_purpose); end
+            sig { params(amount: T.nilable(Integer), purpose: T.nilable(String)).void }
+            def initialize(amount: nil, purpose: nil); end
+          end
+          # Additional fields for Mandate creation.
+          sig {
+            returns(T.nilable(InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions))
+           }
+          def mandate_options; end
+          sig {
+            params(_mandate_options: T.nilable(InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions)).returns(T.nilable(InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions))
+           }
+          def mandate_options=(_mandate_options); end
+          sig {
+            params(mandate_options: T.nilable(InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions)).void
+           }
+          def initialize(mandate_options: nil); end
+        end
         class Pix < ::Stripe::RequestParams
           # Determines if the amount includes the IOF tax. Defaults to `never`.
           sig { returns(T.nilable(String)) }
@@ -497,6 +526,15 @@ module Stripe
           params(_konbini: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Konbini))).returns(T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
          }
         def konbini=(_konbini); end
+        # If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto)))
+         }
+        def payto; end
+        sig {
+          params(_payto: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto))).returns(T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto)))
+         }
+        def payto=(_payto); end
         # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Pix)))
@@ -534,7 +572,7 @@ module Stripe
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), pix: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+          params(acss_debit: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(
           acss_debit: nil,
@@ -543,6 +581,7 @@ module Stripe
           customer_balance: nil,
           id_bank_transfer: nil,
           konbini: nil,
+          payto: nil,
           pix: nil,
           sepa_debit: nil,
           upi: nil,
@@ -734,7 +773,7 @@ module Stripe
           params(_fixed_amount: T.nilable(InvoiceCreateParams::ShippingCost::ShippingRateData::FixedAmount)).returns(T.nilable(InvoiceCreateParams::ShippingCost::ShippingRateData::FixedAmount))
          }
         def fixed_amount=(_fixed_amount); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -746,7 +785,7 @@ module Stripe
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
         def tax_behavior=(_tax_behavior); end
-        # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
         sig { returns(T.nilable(String)) }
         def tax_code; end
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -813,7 +852,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -880,12 +919,12 @@ module Stripe
       params(_amounts_due: T.nilable(T.any(String, T::Array[InvoiceCreateParams::AmountsDue]))).returns(T.nilable(T.any(String, T::Array[InvoiceCreateParams::AmountsDue])))
      }
     def amounts_due=(_amounts_due); end
-    # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
+    # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://docs.stripe.com/billing/invoices/connect#collecting-fees).
     sig { returns(T.nilable(Integer)) }
     def application_fee_amount; end
     sig { params(_application_fee_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def application_fee_amount=(_application_fee_amount); end
-    # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
+    # Controls whether Stripe performs [automatic collection](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
     sig { returns(T.nilable(T::Boolean)) }
     def auto_advance; end
     sig { params(_auto_advance: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -919,12 +958,12 @@ module Stripe
       params(_custom_fields: T.nilable(T.any(String, T::Array[InvoiceCreateParams::CustomField]))).returns(T.nilable(T.any(String, T::Array[InvoiceCreateParams::CustomField])))
      }
     def custom_fields=(_custom_fields); end
-    # The ID of the customer who will be billed.
+    # The ID of the customer to bill.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # The ID of the account who will be billed.
+    # The ID of the account to bill.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
@@ -990,7 +1029,7 @@ module Stripe
     def footer; end
     sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
     def footer=(_footer); end
-    # Revise an existing invoice. The new invoice will be created in `status=draft`. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
+    # Revise an existing invoice. The new invoice will be created in `status=draft`. See the [revision documentation](https://docs.stripe.com/invoicing/invoice-revisions) for more details.
     sig { returns(T.nilable(InvoiceCreateParams::FromInvoice)) }
     def from_invoice; end
     sig {
@@ -1004,7 +1043,7 @@ module Stripe
       params(_issuer: T.nilable(InvoiceCreateParams::Issuer)).returns(T.nilable(InvoiceCreateParams::Issuer))
      }
     def issuer=(_issuer); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -1016,7 +1055,7 @@ module Stripe
     def number; end
     sig { params(_number: T.nilable(String)).returns(T.nilable(String)) }
     def number=(_number); end
-    # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
+    # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://docs.stripe.com/billing/invoices/connect) documentation for details.
     sig { returns(T.nilable(String)) }
     def on_behalf_of; end
     sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }

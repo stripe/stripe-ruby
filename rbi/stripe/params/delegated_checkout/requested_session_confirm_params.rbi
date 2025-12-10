@@ -195,13 +195,6 @@ module Stripe
       def payment_method; end
       sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
       def payment_method=(_payment_method); end
-      # Risk details/signals associated with the requested session
-      sig { returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)) }
-      def risk_details; end
-      sig {
-        params(_risk_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
-       }
-      def risk_details=(_risk_details); end
       # The payment method data for this requested session.
       sig {
         returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData))
@@ -211,14 +204,21 @@ module Stripe
         params(_payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData))
        }
       def payment_method_data=(_payment_method_data); end
+      # Risk details/signals associated with the requested session
+      sig { returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)) }
+      def risk_details; end
       sig {
-        params(expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), risk_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails), payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData)).void
+        params(_risk_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
+       }
+      def risk_details=(_risk_details); end
+      sig {
+        params(expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData), risk_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
        }
       def initialize(
         expand: nil,
         payment_method: nil,
-        risk_details: nil,
-        payment_method_data: nil
+        payment_method_data: nil,
+        risk_details: nil
       ); end
     end
   end

@@ -113,7 +113,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1636,7 +1636,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1835,12 +1835,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
-          # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2026,7 +2026,7 @@ module Stripe
     end
     class Controller < ::Stripe::RequestParams
       class Application < ::Stripe::RequestParams
-        # Whether the controller is liable for losses on this account. For details, see [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
+        # Whether the controller is liable for losses on this account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
         sig { returns(T::Boolean) }
         def loss_liable; end
         sig { params(_loss_liable: T::Boolean).returns(T::Boolean) }
@@ -2136,7 +2136,7 @@ module Stripe
     end
     class Documents < ::Stripe::RequestParams
       class BankAccountOwnershipVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2145,7 +2145,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyLicense < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2154,7 +2154,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2163,7 +2163,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyMinisterialDecree < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2172,7 +2172,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyRegistrationVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2181,7 +2181,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyTaxIdVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2190,7 +2190,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class ProofOfAddress < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2199,22 +2199,60 @@ module Stripe
         def initialize(files: nil); end
       end
       class ProofOfRegistration < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        class Signer < ::Stripe::RequestParams
+          # The token of the person signing the document, if applicable.
+          sig { returns(T.nilable(String)) }
+          def person; end
+          sig { params(_person: T.nilable(String)).returns(T.nilable(String)) }
+          def person=(_person); end
+          sig { params(person: T.nilable(String)).void }
+          def initialize(person: nil); end
+        end
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        sig { params(files: T.nilable(T::Array[String])).void }
-        def initialize(files: nil); end
+        # Attribute for param field signer
+        sig { returns(T.nilable(AccountCreateParams::Documents::ProofOfRegistration::Signer)) }
+        def signer; end
+        sig {
+          params(_signer: T.nilable(AccountCreateParams::Documents::ProofOfRegistration::Signer)).returns(T.nilable(AccountCreateParams::Documents::ProofOfRegistration::Signer))
+         }
+        def signer=(_signer); end
+        sig {
+          params(files: T.nilable(T::Array[String]), signer: T.nilable(AccountCreateParams::Documents::ProofOfRegistration::Signer)).void
+         }
+        def initialize(files: nil, signer: nil); end
       end
       class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        class Signer < ::Stripe::RequestParams
+          # The token of the person signing the document, if applicable.
+          sig { returns(T.nilable(String)) }
+          def person; end
+          sig { params(_person: T.nilable(String)).returns(T.nilable(String)) }
+          def person=(_person); end
+          sig { params(person: T.nilable(String)).void }
+          def initialize(person: nil); end
+        end
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        sig { params(files: T.nilable(T::Array[String])).void }
-        def initialize(files: nil); end
+        # Attribute for param field signer
+        sig {
+          returns(T.nilable(AccountCreateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+         }
+        def signer; end
+        sig {
+          params(_signer: T.nilable(AccountCreateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer)).returns(T.nilable(AccountCreateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+         }
+        def signer=(_signer); end
+        sig {
+          params(files: T.nilable(T::Array[String]), signer: T.nilable(AccountCreateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer)).void
+         }
+        def initialize(files: nil, signer: nil); end
       end
       # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
       sig { returns(T.nilable(AccountCreateParams::Documents::BankAccountOwnershipVerification)) }
@@ -2295,7 +2333,7 @@ module Stripe
       ); end
     end
     class Groups < ::Stripe::RequestParams
-      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://docs.stripe.com/connect/platform-pricing-tools) for details.
       sig { returns(T.nilable(String)) }
       def payments_pricing; end
       sig { params(_payments_pricing: T.nilable(String)).returns(T.nilable(String)) }
@@ -2330,7 +2368,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -2490,7 +2528,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -2576,12 +2614,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2590,12 +2628,12 @@ module Stripe
           def initialize(back: nil, front: nil); end
         end
         class Document < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2714,7 +2752,7 @@ module Stripe
       def maiden_name; end
       sig { params(_maiden_name: T.nilable(String)).returns(T.nilable(String)) }
       def maiden_name=(_maiden_name); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {
@@ -2823,14 +2861,14 @@ module Stripe
         sig { params(pause_requested: T.nilable(T::Boolean)).void }
         def initialize(pause_requested: nil); end
       end
-      # Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+      # Represents the risk control status of charges. Please see [this page for more details](https://docs.stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
       sig { returns(T.nilable(AccountCreateParams::RiskControls::Charges)) }
       def charges; end
       sig {
         params(_charges: T.nilable(AccountCreateParams::RiskControls::Charges)).returns(T.nilable(AccountCreateParams::RiskControls::Charges))
        }
       def charges=(_charges); end
-      # Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+      # Represents the risk control status of payouts. Please see [this page for more details](https://docs.stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
       sig { returns(T.nilable(AccountCreateParams::RiskControls::Payouts)) }
       def payouts; end
       sig {
@@ -3291,7 +3329,7 @@ module Stripe
        }
       def initialize(date: nil, ip: nil, service_agreement: nil, user_agent: nil); end
     end
-    # An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
+    # An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
     sig { returns(T.nilable(String)) }
     def account_token; end
     sig { params(_account_token: T.nilable(String)).returns(T.nilable(String)) }
@@ -3386,7 +3424,7 @@ module Stripe
       params(_individual: T.nilable(AccountCreateParams::Individual)).returns(T.nilable(AccountCreateParams::Individual))
      }
     def individual=(_individual); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {

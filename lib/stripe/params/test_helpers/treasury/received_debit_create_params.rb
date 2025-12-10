@@ -62,7 +62,7 @@ module Stripe
         attr_accessor :financial_account
         # Initiating payment method details for the object.
         attr_accessor :initiating_payment_method_details
-        # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+        # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         attr_accessor :network
         # Details about the network used for the ReceivedDebit.
         attr_accessor :network_details

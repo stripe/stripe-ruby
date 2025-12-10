@@ -5,7 +5,7 @@
 module Stripe
   # Subscriptions allow you to charge a customer on a recurring basis.
   #
-  # Related guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
+  # Related guide: [Creating subscriptions](https://docs.stripe.com/billing/subscriptions/creating)
   class Subscription < APIResource
     class AutomaticTax < ::Stripe::StripeObject
       class Liability < ::Stripe::StripeObject
@@ -340,7 +340,7 @@ module Stripe
           # Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
           sig { returns(T.nilable(String)) }
           def network; end
-          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(T.nilable(String)) }
           def request_three_d_secure; end
           def self.inner_class_types
@@ -400,6 +400,34 @@ module Stripe
         class Konbini < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Payto < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Only `maximum` is supported.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # The purpose for which payments are made. Has a default value based on your merchant category code.
+            sig { returns(T.nilable(String)) }
+            def purpose; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -538,6 +566,9 @@ module Stripe
         # This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Konbini)) }
         def konbini; end
+        # This sub-hash contains details about the PayTo payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Payto)) }
+        def payto; end
         # This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Pix)) }
         def pix; end
@@ -558,6 +589,7 @@ module Stripe
             customer_balance: CustomerBalance,
             id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
+            payto: Payto,
             pix: Pix,
             sepa_debit: SepaDebit,
             upi: Upi,
@@ -614,7 +646,7 @@ module Stripe
       # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
       sig { returns(T.nilable(Integer)) }
       def trial_end; end
-      # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+      # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
       sig { returns(T.nilable(T::Boolean)) }
       def trial_from_plan; end
       def self.inner_class_types
@@ -692,7 +724,7 @@ module Stripe
     # The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
     sig { returns(T.nilable(String)) }
     def billing_cadence; end
-    # The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
+    # The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     sig { returns(Integer) }
     def billing_cycle_anchor; end
     # The fixed values used to calculate the `billing_cycle_anchor`.
@@ -731,16 +763,16 @@ module Stripe
     # ID of the customer who owns the subscription.
     sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
-    # ID of the account who owns the subscription.
+    # ID of the account representing the customer who owns the subscription.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     # Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`.
     sig { returns(T.nilable(Integer)) }
     def days_until_due; end
-    # ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).
+    # ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://docs.stripe.com/api/customers/object#customer_object-default_source).
     sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
     def default_payment_method; end
-    # ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).
+    # ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://docs.stripe.com/api/customers/object#customer_object-default_source).
     sig {
       returns(T.nilable(T.any(String, T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source))))
      }
@@ -775,7 +807,7 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
     # Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`.
@@ -784,22 +816,22 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # The account (if any) the charge was made on behalf of for charges associated with this subscription. See the [Connect documentation](https://stripe.com/docs/connect/subscriptions#on-behalf-of) for details.
+    # The account (if any) the charge was made on behalf of for charges associated with this subscription. See the [Connect documentation](https://docs.stripe.com/connect/subscriptions#on-behalf-of) for details.
     sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
-    # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+    # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     sig { returns(T.nilable(PauseCollection)) }
     def pause_collection; end
     # Payment settings passed on to invoices created by the subscription.
     sig { returns(T.nilable(PaymentSettings)) }
     def payment_settings; end
-    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
+    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
     sig { returns(T.nilable(PendingInvoiceItemInterval)) }
     def pending_invoice_item_interval; end
-    # You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2).
+    # You can use this [SetupIntent](https://docs.stripe.com/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://docs.stripe.com/billing/migration/strong-customer-authentication#scenario-2).
     sig { returns(T.nilable(T.any(String, ::Stripe::SetupIntent))) }
     def pending_setup_intent; end
-    # If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
+    # If specified, [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
     sig { returns(T.nilable(PendingUpdate)) }
     def pending_update; end
     # Time period and invoice for a Subscription billed in advance.
@@ -817,7 +849,7 @@ module Stripe
     #
     # A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
     #
-    # A subscription can only enter a `paused` status [when a trial ends without a payment method](https://stripe.com/docs/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+    # A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
     #
     # If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
     #

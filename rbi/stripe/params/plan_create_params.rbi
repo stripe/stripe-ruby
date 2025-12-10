@@ -15,7 +15,7 @@ module Stripe
       def id; end
       sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
       def id=(_id); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -34,7 +34,7 @@ module Stripe
       def statement_descriptor; end
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor=(_statement_descriptor); end
-      # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
       sig { returns(T.nilable(String)) }
       def tax_code; end
       sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -153,7 +153,7 @@ module Stripe
     def interval_count; end
     sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def interval_count=(_interval_count); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -196,7 +196,7 @@ module Stripe
       params(_transform_usage: T.nilable(PlanCreateParams::TransformUsage)).returns(T.nilable(PlanCreateParams::TransformUsage))
      }
     def transform_usage=(_transform_usage); end
-    # Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
+    # Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://docs.stripe.com/api#create_subscription-trial_from_plan).
     sig { returns(T.nilable(Integer)) }
     def trial_period_days; end
     sig { params(_trial_period_days: T.nilable(Integer)).returns(T.nilable(Integer)) }

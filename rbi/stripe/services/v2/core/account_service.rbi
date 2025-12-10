@@ -27,16 +27,12 @@ module Stripe
         def list(params = {}, opts = {}); end
 
         # Retrieves the details of an Account.
-        #
-        # ** raises RateLimitError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }
         def retrieve(id, params = {}, opts = {}); end
 
         # Updates the details of an Account.
-        #
-        # ** raises RateLimitError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }

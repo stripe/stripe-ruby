@@ -709,6 +709,8 @@ module Stripe
       attr_accessor :capital_financing_promotion
       # Configuration for the [Capital overview](/connect/supported-embedded-components/capital-overview/) embedded component.
       attr_accessor :capital_overview
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      attr_accessor :check_scanning
       # Configuration for the [disputes list](/connect/supported-embedded-components/disputes-list/) embedded component.
       attr_accessor :disputes_list
       # Configuration for the [documents](/connect/supported-embedded-components/documents/) embedded component.
@@ -753,8 +755,6 @@ module Stripe
       attr_accessor :tax_settings
       # Configuration for the [tax threshold monitoring](/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
       attr_accessor :tax_threshold_monitoring
-      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
-      attr_accessor :check_scanning
 
       def initialize(
         account_management: nil,
@@ -766,6 +766,7 @@ module Stripe
         capital_financing_application: nil,
         capital_financing_promotion: nil,
         capital_overview: nil,
+        check_scanning: nil,
         disputes_list: nil,
         documents: nil,
         export_tax_transactions: nil,
@@ -787,8 +788,7 @@ module Stripe
         reporting_chart: nil,
         tax_registrations: nil,
         tax_settings: nil,
-        tax_threshold_monitoring: nil,
-        check_scanning: nil
+        tax_threshold_monitoring: nil
       )
         @account_management = account_management
         @account_onboarding = account_onboarding
@@ -799,6 +799,7 @@ module Stripe
         @capital_financing_application = capital_financing_application
         @capital_financing_promotion = capital_financing_promotion
         @capital_overview = capital_overview
+        @check_scanning = check_scanning
         @disputes_list = disputes_list
         @documents = documents
         @export_tax_transactions = export_tax_transactions
@@ -821,7 +822,6 @@ module Stripe
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings
         @tax_threshold_monitoring = tax_threshold_monitoring
-        @check_scanning = check_scanning
       end
     end
     # The identifier of the account to create an Account Session for.

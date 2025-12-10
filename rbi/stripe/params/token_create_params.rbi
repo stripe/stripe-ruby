@@ -32,7 +32,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -231,12 +231,12 @@ module Stripe
         end
         class Verification < ::Stripe::RequestParams
           class Document < ::Stripe::RequestParams
-            # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
             sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
             def back=(_back); end
-            # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def front; end
             sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -457,7 +457,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -617,7 +617,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -703,12 +703,12 @@ module Stripe
         end
         class Verification < ::Stripe::RequestParams
           class AdditionalDocument < ::Stripe::RequestParams
-            # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
             sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
             def back=(_back); end
-            # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def front; end
             sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -717,12 +717,12 @@ module Stripe
             def initialize(back: nil, front: nil); end
           end
           class Document < ::Stripe::RequestParams
-            # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
             sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
             def back=(_back); end
-            # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def front; end
             sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -841,7 +841,7 @@ module Stripe
         def maiden_name; end
         sig { params(_maiden_name: T.nilable(String)).returns(T.nilable(String)) }
         def maiden_name=(_maiden_name); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         def metadata; end
         sig {
@@ -991,7 +991,7 @@ module Stripe
       def country; end
       sig { params(_country: String).returns(String) }
       def country=(_country); end
-      # The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](https://stripe.com/docs/payouts)
+      # The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](https://docs.stripe.com/payouts)
       sig { returns(T.nilable(String)) }
       def currency; end
       sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
@@ -1186,7 +1186,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1322,7 +1322,7 @@ module Stripe
       end
       class Documents < ::Stripe::RequestParams
         class CompanyAuthorization < ::Stripe::RequestParams
-          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
           sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1331,7 +1331,7 @@ module Stripe
           def initialize(files: nil); end
         end
         class Passport < ::Stripe::RequestParams
-          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
           sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1340,7 +1340,7 @@ module Stripe
           def initialize(files: nil); end
         end
         class Visa < ::Stripe::RequestParams
-          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
           sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1400,7 +1400,7 @@ module Stripe
         def postal_code; end
         sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def postal_code=(_postal_code); end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1561,12 +1561,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -1575,12 +1575,12 @@ module Stripe
           def initialize(back: nil, front: nil); end
         end
         class Document < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -1711,7 +1711,7 @@ module Stripe
       def maiden_name; end
       sig { params(_maiden_name: T.nilable(String)).returns(T.nilable(String)) }
       def maiden_name=(_maiden_name); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {
@@ -1845,7 +1845,7 @@ module Stripe
       params(_card: T.nilable(T.any(TokenCreateParams::Card, String))).returns(T.nilable(T.any(TokenCreateParams::Card, String)))
      }
     def card=(_card); end
-    # Create a token for the customer, which is owned by the application's account. You can only use this with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). Learn more about [cloning saved payment methods](https://stripe.com/docs/connect/cloning-saved-payment-methods).
+    # Create a token for the customer, which is owned by the application's account. You can only use this with an [OAuth access token](https://docs.stripe.com/connect/standard-accounts) or [Stripe-Account header](https://docs.stripe.com/connect/authentication). Learn more about [cloning saved payment methods](https://docs.stripe.com/connect/cloning-saved-payment-methods).
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }

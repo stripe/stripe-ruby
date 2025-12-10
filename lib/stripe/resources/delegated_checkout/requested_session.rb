@@ -190,6 +190,10 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The total discount for this line item. If no discount were applied, defaults to 0.
+        attr_reader :amount_discount
+        # The total before any discounts or taxes are applied.
+        attr_reader :amount_subtotal
         # The description of the line item.
         attr_reader :description
         # The images of the line item.
@@ -198,18 +202,14 @@ module Stripe
         attr_reader :key
         # The name of the line item.
         attr_reader :name
+        # Attribute for field product_details
+        attr_reader :product_details
         # The quantity of the line item.
         attr_reader :quantity
         # The SKU ID of the line item.
         attr_reader :sku_id
         # The per-unit amount of the item before any discounts or taxes are applied.
         attr_reader :unit_amount
-        # The total discount for this line item. If no discount were applied, defaults to 0.
-        attr_reader :amount_discount
-        # The total before any discounts or taxes are applied.
-        attr_reader :amount_subtotal
-        # Attribute for field product_details
-        attr_reader :product_details
 
         def self.inner_class_types
           @inner_class_types = { product_details: ProductDetails }
@@ -336,14 +336,14 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount fulfillment of the total details.
-        attr_reader :amount_fulfillment
-        # The amount tax of the total details.
-        attr_reader :amount_tax
         # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         attr_reader :amount_cart_discount
+        # The amount fulfillment of the total details.
+        attr_reader :amount_fulfillment
         # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         attr_reader :amount_items_discount
+        # The amount tax of the total details.
+        attr_reader :amount_tax
         # The applicable fees of the total details.
         attr_reader :applicable_fees
 

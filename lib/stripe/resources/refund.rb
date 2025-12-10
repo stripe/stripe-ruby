@@ -6,7 +6,7 @@ module Stripe
   # refunded yet. Funds are refunded to the credit or debit card that's
   # initially charged.
   #
-  # Related guide: [Refunds](https://stripe.com/docs/refunds)
+  # Related guide: [Refunds](https://docs.stripe.com/refunds)
   class Refund < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -661,7 +661,7 @@ module Stripe
     attr_reader :id
     # For payment methods without native refund support (for example, Konbini, PromptPay), provide an email address for the customer to receive refund instructions.
     attr_reader :instructions_email
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Attribute for field next_action
     attr_reader :next_action
@@ -679,7 +679,7 @@ module Stripe
     attr_reader :receipt_number
     # The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.
     attr_reader :source_transfer_reversal
-    # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://stripe.com/docs/refunds#failed-refunds).
+    # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://docs.stripe.com/refunds#failed-refunds).
     attr_reader :status
     # This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.
     attr_reader :transfer_reversal

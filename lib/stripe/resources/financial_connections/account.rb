@@ -16,9 +16,9 @@ module Stripe
       nested_resource_class_methods :inferred_balance, operations: %i[list]
 
       class AccountHolder < ::Stripe::StripeObject
-        # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        # The ID of the Stripe account that this account belongs to. Only available when `account_holder.type` is `account`.
         attr_reader :account
-        # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        # The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         attr_reader :customer
         # Attribute for field customer_account
         attr_reader :customer_account
@@ -233,7 +233,7 @@ module Stripe
       attr_reader :subcategory
       # The list of data refresh subscriptions requested on this account.
       attr_reader :subscriptions
-      # The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
+      # The [PaymentMethod type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
       attr_reader :supported_payment_method_types
       # The state of the most recent attempt to refresh the account transactions.
       attr_reader :transaction_refresh

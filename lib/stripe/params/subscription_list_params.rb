@@ -75,9 +75,9 @@ module Stripe
     attr_accessor :current_period_end
     # Only return subscriptions whose maximum item current_period_start falls within the given date interval.
     attr_accessor :current_period_start
-    # The ID of the customer whose subscriptions will be retrieved.
+    # The ID of the customer whose subscriptions you're retrieving.
     attr_accessor :customer
-    # The ID of the account whose subscriptions will be retrieved.
+    # The ID of the account representing the customer whose subscriptions you're retrieving.
     attr_accessor :customer_account
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     attr_accessor :ending_before
@@ -91,7 +91,7 @@ module Stripe
     attr_accessor :price
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     attr_accessor :starting_after
-    # The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://stripe.com/docs/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
+    # The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://docs.stripe.com/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
     attr_accessor :status
     # Filter for subscriptions that are associated with the specified test clock. The response will not include subscriptions with test clocks if this and the customer parameter is not set.
     attr_accessor :test_clock

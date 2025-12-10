@@ -34,7 +34,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -110,7 +110,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -152,7 +152,7 @@ module Stripe
     attr_accessor :guaranteed
     # When the reported payment was initiated. Measured in seconds since the Unix epoch.
     attr_accessor :initiated_at
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The outcome of the reported payment.
     attr_accessor :outcome

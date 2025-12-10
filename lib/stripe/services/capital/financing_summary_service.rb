@@ -4,7 +4,7 @@
 module Stripe
   module Capital
     class FinancingSummaryService < StripeService
-      # Retrieve the financing state for the account that was authenticated in the request.
+      # Retrieve the financing summary object for the account.
       def retrieve(params = {}, opts = {})
         request(
           method: :get,

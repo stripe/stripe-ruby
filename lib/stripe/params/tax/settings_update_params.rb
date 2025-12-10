@@ -7,7 +7,7 @@ module Stripe
       class Defaults < ::Stripe::RequestParams
         # Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
         attr_accessor :tax_behavior
-        # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
         attr_accessor :tax_code
 
         def initialize(tax_behavior: nil, tax_code: nil)

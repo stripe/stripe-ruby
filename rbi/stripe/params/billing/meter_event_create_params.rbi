@@ -20,7 +20,7 @@ module Stripe
       def identifier; end
       sig { params(_identifier: T.nilable(String)).returns(T.nilable(String)) }
       def identifier=(_identifier); end
-      # The payload of the event. This must contain the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides).
+      # The payload of the event. This must contain the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/meters/configure#meter-configuration-attributes).
       sig { returns(T::Hash[String, String]) }
       def payload; end
       sig { params(_payload: T::Hash[String, String]).returns(T::Hash[String, String]) }

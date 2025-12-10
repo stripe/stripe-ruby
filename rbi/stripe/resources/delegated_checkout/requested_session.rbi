@@ -193,6 +193,12 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The total discount for this line item. If no discount were applied, defaults to 0.
+        sig { returns(Integer) }
+        def amount_discount; end
+        # The total before any discounts or taxes are applied.
+        sig { returns(Integer) }
+        def amount_subtotal; end
         # The description of the line item.
         sig { returns(T.nilable(String)) }
         def description; end
@@ -205,6 +211,9 @@ module Stripe
         # The name of the line item.
         sig { returns(String) }
         def name; end
+        # Attribute for field product_details
+        sig { returns(T.nilable(ProductDetails)) }
+        def product_details; end
         # The quantity of the line item.
         sig { returns(Integer) }
         def quantity; end
@@ -214,15 +223,6 @@ module Stripe
         # The per-unit amount of the item before any discounts or taxes are applied.
         sig { returns(Integer) }
         def unit_amount; end
-        # The total discount for this line item. If no discount were applied, defaults to 0.
-        sig { returns(Integer) }
-        def amount_discount; end
-        # The total before any discounts or taxes are applied.
-        sig { returns(Integer) }
-        def amount_subtotal; end
-        # Attribute for field product_details
-        sig { returns(T.nilable(ProductDetails)) }
-        def product_details; end
         def self.inner_class_types
           @inner_class_types = {product_details: ProductDetails}
         end
@@ -350,18 +350,18 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount fulfillment of the total details.
-        sig { returns(T.nilable(Integer)) }
-        def amount_fulfillment; end
-        # The amount tax of the total details.
-        sig { returns(T.nilable(Integer)) }
-        def amount_tax; end
         # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         sig { returns(T.nilable(Integer)) }
         def amount_cart_discount; end
+        # The amount fulfillment of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_fulfillment; end
         # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         sig { returns(T.nilable(Integer)) }
         def amount_items_discount; end
+        # The amount tax of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_tax; end
         # The applicable fees of the total details.
         sig { returns(T.nilable(T::Array[ApplicableFee])) }
         def applicable_fees; end

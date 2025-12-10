@@ -236,6 +236,7 @@ module Stripe
         V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
         V2::FinancialAddressGeneratedMicrodeposits.object_name =>
         V2::FinancialAddressGeneratedMicrodeposits,
+        V2::Iam::ApiKey.object_name => V2::Iam::ApiKey,
         V2::MoneyManagement::Adjustment.object_name => V2::MoneyManagement::Adjustment,
         V2::MoneyManagement::CurrencyConversion.object_name => V2::MoneyManagement::CurrencyConversion,
         V2::MoneyManagement::FinancialAccount.object_name => V2::MoneyManagement::FinancialAccount,
@@ -255,8 +256,12 @@ module Stripe
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Payments::OffSessionPayment.object_name => V2::Payments::OffSessionPayment,
+        V2::Payments::SettlementAllocationIntent.object_name => V2::Payments::SettlementAllocationIntent,
+        V2::Payments::SettlementAllocationIntentSplit.object_name =>
+        V2::Payments::SettlementAllocationIntentSplit,
         V2::Reporting::Report.object_name => V2::Reporting::Report,
         V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
+        V2::Tax::ManualRule.object_name => V2::Tax::ManualRule,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

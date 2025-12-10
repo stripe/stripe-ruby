@@ -66,17 +66,6 @@ module Stripe
           end
         end
         class Deactivate < ::Stripe::StripeObject
-          class BillingDetails < ::Stripe::StripeObject
-            # This controls the proration adjustment for the partial servicing period.
-            sig { returns(T.nilable(String)) }
-            def proration_behavior; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
@@ -92,19 +81,58 @@ module Stripe
             end
           end
           class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class Overrides < ::Stripe::StripeObject
+              class PartialPeriodBehavior < ::Stripe::StripeObject
+                class LicenseFee < ::Stripe::StripeObject
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                  sig { returns(String) }
+                  def credit_proration_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Type of the partial period behavior override.
+                sig { returns(String) }
+                def type; end
+                # Override for the license fee.
+                sig { returns(T.nilable(LicenseFee)) }
+                def license_fee; end
+                def self.inner_class_types
+                  @inner_class_types = {license_fee: LicenseFee}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Override for the partial period behavior.
+              sig { returns(T::Array[PartialPeriodBehavior]) }
+              def partial_period_behaviors; end
+              def self.inner_class_types
+                @inner_class_types = {partial_period_behaviors: PartialPeriodBehavior}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Allows users to override the partial period behavior.
+            sig { returns(T.nilable(Overrides)) }
+            def overrides; end
             # ID of the Pricing Plan Subscription to deactivate.
             sig { returns(String) }
             def pricing_plan_subscription; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {overrides: Overrides}
             end
             def self.field_remappings
               @field_remappings = {}
             end
           end
-          # Configuration for the billing details.
-          sig { returns(BillingDetails) }
-          def billing_details; end
+          # Allows users to override the collect at behavior.
+          sig { returns(String) }
+          def collect_at; end
           # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
@@ -116,7 +144,6 @@ module Stripe
           def pricing_plan_subscription_details; end
           def self.inner_class_types
             @inner_class_types = {
-              billing_details: BillingDetails,
               effective_at: EffectiveAt,
               pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
             }
@@ -126,17 +153,6 @@ module Stripe
           end
         end
         class Modify < ::Stripe::StripeObject
-          class BillingDetails < ::Stripe::StripeObject
-            # This controls the proration adjustment for the partial servicing period.
-            sig { returns(T.nilable(String)) }
-            def proration_behavior; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the modify action will take effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
@@ -169,6 +185,45 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class Overrides < ::Stripe::StripeObject
+              class PartialPeriodBehavior < ::Stripe::StripeObject
+                class LicenseFee < ::Stripe::StripeObject
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                  sig { returns(String) }
+                  def credit_proration_behavior; end
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                  sig { returns(String) }
+                  def debit_proration_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Type of the partial period behavior override.
+                sig { returns(String) }
+                def type; end
+                # Override for the license fee.
+                sig { returns(T.nilable(LicenseFee)) }
+                def license_fee; end
+                def self.inner_class_types
+                  @inner_class_types = {license_fee: LicenseFee}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Override for the partial period behavior.
+              sig { returns(T::Array[PartialPeriodBehavior]) }
+              def partial_period_behaviors; end
+              def self.inner_class_types
+                @inner_class_types = {partial_period_behaviors: PartialPeriodBehavior}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # New configurations for the components of the Pricing Plan.
             sig { returns(T::Array[ComponentConfiguration]) }
             def component_configurations; end
@@ -178,19 +233,25 @@ module Stripe
             # Version of the Pricing Plan to use.
             sig { returns(String) }
             def new_pricing_plan_version; end
+            # Allows users to override the partial period behavior.
+            sig { returns(T.nilable(Overrides)) }
+            def overrides; end
             # ID of the Pricing Plan Subscription to modify.
             sig { returns(String) }
             def pricing_plan_subscription; end
             def self.inner_class_types
-              @inner_class_types = {component_configurations: ComponentConfiguration}
+              @inner_class_types = {
+                component_configurations: ComponentConfiguration,
+                overrides: Overrides,
+              }
             end
             def self.field_remappings
               @field_remappings = {}
             end
           end
-          # Configuration for the billing details.
-          sig { returns(BillingDetails) }
-          def billing_details; end
+          # Allows users to override the collect at behavior.
+          sig { returns(String) }
+          def collect_at; end
           # When the modify action will take effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
@@ -202,7 +263,6 @@ module Stripe
           def pricing_plan_subscription_details; end
           def self.inner_class_types
             @inner_class_types = {
-              billing_details: BillingDetails,
               effective_at: EffectiveAt,
               pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
             }
@@ -226,17 +286,6 @@ module Stripe
           end
         end
         class Subscribe < ::Stripe::StripeObject
-          class BillingDetails < ::Stripe::StripeObject
-            # This controls the proration adjustment for the partial servicing period.
-            sig { returns(T.nilable(String)) }
-            def proration_behavior; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
@@ -269,12 +318,51 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class Overrides < ::Stripe::StripeObject
+              class PartialPeriodBehavior < ::Stripe::StripeObject
+                class LicenseFee < ::Stripe::StripeObject
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                  sig { returns(String) }
+                  def debit_proration_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Type of the partial period behavior override.
+                sig { returns(String) }
+                def type; end
+                # Override for the license fee.
+                sig { returns(T.nilable(LicenseFee)) }
+                def license_fee; end
+                def self.inner_class_types
+                  @inner_class_types = {license_fee: LicenseFee}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Override for the partial period behavior.
+              sig { returns(T::Array[PartialPeriodBehavior]) }
+              def partial_period_behaviors; end
+              def self.inner_class_types
+                @inner_class_types = {partial_period_behaviors: PartialPeriodBehavior}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Configurations for the components of the Pricing Plan.
             sig { returns(T::Array[ComponentConfiguration]) }
             def component_configurations; end
             # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             sig { returns(T.nilable(T::Hash[String, String])) }
             def metadata; end
+            # Allows users to override the partial period behavior.
+            sig { returns(T.nilable(Overrides)) }
+            def overrides; end
             # ID of the Pricing Plan to subscribe to.
             sig { returns(String) }
             def pricing_plan; end
@@ -285,7 +373,10 @@ module Stripe
             sig { returns(String) }
             def pricing_plan_version; end
             def self.inner_class_types
-              @inner_class_types = {component_configurations: ComponentConfiguration}
+              @inner_class_types = {
+                component_configurations: ComponentConfiguration,
+                overrides: Overrides,
+              }
             end
             def self.field_remappings
               @field_remappings = {}
@@ -326,9 +417,9 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Configuration for the billing details. If not specified, see the default behavior for individual attributes.
-          sig { returns(BillingDetails) }
-          def billing_details; end
+          # Allows users to override the collect at behavior.
+          sig { returns(String) }
+          def collect_at; end
           # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
@@ -343,7 +434,6 @@ module Stripe
           def v1_subscription_details; end
           def self.inner_class_types
             @inner_class_types = {
-              billing_details: BillingDetails,
               effective_at: EffectiveAt,
               pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
               v1_subscription_details: V1SubscriptionDetails,

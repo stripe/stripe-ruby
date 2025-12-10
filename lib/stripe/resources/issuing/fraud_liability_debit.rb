@@ -14,7 +14,7 @@ module Stripe
 
       # Debited amount. This is equal to the disputed amount and is given in the card’s currency and in the smallest currency unit.
       attr_reader :amount
-      # ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this debit.
+      # ID of the [balance transaction](https://docs.stripe.com/api/balance_transactions) associated with this debit.
       attr_reader :balance_transaction
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created

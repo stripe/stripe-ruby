@@ -28,11 +28,13 @@ module Stripe
       end
     end
 
-    class Trial < ::Stripe::StripeObject
-      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
-      attr_reader :converts_to
-      # Determines the type of trial for this item.
-      attr_reader :type
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      attr_reader :end_date
+      # Attribute for field start_date
+      attr_reader :start_date
+      # Attribute for field trial_offer
+      attr_reader :trial_offer
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -43,13 +45,11 @@ module Stripe
       end
     end
 
-    class CurrentTrial < ::Stripe::StripeObject
-      # Attribute for field end_date
-      attr_reader :end_date
-      # Attribute for field start_date
-      attr_reader :start_date
-      # Attribute for field trial_offer
-      attr_reader :trial_offer
+    class Trial < ::Stripe::StripeObject
+      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+      attr_reader :converts_to
+      # Determines the type of trial for this item.
+      attr_reader :type
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -69,31 +69,33 @@ module Stripe
     attr_reader :current_period_end
     # The start time of this subscription item's current billing period.
     attr_reader :current_period_start
+    # The current trial that is applied to this subscription item.
+    attr_reader :current_trial
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # Unique identifier for the object.
     attr_reader :id
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    # You can now model subscriptions more flexibly using the [Prices API](https://api.stripe.com#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     #
     # Plans define the base price, currency, and billing cycle for recurring purchases of products.
-    # [Products](https://stripe.com/docs/api#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+    # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
     #
     # For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
     #
-    # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and prices](https://stripe.com/docs/products-prices/overview).
+    # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription) and more about [products and prices](https://docs.stripe.com/products-prices/overview).
     attr_reader :plan
     # Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.
-    # [Products](https://stripe.com/docs/api#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
+    # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
     #
     # For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
     #
-    # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/products-prices/overview).
+    # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription), [create an invoice](https://docs.stripe.com/billing/invoices/create), and more about [products and prices](https://docs.stripe.com/products-prices/overview).
     attr_reader :price
-    # The [quantity](https://stripe.com/docs/subscriptions/quantities) of the plan to which the customer should be subscribed.
+    # The [quantity](https://docs.stripe.com/subscriptions/quantities) of the plan to which the customer should be subscribed.
     attr_reader :quantity
     # The `subscription` this `subscription_item` belongs to.
     attr_reader :subscription
@@ -101,8 +103,6 @@ module Stripe
     attr_reader :tax_rates
     # Options that configure the trial on the subscription item.
     attr_reader :trial
-    # The current trial that is applied to this subscription item.
-    attr_reader :current_trial
     # Always true for a deleted object
     attr_reader :deleted
 
@@ -159,8 +159,8 @@ module Stripe
     def self.inner_class_types
       @inner_class_types = {
         billing_thresholds: BillingThresholds,
-        trial: Trial,
         current_trial: CurrentTrial,
+        trial: Trial,
       }
     end
 

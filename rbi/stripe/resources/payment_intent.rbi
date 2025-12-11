@@ -3843,6 +3843,9 @@ module Stripe
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers).
     sig { returns(T.nilable(String)) }
     def transfer_group; end
+    # ID of the shared payment token granted to be used in this PaymentIntent
+    sig { returns(T.nilable(String)) }
+    def shared_payment_granted_token; end
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     sig {
       params(params: T.any(::Stripe::PaymentIntentApplyCustomerBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)

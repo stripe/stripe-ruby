@@ -3628,6 +3628,8 @@ module Stripe
     attr_reader :transfer_data
     # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers).
     attr_reader :transfer_group
+    # ID of the shared payment token granted to be used in this PaymentIntent
+    attr_reader :shared_payment_granted_token
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     def apply_customer_balance(params = {}, opts = {})

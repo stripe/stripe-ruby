@@ -5713,6 +5713,8 @@ module Stripe
     attr_accessor :transfer_group
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     attr_accessor :use_stripe_sdk
+    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
+    attr_accessor :shared_payment_granted_token
 
     def initialize(
       allocated_funds: nil,
@@ -5755,7 +5757,8 @@ module Stripe
       statement_descriptor_suffix: nil,
       transfer_data: nil,
       transfer_group: nil,
-      use_stripe_sdk: nil
+      use_stripe_sdk: nil,
+      shared_payment_granted_token: nil
     )
       @allocated_funds = allocated_funds
       @amount = amount
@@ -5798,6 +5801,7 @@ module Stripe
       @transfer_data = transfer_data
       @transfer_group = transfer_group
       @use_stripe_sdk = use_stripe_sdk
+      @shared_payment_granted_token = shared_payment_granted_token
     end
   end
 end

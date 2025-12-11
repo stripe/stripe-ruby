@@ -3,7 +3,7 @@
 
 module Stripe
   class TestHelpersService < StripeService
-    attr_reader :capital, :confirmation_tokens, :customers, :issuing, :refunds, :terminal, :test_clocks, :treasury
+    attr_reader :capital, :confirmation_tokens, :customers, :issuing, :refunds, :shared_payment, :terminal, :test_clocks, :treasury
 
     def initialize(requestor)
       super
@@ -12,6 +12,7 @@ module Stripe
       @customers = Stripe::TestHelpers::CustomerService.new(@requestor)
       @issuing = Stripe::TestHelpers::IssuingService.new(@requestor)
       @refunds = Stripe::TestHelpers::RefundService.new(@requestor)
+      @shared_payment = Stripe::TestHelpers::SharedPaymentService.new(@requestor)
       @terminal = Stripe::TestHelpers::TerminalService.new(@requestor)
       @test_clocks = Stripe::TestHelpers::TestClockService.new(@requestor)
       @treasury = Stripe::TestHelpers::TreasuryService.new(@requestor)

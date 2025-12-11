@@ -5625,6 +5625,8 @@ module Stripe
     attr_accessor :shipping
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     attr_accessor :use_stripe_sdk
+    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
+    attr_accessor :shared_payment_granted_token
 
     def initialize(
       allocated_funds: nil,
@@ -5650,7 +5652,8 @@ module Stripe
       return_url: nil,
       setup_future_usage: nil,
       shipping: nil,
-      use_stripe_sdk: nil
+      use_stripe_sdk: nil,
+      shared_payment_granted_token: nil
     )
       @allocated_funds = allocated_funds
       @amount_details = amount_details
@@ -5676,6 +5679,7 @@ module Stripe
       @setup_future_usage = setup_future_usage
       @shipping = shipping
       @use_stripe_sdk = use_stripe_sdk
+      @shared_payment_granted_token = shared_payment_granted_token
     end
   end
 end

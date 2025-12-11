@@ -143,6 +143,7 @@ module Stripe
         Review.object_name => Review,
         SetupAttempt.object_name => SetupAttempt,
         SetupIntent.object_name => SetupIntent,
+        SharedPayment::GrantedToken.object_name => SharedPayment::GrantedToken,
         ShippingRate.object_name => ShippingRate,
         Sigma::ScheduledQueryRun.object_name => Sigma::ScheduledQueryRun,
         Source.object_name => Source,

@@ -228,6 +228,9 @@ module Stripe
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -381,6 +384,9 @@ module Stripe
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
         def bsb_number; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -398,6 +404,9 @@ module Stripe
         end
       end
       class BacsDebit < ::Stripe::StripeObject
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -1538,6 +1547,9 @@ module Stripe
         # The numeric code for the bank account's bank branch.
         sig { returns(String) }
         def branch_code; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Last four digits of the bank account number.
         sig { returns(String) }
         def last4; end
@@ -1810,6 +1822,9 @@ module Stripe
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(T.nilable(String)) }
         def country; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -1906,6 +1921,9 @@ module Stripe
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end

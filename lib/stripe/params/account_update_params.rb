@@ -1385,7 +1385,7 @@ module Stripe
         end
         # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
-        # Attribute for param field signer
+        # Information regarding the person signing the document if applicable.
         attr_accessor :signer
 
         def initialize(files: nil, signer: nil)
@@ -1405,7 +1405,7 @@ module Stripe
         end
         # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
-        # Attribute for param field signer
+        # Information regarding the person signing the document if applicable.
         attr_accessor :signer
 
         def initialize(files: nil, signer: nil)

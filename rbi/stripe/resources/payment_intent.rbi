@@ -9,7 +9,7 @@ module Stripe
   # see the history of payment attempts for a particular session.
   #
   # A PaymentIntent transitions through
-  # [multiple statuses](https://docs.stripe.com/payments/intents#intent-statuses)
+  # [multiple statuses](https://docs.stripe.com/payments/paymentintents/lifecycle)
   # throughout its lifetime as it interfaces with Stripe.js to perform
   # authentication flows and ultimately creates at most one successful charge.
   #
@@ -62,7 +62,7 @@ module Stripe
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       sig { returns(T.nilable(Integer)) }
       def discount_amount; end
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
       # Attribute for field shipping
@@ -164,7 +164,7 @@ module Stripe
       # see the history of payment attempts for a particular session.
       #
       # A PaymentIntent transitions through
-      # [multiple statuses](https://docs.stripe.com/payments/intents#intent-statuses)
+      # [multiple statuses](/payments/paymentintents/lifecycle)
       # throughout its lifetime as it interfaces with Stripe.js to perform
       # authentication flows and ultimately creates at most one successful charge.
       #

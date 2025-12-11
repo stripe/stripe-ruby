@@ -63,6 +63,7 @@ module Stripe
     attr_reader :radar
     attr_reader :refunds
     attr_reader :reporting
+    attr_reader :reserve
     attr_reader :reviews
     attr_reader :setup_attempts
     attr_reader :setup_intents

@@ -215,6 +215,8 @@ module Stripe
       class AcssDebit < ::Stripe::StripeObject
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Institution number of the bank account
@@ -367,6 +369,8 @@ module Stripe
       class AuBecsDebit < ::Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         attr_reader :bsb_number
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four digits of the bank account number.
@@ -384,6 +388,8 @@ module Stripe
       end
 
       class BacsDebit < ::Stripe::StripeObject
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four digits of the bank account number.
@@ -1513,6 +1519,8 @@ module Stripe
         attr_reader :bank_name
         # The numeric code for the bank account's bank branch.
         attr_reader :branch_code
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Last four digits of the bank account number.
         attr_reader :last4
         # The suffix of the bank account number.
@@ -1889,6 +1897,8 @@ module Stripe
         attr_reader :branch_code
         # Two-letter ISO code representing the country the bank account is located in.
         attr_reader :country
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four characters of the IBAN.
@@ -2005,6 +2015,8 @@ module Stripe
         attr_reader :account_type
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four digits of the bank account number.

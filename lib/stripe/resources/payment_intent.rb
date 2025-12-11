@@ -8,7 +8,7 @@ module Stripe
   # see the history of payment attempts for a particular session.
   #
   # A PaymentIntent transitions through
-  # [multiple statuses](https://docs.stripe.com/payments/intents#intent-statuses)
+  # [multiple statuses](https://docs.stripe.com/payments/paymentintents/lifecycle)
   # throughout its lifetime as it interfaces with Stripe.js to perform
   # authentication flows and ultimately creates at most one successful charge.
   #
@@ -76,7 +76,7 @@ module Stripe
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_reader :discount_amount
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_reader :line_items
       # Attribute for field shipping
       attr_reader :shipping
@@ -210,7 +210,7 @@ module Stripe
       # see the history of payment attempts for a particular session.
       #
       # A PaymentIntent transitions through
-      # [multiple statuses](https://docs.stripe.com/payments/intents#intent-statuses)
+      # [multiple statuses](/payments/paymentintents/lifecycle)
       # throughout its lifetime as it interfaces with Stripe.js to perform
       # authentication flows and ultimately creates at most one successful charge.
       #

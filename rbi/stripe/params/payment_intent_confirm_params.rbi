@@ -236,7 +236,7 @@ module Stripe
         params(_discount_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
        }
       def discount_amount=(_discount_amount); end
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       sig {
         returns(T.nilable(T.any(String, T::Array[PaymentIntentConfirmParams::AmountDetails::LineItem])))
        }

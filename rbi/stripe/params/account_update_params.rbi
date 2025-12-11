@@ -2103,7 +2103,7 @@ module Stripe
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        # Attribute for param field signer
+        # Information regarding the person signing the document if applicable.
         sig { returns(T.nilable(AccountUpdateParams::Documents::ProofOfRegistration::Signer)) }
         def signer; end
         sig {
@@ -2130,7 +2130,7 @@ module Stripe
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        # Attribute for param field signer
+        # Information regarding the person signing the document if applicable.
         sig {
           returns(T.nilable(AccountUpdateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer))
          }

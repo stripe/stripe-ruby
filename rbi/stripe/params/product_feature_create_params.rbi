@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   class ProductFeatureCreateParams < ::Stripe::RequestParams
-    # The ID of the [Feature](https://stripe.com/docs/api/entitlements/feature) object attached to this product.
+    # The ID of the [Feature](https://docs.stripe.com/api/entitlements/feature) object attached to this product.
     sig { returns(String) }
     def entitlement_feature; end
     sig { params(_entitlement_feature: String).returns(String) }

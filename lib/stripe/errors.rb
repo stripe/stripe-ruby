@@ -171,6 +171,9 @@ module Stripe
   class BlockedByStripeError < StripeError
   end
 
+  class ControlledByAlternateResourceError < StripeError
+  end
+
   class ControlledByDashboardError < StripeError
   end
 

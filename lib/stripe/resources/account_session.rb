@@ -8,7 +8,7 @@ module Stripe
   # to your user. Do not save AccountSessions to your database as they expire relatively
   # quickly, and cannot be used more than once.
   #
-  # Related guide: [Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components)
+  # Related guide: [Connect embedded components](https://docs.stripe.com/connect/get-started-connect-embedded-components)
   class AccountSession < APIResource
     extend Stripe::APIOperations::Create
 
@@ -691,6 +691,8 @@ module Stripe
       attr_reader :capital_financing_application
       # Attribute for field capital_financing_promotion
       attr_reader :capital_financing_promotion
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      attr_reader :check_scanning
       # Attribute for field disputes_list
       attr_reader :disputes_list
       # Attribute for field documents
@@ -723,8 +725,6 @@ module Stripe
       attr_reader :tax_registrations
       # Attribute for field tax_settings
       attr_reader :tax_settings
-      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
-      attr_reader :check_scanning
 
       def self.inner_class_types
         @inner_class_types = {
@@ -734,6 +734,7 @@ module Stripe
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
           capital_financing_promotion: CapitalFinancingPromotion,
+          check_scanning: CheckScanning,
           disputes_list: DisputesList,
           documents: Documents,
           financial_account: FinancialAccount,
@@ -750,7 +751,6 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
-          check_scanning: CheckScanning,
         }
       end
 
@@ -764,7 +764,7 @@ module Stripe
     #
     # The client secret can be used to provide access to `account` from your frontend. It should not be stored, logged, or exposed to anyone other than the connected account. Make sure that you have TLS enabled on any page that includes the client secret.
     #
-    # Refer to our docs to [setup Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
+    # Refer to our docs to [setup Connect embedded components](https://docs.stripe.com/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
     attr_reader :client_secret
     # Attribute for field components
     attr_reader :components

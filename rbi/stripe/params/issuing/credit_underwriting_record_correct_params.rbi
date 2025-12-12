@@ -58,7 +58,7 @@ module Stripe
           def initialize(reason_other_explanation: nil, reasons: nil); end
         end
         class CreditLimitApproved < ::Stripe::RequestParams
-          # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+          # The credit approved, in the currency of the account and [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
           sig { params(_amount: Integer).returns(Integer) }
@@ -72,7 +72,7 @@ module Stripe
           def initialize(amount: nil, currency: nil); end
         end
         class CreditLimitDecreased < ::Stripe::RequestParams
-          # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+          # The credit approved, in the currency of the account and [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
           sig { params(_amount: Integer).returns(Integer) }
@@ -127,7 +127,7 @@ module Stripe
           params(_application_rejected: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected))
          }
         def application_rejected=(_application_rejected); end
-        # Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy/)
+        # Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy/)
         sig {
           returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved))
          }
@@ -215,14 +215,14 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
-      # File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://stripe.com/docs/issuing/credit/report-required-regulatory-data-for-credit-decisions). Optional if previously provided and no changes are needed.
+      # File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions). Optional if previously provided and no changes are needed.
       sig { returns(T.nilable(String)) }
       def regulatory_reporting_file; end
       sig { params(_regulatory_reporting_file: T.nilable(String)).returns(T.nilable(String)) }

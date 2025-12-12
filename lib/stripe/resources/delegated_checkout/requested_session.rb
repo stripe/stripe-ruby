@@ -139,6 +139,61 @@ module Stripe
       end
 
       class LineItemDetail < ::Stripe::StripeObject
+        class ProductDetails < ::Stripe::StripeObject
+          class CustomAttribute < ::Stripe::StripeObject
+            # The display name of the custom attribute.
+            attr_reader :display_name
+            # The value of the custom attribute.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Disclosure < ::Stripe::StripeObject
+            # The content of the disclosure.
+            attr_reader :content
+            # The content type of the disclosure.
+            attr_reader :content_type
+            # The type of disclosure.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Custom attributes for the product.
+          attr_reader :custom_attributes
+          # The description of the product.
+          attr_reader :description
+          # Disclosures for the product.
+          attr_reader :disclosures
+          # The images of the product.
+          attr_reader :images
+          # The title of the product.
+          attr_reader :title
+
+          def self.inner_class_types
+            @inner_class_types = { custom_attributes: CustomAttribute, disclosures: Disclosure }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The total discount for this line item. If no discount were applied, defaults to 0.
+        attr_reader :amount_discount
+        # The total before any discounts or taxes are applied.
+        attr_reader :amount_subtotal
         # The description of the line item.
         attr_reader :description
         # The images of the line item.
@@ -147,19 +202,17 @@ module Stripe
         attr_reader :key
         # The name of the line item.
         attr_reader :name
+        # Attribute for field product_details
+        attr_reader :product_details
         # The quantity of the line item.
         attr_reader :quantity
         # The SKU ID of the line item.
         attr_reader :sku_id
         # The per-unit amount of the item before any discounts or taxes are applied.
         attr_reader :unit_amount
-        # The total discount for this line item. If no discount were applied, defaults to 0.
-        attr_reader :amount_discount
-        # The total before any discounts or taxes are applied.
-        attr_reader :amount_subtotal
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { product_details: ProductDetails }
         end
 
         def self.field_remappings
@@ -283,14 +336,14 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount fulfillment of the total details.
-        attr_reader :amount_fulfillment
-        # The amount tax of the total details.
-        attr_reader :amount_tax
         # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         attr_reader :amount_cart_discount
+        # The amount fulfillment of the total details.
+        attr_reader :amount_fulfillment
         # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         attr_reader :amount_items_discount
+        # The amount tax of the total details.
+        attr_reader :amount_tax
         # The applicable fees of the total details.
         attr_reader :applicable_fees
 
@@ -322,7 +375,7 @@ module Stripe
       attr_reader :line_item_details
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object

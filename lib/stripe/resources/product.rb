@@ -4,12 +4,12 @@
 module Stripe
   # Products describe the specific goods or services you offer to your customers.
   # For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
-  # They can be used in conjunction with [Prices](https://stripe.com/docs/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
+  # They can be used in conjunction with [Prices](https://api.stripe.com#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
   #
-  # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription),
-  # [share a Payment Link](https://stripe.com/docs/payment-links),
-  # [accept payments with Checkout](https://stripe.com/docs/payments/accept-a-payment#create-product-prices-upfront),
-  # and more about [Products and Prices](https://stripe.com/docs/products-prices/overview)
+  # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription),
+  # [share a Payment Link](https://docs.stripe.com/payment-links),
+  # [accept payments with Checkout](https://docs.stripe.com/payments/accept-a-payment#create-product-prices-upfront),
+  # and more about [Products and Prices](https://docs.stripe.com/products-prices/overview)
   class Product < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -60,7 +60,7 @@ module Stripe
     attr_reader :active
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
-    # The ID of the [Price](https://stripe.com/docs/api/prices) object that is the default price for this product.
+    # The ID of the [Price](https://docs.stripe.com/api/prices) object that is the default price for this product.
     attr_reader :default_price
     # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
     attr_reader :description
@@ -70,9 +70,9 @@ module Stripe
     attr_reader :images
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+    # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
     attr_reader :marketing_features
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # The product's name, meant to be displayable to the customer.
     attr_reader :name
@@ -84,7 +84,7 @@ module Stripe
     attr_reader :shippable
     # Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. Only used for subscription payments.
     attr_reader :statement_descriptor
-    # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+    # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     attr_reader :tax_code
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     attr_reader :type

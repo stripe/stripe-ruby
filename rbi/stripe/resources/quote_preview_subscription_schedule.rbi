@@ -49,6 +49,91 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class BillingSchedule < ::Stripe::StripeObject
+      class AppliesTo < ::Stripe::StripeObject
+        # The billing schedule will apply to the subscription item with the given price ID.
+        sig { returns(T.nilable(T.any(String, ::Stripe::Price))) }
+        def price; end
+        # Controls which subscription items the billing schedule applies to.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BillFrom < ::Stripe::StripeObject
+        # The time the billing schedule applies from.
+        sig { returns(Integer) }
+        def computed_timestamp; end
+        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        # Describes how the billing schedule determines the start date. Possible values are `timestamp`.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BillUntil < ::Stripe::StripeObject
+        class Duration < ::Stripe::StripeObject
+          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+          sig { returns(String) }
+          def interval; end
+          # The multiplier applied to the interval.
+          sig { returns(T.nilable(Integer)) }
+          def interval_count; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The timestamp the billing schedule will apply until.
+        sig { returns(Integer) }
+        def computed_timestamp; end
+        # Specifies the billing period.
+        sig { returns(T.nilable(Duration)) }
+        def duration; end
+        # If specified, the billing schedule will apply until the specified timestamp.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {duration: Duration}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies which subscription items the billing schedule applies to.
+      sig { returns(T.nilable(T::Array[AppliesTo])) }
+      def applies_to; end
+      # Specifies the start of the billing period.
+      sig { returns(T.nilable(BillFrom)) }
+      def bill_from; end
+      # Specifies the end of billing period.
+      sig { returns(BillUntil) }
+      def bill_until; end
+      # Unique identifier for the billing schedule.
+      sig { returns(String) }
+      def key; end
+      def self.inner_class_types
+        @inner_class_types = {applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class CurrentPhase < ::Stripe::StripeObject
       # The end of this phase of the subscription schedule.
       sig { returns(Integer) }
@@ -160,7 +245,7 @@ module Stripe
       # Attribute for field automatic_tax
       sig { returns(T.nilable(AutomaticTax)) }
       def automatic_tax; end
-      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       sig { returns(String) }
       def billing_cycle_anchor; end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
@@ -181,12 +266,12 @@ module Stripe
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
       def on_behalf_of; end
-      # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
-      sig { returns(T.nilable(TransferData)) }
-      def transfer_data; end
       # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
       sig { returns(T.nilable(String)) }
       def phase_effective_at; end
+      # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
+      sig { returns(T.nilable(TransferData)) }
+      def transfer_data; end
       def self.inner_class_types
         @inner_class_types = {
           automatic_tax: AutomaticTax,
@@ -311,7 +396,7 @@ module Stripe
         # The stackable discounts that will be applied to the item.
         sig { returns(T::Array[Discount]) }
         def discounts; end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         # Attribute for field period
@@ -509,7 +594,7 @@ module Stripe
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         sig { returns(T::Array[Discount]) }
         def discounts; end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         # ID of the plan to which the customer should be subscribed.
@@ -597,7 +682,7 @@ module Stripe
       # Attribute for field automatic_tax
       sig { returns(T.nilable(AutomaticTax)) }
       def automatic_tax; end
-      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
@@ -621,6 +706,9 @@ module Stripe
       # The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
       sig { returns(T::Array[Discount]) }
       def discounts; end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def effective_at; end
       # The end of this phase of the subscription schedule.
       sig { returns(Integer) }
       def end_date; end
@@ -630,13 +718,13 @@ module Stripe
       # Subscription items to configure the subscription to during this phase of the subscription schedule.
       sig { returns(T::Array[Item]) }
       def items; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
       def on_behalf_of; end
-      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
       sig { returns(T.nilable(PauseCollection)) }
       def pause_collection; end
       # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
@@ -657,9 +745,6 @@ module Stripe
       # Settings related to any trials on the subscription during this phase.
       sig { returns(T.nilable(TrialSettings)) }
       def trial_settings; end
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      sig { returns(T.nilable(String)) }
-      def effective_at; end
       def self.inner_class_types
         @inner_class_types = {
           add_invoice_items: AddInvoiceItem,
@@ -697,91 +782,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class BillingSchedule < ::Stripe::StripeObject
-      class AppliesTo < ::Stripe::StripeObject
-        # The billing schedule will apply to the subscription item with the given price ID.
-        sig { returns(T.nilable(T.any(String, ::Stripe::Price))) }
-        def price; end
-        # Controls which subscription items the billing schedule applies to.
-        sig { returns(String) }
-        def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class BillFrom < ::Stripe::StripeObject
-        # The time the billing schedule applies from.
-        sig { returns(Integer) }
-        def computed_timestamp; end
-        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
-        sig { returns(T.nilable(Integer)) }
-        def timestamp; end
-        # Describes how the billing schedule determines the start date. Possible values are `timestamp`.
-        sig { returns(String) }
-        def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class BillUntil < ::Stripe::StripeObject
-        class Duration < ::Stripe::StripeObject
-          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
-          sig { returns(String) }
-          def interval; end
-          # The multiplier applied to the interval.
-          sig { returns(T.nilable(Integer)) }
-          def interval_count; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The timestamp the billing schedule will apply until.
-        sig { returns(Integer) }
-        def computed_timestamp; end
-        # Specifies the billing period.
-        sig { returns(T.nilable(Duration)) }
-        def duration; end
-        # If specified, the billing schedule will apply until the specified timestamp.
-        sig { returns(T.nilable(Integer)) }
-        def timestamp; end
-        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
-        sig { returns(String) }
-        def type; end
-        def self.inner_class_types
-          @inner_class_types = {duration: Duration}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      # Specifies which subscription items the billing schedule applies to.
-      sig { returns(T.nilable(T::Array[AppliesTo])) }
-      def applies_to; end
-      # Specifies the start of the billing period.
-      sig { returns(T.nilable(BillFrom)) }
-      def bill_from; end
-      # Specifies the end of billing period.
-      sig { returns(BillUntil) }
-      def bill_until; end
-      # Unique identifier for the billing schedule.
-      sig { returns(String) }
-      def key; end
-      def self.inner_class_types
-        @inner_class_types = {applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     # ID of the Connect Application that created the schedule.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
@@ -794,6 +794,9 @@ module Stripe
     # The billing mode of the subscription.
     sig { returns(BillingMode) }
     def billing_mode; end
+    # Billing schedules for this subscription schedule.
+    sig { returns(T.nilable(T::Array[BillingSchedule])) }
+    def billing_schedules; end
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
     def canceled_at; end
@@ -824,10 +827,13 @@ module Stripe
     # Details of the most recent price migration that failed for the subscription schedule.
     sig { returns(T.nilable(LastPriceMigrationError)) }
     def last_price_migration_error; end
+    # The most recent invoice this subscription schedule has generated.
+    sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
+    def latest_invoice; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
@@ -845,7 +851,7 @@ module Stripe
     # ID of the subscription once managed by the subscription schedule (if it is released).
     sig { returns(T.nilable(String)) }
     def released_subscription; end
-    # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+    # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://docs.stripe.com/billing/subscriptions/subscription-schedules).
     sig { returns(String) }
     def status; end
     # ID of the subscription managed by the subscription schedule.
@@ -854,11 +860,5 @@ module Stripe
     # ID of the test clock this subscription schedule belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
-    # Billing schedules for this subscription schedule.
-    sig { returns(T.nilable(T::Array[BillingSchedule])) }
-    def billing_schedules; end
-    # The most recent invoice this subscription schedule has generated.
-    sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
-    def latest_invoice; end
   end
 end

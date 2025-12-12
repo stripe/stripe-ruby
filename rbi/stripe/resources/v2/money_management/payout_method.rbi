@@ -7,6 +7,20 @@ module Stripe
     module MoneyManagement
       # Use the PayoutMethods API to list and interact with PayoutMethod objects.
       class PayoutMethod < APIResource
+        class AlternativeReference < ::Stripe::StripeObject
+          # The ID of the alternative resource being referenced.
+          sig { returns(String) }
+          def id; end
+          # The type of the alternative reference (e.g., external_account for V1 external accounts).
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UsageStatus < ::Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
           sig { returns(String) }
@@ -39,6 +53,9 @@ module Stripe
           # List of enabled flows for this bank account (wire or local).
           sig { returns(T::Array[String]) }
           def enabled_delivery_options; end
+          # The ID of the Financial Connections Account used to create the bank account.
+          sig { returns(T.nilable(String)) }
+          def financial_connections_account; end
           # The last 4 digits of the account number.
           sig { returns(String) }
           def last4; end
@@ -99,6 +116,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The alternative reference for this payout method, if it's a projected payout method.
+        sig { returns(T.nilable(AlternativeReference)) }
+        def alternative_reference; end
         # A set of available payout speeds for this payout method.
         sig { returns(T::Array[String]) }
         def available_payout_speeds; end

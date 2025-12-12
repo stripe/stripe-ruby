@@ -6,17 +6,17 @@ module Stripe
   module FinancialConnections
     class SessionCreateParams < ::Stripe::RequestParams
       class AccountHolder < ::Stripe::RequestParams
-        # The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
+        # The ID of the Stripe account whose accounts you will retrieve. Only available when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
         sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
         def account=(_account); end
-        # The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+        # The ID of the Stripe customer whose accounts you will retrieve. Only available when `type` is `customer`.
         sig { returns(T.nilable(String)) }
         def customer; end
         sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
         def customer=(_customer); end
-        # The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
+        # The ID of Account representing a customer whose accounts you will retrieve. Only available when `type` is `customer`.
         sig { returns(T.nilable(String)) }
         def customer_account; end
         sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

@@ -9,6 +9,7 @@ module Stripe
     attr_reader :customers
     attr_reader :issuing
     attr_reader :refunds
+    attr_reader :shared_payment
     attr_reader :terminal
     attr_reader :test_clocks
     attr_reader :treasury

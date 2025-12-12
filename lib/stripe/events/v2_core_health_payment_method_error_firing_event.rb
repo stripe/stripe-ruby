@@ -11,6 +11,22 @@ module Stripe
 
       class V2CoreHealthPaymentMethodErrorFiringEventData < ::Stripe::StripeObject
         class Impact < ::Stripe::StripeObject
+          class TopImpactedAccount < ::Stripe::StripeObject
+            # The account ID of the impacted connected account.
+            attr_reader :account
+            # The number of impacted requests.
+            attr_reader :impacted_requests
+            # The percentage of impacted requests.
+            attr_reader :impacted_requests_percentage
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The returned error code.
           attr_reader :error_code
           # The number of impacted requests.
@@ -19,9 +35,11 @@ module Stripe
           attr_reader :impacted_requests_percentage
           # The type of the payment method.
           attr_reader :payment_method_type
+          # The top impacted connected accounts (only for platforms).
+          attr_reader :top_impacted_accounts
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { top_impacted_accounts: TopImpactedAccount }
           end
 
           def self.field_remappings

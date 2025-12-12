@@ -110,7 +110,7 @@ module Stripe
           params(_initiating_payment_method_details: T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails)).returns(T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails))
          }
         def initiating_payment_method_details=(_initiating_payment_method_details); end
-        # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+        # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         sig { returns(String) }
         def network; end
         sig { params(_network: String).returns(String) }

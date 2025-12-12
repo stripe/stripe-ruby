@@ -63,7 +63,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -319,7 +319,7 @@ module Stripe
     class Qris < ::Stripe::RequestParams; end
 
     class RadarOptions < ::Stripe::RequestParams
-      # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_accessor :session
 
       def initialize(session: nil)
@@ -488,7 +488,7 @@ module Stripe
     attr_accessor :link
     # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
     attr_accessor :mb_way
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
     attr_accessor :mobilepay
@@ -522,7 +522,7 @@ module Stripe
     attr_accessor :promptpay
     # If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
     attr_accessor :qris
-    # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     attr_accessor :radar_options
     # If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
     attr_accessor :rechnung

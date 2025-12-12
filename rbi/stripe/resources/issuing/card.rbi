@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Issuing
-    # You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
+    # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
     class Card < APIResource
       class LatestFraudWarning < ::Stripe::StripeObject
         # Timestamp of the most recent fraud warning.
@@ -37,7 +37,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -64,7 +64,7 @@ module Stripe
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
             def postal_code; end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             def self.inner_class_types
@@ -153,10 +153,10 @@ module Stripe
       end
       class SpendingControls < ::Stripe::StripeObject
         class SpendingLimit < ::Stripe::StripeObject
-          # Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+          # Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
-          # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
+          # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
           sig { returns(T.nilable(T::Array[String])) }
           def categories; end
           # Interval (or event) to which the amount applies.
@@ -169,13 +169,13 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
+        # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def allowed_categories; end
         # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
         sig { returns(T.nilable(T::Array[String])) }
         def allowed_merchant_countries; end
-        # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+        # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def blocked_categories; end
         # Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
@@ -202,6 +202,9 @@ module Stripe
           # Reason the card is ineligible for Apple Pay
           sig { returns(T.nilable(String)) }
           def ineligible_reason; end
+          # Unique identifier for the card in Apple Pay
+          sig { returns(T.nilable(String)) }
+          def primary_account_identifier; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -216,6 +219,9 @@ module Stripe
           # Reason the card is ineligible for Google Pay
           sig { returns(T.nilable(String)) }
           def ineligible_reason; end
+          # Unique identifier for the card in Google Pay
+          sig { returns(T.nilable(String)) }
+          def primary_account_identifier; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -245,9 +251,9 @@ module Stripe
       # The reason why the card was canceled.
       sig { returns(T.nilable(String)) }
       def cancellation_reason; end
-      # An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
+      # An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://docs.stripe.com/issuing) cards.
       #
-      # Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
+      # Related guide: [How to create a cardholder](https://docs.stripe.com/issuing/cards/virtual/issue-cards#create-cardholder)
       sig { returns(::Stripe::Issuing::Cardholder) }
       def cardholder; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -256,7 +262,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK.
       sig { returns(String) }
       def currency; end
-      # The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
+      # The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://docs.stripe.com/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://docs.stripe.com/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
       sig { returns(T.nilable(String)) }
       def cvc; end
       # The expiration month of the card.
@@ -280,10 +286,10 @@ module Stripe
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       def metadata; end
-      # The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
+      # The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://docs.stripe.com/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://docs.stripe.com/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
       sig { returns(T.nilable(String)) }
       def number; end
       # String representing the object's type. Objects of the same type share the same value.

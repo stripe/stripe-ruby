@@ -107,6 +107,9 @@ module Stripe
           # The ID of the payout object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def payout_v1; end
+          # The ID of the v1 transfer object that originated the ReceivedCredit.
+          sig { returns(T.nilable(String)) }
+          def transfer; end
           def self.inner_class_types
             @inner_class_types = {}
           end

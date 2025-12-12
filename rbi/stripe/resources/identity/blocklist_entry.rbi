@@ -11,7 +11,7 @@ module Stripe
     # This allows us to compare future verification attempts against these entries.
     # If a match is found, we categorize the new verification as unverified.
     #
-    # To learn more, see [Identity Verification Blocklist](https://stripe.com/docs/identity/review-tools#block-list)
+    # To learn more, see [Identity Verification Blocklist](https://docs.stripe.com/identity/review-tools#block-list)
     class BlocklistEntry < APIResource
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

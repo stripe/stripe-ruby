@@ -87,7 +87,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -118,7 +118,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -313,7 +313,7 @@ module Stripe
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_accessor :state
 
             def initialize(
@@ -381,7 +381,7 @@ module Stripe
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_accessor :state
 
             def initialize(
@@ -609,7 +609,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -1107,7 +1107,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -1329,7 +1329,7 @@ module Stripe
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_accessor :state
 
             def initialize(
@@ -1668,7 +1668,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -1714,7 +1714,7 @@ module Stripe
     attr_accessor :expand
     # A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
     attr_accessor :fraud_details
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
@@ -1722,7 +1722,7 @@ module Stripe
     attr_accessor :receipt_email
     # Shipping information for the charge. Helps prevent fraud on charges for physical goods.
     attr_accessor :shipping
-    # A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    # A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     attr_accessor :transfer_group
 
     def initialize(

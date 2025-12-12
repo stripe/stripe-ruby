@@ -290,7 +290,7 @@ module Stripe
             params(_discounts: T.nilable(T::Array[QuoteCreateParams::Line::Action::AddItem::Discount])).returns(T.nilable(T::Array[QuoteCreateParams::Line::Action::AddItem::Discount]))
            }
           def discounts=(_discounts); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           sig {
@@ -834,6 +834,11 @@ module Stripe
         params(_cancel_subscription_schedule: T.nilable(QuoteCreateParams::Line::CancelSubscriptionSchedule)).returns(T.nilable(QuoteCreateParams::Line::CancelSubscriptionSchedule))
        }
       def cancel_subscription_schedule=(_cancel_subscription_schedule); end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def effective_at; end
+      sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def effective_at=(_effective_at); end
       # Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
       sig { returns(T.nilable(QuoteCreateParams::Line::EndsAt)) }
       def ends_at; end
@@ -872,26 +877,21 @@ module Stripe
         params(_trial_settings: T.nilable(QuoteCreateParams::Line::TrialSettings)).returns(T.nilable(QuoteCreateParams::Line::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      sig { returns(T.nilable(String)) }
-      def effective_at; end
-      sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
-      def effective_at=(_effective_at); end
       sig {
-        params(actions: T.nilable(T::Array[QuoteCreateParams::Line::Action]), applies_to: T.nilable(QuoteCreateParams::Line::AppliesTo), billing_cycle_anchor: T.nilable(String), cancel_subscription_schedule: T.nilable(QuoteCreateParams::Line::CancelSubscriptionSchedule), ends_at: T.nilable(QuoteCreateParams::Line::EndsAt), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(QuoteCreateParams::Line::SetPauseCollection), set_schedule_end: T.nilable(String), starts_at: T.nilable(QuoteCreateParams::Line::StartsAt), trial_settings: T.nilable(QuoteCreateParams::Line::TrialSettings), effective_at: T.nilable(String)).void
+        params(actions: T.nilable(T::Array[QuoteCreateParams::Line::Action]), applies_to: T.nilable(QuoteCreateParams::Line::AppliesTo), billing_cycle_anchor: T.nilable(String), cancel_subscription_schedule: T.nilable(QuoteCreateParams::Line::CancelSubscriptionSchedule), effective_at: T.nilable(String), ends_at: T.nilable(QuoteCreateParams::Line::EndsAt), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(QuoteCreateParams::Line::SetPauseCollection), set_schedule_end: T.nilable(String), starts_at: T.nilable(QuoteCreateParams::Line::StartsAt), trial_settings: T.nilable(QuoteCreateParams::Line::TrialSettings)).void
        }
       def initialize(
         actions: nil,
         applies_to: nil,
         billing_cycle_anchor: nil,
         cancel_subscription_schedule: nil,
+        effective_at: nil,
         ends_at: nil,
         proration_behavior: nil,
         set_pause_collection: nil,
         set_schedule_end: nil,
         starts_at: nil,
-        trial_settings: nil,
-        effective_at: nil
+        trial_settings: nil
       ); end
     end
     class LineItem < ::Stripe::RequestParams
@@ -992,7 +992,7 @@ module Stripe
           params(_recurring: T.nilable(QuoteCreateParams::LineItem::PriceData::Recurring)).returns(T.nilable(QuoteCreateParams::LineItem::PriceData::Recurring))
          }
         def recurring=(_recurring); end
-        # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         sig { returns(T.nilable(String)) }
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -1031,7 +1031,7 @@ module Stripe
       def price; end
       sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
       def price=(_price); end
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
       sig { returns(T.nilable(QuoteCreateParams::LineItem::PriceData)) }
       def price_data; end
       sig {
@@ -1421,7 +1421,7 @@ module Stripe
       def from_subscription; end
       sig { params(_from_subscription: T.nilable(String)).returns(T.nilable(String)) }
       def from_subscription=(_from_subscription); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -1440,11 +1440,11 @@ module Stripe
         params(_prebilling: T.nilable(T.any(String, QuoteCreateParams::SubscriptionData::Prebilling))).returns(T.nilable(T.any(String, QuoteCreateParams::SubscriptionData::Prebilling)))
        }
       def prebilling=(_prebilling); end
-      # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+      # Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
       #
       # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
       #
-      # Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+      # Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://docs.stripe.com/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
       #
       # Prorations can be disabled by passing `none`.
       sig { returns(T.nilable(String)) }
@@ -1822,11 +1822,11 @@ module Stripe
       def phase_effective_at; end
       sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
       def phase_effective_at=(_phase_effective_at); end
-      # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+      # Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
       #
       # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
       #
-      # Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+      # Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://docs.stripe.com/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
       #
       # Prorations can be disabled by passing `none`.
       sig { returns(T.nilable(String)) }
@@ -1977,7 +1977,7 @@ module Stripe
       params(_lines: T.nilable(T::Array[QuoteCreateParams::Line])).returns(T.nilable(T::Array[QuoteCreateParams::Line]))
      }
     def lines=(_lines); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {

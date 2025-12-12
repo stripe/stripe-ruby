@@ -10,7 +10,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Valid [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) id
+      # Valid [PaymentIntent](https://docs.stripe.com/api/payment_intents/object) id
       sig { returns(String) }
       def payment_intent; end
       sig { params(_payment_intent: String).returns(String) }

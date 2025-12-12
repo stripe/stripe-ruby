@@ -137,6 +137,10 @@ module Stripe
         Events::V2CoreHealthPaymentMethodErrorFiringEvent,
         Events::V2CoreHealthPaymentMethodErrorResolvedEvent.lookup_type =>
         Events::V2CoreHealthPaymentMethodErrorResolvedEvent,
+        Events::V2CoreHealthSepaDebitDelayedFiringEvent.lookup_type =>
+        Events::V2CoreHealthSepaDebitDelayedFiringEvent,
+        Events::V2CoreHealthSepaDebitDelayedResolvedEvent.lookup_type =>
+        Events::V2CoreHealthSepaDebitDelayedResolvedEvent,
         Events::V2CoreHealthTrafficVolumeDropFiringEvent.lookup_type =>
         Events::V2CoreHealthTrafficVolumeDropFiringEvent,
         Events::V2CoreHealthTrafficVolumeDropResolvedEvent.lookup_type =>
@@ -199,6 +203,8 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferReturnedEvent,
         Events::V2MoneyManagementOutboundTransferUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEvent,
+        Events::V2MoneyManagementPayoutMethodCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementPayoutMethodCreatedEvent,
         Events::V2MoneyManagementPayoutMethodUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementPayoutMethodUpdatedEvent,
         Events::V2MoneyManagementReceivedCreditAvailableEvent.lookup_type =>
@@ -245,6 +251,28 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent,
         Events::V2PaymentsOffSessionPaymentSucceededEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentSucceededEvent,
+        Events::V2PaymentsSettlementAllocationIntentCanceledEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentCanceledEvent,
+        Events::V2PaymentsSettlementAllocationIntentCreatedEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentCreatedEvent,
+        Events::V2PaymentsSettlementAllocationIntentErroredEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentErroredEvent,
+        Events::V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent,
+        Events::V2PaymentsSettlementAllocationIntentMatchedEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentMatchedEvent,
+        Events::V2PaymentsSettlementAllocationIntentNotFoundEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentNotFoundEvent,
+        Events::V2PaymentsSettlementAllocationIntentSettledEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSettledEvent,
+        Events::V2PaymentsSettlementAllocationIntentSplitCanceledEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSplitCanceledEvent,
+        Events::V2PaymentsSettlementAllocationIntentSplitCreatedEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSplitCreatedEvent,
+        Events::V2PaymentsSettlementAllocationIntentSplitSettledEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSplitSettledEvent,
+        Events::V2PaymentsSettlementAllocationIntentSubmittedEvent.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSubmittedEvent,
         Events::V2ReportingReportRunCreatedEvent.lookup_type => Events::V2ReportingReportRunCreatedEvent,
         Events::V2ReportingReportRunFailedEvent.lookup_type => Events::V2ReportingReportRunFailedEvent,
         Events::V2ReportingReportRunSucceededEvent.lookup_type =>
@@ -415,6 +443,10 @@ module Stripe
         Events::V2CoreHealthPaymentMethodErrorFiringEventNotification,
         Events::V2CoreHealthPaymentMethodErrorResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthPaymentMethodErrorResolvedEventNotification,
+        Events::V2CoreHealthSepaDebitDelayedFiringEventNotification.lookup_type =>
+        Events::V2CoreHealthSepaDebitDelayedFiringEventNotification,
+        Events::V2CoreHealthSepaDebitDelayedResolvedEventNotification.lookup_type =>
+        Events::V2CoreHealthSepaDebitDelayedResolvedEventNotification,
         Events::V2CoreHealthTrafficVolumeDropFiringEventNotification.lookup_type =>
         Events::V2CoreHealthTrafficVolumeDropFiringEventNotification,
         Events::V2CoreHealthTrafficVolumeDropResolvedEventNotification.lookup_type =>
@@ -481,6 +513,8 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferReturnedEventNotification,
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification,
+        Events::V2MoneyManagementPayoutMethodCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementPayoutMethodCreatedEventNotification,
         Events::V2MoneyManagementPayoutMethodUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementPayoutMethodUpdatedEventNotification,
         Events::V2MoneyManagementReceivedCreditAvailableEventNotification.lookup_type =>
@@ -527,6 +561,28 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
         Events::V2PaymentsOffSessionPaymentSucceededEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentSucceededEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentCanceledEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentCanceledEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentCreatedEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentCreatedEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentErroredEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentErroredEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentMatchedEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentMatchedEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentNotFoundEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentNotFoundEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentSettledEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSettledEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentSplitSettledEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSplitSettledEventNotification,
+        Events::V2PaymentsSettlementAllocationIntentSubmittedEventNotification.lookup_type =>
+        Events::V2PaymentsSettlementAllocationIntentSubmittedEventNotification,
         Events::V2ReportingReportRunCreatedEventNotification.lookup_type =>
         Events::V2ReportingReportRunCreatedEventNotification,
         Events::V2ReportingReportRunFailedEventNotification.lookup_type =>

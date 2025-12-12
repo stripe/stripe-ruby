@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) that is
+  # Each customer has a [`balance`](https://docs.stripe.com/api/customers/object#customer_object-balance) that is
   # automatically applied to future invoices and payments using the `customer_balance` payment method.
   # Customers can fund this balance by initiating a bank transfer to any account in the
   # `financial_addresses` field.
-  # Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
+  # Related guide: [Customer balance funding instructions](https://docs.stripe.com/payments/customer-balance/funding-instructions)
   class FundingInstructions < APIResource
     OBJECT_NAME = "funding_instructions"
     def self.object_name
@@ -27,7 +27,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -50,7 +50,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -100,7 +100,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -123,7 +123,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -171,7 +171,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -194,7 +194,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -240,7 +240,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -263,7 +263,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -311,7 +311,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -334,7 +334,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -384,7 +384,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -407,7 +407,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types

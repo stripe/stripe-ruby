@@ -89,7 +89,7 @@ module Stripe
     end
 
     class Tax < ::Stripe::StripeObject
-      # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+      # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
       attr_reader :total_tax_amount
@@ -102,7 +102,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    # The discount applied on this line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
     #
     # This field is mutually exclusive with the `amount_details[discount_amount]` field.
     attr_reader :discount_amount
@@ -122,7 +122,7 @@ module Stripe
     attr_reader :quantity
     # Contains information about the tax on the item.
     attr_reader :tax
-    # The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+    # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     attr_reader :unit_cost
     # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     attr_reader :unit_of_measure

@@ -69,6 +69,7 @@ module Stripe
     attr_reader :reviews
     attr_reader :setup_attempts
     attr_reader :setup_intents
+    attr_reader :shared_payment
     attr_reader :shipping_rates
     attr_reader :sigma
     attr_reader :sources

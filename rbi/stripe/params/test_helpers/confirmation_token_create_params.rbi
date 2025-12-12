@@ -89,7 +89,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -331,7 +331,7 @@ module Stripe
         class Promptpay < ::Stripe::RequestParams; end
         class Qris < ::Stripe::RequestParams; end
         class RadarOptions < ::Stripe::RequestParams
-          # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+          # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
           sig { returns(T.nilable(String)) }
           def session; end
           sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
@@ -727,7 +727,7 @@ module Stripe
           params(_mb_way: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::MbWay)).returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::MbWay))
          }
         def mb_way=(_mb_way); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -869,7 +869,7 @@ module Stripe
           params(_qris: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Qris)).returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Qris))
          }
         def qris=(_qris); end
-        # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+        # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
         sig {
           returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::RadarOptions))
          }
@@ -1163,7 +1163,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1233,7 +1233,7 @@ module Stripe
       def return_url=(_return_url); end
       # Indicates that you intend to make future payments with this ConfirmationToken's payment method.
       #
-      # The presence of this property will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
+      # The presence of this property will [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
       sig { returns(T.nilable(String)) }
       def setup_future_usage; end
       sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }

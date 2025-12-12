@@ -39,14 +39,14 @@ module Stripe
     def fx_quote; end
     sig { params(_fx_quote: T.nilable(String)).returns(T.nilable(String)) }
     def fx_quote=(_fx_quote); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {
       params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
      }
     def metadata=(_metadata); end
-    # You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details.
+    # You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-availability) for details.
     sig { returns(T.nilable(String)) }
     def source_transaction; end
     sig { params(_source_transaction: T.nilable(String)).returns(T.nilable(String)) }
@@ -56,7 +56,7 @@ module Stripe
     def source_type; end
     sig { params(_source_type: T.nilable(String)).returns(T.nilable(String)) }
     def source_type=(_source_type); end
-    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     sig { returns(T.nilable(String)) }
     def transfer_group; end
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }

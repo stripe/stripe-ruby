@@ -37,7 +37,7 @@ module Stripe
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_accessor :state
 
             def initialize(
@@ -82,7 +82,7 @@ module Stripe
           attr_accessor :currency
           # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
           attr_accessor :duration
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
           attr_accessor :name
@@ -105,9 +105,9 @@ module Stripe
             @percent_off = percent_off
           end
         end
-        # The ID of the [Coupon](https://stripe.com/docs/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
+        # The ID of the [Coupon](https://docs.stripe.com/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
         attr_accessor :coupon
-        # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
         attr_accessor :coupon_data
 
         def initialize(coupon: nil, coupon_data: nil)
@@ -162,18 +162,28 @@ module Stripe
 
         class PriceData < ::Stripe::RequestParams
           class ProductData < ::Stripe::RequestParams
+            class TaxDetails < ::Stripe::RequestParams
+              # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+              attr_accessor :tax_code
+
+              def initialize(tax_code: nil)
+                @tax_code = tax_code
+              end
+            end
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             attr_accessor :description
             # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
             attr_accessor :images
-            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             attr_accessor :metadata
             # The product's name, meant to be displayable to the customer.
             attr_accessor :name
-            # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             attr_accessor :tax_code
             # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
             attr_accessor :unit_label
+            # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+            attr_accessor :tax_details
 
             def initialize(
               description: nil,
@@ -181,7 +191,8 @@ module Stripe
               metadata: nil,
               name: nil,
               tax_code: nil,
-              unit_label: nil
+              unit_label: nil,
+              tax_details: nil
             )
               @description = description
               @images = images
@@ -189,6 +200,7 @@ module Stripe
               @name = name
               @tax_code = tax_code
               @unit_label = unit_label
+              @tax_details = tax_details
             end
           end
 
@@ -211,7 +223,7 @@ module Stripe
           attr_accessor :product_data
           # The recurring components of a price such as `interval` and `interval_count`.
           attr_accessor :recurring
-          # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+          # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           attr_accessor :tax_behavior
           # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
           attr_accessor :unit_amount
@@ -240,15 +252,15 @@ module Stripe
         attr_accessor :adjustable_quantity
         # ID of an existing line item.
         attr_accessor :id
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The ID of the [Price](https://stripe.com/docs/api/prices). One of `price` or `price_data` is required when creating a new line item.
+        # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required when creating a new line item.
         attr_accessor :price
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
         attr_accessor :price_data
         # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         attr_accessor :quantity
-        # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
         attr_accessor :tax_rates
 
         def initialize(
@@ -338,11 +350,11 @@ module Stripe
           attr_accessor :display_name
           # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
           attr_accessor :fixed_amount
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
           attr_accessor :tax_behavior
-          # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
           attr_accessor :tax_code
           # The type of calculation to use on the shipping rate.
           attr_accessor :type
@@ -433,7 +445,7 @@ module Stripe
       #
       # To reorder a line item, specify it at the desired position in the retransmitted array.
       attr_accessor :line_items
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The shipping rate options to apply to this Session. Up to a maximum of 5.
       attr_accessor :shipping_options

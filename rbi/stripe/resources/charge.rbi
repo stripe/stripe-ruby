@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   # The `Charge` object represents a single attempt to move money into your Stripe account.
-  # PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://stripe.com/docs/connect/account-debits) may also create Charges.
+  # PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://docs.stripe.com/connect/account-debits) may also create Charges.
   # Some legacy payment flows create Charges directly, which is not recommended for new integrations.
   class Charge < APIResource
     class BillingDetails < ::Stripe::StripeObject
@@ -24,7 +24,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -140,7 +140,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+      # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines).
       sig { returns(T.nilable(String)) }
       def advice_code; end
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
@@ -149,10 +149,10 @@ module Stripe
       # For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
       sig { returns(T.nilable(String)) }
       def network_decline_code; end
-      # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
+      # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://docs.stripe.com/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
       sig { returns(T.nilable(String)) }
       def network_status; end
-      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://docs.stripe.com/declines) for more details.
       sig { returns(T.nilable(String)) }
       def reason; end
       # Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are `normal`, `elevated`, `highest`. For non-card payments, and card-based payments predating the public assignment of risk levels, this field will have the value `not_assessed`. In the event of an error in the evaluation, this field will have the value `unknown`. This field is only available with Radar.
@@ -167,7 +167,7 @@ module Stripe
       # A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer.
       sig { returns(T.nilable(String)) }
       def seller_message; end
-      # Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details.
+      # Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://docs.stripe.com/declines) and [Radar reviews](https://docs.stripe.com/radar/reviews) for details.
       sig { returns(String) }
       def type; end
       def self.inner_class_types
@@ -228,6 +228,9 @@ module Stripe
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -251,10 +254,10 @@ module Stripe
         end
       end
       class Affirm < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         sig { returns(T.nilable(String)) }
         def reader; end
         # The Affirm transaction ID associated with this payment.
@@ -384,6 +387,9 @@ module Stripe
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
         def bsb_number; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -401,6 +407,9 @@ module Stripe
         end
       end
       class BacsDebit < ::Stripe::StripeObject
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -712,7 +721,7 @@ module Stripe
               # ZIP or postal code.
               sig { returns(T.nilable(String)) }
               def postal_code; end
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               sig { returns(T.nilable(String)) }
               def state; end
               def self.inner_class_types
@@ -738,7 +747,7 @@ module Stripe
               # ZIP or postal code.
               sig { returns(T.nilable(String)) }
               def postal_code; end
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               sig { returns(T.nilable(String)) }
               def state; end
               def self.inner_class_types
@@ -795,7 +804,7 @@ module Stripe
               # ZIP or postal code.
               sig { returns(T.nilable(String)) }
               def postal_code; end
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               sig { returns(T.nilable(String)) }
               def state; end
               def self.inner_class_types
@@ -821,7 +830,7 @@ module Stripe
               # ZIP or postal code.
               sig { returns(T.nilable(String)) }
               def postal_code; end
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               sig { returns(T.nilable(String)) }
               def state; end
               def self.inner_class_types
@@ -950,7 +959,7 @@ module Stripe
         def incremental_authorization; end
         # Installment details for this payment.
         #
-        # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+        # For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
         sig { returns(T.nilable(Installments)) }
         def installments; end
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
@@ -1117,7 +1126,7 @@ module Stripe
         # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
         def iin; end
-        # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+        # Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
         sig { returns(T::Boolean) }
         def incremental_authorization_supported; end
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
@@ -1300,7 +1309,7 @@ module Stripe
         end
       end
       class Ideal < ::Stripe::StripeObject
-        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         sig { returns(T.nilable(String)) }
         def bank; end
         # The Bank Identifier Code of the customer's bank.
@@ -1620,6 +1629,9 @@ module Stripe
         # The numeric code for the bank account's bank branch.
         sig { returns(String) }
         def branch_code; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Last four digits of the bank account number.
         sig { returns(String) }
         def last4; end
@@ -1686,10 +1698,10 @@ module Stripe
         end
       end
       class Paynow < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         sig { returns(T.nilable(String)) }
         def reader; end
         # Reference number associated with this PayNow payment
@@ -1733,7 +1745,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -1759,7 +1771,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -1999,13 +2011,16 @@ module Stripe
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(T.nilable(String)) }
         def country; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
         def last4; end
-        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
+        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
         sig { returns(T.nilable(String)) }
         def mandate; end
         def self.inner_class_types
@@ -2117,6 +2132,9 @@ module Stripe
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -2151,10 +2169,10 @@ module Stripe
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         sig { returns(T.nilable(String)) }
         def reader; end
         # Transaction ID of this particular WeChat Pay transaction.
@@ -2355,7 +2373,7 @@ module Stripe
       # Attribute for field twint
       sig { returns(T.nilable(Twint)) }
       def twint; end
-      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
+      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
       # An additional hash is included on `payment_method_details` with a name matching this value.
       # It contains information specific to the payment method.
       sig { returns(String) }
@@ -2459,7 +2477,7 @@ module Stripe
       end
     end
     class RadarOptions < ::Stripe::StripeObject
-      # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
       def self.inner_class_types
@@ -2486,7 +2504,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -2535,7 +2553,7 @@ module Stripe
     # Funds that are in transit and destined for another balance or another connected account.
     sig { returns(T.nilable(::Stripe::TransitBalance)) }
     def allocated_funds; end
-    # Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    # Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(Integer) }
     def amount; end
     # Amount in cents (or local equivalent) captured (can be less than the amount attribute on the charge if a partial capture was made).
@@ -2547,10 +2565,10 @@ module Stripe
     # ID of the Connect application that created the charge.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
-    # The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
+    # The application fee (if any) for the charge. [See the Connect documentation](https://docs.stripe.com/connect/direct-charges#collect-fees) for details.
     sig { returns(T.nilable(T.any(String, ::Stripe::ApplicationFee))) }
     def application_fee; end
-    # The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
+    # The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://docs.stripe.com/connect/direct-charges#collect-fees) for details.
     sig { returns(T.nilable(Integer)) }
     def application_fee_amount; end
     # Authorization code on the charge.
@@ -2586,7 +2604,7 @@ module Stripe
     # ID of the balance transaction that describes the reversal of the balance on your account due to payment failure.
     sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def failure_balance_transaction; end
-    # Error code explaining reason for charge failure if available (see [the errors section](https://stripe.com/docs/error-codes) for a list of codes).
+    # Error code explaining reason for charge failure if available (see [the errors section](https://docs.stripe.com/error-codes) for a list of codes).
     sig { returns(T.nilable(String)) }
     def failure_code; end
     # Message to user further explaining reason for charge failure if available.
@@ -2604,16 +2622,16 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+    # The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
     sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
-    # Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details.
+    # Details about whether the payment was accepted, and why. See [understanding declines](https://docs.stripe.com/declines) for details.
     sig { returns(T.nilable(Outcome)) }
     def outcome; end
     # `true` if the charge succeeded, or was successfully authorized for later capture.
@@ -2631,7 +2649,7 @@ module Stripe
     # Attribute for field presentment_details
     sig { returns(T.nilable(PresentmentDetails)) }
     def presentment_details; end
-    # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     sig { returns(T.nilable(RadarOptions)) }
     def radar_options; end
     # This is the email address that the receipt for this charge was sent to.
@@ -2677,10 +2695,10 @@ module Stripe
     # ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter).
     sig { returns(T.nilable(T.any(String, ::Stripe::Transfer))) }
     def transfer; end
-    # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+    # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
     sig { returns(T.nilable(TransferData)) }
     def transfer_data; end
-    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     sig { returns(T.nilable(String)) }
     def transfer_group; end
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.

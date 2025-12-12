@@ -112,6 +112,8 @@ module Stripe
           attr_reader :outbound_transfer
           # The ID of the payout object that originated the ReceivedCredit.
           attr_reader :payout_v1
+          # The ID of the v1 transfer object that originated the ReceivedCredit.
+          attr_reader :transfer
 
           def self.inner_class_types
             @inner_class_types = {}

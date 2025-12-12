@@ -86,6 +86,15 @@ module Stripe
       end
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            sig { returns(String) }
+            def tax_code; end
+            sig { params(_tax_code: String).returns(String) }
+            def tax_code=(_tax_code); end
+            sig { params(tax_code: String).void }
+            def initialize(tax_code: nil); end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           sig { returns(T.nilable(String)) }
           def description; end
@@ -96,7 +105,7 @@ module Stripe
           def images; end
           sig { params(_images: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
           def images=(_images); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           sig {
@@ -108,7 +117,7 @@ module Stripe
           def name; end
           sig { params(_name: String).returns(String) }
           def name=(_name); end
-          # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           sig { returns(T.nilable(String)) }
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -118,8 +127,17 @@ module Stripe
           def unit_label; end
           sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
           def unit_label=(_unit_label); end
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
           sig {
-            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+            returns(T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails))
+           }
+          def tax_details; end
+          sig {
+            params(_tax_details: T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails)).returns(T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails))
+           }
+          def tax_details=(_tax_details); end
+          sig {
+            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String), tax_details: T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails)).void
            }
           def initialize(
             description: nil,
@@ -127,7 +145,8 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
-            unit_label: nil
+            unit_label: nil,
+            tax_details: nil
           ); end
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -147,7 +166,7 @@ module Stripe
           params(_product_data: T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData)).returns(T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData))
          }
         def product_data=(_product_data); end
-        # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         sig { returns(T.nilable(String)) }
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -313,21 +332,21 @@ module Stripe
         params(_margins: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
        }
       def margins=(_margins); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
-      # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
+      # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(T.nilable(InvoiceAddLinesParams::Line::Period)) }
       def period; end
       sig {
         params(_period: T.nilable(InvoiceAddLinesParams::Line::Period)).returns(T.nilable(InvoiceAddLinesParams::Line::Period))
        }
       def period=(_period); end
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
       sig { returns(T.nilable(InvoiceAddLinesParams::Line::PriceData)) }
       def price_data; end
       sig {
@@ -346,7 +365,7 @@ module Stripe
       def quantity; end
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
-      # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
+      # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
       sig { returns(T.nilable(T.any(String, T::Array[InvoiceAddLinesParams::Line::TaxAmount]))) }
       def tax_amounts; end
       sig {
@@ -384,7 +403,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def invoice_metadata; end
     sig {

@@ -17,20 +17,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Trial < ::Stripe::StripeObject
-      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
-      sig { returns(T.nilable(T::Array[String])) }
-      def converts_to; end
-      # Determines the type of trial for this item.
-      sig { returns(String) }
-      def type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     class CurrentTrial < ::Stripe::StripeObject
       # Attribute for field end_date
       sig { returns(Integer) }
@@ -41,6 +27,20 @@ module Stripe
       # Attribute for field trial_offer
       sig { returns(String) }
       def trial_offer; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Trial < ::Stripe::StripeObject
+      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+      sig { returns(T.nilable(T::Array[String])) }
+      def converts_to; end
+      # Determines the type of trial for this item.
+      sig { returns(String) }
+      def type; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -63,37 +63,40 @@ module Stripe
     # The start time of this subscription item's current billing period.
     sig { returns(Integer) }
     def current_period_start; end
+    # The current trial that is applied to this subscription item.
+    sig { returns(T.nilable(CurrentTrial)) }
+    def current_trial; end
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T::Array[T.any(String, ::Stripe::Discount)]) }
     def discounts; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    # You can now model subscriptions more flexibly using the [Prices API](https://api.stripe.com#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     #
     # Plans define the base price, currency, and billing cycle for recurring purchases of products.
-    # [Products](https://stripe.com/docs/api#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+    # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
     #
     # For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
     #
-    # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and prices](https://stripe.com/docs/products-prices/overview).
+    # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription) and more about [products and prices](https://docs.stripe.com/products-prices/overview).
     sig { returns(::Stripe::Plan) }
     def plan; end
     # Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.
-    # [Products](https://stripe.com/docs/api#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
+    # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
     #
     # For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
     #
-    # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/products-prices/overview).
+    # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription), [create an invoice](https://docs.stripe.com/billing/invoices/create), and more about [products and prices](https://docs.stripe.com/products-prices/overview).
     sig { returns(::Stripe::Price) }
     def price; end
-    # The [quantity](https://stripe.com/docs/subscriptions/quantities) of the plan to which the customer should be subscribed.
+    # The [quantity](https://docs.stripe.com/subscriptions/quantities) of the plan to which the customer should be subscribed.
     sig { returns(T.nilable(Integer)) }
     def quantity; end
     # The `subscription` this `subscription_item` belongs to.
@@ -105,9 +108,6 @@ module Stripe
     # Options that configure the trial on the subscription item.
     sig { returns(T.nilable(Trial)) }
     def trial; end
-    # The current trial that is applied to this subscription item.
-    sig { returns(T.nilable(CurrentTrial)) }
-    def current_trial; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

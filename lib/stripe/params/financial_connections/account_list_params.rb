@@ -5,11 +5,11 @@ module Stripe
   module FinancialConnections
     class AccountListParams < ::Stripe::RequestParams
       class AccountHolder < ::Stripe::RequestParams
-        # The ID of the Stripe account whose accounts will be retrieved.
+        # The ID of the Stripe account whose accounts you will retrieve.
         attr_accessor :account
-        # The ID of the Stripe customer whose accounts will be retrieved.
+        # The ID of the Stripe customer whose accounts you will retrieve.
         attr_accessor :customer
-        # The Account ID of the Stripe customer whose accounts will be retrieved.
+        # The ID of the Account representing a customer whose accounts you will retrieve.
         attr_accessor :customer_account
 
         def initialize(account: nil, customer: nil, customer_account: nil)

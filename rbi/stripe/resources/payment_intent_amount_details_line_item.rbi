@@ -84,7 +84,7 @@ module Stripe
       end
     end
     class Tax < ::Stripe::StripeObject
-      # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+      # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
       sig { returns(Integer) }
@@ -96,7 +96,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    # The discount applied on this line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
     #
     # This field is mutually exclusive with the `amount_details[discount_amount]` field.
     sig { returns(T.nilable(Integer)) }
@@ -124,7 +124,7 @@ module Stripe
     # Contains information about the tax on the item.
     sig { returns(T.nilable(Tax)) }
     def tax; end
-    # The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+    # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     sig { returns(Integer) }
     def unit_cost; end
     # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.

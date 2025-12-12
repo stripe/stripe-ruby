@@ -15,7 +15,7 @@ module Stripe
       def expires_at; end
       sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def expires_at=(_expires_at); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {
@@ -37,14 +37,14 @@ module Stripe
     def file; end
     sig { params(_file: T.untyped).returns(T.untyped) }
     def file=(_file); end
-    # Optional parameters that automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
+    # Optional parameters that automatically create a [file link](https://api.stripe.com#file_links) for the newly created file.
     sig { returns(T.nilable(FileCreateParams::FileLinkData)) }
     def file_link_data; end
     sig {
       params(_file_link_data: T.nilable(FileCreateParams::FileLinkData)).returns(T.nilable(FileCreateParams::FileLinkData))
      }
     def file_link_data=(_file_link_data); end
-    # The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
+    # The [purpose](https://docs.stripe.com/file-upload#uploading-a-file) of the uploaded file.
     sig { returns(String) }
     def purpose; end
     sig { params(_purpose: String).returns(String) }

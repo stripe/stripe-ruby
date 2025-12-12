@@ -119,7 +119,7 @@ module Stripe
           def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
         end
         class Tax < ::Stripe::RequestParams
-          # The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+          # The total amount of tax on a single line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
           #
           # This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
           sig { returns(Integer) }
@@ -129,7 +129,7 @@ module Stripe
           sig { params(total_tax_amount: Integer).void }
           def initialize(total_tax_amount: nil); end
         end
-        # The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+        # The discount applied on this line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
         #
         # This field is mutually exclusive with the `amount_details[discount_amount]` field.
         sig { returns(T.nilable(Integer)) }
@@ -169,7 +169,7 @@ module Stripe
           params(_tax: T.nilable(PaymentIntentCaptureParams::AmountDetails::LineItem::Tax)).returns(T.nilable(PaymentIntentCaptureParams::AmountDetails::LineItem::Tax))
          }
         def tax=(_tax); end
-        # The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+        # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
         sig { returns(Integer) }
         def unit_cost; end
         sig { params(_unit_cost: Integer).returns(Integer) }
@@ -194,7 +194,7 @@ module Stripe
         ); end
       end
       class Shipping < ::Stripe::RequestParams
-        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def amount; end
         sig {
@@ -217,7 +217,7 @@ module Stripe
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
       end
       class Tax < ::Stripe::RequestParams
-        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
         #
         # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         sig { returns(Integer) }
@@ -227,7 +227,7 @@ module Stripe
         sig { params(total_tax_amount: Integer).void }
         def initialize(total_tax_amount: nil); end
       end
-      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       sig { returns(T.nilable(T.any(String, Integer))) }
@@ -267,7 +267,7 @@ module Stripe
     class Hooks < ::Stripe::RequestParams
       class Inputs < ::Stripe::RequestParams
         class Tax < ::Stripe::RequestParams
-          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          # The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
           sig { returns(String) }
           def calculation; end
           sig { params(_calculation: String).returns(String) }
@@ -410,7 +410,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -453,7 +453,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -752,7 +752,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: String).returns(String) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -851,7 +851,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: String).returns(String) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1225,7 +1225,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1991,7 +1991,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -2313,7 +2313,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: String).returns(String) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -2852,7 +2852,7 @@ module Stripe
     def amount_to_capture; end
     sig { params(_amount_to_capture: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def amount_to_capture=(_amount_to_capture); end
-    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     sig { returns(T.nilable(Integer)) }
     def application_fee_amount; end
     sig { params(_application_fee_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -2862,7 +2862,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # Defaults to `true`. When capturing a PaymentIntent, setting `final_capture` to `false` notifies Stripe to not release the remaining uncaptured funds to make sure that they're captured in future requests. You can only use this setting when [multicapture](https://stripe.com/docs/payments/multicapture) is available for PaymentIntents.
+    # Defaults to `true`. When capturing a PaymentIntent, setting `final_capture` to `false` notifies Stripe to not release the remaining uncaptured funds to make sure that they're captured in future requests. You can only use this setting when [multicapture](https://docs.stripe.com/payments/multicapture) is available for PaymentIntents.
     sig { returns(T.nilable(T::Boolean)) }
     def final_capture; end
     sig { params(_final_capture: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -2874,7 +2874,7 @@ module Stripe
       params(_hooks: T.nilable(PaymentIntentCaptureParams::Hooks)).returns(T.nilable(PaymentIntentCaptureParams::Hooks))
      }
     def hooks=(_hooks); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -2901,7 +2901,7 @@ module Stripe
     sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor_suffix=(_statement_descriptor_suffix); end
     # The parameters that you can use to automatically create a transfer after the payment
-    # is captured. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    # is captured. Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     sig { returns(T.nilable(PaymentIntentCaptureParams::TransferData)) }
     def transfer_data; end
     sig {

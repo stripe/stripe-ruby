@@ -27,7 +27,7 @@ module Stripe
             attr_reader :id
             # A lookup key for the custom pricing unit.
             attr_reader :lookup_key
-            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             attr_reader :metadata
             # The status of the custom pricing unit.
             attr_reader :status
@@ -149,7 +149,7 @@ module Stripe
       attr_reader :created
       # ID of the customer receiving the billing credits.
       attr_reader :customer
-      # ID of the account receiving the billing credits
+      # ID of the account representing the customer receiving the billing credits
       attr_reader :customer_account
       # The time when the billing credits become effective-when they're eligible for use.
       attr_reader :effective_at
@@ -159,7 +159,7 @@ module Stripe
       attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # A descriptive name shown in dashboard.
       attr_reader :name

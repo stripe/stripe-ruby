@@ -370,7 +370,7 @@ module Stripe
             params(_discounts: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]))
            }
           def discounts=(_discounts); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           sig {
@@ -709,6 +709,15 @@ module Stripe
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
       def billing_cycle_anchor=(_billing_cycle_anchor); end
+      # Actions to apply to the billing schedules.
+      sig {
+        returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
+       }
+      def billing_schedules_actions; end
+      sig {
+        params(_billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
+       }
+      def billing_schedules_actions=(_billing_schedules_actions); end
       # Changes to the coupons being redeemed or discounts being applied during the amendment time span.
       sig {
         returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]))
@@ -718,6 +727,11 @@ module Stripe
         params(_discount_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]))
        }
       def discount_actions=(_discount_actions); end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def effective_at; end
+      sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+      def effective_at=(_effective_at); end
       # Changes to the subscription items during the amendment time span.
       sig { returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction])) }
       def item_actions; end
@@ -758,36 +772,22 @@ module Stripe
         params(_trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
-      # Actions to apply to the billing schedules.
       sig {
-        returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
-       }
-      def billing_schedules_actions; end
-      sig {
-        params(_billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
-       }
-      def billing_schedules_actions=(_billing_schedules_actions); end
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      sig { returns(T.nilable(String)) }
-      def effective_at; end
-      sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
-      def effective_at=(_effective_at); end
-      sig {
-        params(amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd), amendment_start: SubscriptionScheduleAmendParams::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), discount_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]), item_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings), billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]), effective_at: T.nilable(String)).void
+        params(amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd), amendment_start: SubscriptionScheduleAmendParams::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]), discount_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]), effective_at: T.nilable(String), item_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings)).void
        }
       def initialize(
         amendment_end: nil,
         amendment_start: nil,
         billing_cycle_anchor: nil,
+        billing_schedules_actions: nil,
         discount_actions: nil,
+        effective_at: nil,
         item_actions: nil,
         metadata_actions: nil,
         proration_behavior: nil,
         set_pause_collection: nil,
         set_schedule_end: nil,
-        trial_settings: nil,
-        billing_schedules_actions: nil,
-        effective_at: nil
+        trial_settings: nil
       ); end
     end
     class Prebilling < ::Stripe::RequestParams

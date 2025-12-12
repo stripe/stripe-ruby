@@ -12,6 +12,21 @@ module Stripe
             "v2.core.vault.gb_bank_account"
           end
 
+          class AlternativeReference < ::Stripe::StripeObject
+            # The ID of the alternative resource being referenced.
+            attr_reader :id
+            # The type of the alternative reference (e.g., external_account for V1 external accounts).
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class ConfirmationOfPayee < ::Stripe::StripeObject
             class Result < ::Stripe::StripeObject
               class Matched < ::Stripe::StripeObject
@@ -76,6 +91,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The alternative reference for this payout method, if it's a projected payout method.
+          attr_reader :alternative_reference
           # Whether this bank account object was archived. Bank account objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived bank account objects
           # cannot be used as outbound destinations and will not appear in the outbound destination list.
@@ -101,7 +118,10 @@ module Stripe
           attr_reader :livemode
 
           def self.inner_class_types
-            @inner_class_types = { confirmation_of_payee: ConfirmationOfPayee }
+            @inner_class_types = {
+              alternative_reference: AlternativeReference,
+              confirmation_of_payee: ConfirmationOfPayee,
+            }
           end
 
           def self.field_remappings

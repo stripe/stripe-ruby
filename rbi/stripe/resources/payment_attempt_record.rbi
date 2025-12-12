@@ -12,7 +12,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       def self.inner_class_types
@@ -26,7 +26,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       def self.inner_class_types
@@ -40,7 +40,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       def self.inner_class_types
@@ -54,7 +54,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       def self.inner_class_types
@@ -68,7 +68,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       def self.inner_class_types
@@ -82,7 +82,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       def self.inner_class_types
@@ -96,7 +96,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       def self.inner_class_types
@@ -177,6 +177,9 @@ module Stripe
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -200,10 +203,10 @@ module Stripe
         end
       end
       class Affirm < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         sig { returns(T.nilable(String)) }
         def reader; end
         # The Affirm transaction ID associated with this payment.
@@ -333,6 +336,9 @@ module Stripe
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
         def bsb_number; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -350,6 +356,9 @@ module Stripe
         end
       end
       class BacsDebit < ::Stripe::StripeObject
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -431,7 +440,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -495,6 +504,34 @@ module Stripe
           def cvc_check; end
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Installments < ::Stripe::StripeObject
+          class Plan < ::Stripe::StripeObject
+            # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+            sig { returns(T.nilable(Integer)) }
+            def count; end
+            # For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card. One of `month`.
+            sig { returns(T.nilable(String)) }
+            def interval; end
+            # Type of installment plan, one of `fixed_count`, `revolving`, or `bonus`.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field plan
+          sig { returns(T.nilable(Plan)) }
+          def plan; end
+          def self.inner_class_types
+            @inner_class_types = {plan: Plan}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -570,6 +607,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The authorization code of the payment.
+        sig { returns(T.nilable(String)) }
+        def authorization_code; end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(String) }
         def brand; end
@@ -582,6 +622,9 @@ module Stripe
         # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
         sig { returns(T.nilable(String)) }
         def country; end
+        # A high-level description of the type of cards issued in this range.
+        sig { returns(T.nilable(String)) }
+        def description; end
         # Two-digit number representing the card's expiration month.
         sig { returns(Integer) }
         def exp_month; end
@@ -596,6 +639,15 @@ module Stripe
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
         sig { returns(String) }
         def funding; end
+        # Issuer identification number of the card.
+        sig { returns(T.nilable(String)) }
+        def iin; end
+        # Installment details for this payment.
+        sig { returns(T.nilable(Installments)) }
+        def installments; end
+        # The name of the card's issuing bank.
+        sig { returns(T.nilable(String)) }
+        def issuer; end
         # The last four digits of the card.
         sig { returns(String) }
         def last4; end
@@ -605,12 +657,21 @@ module Stripe
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
         def network; end
+        # Advice code from the card network for the failed payment.
+        sig { returns(T.nilable(String)) }
+        def network_advice_code; end
+        # Decline code from the card network for the failed payment.
+        sig { returns(T.nilable(String)) }
+        def network_decline_code; end
         # If this card has network token credentials, this contains the details of the network token credentials.
         sig { returns(T.nilable(NetworkToken)) }
         def network_token; end
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         sig { returns(T.nilable(String)) }
         def network_transaction_id; end
+        # The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
+        sig { returns(T.nilable(String)) }
+        def stored_credential_usage; end
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
         def three_d_secure; end
@@ -620,6 +681,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             checks: Checks,
+            installments: Installments,
             network_token: NetworkToken,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
@@ -734,7 +796,7 @@ module Stripe
         # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
         def iin; end
-        # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+        # Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
         sig { returns(T::Boolean) }
         def incremental_authorization_supported; end
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
@@ -931,7 +993,7 @@ module Stripe
         end
       end
       class Ideal < ::Stripe::StripeObject
-        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         sig { returns(T.nilable(String)) }
         def bank; end
         # The Bank Identifier Code of the customer's bank.
@@ -1251,6 +1313,9 @@ module Stripe
         # The numeric code for the bank account's bank branch.
         sig { returns(String) }
         def branch_code; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Last four digits of the bank account number.
         sig { returns(String) }
         def last4; end
@@ -1317,10 +1382,10 @@ module Stripe
         end
       end
       class Paynow < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         sig { returns(T.nilable(String)) }
         def reader; end
         # Reference number associated with this PayNow payment
@@ -1364,7 +1429,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -1390,7 +1455,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -1630,13 +1695,16 @@ module Stripe
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(T.nilable(String)) }
         def country; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
         def last4; end
-        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
+        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
         sig { returns(T.nilable(String)) }
         def mandate; end
         def self.inner_class_types
@@ -1748,6 +1816,9 @@ module Stripe
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def expected_debit_date; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -1782,10 +1853,10 @@ module Stripe
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         sig { returns(T.nilable(String)) }
         def reader; end
         # Transaction ID of this particular WeChat Pay transaction.
@@ -1997,7 +2068,7 @@ module Stripe
       # Attribute for field twint
       sig { returns(T.nilable(Twint)) }
       def twint; end
-      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
+      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
       # An additional hash is included on `payment_method_details` with a name matching this value.
       # It contains information specific to the payment method.
       sig { returns(String) }
@@ -2132,7 +2203,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -2200,7 +2271,7 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.

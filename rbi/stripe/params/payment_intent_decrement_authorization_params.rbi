@@ -7,7 +7,7 @@ module Stripe
     class Hooks < ::Stripe::RequestParams
       class Inputs < ::Stripe::RequestParams
         class Tax < ::Stripe::RequestParams
-          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          # The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
           sig { returns(String) }
           def calculation; end
           sig { params(_calculation: String).returns(String) }
@@ -53,7 +53,7 @@ module Stripe
     def amount; end
     sig { params(_amount: Integer).returns(Integer) }
     def amount=(_amount); end
-    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     sig { returns(T.nilable(Integer)) }
     def application_fee_amount; end
     sig { params(_application_fee_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -75,7 +75,7 @@ module Stripe
       params(_hooks: T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks)).returns(T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks))
      }
     def hooks=(_hooks); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {
@@ -83,7 +83,7 @@ module Stripe
      }
     def metadata=(_metadata); end
     # The parameters used to automatically create a transfer after the payment is captured.
-    # Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    # Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     sig { returns(T.nilable(PaymentIntentDecrementAuthorizationParams::TransferData)) }
     def transfer_data; end
     sig {

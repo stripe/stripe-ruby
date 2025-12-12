@@ -52,15 +52,6 @@ module Stripe
           end
 
           class Deactivate < ::Stripe::RequestParams
-            class BillingDetails < ::Stripe::RequestParams
-              # This controls the proration adjustment for the partial servicing period.
-              attr_accessor :proration_behavior
-
-              def initialize(proration_behavior: nil)
-                @proration_behavior = proration_behavior
-              end
-            end
-
             class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
               attr_accessor :timestamp
@@ -74,15 +65,45 @@ module Stripe
             end
 
             class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class Overrides < ::Stripe::RequestParams
+                class PartialPeriodBehavior < ::Stripe::RequestParams
+                  class LicenseFee < ::Stripe::RequestParams
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                    attr_accessor :credit_proration_behavior
+
+                    def initialize(credit_proration_behavior: nil)
+                      @credit_proration_behavior = credit_proration_behavior
+                    end
+                  end
+                  # Type of the partial period behavior override.
+                  attr_accessor :type
+                  # Override for the license fee.
+                  attr_accessor :license_fee
+
+                  def initialize(type: nil, license_fee: nil)
+                    @type = type
+                    @license_fee = license_fee
+                  end
+                end
+                # Override for the partial period behavior.
+                attr_accessor :partial_period_behaviors
+
+                def initialize(partial_period_behaviors: nil)
+                  @partial_period_behaviors = partial_period_behaviors
+                end
+              end
+              # Allows users to override the partial period behavior.
+              attr_accessor :overrides
               # ID of the pricing plan subscription to deactivate.
               attr_accessor :pricing_plan_subscription
 
-              def initialize(pricing_plan_subscription: nil)
+              def initialize(overrides: nil, pricing_plan_subscription: nil)
+                @overrides = overrides
                 @pricing_plan_subscription = pricing_plan_subscription
               end
             end
-            # Configuration for the billing details.
-            attr_accessor :billing_details
+            # Allows users to override the collect at behavior.
+            attr_accessor :collect_at
             # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
             # Details for deactivating a pricing plan subscription.
@@ -91,12 +112,12 @@ module Stripe
             attr_accessor :type
 
             def initialize(
-              billing_details: nil,
+              collect_at: nil,
               effective_at: nil,
               pricing_plan_subscription_details: nil,
               type: nil
             )
-              @billing_details = billing_details
+              @collect_at = collect_at
               @effective_at = effective_at
               @pricing_plan_subscription_details = pricing_plan_subscription_details
               @type = type
@@ -104,15 +125,6 @@ module Stripe
           end
 
           class Modify < ::Stripe::RequestParams
-            class BillingDetails < ::Stripe::RequestParams
-              # This controls the proration adjustment for the partial servicing period.
-              attr_accessor :proration_behavior
-
-              def initialize(proration_behavior: nil)
-                @proration_behavior = proration_behavior
-              end
-            end
-
             class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the modify action will take effect. Only present if type is timestamp.
               attr_accessor :timestamp
@@ -140,12 +152,45 @@ module Stripe
                   @pricing_plan_component = pricing_plan_component
                 end
               end
+
+              class Overrides < ::Stripe::RequestParams
+                class PartialPeriodBehavior < ::Stripe::RequestParams
+                  class LicenseFee < ::Stripe::RequestParams
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                    attr_accessor :credit_proration_behavior
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                    attr_accessor :debit_proration_behavior
+
+                    def initialize(credit_proration_behavior: nil, debit_proration_behavior: nil)
+                      @credit_proration_behavior = credit_proration_behavior
+                      @debit_proration_behavior = debit_proration_behavior
+                    end
+                  end
+                  # Type of the partial period behavior override.
+                  attr_accessor :type
+                  # Override for the license fee.
+                  attr_accessor :license_fee
+
+                  def initialize(type: nil, license_fee: nil)
+                    @type = type
+                    @license_fee = license_fee
+                  end
+                end
+                # Override for the partial period behavior.
+                attr_accessor :partial_period_behaviors
+
+                def initialize(partial_period_behaviors: nil)
+                  @partial_period_behaviors = partial_period_behaviors
+                end
+              end
               # New configurations for the components of the pricing plan.
               attr_accessor :component_configurations
               # The ID of the new Pricing Plan, if changing plans.
               attr_accessor :new_pricing_plan
               # The ID of the new Pricing Plan Version to use.
               attr_accessor :new_pricing_plan_version
+              # Allows users to override the partial period behavior.
+              attr_accessor :overrides
               # The ID of the Pricing Plan Subscription to modify.
               attr_accessor :pricing_plan_subscription
 
@@ -153,16 +198,18 @@ module Stripe
                 component_configurations: nil,
                 new_pricing_plan: nil,
                 new_pricing_plan_version: nil,
+                overrides: nil,
                 pricing_plan_subscription: nil
               )
                 @component_configurations = component_configurations
                 @new_pricing_plan = new_pricing_plan
                 @new_pricing_plan_version = new_pricing_plan_version
+                @overrides = overrides
                 @pricing_plan_subscription = pricing_plan_subscription
               end
             end
-            # Configuration for the billing details.
-            attr_accessor :billing_details
+            # Allows users to override the collect at behavior.
+            attr_accessor :collect_at
             # When the modify action will take effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
             # Details for modifying a pricing plan subscription.
@@ -171,12 +218,12 @@ module Stripe
             attr_accessor :type
 
             def initialize(
-              billing_details: nil,
+              collect_at: nil,
               effective_at: nil,
               pricing_plan_subscription_details: nil,
               type: nil
             )
-              @billing_details = billing_details
+              @collect_at = collect_at
               @effective_at = effective_at
               @pricing_plan_subscription_details = pricing_plan_subscription_details
               @type = type
@@ -196,15 +243,6 @@ module Stripe
           end
 
           class Subscribe < ::Stripe::RequestParams
-            class BillingDetails < ::Stripe::RequestParams
-              # This controls the proration adjustment for the partial servicing period.
-              attr_accessor :proration_behavior
-
-              def initialize(proration_behavior: nil)
-                @proration_behavior = proration_behavior
-              end
-            end
-
             class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
               attr_accessor :timestamp
@@ -232,10 +270,40 @@ module Stripe
                   @pricing_plan_component = pricing_plan_component
                 end
               end
+
+              class Overrides < ::Stripe::RequestParams
+                class PartialPeriodBehavior < ::Stripe::RequestParams
+                  class LicenseFee < ::Stripe::RequestParams
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                    attr_accessor :debit_proration_behavior
+
+                    def initialize(debit_proration_behavior: nil)
+                      @debit_proration_behavior = debit_proration_behavior
+                    end
+                  end
+                  # Type of the partial period behavior override.
+                  attr_accessor :type
+                  # Override for the license fee.
+                  attr_accessor :license_fee
+
+                  def initialize(type: nil, license_fee: nil)
+                    @type = type
+                    @license_fee = license_fee
+                  end
+                end
+                # Override for the partial period behavior.
+                attr_accessor :partial_period_behaviors
+
+                def initialize(partial_period_behaviors: nil)
+                  @partial_period_behaviors = partial_period_behaviors
+                end
+              end
               # Configurations for the components of the pricing plan.
               attr_accessor :component_configurations
               # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               attr_accessor :metadata
+              # Allows users to override the partial period behavior.
+              attr_accessor :overrides
               # ID of the Pricing Plan to subscribe to.
               attr_accessor :pricing_plan
               # Version of the Pricing Plan to use.
@@ -244,11 +312,13 @@ module Stripe
               def initialize(
                 component_configurations: nil,
                 metadata: nil,
+                overrides: nil,
                 pricing_plan: nil,
                 pricing_plan_version: nil
               )
                 @component_configurations = component_configurations
                 @metadata = metadata
+                @overrides = overrides
                 @pricing_plan = pricing_plan
                 @pricing_plan_version = pricing_plan_version
               end
@@ -283,8 +353,8 @@ module Stripe
                 @metadata = metadata
               end
             end
-            # Configuration for the billing details. If not specified, see the default behavior for individual attributes.
-            attr_accessor :billing_details
+            # Allows users to override the collect at behavior.
+            attr_accessor :collect_at
             # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
             # Type of the action details.
@@ -295,13 +365,13 @@ module Stripe
             attr_accessor :v1_subscription_details
 
             def initialize(
-              billing_details: nil,
+              collect_at: nil,
               effective_at: nil,
               type: nil,
               pricing_plan_subscription_details: nil,
               v1_subscription_details: nil
             )
-              @billing_details = billing_details
+              @collect_at = collect_at
               @effective_at = effective_at
               @type = type
               @pricing_plan_subscription_details = pricing_plan_subscription_details

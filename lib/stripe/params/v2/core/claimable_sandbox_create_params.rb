@@ -12,7 +12,7 @@ module Stripe
           # Email that this sandbox is meant to be claimed by. Stripe will
           # notify this email address before the sandbox expires.
           attr_accessor :email
-          # Name for the sandbox. If not provided, this will be generated.
+          # Name for the sandbox.
           attr_accessor :name
 
           def initialize(country: nil, email: nil, name: nil)

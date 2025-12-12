@@ -498,6 +498,15 @@ module Stripe
       end
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            sig { returns(String) }
+            def tax_code; end
+            sig { params(_tax_code: String).returns(String) }
+            def tax_code=(_tax_code); end
+            sig { params(tax_code: String).void }
+            def initialize(tax_code: nil); end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           sig { returns(T.nilable(String)) }
           def description; end
@@ -530,8 +539,17 @@ module Stripe
           def unit_label; end
           sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
           def unit_label=(_unit_label); end
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
           sig {
-            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+            returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+           }
+          def tax_details; end
+          sig {
+            params(_tax_details: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails)).returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+           }
+          def tax_details=(_tax_details); end
+          sig {
+            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String), tax_details: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails)).void
            }
           def initialize(
             description: nil,
@@ -539,7 +557,8 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
-            unit_label: nil
+            unit_label: nil,
+            tax_details: nil
           ); end
         end
         class Recurring < ::Stripe::RequestParams

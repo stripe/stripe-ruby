@@ -200,6 +200,9 @@ module Stripe
     # The Customer the Customer Session was created for.
     sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
+    # The Account that the Customer Session was created for.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
     # The timestamp at which this Customer Session will expire.
     sig { returns(Integer) }
     def expires_at; end

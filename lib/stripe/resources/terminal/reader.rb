@@ -5,7 +5,7 @@ module Stripe
   module Terminal
     # A Reader represents a physical device for accepting payment details.
     #
-    # Related guide: [Connecting to a reader](https://stripe.com/docs/terminal/payments/connect-reader)
+    # Related guide: [Connecting to a reader](https://docs.stripe.com/terminal/payments/connect-reader)
     class Reader < APIResource
       extend Stripe::APIOperations::Create
       include Stripe::APIOperations::Delete
@@ -197,7 +197,7 @@ module Stripe
           end
           # List of inputs to be collected.
           attr_reader :inputs
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_reader :metadata
 
           def self.inner_class_types
@@ -243,10 +243,10 @@ module Stripe
           # Most recent PaymentIntent processed by the reader.
           attr_reader :payment_intent
           # PaymentMethod objects represent your customer's payment instruments.
-          # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+          # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
           # Customer objects to store instrument details for future payments.
           #
-          # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+          # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
           attr_reader :payment_method
 
           def self.inner_class_types
@@ -376,7 +376,7 @@ module Stripe
           attr_reader :amount
           # Charge that is being refunded.
           attr_reader :charge
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_reader :metadata
           # Payment intent that is being refunded.
           attr_reader :payment_intent
@@ -403,7 +403,7 @@ module Stripe
         class SetReaderDisplay < ::Stripe::StripeObject
           class Cart < ::Stripe::StripeObject
             class LineItem < ::Stripe::StripeObject
-              # The amount of the line item. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+              # The amount of the line item. A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
               attr_reader :amount
               # Description of the line item.
               attr_reader :description
@@ -422,9 +422,9 @@ module Stripe
             attr_reader :currency
             # List of line items in the cart.
             attr_reader :line_items
-            # Tax amount for the entire cart. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            # Tax amount for the entire cart. A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             attr_reader :tax
-            # Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            # Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             attr_reader :total
 
             def self.inner_class_types
@@ -499,13 +499,13 @@ module Stripe
       attr_reader :ip_address
       # Custom label given to the reader for easier identification.
       attr_reader :label
-      # The last time this reader reported to Stripe backend.
+      # The last time this reader reported to Stripe backend. Timestamp is measured in milliseconds since the Unix epoch. Unlike most other Stripe timestamp fields which use seconds, this field uses milliseconds.
       attr_reader :last_seen_at
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # The location identifier of the reader.
       attr_reader :location
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object

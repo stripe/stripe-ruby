@@ -5,7 +5,7 @@ module Stripe
   # Reviews can be used to supplement automated fraud detection with human expertise.
   #
   # Learn more about [Radar](https://docs.stripe.com/radar) and reviewing payments
-  # [here](https://stripe.com/docs/radar/reviews).
+  # [here](https://docs.stripe.com/radar/reviews).
   class Review < APIResource
     extend Stripe::APIOperations::List
 

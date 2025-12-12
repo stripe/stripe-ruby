@@ -4,19 +4,19 @@
 module Stripe
   module Checkout
     # A Checkout Session represents your customer's session as they pay for
-    # one-time purchases or subscriptions through [Checkout](https://stripe.com/docs/payments/checkout)
-    # or [Payment Links](https://stripe.com/docs/payments/payment-links). We recommend creating a
+    # one-time purchases or subscriptions through [Checkout](https://docs.stripe.com/payments/checkout)
+    # or [Payment Links](https://docs.stripe.com/payments/payment-links). We recommend creating a
     # new Session each time your customer attempts to pay.
     #
     # Once payment is successful, the Checkout Session will contain a reference
-    # to the [Customer](https://stripe.com/docs/api/customers), and either the successful
-    # [PaymentIntent](https://stripe.com/docs/api/payment_intents) or an active
-    # [Subscription](https://stripe.com/docs/api/subscriptions).
+    # to the [Customer](https://docs.stripe.com/api/customers), and either the successful
+    # [PaymentIntent](https://docs.stripe.com/api/payment_intents) or an active
+    # [Subscription](https://docs.stripe.com/api/subscriptions).
     #
     # You can create a Checkout Session on your server and redirect to its URL
     # to begin Checkout.
     #
-    # Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
+    # Related guide: [Checkout quickstart](https://docs.stripe.com/checkout/quickstart)
     class Session < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -177,7 +177,7 @@ module Stripe
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
 
             def self.inner_class_types
@@ -480,7 +480,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -604,7 +604,7 @@ module Stripe
           attr_reader :footer
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_reader :issuer
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_reader :metadata
           # Options for invoice PDF rendering.
           attr_reader :rendering_options
@@ -1017,7 +1017,7 @@ module Stripe
           attr_reader :request_multicapture
           # Request ability to [overcapture](/payments/overcapture) for this CheckoutSession.
           attr_reader :request_overcapture
-          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           attr_reader :request_three_d_secure
           # Attribute for field restrictions
           attr_reader :restrictions
@@ -1475,6 +1475,51 @@ module Stripe
           end
         end
 
+        class Payto < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount that will be collected. It is required when `amount_type` is `fixed`.
+            attr_reader :amount
+            # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+            attr_reader :amount_type
+            # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+            attr_reader :end_date
+            # The periodicity at which payments will be collected. Defaults to `adhoc`.
+            attr_reader :payment_schedule
+            # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+            attr_reader :payments_per_period
+            # The purpose for which payments are made. Has a default value based on your merchant category code.
+            attr_reader :purpose
+            # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+            attr_reader :start_date
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Pix < ::Stripe::StripeObject
           # Determines if the amount includes the IOF tax.
           attr_reader :amount_includes_iof
@@ -1749,6 +1794,8 @@ module Stripe
         attr_reader :paynow
         # Attribute for field paypal
         attr_reader :paypal
+        # Attribute for field payto
+        attr_reader :payto
         # Attribute for field pix
         attr_reader :pix
         # Attribute for field revolut_pay
@@ -1802,6 +1849,7 @@ module Stripe
             payco: Payco,
             paynow: Paynow,
             paypal: Paypal,
+            payto: Payto,
             pix: Pix,
             revolut_pay: RevolutPay,
             samsung_pay: SamsungPay,
@@ -1971,10 +2019,10 @@ module Stripe
           class Discount < ::Stripe::StripeObject
             # The amount discounted.
             attr_reader :amount
-            # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+            # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
             # It contains information about when the discount began, when it will end, and what it is applied to.
             #
-            # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+            # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
             attr_reader :discount
 
             def self.inner_class_types
@@ -2084,7 +2132,7 @@ module Stripe
       # Session with your internal systems.
       attr_reader :client_reference_id
       # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
-      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
       attr_reader :collected_information
@@ -2108,6 +2156,8 @@ module Stripe
       # during the payment flow unless an existing customer was provided when
       # the Session was created.
       attr_reader :customer
+      # The ID of the account for this Session.
+      attr_reader :customer_account
       # Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
       attr_reader :customer_creation
       # The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode.
@@ -2136,7 +2186,7 @@ module Stripe
       attr_reader :livemode
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
       attr_reader :locale
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # The mode of the Checkout Session.
       attr_reader :mode
@@ -2148,7 +2198,7 @@ module Stripe
       attr_reader :optional_items
       # Where the user is coming from. This informs the optimizations that are applied to the session.
       attr_reader :origin_context
-      # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+      # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://docs.stripe.com/api/checkout/sessions/expire) instead.
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.
       attr_reader :payment_link
@@ -2174,13 +2224,13 @@ module Stripe
       attr_reader :presentment_details
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       attr_reader :recovered_from
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_reader :redirect_on_completion
       # Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
       attr_reader :return_url
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
       attr_reader :saved_payment_method_options
-      # The ID of the SetupIntent for Checkout Sessions in `setup` mode. You can't confirm or cancel the SetupIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+      # The ID of the SetupIntent for Checkout Sessions in `setup` mode. You can't confirm or cancel the SetupIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://docs.stripe.com/api/checkout/sessions/expire) instead.
       attr_reader :setup_intent
       # When set, provides configuration for Checkout to collect a shipping address from a customer.
       attr_reader :shipping_address_collection
@@ -2194,7 +2244,7 @@ module Stripe
       # relevant text on the page, such as the submit button. `submit_type` can only be
       # specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
       attr_reader :submit_type
-      # The ID of the [Subscription](https://stripe.com/docs/api/subscriptions) for Checkout Sessions in `subscription` mode.
+      # The ID of the [Subscription](https://docs.stripe.com/api/subscriptions) for Checkout Sessions in `subscription` mode.
       attr_reader :subscription
       # The URL the customer will be directed to after the payment or
       # subscription creation is successful.
@@ -2205,7 +2255,7 @@ module Stripe
       attr_reader :total_details
       # The UI mode of the Session. Defaults to `hosted`.
       attr_reader :ui_mode
-      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       attr_reader :url
       # Wallet-specific configuration for this Checkout Session.

@@ -7,10 +7,10 @@ module Stripe
     # specific run parameters. Once the object is created, Stripe begins processing the report.
     # When the report has finished running, it will give you a reference to a file
     # where you can retrieve your results. For an overview, see
-    # [API Access to Reports](https://stripe.com/docs/reporting/statements/api).
+    # [API Access to Reports](https://docs.stripe.com/reporting/statements/api).
     #
     # Note that certain report types can only be run based on your live-mode data (not test-mode
-    # data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
+    # data), and will error when queried without a [live-mode API key](https://docs.stripe.com/keys#test-live-modes).
     class ReportRun < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -59,7 +59,7 @@ module Stripe
       attr_reader :object
       # Attribute for field parameters
       attr_reader :parameters
-      # The ID of the [report type](https://stripe.com/docs/reports/report-types) to run, such as `"balance.summary.1"`.
+      # The ID of the [report type](https://docs.stripe.com/reports/report-types) to run, such as `"balance.summary.1"`.
       attr_reader :report_type
       # The file object representing the result of the report run (populated when
       #  `status=succeeded`).

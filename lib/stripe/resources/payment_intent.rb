@@ -8,11 +8,11 @@ module Stripe
   # see the history of payment attempts for a particular session.
   #
   # A PaymentIntent transitions through
-  # [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+  # [multiple statuses](https://docs.stripe.com/payments/paymentintents/lifecycle)
   # throughout its lifetime as it interfaces with Stripe.js to perform
   # authentication flows and ultimately creates at most one successful charge.
   #
-  # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+  # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
   class PaymentIntent < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -29,7 +29,7 @@ module Stripe
 
     class AmountDetails < ::Stripe::StripeObject
       class Shipping < ::Stripe::StripeObject
-        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_reader :amount
         # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
         attr_reader :from_postal_code
@@ -46,7 +46,7 @@ module Stripe
       end
 
       class Tax < ::Stripe::StripeObject
-        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
         #
         # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         attr_reader :total_tax_amount
@@ -72,11 +72,11 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_reader :discount_amount
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_reader :line_items
       # Attribute for field shipping
       attr_reader :shipping
@@ -97,7 +97,7 @@ module Stripe
     class AutomaticPaymentMethods < ::Stripe::StripeObject
       # Controls whether this PaymentIntent will accept redirect-based payment methods.
       #
-      # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
+      # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://docs.stripe.com/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
       attr_reader :allow_redirects
       # Automatically calculates compatible payment methods
       attr_reader :enabled
@@ -114,7 +114,7 @@ module Stripe
     class Hooks < ::Stripe::StripeObject
       class Inputs < ::Stripe::StripeObject
         class Tax < ::Stripe::StripeObject
-          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          # The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
           attr_reader :calculation
 
           def self.inner_class_types
@@ -149,15 +149,15 @@ module Stripe
     end
 
     class LastPaymentError < ::Stripe::StripeObject
-      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.
       attr_reader :charge
-      # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+      # For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :code
-      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
       attr_reader :decline_code
-      # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+      # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :doc_url
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       attr_reader :message
@@ -173,17 +173,17 @@ module Stripe
       # see the history of payment attempts for a particular session.
       #
       # A PaymentIntent transitions through
-      # [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+      # [multiple statuses](/payments/paymentintents/lifecycle)
       # throughout its lifetime as it interfaces with Stripe.js to perform
       # authentication flows and ultimately creates at most one successful charge.
       #
-      # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+      # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
       attr_reader :payment_intent
       # PaymentMethod objects represent your customer's payment instruments.
-      # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+      # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
-      # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+      # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
       attr_reader :payment_method
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
       attr_reader :payment_method_type
@@ -191,7 +191,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -202,9 +202,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -326,7 +326,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -349,7 +349,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -399,7 +399,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -422,7 +422,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -470,7 +470,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -493,7 +493,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -539,7 +539,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -562,7 +562,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -610,7 +610,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -633,7 +633,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -683,7 +683,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -706,7 +706,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -1579,21 +1579,21 @@ module Stripe
         attr_reader :capture_method
         # Installment details for this payment.
         #
-        # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+        # For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
         attr_reader :installments
         # Configuration options for setting up an eMandate for cards issued in India.
         attr_reader :mandate_options
         # Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
         attr_reader :network
-        # Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+        # Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
         attr_reader :request_extended_authorization
-        # Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        # Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
         attr_reader :request_incremental_authorization
-        # Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
         attr_reader :request_multicapture
-        # Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        # Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
         attr_reader :request_overcapture
-        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_reader :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         attr_reader :require_cvc_recollection
@@ -1634,9 +1634,9 @@ module Stripe
         end
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
-        # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+        # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_reader :request_extended_authorization
-        # Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+        # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
         attr_reader :request_incremental_authorization_support
         # Attribute for field routing
         attr_reader :routing
@@ -2171,6 +2171,49 @@ module Stripe
         end
       end
 
+      class Payto < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Amount that will be collected. It is required when `amount_type` is `fixed`.
+          attr_reader :amount
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+          attr_reader :amount_type
+          # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+          attr_reader :end_date
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
+          attr_reader :payment_schedule
+          # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+          attr_reader :payments_per_period
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
+          attr_reader :purpose
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Pix < ::Stripe::StripeObject
         # Determines if the amount includes the IOF tax.
         attr_reader :amount_includes_iof
@@ -2552,6 +2595,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field payto
+      attr_reader :payto
       # Attribute for field pix
       attr_reader :pix
       # Attribute for field promptpay
@@ -2618,6 +2663,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
           revolut_pay: RevolutPay,
@@ -2706,7 +2752,7 @@ module Stripe
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_reader :state
 
         def self.inner_class_types
@@ -2739,7 +2785,7 @@ module Stripe
 
     class TransferData < ::Stripe::StripeObject
       # The amount transferred to the destination account. This transfer will occur automatically after the payment succeeds. If no amount is specified, by default the entire payment amount is transferred to the destination account.
-      #  The amount must be less than or equal to the [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
+      #  The amount must be less than or equal to the [amount](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
       #  representing how much to transfer in the smallest currency unit (e.g., 100 cents to charge $1.00).
       attr_reader :amount
       # The account (if any) that the payment is attributed to for tax reporting, and where funds from the payment are transferred to after payment success.
@@ -2753,7 +2799,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_reader :amount
     # Amount that can be captured from this PaymentIntent.
     attr_reader :amount_capturable
@@ -2763,7 +2809,7 @@ module Stripe
     attr_reader :amount_received
     # ID of the Connect application that created the PaymentIntent.
     attr_reader :application
-    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     attr_reader :application_fee_amount
     # Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods)
     attr_reader :automatic_payment_methods
@@ -2777,7 +2823,7 @@ module Stripe
     #
     # The client secret can be used to complete a payment from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
     #
-    # Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
+    # Refer to our docs to [accept a payment](https://docs.stripe.com/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
     attr_reader :client_secret
     # Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
     attr_reader :confirmation_method
@@ -2789,8 +2835,14 @@ module Stripe
     #
     # Payment methods attached to other Customers cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     attr_reader :customer
+    # ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
+    #
+    # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+    #
+    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
     # The list of payment method types to exclude from use with this payment.
@@ -2801,23 +2853,24 @@ module Stripe
     attr_reader :id
     # The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.
     attr_reader :last_payment_error
-    # ID of the latest [Charge object](https://stripe.com/docs/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
+    # ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     attr_reader :latest_charge
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     attr_reader :metadata
     # If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source.
     attr_reader :next_action
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
+    # You can specify the settlement merchant as the
+    # connected account using the `on_behalf_of` attribute on the charge. See the PaymentIntents [use case for connected accounts](/payments/connected-accounts) for details.
     attr_reader :on_behalf_of
     # Attribute for field payment_details
     attr_reader :payment_details
     # ID of the payment method used in this PaymentIntent.
     attr_reader :payment_method
-    # Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent.
+    # Information about the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) used for this PaymentIntent.
     attr_reader :payment_method_configuration_details
     # Payment-method-specific configuration for this PaymentIntent.
     attr_reader :payment_method_options
@@ -2849,11 +2902,11 @@ module Stripe
     attr_reader :statement_descriptor
     # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
     attr_reader :statement_descriptor_suffix
-    # Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
+    # Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://docs.stripe.com/payments/intents#intent-statuses).
     attr_reader :status
-    # The data that automatically creates a Transfer after the payment finalizes. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    # The data that automatically creates a Transfer after the payment finalizes. Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     attr_reader :transfer_data
-    # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
+    # A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers).
     attr_reader :transfer_group
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.

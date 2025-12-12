@@ -41,7 +41,7 @@ module Stripe
     end
     class Tax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
-        # Attribute for field tax_rate
+        # ID of the tax rate
         sig { returns(String) }
         def tax_rate; end
         def self.inner_class_types

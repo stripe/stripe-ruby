@@ -8,7 +8,7 @@ module Stripe
     class Association < APIResource
       class TaxTransactionAttempt < ::Stripe::StripeObject
         class Committed < ::Stripe::StripeObject
-          # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
+          # The [Tax Transaction](https://docs.stripe.com/api/tax/transaction/object)
           sig { returns(String) }
           def transaction; end
           def self.inner_class_types
@@ -48,7 +48,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # The [Tax Calculation](https://stripe.com/docs/api/tax/calculations/object) that was included in PaymentIntent.
+      # The [Tax Calculation](https://docs.stripe.com/api/tax/calculations/object) that was included in PaymentIntent.
       sig { returns(String) }
       def calculation; end
       # Unique identifier for the object.
@@ -57,7 +57,7 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
-      # The [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) that this Tax Association is tracking.
+      # The [PaymentIntent](https://docs.stripe.com/api/payment_intents/object) that this Tax Association is tracking.
       sig { returns(String) }
       def payment_intent; end
       # Information about the tax transactions linked to this payment intent

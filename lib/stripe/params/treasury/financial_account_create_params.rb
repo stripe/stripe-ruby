@@ -172,7 +172,7 @@ module Stripe
       attr_accessor :expand
       # Encodes whether a FinancialAccount has access to a particular feature. Stripe or the platform can control features via the requested field.
       attr_accessor :features
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The nickname for the FinancialAccount.
       attr_accessor :nickname

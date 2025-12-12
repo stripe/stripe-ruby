@@ -85,6 +85,8 @@ module Stripe
       attr_reader :balances
       # The customer the balance is for.
       attr_reader :customer
+      # The account the balance is for.
+      attr_reader :customer_account
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.

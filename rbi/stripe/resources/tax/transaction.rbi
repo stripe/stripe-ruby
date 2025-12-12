@@ -6,7 +6,7 @@ module Stripe
   module Tax
     # A Tax Transaction records the tax collected from or refunded to your customer.
     #
-    # Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)
+    # Related guide: [Calculate tax in your custom payment flow](https://docs.stripe.com/tax/custom#tax-transaction)
     class Transaction < APIResource
       class CustomerDetails < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
@@ -158,7 +158,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+          # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
           # Attribute for field jurisdiction
@@ -173,7 +173,7 @@ module Stripe
           # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
           sig { returns(String) }
           def taxability_reason; end
-          # The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+          # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
           sig { returns(Integer) }
           def taxable_amount; end
           def self.inner_class_types
@@ -183,13 +183,13 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The shipping amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        # The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         sig { returns(Integer) }
         def amount; end
-        # The amount of tax calculated for shipping, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def amount_tax; end
-        # The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object).
+        # The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
         sig { returns(T.nilable(String)) }
         def shipping_rate; end
         # Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
@@ -198,7 +198,7 @@ module Stripe
         # Detailed account of taxes relevant to shipping cost. (It is not populated for the transaction resource object and will be removed in the next API version.)
         sig { returns(T.nilable(T::Array[TaxBreakdown])) }
         def tax_breakdown; end
-        # The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping.
+        # The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for shipping.
         sig { returns(String) }
         def tax_code; end
         def self.inner_class_types
@@ -214,7 +214,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
-      # The ID of an existing [Customer](https://stripe.com/docs/api/customers/object) used for the resource.
+      # The ID of an existing [Customer](https://docs.stripe.com/api/customers/object) used for the resource.
       sig { returns(T.nilable(String)) }
       def customer; end
       # Attribute for field customer_details
@@ -229,7 +229,7 @@ module Stripe
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       # String representing the object's type. Objects of the same type share the same value.

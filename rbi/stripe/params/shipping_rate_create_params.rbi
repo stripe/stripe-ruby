@@ -115,7 +115,7 @@ module Stripe
       params(_fixed_amount: T.nilable(ShippingRateCreateParams::FixedAmount)).returns(T.nilable(ShippingRateCreateParams::FixedAmount))
      }
     def fixed_amount=(_fixed_amount); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {
@@ -127,7 +127,7 @@ module Stripe
     def tax_behavior; end
     sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def tax_behavior=(_tax_behavior); end
-    # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+    # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
     sig { returns(T.nilable(String)) }
     def tax_code; end
     sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }

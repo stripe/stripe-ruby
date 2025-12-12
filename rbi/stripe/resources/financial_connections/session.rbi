@@ -7,12 +7,15 @@ module Stripe
     # A Financial Connections Session is the secure way to programmatically launch the client-side Stripe.js modal that lets your users link their accounts.
     class Session < APIResource
       class AccountHolder < ::Stripe::StripeObject
-        # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        # The ID of the Stripe account that this account belongs to. Only available when `account_holder.type` is `account`.
         sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
-        # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        # The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
         def customer; end
+        # Attribute for field customer_account
+        sig { returns(T.nilable(String)) }
+        def customer_account; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
         def type; end

@@ -15,7 +15,7 @@ module Stripe
         def initialize(custom_message: nil); end
       end
       class Redirect < ::Stripe::RequestParams
-        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
+        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-id) included.
         sig { returns(String) }
         def url; end
         sig { params(_url: String).returns(String) }
@@ -386,7 +386,7 @@ module Stripe
           params(_issuer: T.nilable(PaymentLinkUpdateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(PaymentLinkUpdateParams::InvoiceCreation::InvoiceData::Issuer))
          }
         def issuer=(_issuer); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         def metadata; end
         sig {
@@ -530,7 +530,7 @@ module Stripe
       def description; end
       sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
       def description=(_description); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {
@@ -549,7 +549,7 @@ module Stripe
       def statement_descriptor_suffix; end
       sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor_suffix=(_statement_descriptor_suffix); end
-      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
       sig { returns(T.nilable(String)) }
       def transfer_group; end
       sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
@@ -665,7 +665,7 @@ module Stripe
         params(_invoice_settings: T.nilable(PaymentLinkUpdateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(PaymentLinkUpdateParams::SubscriptionData::InvoiceSettings))
        }
       def invoice_settings=(_invoice_settings); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {
@@ -755,7 +755,7 @@ module Stripe
       params(_custom_text: T.nilable(PaymentLinkUpdateParams::CustomText)).returns(T.nilable(PaymentLinkUpdateParams::CustomText))
      }
     def custom_text=(_custom_text); end
-    # Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
+    # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     sig { returns(T.nilable(String)) }
     def customer_creation; end
     sig { params(_customer_creation: T.nilable(String)).returns(T.nilable(String)) }
@@ -784,7 +784,7 @@ module Stripe
       params(_line_items: T.nilable(T::Array[PaymentLinkUpdateParams::LineItem])).returns(T.nilable(T::Array[PaymentLinkUpdateParams::LineItem]))
      }
     def line_items=(_line_items); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {
@@ -809,7 +809,7 @@ module Stripe
     #
     # Can only be set in `subscription` mode. Defaults to `always`.
     #
-    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
+    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     sig { returns(T.nilable(String)) }
     def payment_method_collection; end
     sig { params(_payment_method_collection: T.nilable(String)).returns(T.nilable(String)) }
@@ -844,7 +844,7 @@ module Stripe
       params(_shipping_address_collection: T.nilable(T.any(String, PaymentLinkUpdateParams::ShippingAddressCollection))).returns(T.nilable(T.any(String, PaymentLinkUpdateParams::ShippingAddressCollection)))
      }
     def shipping_address_collection=(_shipping_address_collection); end
-    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
+    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     sig { returns(T.nilable(String)) }
     def submit_type; end
     sig { params(_submit_type: T.nilable(String)).returns(T.nilable(String)) }

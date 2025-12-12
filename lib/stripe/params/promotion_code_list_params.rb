@@ -30,6 +30,8 @@ module Stripe
     attr_accessor :created
     # Only return promotion codes that are restricted to this customer.
     attr_accessor :customer
+    # Only return promotion codes that are restricted to this account representing the customer.
+    attr_accessor :customer_account
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     attr_accessor :ending_before
     # Specifies which fields in the response should be expanded.
@@ -45,6 +47,7 @@ module Stripe
       coupon: nil,
       created: nil,
       customer: nil,
+      customer_account: nil,
       ending_before: nil,
       expand: nil,
       limit: nil,
@@ -55,6 +58,7 @@ module Stripe
       @coupon = coupon
       @created = created
       @customer = customer
+      @customer_account = customer_account
       @ending_before = ending_before
       @expand = expand
       @limit = limit

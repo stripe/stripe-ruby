@@ -6,23 +6,30 @@ module Stripe
   module FinancialConnections
     class SessionCreateParams < ::Stripe::RequestParams
       class AccountHolder < ::Stripe::RequestParams
-        # The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
+        # The ID of the Stripe account whose accounts you will retrieve. Only available when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
         sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
         def account=(_account); end
-        # The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+        # The ID of the Stripe customer whose accounts you will retrieve. Only available when `type` is `customer`.
         sig { returns(T.nilable(String)) }
         def customer; end
         sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
         def customer=(_customer); end
+        # The ID of Account representing a customer whose accounts you will retrieve. Only available when `type` is `customer`.
+        sig { returns(T.nilable(String)) }
+        def customer_account; end
+        sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+        def customer_account=(_customer_account); end
         # Type of account holder to collect accounts for.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        sig { params(account: T.nilable(String), customer: T.nilable(String), type: String).void }
-        def initialize(account: nil, customer: nil, type: nil); end
+        sig {
+          params(account: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), type: String).void
+         }
+        def initialize(account: nil, customer: nil, customer_account: nil, type: nil); end
       end
       class Filters < ::Stripe::RequestParams
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.

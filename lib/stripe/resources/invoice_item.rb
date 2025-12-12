@@ -2,14 +2,14 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Invoice Items represent the component lines of an [invoice](https://stripe.com/docs/api/invoices). When you create an invoice item with an `invoice` field, it is attached to the specified invoice and included as [an invoice line item](https://stripe.com/docs/api/invoices/line_item) within [invoice.lines](https://stripe.com/docs/api/invoices/object#invoice_object-lines).
+  # Invoice Items represent the component lines of an [invoice](https://docs.stripe.com/api/invoices). When you create an invoice item with an `invoice` field, it is attached to the specified invoice and included as [an invoice line item](https://docs.stripe.com/api/invoices/line_item) within [invoice.lines](https://docs.stripe.com/api/invoices/object#invoice_object-lines).
   #
   # Invoice Items can be created before you are ready to actually send the invoice. This can be particularly useful when combined
-  # with a [subscription](https://stripe.com/docs/api/subscriptions). Sometimes you want to add a charge or credit to a customer, but actually charge
+  # with a [subscription](https://docs.stripe.com/api/subscriptions). Sometimes you want to add a charge or credit to a customer, but actually charge
   # or credit the customer's card only at the end of a regular billing cycle. This is useful for combining several charges
   # (to minimize per-transaction fees), or for having Stripe tabulate your usage-based billing totals.
   #
-  # Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
+  # Related guides: [Integrate with the Invoicing API](https://docs.stripe.com/invoicing/integration), [Subscription Invoices](https://docs.stripe.com/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -126,8 +126,10 @@ module Stripe
     attr_reader :amount
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
-    # The ID of the customer who will be billed when this invoice item is billed.
+    # The ID of the customer to bill for this invoice item.
     attr_reader :customer
+    # The ID of the account to bill for this invoice item.
+    attr_reader :customer_account
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :date
     # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -142,7 +144,7 @@ module Stripe
     attr_reader :invoice
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # The amount after discounts, but before credits and taxes. This field is `null` for `discountable=true` items.
     attr_reader :net_amount

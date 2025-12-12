@@ -72,7 +72,7 @@ module Stripe
       # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
       sig { returns(T.nilable(String)) }
       def lookup_key; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       def metadata; end
       # Friendly display name.

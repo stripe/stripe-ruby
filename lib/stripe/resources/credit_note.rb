@@ -4,7 +4,7 @@
 module Stripe
   # Issue a credit note to adjust an invoice's amount after the invoice is finalized.
   #
-  # Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
+  # Related guide: [Credit notes](https://docs.stripe.com/billing/invoices/credit-notes)
   class CreditNote < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -125,7 +125,7 @@ module Stripe
 
     class TotalTax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
-        # Attribute for field tax_rate
+        # ID of the tax rate
         attr_reader :tax_rate
 
         def self.inner_class_types
@@ -167,6 +167,8 @@ module Stripe
     attr_reader :currency
     # ID of the customer.
     attr_reader :customer
+    # ID of the account representing the customer.
+    attr_reader :customer_account
     # Customer balance transaction related to this credit note.
     attr_reader :customer_balance_transaction
     # The integer amount in cents (or local equivalent) representing the total amount of discount that was credited.
@@ -185,7 +187,7 @@ module Stripe
     attr_reader :livemode
     # Customer-facing text that appears on the credit note PDF.
     attr_reader :memo
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice.
     attr_reader :number
@@ -207,7 +209,7 @@ module Stripe
     attr_reader :refunds
     # The details of the cost of shipping, including the ShippingRate applied to the invoice.
     attr_reader :shipping_cost
-    # Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    # Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://docs.stripe.com/billing/invoices/credit-notes#voiding).
     attr_reader :status
     # The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding exclusive tax and invoice level discounts.
     attr_reader :subtotal

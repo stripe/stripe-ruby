@@ -173,12 +173,15 @@ module Stripe
     attr_accessor :components
     # The ID of an existing customer for which to create the Customer Session.
     attr_accessor :customer
+    # The ID of an existing Account for which to create the Customer Session.
+    attr_accessor :customer_account
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
 
-    def initialize(components: nil, customer: nil, expand: nil)
+    def initialize(components: nil, customer: nil, customer_account: nil, expand: nil)
       @components = components
       @customer = customer
+      @customer_account = customer_account
       @expand = expand
     end
   end

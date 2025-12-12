@@ -14,7 +14,7 @@ module Stripe
             params(_allowed_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
            }
           def allowed_types=(_allowed_types); end
-          # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
+          # Collect an ID number and perform an [ID number check](https://docs.stripe.com/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
           sig { returns(T.nilable(T::Boolean)) }
           def require_id_number; end
           sig { params(_require_id_number: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -26,7 +26,7 @@ module Stripe
             params(_require_live_capture: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
            }
           def require_live_capture=(_require_live_capture); end
-          # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
+          # Capture a face image and perform a [selfie check](https://docs.stripe.com/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://docs.stripe.com/identity/selfie).
           sig { returns(T.nilable(T::Boolean)) }
           def require_matching_selfie; end
           sig {
@@ -43,7 +43,7 @@ module Stripe
             require_matching_selfie: nil
           ); end
         end
-        # Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
+        # Options that apply to the [document check](https://docs.stripe.com/identity/verification-checks?type=document).
         sig {
           returns(T.nilable(T.any(String, Identity::VerificationSessionCreateParams::Options::Document)))
          }
@@ -95,7 +95,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -121,6 +121,11 @@ module Stripe
       def related_customer; end
       sig { params(_related_customer: T.nilable(String)).returns(T.nilable(String)) }
       def related_customer=(_related_customer); end
+      # The ID of the Account representing a customer.
+      sig { returns(T.nilable(String)) }
+      def related_customer_account; end
+      sig { params(_related_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def related_customer_account=(_related_customer_account); end
       # Tokens referencing a Person resource and it's associated account.
       sig { returns(T.nilable(Identity::VerificationSessionCreateParams::RelatedPerson)) }
       def related_person; end
@@ -133,7 +138,7 @@ module Stripe
       def return_url; end
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
-      # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
+      # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
       sig { returns(T.nilable(String)) }
       def type; end
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -144,7 +149,7 @@ module Stripe
       sig { params(_verification_flow: T.nilable(String)).returns(T.nilable(String)) }
       def verification_flow=(_verification_flow); end
       sig {
-        params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_person: T.nilable(Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
+        params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
        }
       def initialize(
         client_reference_id: nil,
@@ -153,6 +158,7 @@ module Stripe
         options: nil,
         provided_details: nil,
         related_customer: nil,
+        related_customer_account: nil,
         related_person: nil,
         return_url: nil,
         type: nil,

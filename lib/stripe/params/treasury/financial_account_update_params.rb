@@ -189,7 +189,7 @@ module Stripe
       attr_accessor :features
       # A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
       attr_accessor :forwarding_settings
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The nickname for the FinancialAccount.
       attr_accessor :nickname

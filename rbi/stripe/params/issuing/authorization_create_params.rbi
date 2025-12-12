@@ -196,7 +196,7 @@ module Stripe
         ); end
       end
       class MerchantData < ::Stripe::RequestParams
-        # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         sig { returns(T.nilable(String)) }
         def category; end
         sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
@@ -431,12 +431,12 @@ module Stripe
           three_d_secure: nil
         ); end
       end
-      # The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+      # The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(T.nilable(Integer)) }
       def amount; end
       sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount=(_amount); end
-      # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+      # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(T.nilable(Issuing::AuthorizationCreateParams::AmountDetails)) }
       def amount_details; end
       sig {
@@ -482,12 +482,12 @@ module Stripe
         params(_fuel: T.nilable(Issuing::AuthorizationCreateParams::Fuel)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fuel))
        }
       def fuel=(_fuel); end
-      # If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+      # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
       sig { returns(T.nilable(T::Boolean)) }
       def is_amount_controllable; end
       sig { params(_is_amount_controllable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def is_amount_controllable=(_is_amount_controllable); end
-      # The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+      # The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(T.nilable(Integer)) }
       def merchant_amount; end
       sig { params(_merchant_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }

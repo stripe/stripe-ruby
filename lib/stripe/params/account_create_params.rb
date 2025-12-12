@@ -77,7 +77,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -538,6 +538,15 @@ module Stripe
         end
       end
 
+      class PaytoPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class PixPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -776,6 +785,8 @@ module Stripe
       attr_accessor :payco_payments
       # The paynow_payments capability.
       attr_accessor :paynow_payments
+      # The payto_payments capability.
+      attr_accessor :payto_payments
       # The pix_payments capability.
       attr_accessor :pix_payments
       # The promptpay_payments capability.
@@ -855,6 +866,7 @@ module Stripe
         pay_by_bank_payments: nil,
         payco_payments: nil,
         paynow_payments: nil,
+        payto_payments: nil,
         pix_payments: nil,
         promptpay_payments: nil,
         revolut_pay_payments: nil,
@@ -916,6 +928,7 @@ module Stripe
         @pay_by_bank_payments = pay_by_bank_payments
         @payco_payments = payco_payments
         @paynow_payments = paynow_payments
+        @payto_payments = payto_payments
         @pix_payments = pix_payments
         @promptpay_payments = promptpay_payments
         @revolut_pay_payments = revolut_pay_payments
@@ -1030,7 +1043,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -1182,9 +1195,9 @@ module Stripe
 
       class Verification < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
-          # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :back
-          # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :front
 
           def initialize(back: nil, front: nil)
@@ -1343,7 +1356,7 @@ module Stripe
 
     class Documents < ::Stripe::RequestParams
       class BankAccountOwnershipVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1352,7 +1365,7 @@ module Stripe
       end
 
       class CompanyLicense < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1361,7 +1374,7 @@ module Stripe
       end
 
       class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1370,7 +1383,7 @@ module Stripe
       end
 
       class CompanyMinisterialDecree < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1379,7 +1392,7 @@ module Stripe
       end
 
       class CompanyRegistrationVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1388,7 +1401,7 @@ module Stripe
       end
 
       class CompanyTaxIdVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1397,7 +1410,7 @@ module Stripe
       end
 
       class ProofOfAddress < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1406,20 +1419,42 @@ module Stripe
       end
 
       class ProofOfRegistration < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
-        attr_accessor :files
+        class Signer < ::Stripe::RequestParams
+          # The token of the person signing the document, if applicable.
+          attr_accessor :person
 
-        def initialize(files: nil)
+          def initialize(person: nil)
+            @person = person
+          end
+        end
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        attr_accessor :files
+        # Information regarding the person signing the document if applicable.
+        attr_accessor :signer
+
+        def initialize(files: nil, signer: nil)
           @files = files
+          @signer = signer
         end
       end
 
       class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
-        attr_accessor :files
+        class Signer < ::Stripe::RequestParams
+          # The token of the person signing the document, if applicable.
+          attr_accessor :person
 
-        def initialize(files: nil)
+          def initialize(person: nil)
+            @person = person
+          end
+        end
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        attr_accessor :files
+        # Information regarding the person signing the document if applicable.
+        attr_accessor :signer
+
+        def initialize(files: nil, signer: nil)
           @files = files
+          @signer = signer
         end
       end
       # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
@@ -1465,7 +1500,7 @@ module Stripe
     end
 
     class Groups < ::Stripe::RequestParams
-      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+      # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://docs.stripe.com/connect/platform-pricing-tools) for details.
       attr_accessor :payments_pricing
 
       def initialize(payments_pricing: nil)
@@ -1485,7 +1520,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -1601,7 +1636,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -1650,9 +1685,9 @@ module Stripe
 
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :back
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :front
 
           def initialize(back: nil, front: nil)
@@ -1662,9 +1697,9 @@ module Stripe
         end
 
         class Document < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :back
-          # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :front
 
           def initialize(back: nil, front: nil)
@@ -1714,7 +1749,7 @@ module Stripe
       attr_accessor :last_name_kanji
       # The individual's maiden name.
       attr_accessor :maiden_name
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The individual's phone number.
       attr_accessor :phone
@@ -2015,7 +2050,7 @@ module Stripe
         @user_agent = user_agent
       end
     end
-    # An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
+    # An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
     attr_accessor :account_token
     # Business information about the account.
     attr_accessor :business_profile
@@ -2050,7 +2085,7 @@ module Stripe
     attr_accessor :groups
     # Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
     attr_accessor :individual
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # Options for customizing how the account functions within Stripe.
     attr_accessor :settings

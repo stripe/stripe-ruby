@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+  # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
   # It contains information about when the discount began, when it will end, and what it is applied to.
   #
-  # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+  # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
   class Discount < StripeObject
     OBJECT_NAME = "discount"
     def self.object_name
@@ -30,6 +30,8 @@ module Stripe
     attr_reader :checkout_session
     # The ID of the customer associated with this discount.
     attr_reader :customer
+    # The ID of the account representing the customer associated with this discount.
+    attr_reader :customer_account
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     attr_reader :end
     # The ID of the discount object. Discounts cannot be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.

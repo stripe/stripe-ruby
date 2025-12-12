@@ -4,11 +4,21 @@
 # typed: true
 module Stripe
   class PaymentMethodListParams < ::Stripe::RequestParams
+    # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+    sig { returns(T.nilable(String)) }
+    def allow_redisplay; end
+    sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
+    def allow_redisplay=(_allow_redisplay); end
     # The ID of the customer whose PaymentMethods will be retrieved.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
+    # The ID of the Account whose PaymentMethods will be retrieved.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
+    sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_account=(_customer_account); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     sig { returns(T.nilable(String)) }
     def ending_before; end
@@ -35,10 +45,12 @@ module Stripe
     sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
     def type=(_type); end
     sig {
-      params(customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String)).void
+      params(allow_redisplay: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String)).void
      }
     def initialize(
+      allow_redisplay: nil,
       customer: nil,
+      customer_account: nil,
       ending_before: nil,
       expand: nil,
       limit: nil,

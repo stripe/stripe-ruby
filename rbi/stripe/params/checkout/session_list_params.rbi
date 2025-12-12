@@ -52,6 +52,11 @@ module Stripe
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
+      # Only return the Checkout Sessions for the Account specified.
+      sig { returns(T.nilable(String)) }
+      def customer_account; end
+      sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_account=(_customer_account); end
       # Only return the Checkout Sessions for the Customer details specified.
       sig { returns(T.nilable(Checkout::SessionListParams::CustomerDetails)) }
       def customer_details; end
@@ -100,11 +105,12 @@ module Stripe
       sig { params(_subscription: T.nilable(String)).returns(T.nilable(String)) }
       def subscription=(_subscription); end
       sig {
-        params(created: T.nilable(T.any(Checkout::SessionListParams::Created, Integer)), customer: T.nilable(String), customer_details: T.nilable(Checkout::SessionListParams::CustomerDetails), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_intent: T.nilable(String), payment_link: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
+        params(created: T.nilable(T.any(Checkout::SessionListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(Checkout::SessionListParams::CustomerDetails), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_intent: T.nilable(String), payment_link: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
        }
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         customer_details: nil,
         ending_before: nil,
         expand: nil,

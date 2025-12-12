@@ -110,7 +110,7 @@ module Stripe
         attr_accessor :product
         # The recurring components of a price such as `interval` and `interval_count`.
         attr_accessor :recurring
-        # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         attr_accessor :tax_behavior
         # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         attr_accessor :unit_amount
@@ -137,7 +137,7 @@ module Stripe
       attr_accessor :discounts
       # The ID of the price object. One of `price` or `price_data` is required.
       attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
       attr_accessor :price_data
       # The quantity of the line item.
       attr_accessor :quantity
@@ -179,7 +179,7 @@ module Stripe
       attr_accessor :description
       # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
       attr_accessor :effective_date
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_accessor :trial_period_days
@@ -223,6 +223,8 @@ module Stripe
     attr_accessor :collection_method
     # The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
     attr_accessor :customer
+    # The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+    attr_accessor :customer_account
     # The tax rates that will apply to any line item that does not have `tax_rates` set.
     attr_accessor :default_tax_rates
     # A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
@@ -243,7 +245,7 @@ module Stripe
     attr_accessor :invoice_settings
     # A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
     attr_accessor :line_items
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The account on behalf of which to charge.
     attr_accessor :on_behalf_of
@@ -260,6 +262,7 @@ module Stripe
       automatic_tax: nil,
       collection_method: nil,
       customer: nil,
+      customer_account: nil,
       default_tax_rates: nil,
       description: nil,
       discounts: nil,
@@ -281,6 +284,7 @@ module Stripe
       @automatic_tax = automatic_tax
       @collection_method = collection_method
       @customer = customer
+      @customer_account = customer_account
       @default_tax_rates = default_tax_rates
       @description = description
       @discounts = discounts

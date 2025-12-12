@@ -166,6 +166,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+          attr_reader :billing_cycle_anchor
           # The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
           attr_reader :default_allowed_updates
           # Whether the feature is enabled.
@@ -218,7 +220,7 @@ module Stripe
         #
         # If `false`, the previously generated `url`, if any, will be deactivated.
         attr_reader :enabled
-        # A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://stripe.com/docs/api/customers/object#customer_object-email) and receive a link to their customer portal.
+        # A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://docs.stripe.com/api/customers/object#customer_object-email) and receive a link to their customer portal.
         attr_reader :url
 
         def self.inner_class_types
@@ -237,7 +239,7 @@ module Stripe
       attr_reader :business_profile
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       attr_reader :default_return_url
       # Attribute for field features
       attr_reader :features
@@ -249,7 +251,7 @@ module Stripe
       attr_reader :livemode
       # Attribute for field login_page
       attr_reader :login_page
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # The name of the configuration.
       attr_reader :name

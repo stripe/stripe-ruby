@@ -79,7 +79,7 @@ module Stripe
         end
 
         class Tax < ::Stripe::RequestParams
-          # The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+          # The total amount of tax on a single line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
           #
           # This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
           attr_accessor :total_tax_amount
@@ -88,7 +88,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+        # The discount applied on this line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
         #
         # This field is mutually exclusive with the `amount_details[discount_amount]` field.
         attr_accessor :discount_amount
@@ -104,7 +104,7 @@ module Stripe
         attr_accessor :quantity
         # Contains information about the tax on the item.
         attr_accessor :tax
-        # The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+        # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
@@ -131,7 +131,7 @@ module Stripe
       end
 
       class Shipping < ::Stripe::RequestParams
-        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
+        # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_accessor :amount
         # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
         attr_accessor :from_postal_code
@@ -146,7 +146,7 @@ module Stripe
       end
 
       class Tax < ::Stripe::RequestParams
-        # The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
         #
         # This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         attr_accessor :total_tax_amount
@@ -155,11 +155,11 @@ module Stripe
           @total_tax_amount = total_tax_amount
         end
       end
-      # The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+      # The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_accessor :discount_amount
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_accessor :line_items
       # Contains information about the shipping portion of the amount.
       attr_accessor :shipping
@@ -177,7 +177,7 @@ module Stripe
     class Hooks < ::Stripe::RequestParams
       class Inputs < ::Stripe::RequestParams
         class Tax < ::Stripe::RequestParams
-          # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+          # The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
           attr_accessor :calculation
 
           def initialize(calculation: nil)
@@ -317,7 +317,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -492,11 +492,27 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+
+      class Payto < ::Stripe::RequestParams
+        # The account number for the bank account.
+        attr_accessor :account_number
+        # Bank-State-Branch number of the bank account.
+        attr_accessor :bsb_number
+        # The PayID alias for the bank account.
+        attr_accessor :pay_id
+
+        def initialize(account_number: nil, bsb_number: nil, pay_id: nil)
+          @account_number = account_number
+          @bsb_number = bsb_number
+          @pay_id = pay_id
+        end
+      end
+
       class Pix < ::Stripe::RequestParams; end
       class Promptpay < ::Stripe::RequestParams; end
 
       class RadarOptions < ::Stripe::RequestParams
-        # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         attr_accessor :session
 
         def initialize(session: nil)
@@ -616,7 +632,7 @@ module Stripe
       attr_accessor :link
       # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
       attr_accessor :mb_way
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
       attr_accessor :mobilepay
@@ -638,11 +654,13 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+      attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
       attr_accessor :pix
       # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
       attr_accessor :promptpay
-      # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+      # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
       attr_accessor :radar_options
       # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
       attr_accessor :revolut_pay
@@ -708,6 +726,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        payto: nil,
         pix: nil,
         promptpay: nil,
         radar_options: nil,
@@ -763,6 +782,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @payto = payto
         @pix = pix
         @promptpay = promptpay
         @radar_options = radar_options
@@ -1225,7 +1245,7 @@ module Stripe
         attr_accessor :cvc_token
         # Installment configuration for payments attempted on this PaymentIntent.
         #
-        # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+        # For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
         attr_accessor :installments
         # Configuration options for setting up an eMandate for cards issued in India.
         attr_accessor :mandate_options
@@ -1235,15 +1255,15 @@ module Stripe
         attr_accessor :moto
         # Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         attr_accessor :network
-        # Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+        # Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
         attr_accessor :request_extended_authorization
-        # Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        # Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
         attr_accessor :request_incremental_authorization
-        # Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
         attr_accessor :request_multicapture
-        # Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        # Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
         attr_accessor :request_overcapture
-        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_accessor :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         attr_accessor :require_cvc_recollection
@@ -1317,9 +1337,9 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
-        # Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+        # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_accessor :request_extended_authorization
-        # Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+        # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
         attr_accessor :request_incremental_authorization_support
         # Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
         attr_accessor :routing
@@ -1896,7 +1916,7 @@ module Stripe
       class Paypal < ::Stripe::RequestParams
         # Controls when the funds will be captured from the customer's account.
         attr_accessor :capture_method
-        # [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+        # [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
         attr_accessor :preferred_locale
         # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         attr_accessor :reference
@@ -1924,6 +1944,56 @@ module Stripe
           @preferred_locale = preferred_locale
           @reference = reference
           @risk_correlation_id = risk_correlation_id
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class Payto < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount that will be collected. It is required when `amount_type` is `fixed`.
+          attr_accessor :amount
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+          attr_accessor :amount_type
+          # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+          attr_accessor :end_date
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
+          attr_accessor :payment_schedule
+          # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+          attr_accessor :payments_per_period
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
+          attr_accessor :purpose
+
+          def initialize(
+            amount: nil,
+            amount_type: nil,
+            end_date: nil,
+            payment_schedule: nil,
+            payments_per_period: nil,
+            purpose: nil
+          )
+            @amount = amount
+            @amount_type = amount_type
+            @end_date = end_date
+            @payment_schedule = payment_schedule
+            @payments_per_period = payments_per_period
+            @purpose = purpose
+          end
+        end
+        # Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+        attr_accessor :mandate_options
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(mandate_options: nil, setup_future_usage: nil)
+          @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
         end
       end
@@ -2315,6 +2385,8 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
       attr_accessor :paypal
+      # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
+      attr_accessor :payto
       # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
       attr_accessor :pix
       # If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
@@ -2380,6 +2452,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        payto: nil,
         pix: nil,
         promptpay: nil,
         revolut_pay: nil,
@@ -2432,6 +2505,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @payto = payto
         @pix = pix
         @promptpay = promptpay
         @revolut_pay = revolut_pay
@@ -2448,7 +2522,7 @@ module Stripe
     end
 
     class RadarOptions < ::Stripe::RequestParams
-      # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_accessor :session
 
       def initialize(session: nil)
@@ -2468,7 +2542,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -2514,7 +2588,7 @@ module Stripe
     #
     # If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
     attr_accessor :confirmation_token
-    # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
+    # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://docs.stripe.com/payments/save-card-without-authentication).
     attr_accessor :error_on_requires_action
     # The list of payment method types to exclude from use with this payment.
     attr_accessor :excluded_payment_method_types
@@ -2526,22 +2600,22 @@ module Stripe
     attr_accessor :mandate
     # Attribute for param field mandate_data
     attr_accessor :mandate_data
-    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
+    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://docs.stripe.com/payments/cards/charging-saved-cards).
     attr_accessor :off_session
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
-    # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
-    # If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
+    # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+    # If the payment method is attached to a Customer, it must match the [customer](https://api.stripe.com#create_payment_intent-customer) that is set on this PaymentIntent.
     attr_accessor :payment_method
     # If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
-    # in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
+    # in the [payment_method](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-payment_method)
     # property on the PaymentIntent.
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this PaymentIntent.
     attr_accessor :payment_method_options
     # The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_accessor :payment_method_types
-    # Options to configure Radar. Learn more about [Radar Sessions](https://stripe.com/docs/radar/radar-session).
+    # Options to configure Radar. Learn more about [Radar Sessions](https://docs.stripe.com/radar/radar-session).
     attr_accessor :radar_options
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     attr_accessor :receipt_email

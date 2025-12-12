@@ -4,10 +4,10 @@
 # typed: true
 module Stripe
   # PaymentMethod objects represent your customer's payment instruments.
-  # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+  # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
   # Customer objects to store instrument details for future payments.
   #
-  # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+  # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
   class PaymentMethod < APIResource
     class AcssDebit < ::Stripe::StripeObject
       # Name of the bank associated with the bank account.
@@ -139,7 +139,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -315,7 +315,7 @@ module Stripe
             # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
             sig { returns(T.nilable(String)) }
             def iin; end
-            # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+            # Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
             sig { returns(T::Boolean) }
             def incremental_authorization_supported; end
             # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
@@ -459,7 +459,7 @@ module Stripe
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
             def postal_code; end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             def self.inner_class_types
@@ -485,7 +485,7 @@ module Stripe
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
             def postal_code; end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             def self.inner_class_types
@@ -542,7 +542,7 @@ module Stripe
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
             def postal_code; end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             def self.inner_class_types
@@ -568,7 +568,7 @@ module Stripe
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
             def postal_code; end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             def self.inner_class_types
@@ -911,7 +911,7 @@ module Stripe
       end
     end
     class Ideal < ::Stripe::StripeObject
-      # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+      # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
       sig { returns(T.nilable(String)) }
       def bank; end
       # The Bank Identifier Code of the customer's bank, if the bank was provided.
@@ -1187,6 +1187,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Payto < ::Stripe::StripeObject
+      # Bank-State-Branch number of the bank account.
+      sig { returns(T.nilable(String)) }
+      def bsb_number; end
+      # Last four digits of the bank account number.
+      sig { returns(T.nilable(String)) }
+      def last4; end
+      # The PayID alias for the bank account.
+      sig { returns(T.nilable(String)) }
+      def pay_id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Pix < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1204,7 +1221,7 @@ module Stripe
       end
     end
     class RadarOptions < ::Stripe::StripeObject
-      # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
       def self.inner_class_types
@@ -1458,6 +1475,9 @@ module Stripe
     # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
+    # Attribute for field customer_account
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
     # Attribute for field customer_balance
     sig { returns(T.nilable(CustomerBalance)) }
     def customer_balance; end
@@ -1503,7 +1523,7 @@ module Stripe
     # Attribute for field mb_way
     sig { returns(T.nilable(MbWay)) }
     def mb_way; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # Attribute for field mobilepay
@@ -1539,13 +1559,16 @@ module Stripe
     # Attribute for field paypal
     sig { returns(T.nilable(Paypal)) }
     def paypal; end
+    # Attribute for field payto
+    sig { returns(T.nilable(Payto)) }
+    def payto; end
     # Attribute for field pix
     sig { returns(T.nilable(Pix)) }
     def pix; end
     # Attribute for field promptpay
     sig { returns(T.nilable(Promptpay)) }
     def promptpay; end
-    # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     sig { returns(T.nilable(RadarOptions)) }
     def radar_options; end
     # Attribute for field revolut_pay
@@ -1637,7 +1660,7 @@ module Stripe
      }
     def self.detach(payment_method, params = {}, opts = {}); end
 
-    # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
+    # Returns a list of all PaymentMethods.
     sig {
       params(params: T.any(::Stripe::PaymentMethodListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }

@@ -89,7 +89,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -295,10 +295,31 @@ module Stripe
         class Payco < ::Stripe::RequestParams; end
         class Paynow < ::Stripe::RequestParams; end
         class Paypal < ::Stripe::RequestParams; end
+        class Payto < ::Stripe::RequestParams
+          # The account number for the bank account.
+          sig { returns(T.nilable(String)) }
+          def account_number; end
+          sig { params(_account_number: T.nilable(String)).returns(T.nilable(String)) }
+          def account_number=(_account_number); end
+          # Bank-State-Branch number of the bank account.
+          sig { returns(T.nilable(String)) }
+          def bsb_number; end
+          sig { params(_bsb_number: T.nilable(String)).returns(T.nilable(String)) }
+          def bsb_number=(_bsb_number); end
+          # The PayID alias for the bank account.
+          sig { returns(T.nilable(String)) }
+          def pay_id; end
+          sig { params(_pay_id: T.nilable(String)).returns(T.nilable(String)) }
+          def pay_id=(_pay_id); end
+          sig {
+            params(account_number: T.nilable(String), bsb_number: T.nilable(String), pay_id: T.nilable(String)).void
+           }
+          def initialize(account_number: nil, bsb_number: nil, pay_id: nil); end
+        end
         class Pix < ::Stripe::RequestParams; end
         class Promptpay < ::Stripe::RequestParams; end
         class RadarOptions < ::Stripe::RequestParams
-          # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+          # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
           sig { returns(T.nilable(String)) }
           def session; end
           sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
@@ -627,7 +648,7 @@ module Stripe
           params(_mb_way: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::MbWay)).returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::MbWay))
          }
         def mb_way=(_mb_way); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -724,6 +745,15 @@ module Stripe
           params(_paypal: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Paypal)).returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Paypal))
          }
         def paypal=(_paypal); end
+        # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        sig {
+          returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Payto))
+         }
+        def payto; end
+        sig {
+          params(_payto: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Payto)).returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Payto))
+         }
+        def payto=(_payto); end
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
         sig {
           returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Pix))
@@ -742,7 +772,7 @@ module Stripe
           params(_promptpay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Promptpay)).returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Promptpay))
          }
         def promptpay=(_promptpay); end
-        # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+        # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
         sig {
           returns(T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::RadarOptions))
          }
@@ -847,7 +877,7 @@ module Stripe
          }
         def zip=(_zip); end
         sig {
-          params(acss_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AcssDebit), affirm: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma), amazon_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Bancontact), billie: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Billie), billing_details: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::BillingDetails), blik: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Blik), boleto: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Boleto), cashapp: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Cashapp), crypto: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Crypto), customer_balance: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::CustomerBalance), eps: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Eps), fpx: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Fpx), giropay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Giropay), grabpay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Grabpay), ideal: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Ideal), interac_present: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::KakaoPay), klarna: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Klarna), konbini: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Konbini), kr_card: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::KrCard), link: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Link), mb_way: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Oxxo), p24: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::P24), pay_by_bank: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::PayByBank), payco: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Payco), paynow: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Paynow), paypal: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Paypal), pix: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Pix), promptpay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Promptpay), radar_options: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::SamsungPay), satispay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Satispay), sepa_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::SepaDebit), sofort: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Sofort), swish: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Swish), twint: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Twint), type: String, us_bank_account: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::WechatPay), zip: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Zip)).void
+          params(acss_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AcssDebit), affirm: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma), amazon_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Bancontact), billie: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Billie), billing_details: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::BillingDetails), blik: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Blik), boleto: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Boleto), cashapp: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Cashapp), crypto: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Crypto), customer_balance: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::CustomerBalance), eps: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Eps), fpx: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Fpx), giropay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Giropay), grabpay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Grabpay), ideal: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Ideal), interac_present: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::KakaoPay), klarna: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Klarna), konbini: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Konbini), kr_card: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::KrCard), link: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Link), mb_way: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Oxxo), p24: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::P24), pay_by_bank: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::PayByBank), payco: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Payco), paynow: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Paynow), paypal: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Paypal), payto: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Payto), pix: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Pix), promptpay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Promptpay), radar_options: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::SamsungPay), satispay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Satispay), sepa_debit: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::SepaDebit), sofort: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Sofort), swish: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Swish), twint: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Twint), type: String, us_bank_account: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::WechatPay), zip: T.nilable(TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Zip)).void
          }
         def initialize(
           acss_debit: nil,
@@ -890,6 +920,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          payto: nil,
           pix: nil,
           promptpay: nil,
           radar_options: nil,
@@ -1001,7 +1032,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1071,7 +1102,7 @@ module Stripe
       def return_url=(_return_url); end
       # Indicates that you intend to make future payments with this ConfirmationToken's payment method.
       #
-      # The presence of this property will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
+      # The presence of this property will [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
       sig { returns(T.nilable(String)) }
       def setup_future_usage; end
       sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }

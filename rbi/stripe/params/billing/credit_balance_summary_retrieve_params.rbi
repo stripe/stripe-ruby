@@ -59,11 +59,16 @@ module Stripe
          }
         def initialize(applicability_scope: nil, credit_grant: nil, type: nil); end
       end
-      # The customer for which to fetch credit balance summary.
-      sig { returns(String) }
+      # The customer whose credit balance summary you're retrieving.
+      sig { returns(T.nilable(String)) }
       def customer; end
-      sig { params(_customer: String).returns(String) }
+      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
+      # The account representing the customer whose credit balance summary you're retrieving.
+      sig { returns(T.nilable(String)) }
+      def customer_account; end
+      sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_account=(_customer_account); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -77,9 +82,9 @@ module Stripe
        }
       def filter=(_filter); end
       sig {
-        params(customer: String, expand: T.nilable(T::Array[String]), filter: Billing::CreditBalanceSummaryRetrieveParams::Filter).void
+        params(customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), filter: Billing::CreditBalanceSummaryRetrieveParams::Filter).void
        }
-      def initialize(customer: nil, expand: nil, filter: nil); end
+      def initialize(customer: nil, customer_account: nil, expand: nil, filter: nil); end
     end
   end
 end

@@ -7,7 +7,7 @@ module Stripe
     # An early fraud warning indicates that the card issuer has notified us that a
     # charge may be fraudulent.
     #
-    # Related guide: [Early fraud warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings)
+    # Related guide: [Early fraud warnings](https://docs.stripe.com/disputes/measuring#early-fraud-warnings)
     class EarlyFraudWarning < APIResource
       # An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later.
       sig { returns(T::Boolean) }

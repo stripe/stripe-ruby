@@ -4,16 +4,19 @@
 module Stripe
   class TaxIdCreateParams < ::Stripe::RequestParams
     class Owner < ::Stripe::RequestParams
-      # Account the tax ID belongs to. Required when `type=account`
+      # Connected Account the tax ID belongs to. Required when `type=account`
       attr_accessor :account
       # Customer the tax ID belongs to. Required when `type=customer`
       attr_accessor :customer
+      # ID of the Account representing the customer that the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+      attr_accessor :customer_account
       # Type of owner referenced.
       attr_accessor :type
 
-      def initialize(account: nil, customer: nil, type: nil)
+      def initialize(account: nil, customer: nil, customer_account: nil, type: nil)
         @account = account
         @customer = customer
+        @customer_account = customer_account
         @type = type
       end
     end

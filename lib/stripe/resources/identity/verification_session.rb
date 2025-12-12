@@ -13,7 +13,7 @@ module Stripe
     # the verification flow. The VerificationSession contains the user's verified data after
     # verification checks are complete.
     #
-    # Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
+    # Related guide: [The Verification Sessions API](https://docs.stripe.com/identity/verification-sessions)
     class VerificationSession < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -43,11 +43,11 @@ module Stripe
         class Document < ::Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           attr_reader :allowed_types
-          # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
+          # Collect an ID number and perform an [ID number check](https://docs.stripe.com/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
           attr_reader :require_id_number
           # Disable image uploads, identity document images have to be captured using the device’s camera.
           attr_reader :require_live_capture
-          # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
+          # Capture a face image and perform a [selfie check](https://docs.stripe.com/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://docs.stripe.com/identity/selfie).
           attr_reader :require_matching_selfie
 
           def self.inner_class_types
@@ -190,7 +190,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -251,7 +251,7 @@ module Stripe
       end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       attr_reader :client_reference_id
-      # The short-lived client secret used by Stripe.js to [show a verification modal](https://stripe.com/docs/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don’t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://stripe.com/docs/identity/verification-sessions#client-secret) to learn more.
+      # The short-lived client secret used by Stripe.js to [show a verification modal](https://docs.stripe.com/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don’t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://docs.stripe.com/identity/verification-sessions#client-secret) to learn more.
       attr_reader :client_secret
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
@@ -259,11 +259,11 @@ module Stripe
       attr_reader :id
       # If present, this property tells you the last error encountered when processing the verification.
       attr_reader :last_error
-      # ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results)
+      # ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://docs.stripe.com/identity/verification-sessions#results)
       attr_reader :last_verification_report
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
@@ -275,13 +275,15 @@ module Stripe
       attr_reader :redaction
       # Customer ID
       attr_reader :related_customer
+      # The ID of the Account representing a customer.
+      attr_reader :related_customer_account
       # Attribute for field related_person
       attr_reader :related_person
-      # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
+      # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://docs.stripe.com/identity/how-sessions-work).
       attr_reader :status
-      # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
+      # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
       attr_reader :type
-      # The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.
+      # The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.
       attr_reader :url
       # The configuration token of a verification flow from the dashboard.
       attr_reader :verification_flow

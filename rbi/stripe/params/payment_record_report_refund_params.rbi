@@ -10,7 +10,7 @@ module Stripe
       def currency; end
       sig { params(_currency: String).returns(String) }
       def currency=(_currency); end
-      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       def value; end
       sig { params(_value: Integer).returns(Integer) }
@@ -54,7 +54,7 @@ module Stripe
       sig { params(refunded_at: Integer).void }
       def initialize(refunded_at: nil); end
     end
-    # A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing how much of this payment to refund. Can refund only up to the remaining, unrefunded amount of the payment.
+    # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing how much of this payment to refund. Can refund only up to the remaining, unrefunded amount of the payment.
     sig { returns(T.nilable(PaymentRecordReportRefundParams::Amount)) }
     def amount; end
     sig {
@@ -71,7 +71,7 @@ module Stripe
     def initiated_at; end
     sig { params(_initiated_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def initiated_at=(_initiated_at); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {

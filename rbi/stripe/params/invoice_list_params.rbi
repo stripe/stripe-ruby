@@ -73,6 +73,11 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
+    # Only return invoices for the account representing the customer specified by this account ID.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
+    sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_account=(_customer_account); end
     # Attribute for param field due_date
     sig { returns(T.nilable(T.any(InvoiceListParams::DueDate, Integer))) }
     def due_date; end
@@ -100,7 +105,7 @@ module Stripe
     def starting_after; end
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
-    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     sig { returns(T.nilable(String)) }
     def status; end
     sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
@@ -111,12 +116,13 @@ module Stripe
     sig { params(_subscription: T.nilable(String)).returns(T.nilable(String)) }
     def subscription=(_subscription); end
     sig {
-      params(collection_method: T.nilable(String), created: T.nilable(T.any(InvoiceListParams::Created, Integer)), customer: T.nilable(String), due_date: T.nilable(T.any(InvoiceListParams::DueDate, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
+      params(collection_method: T.nilable(String), created: T.nilable(T.any(InvoiceListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), due_date: T.nilable(T.any(InvoiceListParams::DueDate, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
      }
     def initialize(
       collection_method: nil,
       created: nil,
       customer: nil,
+      customer_account: nil,
       due_date: nil,
       ending_before: nil,
       expand: nil,

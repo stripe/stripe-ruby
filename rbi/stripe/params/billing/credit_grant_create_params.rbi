@@ -96,11 +96,16 @@ module Stripe
       def category; end
       sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
       def category=(_category); end
-      # ID of the customer to receive the billing credits.
-      sig { returns(String) }
+      # ID of the customer receiving the billing credits.
+      sig { returns(T.nilable(String)) }
       def customer; end
-      sig { params(_customer: String).returns(String) }
+      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
+      # ID of the account representing the customer receiving the billing credits.
+      sig { returns(T.nilable(String)) }
+      def customer_account; end
+      sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_account=(_customer_account); end
       # The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
       sig { returns(T.nilable(Integer)) }
       def effective_at; end
@@ -134,13 +139,14 @@ module Stripe
       sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def priority=(_priority); end
       sig {
-        params(amount: Billing::CreditGrantCreateParams::Amount, applicability_config: Billing::CreditGrantCreateParams::ApplicabilityConfig, category: T.nilable(String), customer: String, effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), priority: T.nilable(Integer)).void
+        params(amount: Billing::CreditGrantCreateParams::Amount, applicability_config: Billing::CreditGrantCreateParams::ApplicabilityConfig, category: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), priority: T.nilable(Integer)).void
        }
       def initialize(
         amount: nil,
         applicability_config: nil,
         category: nil,
         customer: nil,
+        customer_account: nil,
         effective_at: nil,
         expand: nil,
         expires_at: nil,

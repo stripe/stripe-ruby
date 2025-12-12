@@ -6,7 +6,7 @@ module Stripe
   module Issuing
     class TransactionCreateForceCaptureParams < ::Stripe::RequestParams
       class MerchantData < ::Stripe::RequestParams
-        # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         sig { returns(T.nilable(String)) }
         def category; end
         sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
@@ -433,7 +433,7 @@ module Stripe
           reference: nil
         ); end
       end
-      # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+      # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(Integer) }
       def amount; end
       sig { params(_amount: Integer).returns(Integer) }

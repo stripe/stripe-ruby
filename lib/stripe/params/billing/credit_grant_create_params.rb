@@ -60,9 +60,9 @@ module Stripe
       attr_accessor :applicability_config
       # The category of this credit grant. It defaults to `paid` if not specified.
       attr_accessor :category
-      # ID of the customer to receive the billing credits.
+      # ID of the customer receiving the billing credits.
       attr_accessor :customer
-      # ID of the account to receive the billing credits.
+      # ID of the account representing the customer receiving the billing credits.
       attr_accessor :customer_account
       # The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
       attr_accessor :effective_at

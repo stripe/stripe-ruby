@@ -7,7 +7,7 @@ module Stripe
   # individual top-ups, as well as list all top-ups. Top-ups are identified by a
   # unique, random ID.
   #
-  # Related guide: [Topping up your platform account](https://stripe.com/docs/connect/top-ups)
+  # Related guide: [Topping up your platform account](https://docs.stripe.com/connect/top-ups)
   class Topup < APIResource
     # Amount transferred.
     sig { returns(Integer) }
@@ -27,7 +27,7 @@ module Stripe
     # Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays like weekends or bank holidays. May not be specified depending on status of top-up.
     sig { returns(T.nilable(Integer)) }
     def expected_availability_date; end
-    # Error code explaining reason for top-up failure if available (see [the errors section](https://stripe.com/docs/api#errors) for a list of codes).
+    # Error code explaining reason for top-up failure if available (see [the errors section](https://docs.stripe.com/api#errors) for a list of codes).
     sig { returns(T.nilable(String)) }
     def failure_code; end
     # Message to user further explaining reason for top-up failure if available.
@@ -39,7 +39,7 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.

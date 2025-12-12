@@ -5,7 +5,7 @@
 module Stripe
   # A notice to a Connected account. Notice can be sent by Stripe on your behalf or you can opt to send the notices yourself.
   #
-  # See the [guide to send notices](https://stripe.com/docs/issuing/compliance-us/issuing-regulated-customer-notices) to your connected accounts.
+  # See the [guide to send notices](https://docs.stripe.com/issuing/compliance-us/issuing-regulated-customer-notices) to your connected accounts.
   class AccountNotice < APIResource
     class Email < ::Stripe::StripeObject
       # Content of the email in plain text. The copy must match exactly the language that Stripe Compliance has approved for use.
@@ -25,13 +25,13 @@ module Stripe
       end
     end
     class LinkedObjects < ::Stripe::StripeObject
-      # Associated [Capability](https://stripe.com/docs/api/capabilities)
+      # Associated [Capability](https://docs.stripe.com/api/capabilities)
       sig { returns(T.nilable(String)) }
       def capability; end
-      # Associated [Credit Underwriting Record](https://stripe.com/docs/api/issuing/credit_underwriting_record)
+      # Associated [Credit Underwriting Record](https://docs.stripe.com/api/issuing/credit_underwriting_record)
       sig { returns(T.nilable(String)) }
       def issuing_credit_underwriting_record; end
-      # Associated [Issuing Dispute](https://stripe.com/docs/api/issuing/disputes)
+      # Associated [Issuing Dispute](https://docs.stripe.com/api/issuing/disputes)
       sig { returns(T.nilable(String)) }
       def issuing_dispute; end
       def self.inner_class_types
@@ -59,13 +59,13 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # Reason the notice is being sent. The reason determines what copy the notice must contain. See the [regulated customer notices](https://stripe.com/docs/issuing/compliance-us/issuing-regulated-customer-notices) guide. All reasons might not apply to your integration, and Stripe might add new reasons in the future, so we recommend an internal warning when you receive an unknown reason.
+    # Reason the notice is being sent. The reason determines what copy the notice must contain. See the [regulated customer notices](https://docs.stripe.com/issuing/compliance-us/issuing-regulated-customer-notices) guide. All reasons might not apply to your integration, and Stripe might add new reasons in the future, so we recommend an internal warning when you receive an unknown reason.
     sig { returns(String) }
     def reason; end
     # Date when the notice was sent. When absent, you must send the notice, update the content of the email and date when it was sent.

@@ -24,7 +24,7 @@ module Stripe
     attr_accessor :created
     # Only return credit notes for the customer specified by this customer ID.
     attr_accessor :customer
-    # Only return credit notes for the account specified by this account ID.
+    # Only return credit notes for the account representing the customer specified by this account ID.
     attr_accessor :customer_account
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     attr_accessor :ending_before

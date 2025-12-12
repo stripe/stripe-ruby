@@ -33,7 +33,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -132,7 +132,7 @@ module Stripe
         def financial_account; end
         sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
         def financial_account=(_financial_account); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -166,7 +166,7 @@ module Stripe
       end
       class DestinationPaymentMethodOptions < ::Stripe::RequestParams
         class UsBankAccount < ::Stripe::RequestParams
-          # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+          # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(T.nilable(String)) }
           def network; end
           sig { params(_network: T.nilable(String)).returns(T.nilable(String)) }
@@ -262,14 +262,14 @@ module Stripe
       def financial_account; end
       sig { params(_financial_account: String).returns(String) }
       def financial_account=(_financial_account); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
-      # The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is "payment".
+      # The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. Can only include -#.$&*, spaces, and alphanumeric characters. The default value is "payment".
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }

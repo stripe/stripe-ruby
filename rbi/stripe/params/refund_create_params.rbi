@@ -34,7 +34,7 @@ module Stripe
     def instructions_email; end
     sig { params(_instructions_email: T.nilable(String)).returns(T.nilable(String)) }
     def instructions_email=(_instructions_email); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -51,7 +51,7 @@ module Stripe
     def payment_intent; end
     sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
     def payment_intent=(_payment_intent); end
-    # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.
+    # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://docs.stripe.com/radar/lists), and will also help us improve our fraud detection algorithms.
     sig { returns(T.nilable(String)) }
     def reason; end
     sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }

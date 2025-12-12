@@ -26,10 +26,10 @@ module Stripe
       # The amount discounted.
       sig { returns(Integer) }
       def amount; end
-      # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+      # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
       # It contains information about when the discount began, when it will end, and what it is applied to.
       #
-      # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+      # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
       sig { returns(::Stripe::Discount) }
       def discount; end
       def self.inner_class_types
@@ -122,7 +122,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.

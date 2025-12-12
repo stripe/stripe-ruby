@@ -47,6 +47,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Only return transactions that are related to the specified invoice.
+    sig { returns(T.nilable(String)) }
+    def invoice; end
+    sig { params(_invoice: T.nilable(String)).returns(T.nilable(String)) }
+    def invoice=(_invoice); end
     # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     sig { returns(T.nilable(Integer)) }
     def limit; end
@@ -58,12 +63,13 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(created: T.nilable(T.any(CustomerBalanceTransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+      params(created: T.nilable(T.any(CustomerBalanceTransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
      }
     def initialize(
       created: nil,
       ending_before: nil,
       expand: nil,
+      invoice: nil,
       limit: nil,
       starting_after: nil
     ); end

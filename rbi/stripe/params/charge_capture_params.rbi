@@ -119,7 +119,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -162,7 +162,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -455,7 +455,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: String).returns(String) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -552,7 +552,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: String).returns(String) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -918,7 +918,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1670,7 +1670,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1992,7 +1992,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: String).returns(String) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -2555,14 +2555,14 @@ module Stripe
     def statement_descriptor_suffix; end
     sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor_suffix=(_statement_descriptor_suffix); end
-    # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+    # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
     sig { returns(T.nilable(ChargeCaptureParams::TransferData)) }
     def transfer_data; end
     sig {
       params(_transfer_data: T.nilable(ChargeCaptureParams::TransferData)).returns(T.nilable(ChargeCaptureParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
-    # A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    # A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     sig { returns(T.nilable(String)) }
     def transfer_group; end
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }

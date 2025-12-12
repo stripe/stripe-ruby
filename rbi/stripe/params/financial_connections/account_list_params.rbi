@@ -6,17 +6,17 @@ module Stripe
   module FinancialConnections
     class AccountListParams < ::Stripe::RequestParams
       class AccountHolder < ::Stripe::RequestParams
-        # The ID of the Stripe account whose accounts will be retrieved.
+        # The ID of the Stripe account whose accounts you will retrieve.
         sig { returns(T.nilable(String)) }
         def account; end
         sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
         def account=(_account); end
-        # The ID of the Stripe customer whose accounts will be retrieved.
+        # The ID of the Stripe customer whose accounts you will retrieve.
         sig { returns(T.nilable(String)) }
         def customer; end
         sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
         def customer=(_customer); end
-        # The Account ID of the Stripe customer whose accounts will be retrieved.
+        # The ID of the Account representing a customer whose accounts you will retrieve.
         sig { returns(T.nilable(String)) }
         def customer_account; end
         sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

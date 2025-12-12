@@ -9,10 +9,10 @@ module Stripe
   # to payments, and refunds to the customer.
   class CustomerCashBalanceTransaction < APIResource
     class AdjustedForOverdraft < ::Stripe::StripeObject
-      # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
+      # The [Balance Transaction](https://docs.stripe.com/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
       sig { returns(T.any(String, ::Stripe::BalanceTransaction)) }
       def balance_transaction; end
-      # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
+      # The [Cash Balance Transaction](https://docs.stripe.com/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
       sig { returns(T.any(String, ::Stripe::CustomerCashBalanceTransaction)) }
       def linked_transaction; end
       def self.inner_class_types
@@ -23,7 +23,7 @@ module Stripe
       end
     end
     class AppliedToPayment < ::Stripe::StripeObject
-      # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
+      # The [Payment Intent](https://docs.stripe.com/api/payment_intents/object) that funds were applied to.
       sig { returns(T.any(String, ::Stripe::PaymentIntent)) }
       def payment_intent; end
       def self.inner_class_types
@@ -141,7 +141,7 @@ module Stripe
       end
     end
     class RefundedFromPayment < ::Stripe::StripeObject
-      # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
+      # The [Refund](https://docs.stripe.com/api/refunds/object) that moved these funds into the customer's cash balance.
       sig { returns(T.any(String, ::Stripe::Refund)) }
       def refund; end
       def self.inner_class_types
@@ -152,7 +152,7 @@ module Stripe
       end
     end
     class TransferredToBalance < ::Stripe::StripeObject
-      # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
+      # The [Balance Transaction](https://docs.stripe.com/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
       sig { returns(T.any(String, ::Stripe::BalanceTransaction)) }
       def balance_transaction; end
       def self.inner_class_types
@@ -163,7 +163,7 @@ module Stripe
       end
     end
     class UnappliedFromPayment < ::Stripe::StripeObject
-      # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
+      # The [Payment Intent](https://docs.stripe.com/api/payment_intents/object) that funds were unapplied from.
       sig { returns(T.any(String, ::Stripe::PaymentIntent)) }
       def payment_intent; end
       def self.inner_class_types
@@ -188,10 +188,10 @@ module Stripe
     # The customer whose available cash balance changed as a result of this transaction.
     sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
-    # Attribute for field customer_account
+    # The ID of an Account representing a customer whose available cash balance changed as a result of this transaction.
     sig { returns(T.nilable(String)) }
     def customer_account; end
-    # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     sig { returns(Integer) }
     def ending_balance; end
     # Attribute for field funded
@@ -203,7 +203,7 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # The amount by which the cash balance changed, represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
+    # The amount by which the cash balance changed, represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
     sig { returns(Integer) }
     def net_amount; end
     # String representing the object's type. Objects of the same type share the same value.
@@ -215,7 +215,7 @@ module Stripe
     # Attribute for field transferred_to_balance
     sig { returns(T.nilable(TransferredToBalance)) }
     def transferred_to_balance; end
-    # The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
+    # The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://docs.stripe.com/payments/customer-balance#types) to learn more about these types.
     sig { returns(String) }
     def type; end
     # Attribute for field unapplied_from_payment

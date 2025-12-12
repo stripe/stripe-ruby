@@ -9,7 +9,7 @@ module Stripe
     attr_accessor :expand
     # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     attr_accessor :limit
-    # The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://stripe.com/docs/payments/connected-accounts).
+    # The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://docs.stripe.com/payments/connected-accounts).
     attr_accessor :on_behalf_of
     # Attribute for param field payment_method
     attr_accessor :payment_method

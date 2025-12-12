@@ -125,7 +125,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -148,6 +148,17 @@ module Stripe
             end
 
             class AnnualRevenue < ::Stripe::RequestParams
+              class Amount < ::Stripe::RequestParams
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                attr_accessor :value
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                attr_accessor :currency
+
+                def initialize(value: nil, currency: nil)
+                  @value = value
+                  @currency = currency
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -352,6 +363,17 @@ module Stripe
             end
 
             class MonthlyEstimatedRevenue < ::Stripe::RequestParams
+              class Amount < ::Stripe::RequestParams
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                attr_accessor :value
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                attr_accessor :currency
+
+                def initialize(value: nil, currency: nil)
+                  @value = value
+                  @currency = currency
+                end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
 
@@ -374,7 +396,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -409,7 +431,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -475,7 +497,7 @@ module Stripe
             attr_accessor :annual_revenue
             # A document verifying the business.
             attr_accessor :documents
-            # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             attr_accessor :estimated_worker_count
             # The ID numbers of a business entity.
             attr_accessor :id_numbers
@@ -535,7 +557,7 @@ module Stripe
               attr_accessor :purpose
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -590,7 +612,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -788,7 +810,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -823,7 +845,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(

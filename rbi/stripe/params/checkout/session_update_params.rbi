@@ -60,7 +60,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -127,7 +127,7 @@ module Stripe
           def duration; end
           sig { params(_duration: T.nilable(String)).returns(T.nilable(String)) }
           def duration=(_duration); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
           def metadata; end
           sig {
@@ -156,12 +156,12 @@ module Stripe
             percent_off: nil
           ); end
         end
-        # The ID of the [Coupon](https://stripe.com/docs/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
+        # The ID of the [Coupon](https://docs.stripe.com/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
         sig { returns(T.nilable(String)) }
         def coupon; end
         sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
         def coupon=(_coupon); end
-        # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
         sig { returns(T.nilable(Checkout::SessionUpdateParams::Discount::CouponData)) }
         def coupon_data; end
         sig {
@@ -251,7 +251,7 @@ module Stripe
               params(_images: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def images=(_images); end
-            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             sig { returns(T.nilable(T::Hash[String, String])) }
             def metadata; end
             sig {
@@ -263,7 +263,7 @@ module Stripe
             def name; end
             sig { params(_name: String).returns(String) }
             def name=(_name); end
-            # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             sig { returns(T.nilable(String)) }
             def tax_code; end
             sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -325,7 +325,7 @@ module Stripe
             params(_recurring: T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::Recurring)).returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::Recurring))
            }
           def recurring=(_recurring); end
-          # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+          # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           sig { returns(T.nilable(String)) }
           def tax_behavior; end
           sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -365,19 +365,19 @@ module Stripe
         def id; end
         sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
         def id=(_id); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         def metadata; end
         sig {
           params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
          }
         def metadata=(_metadata); end
-        # The ID of the [Price](https://stripe.com/docs/api/prices). One of `price` or `price_data` is required when creating a new line item.
+        # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(String)) }
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -389,7 +389,7 @@ module Stripe
         def quantity; end
         sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def quantity=(_quantity); end
-        # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         def tax_rates; end
         sig {
@@ -525,7 +525,7 @@ module Stripe
             params(_fixed_amount: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount)).returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount))
            }
           def fixed_amount=(_fixed_amount); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           sig {
@@ -537,7 +537,7 @@ module Stripe
           def tax_behavior; end
           sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
           def tax_behavior=(_tax_behavior); end
-          # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
           sig { returns(T.nilable(String)) }
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -683,7 +683,7 @@ module Stripe
         params(_line_items: T.nilable(T::Array[Checkout::SessionUpdateParams::LineItem])).returns(T.nilable(T::Array[Checkout::SessionUpdateParams::LineItem]))
        }
       def line_items=(_line_items); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {

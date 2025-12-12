@@ -37,12 +37,12 @@ module Stripe
       params(_created: T.nilable(T.any(InvoiceItemListParams::Created, Integer))).returns(T.nilable(T.any(InvoiceItemListParams::Created, Integer)))
      }
     def created=(_created); end
-    # The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
+    # The identifier of the customer whose invoice items to return. If none is provided, returns all invoice items.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # The identifier of the account whose invoice items to return. If none is provided, all invoice items will be returned.
+    # The identifier of the account representing the customer whose invoice items to return. If none is provided, returns all invoice items.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

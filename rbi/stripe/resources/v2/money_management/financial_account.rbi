@@ -8,17 +8,63 @@ module Stripe
       # A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
       class FinancialAccount < APIResource
         class Balance < ::Stripe::StripeObject
+          class Available < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class InboundPending < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class OutboundPending < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Balance that can be used for money movement.
-          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+          sig { returns(T::Hash[String, Available]) }
           def available; end
           # Balance of inbound funds that will later transition to the `available` balance.
-          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+          sig { returns(T::Hash[String, InboundPending]) }
           def inbound_pending; end
           # Balance of funds that are being used for a pending outbound money movement.
-          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+          sig { returns(T::Hash[String, OutboundPending]) }
           def outbound_pending; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {
+              available: Available,
+              inbound_pending: InboundPending,
+              outbound_pending: OutboundPending,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

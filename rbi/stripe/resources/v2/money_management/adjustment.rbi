@@ -36,11 +36,25 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Amount < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(T.nilable(Integer)) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # If applicable, contains information about the original flow linked to this Adjustment.
         sig { returns(T.nilable(AdjustedFlow)) }
         def adjusted_flow; end
         # The amount of the Adjustment.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(Amount) }
         def amount; end
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }

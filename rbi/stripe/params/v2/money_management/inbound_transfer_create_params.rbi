@@ -6,6 +6,20 @@ module Stripe
   module V2
     module MoneyManagement
       class InboundTransferCreateParams < ::Stripe::RequestParams
+        class Amount < ::Stripe::RequestParams
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(T.nilable(Integer)) }
+          def value; end
+          sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def value=(_value); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+          def currency=(_currency); end
+          sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+          def initialize(value: nil, currency: nil); end
+        end
         class From < ::Stripe::RequestParams
           # An optional currency field used to specify which currency is debited from the Payment Method.
           # Since many Payment Methods support only one currency, this field is optional.
@@ -36,9 +50,11 @@ module Stripe
           def initialize(currency: nil, financial_account: nil); end
         end
         # The amount, in specified currency, by which the FinancialAccount balance will increase due to the InboundTransfer.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(V2::MoneyManagement::InboundTransferCreateParams::Amount) }
         def amount; end
-        sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+        sig {
+          params(_amount: V2::MoneyManagement::InboundTransferCreateParams::Amount).returns(V2::MoneyManagement::InboundTransferCreateParams::Amount)
+         }
         def amount=(_amount); end
         # An optional, freeform description field intended to store metadata.
         sig { returns(T.nilable(String)) }
@@ -60,7 +76,7 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: V2::MoneyManagement::InboundTransferCreateParams::From, to: V2::MoneyManagement::InboundTransferCreateParams::To).void
+          params(amount: V2::MoneyManagement::InboundTransferCreateParams::Amount, description: T.nilable(String), from: V2::MoneyManagement::InboundTransferCreateParams::From, to: V2::MoneyManagement::InboundTransferCreateParams::To).void
          }
         def initialize(amount: nil, description: nil, from: nil, to: nil); end
       end

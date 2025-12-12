@@ -5,7 +5,7 @@ module Stripe
   module Issuing
     # Every time an applicant submits an application for a Charge Card product your platform offers, or every time your platform takes a proactive credit decision on an existing account, you must record the decision by creating a new `CreditUnderwritingRecord` object on a connected account.
     #
-    # [Follow the guide](https://stripe.com/docs/issuing/credit/report-credit-decisions-and-manage-aans) to learn about your requirements as a platform.
+    # [Follow the guide](https://docs.stripe.com/issuing/credit/report-credit-decisions-and-manage-aans) to learn about your requirements as a platform.
     class CreditUnderwritingRecord < APIResource
       extend Stripe::APIOperations::List
 
@@ -63,7 +63,7 @@ module Stripe
         end
 
         class CreditLimitApproved < ::Stripe::StripeObject
-          # Credit amount approved. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
+          # Credit amount approved. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy).
           attr_reader :amount
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_reader :currency
@@ -78,7 +78,7 @@ module Stripe
         end
 
         class CreditLimitDecreased < ::Stripe::StripeObject
-          # Credit amount approved after decrease. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
+          # Credit amount approved after decrease. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy).
           attr_reader :amount
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_reader :currency
@@ -167,11 +167,11 @@ module Stripe
       attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-      # File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://stripe.com/docs/issuing/credit/report-required-regulatory-data-for-credit-decisions).
+      # File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions).
       attr_reader :regulatory_reporting_file
       # If an exception to the usual underwriting criteria was made for this application, details about the exception must be provided. Exceptions should only be granted in rare circumstances, in consultation with Stripe Compliance.
       attr_reader :underwriting_exception

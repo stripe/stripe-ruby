@@ -171,6 +171,9 @@ module Stripe
   class BlockedByStripeError < StripeError
   end
 
+  class ControlledByAlternateResourceError < StripeError
+  end
+
   class ControlledByDashboardError < StripeError
   end
 
@@ -217,9 +220,6 @@ module Stripe
   end
 
   class QuotaExceededError < StripeError
-  end
-
-  class RateLimitError < StripeError
   end
 
   class RecipientNotNotifiableError < StripeError

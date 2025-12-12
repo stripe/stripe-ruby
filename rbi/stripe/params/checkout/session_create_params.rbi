@@ -482,7 +482,7 @@ module Stripe
           def duration; end
           sig { params(_duration: T.nilable(String)).returns(T.nilable(String)) }
           def duration=(_duration); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
           def metadata; end
           sig {
@@ -516,7 +516,7 @@ module Stripe
         def coupon; end
         sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
         def coupon=(_coupon); end
-        # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
         sig { returns(T.nilable(Checkout::SessionCreateParams::Discount::CouponData)) }
         def coupon_data; end
         sig {
@@ -616,7 +616,7 @@ module Stripe
             params(_issuer: T.nilable(Checkout::SessionCreateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(Checkout::SessionCreateParams::InvoiceCreation::InvoiceData::Issuer))
            }
           def issuer=(_issuer); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           sig {
@@ -698,7 +698,7 @@ module Stripe
               params(_images: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def images=(_images); end
-            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             sig { returns(T.nilable(T::Hash[String, String])) }
             def metadata; end
             sig {
@@ -710,7 +710,7 @@ module Stripe
             def name; end
             sig { params(_name: String).returns(String) }
             def name=(_name); end
-            # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             sig { returns(T.nilable(String)) }
             def tax_code; end
             sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -772,7 +772,7 @@ module Stripe
             params(_recurring: T.nilable(Checkout::SessionCreateParams::LineItem::PriceData::Recurring)).returns(T.nilable(Checkout::SessionCreateParams::LineItem::PriceData::Recurring))
            }
           def recurring=(_recurring); end
-          # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+          # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           sig { returns(T.nilable(String)) }
           def tax_behavior; end
           sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -807,26 +807,26 @@ module Stripe
           params(_adjustable_quantity: T.nilable(Checkout::SessionCreateParams::LineItem::AdjustableQuantity)).returns(T.nilable(Checkout::SessionCreateParams::LineItem::AdjustableQuantity))
          }
         def adjustable_quantity=(_adjustable_quantity); end
-        # The [tax rates](https://stripe.com/docs/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
         sig { returns(T.nilable(T::Array[String])) }
         def dynamic_tax_rates; end
         sig {
           params(_dynamic_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def dynamic_tax_rates=(_dynamic_tax_rates); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object. One of `price` or `price_data` is required.
+        # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
         sig { returns(T.nilable(String)) }
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
         sig { returns(T.nilable(Checkout::SessionCreateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -838,7 +838,7 @@ module Stripe
         def quantity; end
         sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def quantity=(_quantity); end
-        # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
         sig { returns(T.nilable(T::Array[String])) }
         def tax_rates; end
         sig { params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -933,7 +933,7 @@ module Stripe
           params(_adjustable_quantity: T.nilable(Checkout::SessionCreateParams::OptionalItem::AdjustableQuantity)).returns(T.nilable(Checkout::SessionCreateParams::OptionalItem::AdjustableQuantity))
          }
         def adjustable_quantity=(_adjustable_quantity); end
-        # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object.
         sig { returns(String) }
         def price; end
         sig { params(_price: String).returns(String) }
@@ -976,7 +976,7 @@ module Stripe
             def postal_code; end
             sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
             def postal_code=(_postal_code); end
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(T.nilable(String)) }
             def state; end
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -1048,7 +1048,7 @@ module Stripe
           sig { params(amount: T.nilable(Integer), destination: String).void }
           def initialize(amount: nil, destination: nil); end
         end
-        # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
         sig { returns(T.nilable(Integer)) }
         def application_fee_amount; end
         sig { params(_application_fee_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -1063,7 +1063,7 @@ module Stripe
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -1082,7 +1082,7 @@ module Stripe
         def receipt_email; end
         sig { params(_receipt_email: T.nilable(String)).returns(T.nilable(String)) }
         def receipt_email=(_receipt_email); end
-        # Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
         # method collected by this Checkout Session.
         #
         # When setting this to `on_session`, Checkout will show a notice to the
@@ -1126,14 +1126,14 @@ module Stripe
         sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
         def statement_descriptor_suffix=(_statement_descriptor_suffix); end
         # The parameters used to automatically create a Transfer when the payment succeeds.
-        # For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        # For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
         sig { returns(T.nilable(Checkout::SessionCreateParams::PaymentIntentData::TransferData)) }
         def transfer_data; end
         sig {
           params(_transfer_data: T.nilable(Checkout::SessionCreateParams::PaymentIntentData::TransferData)).returns(T.nilable(Checkout::SessionCreateParams::PaymentIntentData::TransferData))
          }
         def transfer_data=(_transfer_data); end
-        # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
         sig { returns(T.nilable(String)) }
         def transfer_group; end
         sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
@@ -1517,7 +1517,7 @@ module Stripe
           def request_overcapture; end
           sig { params(_request_overcapture: T.nilable(String)).returns(T.nilable(String)) }
           def request_overcapture=(_request_overcapture); end
-          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(T.nilable(String)) }
           def request_three_d_secure; end
           sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }
@@ -2065,7 +2065,7 @@ module Stripe
           def capture_method; end
           sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
           def capture_method=(_capture_method); end
-          # [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+          # [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
           sig { returns(T.nilable(String)) }
           def preferred_locale; end
           sig { params(_preferred_locale: T.nilable(String)).returns(T.nilable(String)) }
@@ -2123,14 +2123,18 @@ module Stripe
         class Payto < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(T.nilable(T.any(String, Integer))) }
             def amount; end
-            sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            sig {
+              params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+             }
             def amount=(_amount); end
             # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(T.any(String, String))) }
             def amount_type; end
-            sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
+            sig {
+              params(_amount_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+             }
             def amount_type=(_amount_type); end
             # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
             sig { returns(T.nilable(String)) }
@@ -2138,19 +2142,25 @@ module Stripe
             sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
             def end_date=(_end_date); end
             # The periodicity at which payments will be collected. Defaults to `adhoc`.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(T.any(String, String))) }
             def payment_schedule; end
-            sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
+            sig {
+              params(_payment_schedule: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+             }
             def payment_schedule=(_payment_schedule); end
             # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(T.nilable(T.any(String, Integer))) }
             def payments_per_period; end
-            sig { params(_payments_per_period: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            sig {
+              params(_payments_per_period: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+             }
             def payments_per_period=(_payments_per_period); end
             # The purpose for which payments are made. Has a default value based on your merchant category code.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(T.any(String, String))) }
             def purpose; end
-            sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+            sig {
+              params(_purpose: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+             }
             def purpose=(_purpose); end
             # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
             sig { returns(T.nilable(String)) }
@@ -2158,7 +2168,7 @@ module Stripe
             sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
             def start_date=(_start_date); end
             sig {
-              params(amount: T.nilable(Integer), amount_type: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), payments_per_period: T.nilable(Integer), purpose: T.nilable(String), start_date: T.nilable(String)).void
+              params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(T.any(String, String)), end_date: T.nilable(String), payment_schedule: T.nilable(T.any(String, String)), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(T.any(String, String)), start_date: T.nilable(String)).void
              }
             def initialize(
               amount: nil,
@@ -2979,7 +2989,7 @@ module Stripe
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -3122,7 +3132,7 @@ module Stripe
             params(_fixed_amount: T.nilable(Checkout::SessionCreateParams::ShippingOption::ShippingRateData::FixedAmount)).returns(T.nilable(Checkout::SessionCreateParams::ShippingOption::ShippingRateData::FixedAmount))
            }
           def fixed_amount=(_fixed_amount); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           sig {
@@ -3134,7 +3144,7 @@ module Stripe
           def tax_behavior; end
           sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
           def tax_behavior=(_tax_behavior); end
-          # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
           sig { returns(T.nilable(String)) }
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -3299,7 +3309,7 @@ module Stripe
         def default_tax_rates=(_default_tax_rates); end
         # The subscription's description, meant to be displayable to the customer.
         # Use this field to optionally store an explanation of the subscription
-        # for rendering in the [customer portal](https://stripe.com/docs/customer-management).
+        # for rendering in the [customer portal](https://docs.stripe.com/customer-management).
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
@@ -3311,7 +3321,7 @@ module Stripe
           params(_invoice_settings: T.nilable(Checkout::SessionCreateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(Checkout::SessionCreateParams::SubscriptionData::InvoiceSettings))
          }
         def invoice_settings=(_invoice_settings); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -3483,15 +3493,15 @@ module Stripe
       def custom_text=(_custom_text); end
       # ID of an existing Customer, if one exists. In `payment` mode, the customer’s most recently saved card
       # payment method will be used to prefill the email, name, card details, and billing address
-      # on the Checkout page. In `subscription` mode, the customer’s [default payment method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method)
+      # on the Checkout page. In `subscription` mode, the customer’s [default payment method](https://docs.stripe.com/api/customers/update#update_customer-invoice_settings-default_payment_method)
       # will be used if it’s a card, otherwise the most recently saved card will be used. A valid billing address, billing name and billing email are required on the payment method for Checkout to prefill the customer's card details.
       #
-      # If the Customer already has a valid [email](https://stripe.com/docs/api/customers/object#customer_object-email) set, the email will be prefilled and not editable in Checkout.
+      # If the Customer already has a valid [email](https://docs.stripe.com/api/customers/object#customer_object-email) set, the email will be prefilled and not editable in Checkout.
       # If the Customer does not have a valid `email`, Checkout will set the email entered during the session on the Customer.
       #
       # If blank for Checkout Sessions in `subscription` mode or with `customer_creation` set as `always` in `payment` mode, Checkout will create a new Customer object based on information provided during the payment flow.
       #
-      # You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
+      # You can set [`payment_intent_data.setup_future_usage`](https://docs.stripe.com/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
       sig { returns(T.nilable(String)) }
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
@@ -3501,12 +3511,12 @@ module Stripe
       def customer_account; end
       sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
       def customer_account=(_customer_account); end
-      # Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
+      # Configure whether a Checkout Session creates a [Customer](https://docs.stripe.com/api/customers) during Session confirmation.
       #
       # When a Customer is not created, you can still retrieve email, address, and other customer data entered in Checkout
-      # with [customer_details](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-customer_details).
+      # with [customer_details](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-customer_details).
       #
-      # Sessions that don't create Customers instead are grouped by [guest customers](https://stripe.com/docs/payments/checkout/guest-customers)
+      # Sessions that don't create Customers instead are grouped by [guest customers](https://docs.stripe.com/payments/checkout/guest-customers)
       # in the Dashboard. Promotion codes limited to first time customers will return invalid for these Sessions.
       #
       # Can only be set in `payment` and `setup` mode.
@@ -3561,7 +3571,7 @@ module Stripe
         params(_invoice_creation: T.nilable(Checkout::SessionCreateParams::InvoiceCreation)).returns(T.nilable(Checkout::SessionCreateParams::InvoiceCreation))
        }
       def invoice_creation=(_invoice_creation); end
-      # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
+      # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
       #
       # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
       #
@@ -3577,7 +3587,7 @@ module Stripe
       def locale; end
       sig { params(_locale: T.nilable(String)).returns(T.nilable(String)) }
       def locale=(_locale); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -3593,14 +3603,14 @@ module Stripe
       #
       # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
       #
-      # If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+      # If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
       sig { returns(T.nilable(Checkout::SessionCreateParams::NameCollection)) }
       def name_collection; end
       sig {
         params(_name_collection: T.nilable(Checkout::SessionCreateParams::NameCollection)).returns(T.nilable(Checkout::SessionCreateParams::NameCollection))
        }
       def name_collection=(_name_collection); end
-      # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+      # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
       #
       # There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
       #
@@ -3630,7 +3640,7 @@ module Stripe
       #
       # Can only be set in `subscription` mode. Defaults to `always`.
       #
-      # If you'd like information on how to collect a payment method outside of Checkout, read the guide on configuring [subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
+      # If you'd like information on how to collect a payment method outside of Checkout, read the guide on configuring [subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
       sig { returns(T.nilable(String)) }
       def payment_method_collection; end
       sig { params(_payment_method_collection: T.nilable(String)).returns(T.nilable(String)) }
@@ -3657,7 +3667,7 @@ module Stripe
       # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
       #
       # You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-      # See [Dynamic Payment Methods](https://stripe.com/docs/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
+      # See [Dynamic Payment Methods](https://docs.stripe.com/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
       #
       # Read more about the supported payment methods and their requirements in our [payment
       # method details guide](/docs/payments/checkout/payment-methods).
@@ -3683,14 +3693,14 @@ module Stripe
       # Controls phone number collection settings for the session.
       #
       # We recommend that you review your privacy policy and check with your legal contacts
-      # before using this feature. Learn more about [collecting phone numbers with Checkout](https://stripe.com/docs/payments/checkout/phone-numbers).
+      # before using this feature. Learn more about [collecting phone numbers with Checkout](https://docs.stripe.com/payments/checkout/phone-numbers).
       sig { returns(T.nilable(Checkout::SessionCreateParams::PhoneNumberCollection)) }
       def phone_number_collection; end
       sig {
         params(_phone_number_collection: T.nilable(Checkout::SessionCreateParams::PhoneNumberCollection)).returns(T.nilable(Checkout::SessionCreateParams::PhoneNumberCollection))
        }
       def phone_number_collection=(_phone_number_collection); end
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       sig { returns(T.nilable(String)) }
       def redirect_on_completion; end
       sig { params(_redirect_on_completion: T.nilable(String)).returns(T.nilable(String)) }
@@ -3749,7 +3759,7 @@ module Stripe
       # is complete.
       # This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
       # information from the successful Checkout Session on your page, read the
-      # guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
+      # guide on [customizing your success page](https://docs.stripe.com/payments/checkout/custom-success-page).
       sig { returns(T.nilable(String)) }
       def success_url; end
       sig { params(_success_url: T.nilable(String)).returns(T.nilable(String)) }

@@ -124,12 +124,12 @@ module Stripe
       params(_current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer))).returns(T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)))
      }
     def current_period_start=(_current_period_start); end
-    # The ID of the customer whose subscriptions will be retrieved.
+    # The ID of the customer whose subscriptions you're retrieving.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # The ID of the account whose subscriptions will be retrieved.
+    # The ID of the account representing the customer whose subscriptions you're retrieving.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
@@ -164,7 +164,7 @@ module Stripe
     def starting_after; end
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
-    # The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://stripe.com/docs/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
+    # The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://docs.stripe.com/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
     sig { returns(T.nilable(String)) }
     def status; end
     sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }

@@ -785,5 +785,44 @@ module Stripe
         assert account.company.is_a?(Stripe::Account::Company) if account.respond_to?(:company) && account.company
       end
     end
+
+    should "raise special error for Invoice.payment_intent" do
+      is_good_error = lambda do |e|
+        e.message.include?("multiple-partial-payments-on-invoices")
+      end
+
+      i = Stripe::Invoice.construct_from({})
+
+      # Test attribute access
+      e = assert_raises(NoMethodError) do
+        i.payment_intent
+      end
+      assert is_good_error.call(e)
+
+      # Test hash access
+      e = assert_raises(KeyError) do
+        i[:payment_intent]
+      end
+      assert is_good_error.call(e)
+
+      # Only that property gets the special error
+      e = assert_raises(NoMethodError) do
+        i.blah
+      end
+      assert !is_good_error.call(e)
+
+      # Other properties don't get the special error with hash access
+      assert_nil i[:blah]
+
+      # Other classes don't have that special error
+      so = Stripe::StripeObject.construct_from({})
+      e = assert_raises(NoMethodError) do
+        so.payment_intent
+      end
+      assert !is_good_error.call(e)
+
+      # Hash access on non-Invoice objects returns nil
+      assert_nil so[:payment_intent]
+    end
   end
 end

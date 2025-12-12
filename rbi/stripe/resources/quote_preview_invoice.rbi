@@ -6,13 +6,13 @@ module Stripe
   # Invoices are statements of amounts owed by a customer, and are either
   # generated one-off, or generated periodically from a subscription.
   #
-  # They contain [invoice items](https://stripe.com/docs/api#invoiceitems), and proration adjustments
+  # They contain [invoice items](https://api.stripe.com#invoiceitems), and proration adjustments
   # that may be caused by subscription upgrades/downgrades (if necessary).
   #
   # If your invoice is configured to be billed through automatic charges,
   # Stripe automatically finalizes your invoice and attempts payment. Note
   # that finalizing the invoice,
-  # [when automatic](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection), does
+  # [when automatic](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection), does
   # not happen immediately as the invoice is created. Stripe waits
   # until one hour after the last webhook was successfully sent (or the last
   # webhook timed out after failing). If you (and the platforms you may have
@@ -32,9 +32,9 @@ module Stripe
   # customer's credit balance which is applied to the next invoice.
   #
   # More details on the customer's credit balance are
-  # [here](https://stripe.com/docs/billing/customer/balance).
+  # [here](https://docs.stripe.com/billing/customer/balance).
   #
-  # Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
+  # Related guide: [Send invoices to customers](https://docs.stripe.com/billing/invoices/sending)
   class QuotePreviewInvoice < APIResource
     class AmountsDue < ::Stripe::StripeObject
       # Incremental amount due for this payment in cents (or local equivalent).
@@ -103,7 +103,7 @@ module Stripe
       # If Stripe disabled automatic tax, this enum describes why.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+      # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
       sig { returns(T::Boolean) }
       def enabled; end
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
@@ -166,7 +166,7 @@ module Stripe
       # ZIP or postal code.
       sig { returns(T.nilable(String)) }
       def postal_code; end
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       sig { returns(T.nilable(String)) }
       def state; end
       def self.inner_class_types
@@ -193,7 +193,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -268,19 +268,19 @@ module Stripe
       end
     end
     class LastFinalizationError < ::Stripe::StripeObject
-      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
       sig { returns(T.nilable(String)) }
       def advice_code; end
       # For card errors, the ID of the failed charge.
       sig { returns(T.nilable(String)) }
       def charge; end
-      # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+      # For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
       sig { returns(T.nilable(String)) }
       def code; end
-      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
       sig { returns(T.nilable(String)) }
       def decline_code; end
-      # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+      # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       sig { returns(T.nilable(String)) }
       def doc_url; end
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
@@ -301,18 +301,18 @@ module Stripe
       # see the history of payment attempts for a particular session.
       #
       # A PaymentIntent transitions through
-      # [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+      # [multiple statuses](/payments/paymentintents/lifecycle)
       # throughout its lifetime as it interfaces with Stripe.js to perform
       # authentication flows and ultimately creates at most one successful charge.
       #
-      # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+      # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
       sig { returns(T.nilable(::Stripe::PaymentIntent)) }
       def payment_intent; end
       # PaymentMethod objects represent your customer's payment instruments.
-      # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+      # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
-      # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+      # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
       sig { returns(T.nilable(::Stripe::PaymentMethod)) }
       def payment_method; end
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
@@ -323,7 +323,7 @@ module Stripe
       def request_log_url; end
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -334,9 +334,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -397,11 +397,11 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
         #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
-        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
         sig { returns(T.nilable(PauseCollection)) }
         def pause_collection; end
         # The subscription that generated this invoice
@@ -493,7 +493,7 @@ module Stripe
           # Attribute for field installments
           sig { returns(T.nilable(Installments)) }
           def installments; end
-          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(T.nilable(String)) }
           def request_three_d_secure; end
           def self.inner_class_types
@@ -553,6 +553,34 @@ module Stripe
         class Konbini < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Payto < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Only `maximum` is supported.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # The purpose for which payments are made. Has a default value based on your merchant category code.
+            sig { returns(T.nilable(String)) }
+            def purpose; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -671,6 +699,9 @@ module Stripe
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Konbini)) }
         def konbini; end
+        # If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(Payto)) }
+        def payto; end
         # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Pix)) }
         def pix; end
@@ -691,6 +722,7 @@ module Stripe
             customer_balance: CustomerBalance,
             id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
+            payto: Payto,
             pix: Pix,
             sepa_debit: SepaDebit,
             upi: Upi,
@@ -810,7 +842,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -943,7 +975,7 @@ module Stripe
     end
     class TotalTax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
-        # Attribute for field tax_rate
+        # ID of the tax rate
         sig { returns(String) }
         def tax_rate; end
         def self.inner_class_types
@@ -1049,7 +1081,7 @@ module Stripe
     # Custom fields displayed on the invoice.
     sig { returns(T.nilable(T::Array[CustomField])) }
     def custom_fields; end
-    # The ID of the account who will be billed.
+    # The ID of the account representing the customer to bill.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
@@ -1105,7 +1137,7 @@ module Stripe
     # Footer displayed on the invoice.
     sig { returns(T.nilable(String)) }
     def footer; end
-    # Details of the invoice that was cloned. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
+    # Details of the invoice that was cloned. See the [revision documentation](https://docs.stripe.com/invoicing/invoice-revisions) for more details.
     sig { returns(T.nilable(FromInvoice)) }
     def from_invoice; end
     # Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
@@ -1126,7 +1158,7 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`.
@@ -1138,7 +1170,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
+    # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://docs.stripe.com/billing/invoices/connect) documentation for details.
     sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
     # The parent that generated this invoice
@@ -1180,7 +1212,7 @@ module Stripe
     # Extra information about an invoice for the customer's credit card statement.
     sig { returns(T.nilable(String)) }
     def statement_descriptor; end
-    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     sig { returns(T.nilable(String)) }
     def status; end
     # Attribute for field status_transitions
@@ -1219,7 +1251,7 @@ module Stripe
     # The aggregate tax information of all line items.
     sig { returns(T.nilable(T::Array[TotalTax])) }
     def total_taxes; end
-    # Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
+    # Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://docs.stripe.com/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     sig { returns(T.nilable(Integer)) }
     def webhooks_delivered_at; end
   end

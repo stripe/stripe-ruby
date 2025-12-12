@@ -6,7 +6,7 @@ module Stripe
     class ReaderSetReaderDisplayParams < ::Stripe::RequestParams
       class Cart < ::Stripe::RequestParams
         class LineItem < ::Stripe::RequestParams
-          # The price of the item in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+          # The price of the item in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
           attr_accessor :amount
           # The description or name of the item.
           attr_accessor :description
@@ -23,9 +23,9 @@ module Stripe
         attr_accessor :currency
         # Array of line items to display.
         attr_accessor :line_items
-        # The amount of tax in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The amount of tax in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_accessor :tax
-        # Total balance of cart due in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # Total balance of cart due in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_accessor :total
 
         def initialize(currency: nil, line_items: nil, tax: nil, total: nil)

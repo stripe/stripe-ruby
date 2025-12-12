@@ -13,7 +13,7 @@ task :update_certs do
   require "net/http"
   require "uri"
 
-  fetch_file "https://curl.haxx.se/ca/cacert.pem",
+  fetch_file "https://curl.se/ca/cacert.pem",
              File.expand_path("lib/data/ca-certificates.crt", __dir__)
 end
 

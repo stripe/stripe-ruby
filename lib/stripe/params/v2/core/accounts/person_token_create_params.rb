@@ -21,7 +21,7 @@ module Stripe
             attr_accessor :purpose
             # State, county, province, or region.
             attr_accessor :state
-            # Town or cho-me.
+            # Town or district.
             attr_accessor :town
 
             def initialize(
@@ -93,7 +93,7 @@ module Stripe
             attr_accessor :postal_code
             # State, county, province, or region.
             attr_accessor :state
-            # Town or cho-me.
+            # Town or district.
             attr_accessor :town
 
             def initialize(
@@ -251,7 +251,7 @@ module Stripe
           end
 
           class Relationship < ::Stripe::RequestParams
-            # Whether the individual is an authorizer of the Account’s legal entity.
+            # Whether the individual is an authorizer of the Account's identity.
             attr_accessor :authorizer
             # Indicates whether the person is a director of the associated legal entity.
             attr_accessor :director
@@ -303,7 +303,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -338,7 +338,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(

@@ -5,9 +5,9 @@ module Stripe
   class CustomerPaymentSourceCreateParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
-    # Please refer to full [documentation](https://stripe.com/docs/api) instead.
+    # Please refer to full [documentation](https://api.stripe.com) instead.
     attr_accessor :source
     # Attribute for param field validate
     attr_accessor :validate

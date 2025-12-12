@@ -4,8 +4,9 @@
 # typed: true
 module Stripe
   module Capital
-    # A financing object describes an account's current financing state. Used by Connect
-    # platforms to read the state of Capital offered to their connected accounts.
+    # A financing summary object describes a connected account's financing status in real time.
+    # A financing status is either `accepted`, `delivered`, or `none`.
+    # You can read the status of your connected accounts.
     class FinancingSummary < SingletonAPIResource
       class Details < ::Stripe::StripeObject
         class CurrentRepaymentInterval < ::Stripe::StripeObject
@@ -63,15 +64,17 @@ module Stripe
       # Additional information about the financing summary. Describes currency, advance amount,
       # fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
       # repayment start date, and advance payout date.
+      #
+      # Only present for financing offers with the `paid_out` status.
       sig { returns(T.nilable(Details)) }
       def details; end
-      # The Financing Offer ID this Financing Summary corresponds to
+      # The unique identifier of the Financing Offer object that corresponds to the Financing Summary object.
       sig { returns(T.nilable(String)) }
       def financing_offer; end
       # The object type: financing_summary
       sig { returns(String) }
       def object; end
-      # Status of the Connected Account's financing. [/v1/capital/financing_summary](https://stripe.com/docs/api/capital/financing_summary) will only return `details` for `paid_out` financing.
+      # The financing status of the connected account.
       sig { returns(T.nilable(String)) }
       def status; end
     end

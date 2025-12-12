@@ -17,6 +17,7 @@ module Stripe
         # ** raises BlockedByStripeError
         # ** raises InvalidPayoutMethodError
         # ** raises QuotaExceededError
+        # ** raises ControlledByAlternateResourceError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundSetupIntent)
          }
@@ -39,6 +40,7 @@ module Stripe
         # ** raises QuotaExceededError
         # ** raises BlockedByStripeError
         # ** raises InvalidPayoutMethodError
+        # ** raises ControlledByAlternateResourceError
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundSetupIntent)
          }

@@ -7,6 +7,20 @@ module Stripe
     module MoneyManagement
       # OutboundPayment represents a single money movement from one FinancialAccount you own to a payout method someone else owns.
       class OutboundPayment < APIResource
+        class Amount < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(T.nilable(Integer)) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class DeliveryOptions < ::Stripe::StripeObject
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
@@ -19,14 +33,28 @@ module Stripe
           end
         end
         class From < ::Stripe::StripeObject
+          class Debited < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount debited from the sender, only set on responses.
-          sig { returns(::Stripe::V2::Amount) }
+          sig { returns(Debited) }
           def debited; end
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
           def financial_account; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {debited: Debited}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -105,8 +133,22 @@ module Stripe
           end
         end
         class To < ::Stripe::StripeObject
+          class Credited < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
-          sig { returns(::Stripe::V2::Amount) }
+          sig { returns(Credited) }
           def credited; end
           # The payout method which the OutboundPayment uses to send payout.
           sig { returns(String) }
@@ -115,7 +157,7 @@ module Stripe
           sig { returns(String) }
           def recipient; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {credited: Credited}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -139,7 +181,7 @@ module Stripe
           end
         end
         # The "presentment amount" for the OutboundPayment.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(Amount) }
         def amount; end
         # Returns true if the OutboundPayment can be canceled, and false otherwise.
         sig { returns(T::Boolean) }

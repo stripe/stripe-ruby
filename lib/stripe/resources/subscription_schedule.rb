@@ -4,7 +4,7 @@
 module Stripe
   # A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
   #
-  # Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
+  # Related guide: [Subscription schedules](https://docs.stripe.com/billing/subscriptions/subscription-schedules)
   class SubscriptionSchedule < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -155,7 +155,7 @@ module Stripe
       attr_reader :application_fee_percent
       # Attribute for field automatic_tax
       attr_reader :automatic_tax
-      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
       attr_reader :billing_thresholds
@@ -297,7 +297,7 @@ module Stripe
         end
         # The stackable discounts that will be applied to the item.
         attr_reader :discounts
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # Attribute for field period
         attr_reader :period
@@ -492,7 +492,7 @@ module Stripe
         attr_reader :billing_thresholds
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         attr_reader :discounts
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
         attr_reader :metadata
         # ID of the plan to which the customer should be subscribed.
         attr_reader :plan
@@ -576,7 +576,7 @@ module Stripe
       attr_reader :application_fee_percent
       # Attribute for field automatic_tax
       attr_reader :automatic_tax
-      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
       attr_reader :billing_thresholds
@@ -598,11 +598,11 @@ module Stripe
       attr_reader :invoice_settings
       # Subscription items to configure the subscription to during this phase of the subscription schedule.
       attr_reader :items
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
       attr_reader :metadata
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       attr_reader :on_behalf_of
-      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
       attr_reader :pause_collection
       # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
       attr_reader :proration_behavior
@@ -682,7 +682,7 @@ module Stripe
     attr_reader :last_price_migration_error
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -694,7 +694,7 @@ module Stripe
     attr_reader :released_at
     # ID of the subscription once managed by the subscription schedule (if it is released).
     attr_reader :released_subscription
-    # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+    # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://docs.stripe.com/billing/subscriptions/subscription-schedules).
     attr_reader :status
     # ID of the subscription managed by the subscription schedule.
     attr_reader :subscription

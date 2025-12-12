@@ -10,6 +10,7 @@ module Stripe
         #
         # ** raises ControlledByDashboardError
         # ** raises InvalidPayoutMethodError
+        # ** raises ControlledByAlternateResourceError
         def archive(id, params = {}, opts = {})
           request(
             method: :post,
@@ -48,6 +49,7 @@ module Stripe
         #
         # ** raises ControlledByDashboardError
         # ** raises InvalidPayoutMethodError
+        # ** raises ControlledByAlternateResourceError
         def unarchive(id, params = {}, opts = {})
           request(
             method: :post,

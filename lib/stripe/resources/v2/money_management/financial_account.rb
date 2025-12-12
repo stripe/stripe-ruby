@@ -12,6 +12,50 @@ module Stripe
         end
 
         class Balance < ::Stripe::StripeObject
+          class Available < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            attr_reader :value
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class InboundPending < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            attr_reader :value
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class OutboundPending < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            attr_reader :value
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Balance that can be used for money movement.
           attr_reader :available
           # Balance of inbound funds that will later transition to the `available` balance.
@@ -20,7 +64,11 @@ module Stripe
           attr_reader :outbound_pending
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {
+              available: Available,
+              inbound_pending: InboundPending,
+              outbound_pending: OutboundPending,
+            }
           end
 
           def self.field_remappings

@@ -9,7 +9,7 @@ module Stripe
         class Configuration < ::Stripe::RequestParams
           class Customer < ::Stripe::RequestParams
             class AutomaticIndirectTax < ::Stripe::RequestParams
-              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
+              # The customer account's tax exemption status: `none`, `exempt`, or `reverse`. When `reverse`, invoice and receipt PDFs include "Reverse charge".
               sig { returns(T.nilable(String)) }
               def exempt; end
               sig { params(_exempt: T.nilable(String)).returns(T.nilable(String)) }
@@ -19,12 +19,12 @@ module Stripe
               def ip_address; end
               sig { params(_ip_address: T.nilable(String)).returns(T.nilable(String)) }
               def ip_address=(_ip_address); end
-              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions. This behavior is now deprecated for new users.
+              # Data source used to identify the customer account's tax location. Defaults to `identity_address`. Used for automatic indirect tax calculation.
               sig { returns(T.nilable(String)) }
               def location_source; end
               sig { params(_location_source: T.nilable(String)).returns(T.nilable(String)) }
               def location_source=(_location_source); end
-              # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to 'auto'.
+              # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to `auto`.
               sig { returns(T.nilable(String)) }
               def validate_location; end
               sig { params(_validate_location: T.nilable(String)).returns(T.nilable(String)) }
@@ -56,7 +56,7 @@ module Stripe
                   def initialize(name: nil, value: nil); end
                 end
                 class Rendering < ::Stripe::RequestParams
-                  # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+                  # Indicates whether displayed line item prices and amounts on invoice PDFs include inclusive tax amounts. Must be either `include_inclusive_tax` or `exclude_tax`.
                   sig { returns(T.nilable(String)) }
                   def amount_tax_display; end
                   sig { params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String)) }
@@ -80,22 +80,22 @@ module Stripe
                   params(_custom_fields: T.nilable(T::Array[V2::Core::AccountUpdateParams::Configuration::Customer::Billing::Invoice::CustomField])).returns(T.nilable(T::Array[V2::Core::AccountUpdateParams::Configuration::Customer::Billing::Invoice::CustomField]))
                  }
                 def custom_fields=(_custom_fields); end
-                # Default footer to be displayed on invoices for this customer.
+                # Default invoice footer.
                 sig { returns(T.nilable(String)) }
                 def footer; end
                 sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
                 def footer=(_footer); end
-                # The sequence to be used on the customer's next invoice. Defaults to 1.
+                # Sequence number to use on the customer account's next invoice. Defaults to 1.
                 sig { returns(T.nilable(Integer)) }
                 def next_sequence; end
                 sig { params(_next_sequence: T.nilable(Integer)).returns(T.nilable(Integer)) }
                 def next_sequence=(_next_sequence); end
-                # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+                # Prefix used to generate unique invoice numbers. Must be 3-12 uppercase letters or numbers.
                 sig { returns(T.nilable(String)) }
                 def prefix; end
                 sig { params(_prefix: T.nilable(String)).returns(T.nilable(String)) }
                 def prefix=(_prefix); end
-                # Default options for invoice PDF rendering for this customer.
+                # Default invoice PDF rendering options.
                 sig {
                   returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Customer::Billing::Invoice::Rendering))
                  }
@@ -115,12 +115,12 @@ module Stripe
                   rendering: nil
                 ); end
               end
-              # ID of a payment method that’s attached to the customer, to be used as the customer’s default payment method for invoices and subscriptions.
+              # ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
               sig { returns(T.nilable(String)) }
               def default_payment_method; end
               sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
               def default_payment_method=(_default_payment_method); end
-              # Default settings used on invoices for this customer.
+              # Default invoice settings for the customer account.
               sig {
                 returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Customer::Billing::Invoice))
                }
@@ -286,7 +286,7 @@ module Stripe
           end
           class Merchant < ::Stripe::RequestParams
             class BacsDebitPayments < ::Stripe::RequestParams
-              # Display name for Bacs debit payments.
+              # Display name for Bacs Direct Debit payments.
               sig { returns(T.nilable(String)) }
               def display_name; end
               sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
@@ -1346,7 +1346,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -1398,7 +1398,7 @@ module Stripe
             def applied; end
             sig { params(_applied: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
             def applied=(_applied); end
-            # Settings used for Bacs debit payments.
+            # Settings for Bacs Direct Debit payments.
             sig {
               returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::BacsDebitPayments))
              }
@@ -1443,7 +1443,7 @@ module Stripe
               params(_konbini_payments: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments))
              }
             def konbini_payments=(_konbini_payments); end
-            # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
+            # The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             sig { returns(T.nilable(String)) }
             def mcc; end
             sig { params(_mcc: T.nilable(String)).returns(T.nilable(String)) }
@@ -1457,7 +1457,7 @@ module Stripe
               params(_script_statement_descriptor: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor))
              }
             def script_statement_descriptor=(_script_statement_descriptor); end
-            # Statement descriptor.
+            # Settings for the default [statement descriptor](/connect/statement-descriptors) text.
             sig {
               returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor))
              }
@@ -1554,7 +1554,7 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
-                # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig {
                   returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                  }
@@ -1920,14 +1920,14 @@ module Stripe
             params(_customer: T.nilable(V2::Core::AccountUpdateParams::Configuration::Customer)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Customer))
            }
           def customer=(_customer); end
-          # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
+          # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           sig { returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant)) }
           def merchant; end
           sig {
             params(_merchant: T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Merchant))
            }
           def merchant=(_merchant); end
-          # The Recipient Configuration allows the Account to receive funds.
+          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
           sig { returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient)) }
           def recipient; end
           sig {
@@ -2293,7 +2293,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -2312,11 +2312,27 @@ module Stripe
               ); end
             end
             class AnnualRevenue < ::Stripe::RequestParams
+              class Amount < ::Stripe::RequestParams
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def value=(_value); end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+                def currency=(_currency); end
+                sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+                def initialize(value: nil, currency: nil); end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig {
+                returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
+               }
               def amount; end
               sig {
-                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
+                params(_amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
                }
               def amount=(_amount); end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -2325,7 +2341,7 @@ module Stripe
               sig { params(_fiscal_year_end: T.nilable(String)).returns(T.nilable(String)) }
               def fiscal_year_end=(_fiscal_year_end); end
               sig {
-                params(amount: T.nilable(::Stripe::V2::Amount), fiscal_year_end: T.nilable(String)).void
+                params(amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount), fiscal_year_end: T.nilable(String)).void
                }
               def initialize(amount: nil, fiscal_year_end: nil); end
             end
@@ -2618,14 +2634,32 @@ module Stripe
               def initialize(registrar: nil, type: nil, value: nil); end
             end
             class MonthlyEstimatedRevenue < ::Stripe::RequestParams
+              class Amount < ::Stripe::RequestParams
+                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                sig { returns(T.nilable(Integer)) }
+                def value; end
+                sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def value=(_value); end
+                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                sig { returns(T.nilable(String)) }
+                def currency; end
+                sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+                def currency=(_currency); end
+                sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+                def initialize(value: nil, currency: nil); end
+              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              sig {
+                returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
+               }
               def amount; end
               sig {
-                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
+                params(_amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
                }
               def amount=(_amount); end
-              sig { params(amount: T.nilable(::Stripe::V2::Amount)).void }
+              sig {
+                params(amount: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).void
+               }
               def initialize(amount: nil); end
             end
             class ScriptAddresses < ::Stripe::RequestParams
@@ -2660,7 +2694,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -2709,7 +2743,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -2819,7 +2853,7 @@ module Stripe
               params(_documents: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents))
              }
             def documents=(_documents); end
-            # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             sig { returns(T.nilable(Integer)) }
             def estimated_worker_count; end
             sig { params(_estimated_worker_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -2929,7 +2963,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -3005,7 +3039,7 @@ module Stripe
               def state; end
               sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
-              # Town or cho-me.
+              # Town or district.
               sig { returns(T.nilable(String)) }
               def town; end
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -3292,7 +3326,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
@@ -3341,7 +3375,7 @@ module Stripe
                 def state; end
                 sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
-                # Town or cho-me.
+                # Town or district.
                 sig { returns(T.nilable(String)) }
                 def town; end
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }

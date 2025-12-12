@@ -54,6 +54,8 @@ module Stripe
           attr_reader :created
           # The fedwire routing number of the bank account.
           attr_reader :fedwire_routing_number
+          # The ID of the Financial Connections Account used to create the bank account.
+          attr_reader :financial_connections_account
           # The ID of the USBankAccount object.
           attr_reader :id
           # The last 4 digits of the account number.

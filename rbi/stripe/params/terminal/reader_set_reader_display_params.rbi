@@ -7,7 +7,7 @@ module Stripe
     class ReaderSetReaderDisplayParams < ::Stripe::RequestParams
       class Cart < ::Stripe::RequestParams
         class LineItem < ::Stripe::RequestParams
-          # The price of the item in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+          # The price of the item in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
           sig { params(_amount: Integer).returns(Integer) }
@@ -37,12 +37,12 @@ module Stripe
           params(_line_items: T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem]).returns(T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem])
          }
         def line_items=(_line_items); end
-        # The amount of tax in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The amount of tax in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(T.nilable(Integer)) }
         def tax; end
         sig { params(_tax: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def tax=(_tax); end
-        # Total balance of cart due in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # Total balance of cart due in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def total; end
         sig { params(_total: Integer).returns(Integer) }

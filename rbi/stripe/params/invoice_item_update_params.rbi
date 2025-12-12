@@ -94,7 +94,7 @@ module Stripe
       def product; end
       sig { params(_product: String).returns(String) }
       def product=(_product); end
-      # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+      # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
       sig { returns(T.nilable(String)) }
       def tax_behavior; end
       sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -163,21 +163,21 @@ module Stripe
       params(_margins: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
      }
     def margins=(_margins); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
-    # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
+    # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
     sig { returns(T.nilable(InvoiceItemUpdateParams::Period)) }
     def period; end
     sig {
       params(_period: T.nilable(InvoiceItemUpdateParams::Period)).returns(T.nilable(InvoiceItemUpdateParams::Period))
      }
     def period=(_period); end
-    # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
     sig { returns(T.nilable(InvoiceItemUpdateParams::PriceData)) }
     def price_data; end
     sig {
@@ -196,12 +196,12 @@ module Stripe
     def quantity; end
     sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def quantity=(_quantity); end
-    # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+    # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     sig { returns(T.nilable(String)) }
     def tax_behavior; end
     sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def tax_behavior=(_tax_behavior); end
-    # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+    # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     sig { returns(T.nilable(String)) }
     def tax_code; end
     sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }

@@ -10,11 +10,11 @@ module Stripe
     # appropriate sub-resource: `document`, `id_number`, `selfie`.
     #
     # Each VerificationReport contains a copy of any data collected by the user as well as
-    # reference IDs which can be used to access collected images through the [FileUpload](https://stripe.com/docs/api/files)
+    # reference IDs which can be used to access collected images through the [FileUpload](https://docs.stripe.com/api/files)
     # API. To configure and create VerificationReports, use the
-    # [VerificationSession](https://stripe.com/docs/api/identity/verification_sessions) API.
+    # [VerificationSession](https://docs.stripe.com/api/identity/verification_sessions) API.
     #
-    # Related guide: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
+    # Related guide: [Accessing verification results](https://docs.stripe.com/identity/verification-sessions#results).
     class VerificationReport < APIResource
       class Document < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
@@ -33,7 +33,7 @@ module Stripe
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           def postal_code; end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           def self.inner_class_types
@@ -120,7 +120,7 @@ module Stripe
         # Expiration date of the document.
         sig { returns(T.nilable(ExpirationDate)) }
         def expiration_date; end
-        # Array of [File](https://stripe.com/docs/api/files) ids containing images for this document.
+        # Array of [File](https://docs.stripe.com/api/files) ids containing images for this document.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         # First name as it appears in the document.
@@ -262,13 +262,13 @@ module Stripe
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           sig { returns(T.nilable(T::Array[String])) }
           def allowed_types; end
-          # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
+          # Collect an ID number and perform an [ID number check](https://docs.stripe.com/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
           sig { returns(T.nilable(T::Boolean)) }
           def require_id_number; end
           # Disable image uploads, identity document images have to be captured using the device’s camera.
           sig { returns(T.nilable(T::Boolean)) }
           def require_live_capture; end
-          # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
+          # Capture a face image and perform a [selfie check](https://docs.stripe.com/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://docs.stripe.com/identity/selfie).
           sig { returns(T.nilable(T::Boolean)) }
           def require_matching_selfie; end
           def self.inner_class_types
@@ -345,13 +345,13 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
+        # ID of the [File](https://docs.stripe.com/api/files) holding the image of the identity document used in this check.
         sig { returns(T.nilable(String)) }
         def document; end
         # Details on the verification error. Present when status is `unverified`.
         sig { returns(T.nilable(Error)) }
         def error; end
-        # ID of the [File](https://stripe.com/docs/api/files) holding the image of the selfie used in this check.
+        # ID of the [File](https://docs.stripe.com/api/files) holding the image of the selfie used in this check.
         sig { returns(T.nilable(String)) }
         def selfie; end
         # Status of this `selfie` check.

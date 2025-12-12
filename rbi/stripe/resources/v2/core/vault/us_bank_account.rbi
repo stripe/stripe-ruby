@@ -56,6 +56,9 @@ module Stripe
           # The fedwire routing number of the bank account.
           sig { returns(T.nilable(String)) }
           def fedwire_routing_number; end
+          # The ID of the Financial Connections Account used to create the bank account.
+          sig { returns(T.nilable(String)) }
+          def financial_connections_account; end
           # The ID of the USBankAccount object.
           sig { returns(String) }
           def id; end

@@ -74,7 +74,7 @@ module Stripe
       attr_reader :livemode
       # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
       attr_reader :lookup_key
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # Friendly display name.
       attr_reader :name

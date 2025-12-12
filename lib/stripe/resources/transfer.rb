@@ -7,11 +7,11 @@ module Stripe
   #
   # Before April 6, 2017, transfers also represented movement of funds from a
   # Stripe account to a card or bank account. This behavior has since been split
-  # out into a [Payout](https://stripe.com/docs/api#payout_object) object, with corresponding payout endpoints. For more
+  # out into a [Payout](https://api.stripe.com#payout_object) object, with corresponding payout endpoints. For more
   # information, read about the
-  # [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
+  # [transfer/payout split](https://docs.stripe.com/transfer-payout-split).
   #
-  # Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
+  # Related guide: [Creating separate charges and transfers](https://docs.stripe.com/connect/separate-charges-and-transfers)
   class Transfer < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -47,7 +47,7 @@ module Stripe
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -59,7 +59,7 @@ module Stripe
     attr_reader :source_transaction
     # The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`.
     attr_reader :source_type
-    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     attr_reader :transfer_group
 
     # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.

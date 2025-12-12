@@ -60,7 +60,7 @@ module Stripe
 
     class Tax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
-        # Attribute for field tax_rate
+        # ID of the tax rate
         attr_reader :tax_rate
 
         def self.inner_class_types

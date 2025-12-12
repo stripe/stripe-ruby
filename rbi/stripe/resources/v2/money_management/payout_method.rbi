@@ -39,6 +39,9 @@ module Stripe
           # List of enabled flows for this bank account (wire or local).
           sig { returns(T::Array[String]) }
           def enabled_delivery_options; end
+          # The ID of the Financial Connections Account used to create the bank account.
+          sig { returns(T.nilable(String)) }
+          def financial_connections_account; end
           # The last 4 digits of the account number.
           sig { returns(String) }
           def last4; end

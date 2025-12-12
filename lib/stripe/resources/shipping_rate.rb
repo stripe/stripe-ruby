@@ -3,7 +3,7 @@
 
 module Stripe
   # Shipping rates describe the price of shipping presented to your customers and
-  # applied to a purchase. For more information, see [Charge for shipping](https://stripe.com/docs/payments/during-payment/charge-shipping).
+  # applied to a purchase. For more information, see [Charge for shipping](https://docs.stripe.com/payments/during-payment/charge-shipping).
   class ShippingRate < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -102,13 +102,13 @@ module Stripe
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     attr_reader :tax_behavior
-    # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+    # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
     attr_reader :tax_code
     # The type of calculation to use on the shipping rate.
     attr_reader :type

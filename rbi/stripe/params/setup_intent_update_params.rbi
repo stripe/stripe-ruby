@@ -88,7 +88,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -326,7 +326,7 @@ module Stripe
       class Promptpay < ::Stripe::RequestParams; end
       class Qris < ::Stripe::RequestParams; end
       class RadarOptions < ::Stripe::RequestParams
-        # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         sig { returns(T.nilable(String)) }
         def session; end
         sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
@@ -656,7 +656,7 @@ module Stripe
         params(_mb_way: T.nilable(SetupIntentUpdateParams::PaymentMethodData::MbWay)).returns(T.nilable(SetupIntentUpdateParams::PaymentMethodData::MbWay))
        }
       def mb_way=(_mb_way); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -768,7 +768,7 @@ module Stripe
         params(_qris: T.nilable(SetupIntentUpdateParams::PaymentMethodData::Qris)).returns(T.nilable(SetupIntentUpdateParams::PaymentMethodData::Qris))
        }
       def qris=(_qris); end
-      # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+      # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
       sig { returns(T.nilable(SetupIntentUpdateParams::PaymentMethodData::RadarOptions)) }
       def radar_options; end
       sig {
@@ -1229,7 +1229,7 @@ module Stripe
         def network; end
         sig { params(_network: T.nilable(String)).returns(T.nilable(String)) }
         def network=(_network); end
-        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         sig { returns(T.nilable(String)) }
         def request_three_d_secure; end
         sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }
@@ -1420,14 +1420,18 @@ module Stripe
       class Payto < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
-          sig { returns(T.nilable(Integer)) }
+          sig { returns(T.nilable(T.any(String, Integer))) }
           def amount; end
-          sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          sig {
+            params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+           }
           def amount=(_amount); end
           # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(T.any(String, String))) }
           def amount_type; end
-          sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
+          sig {
+            params(_amount_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+           }
           def amount_type=(_amount_type); end
           # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
           sig { returns(T.nilable(String)) }
@@ -1435,19 +1439,25 @@ module Stripe
           sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
           def end_date=(_end_date); end
           # The periodicity at which payments will be collected. Defaults to `adhoc`.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(T.any(String, String))) }
           def payment_schedule; end
-          sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
+          sig {
+            params(_payment_schedule: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+           }
           def payment_schedule=(_payment_schedule); end
           # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
-          sig { returns(T.nilable(Integer)) }
+          sig { returns(T.nilable(T.any(String, Integer))) }
           def payments_per_period; end
-          sig { params(_payments_per_period: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          sig {
+            params(_payments_per_period: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+           }
           def payments_per_period=(_payments_per_period); end
           # The purpose for which payments are made. Has a default value based on your merchant category code.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(T.any(String, String))) }
           def purpose; end
-          sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+          sig {
+            params(_purpose: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+           }
           def purpose=(_purpose); end
           # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
           sig { returns(T.nilable(String)) }
@@ -1455,7 +1465,7 @@ module Stripe
           sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
           def start_date=(_start_date); end
           sig {
-            params(amount: T.nilable(Integer), amount_type: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), payments_per_period: T.nilable(Integer), purpose: T.nilable(String), start_date: T.nilable(String)).void
+            params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(T.any(String, String)), end_date: T.nilable(String), payment_schedule: T.nilable(T.any(String, String)), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(T.any(String, String)), start_date: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
@@ -1863,7 +1873,7 @@ module Stripe
       params(_flow_directions: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
      }
     def flow_directions=(_flow_directions); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -1875,12 +1885,12 @@ module Stripe
     def payment_method; end
     sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
     def payment_method=(_payment_method); end
-    # The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
+    # The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this SetupIntent.
     sig { returns(T.nilable(String)) }
     def payment_method_configuration; end
     sig { params(_payment_method_configuration: T.nilable(String)).returns(T.nilable(String)) }
     def payment_method_configuration=(_payment_method_configuration); end
-    # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
+    # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-payment_method)
     # value in the SetupIntent.
     sig { returns(T.nilable(SetupIntentUpdateParams::PaymentMethodData)) }
     def payment_method_data; end

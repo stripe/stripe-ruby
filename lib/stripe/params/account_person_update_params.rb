@@ -37,7 +37,7 @@ module Stripe
       attr_accessor :line2
       # ZIP or postal code.
       attr_accessor :postal_code
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       attr_accessor :state
 
       def initialize(city: nil, country: nil, line1: nil, line2: nil, postal_code: nil, state: nil)
@@ -137,7 +137,7 @@ module Stripe
 
     class Documents < ::Stripe::RequestParams
       class CompanyAuthorization < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -146,7 +146,7 @@ module Stripe
       end
 
       class Passport < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -155,7 +155,7 @@ module Stripe
       end
 
       class Visa < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -187,7 +187,7 @@ module Stripe
       attr_accessor :line2
       # ZIP or postal code.
       attr_accessor :postal_code
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       attr_accessor :state
 
       def initialize(city: nil, country: nil, line1: nil, line2: nil, postal_code: nil, state: nil)
@@ -279,9 +279,9 @@ module Stripe
 
     class Verification < ::Stripe::RequestParams
       class AdditionalDocument < ::Stripe::RequestParams
-        # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         attr_accessor :back
-        # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         attr_accessor :front
 
         def initialize(back: nil, front: nil)
@@ -291,9 +291,9 @@ module Stripe
       end
 
       class Document < ::Stripe::RequestParams
-        # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         attr_accessor :back
-        # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         attr_accessor :front
 
         def initialize(back: nil, front: nil)
@@ -349,7 +349,7 @@ module Stripe
     attr_accessor :last_name_kanji
     # The person's maiden name.
     attr_accessor :maiden_name
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable.
     attr_accessor :nationality

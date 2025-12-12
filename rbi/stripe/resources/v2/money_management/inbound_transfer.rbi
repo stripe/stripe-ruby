@@ -8,7 +8,35 @@ module Stripe
       # An InboundTransfer object, representing a money movement from a
       # user owned PaymentMethod to a FinancialAccount belonging to the same user.
       class InboundTransfer < APIResource
+        class Amount < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(T.nilable(Integer)) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class From < ::Stripe::StripeObject
+          class Debited < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class PaymentMethod < ::Stripe::StripeObject
             # The type of object this destination represents. For a us bank account, we expect us_bank_account.
             sig { returns(String) }
@@ -24,27 +52,41 @@ module Stripe
             end
           end
           # The amount in specified currency that was debited from the Payment Method.
-          sig { returns(::Stripe::V2::Amount) }
+          sig { returns(Debited) }
           def debited; end
           # The Payment Method object used to create the InboundTransfer.
           sig { returns(PaymentMethod) }
           def payment_method; end
           def self.inner_class_types
-            @inner_class_types = {payment_method: PaymentMethod}
+            @inner_class_types = {debited: Debited, payment_method: PaymentMethod}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class To < ::Stripe::StripeObject
+          class Credited < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(T.nilable(Integer)) }
+            def value; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The amount by which the FinancialAccount balance is credited.
-          sig { returns(::Stripe::V2::Amount) }
+          sig { returns(Credited) }
           def credited; end
           # The FinancialAccount that funds will land in.
           sig { returns(String) }
           def financial_account; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {credited: Credited}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -114,7 +156,7 @@ module Stripe
           end
         end
         # The amount in specified currency that will land in the FinancialAccount balance.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(Amount) }
         def amount; end
         # Creation time of the InboundTransfer. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }

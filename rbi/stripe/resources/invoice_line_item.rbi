@@ -324,6 +324,9 @@ module Stripe
     # Attribute for field subscription
     sig { returns(T.nilable(T.any(String, ::Stripe::Subscription))) }
     def subscription; end
+    # The subtotal of the line item, in cents (or local equivalent), before any discounts or taxes.
+    sig { returns(Integer) }
+    def subtotal; end
     # The tax calculation identifiers of the line item.
     sig { returns(T.nilable(TaxCalculationReference)) }
     def tax_calculation_reference; end

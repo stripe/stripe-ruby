@@ -17,7 +17,7 @@ module Stripe
               @currency = currency
             end
           end
-          # The account to target for this credit/debit.
+          # The target account for settling the SettlementAllocationIntentSplit.
           attr_accessor :account
           # The amount and currency of the SettlementAllocationIntentSplit.
           attr_accessor :amount

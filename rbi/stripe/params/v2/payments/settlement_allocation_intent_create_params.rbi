@@ -20,19 +20,19 @@ module Stripe
           sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
           def initialize(value: nil, currency: nil); end
         end
-        # The amount and currency of the SettlementAllocationIntent.
+        # The amount and currency of the SettlementAllocationIntent. Allowed Currencies are `gbp` | `eur`.
         sig { returns(V2::Payments::SettlementAllocationIntentCreateParams::Amount) }
         def amount; end
         sig {
           params(_amount: V2::Payments::SettlementAllocationIntentCreateParams::Amount).returns(V2::Payments::SettlementAllocationIntentCreateParams::Amount)
          }
         def amount=(_amount); end
-        # Expected date when we expect to receive the funds.
+        # Date when we expect to receive the funds. Must be in future .
         sig { returns(String) }
         def expected_settlement_date; end
         sig { params(_expected_settlement_date: String).returns(String) }
         def expected_settlement_date=(_expected_settlement_date); end
-        # FinancialAccount where the funds are expected to land / FinancialAccount to map this SettlementAllocationIntent to.
+        # Financial Account Id where the funds are expected for this SettlementAllocationIntent.
         sig { returns(String) }
         def financial_account; end
         sig { params(_financial_account: String).returns(String) }
@@ -44,7 +44,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # Reference for the settlement intent . Max 255 characters . The reference used by PSP to send funds to Stripe .
+        # Reference for the SettlementAllocationIntent. This should be same as the transaction reference used by payments processor to send funds to Stripe. Must have length between 5 and 255 characters and it must be unique among existing SettlementAllocationIntents that have a non-terminal status (`pending`, `submitted`, `matched`, `errored`).
         sig { returns(String) }
         def reference; end
         sig { params(_reference: String).returns(String) }

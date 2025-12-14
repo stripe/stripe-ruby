@@ -11,6 +11,33 @@ module Stripe
           "v2.iam.api_key"
         end
 
+        class ManagedBy < ::Stripe::StripeObject
+          class Application < ::Stripe::StripeObject
+            # Identifier of the application.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The type of entity.
+          attr_reader :type
+          # An application.
+          attr_reader :application
+
+          def self.inner_class_types
+            @inner_class_types = { application: Application }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class PublishableKey < ::Stripe::StripeObject
           # The plaintext token for the API key.
           attr_reader :token
@@ -62,7 +89,7 @@ module Stripe
         attr_reader :expires_at
         # Unique identifier of the API key.
         attr_reader :id
-        # List of IP addresses allowed to use this API key.
+        # List of IP addresses allowed to use this API key. Addresses use IPv4 protocol, and may be a CIDR range (e.g., [100.10.38.255, 100.10.38.0/24]).
         attr_reader :ip_allowlist
         # Timestamp when the API key was last used.
         attr_reader :last_used
@@ -86,7 +113,11 @@ module Stripe
         attr_reader :secret_key
 
         def self.inner_class_types
-          @inner_class_types = { publishable_key: PublishableKey, secret_key: SecretKey }
+          @inner_class_types = {
+            managed_by: ManagedBy,
+            publishable_key: PublishableKey,
+            secret_key: SecretKey,
+          }
         end
 
         def self.field_remappings

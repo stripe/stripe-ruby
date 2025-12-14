@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs when no received credit exists for a settlement allocation intent.
+    # Occurs when SettlementAllocationIntent's `expected_settlement_date` is one day away and no matching ReceivedCredit exists.
     class V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.funds_not_received"
@@ -21,7 +21,7 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs when no received credit exists for a settlement allocation intent.
+    # Occurs when SettlementAllocationIntent's `expected_settlement_date` is one day away and no matching ReceivedCredit exists.
     class V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.funds_not_received"

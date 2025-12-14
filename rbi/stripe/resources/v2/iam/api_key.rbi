@@ -7,9 +7,34 @@ module Stripe
     module Iam
       # An API key.
       class ApiKey < APIResource
+        class ManagedBy < ::Stripe::StripeObject
+          class Application < ::Stripe::StripeObject
+            # Identifier of the application.
+            sig { returns(String) }
+            def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The type of entity.
+          sig { returns(String) }
+          def type; end
+          # An application.
+          sig { returns(T.nilable(Application)) }
+          def application; end
+          def self.inner_class_types
+            @inner_class_types = {application: Application}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class PublishableKey < ::Stripe::StripeObject
           # The plaintext token for the API key.
-          sig { returns(T.nilable(String)) }
+          sig { returns(String) }
           def token; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -61,14 +86,14 @@ module Stripe
         # Unique identifier of the API key.
         sig { returns(String) }
         def id; end
-        # List of IP addresses allowed to use this API key.
+        # List of IP addresses allowed to use this API key. Addresses use IPv4 protocol, and may be a CIDR range (e.g., [100.10.38.255, 100.10.38.0/24]).
         sig { returns(T::Array[String]) }
         def ip_allowlist; end
         # Timestamp when the API key was last used.
         sig { returns(T.nilable(String)) }
         def last_used; end
         # Account that manages this API key (for keys managed by platforms).
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(ManagedBy)) }
         def managed_by; end
         # Name of the API key.
         sig { returns(T.nilable(String)) }
@@ -80,7 +105,7 @@ module Stripe
         sig { returns(String) }
         def object; end
         # Current status of the API key (e.g., active, expired).
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         def status; end
         # Type of the API key.
         sig { returns(String) }

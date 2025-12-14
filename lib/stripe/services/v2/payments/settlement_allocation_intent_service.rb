@@ -12,7 +12,7 @@ module Stripe
           @splits = Stripe::V2::Payments::SettlementAllocationIntents::SplitService.new(@requestor)
         end
 
-        # Cancel SettlementAllocationIntent API.
+        # Cancels an existing SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be `canceled`.
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
@@ -23,7 +23,7 @@ module Stripe
           )
         end
 
-        # Create SettlementAllocationIntent API.
+        # Create a new SettlementAllocationIntent.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -34,7 +34,7 @@ module Stripe
           )
         end
 
-        # Retrieve SettlementAllocationIntent API.
+        # Retrieve an existing SettlementAllocationIntent.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -45,7 +45,7 @@ module Stripe
           )
         end
 
-        # Submit SettlementAllocationIntent API.
+        # Submits a SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending` can be `submitted`. The net sum of SettlementAllocationIntentSplit amount must be equal to SettlementAllocationIntent amount to be eligible to be submitted.
         def submit(id, params = {}, opts = {})
           request(
             method: :post,
@@ -56,7 +56,7 @@ module Stripe
           )
         end
 
-        # Update SettlementAllocationIntent API.
+        # Updates SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be updated. Only amount and reference fields can be updated for a SettlementAllocationIntent and at least one must be present. Updating an `amount` moves the SettlementAllocationIntent `pending` status and updating the `reference` for `errored` SettlementAllocationIntent moves it to `submitted`.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

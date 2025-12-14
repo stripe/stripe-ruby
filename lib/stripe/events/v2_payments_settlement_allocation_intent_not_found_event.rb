@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs when a ReceivedCredit has no settlement intent matching it.
+    # Occurs when a ReceivedCredit has no SettlementAllocationIntent matching it.
     class V2PaymentsSettlementAllocationIntentNotFoundEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.not_found"
@@ -28,7 +28,7 @@ module Stripe
       attr_reader :data
     end
 
-    # Occurs when a ReceivedCredit has no settlement intent matching it.
+    # Occurs when a ReceivedCredit has no SettlementAllocationIntent matching it.
     class V2PaymentsSettlementAllocationIntentNotFoundEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.not_found"

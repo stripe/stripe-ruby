@@ -1107,6 +1107,15 @@ module Stripe
           class Recipient < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
               class BankAccounts < ::Stripe::RequestParams
+                class Instant < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
                 class Local < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
@@ -1124,12 +1133,15 @@ module Stripe
                     @requested = requested
                   end
                 end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
+                attr_accessor :instant
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 attr_accessor :local
                 # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                 attr_accessor :wire
 
-                def initialize(local: nil, wire: nil)
+                def initialize(instant: nil, local: nil, wire: nil)
+                  @instant = instant
                   @local = local
                   @wire = wire
                 end

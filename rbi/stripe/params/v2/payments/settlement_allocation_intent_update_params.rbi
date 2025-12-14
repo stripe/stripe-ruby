@@ -20,7 +20,7 @@ module Stripe
           sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
           def initialize(value: nil, currency: nil); end
         end
-        # The new amount for the SettlementAllocationIntent.
+        # The new amount for the SettlementAllocationIntent. Only amount.value can be updated and currency must remain same.
         sig { returns(T.nilable(V2::Payments::SettlementAllocationIntentUpdateParams::Amount)) }
         def amount; end
         sig {

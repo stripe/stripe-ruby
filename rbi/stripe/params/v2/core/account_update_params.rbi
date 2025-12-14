@@ -1721,6 +1721,15 @@ module Stripe
           class Recipient < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
               class BankAccounts < ::Stripe::RequestParams
+                class Instant < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
                 class Local < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
@@ -1739,6 +1748,15 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
+                sig {
+                  returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant))
+                 }
+                def instant; end
+                sig {
+                  params(_instant: T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant)).returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant))
+                 }
+                def instant=(_instant); end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 sig {
                   returns(T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
@@ -1758,9 +1776,9 @@ module Stripe
                  }
                 def wire=(_wire); end
                 sig {
-                  params(local: T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), wire: T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).void
+                  params(instant: T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant), local: T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), wire: T.nilable(V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).void
                  }
-                def initialize(local: nil, wire: nil); end
+                def initialize(instant: nil, local: nil, wire: nil); end
               end
               class Cards < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.

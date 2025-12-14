@@ -2250,6 +2250,34 @@ module Stripe
           class Recipient < ::Stripe::StripeObject
             class Capabilities < ::Stripe::StripeObject
               class BankAccounts < ::Stripe::StripeObject
+                class Instant < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 class Local < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2306,6 +2334,9 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
+                sig { returns(T.nilable(Instant)) }
+                def instant; end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 sig { returns(T.nilable(Local)) }
                 def local; end
@@ -2313,7 +2344,7 @@ module Stripe
                 sig { returns(T.nilable(Wire)) }
                 def wire; end
                 def self.inner_class_types
-                  @inner_class_types = {local: Local, wire: Wire}
+                  @inner_class_types = {instant: Instant, local: Local, wire: Wire}
                 end
                 def self.field_remappings
                   @field_remappings = {}

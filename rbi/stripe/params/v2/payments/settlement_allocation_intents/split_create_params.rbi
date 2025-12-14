@@ -21,7 +21,7 @@ module Stripe
             sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
             def initialize(value: nil, currency: nil); end
           end
-          # The account to target for this credit/debit.
+          # The target account for settling the SettlementAllocationIntentSplit.
           sig { returns(String) }
           def account; end
           sig { params(_account: String).returns(String) }

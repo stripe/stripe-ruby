@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs when an error occurs in reconciling a settlement allocation intent.
+    # Occurs when an error occurs in reconciling a SettlementAllocationIntent.
     class V2PaymentsSettlementAllocationIntentErroredEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.errored"
@@ -42,7 +42,7 @@ module Stripe
       end
     end
 
-    # Occurs when an error occurs in reconciling a settlement allocation intent.
+    # Occurs when an error occurs in reconciling a SettlementAllocationIntent.
     class V2PaymentsSettlementAllocationIntentErroredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.errored"

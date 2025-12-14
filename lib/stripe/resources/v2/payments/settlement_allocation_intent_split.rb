@@ -27,13 +27,13 @@ module Stripe
         end
 
         class Flow < ::Stripe::StripeObject
-          # Type of the flow linked to the transaction which settled the split. The field matching this value will contain the ID of the flow.
+          # Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
           attr_reader :type
-          # If applicable, the ID of the OutboundPayment that created this Transaction.
+          # If applicable, the ID of the OutboundPayment that created this transaction.
           attr_reader :outbound_payment
-          # If applicable, the ID of the OutboundTransfer that created this Transaction.
+          # If applicable, the ID of the OutboundTransfer that created this transaction.
           attr_reader :outbound_transfer
-          # If applicable, the ID of the ReceivedCredit that created this Transaction.
+          # If applicable, the ID of the ReceivedCredit that created this transaction.
           attr_reader :received_credit
 
           def self.inner_class_types
@@ -44,7 +44,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The ID of the account that will be used for the debit/credit.
+        # The account id against which the SettlementAllocationIntentSplit should be settled.
         attr_reader :account
         # The amount and currency of the SettlementAllocationIntentSplit.
         attr_reader :amount

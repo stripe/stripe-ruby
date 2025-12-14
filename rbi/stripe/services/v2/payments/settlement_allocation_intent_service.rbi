@@ -7,31 +7,31 @@ module Stripe
     module Payments
       class SettlementAllocationIntentService < StripeService
         attr_reader :splits
-        # Cancel SettlementAllocationIntent API.
+        # Cancels an existing SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be `canceled`.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::SettlementAllocationIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::SettlementAllocationIntent)
          }
         def cancel(id, params = {}, opts = {}); end
 
-        # Create SettlementAllocationIntent API.
+        # Create a new SettlementAllocationIntent.
         sig {
           params(params: T.any(::Stripe::V2::Payments::SettlementAllocationIntentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::SettlementAllocationIntent)
          }
         def create(params = {}, opts = {}); end
 
-        # Retrieve SettlementAllocationIntent API.
+        # Retrieve an existing SettlementAllocationIntent.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::SettlementAllocationIntentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::SettlementAllocationIntent)
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # Submit SettlementAllocationIntent API.
+        # Submits a SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending` can be `submitted`. The net sum of SettlementAllocationIntentSplit amount must be equal to SettlementAllocationIntent amount to be eligible to be submitted.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::SettlementAllocationIntentSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::SettlementAllocationIntent)
          }
         def submit(id, params = {}, opts = {}); end
 
-        # Update SettlementAllocationIntent API.
+        # Updates SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be updated. Only amount and reference fields can be updated for a SettlementAllocationIntent and at least one must be present. Updating an `amount` moves the SettlementAllocationIntent `pending` status and updating the `reference` for `errored` SettlementAllocationIntent moves it to `submitted`.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::SettlementAllocationIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::SettlementAllocationIntent)
          }

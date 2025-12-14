@@ -52,13 +52,13 @@ module Stripe
         # The amount and currency of the SettlementAllocationIntent.
         sig { returns(Amount) }
         def amount; end
-        # Timestamp at which Settlement Intent was created .
+        # Timestamp at which SettlementAllocationIntent was created .
         sig { returns(String) }
         def created; end
-        # Expected date when we expect to receive the funds.
+        # Date when we expect to receive the funds.
         sig { returns(String) }
         def expected_settlement_date; end
-        # Financial Account Id where the funds are expected.
+        # FinancialAccount ID where the funds are expected.
         sig { returns(String) }
         def financial_account; end
         # Unique identifier for the SettlementAllocationIntent.
@@ -73,13 +73,13 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Reference for the settlement intent . The reference used by PSP to send funds to Stripe .
+        # Reference for the SettlementAllocationIntent. This is the transaction reference used by payments processor to send funds to Stripe .
         sig { returns(String) }
         def reference; end
-        # Settlement Intent status.
+        # SettlementAllocationIntent status.
         sig { returns(String) }
         def status; end
-        # This hash contains detailed information that elaborates on the specific status of the SettlementAllocationIntent. e.g the reason behind the error failure if the status is marked as `errored`.
+        # Status details for a SettlementAllocationIntent in `errored` state.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

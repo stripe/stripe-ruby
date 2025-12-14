@@ -38,7 +38,8 @@ module Stripe
            }
           def initialize(id: nil, pem_key: nil); end
         end
-        # Duration in minutes before the current key expires.
+        # Duration in minutes before the current key expires, with a maximum of 7 days (10080 minutes).
+        # If not provided, the current key expires immediately.
         sig { returns(T.nilable(Integer)) }
         def expire_current_key_in_minutes; end
         sig {

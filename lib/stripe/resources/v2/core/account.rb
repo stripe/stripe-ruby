@@ -2249,6 +2249,35 @@ module Stripe
           class Recipient < ::Stripe::StripeObject
             class Capabilities < ::Stripe::StripeObject
               class BankAccounts < ::Stripe::StripeObject
+                class Instant < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
                 class Local < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2306,13 +2335,15 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
+                attr_reader :instant
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 attr_reader :local
                 # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                 attr_reader :wire
 
                 def self.inner_class_types
-                  @inner_class_types = { local: Local, wire: Wire }
+                  @inner_class_types = { instant: Instant, local: Local, wire: Wire }
                 end
 
                 def self.field_remappings

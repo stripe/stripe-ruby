@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs when a settlement allocation intent split is settled.
+    # Occurs when a SettlementAllocationIntentSplit is settled.
     class V2PaymentsSettlementAllocationIntentSplitSettledEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.settlement_allocation_intent_split.settled"
@@ -38,7 +38,7 @@ module Stripe
       end
     end
 
-    # Occurs when a settlement allocation intent split is settled.
+    # Occurs when a SettlementAllocationIntentSplit is settled.
     class V2PaymentsSettlementAllocationIntentSplitSettledEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.settlement_allocation_intent_split.settled"

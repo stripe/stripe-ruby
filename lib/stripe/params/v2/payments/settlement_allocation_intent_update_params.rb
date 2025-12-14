@@ -16,7 +16,7 @@ module Stripe
             @currency = currency
           end
         end
-        # The new amount for the SettlementAllocationIntent.
+        # The new amount for the SettlementAllocationIntent. Only amount.value can be updated and currency must remain same.
         attr_accessor :amount
         # The new reference for the SettlementAllocationIntent.
         attr_accessor :reference

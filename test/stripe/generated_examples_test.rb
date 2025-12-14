@@ -9216,7 +9216,7 @@ module Stripe
     end
     should "Test v2 iam api key get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys").to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","type":"publishable_key","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9226,7 +9226,7 @@ module Stripe
     end
     should "Test v2 iam api key post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","type":"publishable_key","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9236,7 +9236,7 @@ module Stripe
     end
     should "Test v2 iam api key get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","type":"publishable_key","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9246,7 +9246,7 @@ module Stripe
     end
     should "Test v2 iam api key post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","type":"publishable_key","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9256,7 +9256,7 @@ module Stripe
     end
     should "Test v2 iam api key post 3 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123/expire").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","type":"publishable_key","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9266,7 +9266,7 @@ module Stripe
     end
     should "Test v2 iam api key post 4 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123/rotate").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","type":"publishable_key","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

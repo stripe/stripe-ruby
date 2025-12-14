@@ -56,11 +56,11 @@ module Stripe
         end
         # The amount and currency of the SettlementAllocationIntent.
         attr_reader :amount
-        # Timestamp at which Settlement Intent was created .
+        # Timestamp at which SettlementAllocationIntent was created .
         attr_reader :created
-        # Expected date when we expect to receive the funds.
+        # Date when we expect to receive the funds.
         attr_reader :expected_settlement_date
-        # Financial Account Id where the funds are expected.
+        # FinancialAccount ID where the funds are expected.
         attr_reader :financial_account
         # Unique identifier for the SettlementAllocationIntent.
         attr_reader :id
@@ -70,11 +70,11 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Reference for the settlement intent . The reference used by PSP to send funds to Stripe .
+        # Reference for the SettlementAllocationIntent. This is the transaction reference used by payments processor to send funds to Stripe .
         attr_reader :reference
-        # Settlement Intent status.
+        # SettlementAllocationIntent status.
         attr_reader :status
-        # This hash contains detailed information that elaborates on the specific status of the SettlementAllocationIntent. e.g the reason behind the error failure if the status is marked as `errored`.
+        # Status details for a SettlementAllocationIntent in `errored` state.
         attr_reader :status_details
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode

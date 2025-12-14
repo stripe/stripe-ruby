@@ -16,8 +16,15 @@ module Stripe
         def status; end
         sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
         def status=(_status); end
-        sig { params(limit: T.nilable(Integer), status: T.nilable(String)).void }
-        def initialize(limit: nil, status: nil); end
+        # Filter for FinancialAccount `type`. By default, FinancialAccounts of any `type` are returned.
+        sig { returns(T.nilable(T::Array[String])) }
+        def types; end
+        sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def types=(_types); end
+        sig {
+          params(limit: T.nilable(Integer), status: T.nilable(String), types: T.nilable(T::Array[String])).void
+         }
+        def initialize(limit: nil, status: nil, types: nil); end
       end
     end
   end

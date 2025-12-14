@@ -27,7 +27,8 @@ module Stripe
             @pem_key = pem_key
           end
         end
-        # Duration in minutes before the current key expires.
+        # Duration in minutes before the current key expires, with a maximum of 7 days (10080 minutes).
+        # If not provided, the current key expires immediately.
         attr_accessor :expire_current_key_in_minutes
         # Public key for encrypting the new API key secret.
         # This must a PEM-formatted RSA key suitable for encryption, >= 2048 bits.

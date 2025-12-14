@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs when a settlement allocation intent is matched.
+    # Occurs when a SettlementAllocationIntent is matched.
     class V2PaymentsSettlementAllocationIntentMatchedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.matched"
@@ -21,7 +21,7 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs when a settlement allocation intent is matched.
+    # Occurs when a SettlementAllocationIntent is matched.
     class V2PaymentsSettlementAllocationIntentMatchedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.settlement_allocation_intent.matched"

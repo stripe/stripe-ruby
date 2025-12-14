@@ -11,12 +11,12 @@ module Stripe
         def expand; end
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
-        # The amount to increment the authorization by. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The amount to increment the authorization by. This amount is in the authorization currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def increment_amount; end
         sig { params(_increment_amount: Integer).returns(Integer) }
         def increment_amount=(_increment_amount); end
-        # If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+        # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
         sig { returns(T.nilable(T::Boolean)) }
         def is_amount_controllable; end
         sig {

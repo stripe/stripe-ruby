@@ -42,7 +42,7 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # Only return PaymentIntents for the account that this ID specifies.
+    # Only return PaymentIntents for the account representing the customer that this ID specifies.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

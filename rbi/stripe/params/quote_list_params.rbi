@@ -4,12 +4,12 @@
 # typed: true
 module Stripe
   class QuoteListParams < ::Stripe::RequestParams
-    # The ID of the customer whose quotes will be retrieved.
+    # The ID of the customer whose quotes you're retrieving.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # The ID of the account whose quotes will be retrieved.
+    # The ID of the account representing the customer whose quotes you're retrieving.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

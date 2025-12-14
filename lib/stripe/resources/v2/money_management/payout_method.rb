@@ -11,6 +11,21 @@ module Stripe
           "v2.money_management.payout_method"
         end
 
+        class AlternativeReference < ::Stripe::StripeObject
+          # The ID of the alternative resource being referenced.
+          attr_reader :id
+          # The type of the alternative reference (e.g., external_account for V1 external accounts).
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class UsageStatus < ::Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
           attr_reader :payments
@@ -39,6 +54,8 @@ module Stripe
           attr_reader :country
           # List of enabled flows for this bank account (wire or local).
           attr_reader :enabled_delivery_options
+          # The ID of the Financial Connections Account used to create the bank account.
+          attr_reader :financial_connections_account
           # The last 4 digits of the account number.
           attr_reader :last4
           # The routing number of the bank account, if present.
@@ -96,6 +113,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The alternative reference for this payout method, if it's a projected payout method.
+        attr_reader :alternative_reference
         # A set of available payout speeds for this payout method.
         attr_reader :available_payout_speeds
         # Created timestamp.
@@ -121,6 +140,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            alternative_reference: AlternativeReference,
             usage_status: UsageStatus,
             bank_account: BankAccount,
             card: Card,

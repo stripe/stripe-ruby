@@ -75,7 +75,7 @@ module Stripe
         params(_custom_unit_amount: T.nilable(PriceCreateParams::CurrencyOptions::CustomUnitAmount)).returns(T.nilable(PriceCreateParams::CurrencyOptions::CustomUnitAmount))
        }
       def custom_unit_amount=(_custom_unit_amount); end
-      # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+      # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
       sig { returns(T.nilable(String)) }
       def tax_behavior; end
       sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -145,7 +145,7 @@ module Stripe
       def id; end
       sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
       def id=(_id); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -164,7 +164,7 @@ module Stripe
       def statement_descriptor; end
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor=(_statement_descriptor); end
-      # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
       sig { returns(T.nilable(String)) }
       def tax_code; end
       sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -203,7 +203,7 @@ module Stripe
       def meter; end
       sig { params(_meter: T.nilable(String)).returns(T.nilable(String)) }
       def meter=(_meter); end
-      # Default number of trial days when subscribing a customer to this price using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
+      # Default number of trial days when subscribing a customer to this price using [`trial_from_plan=true`](https://docs.stripe.com/api#create_subscription-trial_from_plan).
       sig { returns(T.nilable(Integer)) }
       def trial_period_days; end
       sig { params(_trial_period_days: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -314,7 +314,7 @@ module Stripe
     def lookup_key; end
     sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
     def lookup_key=(_lookup_key); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {
@@ -345,7 +345,7 @@ module Stripe
       params(_recurring: T.nilable(PriceCreateParams::Recurring)).returns(T.nilable(PriceCreateParams::Recurring))
      }
     def recurring=(_recurring); end
-    # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+    # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     sig { returns(T.nilable(String)) }
     def tax_behavior; end
     sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }

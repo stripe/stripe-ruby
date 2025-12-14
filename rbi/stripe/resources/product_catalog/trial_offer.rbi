@@ -20,7 +20,7 @@ module Stripe
           end
         end
         # Attribute for field relative
-        sig { returns(Relative) }
+        sig { returns(T.nilable(Relative)) }
         def relative; end
         # The type of trial offer duration.
         sig { returns(String) }

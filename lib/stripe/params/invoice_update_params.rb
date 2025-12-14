@@ -33,7 +33,7 @@ module Stripe
           @type = type
         end
       end
-      # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+      # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
       attr_accessor :enabled
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_accessor :liability
@@ -172,9 +172,9 @@ module Stripe
           end
           # Installment configuration for payments attempted on this invoice.
           #
-          # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+          # For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
           attr_accessor :installments
-          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           attr_accessor :request_three_d_secure
 
           def initialize(installments: nil, request_three_d_secure: nil)
@@ -216,6 +216,26 @@ module Stripe
 
         class IdBankTransfer < ::Stripe::RequestParams; end
         class Konbini < ::Stripe::RequestParams; end
+
+        class Payto < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
+            attr_accessor :amount
+            # The purpose for which payments are made. Has a default value based on your merchant category code.
+            attr_accessor :purpose
+
+            def initialize(amount: nil, purpose: nil)
+              @amount = amount
+              @purpose = purpose
+            end
+          end
+          # Additional fields for Mandate creation.
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
 
         class Pix < ::Stripe::RequestParams
           # Determines if the amount includes the IOF tax. Defaults to `never`.
@@ -302,6 +322,8 @@ module Stripe
         attr_accessor :id_bank_transfer
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :konbini
+        # If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :payto
         # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :pix
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
@@ -318,6 +340,7 @@ module Stripe
           customer_balance: nil,
           id_bank_transfer: nil,
           konbini: nil,
+          payto: nil,
           pix: nil,
           sepa_debit: nil,
           upi: nil,
@@ -329,6 +352,7 @@ module Stripe
           @customer_balance = customer_balance
           @id_bank_transfer = id_bank_transfer
           @konbini = konbini
+          @payto = payto
           @pix = pix
           @sepa_debit = sepa_debit
           @upi = upi
@@ -445,11 +469,11 @@ module Stripe
         attr_accessor :display_name
         # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
         attr_accessor :fixed_amount
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
         attr_accessor :tax_behavior
-        # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
         attr_accessor :tax_code
         # The type of calculation to use on the shipping rate.
         attr_accessor :type
@@ -495,7 +519,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -543,9 +567,9 @@ module Stripe
     attr_accessor :account_tax_ids
     # List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
     attr_accessor :amounts_due
-    # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
+    # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://docs.stripe.com/billing/invoices/connect#collecting-fees).
     attr_accessor :application_fee_amount
-    # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice.
+    # Controls whether Stripe performs [automatic collection](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection) of the invoice.
     attr_accessor :auto_advance
     # Settings for automatic tax lookup for this invoice.
     attr_accessor :automatic_tax
@@ -579,11 +603,11 @@ module Stripe
     attr_accessor :footer
     # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
     attr_accessor :issuer
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # Set the number for this invoice. If no number is present then a number will be assigned automatically when the invoice is finalized. In many markets, regulations require invoices to be unique, sequential and / or gapless. You are responsible for ensuring this is true across all your different invoicing systems in the event that you edit the invoice number using our API. If you use only Stripe for your invoices and do not change invoice numbers, Stripe handles this aspect of compliance for you automatically.
     attr_accessor :number
-    # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
+    # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://docs.stripe.com/billing/invoices/connect) documentation for details.
     attr_accessor :on_behalf_of
     # Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
     attr_accessor :payment_settings

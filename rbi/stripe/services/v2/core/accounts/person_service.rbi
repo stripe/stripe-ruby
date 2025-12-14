@@ -7,7 +7,7 @@ module Stripe
     module Core
       module Accounts
         class PersonService < StripeService
-          # Create a Person associated with an Account.
+          # Create a Person. Adds an individual to an Account's identity. You can set relationship attributes and identity information at creation.
           sig {
             params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::AccountPerson)
            }
@@ -19,7 +19,7 @@ module Stripe
            }
           def delete(account_id, id, params = {}, opts = {}); end
 
-          # Returns a list of Persons associated with an Account.
+          # Returns a paginated list of Persons associated with an Account.
           sig {
             params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
            }

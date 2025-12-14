@@ -8,6 +8,20 @@ module Stripe
       module Vault
         # Use the USBankAccounts API to create and manage US bank accounts objects that you can use to receive funds. Note that these are not interchangeable with v1 Tokens.
         class UsBankAccount < APIResource
+          class AlternativeReference < ::Stripe::StripeObject
+            # The ID of the alternative resource being referenced.
+            sig { returns(String) }
+            def id; end
+            # The type of the alternative reference (e.g., external_account for V1 external accounts).
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Verification < ::Stripe::StripeObject
             class MicrodepositVerificationDetails < ::Stripe::StripeObject
               # Time when microdeposits will expire and have to be re-sent.
@@ -41,6 +55,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The alternative reference for this payout method, if it's a projected payout method.
+          sig { returns(T.nilable(AlternativeReference)) }
+          def alternative_reference; end
           # Whether this USBankAccount object was archived.
           sig { returns(T::Boolean) }
           def archived; end
@@ -56,6 +73,9 @@ module Stripe
           # The fedwire routing number of the bank account.
           sig { returns(T.nilable(String)) }
           def fedwire_routing_number; end
+          # The ID of the Financial Connections Account used to create the bank account.
+          sig { returns(T.nilable(String)) }
+          def financial_connections_account; end
           # The ID of the USBankAccount object.
           sig { returns(String) }
           def id; end

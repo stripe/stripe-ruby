@@ -9,7 +9,7 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # The ID of the account to which to attach the PaymentMethod.
+    # The ID of the Account representing the customer to which to attach the PaymentMethod.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

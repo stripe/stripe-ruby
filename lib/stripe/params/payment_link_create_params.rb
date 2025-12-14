@@ -14,7 +14,7 @@ module Stripe
       end
 
       class Redirect < ::Stripe::RequestParams
-        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
+        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-id) included.
         attr_accessor :url
 
         def initialize(url: nil)
@@ -291,7 +291,7 @@ module Stripe
         attr_accessor :footer
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         attr_accessor :issuer
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # Default options for invoice PDF rendering for this customer.
         attr_accessor :rendering_options
@@ -343,18 +343,28 @@ module Stripe
 
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            attr_accessor :tax_code
+
+            def initialize(tax_code: nil)
+              @tax_code = tax_code
+            end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
           attr_accessor :images
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # The product's name, meant to be displayable to the customer.
           attr_accessor :name
-          # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           attr_accessor :tax_code
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
           attr_accessor :unit_label
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+          attr_accessor :tax_details
 
           def initialize(
             description: nil,
@@ -362,7 +372,8 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
-            unit_label: nil
+            unit_label: nil,
+            tax_details: nil
           )
             @description = description
             @images = images
@@ -370,6 +381,7 @@ module Stripe
             @name = name
             @tax_code = tax_code
             @unit_label = unit_label
+            @tax_details = tax_details
           end
         end
 
@@ -392,7 +404,7 @@ module Stripe
         attr_accessor :product_data
         # The recurring components of a price such as `interval` and `interval_count`.
         attr_accessor :recurring
-        # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         attr_accessor :tax_behavior
         # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
         attr_accessor :unit_amount
@@ -419,9 +431,9 @@ module Stripe
       end
       # When set, provides configuration for this item’s quantity to be adjusted by the customer during checkout.
       attr_accessor :adjustable_quantity
-      # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object. One of `price` or `price_data` is required.
+      # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
       attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
       attr_accessor :price_data
       # The quantity of the line item being purchased.
       attr_accessor :quantity
@@ -486,7 +498,7 @@ module Stripe
       end
       # When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
       attr_accessor :adjustable_quantity
-      # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+      # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object.
       attr_accessor :price
       # The initial quantity of the line item created when a customer chooses to add this optional item to their order.
       attr_accessor :quantity
@@ -503,9 +515,9 @@ module Stripe
       attr_accessor :capture_method
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
-      # Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+      # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
       #
       # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
       #
@@ -523,7 +535,7 @@ module Stripe
       attr_accessor :statement_descriptor
       # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
       attr_accessor :statement_descriptor_suffix
-      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
       attr_accessor :transfer_group
 
       def initialize(
@@ -631,7 +643,7 @@ module Stripe
       attr_accessor :description
       # All invoices will be billed using the specified settings.
       attr_accessor :invoice_settings
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
       # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
       attr_accessor :trial_period_days
@@ -699,7 +711,7 @@ module Stripe
     attr_accessor :custom_fields
     # Display additional text for your customers using custom text.
     attr_accessor :custom_text
-    # Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
+    # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     attr_accessor :customer_creation
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
@@ -709,13 +721,13 @@ module Stripe
     attr_accessor :invoice_creation
     # The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
     attr_accessor :line_items
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     attr_accessor :metadata
     # Controls settings applied for collecting the customer's name.
     attr_accessor :name_collection
     # The account on behalf of which to charge.
     attr_accessor :on_behalf_of
-    # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+    # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
     # There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
     # There is a maximum of 20 combined line items and optional items.
     attr_accessor :optional_items
@@ -725,9 +737,9 @@ module Stripe
     #
     # Can only be set in `subscription` mode. Defaults to `always`.
     #
-    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
+    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     attr_accessor :payment_method_collection
-    # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)).
+    # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://docs.stripe.com/payments/payment-methods/integration-options#payment-method-product-support)).
     attr_accessor :payment_method_types
     # Controls phone number collection settings during checkout.
     #
@@ -737,9 +749,9 @@ module Stripe
     attr_accessor :restrictions
     # Configuration for collecting the customer's shipping address.
     attr_accessor :shipping_address_collection
-    # The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
+    # The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     attr_accessor :shipping_options
-    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
+    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     attr_accessor :submit_type
     # When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
     attr_accessor :subscription_data

@@ -21,7 +21,7 @@ module Stripe
       end
       class DestinationPaymentMethodOptions < ::Stripe::RequestParams
         class UsBankAccount < ::Stripe::RequestParams
-          # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+          # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(T.nilable(String)) }
           def network; end
           sig { params(_network: T.nilable(String)).returns(T.nilable(String)) }
@@ -118,7 +118,7 @@ module Stripe
       def financial_account; end
       sig { params(_financial_account: String).returns(String) }
       def financial_account=(_financial_account); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -132,7 +132,7 @@ module Stripe
         params(_network_details: T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails)).returns(T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails))
        }
       def network_details=(_network_details); end
-      # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
+      # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer". Can only include -#.$&*, spaces, and alphanumeric characters.
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }

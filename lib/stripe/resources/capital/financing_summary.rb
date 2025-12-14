@@ -3,8 +3,9 @@
 
 module Stripe
   module Capital
-    # A financing object describes an account's current financing state. Used by Connect
-    # platforms to read the state of Capital offered to their connected accounts.
+    # A financing summary object describes a connected account's financing status in real time.
+    # A financing status is either `accepted`, `delivered`, or `none`.
+    # You can read the status of your connected accounts.
     class FinancingSummary < SingletonAPIResource
       OBJECT_NAME = "capital.financing_summary"
       def self.object_name
@@ -59,12 +60,14 @@ module Stripe
       # Additional information about the financing summary. Describes currency, advance amount,
       # fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
       # repayment start date, and advance payout date.
+      #
+      # Only present for financing offers with the `paid_out` status.
       attr_reader :details
-      # The Financing Offer ID this Financing Summary corresponds to
+      # The unique identifier of the Financing Offer object that corresponds to the Financing Summary object.
       attr_reader :financing_offer
       # The object type: financing_summary
       attr_reader :object
-      # Status of the Connected Account's financing. [/v1/capital/financing_summary](https://stripe.com/docs/api/capital/financing_summary) will only return `details` for `paid_out` financing.
+      # The financing status of the connected account.
       attr_reader :status
 
       def self.inner_class_types

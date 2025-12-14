@@ -23,11 +23,11 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    # A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     attr_reader :available
     # The ID of the customer whose cash balance this object represents.
     attr_reader :customer
-    # The ID of the account whose cash balance this object represents.
+    # The ID of an Account representing a customer whose cash balance this object represents.
     attr_reader :customer_account
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode

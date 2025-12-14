@@ -70,10 +70,35 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class ManagedBy < ::Stripe::StripeObject
+          # Enum describing the Stripe product that is managing this FinancialAccount.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Other < ::Stripe::StripeObject
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Payments < ::Stripe::StripeObject
+          # The currency that non-settlement currency payments will be converted to.
+          sig { returns(String) }
+          def default_currency; end
+          # Settlement currencies enabled for this FinancialAccount. Payments in other currencies will be automatically converted to `default_currency`.
+          sig { returns(T::Array[String]) }
+          def settlement_currencies; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -146,6 +171,10 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # If this is a managed FinancialAccount, `managed_by` indicates the product that created and manages this FinancialAccount. For managed FinancialAccounts,
+        # creation of money management resources can only be orchestrated by the managing product.
+        sig { returns(T.nilable(ManagedBy)) }
+        def managed_by; end
         # Metadata associated with the FinancialAccount.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -155,6 +184,9 @@ module Stripe
         # If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
         sig { returns(T.nilable(Other)) }
         def other; end
+        # If this is a `payments` FinancialAccount, this hash include details specific to `payments` FinancialAccount.
+        sig { returns(T.nilable(Payments)) }
+        def payments; end
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         sig { returns(String) }
         def status; end

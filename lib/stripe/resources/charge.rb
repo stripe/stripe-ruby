@@ -3,7 +3,7 @@
 
 module Stripe
   # The `Charge` object represents a single attempt to move money into your Stripe account.
-  # PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://stripe.com/docs/connect/account-debits) may also create Charges.
+  # PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://docs.stripe.com/connect/account-debits) may also create Charges.
   # Some legacy payment flows create Charges directly, which is not recommended for new integrations.
   class Charge < APIResource
     extend Stripe::APIOperations::Create
@@ -31,7 +31,7 @@ module Stripe
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_reader :state
 
         def self.inner_class_types
@@ -139,15 +139,15 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+      # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines).
       attr_reader :advice_code
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
       attr_reader :network_advice_code
       # For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
       attr_reader :network_decline_code
-      # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
+      # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://docs.stripe.com/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
       attr_reader :network_status
-      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://docs.stripe.com/declines) for more details.
       attr_reader :reason
       # Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are `normal`, `elevated`, `highest`. For non-card payments, and card-based payments predating the public assignment of risk levels, this field will have the value `not_assessed`. In the event of an error in the evaluation, this field will have the value `unknown`. This field is only available with Radar.
       attr_reader :risk_level
@@ -157,7 +157,7 @@ module Stripe
       attr_reader :rule
       # A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer.
       attr_reader :seller_message
-      # Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details.
+      # Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://docs.stripe.com/declines) and [Radar reviews](https://docs.stripe.com/radar/reviews) for details.
       attr_reader :type
 
       def self.inner_class_types
@@ -215,6 +215,8 @@ module Stripe
       class AcssDebit < ::Stripe::StripeObject
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Institution number of the bank account
@@ -236,9 +238,9 @@ module Stripe
       end
 
       class Affirm < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         attr_reader :transaction_id
@@ -367,6 +369,8 @@ module Stripe
       class AuBecsDebit < ::Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         attr_reader :bsb_number
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four digits of the bank account number.
@@ -384,6 +388,8 @@ module Stripe
       end
 
       class BacsDebit < ::Stripe::StripeObject
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four digits of the bank account number.
@@ -709,7 +715,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -732,7 +738,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -786,7 +792,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -809,7 +815,7 @@ module Stripe
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
-              # State, county, province, or region.
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_reader :state
 
               def self.inner_class_types
@@ -913,7 +919,7 @@ module Stripe
         attr_reader :incremental_authorization
         # Installment details for this payment.
         #
-        # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+        # For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
         attr_reader :installments
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
         attr_reader :issuer
@@ -1051,7 +1057,7 @@ module Stripe
         attr_reader :generated_card
         # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
         attr_reader :iin
-        # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+        # Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
         attr_reader :incremental_authorization_supported
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
         attr_reader :issuer
@@ -1229,7 +1235,7 @@ module Stripe
       end
 
       class Ideal < ::Stripe::StripeObject
-        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         attr_reader :bank
         # The Bank Identifier Code of the customer's bank.
         attr_reader :bic
@@ -1529,6 +1535,8 @@ module Stripe
         attr_reader :bank_name
         # The numeric code for the bank account's bank branch.
         attr_reader :branch_code
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Last four digits of the bank account number.
         attr_reader :last4
         # The suffix of the bank account number.
@@ -1601,9 +1609,9 @@ module Stripe
       end
 
       class Paynow < ::Stripe::StripeObject
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         attr_reader :reader
         # Reference number associated with this PayNow payment
         attr_reader :reference
@@ -1644,7 +1652,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -1667,7 +1675,7 @@ module Stripe
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
 
           def self.inner_class_types
@@ -1905,11 +1913,13 @@ module Stripe
         attr_reader :branch_code
         # Two-letter ISO code representing the country the bank account is located in.
         attr_reader :country
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four characters of the IBAN.
         attr_reader :last4
-        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
+        # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
         attr_reader :mandate
 
         def self.inner_class_types
@@ -2021,6 +2031,8 @@ module Stripe
         attr_reader :account_type
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
+        # Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+        attr_reader :expected_debit_date
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four digits of the bank account number.
@@ -2054,9 +2066,9 @@ module Stripe
       class WechatPay < ::Stripe::StripeObject
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         attr_reader :fingerprint
-        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
         attr_reader :reader
         # Transaction ID of this particular WeChat Pay transaction.
         attr_reader :transaction_id
@@ -2199,7 +2211,7 @@ module Stripe
       attr_reader :swish
       # Attribute for field twint
       attr_reader :twint
-      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
+      # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
       # An additional hash is included on `payment_method_details` with a name matching this value.
       # It contains information specific to the payment method.
       attr_reader :type
@@ -2302,7 +2314,7 @@ module Stripe
     end
 
     class RadarOptions < ::Stripe::StripeObject
-      # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_reader :session
 
       def self.inner_class_types
@@ -2326,7 +2338,7 @@ module Stripe
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_reader :state
 
         def self.inner_class_types
@@ -2373,7 +2385,7 @@ module Stripe
     end
     # Funds that are in transit and destined for another balance or another connected account.
     attr_reader :allocated_funds
-    # Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    # Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_reader :amount
     # Amount in cents (or local equivalent) captured (can be less than the amount attribute on the charge if a partial capture was made).
     attr_reader :amount_captured
@@ -2381,9 +2393,9 @@ module Stripe
     attr_reader :amount_refunded
     # ID of the Connect application that created the charge.
     attr_reader :application
-    # The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
+    # The application fee (if any) for the charge. [See the Connect documentation](https://docs.stripe.com/connect/direct-charges#collect-fees) for details.
     attr_reader :application_fee
-    # The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
+    # The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://docs.stripe.com/connect/direct-charges#collect-fees) for details.
     attr_reader :application_fee_amount
     # Authorization code on the charge.
     attr_reader :authorization_code
@@ -2407,7 +2419,7 @@ module Stripe
     attr_reader :disputed
     # ID of the balance transaction that describes the reversal of the balance on your account due to payment failure.
     attr_reader :failure_balance_transaction
-    # Error code explaining reason for charge failure if available (see [the errors section](https://stripe.com/docs/error-codes) for a list of codes).
+    # Error code explaining reason for charge failure if available (see [the errors section](https://docs.stripe.com/error-codes) for a list of codes).
     attr_reader :failure_code
     # Message to user further explaining reason for charge failure if available.
     attr_reader :failure_message
@@ -2419,13 +2431,13 @@ module Stripe
     attr_reader :level3
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+    # The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
     attr_reader :on_behalf_of
-    # Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details.
+    # Details about whether the payment was accepted, and why. See [understanding declines](https://docs.stripe.com/declines) for details.
     attr_reader :outcome
     # `true` if the charge succeeded, or was successfully authorized for later capture.
     attr_reader :paid
@@ -2437,7 +2449,7 @@ module Stripe
     attr_reader :payment_method_details
     # Attribute for field presentment_details
     attr_reader :presentment_details
-    # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     attr_reader :radar_options
     # This is the email address that the receipt for this charge was sent to.
     attr_reader :receipt_email
@@ -2467,9 +2479,9 @@ module Stripe
     attr_reader :status
     # ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter).
     attr_reader :transfer
-    # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+    # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
     attr_reader :transfer_data
-    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    # A string that identifies this transaction as part of a group. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     attr_reader :transfer_group
 
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.

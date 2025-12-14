@@ -7829,18 +7829,26 @@ module Stripe
               },
             },
             deactivate: {
-              billing_details: { proration_behavior: "prorated_adjustment" },
+              collect_at: "next_billing_date",
               effective_at: {
                 timestamp: "1970-01-01T15:18:46.294Z",
                 type: "on_reserve",
               },
               pricing_plan_subscription_details: {
+                overrides: {
+                  partial_period_behaviors: [
+                    {
+                      type: "license_fee",
+                      license_fee: { credit_proration_behavior: "prorated" },
+                    },
+                  ],
+                },
                 pricing_plan_subscription: "pricing_plan_subscription",
               },
               type: "pricing_plan_subscription_details",
             },
             modify: {
-              billing_details: { proration_behavior: "prorated_adjustment" },
+              collect_at: "next_billing_date",
               effective_at: {
                 timestamp: "1970-01-01T15:18:46.294Z",
                 type: "current_billing_period_start",
@@ -7855,6 +7863,17 @@ module Stripe
                 ],
                 new_pricing_plan: "new_pricing_plan",
                 new_pricing_plan_version: "new_pricing_plan_version",
+                overrides: {
+                  partial_period_behaviors: [
+                    {
+                      type: "license_fee",
+                      license_fee: {
+                        credit_proration_behavior: "prorated",
+                        debit_proration_behavior: "none",
+                      },
+                    },
+                  ],
+                },
                 pricing_plan_subscription: "pricing_plan_subscription",
               },
               type: "pricing_plan_subscription_details",
@@ -7864,7 +7883,7 @@ module Stripe
               invoice_discount_rule: "invoice_discount_rule",
             },
             subscribe: {
-              billing_details: { proration_behavior: "prorated_adjustment" },
+              collect_at: "next_billing_date",
               effective_at: {
                 timestamp: "1970-01-01T15:18:46.294Z",
                 type: "current_billing_period_start",
@@ -7879,6 +7898,14 @@ module Stripe
                   },
                 ],
                 metadata: { key: "metadata" },
+                overrides: {
+                  partial_period_behaviors: [
+                    {
+                      type: "license_fee",
+                      license_fee: { debit_proration_behavior: "none" },
+                    },
+                  ],
+                },
                 pricing_plan: "pricing_plan",
                 pricing_plan_version: "pricing_plan_version",
               },
@@ -8865,276 +8892,7 @@ module Stripe
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account_token = client.v2.core.account_tokens.create({
-        identity: {
-          attestations: {
-            directorship_declaration: { attested: true },
-            ownership_declaration: { attested: true },
-            persons_provided: {
-              directors: true,
-              executives: true,
-              owners: true,
-              ownership_exemption_reason: "qualified_entity_exceeds_ownership_threshold",
-            },
-            representative_declaration: { attested: true },
-            terms_of_service: {
-              account: { shown_and_accepted: true },
-              card_creator: {
-                commercial: {
-                  account_holder: { shown_and_accepted: true },
-                  celtic: {
-                    apple_pay: { shown_and_accepted: true },
-                    charge_card: {
-                      bank_terms: { shown_and_accepted: true },
-                      platform: { shown_and_accepted: true },
-                    },
-                    spend_card: {
-                      bank_terms: { shown_and_accepted: true },
-                      financing_disclosures: { shown_and_accepted: true },
-                      platform: { shown_and_accepted: true },
-                    },
-                  },
-                  cross_river_bank: {
-                    apple_pay: { shown_and_accepted: true },
-                    charge_card: {
-                      bank_terms: { shown_and_accepted: true },
-                      financing_disclosures: { shown_and_accepted: true },
-                      platform: { shown_and_accepted: true },
-                    },
-                    spend_card: {
-                      bank_terms: { shown_and_accepted: true },
-                      financing_disclosures: { shown_and_accepted: true },
-                    },
-                  },
-                },
-              },
-              crypto_storer: { shown_and_accepted: true },
-              storer: { shown_and_accepted: true },
-            },
-          },
-          business_details: {
-            address: {
-              city: "city",
-              country: "country",
-              line1: "line1",
-              line2: "line2",
-              postal_code: "postal_code",
-              state: "state",
-              town: "town",
-            },
-            annual_revenue: {
-              amount: {
-                value: 111_972_721,
-                currency: "usd",
-              },
-              fiscal_year_end: "fiscal_year_end",
-            },
-            compliance_screening_description: "compliance_screening_description",
-            documents: {
-              bank_account_ownership_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              company_license: {
-                files: ["files"],
-                type: "files",
-              },
-              company_memorandum_of_association: {
-                files: ["files"],
-                type: "files",
-              },
-              company_ministerial_decree: {
-                files: ["files"],
-                type: "files",
-              },
-              company_registration_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              company_tax_id_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              primary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              proof_of_address: {
-                files: ["files"],
-                type: "files",
-              },
-              proof_of_registration: {
-                files: ["files"],
-                type: "files",
-              },
-              proof_of_ultimate_beneficial_ownership: {
-                files: ["files"],
-                type: "files",
-              },
-            },
-            estimated_worker_count: 884_794_319,
-            id_numbers: [
-              {
-                registrar: "registrar",
-                type: "th_prn",
-                value: "value",
-              },
-            ],
-            monthly_estimated_revenue: {
-              amount: {
-                value: 111_972_721,
-                currency: "usd",
-              },
-            },
-            phone: "phone",
-            registered_name: "registered_name",
-            script_addresses: {
-              kana: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-              kanji: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-            },
-            script_names: {
-              kana: { registered_name: "registered_name" },
-              kanji: { registered_name: "registered_name" },
-            },
-            structure: "public_listed_corporation",
-          },
-          entity_type: "individual",
-          individual: {
-            additional_addresses: [
-              {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                purpose: "registered",
-                state: "state",
-                town: "town",
-              },
-            ],
-            additional_names: [
-              {
-                full_name: "full_name",
-                given_name: "given_name",
-                purpose: "alias",
-                surname: "surname",
-              },
-            ],
-            address: {
-              city: "city",
-              country: "country",
-              line1: "line1",
-              line2: "line2",
-              postal_code: "postal_code",
-              state: "state",
-              town: "town",
-            },
-            date_of_birth: {
-              day: 99_228,
-              month: 104_080_000,
-              year: 3_704_893,
-            },
-            documents: {
-              company_authorization: {
-                files: ["files"],
-                type: "files",
-              },
-              passport: {
-                files: ["files"],
-                type: "files",
-              },
-              primary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              secondary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              visa: {
-                files: ["files"],
-                type: "files",
-              },
-            },
-            email: "email",
-            given_name: "given_name",
-            id_numbers: [
-              {
-                type: "th_lc",
-                value: "value",
-              },
-            ],
-            legal_gender: "male",
-            metadata: { key: "metadata" },
-            nationalities: ["nationalities"],
-            phone: "phone",
-            political_exposure: "none",
-            relationship: {
-              director: true,
-              executive: true,
-              owner: true,
-              percent_ownership: "percent_ownership",
-              title: "title",
-            },
-            script_addresses: {
-              kana: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-              kanji: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-            },
-            script_names: {
-              kana: {
-                given_name: "given_name",
-                surname: "surname",
-              },
-              kanji: {
-                given_name: "given_name",
-                surname: "surname",
-              },
-            },
-            surname: "surname",
-          },
-        },
-      })
+      account_token = client.v2.core.account_tokens.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens"
     end
     should "Test v2 core account token get (service)" do
@@ -9455,6 +9213,66 @@ module Stripe
 
       us_bank_account = client.v2.core.vault.us_bank_accounts.send_microdeposits("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/send_microdeposits"
+    end
+    should "Test v2 iam api key get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys").to_return(
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      api_keys = client.v2.iam.api_keys.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys"
+    end
+    should "Test v2 iam api key post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      api_key = client.v2.iam.api_keys.create({ type: "publishable_key" })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys"
+    end
+    should "Test v2 iam api key get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      api_key = client.v2.iam.api_keys.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123"
+    end
+    should "Test v2 iam api key post 2 (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      api_key = client.v2.iam.api_keys.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123"
+    end
+    should "Test v2 iam api key post 3 (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123/expire").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      api_key = client.v2.iam.api_keys.expire("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123/expire"
+    end
+    should "Test v2 iam api key post 4 (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123/rotate").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","ip_allowlist":["ip_allowlist"],"object":"v2.iam.api_key","status":"active","type":"publishable_key","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      api_key = client.v2.iam.api_keys.rotate("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/iam/api_keys/id_123/rotate"
     end
     should "Test v2 money management adjustment get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments").to_return(
@@ -10207,6 +10025,134 @@ module Stripe
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
     end
+    should "Test v2 payments settlement allocation intent post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents"
+      ).to_return(
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","id":"obj_123","linked_credits":["linked_credits"],"object":"v2.payments.settlement_allocation_intent","reference":"reference","status":"canceled","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent = client.v2.payments.settlement_allocation_intents.create({
+        amount: {
+          value: 111_972_721,
+          currency: "usd",
+        },
+        expected_settlement_date: "1970-01-22T14:14:13.629Z",
+        financial_account: "financial_account",
+        reference: "reference",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents"
+    end
+    should "Test v2 payments settlement allocation intent get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123"
+      ).to_return(
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","id":"obj_123","linked_credits":["linked_credits"],"object":"v2.payments.settlement_allocation_intent","reference":"reference","status":"canceled","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent = client.v2.payments.settlement_allocation_intents.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123"
+    end
+    should "Test v2 payments settlement allocation intent post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123"
+      ).to_return(
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","id":"obj_123","linked_credits":["linked_credits"],"object":"v2.payments.settlement_allocation_intent","reference":"reference","status":"canceled","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent = client.v2.payments.settlement_allocation_intents.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123"
+    end
+    should "Test v2 payments settlement allocation intent post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123/cancel"
+      ).to_return(
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","id":"obj_123","linked_credits":["linked_credits"],"object":"v2.payments.settlement_allocation_intent","reference":"reference","status":"canceled","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent = client.v2.payments.settlement_allocation_intents.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123/cancel"
+    end
+    should "Test v2 payments settlement allocation intent post 4 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123/submit"
+      ).to_return(
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","id":"obj_123","linked_credits":["linked_credits"],"object":"v2.payments.settlement_allocation_intent","reference":"reference","status":"canceled","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent = client.v2.payments.settlement_allocation_intents.submit("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/id_123/submit"
+    end
+    should "Test v2 payments settlement allocation intents split post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits"
+      ).to_return(
+        body: '{"account":"account","amount":{},"created":"1970-01-12T21:42:34.472Z","flow":{"type":"outbound_payment"},"id":"obj_123","object":"v2.payments.settlement_allocation_intent_split","settlement_allocation_intent":"settlement_allocation_intent","status":"canceled","type":"credit","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent_split = client.v2.payments.settlement_allocation_intents.splits.create(
+        "settlement_allocation_intent_id_123",
+        {
+          account: "account",
+          amount: {
+            value: 111_972_721,
+            currency: "usd",
+          },
+          type: "credit",
+        }
+      )
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits"
+    end
+    should "Test v2 payments settlement allocation intents split get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123"
+      ).to_return(
+        body: '{"account":"account","amount":{},"created":"1970-01-12T21:42:34.472Z","flow":{"type":"outbound_payment"},"id":"obj_123","object":"v2.payments.settlement_allocation_intent_split","settlement_allocation_intent":"settlement_allocation_intent","status":"canceled","type":"credit","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent_split = client.v2.payments.settlement_allocation_intents.splits.retrieve(
+        "settlement_allocation_intent_id_123",
+        "id_123"
+      )
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123"
+    end
+    should "Test v2 payments settlement allocation intents split post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123/cancel"
+      ).to_return(
+        body: '{"account":"account","amount":{},"created":"1970-01-12T21:42:34.472Z","flow":{"type":"outbound_payment"},"id":"obj_123","object":"v2.payments.settlement_allocation_intent_split","settlement_allocation_intent":"settlement_allocation_intent","status":"canceled","type":"credit","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      settlement_allocation_intent_split = client.v2.payments.settlement_allocation_intents.splits.cancel(
+        "settlement_allocation_intent_id_123",
+        "id_123"
+      )
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123/cancel"
+    end
     should "Test v2 reporting report get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/reports/id_123").to_return(
         body: '{"id":"obj_123","name":"name","object":"v2.reporting.report","parameters":{"key":{"description":"description","required":true,"type":"string"}},"livemode":true}',
@@ -10249,6 +10195,94 @@ module Stripe
 
       report_run = client.v2.reporting.report_runs.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs/id_123"
+    end
+    should "Test v2 tax manual rule get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules").to_return(
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      manual_rules = client.v2.tax.manual_rules.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules"
+    end
+    should "Test v2 tax manual rule post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      manual_rule = client.v2.tax.manual_rules.create({
+        scheduled_tax_rates: [
+          {
+            rates: [
+              {
+                country: "country",
+                description: "description",
+                display_name: "display_name",
+                jurisdiction: "jurisdiction",
+                percentage: "percentage",
+                state: "state",
+              },
+            ],
+            starts_at: "1970-01-25T15:13:01.215Z",
+          },
+        ],
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules"
+    end
+    should "Test v2 tax manual rule get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      manual_rule = client.v2.tax.manual_rules.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123"
+    end
+    should "Test v2 tax manual rule post 2 (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      manual_rule = client.v2.tax.manual_rules.update(
+        "id_123",
+        {
+          scheduled_tax_rates: [
+            {
+              rates: [
+                {
+                  country: "country",
+                  description: "description",
+                  display_name: "display_name",
+                  jurisdiction: "jurisdiction",
+                  percentage: "percentage",
+                  state: "state",
+                },
+              ],
+              starts_at: "1970-01-25T15:13:01.215Z",
+            },
+          ],
+        }
+      )
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123"
+    end
+    should "Test v2 tax manual rule post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123/deactivate"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      manual_rule = client.v2.tax.manual_rules.deactivate("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123/deactivate"
     end
     should "Test v2 test helpers financial address post (service)" do
       stub_request(
@@ -10341,6 +10375,21 @@ module Stripe
         })
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
+    end
+    should "Test controlled by alternate resource error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+      ).to_return(
+        body: '{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::ControlledByAlternateResourceError do
+        outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
     end
     should "Test controlled by dashboard error (service)" do
       stub_request(
@@ -10490,16 +10539,29 @@ module Stripe
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
     end
     should "Test rate limit error (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
-        body: '{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs").to_return(
+        body: '{"error":{"type":"rate_limit","code":"report_run_rate_limit_exceeded"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::RateLimitError do
-        account = client.v2.core.accounts.retrieve("id_123")
+        report_run = client.v2.reporting.report_runs.create({
+          report: "report",
+          report_parameters: {
+            int_key: 123,
+            string_key: "value",
+            boolean_key: true,
+            object_key: {
+              object_int_key: 123,
+              object_string_key: "value",
+              object_boolean_key: true,
+            },
+            array_key: [1, 2, 3],
+          },
+        })
       end
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123"
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs"
     end
     should "Test recipient not notifiable error (service)" do
       stub_request(

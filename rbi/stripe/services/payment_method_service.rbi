@@ -42,7 +42,7 @@ module Stripe
      }
     def detach(payment_method, params = {}, opts = {}); end
 
-    # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
+    # Returns a list of all PaymentMethods.
     sig {
       params(params: T.any(::Stripe::PaymentMethodListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }

@@ -36,7 +36,7 @@ module Stripe
               # A lookup key for the custom pricing unit.
               sig { returns(T.nilable(String)) }
               def lookup_key; end
-              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T::Hash[String, String]) }
               def metadata; end
               # The status of the custom pricing unit.
@@ -163,7 +163,7 @@ module Stripe
       # Title of the alert.
       sig { returns(String) }
       def title; end
-      # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://stripe.com/docs/api/billing/meter).
+      # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://docs.stripe.com/api/billing/meter).
       sig { returns(T.nilable(UsageThreshold)) }
       def usage_threshold; end
       # Reactivates this alert, allowing it to trigger again.

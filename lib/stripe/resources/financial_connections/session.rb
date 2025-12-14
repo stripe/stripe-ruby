@@ -13,9 +13,9 @@ module Stripe
       end
 
       class AccountHolder < ::Stripe::StripeObject
-        # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        # The ID of the Stripe account that this account belongs to. Only available when `account_holder.type` is `account`.
         attr_reader :account
-        # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        # The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         attr_reader :customer
         # Attribute for field customer_account
         attr_reader :customer_account

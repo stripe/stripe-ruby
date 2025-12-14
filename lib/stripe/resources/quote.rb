@@ -89,10 +89,10 @@ module Stripe
             class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
-              # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
-              # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+              # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
               attr_reader :discount
 
               def self.inner_class_types
@@ -180,10 +180,10 @@ module Stripe
             class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
-              # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
-              # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+              # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
               attr_reader :discount
 
               def self.inner_class_types
@@ -730,13 +730,13 @@ module Stripe
       attr_reader :end_behavior
       # The id of the subscription that will be updated when the quote is accepted.
       attr_reader :from_subscription
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_reader :metadata
       # Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
       attr_reader :phase_effective_at
       # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
       attr_reader :prebilling
-      # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
+      # Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
@@ -985,7 +985,7 @@ module Stripe
       attr_reader :billing_behavior
       # Billing schedules that will be applied to the subscription or subscription schedule created from this quote.
       attr_reader :billing_schedules
-      # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+      # The customer who received this quote. A customer is required to finalize the quote. Once specified, you can't change it.
       attr_reader :customer
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
@@ -993,7 +993,7 @@ module Stripe
       attr_reader :end_behavior
       # Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
       attr_reader :phase_effective_at
-      # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
+      # Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior
 
       def self.inner_class_types
@@ -1045,10 +1045,10 @@ module Stripe
         class Discount < ::Stripe::StripeObject
           # The amount discounted.
           attr_reader :amount
-          # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+          # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
           # It contains information about when the discount began, when it will end, and what it is applied to.
           #
-          # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+          # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
           attr_reader :discount
 
           def self.inner_class_types
@@ -1149,9 +1149,9 @@ module Stripe
     attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
-    # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+    # The customer who received this quote. A customer is required to finalize the quote. Once specified, you can't change it.
     attr_reader :customer
-    # The account which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+    # The account representing the customer who received this quote. A customer or account is required to finalize the quote. Once specified, you can't change it.
     attr_reader :customer_account
     # The tax rates applied to this quote.
     attr_reader :default_tax_rates
@@ -1163,7 +1163,7 @@ module Stripe
     attr_reader :expires_at
     # A footer that will be displayed on the quote PDF.
     attr_reader :footer
-    # Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details.
+    # Details of the quote that was cloned. See the [cloning documentation](https://docs.stripe.com/quotes/clone) for more details.
     attr_reader :from_quote
     # A header that will be displayed on the quote PDF.
     attr_reader :header
@@ -1179,9 +1179,9 @@ module Stripe
     attr_reader :lines
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
-    # A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize).
+    # A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://docs.stripe.com/quotes/overview#finalize).
     attr_reader :number
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

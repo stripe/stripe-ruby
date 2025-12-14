@@ -19,7 +19,7 @@ module Stripe
           def email; end
           sig { params(_email: String).returns(String) }
           def email=(_email); end
-          # Name for the sandbox. If not provided, this will be generated.
+          # Name for the sandbox.
           sig { returns(T.nilable(String)) }
           def name; end
           sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }

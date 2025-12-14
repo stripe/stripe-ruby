@@ -49,9 +49,9 @@ module Stripe
           @type = type
         end
       end
-      # The customer for which to fetch credit balance summary.
+      # The customer whose credit balance summary you're retrieving.
       attr_accessor :customer
-      # The account for which to fetch credit balance summary.
+      # The account representing the customer whose credit balance summary you're retrieving.
       attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand

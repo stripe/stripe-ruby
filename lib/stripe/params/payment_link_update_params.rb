@@ -14,7 +14,7 @@ module Stripe
       end
 
       class Redirect < ::Stripe::RequestParams
-        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
+        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-id) included.
         attr_accessor :url
 
         def initialize(url: nil)
@@ -264,7 +264,7 @@ module Stripe
         attr_accessor :footer
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         attr_accessor :issuer
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # Default options for invoice PDF rendering for this customer.
         attr_accessor :rendering_options
@@ -365,7 +365,7 @@ module Stripe
     class PaymentIntentData < ::Stripe::RequestParams
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
       # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
       #
@@ -373,7 +373,7 @@ module Stripe
       attr_accessor :statement_descriptor
       # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
       attr_accessor :statement_descriptor_suffix
-      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
       attr_accessor :transfer_group
 
       def initialize(
@@ -466,7 +466,7 @@ module Stripe
       end
       # All invoices will be billed using the specified settings.
       attr_accessor :invoice_settings
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
       # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
       attr_accessor :trial_period_days
@@ -511,7 +511,7 @@ module Stripe
     attr_accessor :custom_fields
     # Display additional text for your customers using custom text.
     attr_accessor :custom_text
-    # Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
+    # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     attr_accessor :customer_creation
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
@@ -521,7 +521,7 @@ module Stripe
     attr_accessor :invoice_creation
     # The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
     attr_accessor :line_items
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     attr_accessor :metadata
     # Controls settings applied for collecting the customer's name.
     attr_accessor :name_collection
@@ -531,7 +531,7 @@ module Stripe
     #
     # Can only be set in `subscription` mode. Defaults to `always`.
     #
-    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
+    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     attr_accessor :payment_method_collection
     # The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     attr_accessor :payment_method_types
@@ -543,7 +543,7 @@ module Stripe
     attr_accessor :restrictions
     # Configuration for collecting the customer's shipping address.
     attr_accessor :shipping_address_collection
-    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
+    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     attr_accessor :submit_type
     # When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
     attr_accessor :subscription_data

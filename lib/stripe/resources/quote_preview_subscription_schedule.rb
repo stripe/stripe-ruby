@@ -54,6 +54,89 @@ module Stripe
       end
     end
 
+    class BillingSchedule < ::Stripe::StripeObject
+      class AppliesTo < ::Stripe::StripeObject
+        # The billing schedule will apply to the subscription item with the given price ID.
+        attr_reader :price
+        # Controls which subscription items the billing schedule applies to.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BillFrom < ::Stripe::StripeObject
+        # The time the billing schedule applies from.
+        attr_reader :computed_timestamp
+        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
+        attr_reader :timestamp
+        # Describes how the billing schedule determines the start date. Possible values are `timestamp`.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BillUntil < ::Stripe::StripeObject
+        class Duration < ::Stripe::StripeObject
+          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+          attr_reader :interval
+          # The multiplier applied to the interval.
+          attr_reader :interval_count
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The timestamp the billing schedule will apply until.
+        attr_reader :computed_timestamp
+        # Specifies the billing period.
+        attr_reader :duration
+        # If specified, the billing schedule will apply until the specified timestamp.
+        attr_reader :timestamp
+        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { duration: Duration }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies which subscription items the billing schedule applies to.
+      attr_reader :applies_to
+      # Specifies the start of the billing period.
+      attr_reader :bill_from
+      # Specifies the end of billing period.
+      attr_reader :bill_until
+      # Unique identifier for the billing schedule.
+      attr_reader :key
+
+      def self.inner_class_types
+        @inner_class_types = { applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class CurrentPhase < ::Stripe::StripeObject
       # The end of this phase of the subscription schedule.
       attr_reader :end_date
@@ -165,7 +248,7 @@ module Stripe
       attr_reader :application_fee_percent
       # Attribute for field automatic_tax
       attr_reader :automatic_tax
-      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
       attr_reader :billing_thresholds
@@ -179,10 +262,10 @@ module Stripe
       attr_reader :invoice_settings
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       attr_reader :on_behalf_of
-      # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
-      attr_reader :transfer_data
       # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
       attr_reader :phase_effective_at
+      # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
+      attr_reader :transfer_data
 
       def self.inner_class_types
         @inner_class_types = {
@@ -309,7 +392,7 @@ module Stripe
         end
         # The stackable discounts that will be applied to the item.
         attr_reader :discounts
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # Attribute for field period
         attr_reader :period
@@ -504,7 +587,7 @@ module Stripe
         attr_reader :billing_thresholds
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         attr_reader :discounts
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
         attr_reader :metadata
         # ID of the plan to which the customer should be subscribed.
         attr_reader :plan
@@ -590,7 +673,7 @@ module Stripe
       attr_reader :application_fee_percent
       # Attribute for field automatic_tax
       attr_reader :automatic_tax
-      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
       attr_reader :billing_thresholds
@@ -606,17 +689,19 @@ module Stripe
       attr_reader :description
       # The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
       attr_reader :discounts
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_reader :effective_at
       # The end of this phase of the subscription schedule.
       attr_reader :end_date
       # The invoice settings applicable during this phase.
       attr_reader :invoice_settings
       # Subscription items to configure the subscription to during this phase of the subscription schedule.
       attr_reader :items
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
       attr_reader :metadata
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       attr_reader :on_behalf_of
-      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
       attr_reader :pause_collection
       # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
       attr_reader :proration_behavior
@@ -630,8 +715,6 @@ module Stripe
       attr_reader :trial_end
       # Settings related to any trials on the subscription during this phase.
       attr_reader :trial_settings
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      attr_reader :effective_at
 
       def self.inner_class_types
         @inner_class_types = {
@@ -670,89 +753,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-
-    class BillingSchedule < ::Stripe::StripeObject
-      class AppliesTo < ::Stripe::StripeObject
-        # The billing schedule will apply to the subscription item with the given price ID.
-        attr_reader :price
-        # Controls which subscription items the billing schedule applies to.
-        attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class BillFrom < ::Stripe::StripeObject
-        # The time the billing schedule applies from.
-        attr_reader :computed_timestamp
-        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
-        attr_reader :timestamp
-        # Describes how the billing schedule determines the start date. Possible values are `timestamp`.
-        attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class BillUntil < ::Stripe::StripeObject
-        class Duration < ::Stripe::StripeObject
-          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
-          attr_reader :interval
-          # The multiplier applied to the interval.
-          attr_reader :interval_count
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The timestamp the billing schedule will apply until.
-        attr_reader :computed_timestamp
-        # Specifies the billing period.
-        attr_reader :duration
-        # If specified, the billing schedule will apply until the specified timestamp.
-        attr_reader :timestamp
-        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
-        attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = { duration: Duration }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      # Specifies which subscription items the billing schedule applies to.
-      attr_reader :applies_to
-      # Specifies the start of the billing period.
-      attr_reader :bill_from
-      # Specifies the end of billing period.
-      attr_reader :bill_until
-      # Unique identifier for the billing schedule.
-      attr_reader :key
-
-      def self.inner_class_types
-        @inner_class_types = { applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     # ID of the Connect Application that created the schedule.
     attr_reader :application
     # Attribute for field applies_to
@@ -761,6 +761,8 @@ module Stripe
     attr_reader :billing_behavior
     # The billing mode of the subscription.
     attr_reader :billing_mode
+    # Billing schedules for this subscription schedule.
+    attr_reader :billing_schedules
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     attr_reader :canceled_at
     # Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.
@@ -781,9 +783,11 @@ module Stripe
     attr_reader :id
     # Details of the most recent price migration that failed for the subscription schedule.
     attr_reader :last_price_migration_error
+    # The most recent invoice this subscription schedule has generated.
+    attr_reader :latest_invoice
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -795,27 +799,23 @@ module Stripe
     attr_reader :released_at
     # ID of the subscription once managed by the subscription schedule (if it is released).
     attr_reader :released_subscription
-    # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+    # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://docs.stripe.com/billing/subscriptions/subscription-schedules).
     attr_reader :status
     # ID of the subscription managed by the subscription schedule.
     attr_reader :subscription
     # ID of the test clock this subscription schedule belongs to.
     attr_reader :test_clock
-    # Billing schedules for this subscription schedule.
-    attr_reader :billing_schedules
-    # The most recent invoice this subscription schedule has generated.
-    attr_reader :latest_invoice
 
     def self.inner_class_types
       @inner_class_types = {
         applies_to: AppliesTo,
         billing_mode: BillingMode,
+        billing_schedules: BillingSchedule,
         current_phase: CurrentPhase,
         default_settings: DefaultSettings,
         last_price_migration_error: LastPriceMigrationError,
         phases: Phase,
         prebilling: Prebilling,
-        billing_schedules: BillingSchedule,
       }
     end
 

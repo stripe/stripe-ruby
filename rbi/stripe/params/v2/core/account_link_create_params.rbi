@@ -58,7 +58,7 @@ module Stripe
           end
           class AccountUpdate < ::Stripe::RequestParams
             class CollectionOptions < ::Stripe::RequestParams
-              # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
+              # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). The default value is `currently_due`.
               sig { returns(T.nilable(String)) }
               def fields; end
               sig { params(_fields: T.nilable(String)).returns(T.nilable(String)) }
@@ -85,7 +85,7 @@ module Stripe
             def configurations; end
             sig { params(_configurations: T::Array[String]).returns(T::Array[String]) }
             def configurations=(_configurations); end
-            # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink’s URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
+            # The URL the user will be redirected to if the Account Link is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new Account Link with the same parameters used to create the original Account Link, then redirect the user to the new Account Link URL so they can continue the flow. Make sure to authenticate the user before redirecting to the new Account Link, in case the URL leaks to a third party. If a new Account Link can't be generated, or if the redirect fails, you should display a useful error to the user.
             sig { returns(String) }
             def refresh_url; end
             sig { params(_refresh_url: String).returns(String) }
@@ -105,19 +105,19 @@ module Stripe
               return_url: nil
             ); end
           end
-          # Open Enum. The type of AccountLink the user is requesting.
+          # Open Enum. The type of Account Link the user is requesting.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          # Indicates that the AccountLink provided should onboard an account.
+          # Hash containing configuration options for an Account Link object that onboards a new account.
           sig { returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding)) }
           def account_onboarding; end
           sig {
             params(_account_onboarding: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding)).returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding))
            }
           def account_onboarding=(_account_onboarding); end
-          # Indicates that the AccountLink provided should update a previously onboarded account.
+          # Hash containing configuration options for an Account Link that updates an existing account.
           sig { returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate)) }
           def account_update; end
           sig {

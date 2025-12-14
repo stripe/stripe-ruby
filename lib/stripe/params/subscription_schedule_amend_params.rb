@@ -240,7 +240,7 @@ module Stripe
           end
           # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
           attr_accessor :discounts
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # The ID of the price object.
           attr_accessor :price
@@ -446,8 +446,12 @@ module Stripe
       attr_accessor :amendment_start
       # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
       attr_accessor :billing_cycle_anchor
+      # Actions to apply to the billing schedules.
+      attr_accessor :billing_schedules_actions
       # Changes to the coupons being redeemed or discounts being applied during the amendment time span.
       attr_accessor :discount_actions
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_accessor :effective_at
       # Changes to the subscription items during the amendment time span.
       attr_accessor :item_actions
       # Instructions for how to modify phase metadata
@@ -460,37 +464,33 @@ module Stripe
       attr_accessor :set_schedule_end
       # Settings related to subscription trials.
       attr_accessor :trial_settings
-      # Actions to apply to the billing schedules.
-      attr_accessor :billing_schedules_actions
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-      attr_accessor :effective_at
 
       def initialize(
         amendment_end: nil,
         amendment_start: nil,
         billing_cycle_anchor: nil,
+        billing_schedules_actions: nil,
         discount_actions: nil,
+        effective_at: nil,
         item_actions: nil,
         metadata_actions: nil,
         proration_behavior: nil,
         set_pause_collection: nil,
         set_schedule_end: nil,
-        trial_settings: nil,
-        billing_schedules_actions: nil,
-        effective_at: nil
+        trial_settings: nil
       )
         @amendment_end = amendment_end
         @amendment_start = amendment_start
         @billing_cycle_anchor = billing_cycle_anchor
+        @billing_schedules_actions = billing_schedules_actions
         @discount_actions = discount_actions
+        @effective_at = effective_at
         @item_actions = item_actions
         @metadata_actions = metadata_actions
         @proration_behavior = proration_behavior
         @set_pause_collection = set_pause_collection
         @set_schedule_end = set_schedule_end
         @trial_settings = trial_settings
-        @billing_schedules_actions = billing_schedules_actions
-        @effective_at = effective_at
       end
     end
 

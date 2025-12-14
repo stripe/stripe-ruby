@@ -21,6 +21,35 @@ module Stripe
           @lte = lte
         end
       end
+
+      class Wallets < ::Stripe::RequestParams
+        class ApplePay < ::Stripe::RequestParams
+          # Query by Apple Pay primary account identifier.
+          attr_accessor :primary_account_identifier
+
+          def initialize(primary_account_identifier: nil)
+            @primary_account_identifier = primary_account_identifier
+          end
+        end
+
+        class GooglePay < ::Stripe::RequestParams
+          # Query by Google Pay primary account identifier.
+          attr_accessor :primary_account_identifier
+
+          def initialize(primary_account_identifier: nil)
+            @primary_account_identifier = primary_account_identifier
+          end
+        end
+        # Filter cards by Apple Pay wallet details.
+        attr_accessor :apple_pay
+        # Filter cards by Google Pay wallet details.
+        attr_accessor :google_pay
+
+        def initialize(apple_pay: nil, google_pay: nil)
+          @apple_pay = apple_pay
+          @google_pay = google_pay
+        end
+      end
       # Only return cards belonging to the Cardholder with the provided ID.
       attr_accessor :cardholder
       # Only return cards that were issued during the given date interval.
@@ -45,6 +74,8 @@ module Stripe
       attr_accessor :status
       # Only return cards that have the given type. One of `virtual` or `physical`.
       attr_accessor :type
+      # Filter cards by wallet settings.
+      attr_accessor :wallets
 
       def initialize(
         cardholder: nil,
@@ -58,7 +89,8 @@ module Stripe
         personalization_design: nil,
         starting_after: nil,
         status: nil,
-        type: nil
+        type: nil,
+        wallets: nil
       )
         @cardholder = cardholder
         @created = created
@@ -72,6 +104,7 @@ module Stripe
         @starting_after = starting_after
         @status = status
         @type = type
+        @wallets = wallets
       end
     end
   end

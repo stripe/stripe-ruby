@@ -14,7 +14,7 @@ module Stripe
       attr_accessor :line2
       # ZIP or postal code.
       attr_accessor :postal_code
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       attr_accessor :state
 
       def initialize(city: nil, country: nil, line1: nil, line2: nil, postal_code: nil, state: nil)
@@ -29,7 +29,7 @@ module Stripe
 
     class CashBalance < ::Stripe::RequestParams
       class Settings < ::Stripe::RequestParams
-        # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
+        # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://docs.stripe.com/payments/customer-balance/reconciliation).
         attr_accessor :reconciliation_mode
 
         def initialize(reconciliation_mode: nil)
@@ -103,7 +103,7 @@ module Stripe
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_accessor :state
 
         def initialize(
@@ -147,7 +147,7 @@ module Stripe
         @validate_location = validate_location
       end
     end
-    # The customer's address.
+    # The customer's address. Learn about [country-specific requirements for calculating tax](https://docs.stripe.com/invoicing/taxes?dashboard-or-api=dashboard#set-up-customer).
     attr_accessor :address
     # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
     attr_accessor :balance
@@ -155,11 +155,11 @@ module Stripe
     attr_accessor :business_name
     # Balance information and default balance settings for this customer.
     attr_accessor :cash_balance
-    # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
+    # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
     #
     # Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
     #
-    # If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
+    # If you want to add a new payment source and make it the default, see the [source](https://docs.stripe.com/api/customers/update#update_customer-source) property.
     attr_accessor :default_source
     # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
     attr_accessor :description
@@ -173,7 +173,7 @@ module Stripe
     attr_accessor :invoice_prefix
     # Default invoice settings for this customer.
     attr_accessor :invoice_settings
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The customer's full name or business name.
     attr_accessor :name

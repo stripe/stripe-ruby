@@ -180,6 +180,19 @@ module Stripe
         end
       end
 
+      class CheckScanning < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class DisputesList < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -696,6 +709,8 @@ module Stripe
       attr_accessor :capital_financing_promotion
       # Configuration for the [Capital overview](/connect/supported-embedded-components/capital-overview/) embedded component.
       attr_accessor :capital_overview
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      attr_accessor :check_scanning
       # Configuration for the [disputes list](/connect/supported-embedded-components/disputes-list/) embedded component.
       attr_accessor :disputes_list
       # Configuration for the [documents](/connect/supported-embedded-components/documents/) embedded component.
@@ -751,6 +766,7 @@ module Stripe
         capital_financing_application: nil,
         capital_financing_promotion: nil,
         capital_overview: nil,
+        check_scanning: nil,
         disputes_list: nil,
         documents: nil,
         export_tax_transactions: nil,
@@ -783,6 +799,7 @@ module Stripe
         @capital_financing_application = capital_financing_application
         @capital_financing_promotion = capital_financing_promotion
         @capital_overview = capital_overview
+        @check_scanning = check_scanning
         @disputes_list = disputes_list
         @documents = documents
         @export_tax_transactions = export_tax_transactions

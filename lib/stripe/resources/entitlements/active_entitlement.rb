@@ -12,7 +12,7 @@ module Stripe
         "entitlements.active_entitlement"
       end
 
-      # The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.
+      # The [Feature](https://docs.stripe.com/api/entitlements/feature) that the customer is entitled to.
       attr_reader :feature
       # Unique identifier for the object.
       attr_reader :id

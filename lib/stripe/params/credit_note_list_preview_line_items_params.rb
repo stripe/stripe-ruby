@@ -117,7 +117,7 @@ module Stripe
     attr_accessor :lines
     # The credit note's memo appears on the credit note PDF.
     attr_accessor :memo
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
     attr_accessor :out_of_band_amount

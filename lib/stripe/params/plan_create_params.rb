@@ -8,7 +8,7 @@ module Stripe
       attr_accessor :active
       # The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
       attr_accessor :id
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The product's name, meant to be displayable to the customer.
       attr_accessor :name
@@ -16,7 +16,7 @@ module Stripe
       #
       # This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
       attr_accessor :statement_descriptor
-      # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
       attr_accessor :tax_code
       # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
       attr_accessor :unit_label
@@ -96,7 +96,7 @@ module Stripe
     attr_accessor :interval
     # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
     attr_accessor :interval_count
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The meter tracking the usage of a metered price
     attr_accessor :meter
@@ -110,7 +110,7 @@ module Stripe
     attr_accessor :tiers_mode
     # Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
     attr_accessor :transform_usage
-    # Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
+    # Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://docs.stripe.com/api#create_subscription-trial_from_plan).
     attr_accessor :trial_period_days
     # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     attr_accessor :usage_type

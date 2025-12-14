@@ -7,7 +7,7 @@ module Stripe
   # later. You can also store multiple debit cards on a recipient in order to
   # transfer to those cards later.
   #
-  # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
+  # Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
   class Card < APIResource
     class Benefits < ::Stripe::StripeObject
       # Issuer of this benefit card
@@ -123,7 +123,7 @@ module Stripe
     # The last four digits of the card.
     sig { returns(String) }
     def last4; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # Cardholder name.

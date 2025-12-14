@@ -64,7 +64,7 @@ module Stripe
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
 
           def initialize(
@@ -271,7 +271,7 @@ module Stripe
       class Qris < ::Stripe::RequestParams; end
 
       class RadarOptions < ::Stripe::RequestParams
-        # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         attr_accessor :session
 
         def initialize(session: nil)
@@ -432,7 +432,7 @@ module Stripe
       attr_accessor :link
       # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
       attr_accessor :mb_way
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
       attr_accessor :mobilepay
@@ -464,7 +464,7 @@ module Stripe
       attr_accessor :promptpay
       # If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
       attr_accessor :qris
-      # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+      # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
       attr_accessor :radar_options
       # If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
       attr_accessor :rechnung
@@ -813,7 +813,7 @@ module Stripe
         attr_accessor :moto
         # Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
         attr_accessor :network
-        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_accessor :request_three_d_secure
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this setup.
@@ -1235,13 +1235,13 @@ module Stripe
     #
     # Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
     attr_accessor :flow_directions
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string.
     attr_accessor :payment_method
-    # The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
+    # The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this SetupIntent.
     attr_accessor :payment_method_configuration
-    # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
+    # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-payment_method)
     # value in the SetupIntent.
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this SetupIntent.

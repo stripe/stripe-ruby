@@ -9,7 +9,7 @@ module Stripe
   # to your user. Do not save AccountSessions to your database as they expire relatively
   # quickly, and cannot be used more than once.
   #
-  # Related guide: [Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components)
+  # Related guide: [Connect embedded components](https://docs.stripe.com/connect/get-started-connect-embedded-components)
   class AccountSession < APIResource
     class Components < ::Stripe::StripeObject
       class AccountManagement < ::Stripe::StripeObject
@@ -680,6 +680,9 @@ module Stripe
       # Attribute for field capital_financing_promotion
       sig { returns(T.nilable(CapitalFinancingPromotion)) }
       def capital_financing_promotion; end
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      sig { returns(T.nilable(CheckScanning)) }
+      def check_scanning; end
       # Attribute for field disputes_list
       sig { returns(DisputesList) }
       def disputes_list; end
@@ -728,9 +731,6 @@ module Stripe
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
-      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
-      sig { returns(T.nilable(CheckScanning)) }
-      def check_scanning; end
       def self.inner_class_types
         @inner_class_types = {
           account_management: AccountManagement,
@@ -739,6 +739,7 @@ module Stripe
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
           capital_financing_promotion: CapitalFinancingPromotion,
+          check_scanning: CheckScanning,
           disputes_list: DisputesList,
           documents: Documents,
           financial_account: FinancialAccount,
@@ -755,7 +756,6 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
-          check_scanning: CheckScanning,
         }
       end
       def self.field_remappings
@@ -769,7 +769,7 @@ module Stripe
     #
     # The client secret can be used to provide access to `account` from your frontend. It should not be stored, logged, or exposed to anyone other than the connected account. Make sure that you have TLS enabled on any page that includes the client secret.
     #
-    # Refer to our docs to [setup Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
+    # Refer to our docs to [setup Connect embedded components](https://docs.stripe.com/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
     sig { returns(String) }
     def client_secret; end
     # Attribute for field components

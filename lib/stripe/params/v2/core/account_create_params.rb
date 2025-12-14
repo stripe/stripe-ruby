@@ -174,7 +174,7 @@ module Stripe
                 end
 
                 class Rendering < ::Stripe::RequestParams
-                  # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+                  # Indicates whether displayed line item prices and amounts on invoice PDFs include inclusive tax amounts. Must be either `include_inclusive_tax` or `exclude_tax`.
                   attr_accessor :amount_tax_display
                   # ID of the invoice rendering template to use for future invoices.
                   attr_accessor :template
@@ -186,13 +186,13 @@ module Stripe
                 end
                 # The list of up to 4 default custom fields to be displayed on invoices for this customer.
                 attr_accessor :custom_fields
-                # Default footer to be displayed on invoices for this customer.
+                # Default invoice footer.
                 attr_accessor :footer
-                # The sequence to be used on the customer's next invoice. Defaults to 1.
+                # Sequence number to use on the customer account's next invoice. Defaults to 1.
                 attr_accessor :next_sequence
-                # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+                # Prefix used to generate unique invoice numbers. Must be 3-12 uppercase letters or numbers.
                 attr_accessor :prefix
-                # Default options for invoice PDF rendering for this customer.
+                # Default invoice PDF rendering options.
                 attr_accessor :rendering
 
                 def initialize(
@@ -209,7 +209,7 @@ module Stripe
                   @rendering = rendering
                 end
               end
-              # Default settings used on invoices for this customer.
+              # Default invoice settings for the customer account.
               attr_accessor :invoice
 
               def initialize(invoice: nil)
@@ -306,7 +306,7 @@ module Stripe
 
           class Merchant < ::Stripe::RequestParams
             class BacsDebitPayments < ::Stripe::RequestParams
-              # Display name for Bacs debit payments.
+              # Display name for Bacs Direct Debit payments.
               attr_accessor :display_name
 
               def initialize(display_name: nil)
@@ -1025,7 +1025,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -1072,7 +1072,7 @@ module Stripe
             attr_accessor :card_payments
             # Settings specific to Konbini payments on the account.
             attr_accessor :konbini_payments
-            # The merchant category code for the Merchant Configuration. MCCs are used to classify businesses based on the goods or services they provide.
+            # The Merchant Category Code (MCC) for the Merchant Configuration. MCCs classify businesses based on the goods or services they provide.
             attr_accessor :mcc
             # Settings for the default text that appears on statements for language variations.
             attr_accessor :script_statement_descriptor
@@ -1107,6 +1107,15 @@ module Stripe
           class Recipient < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
               class BankAccounts < ::Stripe::RequestParams
+                class Instant < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
                 class Local < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
@@ -1124,12 +1133,15 @@ module Stripe
                     @requested = requested
                   end
                 end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
+                attr_accessor :instant
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 attr_accessor :local
                 # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                 attr_accessor :wire
 
-                def initialize(local: nil, wire: nil)
+                def initialize(instant: nil, local: nil, wire: nil)
+                  @instant = instant
                   @local = local
                   @wire = wire
                 end
@@ -1162,7 +1174,7 @@ module Stripe
                     @requested = requested
                   end
                 end
-                # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 attr_accessor :stripe_transfers
 
                 def initialize(stripe_transfers: nil)
@@ -1449,13 +1461,13 @@ module Stripe
             attr_accessor :capabilities
             # List of high-risk activities the business is involved in.
             attr_accessor :high_risk_activities
-            # An explanation of the high risk activities that the business performs.
+            # Description of the high-risk activities the business offers.
             attr_accessor :high_risk_activities_description
             # Description of the money services offered by the business.
             attr_accessor :money_services_description
-            # Does the business operate in any prohibited countries.
+            # Indicates whether the business operates in any prohibited countries.
             attr_accessor :operates_in_prohibited_countries
-            # Does the business participate in any regulated activity.
+            # Indicates whether the business participates in any regulated activity.
             attr_accessor :participates_in_regulated_activity
             # Primary purpose of the stored funds.
             attr_accessor :purpose_of_funds
@@ -1498,9 +1510,9 @@ module Stripe
           attr_accessor :card_creator
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           attr_accessor :customer
-          # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
+          # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_accessor :merchant
-          # The Recipient Configuration allows the Account to receive funds.
+          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
           attr_accessor :recipient
           # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
           attr_accessor :storer
@@ -2124,7 +2136,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -2395,7 +2407,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -2430,7 +2442,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -2498,7 +2510,7 @@ module Stripe
             attr_accessor :compliance_screening_description
             # A document verifying the business.
             attr_accessor :documents
-            # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             attr_accessor :estimated_worker_count
             # The ID numbers of a business entity.
             attr_accessor :id_numbers
@@ -2560,7 +2572,7 @@ module Stripe
               attr_accessor :purpose
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -2615,7 +2627,7 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-              # Town or cho-me.
+              # Town or district.
               attr_accessor :town
 
               def initialize(
@@ -2813,7 +2825,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(
@@ -2848,7 +2860,7 @@ module Stripe
                 attr_accessor :postal_code
                 # State, county, province, or region.
                 attr_accessor :state
-                # Town or cho-me.
+                # Town or district.
                 attr_accessor :town
 
                 def initialize(

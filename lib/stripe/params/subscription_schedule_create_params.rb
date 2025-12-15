@@ -166,7 +166,7 @@ module Stripe
       attr_accessor :invoice_settings
       # The account on behalf of which to charge, for each of the associated subscription's invoices.
       attr_accessor :on_behalf_of
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the subscription schedule handles billing for phase transitions.
       attr_accessor :phase_effective_at
       # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
       attr_accessor :transfer_data
@@ -667,7 +667,7 @@ module Stripe
       attr_accessor :discounts
       # The number of intervals the phase should last. If set, `end_date` must not be set.
       attr_accessor :duration
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the subscription schedule handles billing for phase transitions.
       attr_accessor :effective_at
       # The date at which this phase of the subscription schedule ends. If set, `duration` must not be set.
       attr_accessor :end_date

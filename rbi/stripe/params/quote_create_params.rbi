@@ -834,7 +834,7 @@ module Stripe
         params(_cancel_subscription_schedule: T.nilable(QuoteCreateParams::Line::CancelSubscriptionSchedule)).returns(T.nilable(QuoteCreateParams::Line::CancelSubscriptionSchedule))
        }
       def cancel_subscription_schedule=(_cancel_subscription_schedule); end
-      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the quote handles billing for line transitions.
       sig { returns(T.nilable(String)) }
       def effective_at; end
       sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
@@ -1428,7 +1428,7 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
-      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
       sig { returns(T.nilable(String)) }
       def phase_effective_at; end
       sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
@@ -1817,7 +1817,7 @@ module Stripe
       def end_behavior; end
       sig { params(_end_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def end_behavior=(_end_behavior); end
-      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
       sig { returns(T.nilable(String)) }
       def phase_effective_at; end
       sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }

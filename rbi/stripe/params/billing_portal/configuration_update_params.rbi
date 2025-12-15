@@ -194,6 +194,11 @@ module Stripe
              }
             def initialize(conditions: nil); end
           end
+          # Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+          sig { returns(T.nilable(String)) }
+          def billing_cycle_anchor; end
+          sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+          def billing_cycle_anchor=(_billing_cycle_anchor); end
           # The types of subscription updates that are supported. When empty, subscriptions are not updateable.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           def default_allowed_updates; end
@@ -235,9 +240,10 @@ module Stripe
           sig { params(_trial_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
           def trial_update_behavior=(_trial_update_behavior); end
           sig {
-            params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
+            params(billing_cycle_anchor: T.nilable(String), default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
            }
           def initialize(
+            billing_cycle_anchor: nil,
             default_allowed_updates: nil,
             enabled: nil,
             products: nil,
@@ -303,7 +309,7 @@ module Stripe
         ); end
       end
       class LoginPage < ::Stripe::RequestParams
-        # Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
+        # Set to `true` to generate a shareable URL [`login_page.url`](https://docs.stripe.com/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
         #
         # Set to `false` to deactivate the `login_page.url`.
         sig { returns(T::Boolean) }
@@ -325,7 +331,7 @@ module Stripe
         params(_business_profile: T.nilable(BillingPortal::ConfigurationUpdateParams::BusinessProfile)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::BusinessProfile))
        }
       def business_profile=(_business_profile); end
-      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       sig { returns(T.nilable(String)) }
       def default_return_url; end
       sig { params(_default_return_url: T.nilable(String)).returns(T.nilable(String)) }
@@ -349,7 +355,7 @@ module Stripe
         params(_login_page: T.nilable(BillingPortal::ConfigurationUpdateParams::LoginPage)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::LoginPage))
        }
       def login_page=(_login_page); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
       sig {

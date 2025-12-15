@@ -39,6 +39,8 @@ module Stripe
           attr_reader :country
           # List of enabled flows for this bank account (wire or local).
           attr_reader :enabled_delivery_options
+          # The ID of the Financial Connections Account used to create the bank account.
+          attr_reader :financial_connections_account
           # The last 4 digits of the account number.
           attr_reader :last4
           # The routing number of the bank account, if present.

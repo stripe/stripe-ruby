@@ -47,8 +47,6 @@ module Stripe
         end
 
         # Retrieves the details of an Account.
-        #
-        # ** raises RateLimitError
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -60,8 +58,6 @@ module Stripe
         end
 
         # Updates the details of an Account.
-        #
-        # ** raises RateLimitError
         def update(id, params = {}, opts = {})
           request(
             method: :post,

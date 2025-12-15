@@ -10,12 +10,12 @@ module Stripe
       def credit_grant; end
       sig { params(_credit_grant: T.nilable(String)).returns(T.nilable(String)) }
       def credit_grant=(_credit_grant); end
-      # The customer for which to fetch credit balance transactions.
+      # The customer whose credit balance transactions you're retrieving.
       sig { returns(T.nilable(String)) }
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
-      # The account for which to fetch credit balance transactions.
+      # The account representing the customer whose credit balance transactions you're retrieving.
       sig { returns(T.nilable(String)) }
       def customer_account; end
       sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

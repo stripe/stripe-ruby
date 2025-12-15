@@ -6,7 +6,7 @@ module Stripe
   module Terminal
     # A Location represents a grouping of readers.
     #
-    # Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
+    # Related guide: [Fleet management](https://docs.stripe.com/terminal/fleet/locations)
     class Location < APIResource
       class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -24,7 +24,7 @@ module Stripe
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
         def postal_code; end
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         sig { returns(T.nilable(String)) }
         def state; end
         def self.inner_class_types
@@ -119,7 +119,7 @@ module Stripe
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       def metadata; end
       # String representing the object's type. Objects of the same type share the same value.

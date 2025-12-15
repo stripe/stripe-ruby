@@ -5,7 +5,7 @@ module Stripe
   module Issuing
     class TransactionCreateForceCaptureParams < ::Stripe::RequestParams
       class MerchantData < ::Stripe::RequestParams
-        # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         attr_accessor :category
         # City where the seller is located
         attr_accessor :city
@@ -283,7 +283,7 @@ module Stripe
           @reference = reference
         end
       end
-      # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+      # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       attr_accessor :amount
       # Card associated with this transaction.
       attr_accessor :card

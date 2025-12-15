@@ -241,7 +241,7 @@ module Stripe
             @reference = reference
           end
         end
-        # The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_accessor :capture_amount
         # Whether to close the authorization after capture. Defaults to true. Set to false to enable multi-capture flows.
         attr_accessor :close_authorization

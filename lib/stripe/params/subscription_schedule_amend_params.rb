@@ -217,7 +217,7 @@ module Stripe
           end
           # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
           attr_accessor :discounts
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
           # The ID of the price object.
           attr_accessor :price

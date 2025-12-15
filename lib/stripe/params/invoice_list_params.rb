@@ -44,7 +44,7 @@ module Stripe
     attr_accessor :created
     # Only return invoices for the customer specified by this customer ID.
     attr_accessor :customer
-    # Only return invoices for the account specified by this account ID.
+    # Only return invoices for the account representing the customer specified by this account ID.
     attr_accessor :customer_account
     # Attribute for param field due_date
     attr_accessor :due_date
@@ -56,7 +56,7 @@ module Stripe
     attr_accessor :limit
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     attr_accessor :starting_after
-    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+    # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     attr_accessor :status
     # Only return invoices for the subscription specified by this subscription ID.
     attr_accessor :subscription

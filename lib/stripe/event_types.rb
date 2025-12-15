@@ -86,6 +86,8 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferReturnedEvent,
         Events::V2MoneyManagementOutboundTransferUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEvent,
+        Events::V2MoneyManagementPayoutMethodCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementPayoutMethodCreatedEvent,
         Events::V2MoneyManagementPayoutMethodUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementPayoutMethodUpdatedEvent,
         Events::V2MoneyManagementReceivedCreditAvailableEvent.lookup_type =>
@@ -207,6 +209,8 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferReturnedEventNotification,
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification,
+        Events::V2MoneyManagementPayoutMethodCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementPayoutMethodCreatedEventNotification,
         Events::V2MoneyManagementPayoutMethodUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementPayoutMethodUpdatedEventNotification,
         Events::V2MoneyManagementReceivedCreditAvailableEventNotification.lookup_type =>

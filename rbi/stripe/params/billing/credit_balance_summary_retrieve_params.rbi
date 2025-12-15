@@ -59,12 +59,12 @@ module Stripe
          }
         def initialize(applicability_scope: nil, credit_grant: nil, type: nil); end
       end
-      # The customer for which to fetch credit balance summary.
+      # The customer whose credit balance summary you're retrieving.
       sig { returns(T.nilable(String)) }
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
-      # The account for which to fetch credit balance summary.
+      # The account representing the customer whose credit balance summary you're retrieving.
       sig { returns(T.nilable(String)) }
       def customer_account; end
       sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

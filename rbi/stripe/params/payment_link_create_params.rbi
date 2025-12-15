@@ -15,7 +15,7 @@ module Stripe
         def initialize(custom_message: nil); end
       end
       class Redirect < ::Stripe::RequestParams
-        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
+        # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-id) included.
         sig { returns(String) }
         def url; end
         sig { params(_url: String).returns(String) }
@@ -428,7 +428,7 @@ module Stripe
           params(_issuer: T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer))
          }
         def issuer=(_issuer); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         def metadata; end
         sig {
@@ -508,7 +508,7 @@ module Stripe
           def images; end
           sig { params(_images: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
           def images=(_images); end
-          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           sig {
@@ -520,7 +520,7 @@ module Stripe
           def name; end
           sig { params(_name: String).returns(String) }
           def name=(_name); end
-          # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           sig { returns(T.nilable(String)) }
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -580,7 +580,7 @@ module Stripe
           params(_recurring: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::Recurring)).returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::Recurring))
          }
         def recurring=(_recurring); end
-        # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         sig { returns(T.nilable(String)) }
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -615,12 +615,12 @@ module Stripe
         params(_adjustable_quantity: T.nilable(PaymentLinkCreateParams::LineItem::AdjustableQuantity)).returns(T.nilable(PaymentLinkCreateParams::LineItem::AdjustableQuantity))
        }
       def adjustable_quantity=(_adjustable_quantity); end
-      # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object. One of `price` or `price_data` is required.
+      # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
       sig { returns(T.nilable(String)) }
       def price; end
       sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
       def price=(_price); end
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
       sig { returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData)) }
       def price_data; end
       sig {
@@ -714,7 +714,7 @@ module Stripe
         params(_adjustable_quantity: T.nilable(PaymentLinkCreateParams::OptionalItem::AdjustableQuantity)).returns(T.nilable(PaymentLinkCreateParams::OptionalItem::AdjustableQuantity))
        }
       def adjustable_quantity=(_adjustable_quantity); end
-      # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+      # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object.
       sig { returns(String) }
       def price; end
       sig { params(_price: String).returns(String) }
@@ -740,14 +740,14 @@ module Stripe
       def description; end
       sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
       def description=(_description); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
-      # Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+      # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
       #
       # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
       #
@@ -774,7 +774,7 @@ module Stripe
       def statement_descriptor_suffix; end
       sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor_suffix=(_statement_descriptor_suffix); end
-      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+      # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
       sig { returns(T.nilable(String)) }
       def transfer_group; end
       sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
@@ -906,7 +906,7 @@ module Stripe
         params(_invoice_settings: T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings))
        }
       def invoice_settings=(_invoice_settings); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -1027,7 +1027,7 @@ module Stripe
       params(_custom_text: T.nilable(PaymentLinkCreateParams::CustomText)).returns(T.nilable(PaymentLinkCreateParams::CustomText))
      }
     def custom_text=(_custom_text); end
-    # Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
+    # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     sig { returns(T.nilable(String)) }
     def customer_creation; end
     sig { params(_customer_creation: T.nilable(String)).returns(T.nilable(String)) }
@@ -1056,7 +1056,7 @@ module Stripe
       params(_line_items: T::Array[PaymentLinkCreateParams::LineItem]).returns(T::Array[PaymentLinkCreateParams::LineItem])
      }
     def line_items=(_line_items); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     sig {
@@ -1075,7 +1075,7 @@ module Stripe
     def on_behalf_of; end
     sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
     def on_behalf_of=(_on_behalf_of); end
-    # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+    # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
     # There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
     # There is a maximum of 20 combined line items and optional items.
     sig { returns(T.nilable(T::Array[PaymentLinkCreateParams::OptionalItem])) }
@@ -1095,12 +1095,12 @@ module Stripe
     #
     # Can only be set in `subscription` mode. Defaults to `always`.
     #
-    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
+    # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     sig { returns(T.nilable(String)) }
     def payment_method_collection; end
     sig { params(_payment_method_collection: T.nilable(String)).returns(T.nilable(String)) }
     def payment_method_collection=(_payment_method_collection); end
-    # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)).
+    # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://docs.stripe.com/payments/payment-methods/integration-options#payment-method-product-support)).
     sig { returns(T.nilable(T::Array[String])) }
     def payment_method_types; end
     sig {
@@ -1130,14 +1130,14 @@ module Stripe
       params(_shipping_address_collection: T.nilable(PaymentLinkCreateParams::ShippingAddressCollection)).returns(T.nilable(PaymentLinkCreateParams::ShippingAddressCollection))
      }
     def shipping_address_collection=(_shipping_address_collection); end
-    # The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
+    # The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     sig { returns(T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption])) }
     def shipping_options; end
     sig {
       params(_shipping_options: T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption])).returns(T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption]))
      }
     def shipping_options=(_shipping_options); end
-    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
+    # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     sig { returns(T.nilable(String)) }
     def submit_type; end
     sig { params(_submit_type: T.nilable(String)).returns(T.nilable(String)) }

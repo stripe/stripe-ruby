@@ -133,7 +133,7 @@ module Stripe
         def product; end
         sig { params(_product: T.nilable(String)).returns(T.nilable(String)) }
         def product=(_product); end
-        # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         sig { returns(T.nilable(String)) }
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -203,7 +203,7 @@ module Stripe
           params(_images: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
         def images=(_images); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         def metadata; end
         sig {
@@ -229,7 +229,7 @@ module Stripe
         def shippable; end
         sig { params(_shippable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def shippable=(_shippable); end
-        # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
         sig { returns(T.nilable(String)) }
         def tax_code; end
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -432,9 +432,9 @@ module Stripe
             def reference=(_reference); end
             # Indicates that you intend to make future payments with the payment method.
             #
-            # Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+            # Providing this parameter will [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://docs.stripe.com/api/payment_methods/attach) to a Customer after the transaction completes.
             #
-            # When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            # When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             #
             # If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             sig { returns(T.nilable(String)) }
@@ -499,9 +499,9 @@ module Stripe
             def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with the payment method.
             #
-            # Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+            # Providing this parameter will [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://docs.stripe.com/api/payment_methods/attach) to a Customer after the transaction completes.
             #
-            # When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            # When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             #
             # If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             sig { returns(T.nilable(String)) }
@@ -2415,7 +2415,7 @@ module Stripe
               params(_line_items: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]))
              }
             def line_items=(_line_items); end
-            # [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+            # [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
             sig { returns(T.nilable(String)) }
             def preferred_locale; end
             sig { params(_preferred_locale: T.nilable(String)).returns(T.nilable(String)) }
@@ -2756,7 +2756,7 @@ module Stripe
           params(_payment_method_options: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
-        # The list of [payment method types](https://stripe.com/docs/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        # The list of [payment method types](https://docs.stripe.com/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
         sig { returns(T.nilable(T::Array[String])) }
         def payment_method_types; end
         sig {
@@ -2924,7 +2924,7 @@ module Stripe
           params(_fixed_amount: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount)).returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount))
          }
         def fixed_amount=(_fixed_amount); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -2936,7 +2936,7 @@ module Stripe
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
         def tax_behavior=(_tax_behavior); end
-        # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
         sig { returns(T.nilable(String)) }
         def tax_code; end
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -3129,7 +3129,7 @@ module Stripe
       params(_line_items: T.nilable(T::Array[OrderUpdateParams::LineItem])).returns(T.nilable(T::Array[OrderUpdateParams::LineItem]))
      }
     def line_items=(_line_items); end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {

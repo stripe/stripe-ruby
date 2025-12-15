@@ -11,6 +11,7 @@ module Stripe
         #
         # ** raises ControlledByDashboardError
         # ** raises InvalidPayoutMethodError
+        # ** raises ControlledByAlternateResourceError
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutMethodArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutMethod)
          }
@@ -34,6 +35,7 @@ module Stripe
         #
         # ** raises ControlledByDashboardError
         # ** raises InvalidPayoutMethodError
+        # ** raises ControlledByAlternateResourceError
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutMethodUnarchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutMethod)
          }

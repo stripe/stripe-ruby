@@ -8061,245 +8061,7 @@ module Stripe
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account_token = client.v2.core.account_tokens.create({
-        identity: {
-          attestations: {
-            directorship_declaration: { attested: true },
-            ownership_declaration: { attested: true },
-            persons_provided: {
-              directors: true,
-              executives: true,
-              owners: true,
-              ownership_exemption_reason: "qualified_entity_exceeds_ownership_threshold",
-            },
-            representative_declaration: { attested: true },
-            terms_of_service: {
-              account: { shown_and_accepted: true },
-              storer: { shown_and_accepted: true },
-            },
-          },
-          business_details: {
-            address: {
-              city: "city",
-              country: "country",
-              line1: "line1",
-              line2: "line2",
-              postal_code: "postal_code",
-              state: "state",
-              town: "town",
-            },
-            annual_revenue: {
-              amount: {
-                currency: "USD",
-                value: 96,
-              },
-              fiscal_year_end: "fiscal_year_end",
-            },
-            documents: {
-              bank_account_ownership_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              company_license: {
-                files: ["files"],
-                type: "files",
-              },
-              company_memorandum_of_association: {
-                files: ["files"],
-                type: "files",
-              },
-              company_ministerial_decree: {
-                files: ["files"],
-                type: "files",
-              },
-              company_registration_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              company_tax_id_verification: {
-                files: ["files"],
-                type: "files",
-              },
-              primary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              proof_of_address: {
-                files: ["files"],
-                type: "files",
-              },
-              proof_of_registration: {
-                files: ["files"],
-                type: "files",
-              },
-              proof_of_ultimate_beneficial_ownership: {
-                files: ["files"],
-                type: "files",
-              },
-            },
-            estimated_worker_count: 884_794_319,
-            id_numbers: [
-              {
-                registrar: "registrar",
-                type: "th_prn",
-                value: "value",
-              },
-            ],
-            monthly_estimated_revenue: {
-              amount: {
-                currency: "USD",
-                value: 96,
-              },
-            },
-            phone: "phone",
-            registered_name: "registered_name",
-            script_addresses: {
-              kana: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-              kanji: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-            },
-            script_names: {
-              kana: { registered_name: "registered_name" },
-              kanji: { registered_name: "registered_name" },
-            },
-            structure: "public_listed_corporation",
-          },
-          entity_type: "individual",
-          individual: {
-            additional_addresses: [
-              {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                purpose: "registered",
-                state: "state",
-                town: "town",
-              },
-            ],
-            additional_names: [
-              {
-                full_name: "full_name",
-                given_name: "given_name",
-                purpose: "alias",
-                surname: "surname",
-              },
-            ],
-            address: {
-              city: "city",
-              country: "country",
-              line1: "line1",
-              line2: "line2",
-              postal_code: "postal_code",
-              state: "state",
-              town: "town",
-            },
-            date_of_birth: {
-              day: 99_228,
-              month: 104_080_000,
-              year: 3_704_893,
-            },
-            documents: {
-              company_authorization: {
-                files: ["files"],
-                type: "files",
-              },
-              passport: {
-                files: ["files"],
-                type: "files",
-              },
-              primary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              secondary_verification: {
-                front_back: {
-                  back: "back",
-                  front: "front",
-                },
-                type: "front_back",
-              },
-              visa: {
-                files: ["files"],
-                type: "files",
-              },
-            },
-            email: "email",
-            given_name: "given_name",
-            id_numbers: [
-              {
-                type: "th_lc",
-                value: "value",
-              },
-            ],
-            legal_gender: "male",
-            metadata: { key: "metadata" },
-            nationalities: ["nationalities"],
-            phone: "phone",
-            political_exposure: "none",
-            relationship: {
-              director: true,
-              executive: true,
-              owner: true,
-              percent_ownership: "percent_ownership",
-              title: "title",
-            },
-            script_addresses: {
-              kana: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-              kanji: {
-                city: "city",
-                country: "country",
-                line1: "line1",
-                line2: "line2",
-                postal_code: "postal_code",
-                state: "state",
-                town: "town",
-              },
-            },
-            script_names: {
-              kana: {
-                given_name: "given_name",
-                surname: "surname",
-              },
-              kanji: {
-                given_name: "given_name",
-                surname: "surname",
-              },
-            },
-            surname: "surname",
-          },
-        },
-      })
+      account_token = client.v2.core.account_tokens.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens"
     end
     should "Test v2 core account token get (service)" do
@@ -8593,7 +8355,7 @@ module Stripe
     end
     should "Test v2 money management adjustment get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments").to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.adjustment","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.adjustment","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8606,7 +8368,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.adjustment","livemode":true}',
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.adjustment","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8619,7 +8381,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts"
       ).to_return(
-        body: '{"data":[{"balance":{"available":{"key":{"currency":"USD","value":35}},"inbound_pending":{"key":{"currency":"USD","value":11}},"outbound_pending":{"key":{"currency":"USD","value":60}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"balance":{"available":{"key":{}},"inbound_pending":{"key":{}},"outbound_pending":{"key":{}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8632,7 +8394,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts"
       ).to_return(
-        body: '{"balance":{"available":{"key":{"currency":"USD","value":35}},"inbound_pending":{"key":{"currency":"USD","value":11}},"outbound_pending":{"key":{"currency":"USD","value":60}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
+        body: '{"balance":{"available":{"key":{}},"inbound_pending":{"key":{}},"outbound_pending":{"key":{}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8645,7 +8407,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
       ).to_return(
-        body: '{"balance":{"available":{"key":{"currency":"USD","value":35}},"inbound_pending":{"key":{"currency":"USD","value":11}},"outbound_pending":{"key":{"currency":"USD","value":60}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
+        body: '{"balance":{"available":{"key":{}},"inbound_pending":{"key":{}},"outbound_pending":{"key":{}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8658,7 +8420,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
       ).to_return(
-        body: '{"balance":{"available":{"key":{"currency":"USD","value":35}},"inbound_pending":{"key":{"currency":"USD","value":11}},"outbound_pending":{"key":{"currency":"USD","value":60}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
+        body: '{"balance":{"available":{"key":{}},"inbound_pending":{"key":{}},"outbound_pending":{"key":{}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8671,7 +8433,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123/close"
       ).to_return(
-        body: '{"balance":{"available":{"key":{"currency":"USD","value":35}},"inbound_pending":{"key":{"currency":"USD","value":11}},"outbound_pending":{"key":{"currency":"USD","value":60}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
+        body: '{"balance":{"available":{"key":{}},"inbound_pending":{"key":{}},"outbound_pending":{"key":{}}},"country":"country","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.money_management.financial_account","status":"closed","type":"other","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8726,7 +8488,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
       ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type"}},"id":"obj_123","object":"v2.money_management.inbound_transfer","to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed"}],"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{},"payment_method":{"type":"type"}},"id":"obj_123","object":"v2.money_management.inbound_transfer","to":{"credited":{},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed"}],"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8739,15 +8501,15 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type"}},"id":"obj_123","object":"v2.money_management.inbound_transfer","to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed"}],"livemode":true}',
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{},"payment_method":{"type":"type"}},"id":"obj_123","object":"v2.money_management.inbound_transfer","to":{"credited":{},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed"}],"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       inbound_transfer = client.v2.money_management.inbound_transfers.create({
         amount: {
-          currency: "USD",
-          value: 96,
+          value: 111_972_721,
+          currency: "usd",
         },
         from: {
           currency: "usd",
@@ -8765,7 +8527,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type"}},"id":"obj_123","object":"v2.money_management.inbound_transfer","to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed"}],"livemode":true}',
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{},"payment_method":{"type":"type"}},"id":"obj_123","object":"v2.money_management.inbound_transfer","to":{"credited":{},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed"}],"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8778,7 +8540,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
       ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8791,15 +8553,15 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}',
+        body: '{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       outbound_payment = client.v2.money_management.outbound_payments.create({
         amount: {
-          currency: "USD",
-          value: 96,
+          value: 111_972_721,
+          currency: "usd",
         },
         from: {
           currency: "usd",
@@ -8818,7 +8580,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}',
+        body: '{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8831,7 +8593,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}',
+        body: '{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_payment","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8844,15 +8606,15 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_status":"active","rates":{"key":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","estimated_fees":[{"amount":{},"type":"cross_border_payout_fee"}],"from":{"debited":{},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_status":"active","rates":{"key":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       outbound_payment_quote = client.v2.money_management.outbound_payment_quotes.create({
         amount: {
-          currency: "USD",
-          value: 96,
+          value: 111_972_721,
+          currency: "usd",
         },
         from: {
           currency: "usd",
@@ -8871,7 +8633,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_status":"active","rates":{"key":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","estimated_fees":[{"amount":{},"type":"cross_border_payout_fee"}],"from":{"debited":{},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_status":"active","rates":{"key":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8949,7 +8711,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
       ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8962,15 +8724,15 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}',
+        body: '{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       outbound_transfer = client.v2.money_management.outbound_transfers.create({
         amount: {
-          currency: "USD",
-          value: 96,
+          value: 111_972_721,
+          currency: "usd",
         },
         from: {
           currency: "usd",
@@ -8988,7 +8750,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}',
+        body: '{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9001,7 +8763,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123/cancel"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}',
+        body: '{"amount":{},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","from":{"debited":{},"financial_account":"financial_account"},"id":"obj_123","object":"v2.money_management.outbound_transfer","statement_descriptor":"statement_descriptor","status":"canceled","to":{"credited":{},"payout_method":"payout_method"},"trace_id":{"status":"pending"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9079,7 +8841,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_credits"
       ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_credit","status":"returned","type":"balance_transfer","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_credit","status":"returned","type":"balance_transfer","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9092,7 +8854,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_credits/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_credit","status":"returned","type":"balance_transfer","livemode":true}',
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_credit","status":"returned","type":"balance_transfer","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9105,7 +8867,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debits"
       ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_debit","status":"canceled","type":"bank_transfer","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_debit","status":"canceled","type":"bank_transfer","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9118,7 +8880,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debits/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_debit","status":"canceled","type":"bank_transfer","livemode":true}',
+        body: '{"amount":{},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_debit","status":"canceled","type":"bank_transfer","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9128,7 +8890,7 @@ module Stripe
     end
     should "Test v2 money management transaction get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions").to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"received_debit","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"fee_transaction"},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{},"balance_impact":{"available":{},"inbound_pending":{},"outbound_pending":{}},"category":"received_debit","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"fee_transaction"},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9141,7 +8903,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"received_debit","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"fee_transaction"},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}',
+        body: '{"amount":{},"balance_impact":{"available":{},"inbound_pending":{},"outbound_pending":{}},"category":"received_debit","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"fee_transaction"},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9154,7 +8916,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries"
       ).to_return(
-        body: '{"data":[{"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"received_debit","financial_account":"financial_account","flow":{"type":"fee_transaction"}},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"balance_impact":{"available":{},"inbound_pending":{},"outbound_pending":{}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"received_debit","financial_account":"financial_account","flow":{"type":"fee_transaction"}},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9167,7 +8929,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries/id_123"
       ).to_return(
-        body: '{"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"received_debit","financial_account":"financial_account","flow":{"type":"fee_transaction"}},"livemode":true}',
+        body: '{"balance_impact":{"available":{},"inbound_pending":{},"outbound_pending":{}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"received_debit","financial_account":"financial_account","flow":{"type":"fee_transaction"}},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9189,8 +8951,8 @@ module Stripe
         "id_123",
         {
           amount: {
-            currency: "USD",
-            value: 96,
+            value: 111_972_721,
+            currency: "usd",
           },
           network: "rtp",
         }
@@ -9202,7 +8964,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/test_helpers/financial_addresses/id_123/generate_microdeposits"
       ).to_return(
-        body: '{"amounts":[{"currency":"USD","value":1}],"object":"financial_address_generated_microdeposits","status":"accepted","livemode":true}',
+        body: '{"amounts":[{}],"object":"financial_address_generated_microdeposits","status":"accepted","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9250,6 +9012,21 @@ module Stripe
         })
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
+    end
+    should "Test controlled by alternate resource error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+      ).to_return(
+        body: '{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::ControlledByAlternateResourceError do
+        outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
     end
     should "Test controlled by dashboard error (service)" do
       stub_request(
@@ -9311,10 +9088,7 @@ module Stripe
 
       assert_raises Stripe::InsufficientFundsError do
         outbound_payment = client.v2.money_management.outbound_payments.create({
-          amount: {
-            currency: "USD",
-            value: 96,
-          },
+          amount: {},
           from: {
             currency: "usd",
             financial_account: "financial_account",
@@ -9397,18 +9171,6 @@ module Stripe
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
     end
-    should "Test rate limit error (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
-        body: '{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::RateLimitError do
-        account = client.v2.core.accounts.retrieve("id_123")
-      end
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123"
-    end
     should "Test recipient not notifiable error (service)" do
       stub_request(
         :post,
@@ -9421,10 +9183,7 @@ module Stripe
 
       assert_raises Stripe::RecipientNotNotifiableError do
         outbound_payment = client.v2.money_management.outbound_payments.create({
-          amount: {
-            currency: "USD",
-            value: 96,
-          },
+          amount: {},
           from: {
             currency: "usd",
             financial_account: "financial_account",

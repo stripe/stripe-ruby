@@ -42,7 +42,7 @@ module Stripe
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
-    # Only return credit notes for the account specified by this account ID.
+    # Only return credit notes for the account representing the customer specified by this account ID.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }

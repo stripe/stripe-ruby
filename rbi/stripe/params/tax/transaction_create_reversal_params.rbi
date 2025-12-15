@@ -6,17 +6,17 @@ module Stripe
   module Tax
     class TransactionCreateReversalParams < ::Stripe::RequestParams
       class LineItem < ::Stripe::RequestParams
-        # The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
+        # The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
         sig { returns(Integer) }
         def amount; end
         sig { params(_amount: Integer).returns(Integer) }
         def amount=(_amount); end
-        # The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
+        # The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
         sig { returns(Integer) }
         def amount_tax; end
         sig { params(_amount_tax: Integer).returns(Integer) }
         def amount_tax=(_amount_tax); end
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
@@ -28,7 +28,7 @@ module Stripe
         def original_line_item; end
         sig { params(_original_line_item: String).returns(String) }
         def original_line_item=(_original_line_item); end
-        # The quantity reversed. Appears in [tax exports](https://stripe.com/docs/tax/reports), but does not affect the amount of tax reversed.
+        # The quantity reversed. Appears in [tax exports](https://docs.stripe.com/tax/reports), but does not affect the amount of tax reversed.
         sig { returns(T.nilable(Integer)) }
         def quantity; end
         sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -51,12 +51,12 @@ module Stripe
         ); end
       end
       class ShippingCost < ::Stripe::RequestParams
-        # The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
+        # The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
         sig { returns(Integer) }
         def amount; end
         sig { params(_amount: Integer).returns(Integer) }
         def amount=(_amount); end
-        # The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
+        # The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
         sig { returns(Integer) }
         def amount_tax; end
         sig { params(_amount_tax: Integer).returns(Integer) }
@@ -69,7 +69,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
+      # A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
       sig { params(_flat_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -81,7 +81,7 @@ module Stripe
         params(_line_items: T.nilable(T::Array[Tax::TransactionCreateReversalParams::LineItem])).returns(T.nilable(T::Array[Tax::TransactionCreateReversalParams::LineItem]))
        }
       def line_items=(_line_items); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -98,7 +98,7 @@ module Stripe
       def original_transaction; end
       sig { params(_original_transaction: String).returns(String) }
       def original_transaction=(_original_transaction); end
-      # A custom identifier for this reversal, such as `myOrder_123-refund_1`, which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://stripe.com/docs/tax/reports).
+      # A custom identifier for this reversal, such as `myOrder_123-refund_1`, which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://docs.stripe.com/tax/reports).
       sig { returns(String) }
       def reference; end
       sig { params(_reference: String).returns(String) }

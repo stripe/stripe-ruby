@@ -41,7 +41,7 @@ module Stripe
           def postal_code; end
           sig { params(_postal_code: String).returns(String) }
           def postal_code=(_postal_code); end
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
           def state; end
           sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
@@ -143,7 +143,7 @@ module Stripe
           def amount; end
           sig { params(_amount: Integer).returns(Integer) }
           def amount=(_amount); end
-          # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
+          # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
           sig { returns(T.nilable(T::Array[String])) }
           def categories; end
           sig {
@@ -160,7 +160,7 @@ module Stripe
            }
           def initialize(amount: nil, categories: nil, interval: nil); end
         end
-        # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
+        # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def allowed_categories; end
         sig {
@@ -174,7 +174,7 @@ module Stripe
           params(_allowed_merchant_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def allowed_merchant_countries=(_allowed_merchant_countries); end
-        # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+        # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def blocked_categories; end
         sig {
@@ -208,7 +208,7 @@ module Stripe
           spending_limits: nil
         ); end
       end
-      # The [Cardholder](https://stripe.com/docs/api#issuing_cardholder_object) object with which the card will be associated.
+      # The [Cardholder](https://docs.stripe.com/api#issuing_cardholder_object) object with which the card will be associated.
       sig { returns(T.nilable(String)) }
       def cardholder; end
       sig { params(_cardholder: T.nilable(String)).returns(T.nilable(String)) }
@@ -238,7 +238,7 @@ module Stripe
       def financial_account; end
       sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
       def financial_account=(_financial_account); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       sig {
@@ -279,7 +279,7 @@ module Stripe
         params(_shipping: T.nilable(Issuing::CardCreateParams::Shipping)).returns(T.nilable(Issuing::CardCreateParams::Shipping))
        }
       def shipping=(_shipping); end
-      # Rules that control spending for this card. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
+      # Rules that control spending for this card. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
       sig { returns(T.nilable(Issuing::CardCreateParams::SpendingControls)) }
       def spending_controls; end
       sig {

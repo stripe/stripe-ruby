@@ -377,7 +377,7 @@ module Stripe
             reference: nil
           ); end
         end
-        # The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        # The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(T.nilable(Integer)) }
         def capture_amount; end
         sig { params(_capture_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }

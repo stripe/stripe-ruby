@@ -6,7 +6,7 @@ module Stripe
   # has previously been created but not yet refunded. Funds will be refunded to
   # the Stripe account from which the fee was originally collected.
   #
-  # Related guide: [Refunding application fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
+  # Related guide: [Refunding application fees](https://docs.stripe.com/connect/destination-charges#refunding-app-fee)
   class ApplicationFeeRefund < APIResource
     include Stripe::APIOperations::Save
 
@@ -27,7 +27,7 @@ module Stripe
     attr_reader :fee
     # Unique identifier for the object.
     attr_reader :id
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

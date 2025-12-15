@@ -19,7 +19,7 @@ module Stripe
     def limit; end
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
-    # The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://stripe.com/docs/payments/connected-accounts).
+    # The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://docs.stripe.com/payments/connected-accounts).
     sig { returns(T.nilable(String)) }
     def on_behalf_of; end
     sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }

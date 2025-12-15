@@ -7,7 +7,7 @@ module Stripe
   # refunded yet. Funds are refunded to the credit or debit card that's
   # initially charged.
   #
-  # Related guide: [Refunds](https://stripe.com/docs/refunds)
+  # Related guide: [Refunds](https://docs.stripe.com/refunds)
   class Refund < APIResource
     class DestinationDetails < ::Stripe::StripeObject
       class Affirm < ::Stripe::StripeObject
@@ -626,7 +626,7 @@ module Stripe
     # For payment methods without native refund support (for example, Konbini, PromptPay), provide an email address for the customer to receive refund instructions.
     sig { returns(T.nilable(String)) }
     def instructions_email; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # Attribute for field next_action
@@ -653,7 +653,7 @@ module Stripe
     # The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.
     sig { returns(T.nilable(T.any(String, ::Stripe::Reversal))) }
     def source_transfer_reversal; end
-    # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://stripe.com/docs/refunds#failed-refunds).
+    # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://docs.stripe.com/refunds#failed-refunds).
     sig { returns(T.nilable(String)) }
     def status; end
     # This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.

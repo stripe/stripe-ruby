@@ -13,9 +13,9 @@ module Stripe
     end
 
     class AdjustedForOverdraft < ::Stripe::StripeObject
-      # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
+      # The [Balance Transaction](https://docs.stripe.com/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
       attr_reader :balance_transaction
-      # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
+      # The [Cash Balance Transaction](https://docs.stripe.com/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
       attr_reader :linked_transaction
 
       def self.inner_class_types
@@ -28,7 +28,7 @@ module Stripe
     end
 
     class AppliedToPayment < ::Stripe::StripeObject
-      # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
+      # The [Payment Intent](https://docs.stripe.com/api/payment_intents/object) that funds were applied to.
       attr_reader :payment_intent
 
       def self.inner_class_types
@@ -146,7 +146,7 @@ module Stripe
     end
 
     class RefundedFromPayment < ::Stripe::StripeObject
-      # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
+      # The [Refund](https://docs.stripe.com/api/refunds/object) that moved these funds into the customer's cash balance.
       attr_reader :refund
 
       def self.inner_class_types
@@ -159,7 +159,7 @@ module Stripe
     end
 
     class TransferredToBalance < ::Stripe::StripeObject
-      # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
+      # The [Balance Transaction](https://docs.stripe.com/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
       attr_reader :balance_transaction
 
       def self.inner_class_types
@@ -172,7 +172,7 @@ module Stripe
     end
 
     class UnappliedFromPayment < ::Stripe::StripeObject
-      # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
+      # The [Payment Intent](https://docs.stripe.com/api/payment_intents/object) that funds were unapplied from.
       attr_reader :payment_intent
 
       def self.inner_class_types
@@ -193,7 +193,9 @@ module Stripe
     attr_reader :currency
     # The customer whose available cash balance changed as a result of this transaction.
     attr_reader :customer
-    # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    # The ID of an Account representing a customer whose available cash balance changed as a result of this transaction.
+    attr_reader :customer_account
+    # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     attr_reader :ending_balance
     # Attribute for field funded
     attr_reader :funded
@@ -201,7 +203,7 @@ module Stripe
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-    # The amount by which the cash balance changed, represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
+    # The amount by which the cash balance changed, represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
     attr_reader :net_amount
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -209,7 +211,7 @@ module Stripe
     attr_reader :refunded_from_payment
     # Attribute for field transferred_to_balance
     attr_reader :transferred_to_balance
-    # The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
+    # The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://docs.stripe.com/payments/customer-balance#types) to learn more about these types.
     attr_reader :type
     # Attribute for field unapplied_from_payment
     attr_reader :unapplied_from_payment

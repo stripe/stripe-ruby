@@ -11,7 +11,7 @@ module Stripe
         def tax_behavior; end
         sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
         def tax_behavior=(_tax_behavior); end
-        # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
         sig { returns(T.nilable(String)) }
         def tax_code; end
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }

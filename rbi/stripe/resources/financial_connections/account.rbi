@@ -7,12 +7,15 @@ module Stripe
     # A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     class Account < APIResource
       class AccountHolder < ::Stripe::StripeObject
-        # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        # The ID of the Stripe account that this account belongs to. Only available when `account_holder.type` is `account`.
         sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
-        # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        # The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
         def customer; end
+        # Attribute for field customer_account
+        sig { returns(T.nilable(String)) }
+        def customer_account; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
         def type; end
@@ -221,7 +224,7 @@ module Stripe
       # The list of data refresh subscriptions requested on this account.
       sig { returns(T.nilable(T::Array[String])) }
       def subscriptions; end
-      # The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
+      # The [PaymentMethod type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
       sig { returns(T::Array[String]) }
       def supported_payment_method_types; end
       # The state of the most recent attempt to refresh the account transactions.

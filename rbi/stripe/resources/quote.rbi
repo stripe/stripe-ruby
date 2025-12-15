@@ -48,10 +48,10 @@ module Stripe
               # The amount discounted.
               sig { returns(Integer) }
               def amount; end
-              # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
-              # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+              # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
               sig { returns(::Stripe::Discount) }
               def discount; end
               def self.inner_class_types
@@ -144,10 +144,10 @@ module Stripe
               # The amount discounted.
               sig { returns(Integer) }
               def amount; end
-              # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
-              # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+              # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
               sig { returns(::Stripe::Discount) }
               def discount; end
               def self.inner_class_types
@@ -337,7 +337,7 @@ module Stripe
       # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
       sig { returns(T.nilable(Integer)) }
       def effective_date; end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       # Integer representing the number of trial period days before the customer is charged for the first time.
@@ -356,10 +356,10 @@ module Stripe
           # The amount discounted.
           sig { returns(Integer) }
           def amount; end
-          # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+          # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
           # It contains information about when the discount began, when it will end, and what it is applied to.
           #
-          # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+          # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
           sig { returns(::Stripe::Discount) }
           def discount; end
           def self.inner_class_types
@@ -470,9 +470,12 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(T.nilable(String)) }
     def currency; end
-    # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+    # The customer who received this quote. A customer is required to finalize the quote. Once specified, you can't change it.
     sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
+    # The account representing the customer who received this quote. A customer or account is required to finalize the quote. Once specified, you can't change it.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
     # The tax rates applied to this quote.
     sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxRate)])) }
     def default_tax_rates; end
@@ -488,7 +491,7 @@ module Stripe
     # A footer that will be displayed on the quote PDF.
     sig { returns(T.nilable(String)) }
     def footer; end
-    # Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details.
+    # Details of the quote that was cloned. See the [cloning documentation](https://docs.stripe.com/quotes/clone) for more details.
     sig { returns(T.nilable(FromQuote)) }
     def from_quote; end
     # A header that will be displayed on the quote PDF.
@@ -509,10 +512,10 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
-    # A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize).
+    # A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://docs.stripe.com/quotes/overview#finalize).
     sig { returns(T.nilable(String)) }
     def number; end
     # String representing the object's type. Objects of the same type share the same value.

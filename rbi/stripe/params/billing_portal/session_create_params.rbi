@@ -127,17 +127,17 @@ module Stripe
             def initialize(coupon: nil, promotion_code: nil); end
           end
           class Item < ::Stripe::RequestParams
-            # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
+            # The ID of the [subscription item](https://docs.stripe.com/api/subscriptions/object#subscription_object-items-data-id) to be updated.
             sig { returns(String) }
             def id; end
             sig { params(_id: String).returns(String) }
             def id=(_id); end
-            # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
+            # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://docs.stripe.com/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
             sig { returns(T.nilable(String)) }
             def price; end
             sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
             def price=(_price); end
-            # [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
+            # [Quantity](https://docs.stripe.com/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
             sig { returns(T.nilable(Integer)) }
             def quantity; end
             sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -154,7 +154,7 @@ module Stripe
             params(_discounts: T.nilable(T::Array[BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdateConfirm::Discount])).returns(T.nilable(T::Array[BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdateConfirm::Discount]))
            }
           def discounts=(_discounts); end
-          # The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
+          # The [subscription item](https://docs.stripe.com/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
           sig {
             returns(T::Array[BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdateConfirm::Item])
            }
@@ -219,22 +219,27 @@ module Stripe
           type: nil
         ); end
       end
-      # The ID of an existing [configuration](https://stripe.com/docs/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
+      # The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
       sig { returns(T.nilable(String)) }
       def configuration; end
       sig { params(_configuration: T.nilable(String)).returns(T.nilable(String)) }
       def configuration=(_configuration); end
       # The ID of an existing customer.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def customer; end
-      sig { params(_customer: String).returns(String) }
+      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
+      # The ID of an existing account.
+      sig { returns(T.nilable(String)) }
+      def customer_account; end
+      sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_account=(_customer_account); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
+      # Information about a specific flow for the customer to go through. See the [docs](https://docs.stripe.com/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
       sig { returns(T.nilable(BillingPortal::SessionCreateParams::FlowData)) }
       def flow_data; end
       sig {
@@ -246,7 +251,7 @@ module Stripe
       def locale; end
       sig { params(_locale: T.nilable(String)).returns(T.nilable(String)) }
       def locale=(_locale); end
-      # The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.
+      # The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://docs.stripe.com/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://docs.stripe.com/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.
       sig { returns(T.nilable(String)) }
       def on_behalf_of; end
       sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
@@ -257,11 +262,12 @@ module Stripe
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
       sig {
-        params(configuration: T.nilable(String), customer: String, expand: T.nilable(T::Array[String]), flow_data: T.nilable(BillingPortal::SessionCreateParams::FlowData), locale: T.nilable(String), on_behalf_of: T.nilable(String), return_url: T.nilable(String)).void
+        params(configuration: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), flow_data: T.nilable(BillingPortal::SessionCreateParams::FlowData), locale: T.nilable(String), on_behalf_of: T.nilable(String), return_url: T.nilable(String)).void
        }
       def initialize(
         configuration: nil,
         customer: nil,
+        customer_account: nil,
         expand: nil,
         flow_data: nil,
         locale: nil,

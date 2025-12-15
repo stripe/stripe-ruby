@@ -449,15 +449,15 @@ module Stripe
         if is_a?(Invoice) && name == :payment_intent
           raise NoMethodError,
                 "\n\n" \
-                "-----------------\n" \
-                " BREAKING CHANGE \n" \
+                "-----------------\n " \
+                "BREAKING CHANGE \n" \
                 "-----------------\n" \
                 "The 'payment_intent' attribute is no longer available on Invoice objects.\n\n" \
                 "See the docs for more details:\n" \
                 "https://docs.stripe.com/changelog/basil/2025-03-31/" \
                 "add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change\n" \
-                "-----------------\n" \
-                " BREAKING CHANGE \n" \
+                "-----------------\n " \
+                "BREAKING CHANGE \n" \
                 "-----------------" \
         end
 

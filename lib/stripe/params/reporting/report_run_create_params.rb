@@ -44,9 +44,9 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
+      # Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://docs.stripe.com/reporting/statements/api) documentation.
       attr_accessor :parameters
-      # The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
+      # The ID of the [report type](https://docs.stripe.com/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
       attr_accessor :report_type
 
       def initialize(expand: nil, parameters: nil, report_type: nil)

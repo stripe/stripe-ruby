@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+  # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
   # It contains information about when the discount began, when it will end, and what it is applied to.
   #
-  # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+  # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
   class Discount < StripeObject
     class Source < ::Stripe::StripeObject
       # The coupon that was redeemed to create this discount.
@@ -28,6 +28,9 @@ module Stripe
     # The ID of the customer associated with this discount.
     sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
+    # The ID of the account representing the customer associated with this discount.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     sig { returns(T.nilable(Integer)) }
     def end; end

@@ -124,11 +124,16 @@ module Stripe
       params(_current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer))).returns(T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)))
      }
     def current_period_start=(_current_period_start); end
-    # The ID of the customer whose subscriptions will be retrieved.
+    # The ID of the customer whose subscriptions you're retrieving.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
     def customer=(_customer); end
+    # The ID of the account representing the customer whose subscriptions you're retrieving.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
+    sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_account=(_customer_account); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     sig { returns(T.nilable(String)) }
     def ending_before; end
@@ -159,7 +164,7 @@ module Stripe
     def starting_after; end
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
-    # The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://stripe.com/docs/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
+    # The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://docs.stripe.com/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
     sig { returns(T.nilable(String)) }
     def status; end
     sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
@@ -170,7 +175,7 @@ module Stripe
     sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
     def test_clock=(_test_clock); end
     sig {
-      params(automatic_tax: T.nilable(SubscriptionListParams::AutomaticTax), collection_method: T.nilable(String), created: T.nilable(T.any(SubscriptionListParams::Created, Integer)), current_period_end: T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer)), current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), plan: T.nilable(String), price: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
+      params(automatic_tax: T.nilable(SubscriptionListParams::AutomaticTax), collection_method: T.nilable(String), created: T.nilable(T.any(SubscriptionListParams::Created, Integer)), current_period_end: T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer)), current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), plan: T.nilable(String), price: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
      }
     def initialize(
       automatic_tax: nil,
@@ -179,6 +184,7 @@ module Stripe
       current_period_end: nil,
       current_period_start: nil,
       customer: nil,
+      customer_account: nil,
       ending_before: nil,
       expand: nil,
       limit: nil,

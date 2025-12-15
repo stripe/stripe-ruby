@@ -167,6 +167,11 @@ module Stripe
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
         V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
+        V2::Core::Account.object_name => V2::Core::Account,
+        V2::Core::AccountLink.object_name => V2::Core::AccountLink,
+        V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
+        V2::Core::AccountPersonToken.object_name => V2::Core::AccountPersonToken,
+        V2::Core::AccountToken.object_name => V2::Core::AccountToken,
         V2::Core::Event.object_name => V2::Core::Event,
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         # v2 object classes: The end of the section generated from our OpenAPI spec

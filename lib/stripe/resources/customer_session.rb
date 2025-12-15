@@ -198,6 +198,8 @@ module Stripe
     attr_reader :created
     # The Customer the Customer Session was created for.
     attr_reader :customer
+    # The Account that the Customer Session was created for.
+    attr_reader :customer_account
     # The timestamp at which this Customer Session will expire.
     attr_reader :expires_at
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

@@ -83,7 +83,7 @@ module Stripe
       attr_accessor :expand
       # List of inputs to be collected from the customer using the Reader. Maximum 5 inputs.
       attr_accessor :inputs
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
 
       def initialize(expand: nil, inputs: nil, metadata: nil)

@@ -8,8 +8,11 @@ module Stripe
     # attr_readers: The beginning of the section generated from our OpenAPI spec
     attr_reader :v1
     attr_reader :v2
-
     # attr_readers: The end of the section generated from our OpenAPI spec
+
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    attr_reader :requestor
 
     # For internal use only. Does not provide a stable API and may be broken
     # with future non-major changes.
@@ -86,6 +89,10 @@ module Stripe
     def deserialize(data, api_mode: :v1)
       data = JSON.parse(data) if data.is_a?(String)
       Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
+    end
+
+    def notification_handler(webhook_secret, &fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &fallback_callback)
     end
   end
 end

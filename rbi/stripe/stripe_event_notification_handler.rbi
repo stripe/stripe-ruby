@@ -305,6 +305,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutMethodCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_payout_method_created(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutMethodUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_payout_method_updated(&blk);

@@ -40,7 +40,7 @@ module Stripe
         handler.call(notif, event_client)
       else
         @fallback_callback.call(notif, event_client,
-                                   UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
+                                UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
       end
     end
 
@@ -341,6 +341,12 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.money_management.outbound_transfer.updated", &handler)
+    end
+
+    def on_v2_money_management_payout_method_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.payout_method.created", &handler)
     end
 
     def on_v2_money_management_payout_method_updated(&handler)

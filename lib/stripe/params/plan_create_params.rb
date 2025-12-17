@@ -4,6 +4,14 @@
 module Stripe
   class PlanCreateParams < ::Stripe::RequestParams
     class Product < ::Stripe::RequestParams
+      class TaxDetails < ::Stripe::RequestParams
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+        attr_accessor :tax_code
+
+        def initialize(tax_code: nil)
+          @tax_code = tax_code
+        end
+      end
       # Whether the product is currently available for purchase. Defaults to `true`.
       attr_accessor :active
       # The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
@@ -20,6 +28,8 @@ module Stripe
       attr_accessor :tax_code
       # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
       attr_accessor :unit_label
+      # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+      attr_accessor :tax_details
 
       def initialize(
         active: nil,
@@ -28,7 +38,8 @@ module Stripe
         name: nil,
         statement_descriptor: nil,
         tax_code: nil,
-        unit_label: nil
+        unit_label: nil,
+        tax_details: nil
       )
         @active = active
         @id = id
@@ -37,6 +48,7 @@ module Stripe
         @statement_descriptor = statement_descriptor
         @tax_code = tax_code
         @unit_label = unit_label
+        @tax_details = tax_details
       end
     end
 

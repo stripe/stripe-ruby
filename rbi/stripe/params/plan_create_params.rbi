@@ -5,6 +5,15 @@
 module Stripe
   class PlanCreateParams < ::Stripe::RequestParams
     class Product < ::Stripe::RequestParams
+      class TaxDetails < ::Stripe::RequestParams
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+        sig { returns(String) }
+        def tax_code; end
+        sig { params(_tax_code: String).returns(String) }
+        def tax_code=(_tax_code); end
+        sig { params(tax_code: String).void }
+        def initialize(tax_code: nil); end
+      end
       # Whether the product is currently available for purchase. Defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def active; end
@@ -44,8 +53,15 @@ module Stripe
       def unit_label; end
       sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
       def unit_label=(_unit_label); end
+      # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+      sig { returns(T.nilable(PlanCreateParams::Product::TaxDetails)) }
+      def tax_details; end
       sig {
-        params(active: T.nilable(T::Boolean), id: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: String, statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+        params(_tax_details: T.nilable(PlanCreateParams::Product::TaxDetails)).returns(T.nilable(PlanCreateParams::Product::TaxDetails))
+       }
+      def tax_details=(_tax_details); end
+      sig {
+        params(active: T.nilable(T::Boolean), id: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: String, statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String), tax_details: T.nilable(PlanCreateParams::Product::TaxDetails)).void
        }
       def initialize(
         active: nil,
@@ -54,7 +70,8 @@ module Stripe
         name: nil,
         statement_descriptor: nil,
         tax_code: nil,
-        unit_label: nil
+        unit_label: nil,
+        tax_details: nil
       ); end
     end
     class Tier < ::Stripe::RequestParams

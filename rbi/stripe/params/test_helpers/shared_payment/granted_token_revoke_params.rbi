@@ -5,7 +5,7 @@
 module Stripe
   module TestHelpers
     module SharedPayment
-      class GrantedTokenUpdateParams < ::Stripe::RequestParams
+      class GrantedTokenRevokeParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         def expand; end

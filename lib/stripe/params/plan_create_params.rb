@@ -5,10 +5,13 @@ module Stripe
   class PlanCreateParams < ::Stripe::RequestParams
     class Product < ::Stripe::RequestParams
       class TaxDetails < ::Stripe::RequestParams
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        attr_accessor :performance_location
         # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
         attr_accessor :tax_code
 
-        def initialize(tax_code: nil)
+        def initialize(performance_location: nil, tax_code: nil)
+          @performance_location = performance_location
           @tax_code = tax_code
         end
       end

@@ -156,6 +156,7 @@ module Stripe
         Tax::Calculation.object_name => Tax::Calculation,
         Tax::CalculationLineItem.object_name => Tax::CalculationLineItem,
         Tax::Form.object_name => Tax::Form,
+        Tax::Location.object_name => Tax::Location,
         Tax::Registration.object_name => Tax::Registration,
         Tax::Settings.object_name => Tax::Settings,
         Tax::Transaction.object_name => Tax::Transaction,

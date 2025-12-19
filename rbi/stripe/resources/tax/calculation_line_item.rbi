@@ -104,6 +104,9 @@ module Stripe
       # The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for this resource.
       sig { returns(String) }
       def tax_code; end
+      # A tax location for a line item that acts as a performance location. This indicates that the line item might be taxed at the place where it is being performed at. This is helpful for events or other services being performed at non-customer addresses like venues or offices. This can be left empty for tax codes that do not require a tax location. For tax codes where the location requirement is "optional", this would override the customer address in most use cases.
+      sig { returns(T.nilable(String)) }
+      def performance_location; end
     end
   end
 end

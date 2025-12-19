@@ -89,6 +89,8 @@ module Stripe
         attr_accessor :tax_behavior
         # A [tax code](https://docs.stripe.com/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
         attr_accessor :tax_code
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        attr_accessor :performance_location
 
         def initialize(
           amount: nil,
@@ -97,7 +99,8 @@ module Stripe
           quantity: nil,
           reference: nil,
           tax_behavior: nil,
-          tax_code: nil
+          tax_code: nil,
+          performance_location: nil
         )
           @amount = amount
           @metadata = metadata
@@ -106,6 +109,7 @@ module Stripe
           @reference = reference
           @tax_behavior = tax_behavior
           @tax_code = tax_code
+          @performance_location = performance_location
         end
       end
 

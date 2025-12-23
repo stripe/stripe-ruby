@@ -809,13 +809,18 @@ module Stripe
         class PriceData < ::Stripe::RequestParams
           class ProductData < ::Stripe::RequestParams
             class TaxDetails < ::Stripe::RequestParams
+              # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+              sig { returns(T.nilable(String)) }
+              def performance_location; end
+              sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+              def performance_location=(_performance_location); end
               # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
               sig { returns(String) }
               def tax_code; end
               sig { params(_tax_code: String).returns(String) }
               def tax_code=(_tax_code); end
-              sig { params(tax_code: String).void }
-              def initialize(tax_code: nil); end
+              sig { params(performance_location: T.nilable(String), tax_code: String).void }
+              def initialize(performance_location: nil, tax_code: nil); end
             end
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             sig { returns(T.nilable(String)) }

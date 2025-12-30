@@ -254,5 +254,41 @@ module Stripe
         refute_equal StripeConfiguration.setup.key, custom_config.key
       end
     end
+
+    context "callable configuration values" do
+      context "#api_key" do
+        should "return the value directly when it's a string" do
+          config = Stripe::StripeConfiguration.setup do |c|
+            c.api_key = "sk_test_123"
+          end
+
+          assert_equal "sk_test_123", config.api_key
+        end
+
+        should "resolve the value when it's a lambda" do
+          config = Stripe::StripeConfiguration.setup do |c|
+            c.api_key = -> { "sk_test_from_lambda" }
+          end
+
+          assert_equal "sk_test_from_lambda", config.api_key
+        end
+
+        should "resolve the value when it's a proc" do
+          config = Stripe::StripeConfiguration.setup do |c|
+            c.api_key = proc { "sk_test_from_proc" }
+          end
+
+          assert_equal "sk_test_from_proc", config.api_key
+        end
+
+        should "return nil when the value is nil" do
+          config = Stripe::StripeConfiguration.setup do |c|
+            c.api_key = nil
+          end
+
+          assert_nil config.api_key
+        end
+      end
+    end
   end
 end

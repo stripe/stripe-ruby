@@ -3,6 +3,11 @@
 module Stripe
   # Configurable options:
   #
+  # =api_key=
+  # The API key used to authenticate requests. Can be set to a string or a callable
+  # (lambda/proc) that returns the API key, allowing the key to be resolved
+  # at request time for multi-region or dynamic configuration scenarios.
+  #
   # =ca_bundle_path=
   # The location of a file containing a bundle of CA certificates. By default
   # the library will use an included bundle that can successfully validate
@@ -30,6 +35,13 @@ module Stripe
     attr_reader :api_base, :uploads_base, :connect_base, :meter_events_base, :base_addresses, :ca_bundle_path,
                 :log_level, :initial_network_retry_delay, :max_network_retries, :max_network_retry_delay,
                 :open_timeout, :read_timeout, :write_timeout, :proxy, :verify_ssl_certs
+
+    # Returns the API key, resolving it if it's a callable (lambda/proc).
+    # This enables multi-region or dynamic configuration where the key
+    # may vary per request.
+    def api_key
+      @api_key.respond_to?(:call) ? @api_key.call : @api_key
+    end
 
     def self.setup
       new.tap do |instance|

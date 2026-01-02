@@ -142,8 +142,13 @@ module Stripe
         def tax_code; end
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
         def tax_code=(_tax_code); end
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        sig { returns(T.nilable(String)) }
+        def performance_location; end
+        sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+        def performance_location=(_performance_location); end
         sig {
-          params(amount: Integer, metadata: T.nilable(T::Hash[String, String]), product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void
+          params(amount: Integer, metadata: T.nilable(T::Hash[String, String]), product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String), performance_location: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -152,7 +157,8 @@ module Stripe
           quantity: nil,
           reference: nil,
           tax_behavior: nil,
-          tax_code: nil
+          tax_code: nil,
+          performance_location: nil
         ); end
       end
       class ShipFromDetails < ::Stripe::RequestParams

@@ -1838,14 +1838,16 @@ module Stripe
           def initialize(siret: nil); end
         end
         # French meal voucher benefit details for this SetupIntent.
-        sig { returns(T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)) }
+        sig {
+          returns(T.nilable(T.any(String, SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)))
+         }
         def fr_meal_voucher; end
         sig {
-          params(_fr_meal_voucher: T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)).returns(T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher))
+          params(_fr_meal_voucher: T.nilable(T.any(String, SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher))).returns(T.nilable(T.any(String, SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)))
          }
         def fr_meal_voucher=(_fr_meal_voucher); end
         sig {
-          params(fr_meal_voucher: T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)).void
+          params(fr_meal_voucher: T.nilable(T.any(String, SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher))).void
          }
         def initialize(fr_meal_voucher: nil); end
       end

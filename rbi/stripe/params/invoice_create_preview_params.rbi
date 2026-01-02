@@ -1271,7 +1271,7 @@ module Stripe
           params(_discount_actions: T.nilable(T::Array[InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction])).returns(T.nilable(T::Array[InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction]))
          }
         def discount_actions=(_discount_actions); end
-        # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+        # Configures how the subscription schedule handles billing for phase transitions.
         sig { returns(T.nilable(String)) }
         def effective_at; end
         sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
@@ -2218,7 +2218,7 @@ module Stripe
           params(_duration: T.nilable(InvoiceCreatePreviewParams::ScheduleDetails::Phase::Duration)).returns(T.nilable(InvoiceCreatePreviewParams::ScheduleDetails::Phase::Duration))
          }
         def duration=(_duration); end
-        # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+        # Configures how the subscription schedule handles billing for phase transitions.
         sig { returns(T.nilable(String)) }
         def effective_at; end
         sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }

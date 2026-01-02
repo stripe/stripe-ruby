@@ -1733,6 +1733,71 @@ module Stripe
         end
 
         class Us < ::Stripe::StripeObject
+          class AdmissionsTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=admissions_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class AttendanceTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=attendance_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class EntertainmentTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=entertainment_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class GrossReceiptsTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=gross_receipts_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class HospitalityTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=hospitality_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class LocalAmusementTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
             attr_reader :jurisdiction
@@ -1748,6 +1813,32 @@ module Stripe
 
           class LocalLeaseTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class LuxuryTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=luxury_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ResortTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=resort_tax#registration-types) representing the local jurisdiction.
             attr_reader :jurisdiction
 
             def self.inner_class_types
@@ -1785,6 +1876,19 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class TourismTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=tourism_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field local_amusement_tax
           attr_reader :local_amusement_tax
           # Attribute for field local_lease_tax
@@ -1795,12 +1899,36 @@ module Stripe
           attr_reader :state_sales_tax
           # Type of registration in the US.
           attr_reader :type
+          # Attribute for field admissions_tax
+          attr_reader :admissions_tax
+          # Attribute for field attendance_tax
+          attr_reader :attendance_tax
+          # Attribute for field entertainment_tax
+          attr_reader :entertainment_tax
+          # Attribute for field gross_receipts_tax
+          attr_reader :gross_receipts_tax
+          # Attribute for field hospitality_tax
+          attr_reader :hospitality_tax
+          # Attribute for field luxury_tax
+          attr_reader :luxury_tax
+          # Attribute for field resort_tax
+          attr_reader :resort_tax
+          # Attribute for field tourism_tax
+          attr_reader :tourism_tax
 
           def self.inner_class_types
             @inner_class_types = {
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
               state_sales_tax: StateSalesTax,
+              admissions_tax: AdmissionsTax,
+              attendance_tax: AttendanceTax,
+              entertainment_tax: EntertainmentTax,
+              gross_receipts_tax: GrossReceiptsTax,
+              hospitality_tax: HospitalityTax,
+              luxury_tax: LuxuryTax,
+              resort_tax: ResortTax,
+              tourism_tax: TourismTax,
             }
           end
 

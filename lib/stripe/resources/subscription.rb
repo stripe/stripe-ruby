@@ -936,6 +936,26 @@ module Stripe
       )
     end
 
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    def pause(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    def self.pause(subscription, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     def resume(params = {}, opts = {})
       request_stripe_object(

@@ -64,7 +64,13 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: just test typecheck
+      run: |
+        if ! just test typecheck 2> /dev/null; then
+          if [[ ${{ matrix.ruby-version }} == "truffleruby-head" ]]; then
+            echo "just test typecheck FAILED on truffleruby-head.  intermittent failures may happen with this dev build, but we should keep an eye on this"
+          fi
+          exit 1
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 

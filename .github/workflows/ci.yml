@@ -56,10 +56,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
-    - name: install
-      run: |
-        just install
-        bundle lock --add-platform x86_64-linux
     - name: test
       run: just test typecheck
       env:

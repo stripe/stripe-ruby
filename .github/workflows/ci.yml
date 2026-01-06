@@ -44,10 +44,17 @@ jobs:
     name: Test (${{ matrix.ruby-version }})
     # this version of jruby isn't available in the new latest (24.04) so we have to pin (or update jruby)
     runs-on: ubuntu-22.04
+    continue-on-error: ${{ matrix.dev-build }}
     strategy:
       matrix:
         # following https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
-        ruby-version: [2.6, 2.7, '3.0', 3.1, 3.2, 3.3, 3.4, jruby-9.4.0.0, truffleruby-25.0.0]
+        ruby-version: [2.6, 2.7, '3.0', 3.1, 3.2, 3.3, 3.4, jruby-9.4.0.0]
+        dev-build: [false]
+        include:
+          # truffleruby-head refers to a dev build which could cause breakage between releases
+          - ruby-version: truffleruby-head
+            dev-build: true
+
     steps:
     - uses: extractions/setup-just@v2
     - uses: actions/checkout@v3

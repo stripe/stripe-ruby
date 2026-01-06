@@ -64,9 +64,19 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: just test typecheck
+      run: |
+        success=true
+        if ! just test typecheck 2> /dev/null; then
+          echo "just test typecheck FAILED"
+          success=false
+        fi
+        echo "success=$success" >> "$GITHUB_OUTPUT"
+        exit 0
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
+    - name: evaluate test results
+      if: steps.test.success != true && matrix.ruby-version != 'truffleruby-head'
+      run: exit 1
 
   publish:
     name: Publish

@@ -44,7 +44,6 @@ jobs:
     name: Test (${{ matrix.ruby-version }})
     # this version of jruby isn't available in the new latest (24.04) so we have to pin (or update jruby)
     runs-on: ubuntu-22.04
-    continue-on-error: ${{ matrix.dev-build }}
     strategy:
       matrix:
         # following https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy

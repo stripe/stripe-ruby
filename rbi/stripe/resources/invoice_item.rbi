@@ -139,7 +139,7 @@ module Stripe
       end
       class PriceDetails < ::Stripe::StripeObject
         # The ID of the price this item is associated with.
-        sig { returns(T.any(String, ::Stripe::Price)) }
+        sig { returns(String) }
         def price; end
         # The ID of the product this item is associated with.
         sig { returns(String) }

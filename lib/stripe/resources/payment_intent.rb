@@ -89,7 +89,7 @@ module Stripe
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_reader :discount_amount
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
       attr_reader :line_items
       # Attribute for field shipping
       attr_reader :shipping

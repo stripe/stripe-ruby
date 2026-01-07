@@ -168,7 +168,7 @@ module Stripe
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_accessor :discount_amount
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
       attr_accessor :line_items
       # Contains information about the shipping portion of the amount.
       attr_accessor :shipping
@@ -4783,56 +4783,6 @@ module Stripe
 
         def initialize(capture_method: nil)
           @capture_method = capture_method
-        end
-      end
-
-      class Payto < ::Stripe::RequestParams
-        class MandateOptions < ::Stripe::RequestParams
-          # Amount that will be collected. It is required when `amount_type` is `fixed`.
-          attr_accessor :amount
-          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
-          attr_accessor :amount_type
-          # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
-          attr_accessor :end_date
-          # The periodicity at which payments will be collected. Defaults to `adhoc`.
-          attr_accessor :payment_schedule
-          # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
-          attr_accessor :payments_per_period
-          # The purpose for which payments are made. Has a default value based on your merchant category code.
-          attr_accessor :purpose
-
-          def initialize(
-            amount: nil,
-            amount_type: nil,
-            end_date: nil,
-            payment_schedule: nil,
-            payments_per_period: nil,
-            purpose: nil
-          )
-            @amount = amount
-            @amount_type = amount_type
-            @end_date = end_date
-            @payment_schedule = payment_schedule
-            @payments_per_period = payments_per_period
-            @purpose = purpose
-          end
-        end
-        # Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
-        attr_accessor :mandate_options
-        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
-        #
-        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-        #
-        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-        #
-        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        #
-        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        attr_accessor :setup_future_usage
-
-        def initialize(mandate_options: nil, setup_future_usage: nil)
-          @mandate_options = mandate_options
-          @setup_future_usage = setup_future_usage
         end
       end
 

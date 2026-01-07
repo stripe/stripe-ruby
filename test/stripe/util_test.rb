@@ -158,6 +158,128 @@ module Stripe
       assert_equal [1, 2, 3], obj
     end
 
+    context "#objects_to_ids" do
+      should "convert APIResource to id" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        result = Util.objects_to_ids(resource, :v1)
+        assert_equal "ch_123", result
+      end
+
+      should "pass through primitives unchanged" do
+        assert_equal "string", Util.objects_to_ids("string", :v1)
+        assert_equal 123, Util.objects_to_ids(123, :v1)
+        assert_equal true, Util.objects_to_ids(true, :v1)
+      end
+
+      should "skip nil values in hashes with v1 semantics" do
+        input = { a: "value", b: nil, c: "another" }
+        result = Util.objects_to_ids(input, :v1)
+        assert_equal({ a: "value", c: "another" }, result)
+        refute result.key?(:b)
+      end
+
+      should "keep nil values in hashes with v2 semantics" do
+        input = { a: "value", b: nil, c: "another" }
+        result = Util.objects_to_ids(input, :v2)
+        assert_equal({ a: "value", b: nil, c: "another" }, result)
+        assert result.key?(:b)
+        assert_nil result[:b]
+      end
+
+      should "recurse on non-nil hash values with v1 semantics" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        input = { charge: resource, amount: 100 }
+        result = Util.objects_to_ids(input, :v1)
+        assert_equal({ charge: "ch_123", amount: 100 }, result)
+      end
+
+      should "recurse on non-nil hash values with v2 semantics" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        input = { charge: resource, amount: 100 }
+        result = Util.objects_to_ids(input, :v2)
+        assert_equal({ charge: "ch_123", amount: 100 }, result)
+      end
+
+      should "handle nested hashes with nil values in v1 semantics" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        input = {
+          charge: resource,
+          metadata: { key: "value", empty: nil },
+          description: nil,
+        }
+        result = Util.objects_to_ids(input, :v1)
+        expected = {
+          charge: "ch_123",
+          metadata: { key: "value" },
+        }
+        assert_equal expected, result
+        refute result[:metadata].key?(:empty)
+        refute result.key?(:description)
+      end
+
+      should "handle nested hashes with nil values in v2 semantics" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        input = {
+          charge: resource,
+          metadata: { key: "value", empty: nil },
+          description: nil,
+        }
+        result = Util.objects_to_ids(input, :v2)
+        expected = {
+          charge: "ch_123",
+          metadata: { key: "value", empty: nil },
+          description: nil,
+        }
+        assert_equal expected, result
+        assert result[:metadata].key?(:empty)
+        assert result.key?(:description)
+      end
+
+      should "process arrays with v1 semantics" do
+        resource1 = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        resource2 = Stripe::Charge.construct_from(id: "ch_456", object: "charge")
+        input = [resource1, "string", resource2]
+        result = Util.objects_to_ids(input, :v1)
+        assert_equal ["ch_123", "string", "ch_456"], result
+      end
+
+      should "process arrays with v2 semantics" do
+        resource1 = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        resource2 = Stripe::Charge.construct_from(id: "ch_456", object: "charge")
+        input = [resource1, "string", resource2]
+        result = Util.objects_to_ids(input, :v2)
+        assert_equal ["ch_123", "string", "ch_456"], result
+      end
+
+      should "handle complex nested structures with v1 semantics" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        input = {
+          charges: [resource, nil],
+          metadata: { key: nil, nested: { value: "test", empty: nil } },
+        }
+        result = Util.objects_to_ids(input, :v1)
+        expected = {
+          charges: ["ch_123", nil],
+          metadata: { nested: { value: "test" } },
+        }
+        assert_equal expected, result
+      end
+
+      should "handle complex nested structures with v2 semantics" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        input = {
+          charges: [resource, nil],
+          metadata: { key: nil, nested: { value: "test", empty: nil } },
+        }
+        result = Util.objects_to_ids(input, :v2)
+        expected = {
+          charges: ["ch_123", nil],
+          metadata: { key: nil, nested: { value: "test", empty: nil } },
+        }
+        assert_equal expected, result
+      end
+    end
+
     context ".request_id_dashboard_url" do
       should "generate a livemode URL" do
         assert_equal "https://dashboard.stripe.com/live/logs/request-id",

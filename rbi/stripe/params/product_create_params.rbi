@@ -251,13 +251,18 @@ module Stripe
       def initialize(height: nil, length: nil, weight: nil, width: nil); end
     end
     class TaxDetails < ::Stripe::RequestParams
+      # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+      sig { returns(T.nilable(String)) }
+      def performance_location; end
+      sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+      def performance_location=(_performance_location); end
       # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
       sig { returns(String) }
       def tax_code; end
       sig { params(_tax_code: String).returns(String) }
       def tax_code=(_tax_code); end
-      sig { params(tax_code: String).void }
-      def initialize(tax_code: nil); end
+      sig { params(performance_location: T.nilable(String), tax_code: String).void }
+      def initialize(performance_location: nil, tax_code: nil); end
     end
     # Whether the product is currently available for purchase. Defaults to `true`.
     sig { returns(T.nilable(T::Boolean)) }

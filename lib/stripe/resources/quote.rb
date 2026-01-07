@@ -732,7 +732,7 @@ module Stripe
       attr_reader :from_subscription
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_reader :metadata
-      # Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
       attr_reader :phase_effective_at
       # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
       attr_reader :prebilling
@@ -991,7 +991,7 @@ module Stripe
       attr_reader :description
       # Behavior of the subscription schedule and underlying subscription when it ends.
       attr_reader :end_behavior
-      # Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
       attr_reader :phase_effective_at
       # Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior

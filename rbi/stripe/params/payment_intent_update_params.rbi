@@ -362,15 +362,15 @@ module Stripe
         end
         # French meal voucher benefit details for this PaymentIntent.
         sig {
-          returns(T.nilable(PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher))
+          returns(T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher)))
          }
         def fr_meal_voucher; end
         sig {
-          params(_fr_meal_voucher: T.nilable(PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher)).returns(T.nilable(PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher))
+          params(_fr_meal_voucher: T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher))).returns(T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher)))
          }
         def fr_meal_voucher=(_fr_meal_voucher); end
         sig {
-          params(fr_meal_voucher: T.nilable(PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher)).void
+          params(fr_meal_voucher: T.nilable(T.any(String, PaymentIntentUpdateParams::PaymentDetails::Benefit::FrMealVoucher))).void
          }
         def initialize(fr_meal_voucher: nil); end
       end

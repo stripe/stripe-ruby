@@ -6,7 +6,7 @@ _default:
     just --list --unsorted
 
 install *args:
-    bundle install {{ if is_dependency() == "true" {"--quiet"} else {"--verbose"} }} {{ args }}
+    bundle install {{ if is_dependency() == "true" {"--quiet"} else {""} }} {{ args }}
 
 # ⭐ run all unit tests
 test: install

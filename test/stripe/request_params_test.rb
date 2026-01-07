@@ -259,8 +259,8 @@ module Stripe
           },
           expand: %i[customer_details line_items],
           line_items: [
-            { amount: 2000, metadata: nil, product: nil, quantity: 2, reference: "item_1", tax_behavior: "exclusive", tax_code: nil },
-            { amount: 1500, metadata: nil, product: nil, quantity: 1, reference: "item_2", tax_behavior: "inclusive", tax_code: nil },
+            { amount: 2000, metadata: nil, performance_location: nil, product: nil, quantity: 2, reference: "item_1", tax_behavior: "exclusive", tax_code: nil },
+            { amount: 1500, metadata: nil, performance_location: nil, product: nil, quantity: 1, reference: "item_2", tax_behavior: "inclusive", tax_code: nil },
           ],
           ship_from_details: nil,
           shipping_cost: nil,

@@ -57,8 +57,7 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: |
-        just test typecheck
+      run: just test typecheck
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 

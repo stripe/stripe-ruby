@@ -471,7 +471,7 @@ module Stripe
       raise ArgumentError, "api_base cannot be empty" if base_url.nil? || base_url.empty?
 
       api_key ||= opts[:api_key]
-      params = Util.objects_to_ids(params)
+      params = Util.objects_to_ids(params, api_mode)
 
       check_api_key!(api_key)
 

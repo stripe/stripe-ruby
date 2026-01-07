@@ -1311,6 +1311,23 @@ module Stripe
         end
       end
 
+      class Payto < ::Stripe::StripeObject
+        # Bank-State-Branch number of the bank account.
+        attr_reader :bsb_number
+        # Last four digits of the bank account number.
+        attr_reader :last4
+        # The PayID alias for the bank account.
+        attr_reader :pay_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Pix < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}

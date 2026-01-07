@@ -1333,6 +1333,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Payto < ::Stripe::StripeObject
+        # Bank-State-Branch number of the bank account.
+        sig { returns(T.nilable(String)) }
+        def bsb_number; end
+        # Last four digits of the bank account number.
+        sig { returns(T.nilable(String)) }
+        def last4; end
+        # The PayID alias for the bank account.
+        sig { returns(T.nilable(String)) }
+        def pay_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Pix < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}

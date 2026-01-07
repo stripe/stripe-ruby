@@ -73,7 +73,7 @@ module Stripe
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       sig { returns(T.nilable(Integer)) }
       def discount_amount; end
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
       # Attribute for field shipping
@@ -2845,6 +2845,52 @@ module Stripe
       class Paypay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Payto < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Amount that will be collected. It is required when `amount_type` is `fixed`.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+          sig { returns(T.nilable(String)) }
+          def amount_type; end
+          # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+          sig { returns(T.nilable(String)) }
+          def end_date; end
+          # The periodicity at which payments will be collected. Defaults to `adhoc`.
+          sig { returns(T.nilable(String)) }
+          def payment_schedule; end
+          # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+          sig { returns(T.nilable(Integer)) }
+          def payments_per_period; end
+          # The purpose for which payments are made. Has a default value based on your merchant category code.
+          sig { returns(T.nilable(String)) }
+          def purpose; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        sig { returns(T.nilable(MandateOptions)) }
+        def mandate_options; end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        def self.inner_class_types
+          @inner_class_types = {mandate_options: MandateOptions}
         end
         def self.field_remappings
           @field_remappings = {}

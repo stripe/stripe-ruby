@@ -31,25 +31,36 @@
   * Add support for event notifications `V2PaymentsSettlementAllocationIntentCanceledEvent`, `V2PaymentsSettlementAllocationIntentCreatedEvent`, `V2PaymentsSettlementAllocationIntentErroredEvent`, `V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent`, `V2PaymentsSettlementAllocationIntentMatchedEvent`, `V2PaymentsSettlementAllocationIntentSettledEvent`, and `V2PaymentsSettlementAllocationIntentSubmittedEvent` with related object `V2::Payments::SettlementAllocationIntent`
   * Add support for event notifications `V2PaymentsSettlementAllocationIntentSplitCanceledEvent`, `V2PaymentsSettlementAllocationIntentSplitCreatedEvent`, and `V2PaymentsSettlementAllocationIntentSplitSettledEvent` with related object `V2::Payments::SettlementAllocationIntentSplit`
 
-## 18.1.0-alpha.4 - 2025-12-04
-* [#1740](https://github.com/stripe/stripe-ruby/pull/1740) Update generated code for private-preview
-  * Add support for event notifications `V2IamApiKeyCreatedEvent`, `V2IamApiKeyDefaultSecretRevealedEvent`, `V2IamApiKeyExpiredEvent`, `V2IamApiKeyPermissionsUpdatedEvent`, `V2IamApiKeyRotatedEvent`, and `V2IamApiKeyUpdatedEvent`
-* [#1739](https://github.com/stripe/stripe-ruby/pull/1739) Update generated code for private-preview
-  * Add support for `check_scanning` on `AccountSession::Component`
-  * Add support for `client` on `V2::Core::Event::Reason::Request`
-  * Add support for `stripe_balance_payment` on `V2::MoneyManagement::ReceivedCredit` and `V2::MoneyManagement::ReceivedDebit`
-  * Add support for `balance_transfer` on `V2::MoneyManagement::ReceivedDebit`
-  * Add support for `include` on `V2::Core::EventListParams` and `V2::Core::EventRetrieveParams`
+## 18.1.0 - 2025-12-16
+This release changes the pinned API version to `2025-12-15.clover`.
 
-## 18.1.0-alpha.3 - 2025-11-24
-* [#1737](https://github.com/stripe/stripe-ruby/pull/1737) Update generated code for private-preview
-  * Add support for new resource `ProductCatalog::TrialOffer`
-  * Add support for `create` method on resource `ProductCatalog::TrialOffer`
-  * Remove support for `amount_subtotal_after_discount` on `DelegatedCheckout::RequestedSession::LineItemDetail` and `DelegatedCheckout::RequestedSession::TotalDetail`
-  * Remove support for `amount_total`, `unit_amount_after_discount`, and `unit_discount` on `DelegatedCheckout::RequestedSession::LineItemDetail`
-  * Add support for `amount_cart_discount` and `amount_items_discount` on `DelegatedCheckout::RequestedSession::TotalDetail`
-  * Remove support for `amount_discount` on `DelegatedCheckout::RequestedSession::TotalDetail`
-  * Add support for `payments_orchestration` on `PaymentIntentCreateParams` and `PaymentIntent`
+* [#1744](https://github.com/stripe/stripe-ruby/pull/1744) Update generated code
+  * Add support for new resources `V2::Core::AccountLink`, `V2::Core::AccountPersonToken`, `V2::Core::AccountPerson`, `V2::Core::AccountToken`, and `V2::Core::Account`
+  * Add support for `create` and `retrieve` methods on resources `V2::Core::AccountPersonToken` and `V2::Core::AccountToken`
+  * Add support for `create` method on resource `V2::Core::AccountLink`
+  * Add support for `close`, `create`, `list`, `retrieve`, and `update` methods on resource `V2::Core::Account`
+  * Add support for `create`, `delete`, `list`, `retrieve`, and `update` methods on resource `V2::Core::AccountPerson`
+  * Add support for `customer_account` on `Billing::CreditBalanceSummaryRetrieveParams`, `Billing::CreditBalanceSummary`, `Billing::CreditBalanceTransactionListParams`, `Billing::CreditGrantCreateParams`, `Billing::CreditGrantListParams`, `Billing::CreditGrant`, `BillingPortal::SessionCreateParams`, `BillingPortal::Session`, `CashBalance`, `Checkout::SessionCreateParams`, `Checkout::SessionListParams`, `Checkout::Session`, `ConfirmationToken::PaymentMethodPreview`, `CreditNoteListParams`, `CreditNote`, `CustomerBalanceTransaction`, `CustomerCashBalanceTransaction`, `CustomerSessionCreateParams`, `CustomerSession`, `Customer`, `Discount`, `FinancialConnections::Account::AccountHolder`, `FinancialConnections::AccountListParams::AccountHolder`, `FinancialConnections::Session::AccountHolder`, `FinancialConnections::SessionCreateParams::AccountHolder`, `InvoiceCreateParams`, `InvoiceCreatePreviewParams`, `InvoiceItemCreateParams`, `InvoiceItemListParams`, `InvoiceItem`, `InvoiceListParams`, `Invoice`, `PaymentIntentCreateParams`, `PaymentIntentListParams`, `PaymentIntentUpdateParams`, `PaymentIntent`, `PaymentMethodAttachParams`, `PaymentMethodListParams`, `PaymentMethod`, `PromotionCodeCreateParams`, `PromotionCodeListParams`, `PromotionCode`, `QuoteCreateParams`, `QuoteListParams`, `QuoteUpdateParams`, `Quote`, `SetupAttempt`, `SetupIntentCreateParams`, `SetupIntentListParams`, `SetupIntentUpdateParams`, `SetupIntent`, `SubscriptionCreateParams`, `SubscriptionListParams`, `SubscriptionScheduleCreateParams`, `SubscriptionScheduleListParams`, `SubscriptionSchedule`, `Subscription`, `TaxId::Owner`, `TaxIdCreateParams::Owner`, `TaxIdListParams::Owner`, and `TaxId`
+  * Add support for `metadata` on `Checkout::SessionCreateParams::LineItem` and `LineItem`
+  * Add support for `payto_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `signer` on `AccountCreateParams::Document::ProofOfRegistration`, `AccountCreateParams::Document::ProofOfUltimateBeneficialOwnership`, `AccountUpdateParams::Document::ProofOfRegistration`, and `AccountUpdateParams::Document::ProofOfUltimateBeneficialOwnership`
+  * Change `Billing::CreditBalanceSummaryRetrieveParams.customer`, `Billing::CreditBalanceTransactionListParams.customer`, `Billing::CreditGrantCreateParams.customer`, `BillingPortal::SessionCreateParams.customer`, `CustomerSessionCreateParams.customer`, `InvoiceItemCreateParams.customer`, `PaymentMethodAttachParams.customer`, and `SubscriptionCreateParams.customer` to be optional
+  * Add support for `billing_cycle_anchor` on `BillingPortal::Configuration::Feature::SubscriptionUpdate`, `BillingPortal::ConfigurationCreateParams::Feature::SubscriptionUpdate`, and `BillingPortal::ConfigurationUpdateParams::Feature::SubscriptionUpdate`
+  * Add support for `payto` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Mandate::PaymentMethodDetail`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethodUpdateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, `SetupIntentUpdateParams::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * Add support for `expected_debit_date` on `Charge::PaymentMethodDetail::AcssDebit`, `Charge::PaymentMethodDetail::AuBecsDebit`, `Charge::PaymentMethodDetail::BacsDebit`, `Charge::PaymentMethodDetail::NzBankAccount`, `Charge::PaymentMethodDetail::SepaDebit`, `Charge::PaymentMethodDetail::UsBankAccount`, `PaymentAttemptRecord::PaymentMethodDetail::AcssDebit`, `PaymentAttemptRecord::PaymentMethodDetail::AuBecsDebit`, `PaymentAttemptRecord::PaymentMethodDetail::BacsDebit`, `PaymentAttemptRecord::PaymentMethodDetail::NzBankAccount`, `PaymentAttemptRecord::PaymentMethodDetail::SepaDebit`, `PaymentAttemptRecord::PaymentMethodDetail::UsBankAccount`, `PaymentRecord::PaymentMethodDetail::AcssDebit`, `PaymentRecord::PaymentMethodDetail::AuBecsDebit`, `PaymentRecord::PaymentMethodDetail::BacsDebit`, `PaymentRecord::PaymentMethodDetail::NzBankAccount`, `PaymentRecord::PaymentMethodDetail::SepaDebit`, and `PaymentRecord::PaymentMethodDetail::UsBankAccount`
+  * Add support for `line_items` on `Checkout::SessionUpdateParams`
+  * Add support for `invoice` on `CustomerCustomerBalanceTransactionListParams`
+  * Add support for `related_customer_account` on `Identity::VerificationSessionCreateParams`, `Identity::VerificationSessionListParams`, and `Identity::VerificationSession`
+  * Change type of `InvoiceItem::Pricing::PriceDetail.price` and `InvoiceLineItem::Pricing::PriceDetail.price` from `string` to `expandable($Price)`
+  * Add support for `subtotal` on `InvoiceLineItem`
+  * Add support for `authorization_code`, `description`, `iin`, `installments`, `issuer`, `network_advice_code`, `network_decline_code`, and `stored_credential_usage` on `PaymentAttemptRecord::PaymentMethodDetail::Card` and `PaymentRecord::PaymentMethodDetail::Card`
+  * Change `PaymentIntent.transfer_data` to be optional
+  * Add support for `allow_redisplay` on `PaymentMethodListParams`
+  * Add support for `reported_by` on `PaymentRecord`
+  * Change `Product.tax_code` to be optional
+  * Add support for `changes` on `V2::Core::Event`
+* [#1741](https://github.com/stripe/stripe-ruby/pull/1741) Format breaking change warning to improve discoverability
+* [#1742](https://github.com/stripe/stripe-ruby/pull/1742) Updated bundled CA certs
 
 ## 18.1.0-beta.1 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.preview`.
@@ -78,6 +89,26 @@ This release changes the pinned API version to `2025-11-17.preview`.
   * Add support for `changes` on `V2::Core::Event`
   * Add support for thin event `V2CoreHealthEventGenerationFailureResolvedEvent`
   * Remove support for thin events `V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent`, `V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent`, `V2PaymentsOffSessionPaymentCanceledEvent`, `V2PaymentsOffSessionPaymentCreatedEvent`, `V2PaymentsOffSessionPaymentFailedEvent`, `V2PaymentsOffSessionPaymentRequiresCaptureEvent`, and `V2PaymentsOffSessionPaymentSucceededEvent` with related object `V2::Payments::OffSessionPayment`
+
+## 18.1.0-alpha.4 - 2025-12-04
+* [#1740](https://github.com/stripe/stripe-ruby/pull/1740) Update generated code for private-preview
+  * Add support for event notifications `V2IamApiKeyCreatedEvent`, `V2IamApiKeyDefaultSecretRevealedEvent`, `V2IamApiKeyExpiredEvent`, `V2IamApiKeyPermissionsUpdatedEvent`, `V2IamApiKeyRotatedEvent`, and `V2IamApiKeyUpdatedEvent`
+* [#1739](https://github.com/stripe/stripe-ruby/pull/1739) Update generated code for private-preview
+  * Add support for `check_scanning` on `AccountSession::Component`
+  * Add support for `client` on `V2::Core::Event::Reason::Request`
+  * Add support for `stripe_balance_payment` on `V2::MoneyManagement::ReceivedCredit` and `V2::MoneyManagement::ReceivedDebit`
+  * Add support for `balance_transfer` on `V2::MoneyManagement::ReceivedDebit`
+  * Add support for `include` on `V2::Core::EventListParams` and `V2::Core::EventRetrieveParams`
+
+## 18.1.0-alpha.3 - 2025-11-24
+* [#1737](https://github.com/stripe/stripe-ruby/pull/1737) Update generated code for private-preview
+  * Add support for new resource `ProductCatalog::TrialOffer`
+  * Add support for `create` method on resource `ProductCatalog::TrialOffer`
+  * Remove support for `amount_subtotal_after_discount` on `DelegatedCheckout::RequestedSession::LineItemDetail` and `DelegatedCheckout::RequestedSession::TotalDetail`
+  * Remove support for `amount_total`, `unit_amount_after_discount`, and `unit_discount` on `DelegatedCheckout::RequestedSession::LineItemDetail`
+  * Add support for `amount_cart_discount` and `amount_items_discount` on `DelegatedCheckout::RequestedSession::TotalDetail`
+  * Remove support for `amount_discount` on `DelegatedCheckout::RequestedSession::TotalDetail`
+  * Add support for `payments_orchestration` on `PaymentIntentCreateParams` and `PaymentIntent`
 
 ## 18.1.0-alpha.2 - 2025-11-20
 This release changes the pinned API version to `2025-11-17.preview`.

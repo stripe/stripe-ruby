@@ -10539,29 +10539,16 @@ module Stripe
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
     end
     should "Test rate limit error (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs").to_return(
-        body: '{"error":{"type":"rate_limit","code":"report_run_rate_limit_exceeded"}}',
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
+        body: '{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::RateLimitError do
-        report_run = client.v2.reporting.report_runs.create({
-          report: "report",
-          report_parameters: {
-            int_key: 123,
-            string_key: "value",
-            boolean_key: true,
-            object_key: {
-              object_int_key: 123,
-              object_string_key: "value",
-              object_boolean_key: true,
-            },
-            array_key: [1, 2, 3],
-          },
-        })
+        accounts = client.v2.core.accounts.list
       end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs"
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
     end
     should "Test recipient not notifiable error (service)" do
       stub_request(

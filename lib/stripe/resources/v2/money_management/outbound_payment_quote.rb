@@ -27,10 +27,10 @@ module Stripe
         end
 
         class DeliveryOptions < ::Stripe::StripeObject
-          # Open Enum. Method for bank account.
-          attr_reader :bank_account
           # Open Enum. Speed of the payout.
           attr_reader :speed
+          # Open Enum. Method for bank account.
+          attr_reader :bank_account
 
           def self.inner_class_types
             @inner_class_types = {}

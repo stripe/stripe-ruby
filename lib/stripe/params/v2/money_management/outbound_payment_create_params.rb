@@ -18,14 +18,31 @@ module Stripe
         end
 
         class DeliveryOptions < ::Stripe::RequestParams
-          # Open Enum. Method for bank account.
-          attr_accessor :bank_account
+          class PaperCheck < ::Stripe::RequestParams
+            # Memo printed on the memo field of the check.
+            attr_accessor :memo
+            # Open Enum. Shipping speed of the paper check. Defaults to standard.
+            attr_accessor :shipping_speed
+            # Signature for the paper check.
+            attr_accessor :signature
+
+            def initialize(memo: nil, shipping_speed: nil, signature: nil)
+              @memo = memo
+              @shipping_speed = shipping_speed
+              @signature = signature
+            end
+          end
           # Open Enum. Speed of the payout.
           attr_accessor :speed
+          # Open Enum. Method for bank account.
+          attr_accessor :bank_account
+          # Delivery options for paper check.
+          attr_accessor :paper_check
 
-          def initialize(bank_account: nil, speed: nil)
-            @bank_account = bank_account
+          def initialize(speed: nil, bank_account: nil, paper_check: nil)
             @speed = speed
+            @bank_account = bank_account
+            @paper_check = paper_check
           end
         end
 

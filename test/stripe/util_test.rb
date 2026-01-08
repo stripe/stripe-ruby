@@ -240,7 +240,7 @@ module Stripe
         resource2 = Stripe::Charge.construct_from(id: "ch_456", object: "charge")
         input = [resource1, "string", resource2]
         result = Util.objects_to_ids(input, :v1)
-        assert_equal ["ch_123", "string", "ch_456"], result
+        assert_equal %w[ch_123 string ch_456], result
       end
 
       should "process arrays with v2 semantics" do
@@ -248,7 +248,7 @@ module Stripe
         resource2 = Stripe::Charge.construct_from(id: "ch_456", object: "charge")
         input = [resource1, "string", resource2]
         result = Util.objects_to_ids(input, :v2)
-        assert_equal ["ch_123", "string", "ch_456"], result
+        assert_equal %w[ch_123 string ch_456], result
       end
 
       should "handle complex nested structures with v1 semantics" do

@@ -21,18 +21,50 @@ module Stripe
           def initialize(value: nil, currency: nil); end
         end
         class DeliveryOptions < ::Stripe::RequestParams
-          # Open Enum. Method for bank account.
-          sig { returns(T.nilable(String)) }
-          def bank_account; end
-          sig { params(_bank_account: T.nilable(String)).returns(T.nilable(String)) }
-          def bank_account=(_bank_account); end
+          class PaperCheck < ::Stripe::RequestParams
+            # Memo printed on the memo field of the check.
+            sig { returns(T.nilable(String)) }
+            def memo; end
+            sig { params(_memo: T.nilable(String)).returns(T.nilable(String)) }
+            def memo=(_memo); end
+            # Open Enum. Shipping speed of the paper check. Defaults to standard.
+            sig { returns(T.nilable(String)) }
+            def shipping_speed; end
+            sig { params(_shipping_speed: T.nilable(String)).returns(T.nilable(String)) }
+            def shipping_speed=(_shipping_speed); end
+            # Signature for the paper check.
+            sig { returns(String) }
+            def signature; end
+            sig { params(_signature: String).returns(String) }
+            def signature=(_signature); end
+            sig {
+              params(memo: T.nilable(String), shipping_speed: T.nilable(String), signature: String).void
+             }
+            def initialize(memo: nil, shipping_speed: nil, signature: nil); end
+          end
           # Open Enum. Speed of the payout.
           sig { returns(T.nilable(String)) }
           def speed; end
           sig { params(_speed: T.nilable(String)).returns(T.nilable(String)) }
           def speed=(_speed); end
-          sig { params(bank_account: T.nilable(String), speed: T.nilable(String)).void }
-          def initialize(bank_account: nil, speed: nil); end
+          # Open Enum. Method for bank account.
+          sig { returns(T.nilable(String)) }
+          def bank_account; end
+          sig { params(_bank_account: T.nilable(String)).returns(T.nilable(String)) }
+          def bank_account=(_bank_account); end
+          # Delivery options for paper check.
+          sig {
+            returns(T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck))
+           }
+          def paper_check; end
+          sig {
+            params(_paper_check: T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck)).returns(T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck))
+           }
+          def paper_check=(_paper_check); end
+          sig {
+            params(speed: T.nilable(String), bank_account: T.nilable(String), paper_check: T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck)).void
+           }
+          def initialize(speed: nil, bank_account: nil, paper_check: nil); end
         end
         class From < ::Stripe::RequestParams
           # Describes the FinancialAmount's currency drawn from.

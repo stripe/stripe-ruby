@@ -7,6 +7,8 @@ module Stripe
       module Accounts
         class PersonTokenService < StripeService
           # Creates a Person Token associated with an Account.
+          #
+          # ** raises RateLimitError
           def create(account_id, params = {}, opts = {})
             request(
               method: :post,
@@ -18,6 +20,8 @@ module Stripe
           end
 
           # Retrieves a Person Token associated with an Account.
+          #
+          # ** raises RateLimitError
           def retrieve(account_id, id, params = {}, opts = {})
             request(
               method: :get,

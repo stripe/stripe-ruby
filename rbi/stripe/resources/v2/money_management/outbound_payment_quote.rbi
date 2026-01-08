@@ -22,12 +22,12 @@ module Stripe
           end
         end
         class DeliveryOptions < ::Stripe::StripeObject
-          # Open Enum. Method for bank account.
-          sig { returns(T.nilable(String)) }
-          def bank_account; end
           # Open Enum. Speed of the payout.
           sig { returns(T.nilable(String)) }
           def speed; end
+          # Open Enum. Method for bank account.
+          sig { returns(T.nilable(String)) }
+          def bank_account; end
           def self.inner_class_types
             @inner_class_types = {}
           end

@@ -27,13 +27,31 @@ module Stripe
         end
 
         class DeliveryOptions < ::Stripe::StripeObject
-          # Open Enum. Method for bank account.
-          attr_reader :bank_account
+          class PaperCheck < ::Stripe::StripeObject
+            # Memo printed on the memo field of the check.
+            attr_reader :memo
+            # Open Enum. Shipping speed of the paper check.
+            attr_reader :shipping_speed
+            # Signature for the paper check.
+            attr_reader :signature
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Open Enum. Speed of the payout.
           attr_reader :speed
+          # Open Enum. Method for bank account.
+          attr_reader :bank_account
+          # Delivery options for paper check.
+          attr_reader :paper_check
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { paper_check: PaperCheck }
           end
 
           def self.field_remappings
@@ -195,6 +213,67 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class TrackingDetails < ::Stripe::StripeObject
+          class PaperCheck < ::Stripe::StripeObject
+            class MailingAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+              # Town or district.
+              attr_reader :town
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Open Enum. Carrier of the paper check.
+            attr_reader :carrier
+            # Check number.
+            attr_reader :check_number
+            # Postal code of the latest tracking update.
+            attr_reader :current_postal_code
+            # Mailing address of the paper check.
+            attr_reader :mailing_address
+            # Tracking number for the check.
+            attr_reader :tracking_number
+            # Open Enum. Tracking status of the paper check.
+            attr_reader :tracking_status
+            # When the tracking details were last updated.
+            attr_reader :updated_at
+
+            def self.inner_class_types
+              @inner_class_types = { mailing_address: MailingAddress }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Paper check tracking details.
+          attr_reader :paper_check
+
+          def self.inner_class_types
+            @inner_class_types = { paper_check: PaperCheck }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The "presentment amount" for the OutboundPayment.
         attr_reader :amount
         # Returns true if the OutboundPayment can be canceled, and false otherwise.
@@ -240,6 +319,8 @@ module Stripe
         attr_reader :to
         # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a “reference number” or something similar.
         attr_reader :trace_id
+        # Information to track this OutboundPayment with the recipient bank.
+        attr_reader :tracking_details
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
 
@@ -253,6 +334,7 @@ module Stripe
             status_transitions: StatusTransitions,
             to: To,
             trace_id: TraceId,
+            tracking_details: TrackingDetails,
           }
         end
 

@@ -19,10 +19,14 @@ on:
       - sdk-release/**
       - feature/**
 
+permissions: {}
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
 
     steps:
     - uses: extractions/setup-just@v2
@@ -45,6 +49,8 @@ jobs:
     name: Test (${{ matrix.ruby-version }})
     # this version of jruby isn't available in the new latest (24.04) so we have to pin (or update jruby)
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     strategy:
       matrix:
         # following https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
@@ -70,6 +76,8 @@ jobs:
       endsWith(github.actor, '-stripe')
     needs: [build, test]
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     steps:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v4

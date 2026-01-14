@@ -6,7 +6,7 @@ module Stripe
     module Core
       module Vault
         class UsBankAccountUpdateParams < ::Stripe::RequestParams
-          # The bank account's fedwire routing number can be provided for update it was were empty previously.
+          # The bank account's Fedwire routing number can be provided for update if it was empty previously.
           attr_accessor :fedwire_routing_number
           # The bank account's ACH routing number can be provided for update if it was empty previously.
           attr_accessor :routing_number

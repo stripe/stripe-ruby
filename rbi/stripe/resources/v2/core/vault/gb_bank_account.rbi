@@ -8,6 +8,20 @@ module Stripe
       module Vault
         # Use the GBBankAccounts API to create and manage GB bank account objects
         class GbBankAccount < APIResource
+          class AlternativeReference < ::Stripe::StripeObject
+            # The ID of the alternative resource being referenced.
+            sig { returns(String) }
+            def id; end
+            # The type of the alternative reference (e.g., external_account for V1 external accounts).
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class ConfirmationOfPayee < ::Stripe::StripeObject
             class Result < ::Stripe::StripeObject
               class Matched < ::Stripe::StripeObject
@@ -74,6 +88,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The alternative reference for this payout method, if it's a projected payout method.
+          sig { returns(T.nilable(AlternativeReference)) }
+          def alternative_reference; end
           # Whether this bank account object was archived. Bank account objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived bank account objects
           # cannot be used as outbound destinations and will not appear in the outbound destination list.

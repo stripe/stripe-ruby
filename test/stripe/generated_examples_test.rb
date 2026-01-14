@@ -9001,7 +9001,7 @@ module Stripe
     end
     should "Test blocked by stripe error (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
-        body: '{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method_bank_account"}}',
+        body: '{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9170,6 +9170,18 @@ module Stripe
         })
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
+    end
+    should "Test rate limit error (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
+        body: '{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::RateLimitError do
+        accounts = client.v2.core.accounts.list
+      end
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
     end
     should "Test recipient not notifiable error (service)" do
       stub_request(

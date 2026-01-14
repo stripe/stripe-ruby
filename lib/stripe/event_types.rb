@@ -28,6 +28,8 @@ module Stripe
         Events::V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
         Events::V2CoreAccountIncludingDefaultsUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingDefaultsUpdatedEvent,
+        Events::V2CoreAccountIncludingFutureRequirementsUpdatedEvent.lookup_type =>
+        Events::V2CoreAccountIncludingFutureRequirementsUpdatedEvent,
         Events::V2CoreAccountIncludingIdentityUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingIdentityUpdatedEvent,
         Events::V2CoreAccountIncludingRequirementsUpdatedEvent.lookup_type =>
@@ -145,6 +147,8 @@ module Stripe
         Events::V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
         Events::V2CoreAccountIncludingDefaultsUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingDefaultsUpdatedEventNotification,
+        Events::V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification.lookup_type =>
+        Events::V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification,
         Events::V2CoreAccountIncludingIdentityUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingIdentityUpdatedEventNotification,
         Events::V2CoreAccountIncludingRequirementsUpdatedEventNotification.lookup_type =>

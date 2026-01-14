@@ -119,6 +119,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_future_requirements_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingIdentityUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_identity_updated(&blk);

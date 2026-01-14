@@ -57,6 +57,34 @@ module Stripe
           end
 
           class UsBankAccount < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
+              # The city of the address.
+              attr_reader :city
+              # The country of the address.
+              attr_reader :country
+              # The first line of the address.
+              attr_reader :line1
+              # The second line of the address.
+              attr_reader :line2
+              # The postal / zip code of the address.
+              attr_reader :postal_code
+              # The state of the address.
+              attr_reader :state
+              # The town of the address.
+              attr_reader :town
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The address of the account holder.
+            attr_reader :account_holder_address
+            # The name of the account holder.
+            attr_reader :account_holder_name
             # The account number of the US Bank Account.
             attr_reader :account_number
             # The name of the Bank.
@@ -70,7 +98,7 @@ module Stripe
             attr_reader :swift_code
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { account_holder_address: AccountHolderAddress }
             end
 
             def self.field_remappings

@@ -75,6 +75,9 @@ module Stripe
       # The price during the trial offer.
       sig { returns(T.any(String, ::Stripe::Price)) }
       def price; end
+      # A brief, user-friendly name for the trial offer-for identification purposes.
+      sig { returns(T.nilable(String)) }
+      def name; end
       # Creates a trial offer.
       sig {
         params(params: T.any(::Stripe::ProductCatalog::TrialOfferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)

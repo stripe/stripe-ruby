@@ -78,6 +78,8 @@ module Stripe
       attr_reader :object
       # The price during the trial offer.
       attr_reader :price
+      # A brief, user-friendly name for the trial offer-for identification purposes.
+      attr_reader :name
 
       # Creates a trial offer.
       def self.create(params = {}, opts = {})

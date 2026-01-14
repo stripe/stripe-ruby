@@ -48,12 +48,15 @@ module Stripe
       attr_accessor :expand
       # Price configuration during the trial period (amount, billing scheme, etc).
       attr_accessor :price
+      # A brief, user-friendly name for the trial offer-for identification purposes.
+      attr_accessor :name
 
-      def initialize(duration: nil, end_behavior: nil, expand: nil, price: nil)
+      def initialize(duration: nil, end_behavior: nil, expand: nil, price: nil, name: nil)
         @duration = duration
         @end_behavior = end_behavior
         @expand = expand
         @price = price
+        @name = name
       end
     end
   end

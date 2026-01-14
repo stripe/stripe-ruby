@@ -21,18 +21,18 @@ module Stripe
           def initialize(value: nil, currency: nil); end
         end
         class DeliveryOptions < ::Stripe::RequestParams
-          # Open Enum. Method for bank account.
-          sig { returns(T.nilable(String)) }
-          def bank_account; end
-          sig { params(_bank_account: T.nilable(String)).returns(T.nilable(String)) }
-          def bank_account=(_bank_account); end
           # Open Enum. Speed of the payout.
           sig { returns(T.nilable(String)) }
           def speed; end
           sig { params(_speed: T.nilable(String)).returns(T.nilable(String)) }
           def speed=(_speed); end
-          sig { params(bank_account: T.nilable(String), speed: T.nilable(String)).void }
-          def initialize(bank_account: nil, speed: nil); end
+          # Open Enum. Method for bank account.
+          sig { returns(T.nilable(String)) }
+          def bank_account; end
+          sig { params(_bank_account: T.nilable(String)).returns(T.nilable(String)) }
+          def bank_account=(_bank_account); end
+          sig { params(speed: T.nilable(String), bank_account: T.nilable(String)).void }
+          def initialize(speed: nil, bank_account: nil); end
         end
         class From < ::Stripe::RequestParams
           # Describes the FinancialAccount's currency drawn from.

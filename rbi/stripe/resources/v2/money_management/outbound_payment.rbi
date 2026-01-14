@@ -22,14 +22,34 @@ module Stripe
           end
         end
         class DeliveryOptions < ::Stripe::StripeObject
-          # Open Enum. Method for bank account.
-          sig { returns(T.nilable(String)) }
-          def bank_account; end
+          class PaperCheck < ::Stripe::StripeObject
+            # Memo printed on the memo field of the check.
+            sig { returns(T.nilable(String)) }
+            def memo; end
+            # Open Enum. Shipping speed of the paper check.
+            sig { returns(String) }
+            def shipping_speed; end
+            # Signature for the paper check.
+            sig { returns(String) }
+            def signature; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Open Enum. Speed of the payout.
           sig { returns(T.nilable(String)) }
           def speed; end
+          # Open Enum. Method for bank account.
+          sig { returns(T.nilable(String)) }
+          def bank_account; end
+          # Delivery options for paper check.
+          sig { returns(T.nilable(PaperCheck)) }
+          def paper_check; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {paper_check: PaperCheck}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -183,6 +203,75 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class TrackingDetails < ::Stripe::StripeObject
+          class PaperCheck < ::Stripe::StripeObject
+            class MailingAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              # Town or district.
+              sig { returns(T.nilable(String)) }
+              def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Open Enum. Carrier of the paper check.
+            sig { returns(String) }
+            def carrier; end
+            # Check number.
+            sig { returns(String) }
+            def check_number; end
+            # Postal code of the latest tracking update.
+            sig { returns(String) }
+            def current_postal_code; end
+            # Mailing address of the paper check.
+            sig { returns(MailingAddress) }
+            def mailing_address; end
+            # Tracking number for the check.
+            sig { returns(String) }
+            def tracking_number; end
+            # Open Enum. Tracking status of the paper check.
+            sig { returns(String) }
+            def tracking_status; end
+            # When the tracking details were last updated.
+            sig { returns(String) }
+            def updated_at; end
+            def self.inner_class_types
+              @inner_class_types = {mailing_address: MailingAddress}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Paper check tracking details.
+          sig { returns(T.nilable(PaperCheck)) }
+          def paper_check; end
+          def self.inner_class_types
+            @inner_class_types = {paper_check: PaperCheck}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The "presentment amount" for the OutboundPayment.
         sig { returns(Amount) }
         def amount; end
@@ -248,6 +337,9 @@ module Stripe
         # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a “reference number” or something similar.
         sig { returns(TraceId) }
         def trace_id; end
+        # Information to track this OutboundPayment with the recipient bank.
+        sig { returns(T.nilable(TrackingDetails)) }
+        def tracking_details; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end

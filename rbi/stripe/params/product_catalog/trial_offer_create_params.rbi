@@ -78,10 +78,15 @@ module Stripe
       def price; end
       sig { params(_price: String).returns(String) }
       def price=(_price); end
+      # A brief, user-friendly name for the trial offer-for identification purposes.
+      sig { returns(T.nilable(String)) }
+      def name; end
+      sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+      def name=(_name); end
       sig {
-        params(duration: ProductCatalog::TrialOfferCreateParams::Duration, end_behavior: ProductCatalog::TrialOfferCreateParams::EndBehavior, expand: T.nilable(T::Array[String]), price: String).void
+        params(duration: ProductCatalog::TrialOfferCreateParams::Duration, end_behavior: ProductCatalog::TrialOfferCreateParams::EndBehavior, expand: T.nilable(T::Array[String]), price: String, name: T.nilable(String)).void
        }
-      def initialize(duration: nil, end_behavior: nil, expand: nil, price: nil); end
+      def initialize(duration: nil, end_behavior: nil, expand: nil, price: nil, name: nil); end
     end
   end
 end

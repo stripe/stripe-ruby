@@ -18,14 +18,14 @@ module Stripe
         end
 
         class DeliveryOptions < ::Stripe::RequestParams
-          # Open Enum. Method for bank account.
-          attr_accessor :bank_account
           # Open Enum. Speed of the payout.
           attr_accessor :speed
+          # Open Enum. Method for bank account.
+          attr_accessor :bank_account
 
-          def initialize(bank_account: nil, speed: nil)
-            @bank_account = bank_account
+          def initialize(speed: nil, bank_account: nil)
             @speed = speed
+            @bank_account = bank_account
           end
         end
 

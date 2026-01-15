@@ -7882,6 +7882,18 @@ module Stripe
       event = client.v2.core.event_destinations.ping("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
     end
+    should "Test rate limit error (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
+        body: '{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::RateLimitError do
+        accounts = client.v2.core.accounts.list
+      end
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
+    end
     should "Test temporary session expired error (service)" do
       stub_request(
         :post,

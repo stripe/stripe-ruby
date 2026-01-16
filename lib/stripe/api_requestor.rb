@@ -853,8 +853,6 @@ module Stripe
       when "idempotency_error"
         IdempotencyError.new(error_data[:message], **opts)
       # switch cases: The beginning of the section generated from our OpenAPI spec
-      when "rate_limit"
-        RateLimitError.new(error_data[:message], **opts)
       when "temporary_session_expired"
         TemporarySessionExpiredError.new(error_data[:message], **opts)
       # switch cases: The end of the section generated from our OpenAPI spec

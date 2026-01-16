@@ -162,9 +162,6 @@ module Stripe
   end
 
   # class definitions: The beginning of the section generated from our OpenAPI spec
-  class RateLimitError < StripeError
-  end
-
   class TemporarySessionExpiredError < StripeError
   end
   # class definitions: The end of the section generated from our OpenAPI spec

@@ -7,8 +7,6 @@ module Stripe
     module Core
       class AccountLinkService < StripeService
         # Creates an AccountLink object that includes a single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information.
-        #
-        # ** raises RateLimitError
         sig {
           params(params: T.any(::Stripe::V2::Core::AccountLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::AccountLink)
          }

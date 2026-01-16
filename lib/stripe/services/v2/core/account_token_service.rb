@@ -6,8 +6,6 @@ module Stripe
     module Core
       class AccountTokenService < StripeService
         # Creates an Account Token.
-        #
-        # ** raises RateLimitError
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -19,8 +17,6 @@ module Stripe
         end
 
         # Retrieves an Account Token.
-        #
-        # ** raises RateLimitError
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

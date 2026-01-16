@@ -8,16 +8,12 @@ module Stripe
       module Accounts
         class PersonTokenService < StripeService
           # Creates a Person Token associated with an Account.
-          #
-          # ** raises RateLimitError
           sig {
             params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonTokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::AccountPersonToken)
            }
           def create(account_id, params = {}, opts = {}); end
 
           # Retrieves a Person Token associated with an Account.
-          #
-          # ** raises RateLimitError
           sig {
             params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonTokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::AccountPersonToken)
            }

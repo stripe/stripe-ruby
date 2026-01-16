@@ -14,8 +14,6 @@ module Stripe
         end
 
         # Removes access to the Account and its associated resources. Closed Accounts can no longer be operated on, but limited information can still be retrieved through the API in order to be able to track their history.
-        #
-        # ** raises RateLimitError
         def close(id, params = {}, opts = {})
           request(
             method: :post,
@@ -27,8 +25,6 @@ module Stripe
         end
 
         # An Account is a representation of a company, individual or other entity that a user interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
-        #
-        # ** raises RateLimitError
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -40,8 +36,6 @@ module Stripe
         end
 
         # Returns a list of Accounts.
-        #
-        # ** raises RateLimitError
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -53,8 +47,6 @@ module Stripe
         end
 
         # Retrieves the details of an Account.
-        #
-        # ** raises RateLimitError
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -66,8 +58,6 @@ module Stripe
         end
 
         # Updates the details of an Account.
-        #
-        # ** raises RateLimitError
         def update(id, params = {}, opts = {})
           request(
             method: :post,

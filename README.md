@@ -265,6 +265,12 @@ Stripe::Instrumentation.subscribe(:request_end) do |request_event|
 end
 ```
 
+### How to use undocumented parameters and properties
+
+In some cases, you might encounter parameters on an API request or fields on an API response that aren’t available in the SDKs.
+This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK. 
+See [undocumented params and properties](https://docs.stripe.com/sdks/server-side#undocumented-params-and-fields) to send those parameters or access those fields.
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you

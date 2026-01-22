@@ -16,6 +16,20 @@ module Stripe
   # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
   class PaymentIntent < APIResource
     class AmountDetails < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
+        # The code of the error that occurred when validating the current amount details.
+        sig { returns(T.nilable(String)) }
+        def code; end
+        # A message providing more details about the error.
+        sig { returns(T.nilable(String)) }
+        def message; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shipping < ::Stripe::StripeObject
         # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         sig { returns(T.nilable(Integer)) }
@@ -62,6 +76,9 @@ module Stripe
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       sig { returns(T.nilable(Integer)) }
       def discount_amount; end
+      # Attribute for field error
+      sig { returns(T.nilable(Error)) }
+      def error; end
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
@@ -75,7 +92,7 @@ module Stripe
       sig { returns(T.nilable(Tip)) }
       def tip; end
       def self.inner_class_types
-        @inner_class_types = {shipping: Shipping, tax: Tax, tip: Tip}
+        @inner_class_types = {error: Error, shipping: Shipping, tax: Tax, tip: Tip}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -2516,9 +2533,6 @@ module Stripe
         # Attribute for field mandate_options
         sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
-        # Preferred transaction settlement speed
-        sig { returns(T.nilable(String)) }
-        def preferred_settlement_speed; end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.

@@ -557,7 +557,7 @@ module Stripe
     attr_reader :invoice_settings
     # List of subscription items, each with an attached price.
     attr_reader :items
-    # The most recent invoice this subscription has generated.
+    # The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     attr_reader :latest_invoice
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode

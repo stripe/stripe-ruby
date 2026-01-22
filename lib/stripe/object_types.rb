@@ -105,6 +105,7 @@ module Stripe
         PromotionCode.object_name => PromotionCode,
         Quote.object_name => Quote,
         Radar::EarlyFraudWarning.object_name => Radar::EarlyFraudWarning,
+        Radar::PaymentEvaluation.object_name => Radar::PaymentEvaluation,
         Radar::ValueList.object_name => Radar::ValueList,
         Radar::ValueListItem.object_name => Radar::ValueListItem,
         Refund.object_name => Refund,

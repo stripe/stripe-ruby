@@ -126,6 +126,9 @@ module Stripe
         # Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
         sig { returns(T.nilable(String)) }
         def payout; end
+        # Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
+        sig { returns(T.nilable(String)) }
+        def topup; end
         def self.inner_class_types
           @inner_class_types = {}
         end

@@ -83,21 +83,6 @@ module Stripe
           end
         end
 
-        class Bgn < ::Stripe::RequestParams
-          # Fixed amounts displayed when collecting a tip
-          attr_accessor :fixed_amounts
-          # Percentages displayed when collecting a tip
-          attr_accessor :percentages
-          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          attr_accessor :smart_tip_threshold
-
-          def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
-            @fixed_amounts = fixed_amounts
-            @percentages = percentages
-            @smart_tip_threshold = smart_tip_threshold
-          end
-        end
-
         class Cad < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           attr_accessor :fixed_amounts
@@ -386,8 +371,6 @@ module Stripe
         attr_accessor :aed
         # Tipping configuration for AUD
         attr_accessor :aud
-        # Tipping configuration for BGN
-        attr_accessor :bgn
         # Tipping configuration for CAD
         attr_accessor :cad
         # Tipping configuration for CHF
@@ -430,7 +413,6 @@ module Stripe
         def initialize(
           aed: nil,
           aud: nil,
-          bgn: nil,
           cad: nil,
           chf: nil,
           czk: nil,
@@ -453,7 +435,6 @@ module Stripe
         )
           @aed = aed
           @aud = aud
-          @bgn = bgn
           @cad = cad
           @chf = chf
           @czk = czk

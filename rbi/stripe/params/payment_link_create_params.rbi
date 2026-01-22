@@ -942,7 +942,7 @@ module Stripe
       def enabled; end
       sig { params(_enabled: T::Boolean).returns(T::Boolean) }
       def enabled=(_enabled); end
-      # Describes whether a tax ID is required during checkout. Defaults to `never`.
+      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(String)) }
       def required; end
       sig { params(_required: T.nilable(String)).returns(T.nilable(String)) }
@@ -1013,14 +1013,14 @@ module Stripe
     def currency; end
     sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
     def currency=(_currency); end
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     sig { returns(T.nilable(T::Array[PaymentLinkCreateParams::CustomField])) }
     def custom_fields; end
     sig {
       params(_custom_fields: T.nilable(T::Array[PaymentLinkCreateParams::CustomField])).returns(T.nilable(T::Array[PaymentLinkCreateParams::CustomField]))
      }
     def custom_fields=(_custom_fields); end
-    # Display additional text for your customers using custom text.
+    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     sig { returns(T.nilable(PaymentLinkCreateParams::CustomText)) }
     def custom_text; end
     sig {

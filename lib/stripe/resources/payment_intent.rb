@@ -28,6 +28,21 @@ module Stripe
     nested_resource_class_methods :amount_details_line_item, operations: %i[list]
 
     class AmountDetails < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
+        # The code of the error that occurred when validating the current amount details.
+        attr_reader :code
+        # A message providing more details about the error.
+        attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shipping < ::Stripe::StripeObject
         # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_reader :amount
@@ -76,6 +91,8 @@ module Stripe
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_reader :discount_amount
+      # Attribute for field error
+      attr_reader :error
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_reader :line_items
       # Attribute for field shipping
@@ -86,7 +103,7 @@ module Stripe
       attr_reader :tip
 
       def self.inner_class_types
-        @inner_class_types = { shipping: Shipping, tax: Tax, tip: Tip }
+        @inner_class_types = { error: Error, shipping: Shipping, tax: Tax, tip: Tip }
       end
 
       def self.field_remappings
@@ -2449,8 +2466,6 @@ module Stripe
         attr_reader :financial_connections
         # Attribute for field mandate_options
         attr_reader :mandate_options
-        # Preferred transaction settlement speed
-        attr_reader :preferred_settlement_speed
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.

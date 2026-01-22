@@ -944,20 +944,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Capital < ::Stripe::StripeObject
-        # Per-currency mapping of user-selected destination accounts used to pay out loans.
-        sig { returns(T.nilable(T::Hash[String, String])) }
-        def payout_destination; end
-        # Per-currency mapping of all destination accounts eligible to receive loan payouts.
-        sig { returns(T.nilable(T::Hash[String, T::Array[String]])) }
-        def payout_destination_selector; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class CardIssuing < ::Stripe::StripeObject
         class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
@@ -1115,11 +1101,74 @@ module Stripe
         end
       end
       class PaypayPayments < ::Stripe::StripeObject
+        class Site < ::Stripe::StripeObject
+          class Accessible < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class InDevelopment < ::Stripe::StripeObject
+            # Field to indicate that the website password has been provided.
+            sig { returns(T.nilable(T::Boolean)) }
+            def password_provided; end
+            # The username needed to access your business's website.
+            sig { returns(T.nilable(String)) }
+            def username; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Restricted < ::Stripe::StripeObject
+            # File explaining the payment flow for your business.
+            sig { returns(T.nilable(String)) }
+            def payment_flow_file; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field accessible
+          sig { returns(T.nilable(Accessible)) }
+          def accessible; end
+          # Attribute for field in_development
+          sig { returns(T.nilable(InDevelopment)) }
+          def in_development; end
+          # Attribute for field restricted
+          sig { returns(T.nilable(Restricted)) }
+          def restricted; end
+          # The status of your business's website.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              accessible: Accessible,
+              in_development: InDevelopment,
+              restricted: Restricted,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        sig { returns(T.nilable(T::Array[String])) }
+        def additional_files; end
         # Whether your business sells digital content or not.
         sig { returns(T.nilable(String)) }
         def goods_type; end
+        # Attribute for field site
+        sig { returns(T.nilable(Site)) }
+        def site; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {site: Site}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1184,9 +1233,6 @@ module Stripe
       # Attribute for field branding
       sig { returns(Branding) }
       def branding; end
-      # Attribute for field capital
-      sig { returns(T.nilable(Capital)) }
-      def capital; end
       # Attribute for field card_issuing
       sig { returns(T.nilable(CardIssuing)) }
       def card_issuing; end
@@ -1222,7 +1268,6 @@ module Stripe
           bacs_debit_payments: BacsDebitPayments,
           bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
-          capital: Capital,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
           dashboard: Dashboard,

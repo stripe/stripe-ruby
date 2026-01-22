@@ -102,7 +102,7 @@ module Stripe
     def percent_off; end
     sig { params(_percent_off: T.nilable(Float)).returns(T.nilable(Float)) }
     def percent_off=(_percent_off); end
-    # Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
+    # Unix timestamp specifying the last time at which the coupon can be redeemed (cannot be set to more than 5 years in the future). After the redeem_by date, the coupon can no longer be applied to new customers.
     sig { returns(T.nilable(Integer)) }
     def redeem_by; end
     sig { params(_redeem_by: T.nilable(Integer)).returns(T.nilable(Integer)) }

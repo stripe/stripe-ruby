@@ -115,31 +115,6 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Bgn < ::Stripe::RequestParams
-          # Fixed amounts displayed when collecting a tip
-          sig { returns(T.nilable(T::Array[Integer])) }
-          def fixed_amounts; end
-          sig {
-            params(_fixed_amounts: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
-           }
-          def fixed_amounts=(_fixed_amounts); end
-          # Percentages displayed when collecting a tip
-          sig { returns(T.nilable(T::Array[Integer])) }
-          def percentages; end
-          sig {
-            params(_percentages: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
-           }
-          def percentages=(_percentages); end
-          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(T.nilable(Integer)) }
-          def smart_tip_threshold; end
-          sig { params(_smart_tip_threshold: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def smart_tip_threshold=(_smart_tip_threshold); end
-          sig {
-            params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
-           }
-          def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
-        end
         class Cad < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
@@ -629,13 +604,6 @@ module Stripe
           params(_aud: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Aud)).returns(T.nilable(Terminal::ConfigurationCreateParams::Tipping::Aud))
          }
         def aud=(_aud); end
-        # Tipping configuration for BGN
-        sig { returns(T.nilable(Terminal::ConfigurationCreateParams::Tipping::Bgn)) }
-        def bgn; end
-        sig {
-          params(_bgn: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Bgn)).returns(T.nilable(Terminal::ConfigurationCreateParams::Tipping::Bgn))
-         }
-        def bgn=(_bgn); end
         # Tipping configuration for CAD
         sig { returns(T.nilable(Terminal::ConfigurationCreateParams::Tipping::Cad)) }
         def cad; end
@@ -770,12 +738,11 @@ module Stripe
          }
         def usd=(_usd); end
         sig {
-          params(aed: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Aed), aud: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Aud), bgn: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Bgn), cad: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Cad), chf: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Chf), czk: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Czk), dkk: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Dkk), eur: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Eur), gbp: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Gbp), gip: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Gip), hkd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Hkd), huf: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Huf), jpy: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Jpy), mxn: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Mxn), myr: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Myr), nok: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Nok), nzd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Nzd), pln: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Pln), ron: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Ron), sek: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Sek), sgd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Sgd), usd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Usd)).void
+          params(aed: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Aed), aud: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Aud), cad: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Cad), chf: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Chf), czk: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Czk), dkk: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Dkk), eur: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Eur), gbp: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Gbp), gip: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Gip), hkd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Hkd), huf: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Huf), jpy: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Jpy), mxn: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Mxn), myr: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Myr), nok: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Nok), nzd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Nzd), pln: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Pln), ron: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Ron), sek: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Sek), sgd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Sgd), usd: T.nilable(Terminal::ConfigurationCreateParams::Tipping::Usd)).void
          }
         def initialize(
           aed: nil,
           aud: nil,
-          bgn: nil,
           cad: nil,
           chf: nil,
           czk: nil,
@@ -972,7 +939,7 @@ module Stripe
         params(_stripe_s700: T.nilable(Terminal::ConfigurationCreateParams::StripeS700)).returns(T.nilable(Terminal::ConfigurationCreateParams::StripeS700))
        }
       def stripe_s700=(_stripe_s700); end
-      # Tipping configurations for readers. supporting on-reader tips
+      # Tipping configurations for readers that support on-reader tips.
       sig { returns(T.nilable(T.any(String, Terminal::ConfigurationCreateParams::Tipping))) }
       def tipping; end
       sig {

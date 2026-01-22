@@ -2239,11 +2239,56 @@ module Stripe
       end
 
       class PaypayPayments < ::Stripe::RequestParams
+        class Site < ::Stripe::RequestParams
+          class Accessible < ::Stripe::RequestParams; end
+
+          class InDevelopment < ::Stripe::RequestParams
+            # The password needed to access your business's website.
+            attr_accessor :password
+            # The username needed to access your business's website.
+            attr_accessor :username
+
+            def initialize(password: nil, username: nil)
+              @password = password
+              @username = username
+            end
+          end
+
+          class Restricted < ::Stripe::RequestParams
+            # The file explaining the payment flow for your business.
+            attr_accessor :payment_flow_file
+
+            def initialize(payment_flow_file: nil)
+              @payment_flow_file = payment_flow_file
+            end
+          end
+          # Additional information about your business's website.
+          attr_accessor :accessible
+          # Additional information about your business's website.
+          attr_accessor :in_development
+          # Additional information about your business's website.
+          attr_accessor :restricted
+          # The status of your business's website.
+          attr_accessor :type
+
+          def initialize(accessible: nil, in_development: nil, restricted: nil, type: nil)
+            @accessible = accessible
+            @in_development = in_development
+            @restricted = restricted
+            @type = type
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        attr_accessor :additional_files
         # Whether your business sells digital content or not.
         attr_accessor :goods_type
+        # Details regarding your business's website.
+        attr_accessor :site
 
-        def initialize(goods_type: nil)
+        def initialize(additional_files: nil, goods_type: nil, site: nil)
+          @additional_files = additional_files
           @goods_type = goods_type
+          @site = site
         end
       end
 

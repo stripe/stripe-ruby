@@ -98,6 +98,11 @@ module Stripe
       params(_automatic_tax: T.nilable(SubscriptionListParams::AutomaticTax)).returns(T.nilable(SubscriptionListParams::AutomaticTax))
      }
     def automatic_tax=(_automatic_tax); end
+    # Filter for subscriptions that have the specified billing cadence.
+    sig { returns(T.nilable(String)) }
+    def billing_cadence; end
+    sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
+    def billing_cadence=(_billing_cadence); end
     # The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.
     sig { returns(T.nilable(String)) }
     def collection_method; end
@@ -175,10 +180,11 @@ module Stripe
     sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
     def test_clock=(_test_clock); end
     sig {
-      params(automatic_tax: T.nilable(SubscriptionListParams::AutomaticTax), collection_method: T.nilable(String), created: T.nilable(T.any(SubscriptionListParams::Created, Integer)), current_period_end: T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer)), current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), plan: T.nilable(String), price: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
+      params(automatic_tax: T.nilable(SubscriptionListParams::AutomaticTax), billing_cadence: T.nilable(String), collection_method: T.nilable(String), created: T.nilable(T.any(SubscriptionListParams::Created, Integer)), current_period_end: T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer)), current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), plan: T.nilable(String), price: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
      }
     def initialize(
       automatic_tax: nil,
+      billing_cadence: nil,
       collection_method: nil,
       created: nil,
       current_period_end: nil,

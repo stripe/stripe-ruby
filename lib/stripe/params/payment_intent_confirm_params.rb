@@ -159,6 +159,12 @@ module Stripe
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_accessor :discount_amount
+      # Set to `false` to return arithmetic validation errors in the response without failing the request. Use this when you want the operation to proceed regardless of arithmetic errors in the line item data.
+      #
+      # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
+      #
+      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      attr_accessor :enforce_arithmetic_validation
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_accessor :line_items
       # Contains information about the shipping portion of the amount.
@@ -166,8 +172,15 @@ module Stripe
       # Contains information about the tax portion of the amount.
       attr_accessor :tax
 
-      def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
+      def initialize(
+        discount_amount: nil,
+        enforce_arithmetic_validation: nil,
+        line_items: nil,
+        shipping: nil,
+        tax: nil
+      )
         @discount_amount = discount_amount
+        @enforce_arithmetic_validation = enforce_arithmetic_validation
         @line_items = line_items
         @shipping = shipping
         @tax = tax
@@ -5156,8 +5169,6 @@ module Stripe
         attr_accessor :mandate_options
         # Additional fields for network related functions
         attr_accessor :networks
-        # Preferred transaction settlement speed
-        attr_accessor :preferred_settlement_speed
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -5177,7 +5188,6 @@ module Stripe
           financial_connections: nil,
           mandate_options: nil,
           networks: nil,
-          preferred_settlement_speed: nil,
           setup_future_usage: nil,
           target_date: nil,
           verification_method: nil
@@ -5185,7 +5195,6 @@ module Stripe
           @financial_connections = financial_connections
           @mandate_options = mandate_options
           @networks = networks
-          @preferred_settlement_speed = preferred_settlement_speed
           @setup_future_usage = setup_future_usage
           @target_date = target_date
           @verification_method = verification_method

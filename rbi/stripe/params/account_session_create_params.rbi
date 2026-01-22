@@ -172,7 +172,7 @@ module Stripe
             params(_external_account_collection: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
            }
           def external_account_collection=(_external_account_collection); end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether instant payouts are enabled for this component.
           sig { returns(T.nilable(T::Boolean)) }
           def instant_payouts; end
           sig { params(_instant_payouts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -489,7 +489,7 @@ module Stripe
             params(_external_account_collection: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
            }
           def external_account_collection=(_external_account_collection); end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether instant payouts are enabled for this component.
           sig { returns(T.nilable(T::Boolean)) }
           def instant_payouts; end
           sig { params(_instant_payouts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -903,7 +903,7 @@ module Stripe
             params(_external_account_collection: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
            }
           def external_account_collection=(_external_account_collection); end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether instant payouts are enabled for this component.
           sig { returns(T.nilable(T::Boolean)) }
           def instant_payouts; end
           sig { params(_instant_payouts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }

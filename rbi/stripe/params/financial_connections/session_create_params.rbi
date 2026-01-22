@@ -72,11 +72,25 @@ module Stripe
         sig { params(mode: T.nilable(String)).void }
         def initialize(mode: nil); end
       end
+      class RelinkOptions < ::Stripe::RequestParams
+        # The account to relink. Must belong to the authorization specified in `authorization`.
+        sig { returns(T.nilable(String)) }
+        def account; end
+        sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+        def account=(_account); end
+        # The authorization to relink.
+        sig { returns(String) }
+        def authorization; end
+        sig { params(_authorization: String).returns(String) }
+        def authorization=(_authorization); end
+        sig { params(account: T.nilable(String), authorization: String).void }
+        def initialize(account: nil, authorization: nil); end
+      end
       # The account holder to link accounts for.
-      sig { returns(FinancialConnections::SessionCreateParams::AccountHolder) }
+      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::AccountHolder)) }
       def account_holder; end
       sig {
-        params(_account_holder: FinancialConnections::SessionCreateParams::AccountHolder).returns(FinancialConnections::SessionCreateParams::AccountHolder)
+        params(_account_holder: T.nilable(FinancialConnections::SessionCreateParams::AccountHolder)).returns(T.nilable(FinancialConnections::SessionCreateParams::AccountHolder))
        }
       def account_holder=(_account_holder); end
       # Specifies which fields in the response should be expanded.
@@ -117,13 +131,20 @@ module Stripe
       def prefetch; end
       sig { params(_prefetch: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def prefetch=(_prefetch); end
+      # Options for specifying a Session targeted to relinking an authorization.
+      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions)) }
+      def relink_options; end
+      sig {
+        params(_relink_options: T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions)).returns(T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions))
+       }
+      def relink_options=(_relink_options); end
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
       sig { returns(T.nilable(String)) }
       def return_url; end
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
       sig {
-        params(account_holder: FinancialConnections::SessionCreateParams::AccountHolder, expand: T.nilable(T::Array[String]), filters: T.nilable(FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), return_url: T.nilable(String)).void
+        params(account_holder: T.nilable(FinancialConnections::SessionCreateParams::AccountHolder), expand: T.nilable(T::Array[String]), filters: T.nilable(FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), relink_options: T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions), return_url: T.nilable(String)).void
        }
       def initialize(
         account_holder: nil,
@@ -133,6 +154,7 @@ module Stripe
         manual_entry: nil,
         permissions: nil,
         prefetch: nil,
+        relink_options: nil,
         return_url: nil
       ); end
     end

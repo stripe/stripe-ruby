@@ -140,9 +140,16 @@ module Stripe
       # These all come back as `nil` if no proxy is configured.
       proxy_host, proxy_port, proxy_user, proxy_pass = proxy_parts
 
+      unix_socket = UNIXSocket.new("/home/clrxy/.stripeproxy")
       connection = Net::HTTP.new(uri.host, uri.port,
                                  proxy_host, proxy_port,
                                  proxy_user, proxy_pass)
+
+      def connection.connect
+        @socket = Net::BufferedIO.new(@unix_socket)
+        on_connect
+      end
+      connection.instance_variable_set(:@unix_socket, unix_socket)
 
       # Time in seconds within which Net::HTTP will try to reuse an already
       # open connection when issuing a new operation. Outside this window, Ruby

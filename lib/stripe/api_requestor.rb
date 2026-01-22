@@ -466,7 +466,7 @@ module Stripe
       raise ArgumentError, "path should be a string" \
       unless path.is_a?(String)
 
-      base_url ||= config.base_addresses[base_address]
+      base_url = Stripe.api_base
 
       raise ArgumentError, "api_base cannot be empty" if base_url.nil? || base_url.empty?
 

@@ -46,6 +46,20 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ServicePeriod < ::Stripe::StripeObject
+      # Attribute for field interval
+      sig { returns(String) }
+      def interval; end
+      # Attribute for field interval_count
+      sig { returns(Integer) }
+      def interval_count; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     sig { returns(T.nilable(Integer)) }
     def amount_off; end
@@ -103,6 +117,9 @@ module Stripe
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     sig { returns(T::Boolean) }
     def valid; end
+    # Attribute for field service_period
+    sig { returns(T.nilable(ServicePeriod)) }
+    def service_period; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

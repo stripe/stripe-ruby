@@ -22,6 +22,20 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ServicePeriodDetails < ::Stripe::StripeObject
+      # The date that the service period was anchored to.
+      sig { returns(Integer) }
+      def service_period_anchored_at; end
+      # The date that the service period started.
+      sig { returns(Integer) }
+      def start_date; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     sig { returns(T.nilable(String)) }
     def checkout_session; end
@@ -64,6 +78,9 @@ module Stripe
     # The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     sig { returns(T.nilable(String)) }
     def subscription_item; end
+    # Attribute for field service_period_details
+    sig { returns(T.nilable(ServicePeriodDetails)) }
+    def service_period_details; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

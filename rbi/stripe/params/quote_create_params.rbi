@@ -159,6 +159,83 @@ module Stripe
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                sig { returns(Integer) }
+                def day_of_month; end
+                sig { params(_day_of_month: Integer).returns(Integer) }
+                def day_of_month=(_day_of_month); end
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                sig { returns(T.nilable(Integer)) }
+                def hour; end
+                sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def hour=(_hour); end
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def minute; end
+                sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def minute=(_minute); end
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                sig { returns(T.nilable(Integer)) }
+                def month; end
+                sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def month=(_month); end
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def second; end
+                sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def second=(_second); end
+                sig {
+                  params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                 }
+                def initialize(
+                  day_of_month: nil,
+                  hour: nil,
+                  minute: nil,
+                  month: nil,
+                  second: nil
+                ); end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              sig {
+                returns(T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom; end
+              sig {
+                params(_custom: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom=(_custom); end
+              # The type of service period anchor config. Defaults to `inherit` if omitted.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+              def type=(_type); end
+              sig {
+                params(custom: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+               }
+              def initialize(custom: nil, type: nil); end
+            end
+            # Configures service period cycle anchoring.
+            sig {
+              returns(T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config; end
+            sig {
+              params(_service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config=(_service_period_anchor_config); end
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+            sig { returns(T.nilable(String)) }
+            def start_date; end
+            sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+            def start_date=(_start_date); end
+            sig {
+              params(service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+             }
+            def initialize(service_period_anchor_config: nil, start_date: nil); end
+          end
           # The coupon code to redeem.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -186,15 +263,23 @@ module Stripe
           def promotion_code; end
           sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
           def promotion_code=(_promotion_code); end
+          # Settings for discount application including service period anchoring.
+          sig { returns(T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings)) }
+          def settings; end
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::DiscountEnd), index: T.nilable(Integer), promotion_code: T.nilable(String)).void
+            params(_settings: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings)).returns(T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings))
+           }
+          def settings=(_settings); end
+          sig {
+            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::DiscountEnd), index: T.nilable(Integer), promotion_code: T.nilable(String), settings: T.nilable(QuoteCreateParams::Line::Action::AddDiscount::Settings)).void
            }
           def initialize(
             coupon: nil,
             discount: nil,
             discount_end: nil,
             index: nil,
-            promotion_code: nil
+            promotion_code: nil,
+            settings: nil
           ); end
         end
         class AddItem < ::Stripe::RequestParams
@@ -238,6 +323,83 @@ module Stripe
                }
               def initialize(duration: nil, timestamp: nil, type: nil); end
             end
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  sig { returns(Integer) }
+                  def day_of_month; end
+                  sig { params(_day_of_month: Integer).returns(Integer) }
+                  def day_of_month=(_day_of_month); end
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  sig { returns(T.nilable(Integer)) }
+                  def hour; end
+                  sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def hour=(_hour); end
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def minute; end
+                  sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def minute=(_minute); end
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  sig { returns(T.nilable(Integer)) }
+                  def month; end
+                  sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def month=(_month); end
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def second; end
+                  sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def second=(_second); end
+                  sig {
+                    params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                   }
+                  def initialize(
+                    day_of_month: nil,
+                    hour: nil,
+                    minute: nil,
+                    month: nil,
+                    second: nil
+                  ); end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                sig {
+                  returns(T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom; end
+                sig {
+                  params(_custom: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom=(_custom); end
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                sig { returns(T.nilable(String)) }
+                def type; end
+                sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                def type=(_type); end
+                sig {
+                  params(custom: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                 }
+                def initialize(custom: nil, type: nil); end
+              end
+              # Configures service period cycle anchoring.
+              sig {
+                returns(T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config; end
+              sig {
+                params(_service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config=(_service_period_anchor_config); end
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+              sig { returns(T.nilable(String)) }
+              def start_date; end
+              sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+              def start_date=(_start_date); end
+              sig {
+                params(service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+               }
+              def initialize(service_period_anchor_config: nil, start_date: nil); end
+            end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
             def coupon; end
@@ -262,10 +424,23 @@ module Stripe
             def promotion_code; end
             sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
             def promotion_code=(_promotion_code); end
+            # Settings for discount application including service period anchoring.
+            sig { returns(T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings)) }
+            def settings; end
             sig {
-              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
+              params(_settings: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings)).returns(T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings))
              }
-            def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
+            def settings=(_settings); end
+            sig {
+              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(QuoteCreateParams::Line::Action::AddItem::Discount::Settings)).void
+             }
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              promotion_code: nil,
+              settings: nil
+            ); end
           end
           class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
@@ -370,6 +545,83 @@ module Stripe
           def initialize(price: nil); end
         end
         class SetDiscount < ::Stripe::RequestParams
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                sig { returns(Integer) }
+                def day_of_month; end
+                sig { params(_day_of_month: Integer).returns(Integer) }
+                def day_of_month=(_day_of_month); end
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                sig { returns(T.nilable(Integer)) }
+                def hour; end
+                sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def hour=(_hour); end
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def minute; end
+                sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def minute=(_minute); end
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                sig { returns(T.nilable(Integer)) }
+                def month; end
+                sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def month=(_month); end
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def second; end
+                sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def second=(_second); end
+                sig {
+                  params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                 }
+                def initialize(
+                  day_of_month: nil,
+                  hour: nil,
+                  minute: nil,
+                  month: nil,
+                  second: nil
+                ); end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              sig {
+                returns(T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom; end
+              sig {
+                params(_custom: T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom=(_custom); end
+              # The type of service period anchor config. Defaults to `inherit` if omitted.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+              def type=(_type); end
+              sig {
+                params(custom: T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+               }
+              def initialize(custom: nil, type: nil); end
+            end
+            # Configures service period cycle anchoring.
+            sig {
+              returns(T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config; end
+            sig {
+              params(_service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config=(_service_period_anchor_config); end
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+            sig { returns(T.nilable(String)) }
+            def start_date; end
+            sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+            def start_date=(_start_date); end
+            sig {
+              params(service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+             }
+            def initialize(service_period_anchor_config: nil, start_date: nil); end
+          end
           # The coupon code to replace the `discounts` array with.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -385,10 +637,17 @@ module Stripe
           def promotion_code; end
           sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
           def promotion_code=(_promotion_code); end
+          # Settings for discount application including service period anchoring.
+          sig { returns(T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings)) }
+          def settings; end
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+            params(_settings: T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings)).returns(T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings))
            }
-          def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+          def settings=(_settings); end
+          sig {
+            params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String), settings: T.nilable(QuoteCreateParams::Line::Action::SetDiscount::Settings)).void
+           }
+          def initialize(coupon: nil, discount: nil, promotion_code: nil, settings: nil); end
         end
         class SetItem < ::Stripe::RequestParams
           class Discount < ::Stripe::RequestParams
@@ -431,6 +690,83 @@ module Stripe
                }
               def initialize(duration: nil, timestamp: nil, type: nil); end
             end
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  sig { returns(Integer) }
+                  def day_of_month; end
+                  sig { params(_day_of_month: Integer).returns(Integer) }
+                  def day_of_month=(_day_of_month); end
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  sig { returns(T.nilable(Integer)) }
+                  def hour; end
+                  sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def hour=(_hour); end
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def minute; end
+                  sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def minute=(_minute); end
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  sig { returns(T.nilable(Integer)) }
+                  def month; end
+                  sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def month=(_month); end
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def second; end
+                  sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def second=(_second); end
+                  sig {
+                    params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                   }
+                  def initialize(
+                    day_of_month: nil,
+                    hour: nil,
+                    minute: nil,
+                    month: nil,
+                    second: nil
+                  ); end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                sig {
+                  returns(T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom; end
+                sig {
+                  params(_custom: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom=(_custom); end
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                sig { returns(T.nilable(String)) }
+                def type; end
+                sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                def type=(_type); end
+                sig {
+                  params(custom: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                 }
+                def initialize(custom: nil, type: nil); end
+              end
+              # Configures service period cycle anchoring.
+              sig {
+                returns(T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config; end
+              sig {
+                params(_service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config=(_service_period_anchor_config); end
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+              sig { returns(T.nilable(String)) }
+              def start_date; end
+              sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+              def start_date=(_start_date); end
+              sig {
+                params(service_period_anchor_config: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+               }
+              def initialize(service_period_anchor_config: nil, start_date: nil); end
+            end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
             def coupon; end
@@ -455,10 +791,23 @@ module Stripe
             def promotion_code; end
             sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
             def promotion_code=(_promotion_code); end
+            # Settings for discount application including service period anchoring.
+            sig { returns(T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings)) }
+            def settings; end
             sig {
-              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
+              params(_settings: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings)).returns(T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings))
              }
-            def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
+            def settings=(_settings); end
+            sig {
+              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(QuoteCreateParams::Line::Action::SetItem::Discount::Settings)).void
+             }
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              promotion_code: nil,
+              settings: nil
+            ); end
           end
           class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.

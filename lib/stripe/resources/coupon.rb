@@ -58,6 +58,21 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class ServicePeriod < ::Stripe::StripeObject
+      # Attribute for field interval
+      attr_reader :interval
+      # Attribute for field interval_count
+      attr_reader :interval_count
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     attr_reader :amount_off
     # Attribute for field applies_to
@@ -96,6 +111,8 @@ module Stripe
     attr_reader :type
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     attr_reader :valid
+    # Attribute for field service_period
+    attr_reader :service_period
     # Always true for a deleted object
     attr_reader :deleted
 
@@ -146,6 +163,7 @@ module Stripe
         applies_to: AppliesTo,
         currency_options: CurrencyOptions,
         script: Script,
+        service_period: ServicePeriod,
       }
     end
 

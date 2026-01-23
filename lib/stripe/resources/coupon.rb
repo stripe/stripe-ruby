@@ -60,13 +60,29 @@ module Stripe
     end
 
     class ServicePeriod < ::Stripe::StripeObject
+      class Iterations < ::Stripe::StripeObject
+        # Attribute for field count
+        attr_reader :count
+        # Attribute for field type
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field interval
       attr_reader :interval
       # Attribute for field interval_count
       attr_reader :interval_count
+      # Attribute for field iterations
+      attr_reader :iterations
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { iterations: Iterations }
       end
 
       def self.field_remappings

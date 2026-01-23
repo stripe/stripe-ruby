@@ -37,6 +37,20 @@ module Stripe
       def initialize(configuration: nil, id: nil); end
     end
     class ServicePeriod < ::Stripe::RequestParams
+      class Iterations < ::Stripe::RequestParams
+        # The number of iterations the service period will repeat for. Only used when type is `count`, defaults to 1.
+        sig { returns(T.nilable(Integer)) }
+        def count; end
+        sig { params(_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def count=(_count); end
+        # The type of iterations, defaults to `count` if omitted.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(count: T.nilable(Integer), type: String).void }
+        def initialize(count: nil, type: nil); end
+      end
       # Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
       sig { returns(String) }
       def interval; end
@@ -47,8 +61,17 @@ module Stripe
       def interval_count; end
       sig { params(_interval_count: Integer).returns(Integer) }
       def interval_count=(_interval_count); end
-      sig { params(interval: String, interval_count: Integer).void }
-      def initialize(interval: nil, interval_count: nil); end
+      # Specifies the number of times the coupon is contiguously applied.
+      sig { returns(T.nilable(CouponCreateParams::ServicePeriod::Iterations)) }
+      def iterations; end
+      sig {
+        params(_iterations: T.nilable(CouponCreateParams::ServicePeriod::Iterations)).returns(T.nilable(CouponCreateParams::ServicePeriod::Iterations))
+       }
+      def iterations=(_iterations); end
+      sig {
+        params(interval: String, interval_count: Integer, iterations: T.nilable(CouponCreateParams::ServicePeriod::Iterations)).void
+       }
+      def initialize(interval: nil, interval_count: nil, iterations: nil); end
     end
     # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
     sig { returns(T.nilable(Integer)) }

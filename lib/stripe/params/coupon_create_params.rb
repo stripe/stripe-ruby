@@ -34,14 +34,28 @@ module Stripe
     end
 
     class ServicePeriod < ::Stripe::RequestParams
+      class Iterations < ::Stripe::RequestParams
+        # The number of iterations the service period will repeat for. Only used when type is `count`, defaults to 1.
+        attr_accessor :count
+        # The type of iterations, defaults to `count` if omitted.
+        attr_accessor :type
+
+        def initialize(count: nil, type: nil)
+          @count = count
+          @type = type
+        end
+      end
       # Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
       attr_accessor :interval
       # The number of intervals for which the coupon will be applied.
       attr_accessor :interval_count
+      # Specifies the number of times the coupon is contiguously applied.
+      attr_accessor :iterations
 
-      def initialize(interval: nil, interval_count: nil)
+      def initialize(interval: nil, interval_count: nil, iterations: nil)
         @interval = interval
         @interval_count = interval_count
+        @iterations = iterations
       end
     end
     # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).

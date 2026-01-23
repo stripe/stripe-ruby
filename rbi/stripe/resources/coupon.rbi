@@ -47,14 +47,31 @@ module Stripe
       end
     end
     class ServicePeriod < ::Stripe::StripeObject
+      class Iterations < ::Stripe::StripeObject
+        # Attribute for field count
+        sig { returns(T.nilable(Integer)) }
+        def count; end
+        # Attribute for field type
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field interval
       sig { returns(String) }
       def interval; end
       # Attribute for field interval_count
       sig { returns(Integer) }
       def interval_count; end
+      # Attribute for field iterations
+      sig { returns(Iterations) }
+      def iterations; end
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {iterations: Iterations}
       end
       def self.field_remappings
         @field_remappings = {}

@@ -5,6 +5,23 @@
 module Stripe
   # A line item.
   class LineItem < APIResource
+    class AdjustableQuantity < ::Stripe::StripeObject
+      # Attribute for field enabled
+      sig { returns(T::Boolean) }
+      def enabled; end
+      # Attribute for field maximum
+      sig { returns(T.nilable(Integer)) }
+      def maximum; end
+      # Attribute for field minimum
+      sig { returns(T.nilable(Integer)) }
+      def minimum; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Discount < ::Stripe::StripeObject
       # The amount discounted.
       sig { returns(Integer) }
@@ -44,6 +61,9 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # Attribute for field adjustable_quantity
+    sig { returns(T.nilable(AdjustableQuantity)) }
+    def adjustable_quantity; end
     # Total discount amount applied. If no discounts were applied, defaults to 0.
     sig { returns(Integer) }
     def amount_discount; end

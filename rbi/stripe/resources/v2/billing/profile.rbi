@@ -5,6 +5,7 @@
 module Stripe
   module V2
     module Billing
+      # A Billing Profile is a representation of how a bill is paid, separating payment behavior from customer identity.
       class Profile < APIResource
         # Timestamp of when the object was created.
         sig { returns(String) }

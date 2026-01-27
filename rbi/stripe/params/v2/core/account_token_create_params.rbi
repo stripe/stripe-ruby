@@ -571,6 +571,25 @@ module Stripe
                }
               def initialize(amount: nil); end
             end
+            class RegistrationDate < ::Stripe::RequestParams
+              # The day of registration, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              sig { params(_day: Integer).returns(Integer) }
+              def day=(_day); end
+              # The month of registration, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              sig { params(_month: Integer).returns(Integer) }
+              def month=(_month); end
+              # The four-digit year of registration.
+              sig { returns(Integer) }
+              def year; end
+              sig { params(_year: Integer).returns(Integer) }
+              def year=(_year); end
+              sig { params(day: Integer, month: Integer, year: Integer).void }
+              def initialize(day: nil, month: nil, year: nil); end
+            end
             class ScriptAddresses < ::Stripe::RequestParams
               class Kana < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -795,6 +814,15 @@ module Stripe
             def registered_name; end
             sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
             def registered_name=(_registered_name); end
+            # When the business was incorporated or registered.
+            sig {
+              returns(T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate))
+             }
+            def registration_date; end
+            sig {
+              params(_registration_date: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate)).returns(T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate))
+             }
+            def registration_date=(_registration_date); end
             # The business registration address of the business entity in non latin script.
             sig {
               returns(T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptAddresses))
@@ -819,7 +847,7 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(address: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
               address: nil,
@@ -830,6 +858,7 @@ module Stripe
               monthly_estimated_revenue: nil,
               phone: nil,
               registered_name: nil,
+              registration_date: nil,
               script_addresses: nil,
               script_names: nil,
               structure: nil
@@ -1566,6 +1595,11 @@ module Stripe
         def contact_email; end
         sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }
         def contact_email=(_contact_email); end
+        # The default contact phone for the Account.
+        sig { returns(T.nilable(String)) }
+        def contact_phone; end
+        sig { params(_contact_phone: T.nilable(String)).returns(T.nilable(String)) }
+        def contact_phone=(_contact_phone); end
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
         sig { returns(T.nilable(String)) }
         def display_name; end
@@ -1579,9 +1613,14 @@ module Stripe
          }
         def identity=(_identity); end
         sig {
-          params(contact_email: T.nilable(String), display_name: T.nilable(String), identity: T.nilable(V2::Core::AccountTokenCreateParams::Identity)).void
+          params(contact_email: T.nilable(String), contact_phone: T.nilable(String), display_name: T.nilable(String), identity: T.nilable(V2::Core::AccountTokenCreateParams::Identity)).void
          }
-        def initialize(contact_email: nil, display_name: nil, identity: nil); end
+        def initialize(
+          contact_email: nil,
+          contact_phone: nil,
+          display_name: nil,
+          identity: nil
+        ); end
       end
     end
   end

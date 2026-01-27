@@ -2662,6 +2662,25 @@ module Stripe
                }
               def initialize(amount: nil); end
             end
+            class RegistrationDate < ::Stripe::RequestParams
+              # The day of registration, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              sig { params(_day: Integer).returns(Integer) }
+              def day=(_day); end
+              # The month of registration, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              sig { params(_month: Integer).returns(Integer) }
+              def month=(_month); end
+              # The four-digit year of registration.
+              sig { returns(Integer) }
+              def year; end
+              sig { params(_year: Integer).returns(Integer) }
+              def year=(_year); end
+              sig { params(day: Integer, month: Integer, year: Integer).void }
+              def initialize(day: nil, month: nil, year: nil); end
+            end
             class ScriptAddresses < ::Stripe::RequestParams
               class Kana < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -2886,6 +2905,15 @@ module Stripe
             def registered_name; end
             sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
             def registered_name=(_registered_name); end
+            # When the business was incorporated or registered.
+            sig {
+              returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::RegistrationDate))
+             }
+            def registration_date; end
+            sig {
+              params(_registration_date: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::RegistrationDate)).returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::RegistrationDate))
+             }
+            def registration_date=(_registration_date); end
             # The business registration address of the business entity in non latin script.
             sig {
               returns(T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptAddresses))
@@ -2910,7 +2938,7 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[V2::Core::AccountUpdateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(address: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[V2::Core::AccountUpdateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
               address: nil,
@@ -2921,6 +2949,7 @@ module Stripe
               monthly_estimated_revenue: nil,
               phone: nil,
               registered_name: nil,
+              registration_date: nil,
               script_addresses: nil,
               script_names: nil,
               structure: nil
@@ -3673,6 +3702,11 @@ module Stripe
         def contact_email; end
         sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }
         def contact_email=(_contact_email); end
+        # The default contact phone for the Account.
+        sig { returns(T.nilable(String)) }
+        def contact_phone; end
+        sig { params(_contact_phone: T.nilable(String)).returns(T.nilable(String)) }
+        def contact_phone=(_contact_phone); end
         # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
         sig { returns(T.nilable(String)) }
         def dashboard; end
@@ -3710,12 +3744,13 @@ module Stripe
          }
         def metadata=(_metadata); end
         sig {
-          params(account_token: T.nilable(String), configuration: T.nilable(V2::Core::AccountUpdateParams::Configuration), contact_email: T.nilable(String), dashboard: T.nilable(String), defaults: T.nilable(V2::Core::AccountUpdateParams::Defaults), display_name: T.nilable(String), identity: T.nilable(V2::Core::AccountUpdateParams::Identity), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
+          params(account_token: T.nilable(String), configuration: T.nilable(V2::Core::AccountUpdateParams::Configuration), contact_email: T.nilable(String), contact_phone: T.nilable(String), dashboard: T.nilable(String), defaults: T.nilable(V2::Core::AccountUpdateParams::Defaults), display_name: T.nilable(String), identity: T.nilable(V2::Core::AccountUpdateParams::Identity), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
          }
         def initialize(
           account_token: nil,
           configuration: nil,
           contact_email: nil,
+          contact_phone: nil,
           dashboard: nil,
           defaults: nil,
           display_name: nil,

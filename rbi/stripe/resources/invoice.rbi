@@ -343,17 +343,6 @@ module Stripe
       end
     end
     class Parent < ::Stripe::StripeObject
-      class BillingCadenceDetails < ::Stripe::StripeObject
-        # The billing cadence that generated this invoice
-        sig { returns(String) }
-        def billing_cadence; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class QuoteDetails < ::Stripe::StripeObject
         # The quote that generated this invoice
         sig { returns(String) }
@@ -400,9 +389,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Details about the billing cadence that generated this invoice
-      sig { returns(T.nilable(BillingCadenceDetails)) }
-      def billing_cadence_details; end
       # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
       def quote_details; end
@@ -414,7 +400,6 @@ module Stripe
       def type; end
       def self.inner_class_types
         @inner_class_types = {
-          billing_cadence_details: BillingCadenceDetails,
           quote_details: QuoteDetails,
           subscription_details: SubscriptionDetails,
         }

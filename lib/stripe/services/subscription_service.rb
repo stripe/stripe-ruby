@@ -3,17 +3,6 @@
 
 module Stripe
   class SubscriptionService < StripeService
-    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    def attach_cadence(subscription, params = {}, opts = {})
-      request(
-        method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(subscription) }),
-        params: params,
-        opts: opts,
-        base_address: :api
-      )
-    end
-
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
@@ -73,17 +62,6 @@ module Stripe
       request(
         method: :post,
         path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(subscription) }),
-        params: params,
-        opts: opts,
-        base_address: :api
-      )
-    end
-
-    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-    def pause(subscription, params = {}, opts = {})
-      request(
-        method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(subscription) }),
         params: params,
         opts: opts,
         base_address: :api

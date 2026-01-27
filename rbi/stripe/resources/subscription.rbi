@@ -701,9 +701,6 @@ module Stripe
     # Attribute for field automatic_tax
     sig { returns(AutomaticTax) }
     def automatic_tax; end
-    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    sig { returns(T.nilable(String)) }
-    def billing_cadence; end
     # The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     sig { returns(Integer) }
     def billing_cycle_anchor; end
@@ -851,18 +848,6 @@ module Stripe
     # If the subscription has a trial, the beginning of that trial.
     sig { returns(T.nilable(Integer)) }
     def trial_start; end
-    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    sig {
-      params(params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def attach_cadence(params = {}, opts = {}); end
-
-    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def self.attach_cadence(subscription, params = {}, opts = {}); end
-
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
@@ -924,18 +909,6 @@ module Stripe
       params(subscription: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def self.migrate(subscription, params = {}, opts = {}); end
-
-    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-    sig {
-      params(params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def pause(params = {}, opts = {}); end
-
-    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-    sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def self.pause(subscription, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     sig {

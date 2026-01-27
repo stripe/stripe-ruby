@@ -4,12 +4,6 @@
 # typed: true
 module Stripe
   class SubscriptionService < StripeService
-    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def attach_cadence(subscription, params = {}, opts = {}); end
-
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
@@ -49,12 +43,6 @@ module Stripe
       params(subscription: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def migrate(subscription, params = {}, opts = {}); end
-
-    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-    sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def pause(subscription, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     sig {

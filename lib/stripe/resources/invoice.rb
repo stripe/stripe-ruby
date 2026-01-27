@@ -330,19 +330,6 @@ module Stripe
     end
 
     class Parent < ::Stripe::StripeObject
-      class BillingCadenceDetails < ::Stripe::StripeObject
-        # The billing cadence that generated this invoice
-        attr_reader :billing_cadence
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class QuoteDetails < ::Stripe::StripeObject
         # The quote that generated this invoice
         attr_reader :quote
@@ -389,8 +376,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Details about the billing cadence that generated this invoice
-      attr_reader :billing_cadence_details
       # Details about the quote that generated this invoice
       attr_reader :quote_details
       # Details about the subscription that generated this invoice
@@ -400,7 +385,6 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
-          billing_cadence_details: BillingCadenceDetails,
           quote_details: QuoteDetails,
           subscription_details: SubscriptionDetails,
         }

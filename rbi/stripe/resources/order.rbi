@@ -915,18 +915,6 @@ module Stripe
     # Attribute for field total_details
     sig { returns(TotalDetails) }
     def total_details; end
-    # Cancels the order as well as the payment intent if one is attached.
-    sig {
-      params(params: T.any(::Stripe::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Order)
-     }
-    def cancel(params = {}, opts = {}); end
-
-    # Cancels the order as well as the payment intent if one is attached.
-    sig {
-      params(id: String, params: T.any(::Stripe::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Order)
-     }
-    def self.cancel(id, params = {}, opts = {}); end
-
     # Creates a new open order object.
     sig {
       params(params: T.any(::Stripe::OrderCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Order)
@@ -938,30 +926,6 @@ module Stripe
       params(params: T.any(::Stripe::OrderListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
-
-    # When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    sig {
-      params(params: T.any(::Stripe::OrderListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
-     }
-    def list_line_items(params = {}, opts = {}); end
-
-    # When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    sig {
-      params(id: String, params: T.any(::Stripe::OrderListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
-     }
-    def self.list_line_items(id, params = {}, opts = {}); end
-
-    # Reopens a submitted order.
-    sig {
-      params(params: T.any(::Stripe::OrderReopenParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Order)
-     }
-    def reopen(params = {}, opts = {}); end
-
-    # Reopens a submitted order.
-    sig {
-      params(id: String, params: T.any(::Stripe::OrderReopenParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Order)
-     }
-    def self.reopen(id, params = {}, opts = {}); end
 
     # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
     sig {

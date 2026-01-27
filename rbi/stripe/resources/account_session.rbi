@@ -68,6 +68,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AgenticCommerceSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Balances < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -731,6 +753,9 @@ module Stripe
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      sig { returns(T.nilable(AgenticCommerceSettings)) }
+      def agentic_commerce_settings; end
       def self.inner_class_types
         @inner_class_types = {
           account_management: AccountManagement,
@@ -756,6 +781,7 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          agentic_commerce_settings: AgenticCommerceSettings,
         }
       end
       def self.field_remappings

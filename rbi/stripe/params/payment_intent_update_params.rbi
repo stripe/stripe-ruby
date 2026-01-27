@@ -3099,8 +3099,13 @@ module Stripe
         def verification_method; end
         sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
         def verification_method=(_verification_method); end
+        # Preferred transaction settlement speed
+        sig { returns(T.nilable(String)) }
+        def preferred_settlement_speed; end
+        sig { params(_preferred_settlement_speed: T.nilable(String)).returns(T.nilable(String)) }
+        def preferred_settlement_speed=(_preferred_settlement_speed); end
         sig {
-          params(financial_connections: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
+          params(financial_connections: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String), preferred_settlement_speed: T.nilable(String)).void
          }
         def initialize(
           financial_connections: nil,
@@ -3108,7 +3113,8 @@ module Stripe
           networks: nil,
           setup_future_usage: nil,
           target_date: nil,
-          verification_method: nil
+          verification_method: nil,
+          preferred_settlement_speed: nil
         ); end
       end
       class WechatPay < ::Stripe::RequestParams

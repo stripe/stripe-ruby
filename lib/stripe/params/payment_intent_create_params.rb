@@ -2273,6 +2273,8 @@ module Stripe
         attr_accessor :target_date
         # Bank account verification method.
         attr_accessor :verification_method
+        # Preferred transaction settlement speed
+        attr_accessor :preferred_settlement_speed
 
         def initialize(
           financial_connections: nil,
@@ -2280,7 +2282,8 @@ module Stripe
           networks: nil,
           setup_future_usage: nil,
           target_date: nil,
-          verification_method: nil
+          verification_method: nil,
+          preferred_settlement_speed: nil
         )
           @financial_connections = financial_connections
           @mandate_options = mandate_options
@@ -2288,6 +2291,7 @@ module Stripe
           @setup_future_usage = setup_future_usage
           @target_date = target_date
           @verification_method = verification_method
+          @preferred_settlement_speed = preferred_settlement_speed
         end
       end
 

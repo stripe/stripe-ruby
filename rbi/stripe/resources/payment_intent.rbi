@@ -2548,6 +2548,9 @@ module Stripe
         # Bank account verification method.
         sig { returns(T.nilable(String)) }
         def verification_method; end
+        # Preferred transaction settlement speed
+        sig { returns(T.nilable(String)) }
+        def preferred_settlement_speed; end
         def self.inner_class_types
           @inner_class_types = {
             financial_connections: FinancialConnections,

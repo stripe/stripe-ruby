@@ -2712,6 +2712,23 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class RegistrationDate < ::Stripe::StripeObject
+              # The day of registration, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              # The month of registration, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              # The four-digit year of registration.
+              sig { returns(Integer) }
+              def year; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class ScriptAddresses < ::Stripe::StripeObject
               class Kana < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
@@ -2844,6 +2861,9 @@ module Stripe
             # The business legal name.
             sig { returns(T.nilable(String)) }
             def registered_name; end
+            # When the business was incorporated or registered.
+            sig { returns(T.nilable(RegistrationDate)) }
+            def registration_date; end
             # The business registration address of the business entity in non latin script.
             sig { returns(T.nilable(ScriptAddresses)) }
             def script_addresses; end
@@ -2860,6 +2880,7 @@ module Stripe
                 documents: Documents,
                 id_numbers: IdNumber,
                 monthly_estimated_revenue: MonthlyEstimatedRevenue,
+                registration_date: RegistrationDate,
                 script_addresses: ScriptAddresses,
                 script_names: ScriptNames,
               }
@@ -3571,6 +3592,9 @@ module Stripe
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         sig { returns(T.nilable(String)) }
         def contact_email; end
+        # The default contact phone for the Account.
+        sig { returns(T.nilable(String)) }
+        def contact_phone; end
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
         def created; end

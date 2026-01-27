@@ -1889,16 +1889,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field local_amusement_tax
-          attr_reader :local_amusement_tax
-          # Attribute for field local_lease_tax
-          attr_reader :local_lease_tax
-          # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-          attr_reader :state
-          # Attribute for field state_sales_tax
-          attr_reader :state_sales_tax
-          # Type of registration in the US.
-          attr_reader :type
           # Attribute for field admissions_tax
           attr_reader :admissions_tax
           # Attribute for field attendance_tax
@@ -1909,25 +1899,35 @@ module Stripe
           attr_reader :gross_receipts_tax
           # Attribute for field hospitality_tax
           attr_reader :hospitality_tax
+          # Attribute for field local_amusement_tax
+          attr_reader :local_amusement_tax
+          # Attribute for field local_lease_tax
+          attr_reader :local_lease_tax
           # Attribute for field luxury_tax
           attr_reader :luxury_tax
           # Attribute for field resort_tax
           attr_reader :resort_tax
+          # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_reader :state
+          # Attribute for field state_sales_tax
+          attr_reader :state_sales_tax
           # Attribute for field tourism_tax
           attr_reader :tourism_tax
+          # Type of registration in the US.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {
-              local_amusement_tax: LocalAmusementTax,
-              local_lease_tax: LocalLeaseTax,
-              state_sales_tax: StateSalesTax,
               admissions_tax: AdmissionsTax,
               attendance_tax: AttendanceTax,
               entertainment_tax: EntertainmentTax,
               gross_receipts_tax: GrossReceiptsTax,
               hospitality_tax: HospitalityTax,
+              local_amusement_tax: LocalAmusementTax,
+              local_lease_tax: LocalLeaseTax,
               luxury_tax: LuxuryTax,
               resort_tax: ResortTax,
+              state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
             }
           end

@@ -489,7 +489,7 @@ module Stripe
     class TaxIdCollection < ::Stripe::RequestParams
       # Enable tax ID collection during checkout. Defaults to `false`.
       attr_accessor :enabled
-      # Describes whether a tax ID is required during checkout. Defaults to `never`.
+      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :required
 
       def initialize(enabled: nil, required: nil)
@@ -507,9 +507,9 @@ module Stripe
     attr_accessor :automatic_tax
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
     attr_accessor :billing_address_collection
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     attr_accessor :custom_fields
-    # Display additional text for your customers using custom text.
+    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     attr_accessor :custom_text
     # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     attr_accessor :customer_creation

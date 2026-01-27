@@ -127,11 +127,6 @@ module Stripe
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
           def tax_code=(_tax_code); end
-          # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-          sig { returns(T.nilable(String)) }
-          def unit_label; end
-          sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
-          def unit_label=(_unit_label); end
           # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
           sig {
             returns(T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails))
@@ -141,8 +136,13 @@ module Stripe
             params(_tax_details: T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails)).returns(T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails))
            }
           def tax_details=(_tax_details); end
+          # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+          sig { returns(T.nilable(String)) }
+          def unit_label; end
+          sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
+          def unit_label=(_unit_label); end
           sig {
-            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String), tax_details: T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails)).void
+            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(InvoiceAddLinesParams::Line::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
            }
           def initialize(
             description: nil,
@@ -150,8 +150,8 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
-            unit_label: nil,
-            tax_details: nil
+            tax_details: nil,
+            unit_label: nil
           ); end
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

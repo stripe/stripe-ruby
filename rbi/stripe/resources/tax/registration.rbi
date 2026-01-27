@@ -1674,21 +1674,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field local_amusement_tax
-          sig { returns(T.nilable(LocalAmusementTax)) }
-          def local_amusement_tax; end
-          # Attribute for field local_lease_tax
-          sig { returns(T.nilable(LocalLeaseTax)) }
-          def local_lease_tax; end
-          # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-          sig { returns(String) }
-          def state; end
-          # Attribute for field state_sales_tax
-          sig { returns(T.nilable(StateSalesTax)) }
-          def state_sales_tax; end
-          # Type of registration in the US.
-          sig { returns(String) }
-          def type; end
           # Attribute for field admissions_tax
           sig { returns(T.nilable(AdmissionsTax)) }
           def admissions_tax; end
@@ -1704,27 +1689,42 @@ module Stripe
           # Attribute for field hospitality_tax
           sig { returns(T.nilable(HospitalityTax)) }
           def hospitality_tax; end
+          # Attribute for field local_amusement_tax
+          sig { returns(T.nilable(LocalAmusementTax)) }
+          def local_amusement_tax; end
+          # Attribute for field local_lease_tax
+          sig { returns(T.nilable(LocalLeaseTax)) }
+          def local_lease_tax; end
           # Attribute for field luxury_tax
           sig { returns(T.nilable(LuxuryTax)) }
           def luxury_tax; end
           # Attribute for field resort_tax
           sig { returns(T.nilable(ResortTax)) }
           def resort_tax; end
+          # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          sig { returns(String) }
+          def state; end
+          # Attribute for field state_sales_tax
+          sig { returns(T.nilable(StateSalesTax)) }
+          def state_sales_tax; end
           # Attribute for field tourism_tax
           sig { returns(T.nilable(TourismTax)) }
           def tourism_tax; end
+          # Type of registration in the US.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {
-              local_amusement_tax: LocalAmusementTax,
-              local_lease_tax: LocalLeaseTax,
-              state_sales_tax: StateSalesTax,
               admissions_tax: AdmissionsTax,
               attendance_tax: AttendanceTax,
               entertainment_tax: EntertainmentTax,
               gross_receipts_tax: GrossReceiptsTax,
               hospitality_tax: HospitalityTax,
+              local_amusement_tax: LocalAmusementTax,
+              local_lease_tax: LocalLeaseTax,
               luxury_tax: LuxuryTax,
               resort_tax: ResortTax,
+              state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
             }
           end

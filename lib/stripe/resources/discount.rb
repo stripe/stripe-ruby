@@ -12,11 +12,11 @@ module Stripe
       "discount"
     end
 
-    class Source < ::Stripe::StripeObject
-      # The coupon that was redeemed to create this discount.
-      attr_reader :coupon
-      # The source type of the discount.
-      attr_reader :type
+    class ServicePeriodDetails < ::Stripe::StripeObject
+      # The date that the service period was anchored to.
+      attr_reader :service_period_anchored_at
+      # The date that the service period started.
+      attr_reader :start_date
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -27,11 +27,11 @@ module Stripe
       end
     end
 
-    class ServicePeriodDetails < ::Stripe::StripeObject
-      # The date that the service period was anchored to.
-      attr_reader :service_period_anchored_at
-      # The date that the service period started.
-      attr_reader :start_date
+    class Source < ::Stripe::StripeObject
+      # The coupon that was redeemed to create this discount.
+      attr_reader :coupon
+      # The source type of the discount.
+      attr_reader :type
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -61,6 +61,8 @@ module Stripe
     attr_reader :promotion_code
     # The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
     attr_reader :schedule
+    # Attribute for field service_period_details
+    attr_reader :service_period_details
     # Attribute for field source
     attr_reader :source
     # Date that the coupon was applied.
@@ -69,13 +71,11 @@ module Stripe
     attr_reader :subscription
     # The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     attr_reader :subscription_item
-    # Attribute for field service_period_details
-    attr_reader :service_period_details
     # Always true for a deleted object
     attr_reader :deleted
 
     def self.inner_class_types
-      @inner_class_types = { source: Source, service_period_details: ServicePeriodDetails }
+      @inner_class_types = { service_period_details: ServicePeriodDetails, source: Source }
     end
 
     def self.field_remappings

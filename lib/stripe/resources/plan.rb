@@ -68,6 +68,8 @@ module Stripe
     attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    attr_reader :external_reference
     # Unique identifier for the object.
     attr_reader :id
     # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
@@ -96,8 +98,6 @@ module Stripe
     attr_reader :trial_period_days
     # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     attr_reader :usage_type
-    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
-    attr_reader :external_reference
     # Always true for a deleted object
     attr_reader :deleted
 

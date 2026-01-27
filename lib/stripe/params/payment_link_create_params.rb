@@ -364,10 +364,10 @@ module Stripe
           attr_accessor :name
           # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           attr_accessor :tax_code
-          # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-          attr_accessor :unit_label
           # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
           attr_accessor :tax_details
+          # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+          attr_accessor :unit_label
 
           def initialize(
             description: nil,
@@ -375,16 +375,16 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
-            unit_label: nil,
-            tax_details: nil
+            tax_details: nil,
+            unit_label: nil
           )
             @description = description
             @images = images
             @metadata = metadata
             @name = name
             @tax_code = tax_code
-            @unit_label = unit_label
             @tax_details = tax_details
+            @unit_label = unit_label
           end
         end
 
@@ -671,7 +671,7 @@ module Stripe
     class TaxIdCollection < ::Stripe::RequestParams
       # Enable tax ID collection during checkout. Defaults to `false`.
       attr_accessor :enabled
-      # Describes whether a tax ID is required during checkout. Defaults to `never`.
+      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :required
 
       def initialize(enabled: nil, required: nil)
@@ -710,9 +710,9 @@ module Stripe
     attr_accessor :consent_collection
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price.
     attr_accessor :currency
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     attr_accessor :custom_fields
-    # Display additional text for your customers using custom text.
+    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     attr_accessor :custom_text
     # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     attr_accessor :customer_creation

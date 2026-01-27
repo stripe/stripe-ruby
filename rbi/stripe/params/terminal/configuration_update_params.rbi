@@ -115,31 +115,6 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Bgn < ::Stripe::RequestParams
-          # Fixed amounts displayed when collecting a tip
-          sig { returns(T.nilable(T::Array[Integer])) }
-          def fixed_amounts; end
-          sig {
-            params(_fixed_amounts: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
-           }
-          def fixed_amounts=(_fixed_amounts); end
-          # Percentages displayed when collecting a tip
-          sig { returns(T.nilable(T::Array[Integer])) }
-          def percentages; end
-          sig {
-            params(_percentages: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
-           }
-          def percentages=(_percentages); end
-          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(T.nilable(Integer)) }
-          def smart_tip_threshold; end
-          sig { params(_smart_tip_threshold: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def smart_tip_threshold=(_smart_tip_threshold); end
-          sig {
-            params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
-           }
-          def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
-        end
         class Cad < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
@@ -629,13 +604,6 @@ module Stripe
           params(_aud: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud))
          }
         def aud=(_aud); end
-        # Tipping configuration for BGN
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Bgn)) }
-        def bgn; end
-        sig {
-          params(_bgn: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Bgn)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Bgn))
-         }
-        def bgn=(_bgn); end
         # Tipping configuration for CAD
         sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Cad)) }
         def cad; end
@@ -770,12 +738,11 @@ module Stripe
          }
         def usd=(_usd); end
         sig {
-          params(aed: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aed), aud: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud), bgn: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Bgn), cad: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Cad), chf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Chf), czk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Czk), dkk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Dkk), eur: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Eur), gbp: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gbp), gip: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gip), hkd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Hkd), huf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Huf), jpy: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Jpy), mxn: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Mxn), myr: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Myr), nok: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nok), nzd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nzd), pln: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Pln), ron: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Ron), sek: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sek), sgd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sgd), usd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Usd)).void
+          params(aed: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aed), aud: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud), cad: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Cad), chf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Chf), czk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Czk), dkk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Dkk), eur: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Eur), gbp: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gbp), gip: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gip), hkd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Hkd), huf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Huf), jpy: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Jpy), mxn: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Mxn), myr: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Myr), nok: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nok), nzd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nzd), pln: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Pln), ron: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Ron), sek: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sek), sgd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sgd), usd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Usd)).void
          }
         def initialize(
           aed: nil,
           aud: nil,
-          bgn: nil,
           cad: nil,
           chf: nil,
           czk: nil,

@@ -122,6 +122,8 @@ module Stripe
         attr_reader :payout
         # The ReceivedCredit that Capital withheld from
         attr_reader :received_credit_capital_withholding
+        # Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
+        attr_reader :topup
 
         def self.inner_class_types
           @inner_class_types = {}

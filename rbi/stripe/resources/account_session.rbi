@@ -101,7 +101,7 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
           sig { returns(T::Boolean) }
           def instant_payouts; end
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -338,7 +338,7 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
           sig { returns(T::Boolean) }
           def instant_payouts; end
           def self.inner_class_types
@@ -592,7 +592,7 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
           sig { returns(T::Boolean) }
           def instant_payouts; end
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -690,6 +690,9 @@ module Stripe
       # Attribute for field account_onboarding
       sig { returns(AccountOnboarding) }
       def account_onboarding; end
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      sig { returns(T.nilable(AgenticCommerceSettings)) }
+      def agentic_commerce_settings; end
       # Attribute for field balances
       sig { returns(Balances) }
       def balances; end
@@ -753,13 +756,11 @@ module Stripe
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
-      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
-      sig { returns(T.nilable(AgenticCommerceSettings)) }
-      def agentic_commerce_settings; end
       def self.inner_class_types
         @inner_class_types = {
           account_management: AccountManagement,
           account_onboarding: AccountOnboarding,
+          agentic_commerce_settings: AgenticCommerceSettings,
           balances: Balances,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
@@ -781,7 +782,6 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
-          agentic_commerce_settings: AgenticCommerceSettings,
         }
       end
       def self.field_remappings

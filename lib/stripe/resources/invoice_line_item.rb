@@ -414,6 +414,8 @@ module Stripe
     attr_reader :quantity
     # Attribute for field subscription
     attr_reader :subscription
+    # The subtotal of the line item, in cents (or local equivalent), before any discounts or taxes.
+    attr_reader :subtotal
     # The tax calculation identifiers of the line item.
     attr_reader :tax_calculation_reference
     # The tax information of the line item.

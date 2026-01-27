@@ -663,7 +663,7 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     sig { returns(T::Array[CustomField]) }
     def custom_fields; end
     # Attribute for field custom_text

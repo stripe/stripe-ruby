@@ -2103,7 +2103,7 @@ module Stripe
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        # Attribute for param field signer
+        # Information regarding the person signing the document if applicable.
         sig { returns(T.nilable(AccountUpdateParams::Documents::ProofOfRegistration::Signer)) }
         def signer; end
         sig {
@@ -2130,7 +2130,7 @@ module Stripe
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def files=(_files); end
-        # Attribute for param field signer
+        # Information regarding the person signing the document if applicable.
         sig {
           returns(T.nilable(AccountUpdateParams::Documents::ProofOfUltimateBeneficialOwnership::Signer))
          }
@@ -3047,13 +3047,91 @@ module Stripe
         def initialize(debit_negative_balances: nil, schedule: nil, statement_descriptor: nil); end
       end
       class PaypayPayments < ::Stripe::RequestParams
+        class Site < ::Stripe::RequestParams
+          class Accessible < ::Stripe::RequestParams; end
+          class InDevelopment < ::Stripe::RequestParams
+            # The password needed to access your business's website.
+            sig { returns(String) }
+            def password; end
+            sig { params(_password: String).returns(String) }
+            def password=(_password); end
+            # The username needed to access your business's website.
+            sig { returns(T.nilable(String)) }
+            def username; end
+            sig { params(_username: T.nilable(String)).returns(T.nilable(String)) }
+            def username=(_username); end
+            sig { params(password: String, username: T.nilable(String)).void }
+            def initialize(password: nil, username: nil); end
+          end
+          class Restricted < ::Stripe::RequestParams
+            # The file explaining the payment flow for your business.
+            sig { returns(T.nilable(String)) }
+            def payment_flow_file; end
+            sig { params(_payment_flow_file: T.nilable(String)).returns(T.nilable(String)) }
+            def payment_flow_file=(_payment_flow_file); end
+            sig { params(payment_flow_file: T.nilable(String)).void }
+            def initialize(payment_flow_file: nil); end
+          end
+          # Additional information about your business's website.
+          sig {
+            returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Accessible))
+           }
+          def accessible; end
+          sig {
+            params(_accessible: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Accessible)).returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Accessible))
+           }
+          def accessible=(_accessible); end
+          # Additional information about your business's website.
+          sig {
+            returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment))
+           }
+          def in_development; end
+          sig {
+            params(_in_development: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment)).returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment))
+           }
+          def in_development=(_in_development); end
+          # Additional information about your business's website.
+          sig {
+            returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Restricted))
+           }
+          def restricted; end
+          sig {
+            params(_restricted: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Restricted)).returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Restricted))
+           }
+          def restricted=(_restricted); end
+          # The status of your business's website.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+          def type=(_type); end
+          sig {
+            params(accessible: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Accessible), in_development: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment), restricted: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site::Restricted), type: T.nilable(String)).void
+           }
+          def initialize(accessible: nil, in_development: nil, restricted: nil, type: nil); end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        sig { returns(T.nilable(T::Array[String])) }
+        def additional_files; end
+        sig {
+          params(_additional_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def additional_files=(_additional_files); end
         # Whether your business sells digital content or not.
         sig { returns(T.nilable(String)) }
         def goods_type; end
         sig { params(_goods_type: T.nilable(String)).returns(T.nilable(String)) }
         def goods_type=(_goods_type); end
-        sig { params(goods_type: T.nilable(String)).void }
-        def initialize(goods_type: nil); end
+        # Details regarding your business's website.
+        sig { returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site)) }
+        def site; end
+        sig {
+          params(_site: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site)).returns(T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site))
+         }
+        def site=(_site); end
+        sig {
+          params(additional_files: T.nilable(T::Array[String]), goods_type: T.nilable(String), site: T.nilable(AccountUpdateParams::Settings::PaypayPayments::Site)).void
+         }
+        def initialize(additional_files: nil, goods_type: nil, site: nil); end
       end
       class TaxForms < ::Stripe::RequestParams
         # Whether the account opted out of receiving their tax forms by postal delivery.

@@ -5,6 +5,7 @@
 module Stripe
   class FinancialConnectionsService < StripeService
     attr_reader :accounts
+    attr_reader :authorizations
     attr_reader :institutions
     attr_reader :sessions
     attr_reader :transactions

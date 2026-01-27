@@ -125,6 +125,9 @@ module Stripe
     # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
     sig { returns(T.nilable(Script)) }
     def script; end
+    # Attribute for field service_period
+    sig { returns(T.nilable(ServicePeriod)) }
+    def service_period; end
     # Number of times this coupon has been applied to a customer.
     sig { returns(Integer) }
     def times_redeemed; end
@@ -134,9 +137,6 @@ module Stripe
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     sig { returns(T::Boolean) }
     def valid; end
-    # Attribute for field service_period
-    sig { returns(T.nilable(ServicePeriod)) }
-    def service_period; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

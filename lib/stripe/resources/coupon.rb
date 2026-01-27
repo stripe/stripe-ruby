@@ -121,14 +121,14 @@ module Stripe
     attr_reader :redeem_by
     # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
     attr_reader :script
+    # Attribute for field service_period
+    attr_reader :service_period
     # Number of times this coupon has been applied to a customer.
     attr_reader :times_redeemed
     # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
     attr_reader :type
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     attr_reader :valid
-    # Attribute for field service_period
-    attr_reader :service_period
     # Always true for a deleted object
     attr_reader :deleted
 

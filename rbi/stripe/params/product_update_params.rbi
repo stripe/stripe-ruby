@@ -122,6 +122,13 @@ module Stripe
     def tax_code; end
     sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
     def tax_code=(_tax_code); end
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    sig { returns(T.nilable(T.any(String, ProductUpdateParams::TaxDetails))) }
+    def tax_details; end
+    sig {
+      params(_tax_details: T.nilable(T.any(String, ProductUpdateParams::TaxDetails))).returns(T.nilable(T.any(String, ProductUpdateParams::TaxDetails)))
+     }
+    def tax_details=(_tax_details); end
     # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`.
     sig { returns(T.nilable(String)) }
     def unit_label; end
@@ -132,15 +139,8 @@ module Stripe
     def url; end
     sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
     def url=(_url); end
-    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
-    sig { returns(T.nilable(T.any(String, ProductUpdateParams::TaxDetails))) }
-    def tax_details; end
     sig {
-      params(_tax_details: T.nilable(T.any(String, ProductUpdateParams::TaxDetails))).returns(T.nilable(T.any(String, ProductUpdateParams::TaxDetails)))
-     }
-    def tax_details=(_tax_details); end
-    sig {
-      params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), images: T.nilable(T.any(String, T::Array[String])), marketing_features: T.nilable(T.any(String, T::Array[ProductUpdateParams::MarketingFeature])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), package_dimensions: T.nilable(T.any(String, ProductUpdateParams::PackageDimensions)), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String), tax_details: T.nilable(T.any(String, ProductUpdateParams::TaxDetails))).void
+      params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), images: T.nilable(T.any(String, T::Array[String])), marketing_features: T.nilable(T.any(String, T::Array[ProductUpdateParams::MarketingFeature])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), package_dimensions: T.nilable(T.any(String, ProductUpdateParams::PackageDimensions)), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(T.any(String, ProductUpdateParams::TaxDetails)), unit_label: T.nilable(String), url: T.nilable(String)).void
      }
     def initialize(
       active: nil,
@@ -155,9 +155,9 @@ module Stripe
       shippable: nil,
       statement_descriptor: nil,
       tax_code: nil,
+      tax_details: nil,
       unit_label: nil,
-      url: nil,
-      tax_details: nil
+      url: nil
     ); end
   end
 end

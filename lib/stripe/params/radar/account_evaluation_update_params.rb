@@ -23,18 +23,18 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # The type of event to report.
-      attr_accessor :type
       # Event payload for login_failed.
       attr_accessor :login_failed
       # Event payload for registration_failed.
       attr_accessor :registration_failed
+      # The type of event to report.
+      attr_accessor :type
 
-      def initialize(expand: nil, type: nil, login_failed: nil, registration_failed: nil)
+      def initialize(expand: nil, login_failed: nil, registration_failed: nil, type: nil)
         @expand = expand
-        @type = type
         @login_failed = login_failed
         @registration_failed = registration_failed
+        @type = type
       end
     end
   end

@@ -3,24 +3,6 @@
 
 module Stripe
   class OrderService < StripeService
-    attr_reader :line_items
-
-    def initialize(requestor)
-      super
-      @line_items = Stripe::OrderLineItemService.new(@requestor)
-    end
-
-    # Cancels the order as well as the payment intent if one is attached.
-    def cancel(id, params = {}, opts = {})
-      request(
-        method: :post,
-        path: format("/v1/orders/%<id>s/cancel", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts,
-        base_address: :api
-      )
-    end
-
     # Creates a new open order object.
     def create(params = {}, opts = {})
       request(method: :post, path: "/v1/orders", params: params, opts: opts, base_address: :api)
@@ -29,17 +11,6 @@ module Stripe
     # Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
     def list(params = {}, opts = {})
       request(method: :get, path: "/v1/orders", params: params, opts: opts, base_address: :api)
-    end
-
-    # Reopens a submitted order.
-    def reopen(id, params = {}, opts = {})
-      request(
-        method: :post,
-        path: format("/v1/orders/%<id>s/reopen", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts,
-        base_address: :api
-      )
     end
 
     # Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.

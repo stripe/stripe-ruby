@@ -179,6 +179,8 @@ module Stripe
     attr_reader :currency_options
     # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     attr_reader :custom_unit_amount
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    attr_reader :external_reference
     # Unique identifier for the object.
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -211,8 +213,6 @@ module Stripe
     attr_reader :unit_amount
     # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
     attr_reader :unit_amount_decimal
-    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
-    attr_reader :external_reference
     # Always true for a deleted object
     attr_reader :deleted
 

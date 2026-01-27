@@ -565,10 +565,10 @@ module Stripe
             attr_accessor :name
             # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             attr_accessor :tax_code
-            # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-            attr_accessor :unit_label
             # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
             attr_accessor :tax_details
+            # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+            attr_accessor :unit_label
 
             def initialize(
               description: nil,
@@ -576,16 +576,16 @@ module Stripe
               metadata: nil,
               name: nil,
               tax_code: nil,
-              unit_label: nil,
-              tax_details: nil
+              tax_details: nil,
+              unit_label: nil
             )
               @description = description
               @images = images
               @metadata = metadata
               @name = name
               @tax_code = tax_code
-              @unit_label = unit_label
               @tax_details = tax_details
+              @unit_label = unit_label
             end
           end
 
@@ -635,7 +635,7 @@ module Stripe
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
         attr_accessor :adjustable_quantity
-        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU. You can't set this parameter if `ui_mode` is `custom`.
         attr_accessor :dynamic_tax_rates
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
@@ -1148,7 +1148,7 @@ module Stripe
           attr_accessor :request_overcapture
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           attr_accessor :request_three_d_secure
-          # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+          # Restrictions to apply to the card payment method. For example, you can block specific card brands. You can't set this parameter if `ui_mode` is `custom`.
           attr_accessor :restrictions
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -1914,7 +1914,7 @@ module Stripe
             @setup_future_usage = setup_future_usage
           end
         end
-        # contains details about the ACSS Debit payment method options.
+        # contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `custom`.
         attr_accessor :acss_debit
         # contains details about the Affirm payment method options.
         attr_accessor :affirm
@@ -2384,7 +2384,7 @@ module Stripe
         end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. To use an application fee percent, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         attr_accessor :application_fee_percent
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `custom`.
         attr_accessor :billing_cycle_anchor
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_accessor :billing_mode
@@ -2447,7 +2447,7 @@ module Stripe
       class TaxIdCollection < ::Stripe::RequestParams
         # Enable tax ID collection during checkout. Defaults to `false`.
         attr_accessor :enabled
-        # Describes whether a tax ID is required during checkout. Defaults to `never`.
+        # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
         attr_accessor :required
 
         def initialize(enabled: nil, required: nil)
@@ -2474,7 +2474,7 @@ module Stripe
       end
       # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
       attr_accessor :adaptive_pricing
-      # Configure actions after a Checkout Session has expired.
+      # Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :after_expiration
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
@@ -2494,9 +2494,9 @@ module Stripe
       attr_accessor :consent_collection
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `payment_method_types` is not set.
       attr_accessor :currency
-      # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+      # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :custom_fields
-      # Display additional text for your customers using custom text.
+      # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :custom_text
       # ID of an existing Customer, if one exists. In `payment` mode, the customer’s most recently saved card
       # payment method will be used to prefill the email, name, card details, and billing address
@@ -2557,6 +2557,8 @@ module Stripe
       # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
       #
       # If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
+      #
+      # You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :name_collection
       # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
       #
@@ -2565,8 +2567,10 @@ module Stripe
       # For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
       #
       # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+      #
+      # You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :optional_items
-      # Where the user is coming from. This informs the optimizations that are applied to the session.
+      # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :origin_context
       # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
       attr_accessor :payment_intent_data
@@ -2622,6 +2626,7 @@ module Stripe
       # to customize relevant text on the page, such as the submit button.
       #  `submit_type` can only be specified on Checkout Sessions in
       # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
+      # You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :submit_type
       # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
       attr_accessor :subscription_data

@@ -81,10 +81,10 @@ module Stripe
         attr_accessor :name
         # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
         attr_accessor :tax_code
-        # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-        attr_accessor :unit_label
         # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
         attr_accessor :tax_details
+        # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        attr_accessor :unit_label
 
         def initialize(
           description: nil,
@@ -92,16 +92,16 @@ module Stripe
           metadata: nil,
           name: nil,
           tax_code: nil,
-          unit_label: nil,
-          tax_details: nil
+          tax_details: nil,
+          unit_label: nil
         )
           @description = description
           @images = images
           @metadata = metadata
           @name = name
           @tax_code = tax_code
-          @unit_label = unit_label
           @tax_details = tax_details
+          @unit_label = unit_label
         end
       end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

@@ -62,6 +62,37 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class RelinkOptions < ::Stripe::StripeObject
+        # Requires the end user to repair this specific account during the authentication flow instead of connecting a different one.
+        sig { returns(T.nilable(String)) }
+        def account; end
+        # The authorization to relink in the Session.
+        sig { returns(String) }
+        def authorization; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class RelinkResult < ::Stripe::StripeObject
+        # The account relinked in the Session. Only present if `relink_options[account]` is set and relink is successful.
+        sig { returns(T.nilable(String)) }
+        def account; end
+        # The authorization relinked in the Session. Only present if relink is successful.
+        sig { returns(T.nilable(String)) }
+        def authorization; end
+        # Reason for why relink failed. One of `no_authorization`, `no_account`, or `other`.
+        sig { returns(T.nilable(String)) }
+        def failure_reason; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class StatusDetails < ::Stripe::StripeObject
         class Cancelled < ::Stripe::StripeObject
           # The reason for the Session being cancelled.
@@ -117,6 +148,12 @@ module Stripe
       # Data features requested to be retrieved upon account creation.
       sig { returns(T.nilable(T::Array[String])) }
       def prefetch; end
+      # Attribute for field relink_options
+      sig { returns(T.nilable(RelinkOptions)) }
+      def relink_options; end
+      # Attribute for field relink_result
+      sig { returns(T.nilable(RelinkResult)) }
+      def relink_result; end
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
       sig { returns(T.nilable(String)) }
       def return_url; end

@@ -1,5 +1,32 @@
 # Changelog
 
+## 18.4.0-beta.1 - 2026-01-28
+This release changes the pinned API version to `2026-01-28.preview`.
+
+* [#1762](https://github.com/stripe/stripe-ruby/pull/1762) Update generated code for beta
+  * Add support for new resource `FinancialConnections::Authorization`
+  * Add support for `retrieve` method on resource `FinancialConnections::Authorization`
+  * Add support for `detach_payment` method on resource `Invoice`
+  * Remove support for `cancel`, `list_line_items`, and `reopen` methods on resource `Order`
+  * Remove support for `attach_cadence` method on resource `Subscription`
+  * Add support for `additional_files` and `site` on `Account::Setting::PaypayPayment`, `AccountCreateParams::Setting::PaypayPayment`, and `AccountUpdateParams::Setting::PaypayPayment`
+  * Remove support for `capital` on `Account::Setting`
+  * Change type of `Charge::PaymentMethodDetail::StripeBalance.source_type`, `ConfirmationToken::PaymentMethodPreview::StripeBalance.source_type`, `PaymentAttemptRecord::PaymentMethodDetail::StripeBalance.source_type`, `PaymentMethod::StripeBalance.source_type`, and `PaymentRecord::PaymentMethodDetail::StripeBalance.source_type` from `enum('bank_account'|'card'|'fpx')` to `nullable(enum('bank_account'|'card'|'fpx'))`
+  * Add support for `authorization` and `status_details` on `FinancialConnections::Account`
+  * Add support for `relink_options` on `FinancialConnections::SessionCreateParams` and `FinancialConnections::Session`
+  * Change `FinancialConnections::SessionCreateParams.account_holder` to be optional
+  * Add support for `relink_result` on `FinancialConnections::Session`
+  * Remove support for `billing_cadence` on `InvoiceCreatePreviewParams`, `SubscriptionCreateParams`, `SubscriptionUpdateParams`, and `Subscription`
+  * Remove support for `billing_cadence_details` on `Invoice::Parent` and `QuotePreviewInvoice::Parent`
+  * Add support for `car_rental_data`, `flight_data`, and `lodging_data` on `PaymentIntent::PaymentDetail`
+  * Change `QuotePreviewInvoice::PaymentSetting::PaymentMethodOption.payto` to be required
+  * Add support for `alternative_reference` on `V2::Core::Vault::GbBankAccount`, `V2::Core::Vault::UsBankAccount`, and `V2::MoneyManagement::PayoutMethod`
+  * Add support for `account_holder_address` and `account_holder_name` on `V2::MoneyManagement::FinancialAddress::Credential::UsBankAccount`
+  * Add support for `fingerprint` on `V2::MoneyManagement::PayoutMethod::Card`
+* [#1758](https://github.com/stripe/stripe-ruby/pull/1758) Fix preserving null param values when calling v2 APIs
+  - Nil input params are now preserved when calling V2 APIs.  Add additional tests for nil when calling V2 services you do not accidentally include an unintentional nil value.  V1 API calls are not affected (nil values are stripped from params hashes in V1).
+* [#1747](https://github.com/stripe/stripe-ruby/pull/1747) Add EventNotificationHandler example
+
 ## 18.2.0 - 2026-01-16
 * [#1767](https://github.com/stripe/stripe-ruby/pull/1767) Update generated code
   * Add support for event notifications `V2CoreAccountClosedEvent`, `V2CoreAccountCreatedEvent`, `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingDefaultsUpdatedEvent`, `V2CoreAccountIncludingFutureRequirementsUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, `V2CoreAccountIncludingRequirementsUpdatedEvent`, and `V2CoreAccountUpdatedEvent` with related object `V2::Core::Account`

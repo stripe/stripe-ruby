@@ -46,6 +46,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ServicePeriod < ::Stripe::StripeObject
+      class Iterations < ::Stripe::StripeObject
+        # Attribute for field count
+        sig { returns(T.nilable(Integer)) }
+        def count; end
+        # Attribute for field type
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field interval
+      sig { returns(String) }
+      def interval; end
+      # Attribute for field interval_count
+      sig { returns(Integer) }
+      def interval_count; end
+      # Attribute for field iterations
+      sig { returns(Iterations) }
+      def iterations; end
+      def self.inner_class_types
+        @inner_class_types = {iterations: Iterations}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     sig { returns(T.nilable(Integer)) }
     def amount_off; end
@@ -94,6 +125,9 @@ module Stripe
     # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
     sig { returns(T.nilable(Script)) }
     def script; end
+    # Attribute for field service_period
+    sig { returns(T.nilable(ServicePeriod)) }
+    def service_period; end
     # Number of times this coupon has been applied to a customer.
     sig { returns(Integer) }
     def times_redeemed; end

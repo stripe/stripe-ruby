@@ -28,11 +28,6 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # The type of event to report.
-      sig { returns(String) }
-      def type; end
-      sig { params(_type: String).returns(String) }
-      def type=(_type); end
       # Event payload for login_failed.
       sig { returns(T.nilable(Radar::AccountEvaluationUpdateParams::LoginFailed)) }
       def login_failed; end
@@ -47,10 +42,15 @@ module Stripe
         params(_registration_failed: T.nilable(Radar::AccountEvaluationUpdateParams::RegistrationFailed)).returns(T.nilable(Radar::AccountEvaluationUpdateParams::RegistrationFailed))
        }
       def registration_failed=(_registration_failed); end
+      # The type of event to report.
+      sig { returns(String) }
+      def type; end
+      sig { params(_type: String).returns(String) }
+      def type=(_type); end
       sig {
-        params(expand: T.nilable(T::Array[String]), type: String, login_failed: T.nilable(Radar::AccountEvaluationUpdateParams::LoginFailed), registration_failed: T.nilable(Radar::AccountEvaluationUpdateParams::RegistrationFailed)).void
+        params(expand: T.nilable(T::Array[String]), login_failed: T.nilable(Radar::AccountEvaluationUpdateParams::LoginFailed), registration_failed: T.nilable(Radar::AccountEvaluationUpdateParams::RegistrationFailed), type: String).void
        }
-      def initialize(expand: nil, type: nil, login_failed: nil, registration_failed: nil); end
+      def initialize(expand: nil, login_failed: nil, registration_failed: nil, type: nil); end
     end
   end
 end

@@ -845,21 +845,6 @@ module Stripe
         end
       end
 
-      class Capital < ::Stripe::StripeObject
-        # Per-currency mapping of user-selected destination accounts used to pay out loans.
-        attr_reader :payout_destination
-        # Per-currency mapping of all destination accounts eligible to receive loan payouts.
-        attr_reader :payout_destination_selector
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class CardIssuing < ::Stripe::StripeObject
         class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
@@ -1013,11 +998,74 @@ module Stripe
       end
 
       class PaypayPayments < ::Stripe::StripeObject
+        class Site < ::Stripe::StripeObject
+          class Accessible < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class InDevelopment < ::Stripe::StripeObject
+            # Field to indicate that the website password has been provided.
+            attr_reader :password_provided
+            # The username needed to access your business's website.
+            attr_reader :username
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Restricted < ::Stripe::StripeObject
+            # File explaining the payment flow for your business.
+            attr_reader :payment_flow_file
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field accessible
+          attr_reader :accessible
+          # Attribute for field in_development
+          attr_reader :in_development
+          # Attribute for field restricted
+          attr_reader :restricted
+          # The status of your business's website.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              accessible: Accessible,
+              in_development: InDevelopment,
+              restricted: Restricted,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        attr_reader :additional_files
         # Whether your business sells digital content or not.
         attr_reader :goods_type
+        # Attribute for field site
+        attr_reader :site
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { site: Site }
         end
 
         def self.field_remappings
@@ -1085,8 +1133,6 @@ module Stripe
       attr_reader :bank_bca_onboarding
       # Attribute for field branding
       attr_reader :branding
-      # Attribute for field capital
-      attr_reader :capital
       # Attribute for field card_issuing
       attr_reader :card_issuing
       # Attribute for field card_payments
@@ -1113,7 +1159,6 @@ module Stripe
           bacs_debit_payments: BacsDebitPayments,
           bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
-          capital: Capital,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
           dashboard: Dashboard,

@@ -71,6 +71,38 @@ module Stripe
         end
       end
 
+      class RelinkOptions < ::Stripe::StripeObject
+        # Requires the end user to repair this specific account during the authentication flow instead of connecting a different one.
+        attr_reader :account
+        # The authorization to relink in the Session.
+        attr_reader :authorization
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RelinkResult < ::Stripe::StripeObject
+        # The account relinked in the Session. Only present if `relink_options[account]` is set and relink is successful.
+        attr_reader :account
+        # The authorization relinked in the Session. Only present if relink is successful.
+        attr_reader :authorization
+        # Reason for why relink failed. One of `no_authorization`, `no_account`, or `other`.
+        attr_reader :failure_reason
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class StatusDetails < ::Stripe::StripeObject
         class Cancelled < ::Stripe::StripeObject
           # The reason for the Session being cancelled.
@@ -117,6 +149,10 @@ module Stripe
       attr_reader :permissions
       # Data features requested to be retrieved upon account creation.
       attr_reader :prefetch
+      # Attribute for field relink_options
+      attr_reader :relink_options
+      # Attribute for field relink_result
+      attr_reader :relink_result
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
       attr_reader :return_url
       # The current state of the session.
@@ -140,6 +176,8 @@ module Stripe
           filters: Filters,
           limits: Limits,
           manual_entry: ManualEntry,
+          relink_options: RelinkOptions,
+          relink_result: RelinkResult,
           status_details: StatusDetails,
         }
       end

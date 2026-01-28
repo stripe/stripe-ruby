@@ -801,7 +801,7 @@ module Stripe
     # Details of the most recent price migration that failed for the subscription.
     sig { returns(T.nilable(LastPriceMigrationError)) }
     def last_price_migration_error; end
-    # The most recent invoice this subscription has generated.
+    # The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def latest_invoice; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -944,6 +944,18 @@ module Stripe
       params(subscription: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def self.migrate(subscription, params = {}, opts = {}); end
+
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    sig {
+      params(params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+     }
+    def pause(params = {}, opts = {}); end
+
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    sig {
+      params(subscription: String, params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+     }
+    def self.pause(subscription, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     sig {

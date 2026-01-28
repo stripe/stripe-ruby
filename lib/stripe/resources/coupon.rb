@@ -58,6 +58,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class ServicePeriod < ::Stripe::StripeObject
+      class Iterations < ::Stripe::StripeObject
+        # Attribute for field count
+        attr_reader :count
+        # Attribute for field type
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field interval
+      attr_reader :interval
+      # Attribute for field interval_count
+      attr_reader :interval_count
+      # Attribute for field iterations
+      attr_reader :iterations
+
+      def self.inner_class_types
+        @inner_class_types = { iterations: Iterations }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     attr_reader :amount_off
     # Attribute for field applies_to
@@ -90,6 +121,8 @@ module Stripe
     attr_reader :redeem_by
     # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
     attr_reader :script
+    # Attribute for field service_period
+    attr_reader :service_period
     # Number of times this coupon has been applied to a customer.
     attr_reader :times_redeemed
     # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
@@ -146,6 +179,7 @@ module Stripe
         applies_to: AppliesTo,
         currency_options: CurrencyOptions,
         script: Script,
+        service_period: ServicePeriod,
       }
     end
 

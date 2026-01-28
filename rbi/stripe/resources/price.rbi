@@ -185,6 +185,9 @@ module Stripe
     # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     sig { returns(T.nilable(CustomUnitAmount)) }
     def custom_unit_amount; end
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    sig { returns(T.nilable(String)) }
+    def external_reference; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
@@ -233,9 +236,6 @@ module Stripe
     # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
     sig { returns(T.nilable(String)) }
     def unit_amount_decimal; end
-    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
-    sig { returns(T.nilable(String)) }
-    def external_reference; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

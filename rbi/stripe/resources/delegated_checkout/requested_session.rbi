@@ -315,6 +315,40 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class RiskDetails < ::Stripe::StripeObject
+        class ClientDeviceMetadataDetails < ::Stripe::StripeObject
+          # The radar session for the client device.
+          sig { returns(T.nilable(String)) }
+          def radar_session; end
+          # The referrer of the client device.
+          sig { returns(T.nilable(String)) }
+          def referrer; end
+          # The remote IP address of the client device.
+          sig { returns(T.nilable(String)) }
+          def remote_ip; end
+          # The time spent on the page by the client device.
+          sig { returns(T.nilable(Integer)) }
+          def time_on_page_ms; end
+          # The user agent of the client device.
+          sig { returns(T.nilable(String)) }
+          def user_agent; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The risk metadata for the client device.
+        sig { returns(T.nilable(ClientDeviceMetadataDetails)) }
+        def client_device_metadata_details; end
+        def self.inner_class_types
+          @inner_class_types = {client_device_metadata_details: ClientDeviceMetadataDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SellerDetails < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -358,40 +392,6 @@ module Stripe
         def applicable_fees; end
         def self.inner_class_types
           @inner_class_types = {applicable_fees: ApplicableFee}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class RiskDetails < ::Stripe::StripeObject
-        class ClientDeviceMetadataDetails < ::Stripe::StripeObject
-          # The radar session for the client device.
-          sig { returns(T.nilable(String)) }
-          def radar_session; end
-          # The referrer of the client device.
-          sig { returns(T.nilable(String)) }
-          def referrer; end
-          # The remote IP address of the client device.
-          sig { returns(T.nilable(String)) }
-          def remote_ip; end
-          # The time spent on the page by the client device.
-          sig { returns(T.nilable(Integer)) }
-          def time_on_page_ms; end
-          # The user agent of the client device.
-          sig { returns(T.nilable(String)) }
-          def user_agent; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The risk metadata for the client device.
-        sig { returns(T.nilable(ClientDeviceMetadataDetails)) }
-        def client_device_metadata_details; end
-        def self.inner_class_types
-          @inner_class_types = {client_device_metadata_details: ClientDeviceMetadataDetails}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -442,6 +442,9 @@ module Stripe
       # The preview of the payment method to be created when the requested session is confirmed.
       sig { returns(T.nilable(PaymentMethodPreview)) }
       def payment_method_preview; end
+      # The risk details of the requested session.
+      sig { returns(T.nilable(RiskDetails)) }
+      def risk_details; end
       # Attribute for field seller_details
       sig { returns(SellerDetails) }
       def seller_details; end
@@ -463,9 +466,6 @@ module Stripe
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def updated_at; end
-      # The risk details of the requested session.
-      sig { returns(T.nilable(RiskDetails)) }
-      def risk_details; end
       # Confirms a requested session
       sig {
         params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

@@ -131,23 +131,6 @@ module Stripe
           end
         end
 
-        class Bgn < ::Stripe::StripeObject
-          # Fixed amounts displayed when collecting a tip
-          attr_reader :fixed_amounts
-          # Percentages displayed when collecting a tip
-          attr_reader :percentages
-          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          attr_reader :smart_tip_threshold
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class Cad < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
@@ -474,8 +457,6 @@ module Stripe
         attr_reader :aed
         # Attribute for field aud
         attr_reader :aud
-        # Attribute for field bgn
-        attr_reader :bgn
         # Attribute for field cad
         attr_reader :cad
         # Attribute for field chf
@@ -519,7 +500,6 @@ module Stripe
           @inner_class_types = {
             aed: Aed,
             aud: Aud,
-            bgn: Bgn,
             cad: Cad,
             chf: Chf,
             czk: Czk,

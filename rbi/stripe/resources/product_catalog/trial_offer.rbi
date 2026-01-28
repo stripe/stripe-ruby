@@ -69,15 +69,15 @@ module Stripe
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
+      # A brief, user-friendly name for the trial offer-for identification purposes.
+      sig { returns(T.nilable(String)) }
+      def name; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
       # The price during the trial offer.
       sig { returns(T.any(String, ::Stripe::Price)) }
       def price; end
-      # A brief, user-friendly name for the trial offer-for identification purposes.
-      sig { returns(T.nilable(String)) }
-      def name; end
       # Creates a trial offer.
       sig {
         params(params: T.any(::Stripe::ProductCatalog::TrialOfferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)

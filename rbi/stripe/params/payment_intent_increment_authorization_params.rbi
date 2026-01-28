@@ -238,7 +238,18 @@ module Stripe
         params(_discount_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
        }
       def discount_amount=(_discount_amount); end
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # Set to `false` to return arithmetic validation errors in the response without failing the request. Use this when you want the operation to proceed regardless of arithmetic errors in the line item data.
+      #
+      # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
+      #
+      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enforce_arithmetic_validation; end
+      sig {
+        params(_enforce_arithmetic_validation: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+       }
+      def enforce_arithmetic_validation=(_enforce_arithmetic_validation); end
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       sig {
         returns(T.nilable(T.any(String, T::Array[PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem])))
        }
@@ -266,9 +277,15 @@ module Stripe
        }
       def tax=(_tax); end
       sig {
-        params(discount_amount: T.nilable(T.any(String, Integer)), line_items: T.nilable(T.any(String, T::Array[PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, PaymentIntentIncrementAuthorizationParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, PaymentIntentIncrementAuthorizationParams::AmountDetails::Tax))).void
+        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, PaymentIntentIncrementAuthorizationParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, PaymentIntentIncrementAuthorizationParams::AmountDetails::Tax))).void
        }
-      def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
+      def initialize(
+        discount_amount: nil,
+        enforce_arithmetic_validation: nil,
+        line_items: nil,
+        shipping: nil,
+        tax: nil
+      ); end
     end
     class Hooks < ::Stripe::RequestParams
       class Inputs < ::Stripe::RequestParams

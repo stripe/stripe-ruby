@@ -78,6 +78,8 @@ module Stripe
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # A tax location for a line item that acts as a performance location. This indicates that the line item might be taxed at the place where it is being performed at. This is helpful for events or other services being performed at non-customer addresses like venues or offices. This can be left empty for tax codes that do not require a tax location. For tax codes where the location requirement is "optional", this would override the customer address in most use cases.
+      attr_reader :performance_location
       # The ID of an existing [Product](https://docs.stripe.com/api/products/object).
       attr_reader :product
       # The number of units of the item being purchased. For reversals, this is the quantity reversed.
@@ -90,8 +92,6 @@ module Stripe
       attr_reader :tax_breakdown
       # The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for this resource.
       attr_reader :tax_code
-      # A tax location for a line item that acts as a performance location. This indicates that the line item might be taxed at the place where it is being performed at. This is helpful for events or other services being performed at non-customer addresses like venues or offices. This can be left empty for tax codes that do not require a tax location. For tax codes where the location requirement is "optional", this would override the customer address in most use cases.
-      attr_reader :performance_location
 
       def self.inner_class_types
         @inner_class_types = { tax_breakdown: TaxBreakdown }

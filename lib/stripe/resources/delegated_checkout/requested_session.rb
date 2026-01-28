@@ -303,6 +303,39 @@ module Stripe
         end
       end
 
+      class RiskDetails < ::Stripe::StripeObject
+        class ClientDeviceMetadataDetails < ::Stripe::StripeObject
+          # The radar session for the client device.
+          attr_reader :radar_session
+          # The referrer of the client device.
+          attr_reader :referrer
+          # The remote IP address of the client device.
+          attr_reader :remote_ip
+          # The time spent on the page by the client device.
+          attr_reader :time_on_page_ms
+          # The user agent of the client device.
+          attr_reader :user_agent
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The risk metadata for the client device.
+        attr_reader :client_device_metadata_details
+
+        def self.inner_class_types
+          @inner_class_types = { client_device_metadata_details: ClientDeviceMetadataDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SellerDetails < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -349,39 +382,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-
-      class RiskDetails < ::Stripe::StripeObject
-        class ClientDeviceMetadataDetails < ::Stripe::StripeObject
-          # The radar session for the client device.
-          attr_reader :radar_session
-          # The referrer of the client device.
-          attr_reader :referrer
-          # The remote IP address of the client device.
-          attr_reader :remote_ip
-          # The time spent on the page by the client device.
-          attr_reader :time_on_page_ms
-          # The user agent of the client device.
-          attr_reader :user_agent
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The risk metadata for the client device.
-        attr_reader :client_device_metadata_details
-
-        def self.inner_class_types
-          @inner_class_types = { client_device_metadata_details: ClientDeviceMetadataDetails }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # The subtotal amount of the requested session.
       attr_reader :amount_subtotal
       # The total amount of the requested session.
@@ -412,6 +412,8 @@ module Stripe
       attr_reader :payment_method
       # The preview of the payment method to be created when the requested session is confirmed.
       attr_reader :payment_method_preview
+      # The risk details of the requested session.
+      attr_reader :risk_details
       # Attribute for field seller_details
       attr_reader :seller_details
       # Whether or not the payment method should be saved for future use.
@@ -426,8 +428,6 @@ module Stripe
       attr_reader :total_details
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated_at
-      # The risk details of the requested session.
-      attr_reader :risk_details
 
       # Confirms a requested session
       def confirm(params = {}, opts = {})
@@ -495,9 +495,9 @@ module Stripe
           line_item_details: LineItemDetail,
           order_details: OrderDetails,
           payment_method_preview: PaymentMethodPreview,
+          risk_details: RiskDetails,
           seller_details: SellerDetails,
           total_details: TotalDetails,
-          risk_details: RiskDetails,
         }
       end
 

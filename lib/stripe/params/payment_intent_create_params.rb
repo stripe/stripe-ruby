@@ -168,15 +168,28 @@ module Stripe
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_accessor :discount_amount
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # Set to `false` to return arithmetic validation errors in the response without failing the request. Use this when you want the operation to proceed regardless of arithmetic errors in the line item data.
+      #
+      # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
+      #
+      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      attr_accessor :enforce_arithmetic_validation
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_accessor :line_items
       # Contains information about the shipping portion of the amount.
       attr_accessor :shipping
       # Contains information about the tax portion of the amount.
       attr_accessor :tax
 
-      def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
+      def initialize(
+        discount_amount: nil,
+        enforce_arithmetic_validation: nil,
+        line_items: nil,
+        shipping: nil,
+        tax: nil
+      )
         @discount_amount = discount_amount
+        @enforce_arithmetic_validation = enforce_arithmetic_validation
         @line_items = line_items
         @shipping = shipping
         @tax = tax
@@ -5200,8 +5213,6 @@ module Stripe
         attr_accessor :mandate_options
         # Additional fields for network related functions
         attr_accessor :networks
-        # Preferred transaction settlement speed
-        attr_accessor :preferred_settlement_speed
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -5216,23 +5227,25 @@ module Stripe
         attr_accessor :target_date
         # Bank account verification method.
         attr_accessor :verification_method
+        # Preferred transaction settlement speed
+        attr_accessor :preferred_settlement_speed
 
         def initialize(
           financial_connections: nil,
           mandate_options: nil,
           networks: nil,
-          preferred_settlement_speed: nil,
           setup_future_usage: nil,
           target_date: nil,
-          verification_method: nil
+          verification_method: nil,
+          preferred_settlement_speed: nil
         )
           @financial_connections = financial_connections
           @mandate_options = mandate_options
           @networks = networks
-          @preferred_settlement_speed = preferred_settlement_speed
           @setup_future_usage = setup_future_usage
           @target_date = target_date
           @verification_method = verification_method
+          @preferred_settlement_speed = preferred_settlement_speed
         end
       end
 
@@ -5698,6 +5711,8 @@ module Stripe
     #
     # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
     attr_accessor :setup_future_usage
+    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
+    attr_accessor :shared_payment_granted_token
     # Shipping information for this PaymentIntent.
     attr_accessor :shipping
     # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -5713,8 +5728,6 @@ module Stripe
     attr_accessor :transfer_group
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     attr_accessor :use_stripe_sdk
-    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
-    attr_accessor :shared_payment_granted_token
 
     def initialize(
       allocated_funds: nil,
@@ -5752,13 +5765,13 @@ module Stripe
       return_url: nil,
       secret_key_confirmation: nil,
       setup_future_usage: nil,
+      shared_payment_granted_token: nil,
       shipping: nil,
       statement_descriptor: nil,
       statement_descriptor_suffix: nil,
       transfer_data: nil,
       transfer_group: nil,
-      use_stripe_sdk: nil,
-      shared_payment_granted_token: nil
+      use_stripe_sdk: nil
     )
       @allocated_funds = allocated_funds
       @amount = amount
@@ -5795,13 +5808,13 @@ module Stripe
       @return_url = return_url
       @secret_key_confirmation = secret_key_confirmation
       @setup_future_usage = setup_future_usage
+      @shared_payment_granted_token = shared_payment_granted_token
       @shipping = shipping
       @statement_descriptor = statement_descriptor
       @statement_descriptor_suffix = statement_descriptor_suffix
       @transfer_data = transfer_data
       @transfer_group = transfer_group
       @use_stripe_sdk = use_stripe_sdk
-      @shared_payment_granted_token = shared_payment_granted_token
     end
   end
 end

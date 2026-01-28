@@ -379,6 +379,49 @@ module Stripe
             @type = type
           end
         end
+
+        class Settings < ::Stripe::RequestParams
+          class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+            class Custom < ::Stripe::RequestParams
+              # The day of the month the anchor should be. Ranges from 1 to 31.
+              attr_accessor :day_of_month
+              # The hour of the day the anchor should be. Ranges from 0 to 23.
+              attr_accessor :hour
+              # The minute of the hour the anchor should be. Ranges from 0 to 59.
+              attr_accessor :minute
+              # The month to start full cycle periods. Ranges from 1 to 12.
+              attr_accessor :month
+              # The second of the minute the anchor should be. Ranges from 0 to 59.
+              attr_accessor :second
+
+              def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                @day_of_month = day_of_month
+                @hour = hour
+                @minute = minute
+                @month = month
+                @second = second
+              end
+            end
+            # Anchor the service period to a custom date. Type must be `custom` to specify.
+            attr_accessor :custom
+            # The type of service period anchor config. Defaults to `inherit` if omitted.
+            attr_accessor :type
+
+            def initialize(custom: nil, type: nil)
+              @custom = custom
+              @type = type
+            end
+          end
+          # Configures service period cycle anchoring.
+          attr_accessor :service_period_anchor_config
+          # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+          attr_accessor :start_date
+
+          def initialize(service_period_anchor_config: nil, start_date: nil)
+            @service_period_anchor_config = service_period_anchor_config
+            @start_date = start_date
+          end
+        end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -387,12 +430,21 @@ module Stripe
         attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
+        # Settings for discount application including service period anchoring.
+        attr_accessor :settings
 
-        def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
+        def initialize(
+          coupon: nil,
+          discount: nil,
+          discount_end: nil,
+          promotion_code: nil,
+          settings: nil
+        )
           @coupon = coupon
           @discount = discount
           @discount_end = discount_end
           @promotion_code = promotion_code
+          @settings = settings
         end
       end
 
@@ -470,6 +522,49 @@ module Stripe
               @type = type
             end
           end
+
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                attr_accessor :day_of_month
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                attr_accessor :hour
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                attr_accessor :minute
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                attr_accessor :month
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                attr_accessor :second
+
+                def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                  @day_of_month = day_of_month
+                  @hour = hour
+                  @minute = minute
+                  @month = month
+                  @second = second
+                end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              attr_accessor :custom
+              # The type of service period anchor config. Defaults to `inherit` if omitted.
+              attr_accessor :type
+
+              def initialize(custom: nil, type: nil)
+                @custom = custom
+                @type = type
+              end
+            end
+            # Configures service period cycle anchoring.
+            attr_accessor :service_period_anchor_config
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+            attr_accessor :start_date
+
+            def initialize(service_period_anchor_config: nil, start_date: nil)
+              @service_period_anchor_config = service_period_anchor_config
+              @start_date = start_date
+            end
+          end
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -478,12 +573,21 @@ module Stripe
           attr_accessor :discount_end
           # ID of the promotion code to create a new discount for.
           attr_accessor :promotion_code
+          # Settings for discount application including service period anchoring.
+          attr_accessor :settings
 
-          def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
+          def initialize(
+            coupon: nil,
+            discount: nil,
+            discount_end: nil,
+            promotion_code: nil,
+            settings: nil
+          )
             @coupon = coupon
             @discount = discount
             @discount_end = discount_end
             @promotion_code = promotion_code
+            @settings = settings
           end
         end
 

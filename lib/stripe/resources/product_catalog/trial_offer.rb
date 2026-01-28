@@ -74,12 +74,12 @@ module Stripe
       attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+      # A brief, user-friendly name for the trial offer-for identification purposes.
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The price during the trial offer.
       attr_reader :price
-      # A brief, user-friendly name for the trial offer-for identification purposes.
-      attr_reader :name
 
       # Creates a trial offer.
       def self.create(params = {}, opts = {})

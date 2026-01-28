@@ -68,6 +68,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AgenticCommerceSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Balances < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -79,7 +101,7 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
           sig { returns(T::Boolean) }
           def instant_payouts; end
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -316,7 +338,7 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
           sig { returns(T::Boolean) }
           def instant_payouts; end
           def self.inner_class_types
@@ -570,7 +592,7 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
           sig { returns(T::Boolean) }
           def instant_payouts; end
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -668,6 +690,9 @@ module Stripe
       # Attribute for field account_onboarding
       sig { returns(AccountOnboarding) }
       def account_onboarding; end
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      sig { returns(T.nilable(AgenticCommerceSettings)) }
+      def agentic_commerce_settings; end
       # Attribute for field balances
       sig { returns(Balances) }
       def balances; end
@@ -735,6 +760,7 @@ module Stripe
         @inner_class_types = {
           account_management: AccountManagement,
           account_onboarding: AccountOnboarding,
+          agentic_commerce_settings: AgenticCommerceSettings,
           balances: Balances,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,

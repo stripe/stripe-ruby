@@ -68,12 +68,12 @@ module Stripe
     attr_accessor :statement_descriptor
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     attr_accessor :tax_code
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    attr_accessor :tax_details
     # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`.
     attr_accessor :unit_label
     # A URL of a publicly-accessible webpage for this product.
     attr_accessor :url
-    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
-    attr_accessor :tax_details
 
     def initialize(
       active: nil,
@@ -88,9 +88,9 @@ module Stripe
       shippable: nil,
       statement_descriptor: nil,
       tax_code: nil,
+      tax_details: nil,
       unit_label: nil,
-      url: nil,
-      tax_details: nil
+      url: nil
     )
       @active = active
       @default_price = default_price
@@ -104,9 +104,9 @@ module Stripe
       @shippable = shippable
       @statement_descriptor = statement_descriptor
       @tax_code = tax_code
+      @tax_details = tax_details
       @unit_label = unit_label
       @url = url
-      @tax_details = tax_details
     end
   end
 end

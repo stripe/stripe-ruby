@@ -73,20 +73,20 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Price configuration during the trial period (amount, billing scheme, etc).
-      sig { returns(String) }
-      def price; end
-      sig { params(_price: String).returns(String) }
-      def price=(_price); end
       # A brief, user-friendly name for the trial offer-for identification purposes.
       sig { returns(T.nilable(String)) }
       def name; end
       sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
       def name=(_name); end
+      # Price configuration during the trial period (amount, billing scheme, etc).
+      sig { returns(String) }
+      def price; end
+      sig { params(_price: String).returns(String) }
+      def price=(_price); end
       sig {
-        params(duration: ProductCatalog::TrialOfferCreateParams::Duration, end_behavior: ProductCatalog::TrialOfferCreateParams::EndBehavior, expand: T.nilable(T::Array[String]), price: String, name: T.nilable(String)).void
+        params(duration: ProductCatalog::TrialOfferCreateParams::Duration, end_behavior: ProductCatalog::TrialOfferCreateParams::EndBehavior, expand: T.nilable(T::Array[String]), name: T.nilable(String), price: String).void
        }
-      def initialize(duration: nil, end_behavior: nil, expand: nil, price: nil, name: nil); end
+      def initialize(duration: nil, end_behavior: nil, expand: nil, name: nil, price: nil); end
     end
   end
 end

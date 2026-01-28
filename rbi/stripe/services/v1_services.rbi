@@ -38,6 +38,7 @@ module Stripe
     attr_reader :file_links
     attr_reader :financial_connections
     attr_reader :forwarding
+    attr_reader :fr_meal_vouchers_onboardings
     attr_reader :fx_quotes
     attr_reader :identity
     attr_reader :invoices
@@ -66,6 +67,7 @@ module Stripe
     attr_reader :radar
     attr_reader :refunds
     attr_reader :reporting
+    attr_reader :reserve
     attr_reader :reviews
     attr_reader :setup_attempts
     attr_reader :setup_intents

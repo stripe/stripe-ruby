@@ -245,7 +245,18 @@ module Stripe
         params(_discount_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
        }
       def discount_amount=(_discount_amount); end
-      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+      # Set to `false` to return arithmetic validation errors in the response without failing the request. Use this when you want the operation to proceed regardless of arithmetic errors in the line item data.
+      #
+      # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
+      #
+      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enforce_arithmetic_validation; end
+      sig {
+        params(_enforce_arithmetic_validation: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+       }
+      def enforce_arithmetic_validation=(_enforce_arithmetic_validation); end
+      # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       sig {
         returns(T.nilable(T.any(String, T::Array[PaymentIntentCreateParams::AmountDetails::LineItem])))
        }
@@ -269,9 +280,15 @@ module Stripe
        }
       def tax=(_tax); end
       sig {
-        params(discount_amount: T.nilable(T.any(String, Integer)), line_items: T.nilable(T.any(String, T::Array[PaymentIntentCreateParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, PaymentIntentCreateParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, PaymentIntentCreateParams::AmountDetails::Tax))).void
+        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[PaymentIntentCreateParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, PaymentIntentCreateParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, PaymentIntentCreateParams::AmountDetails::Tax))).void
        }
-      def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
+      def initialize(
+        discount_amount: nil,
+        enforce_arithmetic_validation: nil,
+        line_items: nil,
+        shipping: nil,
+        tax: nil
+      ); end
     end
     class AutomaticPaymentMethods < ::Stripe::RequestParams
       # Controls whether this PaymentIntent will accept redirect-based payment methods.
@@ -7662,13 +7679,6 @@ module Stripe
           params(_networks: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::Networks)).returns(T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::Networks))
          }
         def networks=(_networks); end
-        # Preferred transaction settlement speed
-        sig { returns(T.nilable(T.any(String, String))) }
-        def preferred_settlement_speed; end
-        sig {
-          params(_preferred_settlement_speed: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
-        def preferred_settlement_speed=(_preferred_settlement_speed); end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -7694,17 +7704,24 @@ module Stripe
         def verification_method; end
         sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
         def verification_method=(_verification_method); end
+        # Preferred transaction settlement speed
+        sig { returns(T.nilable(T.any(String, String))) }
+        def preferred_settlement_speed; end
         sig {
-          params(financial_connections: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::Networks), preferred_settlement_speed: T.nilable(T.any(String, String)), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
+          params(_preferred_settlement_speed: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+         }
+        def preferred_settlement_speed=(_preferred_settlement_speed); end
+        sig {
+          params(financial_connections: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String), preferred_settlement_speed: T.nilable(T.any(String, String))).void
          }
         def initialize(
           financial_connections: nil,
           mandate_options: nil,
           networks: nil,
-          preferred_settlement_speed: nil,
           setup_future_usage: nil,
           target_date: nil,
-          verification_method: nil
+          verification_method: nil,
+          preferred_settlement_speed: nil
         ); end
       end
       class WechatPay < ::Stripe::RequestParams
@@ -8691,6 +8708,11 @@ module Stripe
     def setup_future_usage; end
     sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
     def setup_future_usage=(_setup_future_usage); end
+    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
+    sig { returns(T.nilable(String)) }
+    def shared_payment_granted_token; end
+    sig { params(_shared_payment_granted_token: T.nilable(String)).returns(T.nilable(String)) }
+    def shared_payment_granted_token=(_shared_payment_granted_token); end
     # Shipping information for this PaymentIntent.
     sig { returns(T.nilable(PaymentIntentCreateParams::Shipping)) }
     def shipping; end
@@ -8728,13 +8750,8 @@ module Stripe
     def use_stripe_sdk; end
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
-    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
-    sig { returns(T.nilable(String)) }
-    def shared_payment_granted_token; end
-    sig { params(_shared_payment_granted_token: T.nilable(String)).returns(T.nilable(String)) }
-    def shared_payment_granted_token=(_shared_payment_granted_token); end
     sig {
-      params(allocated_funds: T.nilable(PaymentIntentCreateParams::AllocatedFunds), amount: Integer, amount_details: T.nilable(PaymentIntentCreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(PaymentIntentCreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(PaymentIntentCreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(PaymentIntentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(PaymentIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), payments_orchestration: T.nilable(PaymentIntentCreateParams::PaymentsOrchestration), radar_options: T.nilable(PaymentIntentCreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(PaymentIntentCreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(PaymentIntentCreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean), shared_payment_granted_token: T.nilable(String)).void
+      params(allocated_funds: T.nilable(PaymentIntentCreateParams::AllocatedFunds), amount: Integer, amount_details: T.nilable(PaymentIntentCreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(PaymentIntentCreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(PaymentIntentCreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, PaymentIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(PaymentIntentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(PaymentIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), payments_orchestration: T.nilable(PaymentIntentCreateParams::PaymentsOrchestration), radar_options: T.nilable(PaymentIntentCreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shared_payment_granted_token: T.nilable(String), shipping: T.nilable(PaymentIntentCreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(PaymentIntentCreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
       allocated_funds: nil,
@@ -8772,13 +8789,13 @@ module Stripe
       return_url: nil,
       secret_key_confirmation: nil,
       setup_future_usage: nil,
+      shared_payment_granted_token: nil,
       shipping: nil,
       statement_descriptor: nil,
       statement_descriptor_suffix: nil,
       transfer_data: nil,
       transfer_group: nil,
-      use_stripe_sdk: nil,
-      shared_payment_granted_token: nil
+      use_stripe_sdk: nil
     ); end
   end
 end

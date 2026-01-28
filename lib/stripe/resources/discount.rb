@@ -12,6 +12,21 @@ module Stripe
       "discount"
     end
 
+    class ServicePeriodDetails < ::Stripe::StripeObject
+      # The date that the service period was anchored to.
+      attr_reader :service_period_anchored_at
+      # The date that the service period started.
+      attr_reader :start_date
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Source < ::Stripe::StripeObject
       # The coupon that was redeemed to create this discount.
       attr_reader :coupon
@@ -46,6 +61,8 @@ module Stripe
     attr_reader :promotion_code
     # The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
     attr_reader :schedule
+    # Attribute for field service_period_details
+    attr_reader :service_period_details
     # Attribute for field source
     attr_reader :source
     # Date that the coupon was applied.
@@ -58,7 +75,7 @@ module Stripe
     attr_reader :deleted
 
     def self.inner_class_types
-      @inner_class_types = { source: Source }
+      @inner_class_types = { service_period_details: ServicePeriodDetails, source: Source }
     end
 
     def self.field_remappings

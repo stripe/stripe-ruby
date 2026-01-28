@@ -340,6 +340,13 @@ module Stripe
     def tax_code; end
     sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
     def tax_code=(_tax_code); end
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    sig { returns(T.nilable(ProductCreateParams::TaxDetails)) }
+    def tax_details; end
+    sig {
+      params(_tax_details: T.nilable(ProductCreateParams::TaxDetails)).returns(T.nilable(ProductCreateParams::TaxDetails))
+     }
+    def tax_details=(_tax_details); end
     # The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
     sig { returns(T.nilable(String)) }
     def type; end
@@ -355,15 +362,8 @@ module Stripe
     def url; end
     sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
     def url=(_url); end
-    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
-    sig { returns(T.nilable(ProductCreateParams::TaxDetails)) }
-    def tax_details; end
     sig {
-      params(_tax_details: T.nilable(ProductCreateParams::TaxDetails)).returns(T.nilable(ProductCreateParams::TaxDetails))
-     }
-    def tax_details=(_tax_details); end
-    sig {
-      params(active: T.nilable(T::Boolean), default_price_data: T.nilable(ProductCreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[ProductCreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(ProductCreateParams::PackageDimensions), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String), tax_details: T.nilable(ProductCreateParams::TaxDetails)).void
+      params(active: T.nilable(T::Boolean), default_price_data: T.nilable(ProductCreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[ProductCreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(ProductCreateParams::PackageDimensions), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(ProductCreateParams::TaxDetails), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
      }
     def initialize(
       active: nil,
@@ -379,10 +379,10 @@ module Stripe
       shippable: nil,
       statement_descriptor: nil,
       tax_code: nil,
+      tax_details: nil,
       type: nil,
       unit_label: nil,
-      url: nil,
-      tax_details: nil
+      url: nil
     ); end
   end
 end

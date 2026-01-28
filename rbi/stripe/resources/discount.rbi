@@ -8,6 +8,20 @@ module Stripe
   #
   # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
   class Discount < StripeObject
+    class ServicePeriodDetails < ::Stripe::StripeObject
+      # The date that the service period was anchored to.
+      sig { returns(Integer) }
+      def service_period_anchored_at; end
+      # The date that the service period started.
+      sig { returns(Integer) }
+      def start_date; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Source < ::Stripe::StripeObject
       # The coupon that was redeemed to create this discount.
       sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
@@ -52,6 +66,9 @@ module Stripe
     # The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
     sig { returns(T.nilable(String)) }
     def schedule; end
+    # Attribute for field service_period_details
+    sig { returns(T.nilable(ServicePeriodDetails)) }
+    def service_period_details; end
     # Attribute for field source
     sig { returns(Source) }
     def source; end

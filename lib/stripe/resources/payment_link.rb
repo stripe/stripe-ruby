@@ -674,7 +674,7 @@ module Stripe
     attr_reader :consent_collection
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     attr_reader :custom_fields
     # Attribute for field custom_text
     attr_reader :custom_text

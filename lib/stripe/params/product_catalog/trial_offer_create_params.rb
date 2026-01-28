@@ -46,17 +46,17 @@ module Stripe
       attr_accessor :end_behavior
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # Price configuration during the trial period (amount, billing scheme, etc).
-      attr_accessor :price
       # A brief, user-friendly name for the trial offer-for identification purposes.
       attr_accessor :name
+      # Price configuration during the trial period (amount, billing scheme, etc).
+      attr_accessor :price
 
-      def initialize(duration: nil, end_behavior: nil, expand: nil, price: nil, name: nil)
+      def initialize(duration: nil, end_behavior: nil, expand: nil, name: nil, price: nil)
         @duration = duration
         @end_behavior = end_behavior
         @expand = expand
-        @price = price
         @name = name
+        @price = price
       end
     end
   end

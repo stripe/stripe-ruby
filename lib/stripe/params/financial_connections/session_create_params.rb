@@ -54,6 +54,18 @@ module Stripe
           @mode = mode
         end
       end
+
+      class RelinkOptions < ::Stripe::RequestParams
+        # The account to relink. Must belong to the authorization specified in `authorization`.
+        attr_accessor :account
+        # The authorization to relink.
+        attr_accessor :authorization
+
+        def initialize(account: nil, authorization: nil)
+          @account = account
+          @authorization = authorization
+        end
+      end
       # The account holder to link accounts for.
       attr_accessor :account_holder
       # Specifies which fields in the response should be expanded.
@@ -70,6 +82,8 @@ module Stripe
       attr_accessor :permissions
       # List of data features that you would like to retrieve upon account creation.
       attr_accessor :prefetch
+      # Options for specifying a Session targeted to relinking an authorization.
+      attr_accessor :relink_options
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
       attr_accessor :return_url
 
@@ -81,6 +95,7 @@ module Stripe
         manual_entry: nil,
         permissions: nil,
         prefetch: nil,
+        relink_options: nil,
         return_url: nil
       )
         @account_holder = account_holder
@@ -90,6 +105,7 @@ module Stripe
         @manual_entry = manual_entry
         @permissions = permissions
         @prefetch = prefetch
+        @relink_options = relink_options
         @return_url = return_url
       end
     end

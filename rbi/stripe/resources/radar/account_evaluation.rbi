@@ -29,18 +29,18 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Time at which the event occurred. Measured in seconds since the Unix epoch.
-        sig { returns(Integer) }
-        def occurred_at; end
-        # The type of event that occurred.
-        sig { returns(String) }
-        def type; end
         # Data about a failed login event.
         sig { returns(T.nilable(LoginFailed)) }
         def login_failed; end
+        # Time at which the event occurred. Measured in seconds since the Unix epoch.
+        sig { returns(Integer) }
+        def occurred_at; end
         # Data about a failed registration event.
         sig { returns(T.nilable(RegistrationFailed)) }
         def registration_failed; end
+        # The type of event that occurred.
+        sig { returns(String) }
+        def type; end
         def self.inner_class_types
           @inner_class_types = {login_failed: LoginFailed, registration_failed: RegistrationFailed}
         end

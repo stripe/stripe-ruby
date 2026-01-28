@@ -39,14 +39,14 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Time at which the event occurred. Measured in seconds since the Unix epoch.
-        attr_reader :occurred_at
-        # The type of event that occurred.
-        attr_reader :type
         # Data about a failed login event.
         attr_reader :login_failed
+        # Time at which the event occurred. Measured in seconds since the Unix epoch.
+        attr_reader :occurred_at
         # Data about a failed registration event.
         attr_reader :registration_failed
+        # The type of event that occurred.
+        attr_reader :type
 
         def self.inner_class_types
           @inner_class_types = { login_failed: LoginFailed, registration_failed: RegistrationFailed }

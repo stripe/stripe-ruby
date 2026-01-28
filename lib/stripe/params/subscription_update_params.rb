@@ -797,8 +797,6 @@ module Stripe
     attr_accessor :application_fee_percent
     # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     attr_accessor :automatic_tax
-    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    attr_accessor :billing_cadence
     # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # Sets the billing schedules for the subscription.
@@ -870,7 +868,6 @@ module Stripe
       add_invoice_items: nil,
       application_fee_percent: nil,
       automatic_tax: nil,
-      billing_cadence: nil,
       billing_cycle_anchor: nil,
       billing_schedules: nil,
       billing_thresholds: nil,
@@ -905,7 +902,6 @@ module Stripe
       @add_invoice_items = add_invoice_items
       @application_fee_percent = application_fee_percent
       @automatic_tax = automatic_tax
-      @billing_cadence = billing_cadence
       @billing_cycle_anchor = billing_cycle_anchor
       @billing_schedules = billing_schedules
       @billing_thresholds = billing_thresholds

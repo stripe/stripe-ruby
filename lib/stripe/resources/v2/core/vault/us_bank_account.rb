@@ -12,6 +12,21 @@ module Stripe
             "v2.core.vault.us_bank_account"
           end
 
+          class AlternativeReference < ::Stripe::StripeObject
+            # The ID of the alternative resource being referenced.
+            attr_reader :id
+            # The type of the alternative reference (e.g., external_account for V1 external accounts).
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Verification < ::Stripe::StripeObject
             class MicrodepositVerificationDetails < ::Stripe::StripeObject
               # Time when microdeposits will expire and have to be re-sent.
@@ -44,6 +59,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The alternative reference for this payout method, if it's a projected payout method.
+          attr_reader :alternative_reference
           # Whether this USBankAccount object was archived.
           attr_reader :archived
           # Closed Enum. The type of bank account (checking or savings).
@@ -70,7 +87,10 @@ module Stripe
           attr_reader :livemode
 
           def self.inner_class_types
-            @inner_class_types = { verification: Verification }
+            @inner_class_types = {
+              alternative_reference: AlternativeReference,
+              verification: Verification,
+            }
           end
 
           def self.field_remappings

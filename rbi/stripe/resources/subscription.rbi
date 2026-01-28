@@ -701,9 +701,6 @@ module Stripe
     # Attribute for field automatic_tax
     sig { returns(AutomaticTax) }
     def automatic_tax; end
-    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    sig { returns(T.nilable(String)) }
-    def billing_cadence; end
     # The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     sig { returns(Integer) }
     def billing_cycle_anchor; end
@@ -781,7 +778,7 @@ module Stripe
     # Details of the most recent price migration that failed for the subscription.
     sig { returns(T.nilable(LastPriceMigrationError)) }
     def last_price_migration_error; end
-    # The most recent invoice this subscription has generated.
+    # The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def latest_invoice; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -851,18 +848,6 @@ module Stripe
     # If the subscription has a trial, the beginning of that trial.
     sig { returns(T.nilable(Integer)) }
     def trial_start; end
-    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    sig {
-      params(params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def attach_cadence(params = {}, opts = {}); end
-
-    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
-     }
-    def self.attach_cadence(subscription, params = {}, opts = {}); end
-
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.

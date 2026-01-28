@@ -820,8 +820,6 @@ module Stripe
     attr_accessor :automatic_tax
     # A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
     attr_accessor :backdate_start_date
-    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    attr_accessor :billing_cadence
     # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
     attr_accessor :billing_cycle_anchor
     # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
@@ -904,7 +902,6 @@ module Stripe
       application_fee_percent: nil,
       automatic_tax: nil,
       backdate_start_date: nil,
-      billing_cadence: nil,
       billing_cycle_anchor: nil,
       billing_cycle_anchor_config: nil,
       billing_mode: nil,
@@ -943,7 +940,6 @@ module Stripe
       @application_fee_percent = application_fee_percent
       @automatic_tax = automatic_tax
       @backdate_start_date = backdate_start_date
-      @billing_cadence = billing_cadence
       @billing_cycle_anchor = billing_cycle_anchor
       @billing_cycle_anchor_config = billing_cycle_anchor_config
       @billing_mode = billing_mode

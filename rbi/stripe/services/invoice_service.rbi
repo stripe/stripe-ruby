@@ -26,7 +26,7 @@ module Stripe
      }
     def attach_payment(invoice, params = {}, opts = {}); end
 
-    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
+    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](https://docs.stripe.com/api#finalize_invoice) or <a href="/api/invoices/send">send](https://docs.stripe.com/api/invoices/pay) the invoice to your customers.
     sig {
       params(params: T.any(::Stripe::InvoiceCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
@@ -51,6 +51,12 @@ module Stripe
       params(invoice: String, params: T.any(::Stripe::InvoiceDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
     def delete(invoice, params = {}, opts = {}); end
+
+    # Detaches a payment from the invoice, removing it from the list of payments
+    sig {
+      params(invoice: String, params: T.any(::Stripe::InvoiceDetachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+     }
+    def detach_payment(invoice, params = {}, opts = {}); end
 
     # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
     sig {

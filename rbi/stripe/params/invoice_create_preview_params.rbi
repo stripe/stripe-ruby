@@ -156,7 +156,7 @@ module Stripe
         def initialize(ip_address: nil); end
       end
       class TaxId < ::Stripe::RequestParams
-        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
@@ -2785,11 +2785,6 @@ module Stripe
       params(_automatic_tax: T.nilable(InvoiceCreatePreviewParams::AutomaticTax)).returns(T.nilable(InvoiceCreatePreviewParams::AutomaticTax))
      }
     def automatic_tax=(_automatic_tax); end
-    # The identifier of the billing cadence for which you’d like to retrieve the upcoming invoice. Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
-    sig { returns(T.nilable(String)) }
-    def billing_cadence; end
-    sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
-    def billing_cadence=(_billing_cadence); end
     # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
     sig { returns(T.nilable(String)) }
     def currency; end
@@ -2873,11 +2868,10 @@ module Stripe
      }
     def subscription_details=(_subscription_details); end
     sig {
-      params(automatic_tax: T.nilable(InvoiceCreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(InvoiceCreatePreviewParams::SubscriptionDetails)).void
+      params(automatic_tax: T.nilable(InvoiceCreatePreviewParams::AutomaticTax), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(InvoiceCreatePreviewParams::SubscriptionDetails)).void
      }
     def initialize(
       automatic_tax: nil,
-      billing_cadence: nil,
       currency: nil,
       customer: nil,
       customer_account: nil,

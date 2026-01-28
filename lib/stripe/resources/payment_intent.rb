@@ -28,6 +28,21 @@ module Stripe
     nested_resource_class_methods :amount_details_line_item, operations: %i[list]
 
     class AmountDetails < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
+        # The code of the error that occurred when validating the current amount details.
+        attr_reader :code
+        # A message providing more details about the error.
+        attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shipping < ::Stripe::StripeObject
         # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_reader :amount
@@ -76,6 +91,8 @@ module Stripe
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
       attr_reader :discount_amount
+      # Attribute for field error
+      attr_reader :error
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_reader :line_items
       # Attribute for field shipping
@@ -86,7 +103,7 @@ module Stripe
       attr_reader :tip
 
       def self.inner_class_types
-        @inner_class_types = { shipping: Shipping, tax: Tax, tip: Tip }
+        @inner_class_types = { error: Error, shipping: Shipping, tax: Tax, tip: Tip }
       end
 
       def self.field_remappings
@@ -1409,6 +1426,325 @@ module Stripe
         end
       end
 
+      class CarRentalDatum < ::Stripe::StripeObject
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate code.
+          attr_reader :code
+          # Affiliate name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Distance < ::Stripe::StripeObject
+          # Distance amount.
+          attr_reader :amount
+          # Unit for the distance.
+          attr_reader :unit
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Driver < ::Stripe::StripeObject
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth.
+            attr_reader :day
+            # Month of birth.
+            attr_reader :month
+            # Year of birth.
+            attr_reader :year
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field date_of_birth
+          attr_reader :date_of_birth
+          # Driver's identification number.
+          attr_reader :driver_identification_number
+          # Driver's tax number.
+          attr_reader :driver_tax_number
+          # Full name of the driver.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { date_of_birth: DateOfBirth }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class DropOff < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Name of the location.
+          attr_reader :location_name
+          # Time associated with the location.
+          attr_reader :time
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Insurance < ::Stripe::StripeObject
+          # Amount of the insurance.
+          attr_reader :amount
+          # Currency for the insurance price.
+          attr_reader :currency
+          # Name of the insurance company.
+          attr_reader :insurance_company_name
+          # Type of insurance.
+          attr_reader :insurance_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Pickup < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Name of the location.
+          attr_reader :location_name
+          # Time associated with the location.
+          attr_reader :time
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            attr_reader :corporate_client_code
+            # Coupon code applied.
+            attr_reader :coupon
+            # Maximum free miles or kilometers included.
+            attr_reader :maximum_free_miles_or_kilometers
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge.
+            attr_reader :amount
+            # Type of extra charge.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Tax amount.
+              attr_reader :amount
+              # Tax rate.
+              attr_reader :rate
+              # Type of tax.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the rental is tax-exempt.
+            attr_reader :tax_exempt_indicator
+            # Tax details.
+            attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total amount.
+          attr_reader :amount
+          # Currency for the total amount.
+          attr_reader :currency
+          # Attribute for field discounts
+          attr_reader :discounts
+          # Additional charges for the rental.
+          attr_reader :extra_charges
+          # Rate per unit.
+          attr_reader :rate_per_unit
+          # Unit for the rate.
+          attr_reader :rate_unit
+          # Attribute for field tax
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discounts, extra_charges: ExtraCharge, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Vehicle < ::Stripe::StripeObject
+          # Make of the vehicle.
+          attr_reader :make
+          # Model of the vehicle.
+          attr_reader :model
+          # Odometer reading.
+          attr_reader :odometer
+          # Type of the vehicle.
+          attr_reader :type
+          # Class of the vehicle.
+          attr_reader :vehicle_class
+          # Vehicle identification number.
+          attr_reader :vehicle_identification_number
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # The booking number associated with the car rental.
+        attr_reader :booking_number
+        # The name of the car rental company.
+        attr_reader :carrier_name
+        # The customer service phone number of the car rental company.
+        attr_reader :customer_service_phone_number
+        # Number of days the car is being rented.
+        attr_reader :days_rented
+        # Attribute for field distance
+        attr_reader :distance
+        # The details of the drivers associated with the rental.
+        attr_reader :drivers
+        # Attribute for field drop_off
+        attr_reader :drop_off
+        # Insurance details for the car rental.
+        attr_reader :insurances
+        # Indicates if the customer did not keep nor cancel their booking.
+        attr_reader :no_show_indicator
+        # Attribute for field pickup
+        attr_reader :pickup
+        # Name of the person renting the vehicle.
+        attr_reader :renter_name
+        # Attribute for field total
+        attr_reader :total
+        # Attribute for field vehicle
+        attr_reader :vehicle
+
+        def self.inner_class_types
+          @inner_class_types = {
+            affiliate: Affiliate,
+            distance: Distance,
+            drivers: Driver,
+            drop_off: DropOff,
+            insurances: Insurance,
+            pickup: Pickup,
+            total: Total,
+            vehicle: Vehicle,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class EventDetails < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -1504,6 +1840,499 @@ module Stripe
         end
       end
 
+      class FlightDatum < ::Stripe::StripeObject
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate code.
+          attr_reader :code
+          # Affiliate name.
+          attr_reader :name
+          # Code provided by the company to a travel agent authorizing ticket issuance.
+          attr_reader :travel_authorization_code
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Insurance < ::Stripe::StripeObject
+          # Amount of the insurance.
+          attr_reader :amount
+          # Currency for the insurance price.
+          attr_reader :currency
+          # Name of the insurance company.
+          attr_reader :insurance_company_name
+          # Type of insurance.
+          attr_reader :insurance_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Passenger < ::Stripe::StripeObject
+          # Full name of the passenger.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Segment < ::Stripe::StripeObject
+          class Arrival < ::Stripe::StripeObject
+            # Arrival airport IATA code.
+            attr_reader :airport
+            # Arrival date and time.
+            attr_reader :arrives_at
+            # Arrival city.
+            attr_reader :city
+            # Arrival country.
+            attr_reader :country
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Departure < ::Stripe::StripeObject
+            # Departure airport IATA code.
+            attr_reader :airport
+            # Departure city.
+            attr_reader :city
+            # Departure country.
+            attr_reader :country
+            # Departure date and time.
+            attr_reader :departs_at
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Segment fare amount.
+          attr_reader :amount
+          # Attribute for field arrival
+          attr_reader :arrival
+          # Airline carrier code.
+          attr_reader :carrier_code
+          # Carrier name.
+          attr_reader :carrier_name
+          # Segment currency.
+          attr_reader :currency
+          # Attribute for field departure
+          attr_reader :departure
+          # Exchange ticket number.
+          attr_reader :exchange_ticket_number
+          # Fare basis code.
+          attr_reader :fare_basis_code
+          # Additional fees.
+          attr_reader :fees
+          # Flight number.
+          attr_reader :flight_number
+          # Stopover indicator.
+          attr_reader :is_stop_over_indicator
+          # Refundable ticket indicator.
+          attr_reader :refundable
+          # Class of service.
+          attr_reader :service_class
+          # Tax amount for segment.
+          attr_reader :tax_amount
+          # Ticket number.
+          attr_reader :ticket_number
+
+          def self.inner_class_types
+            @inner_class_types = { arrival: Arrival, departure: Departure }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            attr_reader :corporate_client_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge.
+            attr_reader :amount
+            # Type of extra charge.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Tax amount.
+              attr_reader :amount
+              # Tax rate.
+              attr_reader :rate
+              # Type of tax.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Tax details.
+            attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total amount.
+          attr_reader :amount
+          # Reason for credit.
+          attr_reader :credit_reason
+          # Currency for the total amount.
+          attr_reader :currency
+          # Attribute for field discounts
+          attr_reader :discounts
+          # Additional charges for the flight.
+          attr_reader :extra_charges
+          # Attribute for field tax
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discounts, extra_charges: ExtraCharge, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # The booking number associated with the flight reservation.
+        attr_reader :booking_number
+        # The computerized reservation system used to make the reservation and purchase the ticket.
+        attr_reader :computerized_reservation_system
+        # Ticket restrictions.
+        attr_reader :endorsements_and_restrictions
+        # Insurance details for the flight.
+        attr_reader :insurances
+        # The list of passengers for this flight.
+        attr_reader :passengers
+        # The list of flight segments for this reservation.
+        attr_reader :segments
+        # Electronic ticket indicator.
+        attr_reader :ticket_electronically_issued_indicator
+        # Attribute for field total
+        attr_reader :total
+        # Type of flight transaction.
+        attr_reader :transaction_type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            affiliate: Affiliate,
+            insurances: Insurance,
+            passengers: Passenger,
+            segments: Segment,
+            total: Total,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class LodgingDatum < ::Stripe::StripeObject
+        class Accommodation < ::Stripe::StripeObject
+          # Type of accommodation.
+          attr_reader :accommodation_type
+          # Bed type.
+          attr_reader :bed_type
+          # Daily accommodation rate in cents.
+          attr_reader :daily_rate_amount
+          # Number of nights.
+          attr_reader :nights
+          # Number of rooms, cabanas, apartments, and so on.
+          attr_reader :number_of_rooms
+          # Rate type.
+          attr_reader :rate_type
+          # Whether smoking is allowed.
+          attr_reader :smoking_indicator
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate partner code.
+          attr_reader :code
+          # Affiliate partner name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Guest < ::Stripe::StripeObject
+          # Guest's full name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Host < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Host's country of domicile.
+          attr_reader :country_of_domicile
+          # Reference number for the host.
+          attr_reader :host_reference
+          # Type of host.
+          attr_reader :host_type
+          # Name of the lodging property or host.
+          attr_reader :name
+          # Total number of reservations for the host.
+          attr_reader :number_of_reservations
+          # Property phone number.
+          attr_reader :property_phone_number
+          # Host's registration date.
+          attr_reader :registered_at
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Insurance < ::Stripe::StripeObject
+          # Price of the insurance coverage in cents.
+          attr_reader :amount
+          # Currency of the insurance amount.
+          attr_reader :currency
+          # Name of the insurance company.
+          attr_reader :insurance_company_name
+          # Type of insurance coverage.
+          attr_reader :insurance_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            attr_reader :corporate_client_code
+            # Coupon code.
+            attr_reader :coupon
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge in cents.
+            attr_reader :amount
+            # Type of extra charge.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Tax amount in cents.
+              attr_reader :amount
+              # Tax rate.
+              attr_reader :rate
+              # Type of tax applied.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the transaction is tax exempt.
+            attr_reader :tax_exempt_indicator
+            # Tax details.
+            attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total price of the lodging reservation in cents.
+          attr_reader :amount
+          # Cash advances in cents.
+          attr_reader :cash_advances
+          # Currency of the total amount.
+          attr_reader :currency
+          # Attribute for field discounts
+          attr_reader :discounts
+          # Additional charges for the lodging.
+          attr_reader :extra_charges
+          # Prepaid amount in cents.
+          attr_reader :prepaid_amount
+          # Attribute for field tax
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discounts, extra_charges: ExtraCharge, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field accommodation
+        attr_reader :accommodation
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # Booking confirmation number for the lodging.
+        attr_reader :booking_number
+        # Check-in date.
+        attr_reader :checkin_at
+        # Check-out date.
+        attr_reader :checkout_at
+        # Customer service phone number for the lodging company.
+        attr_reader :customer_service_phone_number
+        # Whether the lodging is compliant with any hotel fire safety regulations.
+        attr_reader :fire_safety_act_compliance_indicator
+        # List of guests for the lodging.
+        attr_reader :guests
+        # Attribute for field host
+        attr_reader :host
+        # List of insurances for the lodging.
+        attr_reader :insurances
+        # Whether the renter is a no-show.
+        attr_reader :no_show_indicator
+        # Renter ID number for the lodging.
+        attr_reader :renter_id_number
+        # Renter name for the lodging.
+        attr_reader :renter_name
+        # Attribute for field total
+        attr_reader :total
+
+        def self.inner_class_types
+          @inner_class_types = {
+            accommodation: Accommodation,
+            affiliate: Affiliate,
+            guests: Guest,
+            host: Host,
+            insurances: Insurance,
+            total: Total,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Subscription < ::Stripe::StripeObject
         class Affiliate < ::Stripe::StripeObject
           # The name of the affiliate that originated the purchase.
@@ -1555,12 +2384,18 @@ module Stripe
       end
       # Attribute for field car_rental
       attr_reader :car_rental
+      # Attribute for field car_rental_data
+      attr_reader :car_rental_data
       # A unique value to identify the customer. This field is available only for card payments.
       #
       # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       attr_reader :customer_reference
       # Attribute for field event_details
       attr_reader :event_details
+      # Attribute for field flight_data
+      attr_reader :flight_data
+      # Attribute for field lodging_data
+      attr_reader :lodging_data
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
@@ -1573,7 +2408,10 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           car_rental: CarRental,
+          car_rental_data: CarRentalDatum,
           event_details: EventDetails,
+          flight_data: FlightDatum,
+          lodging_data: LodgingDatum,
           subscription: Subscription,
         }
       end
@@ -3084,8 +3922,6 @@ module Stripe
         attr_reader :financial_connections
         # Attribute for field mandate_options
         attr_reader :mandate_options
-        # Preferred transaction settlement speed
-        attr_reader :preferred_settlement_speed
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3098,6 +3934,8 @@ module Stripe
         attr_reader :target_date
         # Bank account verification method.
         attr_reader :verification_method
+        # Preferred transaction settlement speed
+        attr_reader :preferred_settlement_speed
 
         def self.inner_class_types
           @inner_class_types = {

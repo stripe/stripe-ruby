@@ -157,6 +157,12 @@ module Stripe
       register("v2.core.account[defaults].updated", &handler)
     end
 
+    def on_v2_core_account_including_future_requirements_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.account[future_requirements].updated", &handler)
+    end
+
     def on_v2_core_account_including_identity_updated(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 

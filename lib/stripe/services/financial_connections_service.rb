@@ -3,11 +3,12 @@
 
 module Stripe
   class FinancialConnectionsService < StripeService
-    attr_reader :accounts, :institutions, :sessions, :transactions
+    attr_reader :accounts, :authorizations, :institutions, :sessions, :transactions
 
     def initialize(requestor)
       super
       @accounts = Stripe::FinancialConnections::AccountService.new(@requestor)
+      @authorizations = Stripe::FinancialConnections::AuthorizationService.new(@requestor)
       @institutions = Stripe::FinancialConnections::InstitutionService.new(@requestor)
       @sessions = Stripe::FinancialConnections::SessionService.new(@requestor)
       @transactions = Stripe::FinancialConnections::TransactionService.new(@requestor)

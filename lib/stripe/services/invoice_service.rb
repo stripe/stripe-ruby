@@ -41,7 +41,7 @@ module Stripe
       )
     end
 
-    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
+    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](https://docs.stripe.com/api#finalize_invoice) or <a href="/api/invoices/send">send](https://docs.stripe.com/api/invoices/pay) the invoice to your customers.
     def create(params = {}, opts = {})
       request(method: :post, path: "/v1/invoices", params: params, opts: opts, base_address: :api)
     end
@@ -70,6 +70,17 @@ module Stripe
       request(
         method: :delete,
         path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # Detaches a payment from the invoice, removing it from the list of payments
+    def detach_payment(invoice, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/detach_payment", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts,
         base_address: :api

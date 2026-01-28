@@ -3178,12 +3178,14 @@ module Stripe
         sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
         def verification_method=(_verification_method); end
         # Preferred transaction settlement speed
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.any(String, String))) }
         def preferred_settlement_speed; end
-        sig { params(_preferred_settlement_speed: T.nilable(String)).returns(T.nilable(String)) }
+        sig {
+          params(_preferred_settlement_speed: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+         }
         def preferred_settlement_speed=(_preferred_settlement_speed); end
         sig {
-          params(financial_connections: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String), preferred_settlement_speed: T.nilable(String)).void
+          params(financial_connections: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String), preferred_settlement_speed: T.nilable(T.any(String, String))).void
          }
         def initialize(
           financial_connections: nil,

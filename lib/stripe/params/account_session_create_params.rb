@@ -50,6 +50,19 @@ module Stripe
         end
       end
 
+      class AgenticCommerceSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class AppInstall < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # The list of apps allowed to be enabled in the embedded component.
@@ -755,6 +768,8 @@ module Stripe
       attr_accessor :tax_settings
       # Configuration for the [tax threshold monitoring](/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
       attr_accessor :tax_threshold_monitoring
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      attr_accessor :agentic_commerce_settings
 
       def initialize(
         account_management: nil,
@@ -788,7 +803,8 @@ module Stripe
         reporting_chart: nil,
         tax_registrations: nil,
         tax_settings: nil,
-        tax_threshold_monitoring: nil
+        tax_threshold_monitoring: nil,
+        agentic_commerce_settings: nil
       )
         @account_management = account_management
         @account_onboarding = account_onboarding
@@ -822,6 +838,7 @@ module Stripe
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings
         @tax_threshold_monitoring = tax_threshold_monitoring
+        @agentic_commerce_settings = agentic_commerce_settings
       end
     end
     # The identifier of the account to create an Account Session for.

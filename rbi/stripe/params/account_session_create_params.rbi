@@ -91,6 +91,27 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class AgenticCommerceSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings::Features)).returns(T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
       class AppInstall < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # The list of apps allowed to be enabled in the embedded component.
@@ -1335,8 +1356,15 @@ module Stripe
         params(_tax_threshold_monitoring: T.nilable(AccountSessionCreateParams::Components::TaxThresholdMonitoring)).returns(T.nilable(AccountSessionCreateParams::Components::TaxThresholdMonitoring))
        }
       def tax_threshold_monitoring=(_tax_threshold_monitoring); end
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      sig { returns(T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings)) }
+      def agentic_commerce_settings; end
       sig {
-        params(account_management: T.nilable(AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(AccountSessionCreateParams::Components::AccountOnboarding), app_install: T.nilable(AccountSessionCreateParams::Components::AppInstall), app_viewport: T.nilable(AccountSessionCreateParams::Components::AppViewport), balances: T.nilable(AccountSessionCreateParams::Components::Balances), capital_financing: T.nilable(AccountSessionCreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(AccountSessionCreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(AccountSessionCreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(AccountSessionCreateParams::Components::CapitalOverview), check_scanning: T.nilable(AccountSessionCreateParams::Components::CheckScanning), disputes_list: T.nilable(AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(AccountSessionCreateParams::Components::Documents), export_tax_transactions: T.nilable(AccountSessionCreateParams::Components::ExportTaxTransactions), financial_account: T.nilable(AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(AccountSessionCreateParams::Components::PaymentDisputes), payment_method_settings: T.nilable(AccountSessionCreateParams::Components::PaymentMethodSettings), payments: T.nilable(AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(AccountSessionCreateParams::Components::PayoutDetails), payouts: T.nilable(AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(AccountSessionCreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(AccountSessionCreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(AccountSessionCreateParams::Components::Recipients), reporting_chart: T.nilable(AccountSessionCreateParams::Components::ReportingChart), tax_registrations: T.nilable(AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(AccountSessionCreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(AccountSessionCreateParams::Components::TaxThresholdMonitoring)).void
+        params(_agentic_commerce_settings: T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings)).returns(T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings))
+       }
+      def agentic_commerce_settings=(_agentic_commerce_settings); end
+      sig {
+        params(account_management: T.nilable(AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(AccountSessionCreateParams::Components::AccountOnboarding), app_install: T.nilable(AccountSessionCreateParams::Components::AppInstall), app_viewport: T.nilable(AccountSessionCreateParams::Components::AppViewport), balances: T.nilable(AccountSessionCreateParams::Components::Balances), capital_financing: T.nilable(AccountSessionCreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(AccountSessionCreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(AccountSessionCreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(AccountSessionCreateParams::Components::CapitalOverview), check_scanning: T.nilable(AccountSessionCreateParams::Components::CheckScanning), disputes_list: T.nilable(AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(AccountSessionCreateParams::Components::Documents), export_tax_transactions: T.nilable(AccountSessionCreateParams::Components::ExportTaxTransactions), financial_account: T.nilable(AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(AccountSessionCreateParams::Components::PaymentDisputes), payment_method_settings: T.nilable(AccountSessionCreateParams::Components::PaymentMethodSettings), payments: T.nilable(AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(AccountSessionCreateParams::Components::PayoutDetails), payouts: T.nilable(AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(AccountSessionCreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(AccountSessionCreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(AccountSessionCreateParams::Components::Recipients), reporting_chart: T.nilable(AccountSessionCreateParams::Components::ReportingChart), tax_registrations: T.nilable(AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(AccountSessionCreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(AccountSessionCreateParams::Components::TaxThresholdMonitoring), agentic_commerce_settings: T.nilable(AccountSessionCreateParams::Components::AgenticCommerceSettings)).void
        }
       def initialize(
         account_management: nil,
@@ -1370,7 +1398,8 @@ module Stripe
         reporting_chart: nil,
         tax_registrations: nil,
         tax_settings: nil,
-        tax_threshold_monitoring: nil
+        tax_threshold_monitoring: nil,
+        agentic_commerce_settings: nil
       ); end
     end
     # The identifier of the account to create an Account Session for.

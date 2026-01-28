@@ -58,7 +58,7 @@ module Stripe
           attr_accessor :edit_payout_schedule
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           attr_accessor :external_account_collection
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether instant payouts are enabled for this component.
           attr_accessor :instant_payouts
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           attr_accessor :standard_payouts
@@ -195,7 +195,7 @@ module Stripe
           attr_accessor :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           attr_accessor :external_account_collection
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether instant payouts are enabled for this component.
           attr_accessor :instant_payouts
 
           def initialize(
@@ -433,7 +433,7 @@ module Stripe
           attr_accessor :edit_payout_schedule
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           attr_accessor :external_account_collection
-          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          # Whether instant payouts are enabled for this component.
           attr_accessor :instant_payouts
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           attr_accessor :standard_payouts

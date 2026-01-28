@@ -568,7 +568,7 @@ module Stripe
     # List of subscription items, each with an attached price.
     sig { returns(::Stripe::ListObject) }
     def items; end
-    # The most recent invoice this subscription has generated.
+    # The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def latest_invoice; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

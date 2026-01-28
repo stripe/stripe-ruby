@@ -9,6 +9,23 @@ module Stripe
       "item"
     end
 
+    class AdjustableQuantity < ::Stripe::StripeObject
+      # Attribute for field enabled
+      attr_reader :enabled
+      # Attribute for field maximum
+      attr_reader :maximum
+      # Attribute for field minimum
+      attr_reader :minimum
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Discount < ::Stripe::StripeObject
       # The amount discounted.
       attr_reader :amount
@@ -47,6 +64,8 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # Attribute for field adjustable_quantity
+    attr_reader :adjustable_quantity
     # Total discount amount applied. If no discounts were applied, defaults to 0.
     attr_reader :amount_discount
     # Total before any discounts or taxes are applied.
@@ -75,7 +94,11 @@ module Stripe
     attr_reader :taxes
 
     def self.inner_class_types
-      @inner_class_types = { discounts: Discount, taxes: Tax }
+      @inner_class_types = {
+        adjustable_quantity: AdjustableQuantity,
+        discounts: Discount,
+        taxes: Tax,
+      }
     end
 
     def self.field_remappings

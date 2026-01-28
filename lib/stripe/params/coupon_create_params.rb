@@ -44,7 +44,7 @@ module Stripe
     attr_accessor :name
     # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
     attr_accessor :percent_off
-    # Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
+    # Unix timestamp specifying the last time at which the coupon can be redeemed (cannot be set to more than 5 years in the future). After the redeem_by date, the coupon can no longer be applied to new customers.
     attr_accessor :redeem_by
 
     def initialize(

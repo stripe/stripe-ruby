@@ -120,6 +120,8 @@ module Stripe
         attr_reader :issuing_transaction
         # Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
         attr_reader :payout
+        # Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
+        attr_reader :topup
 
         def self.inner_class_types
           @inner_class_types = {}

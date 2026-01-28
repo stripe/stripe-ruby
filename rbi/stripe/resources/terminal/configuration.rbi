@@ -100,23 +100,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Bgn < ::Stripe::StripeObject
-          # Fixed amounts displayed when collecting a tip
-          sig { returns(T.nilable(T::Array[Integer])) }
-          def fixed_amounts; end
-          # Percentages displayed when collecting a tip
-          sig { returns(T.nilable(T::Array[Integer])) }
-          def percentages; end
-          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(T.nilable(Integer)) }
-          def smart_tip_threshold; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class Cad < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
@@ -446,9 +429,6 @@ module Stripe
         # Attribute for field aud
         sig { returns(T.nilable(Aud)) }
         def aud; end
-        # Attribute for field bgn
-        sig { returns(T.nilable(Bgn)) }
-        def bgn; end
         # Attribute for field cad
         sig { returns(T.nilable(Cad)) }
         def cad; end
@@ -510,7 +490,6 @@ module Stripe
           @inner_class_types = {
             aed: Aed,
             aud: Aud,
-            bgn: Bgn,
             cad: Cad,
             chf: Chf,
             czk: Czk,

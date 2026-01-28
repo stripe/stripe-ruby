@@ -753,7 +753,7 @@ module Stripe
           params(_adjustable_quantity: T.nilable(Checkout::SessionCreateParams::LineItem::AdjustableQuantity)).returns(T.nilable(Checkout::SessionCreateParams::LineItem::AdjustableQuantity))
          }
         def adjustable_quantity=(_adjustable_quantity); end
-        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
+        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU. You can't set this parameter if `ui_mode` is `custom`.
         sig { returns(T.nilable(T::Array[String])) }
         def dynamic_tax_rates; end
         sig {
@@ -1461,7 +1461,7 @@ module Stripe
           def request_three_d_secure; end
           sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }
           def request_three_d_secure=(_request_three_d_secure); end
-          # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+          # Restrictions to apply to the card payment method. For example, you can block specific card brands. You can't set this parameter if `ui_mode` is `custom`.
           sig {
             returns(T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::Card::Restrictions))
            }
@@ -2367,7 +2367,7 @@ module Stripe
            }
           def initialize(app_id: nil, client: nil, setup_future_usage: nil); end
         end
-        # contains details about the ACSS Debit payment method options.
+        # contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `custom`.
         sig { returns(T.nilable(Checkout::SessionCreateParams::PaymentMethodOptions::AcssDebit)) }
         def acss_debit; end
         sig {
@@ -3093,7 +3093,7 @@ module Stripe
         def application_fee_percent; end
         sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
         def application_fee_percent=(_application_fee_percent); end
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `custom`.
         sig { returns(T.nilable(Integer)) }
         def billing_cycle_anchor; end
         sig { params(_billing_cycle_anchor: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -3194,7 +3194,7 @@ module Stripe
         def enabled; end
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
-        # Describes whether a tax ID is required during checkout. Defaults to `never`.
+        # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
         sig { returns(T.nilable(String)) }
         def required; end
         sig { params(_required: T.nilable(String)).returns(T.nilable(String)) }
@@ -3229,7 +3229,7 @@ module Stripe
         params(_adaptive_pricing: T.nilable(Checkout::SessionCreateParams::AdaptivePricing)).returns(T.nilable(Checkout::SessionCreateParams::AdaptivePricing))
        }
       def adaptive_pricing=(_adaptive_pricing); end
-      # Configure actions after a Checkout Session has expired.
+      # Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(Checkout::SessionCreateParams::AfterExpiration)) }
       def after_expiration; end
       sig {
@@ -3284,14 +3284,14 @@ module Stripe
       def currency; end
       sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
       def currency=(_currency); end
-      # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+      # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(T::Array[Checkout::SessionCreateParams::CustomField])) }
       def custom_fields; end
       sig {
         params(_custom_fields: T.nilable(T::Array[Checkout::SessionCreateParams::CustomField])).returns(T.nilable(T::Array[Checkout::SessionCreateParams::CustomField]))
        }
       def custom_fields=(_custom_fields); end
-      # Display additional text for your customers using custom text.
+      # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(Checkout::SessionCreateParams::CustomText)) }
       def custom_text; end
       sig {
@@ -3411,6 +3411,8 @@ module Stripe
       # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
       #
       # If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
+      #
+      # You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(Checkout::SessionCreateParams::NameCollection)) }
       def name_collection; end
       sig {
@@ -3424,13 +3426,15 @@ module Stripe
       # For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
       #
       # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+      #
+      # You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(T::Array[Checkout::SessionCreateParams::OptionalItem])) }
       def optional_items; end
       sig {
         params(_optional_items: T.nilable(T::Array[Checkout::SessionCreateParams::OptionalItem])).returns(T.nilable(T::Array[Checkout::SessionCreateParams::OptionalItem]))
        }
       def optional_items=(_optional_items); end
-      # Where the user is coming from. This informs the optimizations that are applied to the session.
+      # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(String)) }
       def origin_context; end
       sig { params(_origin_context: T.nilable(String)).returns(T.nilable(String)) }
@@ -3551,6 +3555,7 @@ module Stripe
       # to customize relevant text on the page, such as the submit button.
       #  `submit_type` can only be specified on Checkout Sessions in
       # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
+      # You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(String)) }
       def submit_type; end
       sig { params(_submit_type: T.nilable(String)).returns(T.nilable(String)) }

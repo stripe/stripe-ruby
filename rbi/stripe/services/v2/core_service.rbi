@@ -8,6 +8,7 @@ module Stripe
       attr_reader :accounts
       attr_reader :account_links
       attr_reader :account_tokens
+      attr_reader :batch_jobs
       attr_reader :events
       attr_reader :event_destinations
       attr_reader :vault

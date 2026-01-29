@@ -447,6 +447,30 @@ module Stripe
         end
       end
 
+      class NetworkCostPassthroughReport < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class NotificationBanner < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -751,6 +775,8 @@ module Stripe
       attr_reader :tax_registrations
       # Attribute for field tax_settings
       attr_reader :tax_settings
+      # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
+      attr_reader :network_cost_passthrough_report
 
       def self.inner_class_types
         @inner_class_types = {
@@ -778,6 +804,7 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          network_cost_passthrough_report: NetworkCostPassthroughReport,
         }
       end
 

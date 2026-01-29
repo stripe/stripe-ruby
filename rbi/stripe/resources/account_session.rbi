@@ -706,6 +706,50 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class TerminalHardwareOrders < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TerminalHardwareShop < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field account_management
       sig { returns(AccountManagement) }
       def account_management; end
@@ -781,6 +825,12 @@ module Stripe
       # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
       sig { returns(T.nilable(NetworkCostPassthroughReport)) }
       def network_cost_passthrough_report; end
+      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+      sig { returns(T.nilable(TerminalHardwareOrders)) }
+      def terminal_hardware_orders; end
+      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+      sig { returns(T.nilable(TerminalHardwareShop)) }
+      def terminal_hardware_shop; end
       def self.inner_class_types
         @inner_class_types = {
           account_management: AccountManagement,
@@ -808,6 +858,8 @@ module Stripe
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
           network_cost_passthrough_report: NetworkCostPassthroughReport,
+          terminal_hardware_orders: TerminalHardwareOrders,
+          terminal_hardware_shop: TerminalHardwareShop,
         }
       end
       def self.field_remappings

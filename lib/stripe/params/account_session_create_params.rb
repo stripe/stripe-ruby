@@ -704,6 +704,32 @@ module Stripe
           @features = features
         end
       end
+
+      class TerminalHardwareOrders < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class TerminalHardwareShop < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
       # Configuration for the [account management](/connect/supported-embedded-components/account-management/) embedded component.
       attr_accessor :account_management
       # Configuration for the [account onboarding](/connect/supported-embedded-components/account-onboarding/) embedded component.
@@ -770,6 +796,10 @@ module Stripe
       attr_accessor :tax_threshold_monitoring
       # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
       attr_accessor :agentic_commerce_settings
+      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+      attr_accessor :terminal_hardware_orders
+      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+      attr_accessor :terminal_hardware_shop
 
       def initialize(
         account_management: nil,
@@ -804,7 +834,9 @@ module Stripe
         tax_registrations: nil,
         tax_settings: nil,
         tax_threshold_monitoring: nil,
-        agentic_commerce_settings: nil
+        agentic_commerce_settings: nil,
+        terminal_hardware_orders: nil,
+        terminal_hardware_shop: nil
       )
         @account_management = account_management
         @account_onboarding = account_onboarding
@@ -839,6 +871,8 @@ module Stripe
         @tax_settings = tax_settings
         @tax_threshold_monitoring = tax_threshold_monitoring
         @agentic_commerce_settings = agentic_commerce_settings
+        @terminal_hardware_orders = terminal_hardware_orders
+        @terminal_hardware_shop = terminal_hardware_shop
       end
     end
     # The identifier of the account to create an Account Session for.

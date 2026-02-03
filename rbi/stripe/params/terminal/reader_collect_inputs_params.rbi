@@ -53,14 +53,16 @@ module Stripe
             def initialize(id: nil, style: nil, text: nil); end
           end
           # List of choices for the `selection` input
-          sig { returns(T::Array[Terminal::ReaderCollectInputsParams::Input::Selection::Choice]) }
+          sig {
+            returns(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection::Choice])
+           }
           def choices; end
           sig {
-            params(_choices: T::Array[Terminal::ReaderCollectInputsParams::Input::Selection::Choice]).returns(T::Array[Terminal::ReaderCollectInputsParams::Input::Selection::Choice])
+            params(_choices: T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection::Choice]).returns(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection::Choice])
            }
           def choices=(_choices); end
           sig {
-            params(choices: T::Array[Terminal::ReaderCollectInputsParams::Input::Selection::Choice]).void
+            params(choices: T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection::Choice]).void
            }
           def initialize(choices: nil); end
         end
@@ -86,10 +88,10 @@ module Stripe
           def initialize(default_value: nil, description: nil, title: nil); end
         end
         # Customize the text which will be displayed while collecting this input
-        sig { returns(Terminal::ReaderCollectInputsParams::Input::CustomText) }
+        sig { returns(::Stripe::Terminal::ReaderCollectInputsParams::Input::CustomText) }
         def custom_text; end
         sig {
-          params(_custom_text: Terminal::ReaderCollectInputsParams::Input::CustomText).returns(Terminal::ReaderCollectInputsParams::Input::CustomText)
+          params(_custom_text: ::Stripe::Terminal::ReaderCollectInputsParams::Input::CustomText).returns(::Stripe::Terminal::ReaderCollectInputsParams::Input::CustomText)
          }
         def custom_text=(_custom_text); end
         # Indicate that this input is required, disabling the skip button
@@ -98,17 +100,19 @@ module Stripe
         sig { params(_required: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def required=(_required); end
         # Options for the `selection` input
-        sig { returns(T.nilable(Terminal::ReaderCollectInputsParams::Input::Selection)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection)) }
         def selection; end
         sig {
-          params(_selection: T.nilable(Terminal::ReaderCollectInputsParams::Input::Selection)).returns(T.nilable(Terminal::ReaderCollectInputsParams::Input::Selection))
+          params(_selection: T.nilable(::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection)).returns(T.nilable(::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection))
          }
         def selection=(_selection); end
         # List of toggles to be displayed and customization for the toggles
-        sig { returns(T.nilable(T::Array[Terminal::ReaderCollectInputsParams::Input::Toggle])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Toggle]))
+         }
         def toggles; end
         sig {
-          params(_toggles: T.nilable(T::Array[Terminal::ReaderCollectInputsParams::Input::Toggle])).returns(T.nilable(T::Array[Terminal::ReaderCollectInputsParams::Input::Toggle]))
+          params(_toggles: T.nilable(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Toggle])).returns(T.nilable(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Toggle]))
          }
         def toggles=(_toggles); end
         # The type of input to collect
@@ -117,7 +121,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(custom_text: Terminal::ReaderCollectInputsParams::Input::CustomText, required: T.nilable(T::Boolean), selection: T.nilable(Terminal::ReaderCollectInputsParams::Input::Selection), toggles: T.nilable(T::Array[Terminal::ReaderCollectInputsParams::Input::Toggle]), type: String).void
+          params(custom_text: ::Stripe::Terminal::ReaderCollectInputsParams::Input::CustomText, required: T.nilable(T::Boolean), selection: T.nilable(::Stripe::Terminal::ReaderCollectInputsParams::Input::Selection), toggles: T.nilable(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input::Toggle]), type: String).void
          }
         def initialize(
           custom_text: nil,
@@ -133,10 +137,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # List of inputs to be collected from the customer using the Reader. Maximum 5 inputs.
-      sig { returns(T::Array[Terminal::ReaderCollectInputsParams::Input]) }
+      sig { returns(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input]) }
       def inputs; end
       sig {
-        params(_inputs: T::Array[Terminal::ReaderCollectInputsParams::Input]).returns(T::Array[Terminal::ReaderCollectInputsParams::Input])
+        params(_inputs: T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input]).returns(T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input])
        }
       def inputs=(_inputs); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -147,7 +151,7 @@ module Stripe
        }
       def metadata=(_metadata); end
       sig {
-        params(expand: T.nilable(T::Array[String]), inputs: T::Array[Terminal::ReaderCollectInputsParams::Input], metadata: T.nilable(T::Hash[String, String])).void
+        params(expand: T.nilable(T::Array[String]), inputs: T::Array[::Stripe::Terminal::ReaderCollectInputsParams::Input], metadata: T.nilable(T::Hash[String, String])).void
        }
       def initialize(expand: nil, inputs: nil, metadata: nil); end
     end

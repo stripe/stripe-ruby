@@ -83,29 +83,29 @@ module Stripe
         end
         # Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy/)
         sig {
-          returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved))
+          returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved))
          }
         def credit_limit_approved; end
         sig {
-          params(_credit_limit_approved: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved)).returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved))
+          params(_credit_limit_approved: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved))
          }
         def credit_limit_approved=(_credit_limit_approved); end
         # Details about the credit limit decreased.
         sig {
-          returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased))
+          returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased))
          }
         def credit_limit_decreased; end
         sig {
-          params(_credit_limit_decreased: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased)).returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased))
+          params(_credit_limit_decreased: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased))
          }
         def credit_limit_decreased=(_credit_limit_decreased); end
         # Details about the credit line closed.
         sig {
-          returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed))
+          returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed))
          }
         def credit_line_closed; end
         sig {
-          params(_credit_line_closed: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed)).returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed))
+          params(_credit_line_closed: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed))
          }
         def credit_line_closed=(_credit_line_closed); end
         # Outcome of the decision.
@@ -114,7 +114,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(credit_limit_approved: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved), credit_limit_decreased: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased), credit_line_closed: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed), type: String).void
+          params(credit_limit_approved: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitApproved), credit_limit_decreased: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLimitDecreased), credit_line_closed: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision::CreditLineClosed), type: String).void
          }
         def initialize(
           credit_limit_approved: nil,
@@ -138,10 +138,12 @@ module Stripe
         def initialize(explanation: nil, original_decision_type: nil); end
       end
       # Information about the company or person applying or holding the account.
-      sig { returns(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser) }
+      sig {
+        returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser)
+       }
       def credit_user; end
       sig {
-        params(_credit_user: Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser).returns(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser)
+        params(_credit_user: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser).returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser)
        }
       def credit_user=(_credit_user); end
       # Date when a decision was made.
@@ -150,10 +152,12 @@ module Stripe
       sig { params(_decided_at: Integer).returns(Integer) }
       def decided_at=(_decided_at); end
       # Details about the decision.
-      sig { returns(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision) }
+      sig {
+        returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision)
+       }
       def decision; end
       sig {
-        params(_decision: Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision).returns(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision)
+        params(_decision: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision).returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision)
        }
       def decision=(_decision); end
       # Specifies which fields in the response should be expanded.
@@ -175,15 +179,15 @@ module Stripe
       def regulatory_reporting_file=(_regulatory_reporting_file); end
       # If an exception to the usual underwriting criteria was made for this decision, details about the exception must be provided. Exceptions should only be granted in rare circumstances, in consultation with Stripe Compliance.
       sig {
-        returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException))
+        returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException))
        }
       def underwriting_exception; end
       sig {
-        params(_underwriting_exception: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException)).returns(T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException))
+        params(_underwriting_exception: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException))
        }
       def underwriting_exception=(_underwriting_exception); end
       sig {
-        params(credit_user: Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser, decided_at: Integer, decision: Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), regulatory_reporting_file: T.nilable(String), underwriting_exception: T.nilable(Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException)).void
+        params(credit_user: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::CreditUser, decided_at: Integer, decision: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::Decision, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), regulatory_reporting_file: T.nilable(String), underwriting_exception: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams::UnderwritingException)).void
        }
       def initialize(
         credit_user: nil,

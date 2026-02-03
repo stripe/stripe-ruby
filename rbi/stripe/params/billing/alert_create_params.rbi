@@ -21,10 +21,12 @@ module Stripe
           def initialize(customer: nil, type: nil); end
         end
         # The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
-        sig { returns(T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]))
+         }
         def filters; end
         sig {
-          params(_filters: T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter]))
+          params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]))
          }
         def filters=(_filters); end
         # Defines at which value the alert will fire.
@@ -43,7 +45,7 @@ module Stripe
         sig { params(_recurrence: String).returns(String) }
         def recurrence=(_recurrence); end
         sig {
-          params(filters: T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter]), gte: Integer, meter: String, recurrence: String).void
+          params(filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]), gte: Integer, meter: String, recurrence: String).void
          }
         def initialize(filters: nil, gte: nil, meter: nil, recurrence: nil); end
       end
@@ -63,14 +65,14 @@ module Stripe
       sig { params(_title: String).returns(String) }
       def title=(_title); end
       # The configuration of the usage threshold.
-      sig { returns(T.nilable(Billing::AlertCreateParams::UsageThreshold)) }
+      sig { returns(T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)) }
       def usage_threshold; end
       sig {
-        params(_usage_threshold: T.nilable(Billing::AlertCreateParams::UsageThreshold)).returns(T.nilable(Billing::AlertCreateParams::UsageThreshold))
+        params(_usage_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold))
        }
       def usage_threshold=(_usage_threshold); end
       sig {
-        params(alert_type: String, expand: T.nilable(T::Array[String]), title: String, usage_threshold: T.nilable(Billing::AlertCreateParams::UsageThreshold)).void
+        params(alert_type: String, expand: T.nilable(T::Array[String]), title: String, usage_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)).void
        }
       def initialize(alert_type: nil, expand: nil, title: nil, usage_threshold: nil); end
     end

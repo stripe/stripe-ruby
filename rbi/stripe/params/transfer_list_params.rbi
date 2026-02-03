@@ -31,10 +31,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return transfers that were created during the given date interval.
-    sig { returns(T.nilable(T.any(TransferListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::TransferListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(TransferListParams::Created, Integer))).returns(T.nilable(T.any(TransferListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::TransferListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::TransferListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return transfers for the destination specified by this account ID.
@@ -68,7 +68,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(created: T.nilable(T.any(TransferListParams::Created, Integer)), destination: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), transfer_group: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::TransferListParams::Created, Integer)), destination: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), transfer_group: T.nilable(String)).void
      }
     def initialize(
       created: nil,

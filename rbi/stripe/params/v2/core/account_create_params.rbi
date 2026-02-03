@@ -63,11 +63,11 @@ module Stripe
                 end
                 # The list of up to 4 default custom fields to be displayed on invoices for this customer.
                 sig {
-                  returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField]))
+                  returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField]))
                  }
                 def custom_fields; end
                 sig {
-                  params(_custom_fields: T.nilable(T::Array[V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField])).returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField]))
+                  params(_custom_fields: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField]))
                  }
                 def custom_fields=(_custom_fields); end
                 # Default invoice footer.
@@ -87,15 +87,15 @@ module Stripe
                 def prefix=(_prefix); end
                 # Default invoice PDF rendering options.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering))
                  }
                 def rendering; end
                 sig {
-                  params(_rendering: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering))
+                  params(_rendering: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering))
                  }
                 def rendering=(_rendering); end
                 sig {
-                  params(custom_fields: T.nilable(T::Array[V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField]), footer: T.nilable(String), next_sequence: T.nilable(Integer), prefix: T.nilable(String), rendering: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering)).void
+                  params(custom_fields: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::CustomField]), footer: T.nilable(String), next_sequence: T.nilable(Integer), prefix: T.nilable(String), rendering: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice::Rendering)).void
                  }
                 def initialize(
                   custom_fields: nil,
@@ -107,15 +107,15 @@ module Stripe
               end
               # Default invoice settings for the customer account.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice))
                }
               def invoice; end
               sig {
-                params(_invoice: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice))
+                params(_invoice: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice))
                }
               def invoice=(_invoice); end
               sig {
-                params(invoice: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice)).void
+                params(invoice: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing::Invoice)).void
                }
               def initialize(invoice: nil); end
             end
@@ -131,15 +131,15 @@ module Stripe
               end
               # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
                }
               def automatic_indirect_tax; end
               sig {
-                params(_automatic_indirect_tax: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
+                params(_automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
                }
               def automatic_indirect_tax=(_automatic_indirect_tax); end
               sig {
-                params(automatic_indirect_tax: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).void
+                params(automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).void
                }
               def initialize(automatic_indirect_tax: nil); end
             end
@@ -189,11 +189,11 @@ module Stripe
               end
               # Customer shipping address.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address))
                }
               def address; end
               sig {
-                params(_address: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address))
+                params(_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address))
                }
               def address=(_address); end
               # Customer name.
@@ -207,44 +207,44 @@ module Stripe
               sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
               def phone=(_phone); end
               sig {
-                params(address: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address), name: T.nilable(String), phone: T.nilable(String)).void
+                params(address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping::Address), name: T.nilable(String), phone: T.nilable(String)).void
                }
               def initialize(address: nil, name: nil, phone: nil); end
             end
             # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax))
              }
             def automatic_indirect_tax; end
             sig {
-              params(_automatic_indirect_tax: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax))
+              params(_automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax))
              }
             def automatic_indirect_tax=(_automatic_indirect_tax); end
             # Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing))
              }
             def billing; end
             sig {
-              params(_billing: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing))
+              params(_billing: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing))
              }
             def billing=(_billing); end
             # Capabilities that have been requested on the Customer Configuration.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities))
              }
             def capabilities; end
             sig {
-              params(_capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities))
+              params(_capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities))
              }
             def capabilities=(_capabilities); end
             # The customer's shipping information. Appears on invoices emailed to this customer.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping))
              }
             def shipping; end
             sig {
-              params(_shipping: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping))
+              params(_shipping: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping))
              }
             def shipping=(_shipping); end
             # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
@@ -253,7 +253,7 @@ module Stripe
             sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
             def test_clock=(_test_clock); end
             sig {
-              params(automatic_indirect_tax: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax), billing: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Billing), capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Capabilities), shipping: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer::Shipping), test_clock: T.nilable(String)).void
+              params(automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::AutomaticIndirectTax), billing: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Billing), capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Capabilities), shipping: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer::Shipping), test_clock: T.nilable(String)).void
              }
             def initialize(
               automatic_indirect_tax: nil,
@@ -698,402 +698,402 @@ module Stripe
               end
               # Allow the merchant to process ACH debit payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
                }
               def ach_debit_payments; end
               sig {
-                params(_ach_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
+                params(_ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
                }
               def ach_debit_payments=(_ach_debit_payments); end
               # Allow the merchant to process ACSS debit payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
                }
               def acss_debit_payments; end
               sig {
-                params(_acss_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
+                params(_acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
                }
               def acss_debit_payments=(_acss_debit_payments); end
               # Allow the merchant to process Affirm payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments))
                }
               def affirm_payments; end
               sig {
-                params(_affirm_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments))
+                params(_affirm_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments))
                }
               def affirm_payments=(_affirm_payments); end
               # Allow the merchant to process Afterpay/Clearpay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
                }
               def afterpay_clearpay_payments; end
               sig {
-                params(_afterpay_clearpay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
+                params(_afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
                }
               def afterpay_clearpay_payments=(_afterpay_clearpay_payments); end
               # Allow the merchant to process Alma payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments))
                }
               def alma_payments; end
               sig {
-                params(_alma_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments))
+                params(_alma_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments))
                }
               def alma_payments=(_alma_payments); end
               # Allow the merchant to process Amazon Pay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
                }
               def amazon_pay_payments; end
               sig {
-                params(_amazon_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
+                params(_amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
                }
               def amazon_pay_payments=(_amazon_pay_payments); end
               # Allow the merchant to process Australian BECS Direct Debit payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
                }
               def au_becs_debit_payments; end
               sig {
-                params(_au_becs_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
+                params(_au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
                }
               def au_becs_debit_payments=(_au_becs_debit_payments); end
               # Allow the merchant to process BACS Direct Debit payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
                }
               def bacs_debit_payments; end
               sig {
-                params(_bacs_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
+                params(_bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
                }
               def bacs_debit_payments=(_bacs_debit_payments); end
               # Allow the merchant to process Bancontact payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments))
                }
               def bancontact_payments; end
               sig {
-                params(_bancontact_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments))
+                params(_bancontact_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments))
                }
               def bancontact_payments=(_bancontact_payments); end
               # Allow the merchant to process BLIK payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments))
                }
               def blik_payments; end
               sig {
-                params(_blik_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments))
+                params(_blik_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments))
                }
               def blik_payments=(_blik_payments); end
               # Allow the merchant to process Boleto payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments))
                }
               def boleto_payments; end
               sig {
-                params(_boleto_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments))
+                params(_boleto_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments))
                }
               def boleto_payments=(_boleto_payments); end
               # Allow the merchant to collect card payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments))
                }
               def card_payments; end
               sig {
-                params(_card_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments))
+                params(_card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments))
                }
               def card_payments=(_card_payments); end
               # Allow the merchant to process Cartes Bancaires payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
                }
               def cartes_bancaires_payments; end
               sig {
-                params(_cartes_bancaires_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
+                params(_cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
                }
               def cartes_bancaires_payments=(_cartes_bancaires_payments); end
               # Allow the merchant to process Cash App payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments))
                }
               def cashapp_payments; end
               sig {
-                params(_cashapp_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments))
+                params(_cashapp_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments))
                }
               def cashapp_payments=(_cashapp_payments); end
               # Allow the merchant to process EPS payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments))
                }
               def eps_payments; end
               sig {
-                params(_eps_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments))
+                params(_eps_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments))
                }
               def eps_payments=(_eps_payments); end
               # Allow the merchant to process FPX payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments))
                }
               def fpx_payments; end
               sig {
-                params(_fpx_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments))
+                params(_fpx_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments))
                }
               def fpx_payments=(_fpx_payments); end
               # Allow the merchant to process UK bank transfer payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
                }
               def gb_bank_transfer_payments; end
               sig {
-                params(_gb_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
+                params(_gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
                }
               def gb_bank_transfer_payments=(_gb_bank_transfer_payments); end
               # Allow the merchant to process GrabPay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
                }
               def grabpay_payments; end
               sig {
-                params(_grabpay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
+                params(_grabpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
                }
               def grabpay_payments=(_grabpay_payments); end
               # Allow the merchant to process iDEAL payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments))
                }
               def ideal_payments; end
               sig {
-                params(_ideal_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments))
+                params(_ideal_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments))
                }
               def ideal_payments=(_ideal_payments); end
               # Allow the merchant to process JCB card payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments))
                }
               def jcb_payments; end
               sig {
-                params(_jcb_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments))
+                params(_jcb_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments))
                }
               def jcb_payments=(_jcb_payments); end
               # Allow the merchant to process Japanese bank transfer payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
                }
               def jp_bank_transfer_payments; end
               sig {
-                params(_jp_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
+                params(_jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
                }
               def jp_bank_transfer_payments=(_jp_bank_transfer_payments); end
               # Allow the merchant to process Kakao Pay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
                }
               def kakao_pay_payments; end
               sig {
-                params(_kakao_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
+                params(_kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
                }
               def kakao_pay_payments=(_kakao_pay_payments); end
               # Allow the merchant to process Klarna payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
                }
               def klarna_payments; end
               sig {
-                params(_klarna_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
+                params(_klarna_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
                }
               def klarna_payments=(_klarna_payments); end
               # Allow the merchant to process Konbini convenience store payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
                }
               def konbini_payments; end
               sig {
-                params(_konbini_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
+                params(_konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
                }
               def konbini_payments=(_konbini_payments); end
               # Allow the merchant to process Korean card payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments))
                }
               def kr_card_payments; end
               sig {
-                params(_kr_card_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments))
+                params(_kr_card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments))
                }
               def kr_card_payments=(_kr_card_payments); end
               # Allow the merchant to process Link payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments))
                }
               def link_payments; end
               sig {
-                params(_link_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments))
+                params(_link_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments))
                }
               def link_payments=(_link_payments); end
               # Allow the merchant to process MobilePay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
                }
               def mobilepay_payments; end
               sig {
-                params(_mobilepay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
+                params(_mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
                }
               def mobilepay_payments=(_mobilepay_payments); end
               # Allow the merchant to process Multibanco payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
                }
               def multibanco_payments; end
               sig {
-                params(_multibanco_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
+                params(_multibanco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
                }
               def multibanco_payments=(_multibanco_payments); end
               # Allow the merchant to process Mexican bank transfer payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
                }
               def mx_bank_transfer_payments; end
               sig {
-                params(_mx_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
+                params(_mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
                }
               def mx_bank_transfer_payments=(_mx_bank_transfer_payments); end
               # Allow the merchant to process Naver Pay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
                }
               def naver_pay_payments; end
               sig {
-                params(_naver_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
+                params(_naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
                }
               def naver_pay_payments=(_naver_pay_payments); end
               # Allow the merchant to process OXXO payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments))
                }
               def oxxo_payments; end
               sig {
-                params(_oxxo_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments))
+                params(_oxxo_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments))
                }
               def oxxo_payments=(_oxxo_payments); end
               # Allow the merchant to process Przelewy24 (P24) payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments))
                }
               def p24_payments; end
               sig {
-                params(_p24_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments))
+                params(_p24_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments))
                }
               def p24_payments=(_p24_payments); end
               # Allow the merchant to process Pay by Bank payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
                }
               def pay_by_bank_payments; end
               sig {
-                params(_pay_by_bank_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
+                params(_pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
                }
               def pay_by_bank_payments=(_pay_by_bank_payments); end
               # Allow the merchant to process PAYCO payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments))
                }
               def payco_payments; end
               sig {
-                params(_payco_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments))
+                params(_payco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments))
                }
               def payco_payments=(_payco_payments); end
               # Allow the merchant to process PayNow payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments))
                }
               def paynow_payments; end
               sig {
-                params(_paynow_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments))
+                params(_paynow_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments))
                }
               def paynow_payments=(_paynow_payments); end
               # Allow the merchant to process PromptPay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
                }
               def promptpay_payments; end
               sig {
-                params(_promptpay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
+                params(_promptpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
                }
               def promptpay_payments=(_promptpay_payments); end
               # Allow the merchant to process Revolut Pay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
                }
               def revolut_pay_payments; end
               sig {
-                params(_revolut_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
+                params(_revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
                }
               def revolut_pay_payments=(_revolut_pay_payments); end
               # Allow the merchant to process Samsung Pay payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
                }
               def samsung_pay_payments; end
               sig {
-                params(_samsung_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
+                params(_samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
                }
               def samsung_pay_payments=(_samsung_pay_payments); end
               # Allow the merchant to process SEPA bank transfer payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
                }
               def sepa_bank_transfer_payments; end
               sig {
-                params(_sepa_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
+                params(_sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
                }
               def sepa_bank_transfer_payments=(_sepa_bank_transfer_payments); end
               # Allow the merchant to process SEPA Direct Debit payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
                }
               def sepa_debit_payments; end
               sig {
-                params(_sepa_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
+                params(_sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
                }
               def sepa_debit_payments=(_sepa_debit_payments); end
               # Allow the merchant to process Swish payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments))
                }
               def swish_payments; end
               sig {
-                params(_swish_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments))
+                params(_swish_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments))
                }
               def swish_payments=(_swish_payments); end
               # Allow the merchant to process TWINT payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments))
                }
               def twint_payments; end
               sig {
-                params(_twint_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments))
+                params(_twint_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments))
                }
               def twint_payments=(_twint_payments); end
               # Allow the merchant to process US bank transfer payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
                }
               def us_bank_transfer_payments; end
               sig {
-                params(_us_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
+                params(_us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
                }
               def us_bank_transfer_payments=(_us_bank_transfer_payments); end
               # Allow the merchant to process Zip payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments))
                }
               def zip_payments; end
               sig {
-                params(_zip_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments))
+                params(_zip_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments))
                }
               def zip_payments=(_zip_payments); end
               sig {
-                params(ach_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments), boleto_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), sepa_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), swish_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments), us_bank_transfer_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
+                params(ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), swish_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments), us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
                }
               def initialize(
                 ach_debit_payments: nil,
@@ -1161,15 +1161,15 @@ module Stripe
               end
               # Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn))
                }
               def decline_on; end
               sig {
-                params(_decline_on: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn))
+                params(_decline_on: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn))
                }
               def decline_on=(_decline_on); end
               sig {
-                params(decline_on: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn)).void
+                params(decline_on: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments::DeclineOn)).void
                }
               def initialize(decline_on: nil); end
             end
@@ -1196,11 +1196,11 @@ module Stripe
                 def email=(_email); end
                 # Support hours for Konbini payments.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours))
                  }
                 def hours; end
                 sig {
-                  params(_hours: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours))
+                  params(_hours: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours))
                  }
                 def hours=(_hours); end
                 # Support phone number for Konbini payments.
@@ -1209,21 +1209,21 @@ module Stripe
                 sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
                 def phone=(_phone); end
                 sig {
-                  params(email: T.nilable(String), hours: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours), phone: T.nilable(String)).void
+                  params(email: T.nilable(String), hours: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support::Hours), phone: T.nilable(String)).void
                  }
                 def initialize(email: nil, hours: nil, phone: nil); end
               end
               # Support for Konbini payments.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support))
                }
               def support; end
               sig {
-                params(_support: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support))
+                params(_support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support))
                }
               def support=(_support); end
               sig {
-                params(support: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support)).void
+                params(support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments::Support)).void
                }
               def initialize(support: nil); end
             end
@@ -1258,24 +1258,24 @@ module Stripe
               end
               # The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana))
                }
               def kana; end
               sig {
-                params(_kana: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana))
+                params(_kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana))
                }
               def kana=(_kana); end
               # The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji))
                }
               def kanji; end
               sig {
-                params(_kanji: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji))
+                params(_kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji))
                }
               def kanji=(_kanji); end
               sig {
-                params(kana: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana), kanji: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji)).void
+                params(kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor::Kanji)).void
                }
               def initialize(kana: nil, kanji: nil); end
             end
@@ -1345,11 +1345,11 @@ module Stripe
               end
               # A publicly available mailing address for sending support issues to.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address))
                }
               def address; end
               sig {
-                params(_address: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address))
+                params(_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address))
                }
               def address=(_address); end
               # A publicly available email address for sending support issues to.
@@ -1368,53 +1368,53 @@ module Stripe
               sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
               def url=(_url); end
               sig {
-                params(address: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address), email: T.nilable(String), phone: T.nilable(String), url: T.nilable(String)).void
+                params(address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support::Address), email: T.nilable(String), phone: T.nilable(String), url: T.nilable(String)).void
                }
               def initialize(address: nil, email: nil, phone: nil, url: nil); end
             end
             # Settings used for Bacs debit payments.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments))
              }
             def bacs_debit_payments; end
             sig {
-              params(_bacs_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments))
+              params(_bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments))
              }
             def bacs_debit_payments=(_bacs_debit_payments); end
             # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Branding))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding))
              }
             def branding; end
             sig {
-              params(_branding: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Branding)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Branding))
+              params(_branding: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding))
              }
             def branding=(_branding); end
             # Capabilities to request on the Merchant Configuration.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities))
              }
             def capabilities; end
             sig {
-              params(_capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities))
+              params(_capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities))
              }
             def capabilities=(_capabilities); end
             # Card payments settings.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments))
              }
             def card_payments; end
             sig {
-              params(_card_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments))
+              params(_card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments))
              }
             def card_payments=(_card_payments); end
             # Settings specific to Konbini payments on the account.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments))
              }
             def konbini_payments; end
             sig {
-              params(_konbini_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments))
+              params(_konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments))
              }
             def konbini_payments=(_konbini_payments); end
             # The Merchant Category Code (MCC) for the Merchant Configuration. MCCs classify businesses based on the goods or services they provide.
@@ -1424,33 +1424,33 @@ module Stripe
             def mcc=(_mcc); end
             # Settings for the default text that appears on statements for language variations.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor))
              }
             def script_statement_descriptor; end
             sig {
-              params(_script_statement_descriptor: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor))
+              params(_script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor))
              }
             def script_statement_descriptor=(_script_statement_descriptor); end
             # Statement descriptor.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor))
              }
             def statement_descriptor; end
             sig {
-              params(_statement_descriptor: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor))
+              params(_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor))
              }
             def statement_descriptor=(_statement_descriptor); end
             # Publicly available contact information for sending support issues to.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support))
              }
             def support; end
             sig {
-              params(_support: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support))
+              params(_support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support))
              }
             def support=(_support); end
             sig {
-              params(bacs_debit_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Branding), capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor), statement_descriptor: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant::Support)).void
+              params(bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support)).void
              }
             def initialize(
               bacs_debit_payments: nil,
@@ -1487,24 +1487,24 @@ module Stripe
                 end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
                  }
                 def local; end
                 sig {
-                  params(_local: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
+                  params(_local: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
                  }
                 def local=(_local); end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
                  }
                 def wire; end
                 sig {
-                  params(_wire: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
+                  params(_wire: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
                  }
                 def wire=(_wire); end
                 sig {
-                  params(local: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), wire: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).void
+                  params(local: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), wire: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).void
                  }
                 def initialize(local: nil, wire: nil); end
               end
@@ -1529,61 +1529,61 @@ module Stripe
                 end
                 # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                  }
                 def stripe_transfers; end
                 sig {
-                  params(_stripe_transfers: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
+                  params(_stripe_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                  }
                 def stripe_transfers=(_stripe_transfers); end
                 sig {
-                  params(stripe_transfers: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
+                  params(stripe_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
                  }
                 def initialize(stripe_transfers: nil); end
               end
               # Capabilities that enable OutboundPayments to a bank account linked to this Account.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts))
                }
               def bank_accounts; end
               sig {
-                params(_bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts))
+                params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts))
                }
               def bank_accounts=(_bank_accounts); end
               # Capabilities that enable OutboundPayments to a card linked to this Account.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards))
                }
               def cards; end
               sig {
-                params(_cards: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards))
+                params(_cards: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards))
                }
               def cards=(_cards); end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance))
                }
               def stripe_balance; end
               sig {
-                params(_stripe_balance: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance))
+                params(_stripe_balance: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance))
                }
               def stripe_balance=(_stripe_balance); end
               sig {
-                params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards), stripe_balance: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
+                params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::Cards), stripe_balance: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
                }
               def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil); end
             end
             # Capabilities to be requested on the Recipient Configuration.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities))
              }
             def capabilities; end
             sig {
-              params(_capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities))
+              params(_capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities))
              }
             def capabilities=(_capabilities); end
             sig {
-              params(capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities)).void
+              params(capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities)).void
              }
             def initialize(capabilities: nil); end
           end
@@ -1601,15 +1601,15 @@ module Stripe
                 end
                 # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
                  }
                 def bank_accounts; end
                 sig {
-                  params(_bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
+                  params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
                  }
                 def bank_accounts=(_bank_accounts); end
                 sig {
-                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).void
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).void
                  }
                 def initialize(bank_accounts: nil); end
               end
@@ -1643,33 +1643,33 @@ module Stripe
                 end
                 # Can hold storage-type funds on Stripe in EUR.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur))
                  }
                 def eur; end
                 sig {
-                  params(_eur: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur))
+                  params(_eur: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur))
                  }
                 def eur=(_eur); end
                 # Can hold storage-type funds on Stripe in GBP.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
                  }
                 def gbp; end
                 sig {
-                  params(_gbp: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
+                  params(_gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
                  }
                 def gbp=(_gbp); end
                 # Can hold storage-type funds on Stripe in USD.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd))
                  }
                 def usd; end
                 sig {
-                  params(_usd: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd))
+                  params(_usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd))
                  }
                 def usd=(_usd); end
                 sig {
-                  params(eur: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur), gbp: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp), usd: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).void
+                  params(eur: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp), usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Usd)).void
                  }
                 def initialize(eur: nil, gbp: nil, usd: nil); end
               end
@@ -1685,15 +1685,15 @@ module Stripe
                 end
                 # Can pull funds from an external bank account owned by yourself to a FinancialAccount.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
                  }
                 def bank_accounts; end
                 sig {
-                  params(_bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
+                  params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
                  }
                 def bank_accounts=(_bank_accounts); end
                 sig {
-                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).void
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).void
                  }
                 def initialize(bank_accounts: nil); end
               end
@@ -1727,33 +1727,33 @@ module Stripe
                 end
                 # Can send funds from a FinancialAccount to a bank account owned by someone else.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
                  }
                 def bank_accounts; end
                 sig {
-                  params(_bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
+                  params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
                  }
                 def bank_accounts=(_bank_accounts); end
                 # Can send funds from a FinancialAccount to a debit card owned by someone else.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
                  }
                 def cards; end
                 sig {
-                  params(_cards: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
+                  params(_cards: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
                  }
                 def cards=(_cards); end
                 # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
                  }
                 def financial_accounts; end
                 sig {
-                  params(_financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
+                  params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
                  }
                 def financial_accounts=(_financial_accounts); end
                 sig {
-                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), financial_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
                  }
                 def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil); end
               end
@@ -1778,74 +1778,74 @@ module Stripe
                 end
                 # Can send funds from a FinancialAccount to a bank account owned by yourself.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
                  }
                 def bank_accounts; end
                 sig {
-                  params(_bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
+                  params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
                  }
                 def bank_accounts=(_bank_accounts); end
                 # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
                 sig {
-                  returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
                  }
                 def financial_accounts; end
                 sig {
-                  params(_financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
+                  params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
                  }
                 def financial_accounts=(_financial_accounts); end
                 sig {
-                  params(bank_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), financial_accounts: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), financial_accounts: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
                  }
                 def initialize(bank_accounts: nil, financial_accounts: nil); end
               end
               # Can provision a financial address to credit/debit a FinancialAccount.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
                }
               def financial_addresses; end
               sig {
-                params(_financial_addresses: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
+                params(_financial_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
                }
               def financial_addresses=(_financial_addresses); end
               # Can hold storage-type funds on Stripe.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
                }
               def holds_currencies; end
               sig {
-                params(_holds_currencies: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
+                params(_holds_currencies: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
                }
               def holds_currencies=(_holds_currencies); end
               # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers))
                }
               def inbound_transfers; end
               sig {
-                params(_inbound_transfers: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers))
+                params(_inbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers))
                }
               def inbound_transfers=(_inbound_transfers); end
               # Can send funds from a FinancialAccount to a destination owned by someone else.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments))
                }
               def outbound_payments; end
               sig {
-                params(_outbound_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments))
+                params(_outbound_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments))
                }
               def outbound_payments=(_outbound_payments); end
               # Can send funds from a FinancialAccount to a destination owned by yourself.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers))
                }
               def outbound_transfers; end
               sig {
-                params(_outbound_transfers: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers))
+                params(_outbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers))
                }
               def outbound_transfers=(_outbound_transfers); end
               sig {
-                params(financial_addresses: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
+                params(financial_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
                }
               def initialize(
                 financial_addresses: nil,
@@ -1857,48 +1857,54 @@ module Stripe
             end
             # Capabilities to request on the Storer Configuration.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities))
              }
             def capabilities; end
             sig {
-              params(_capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities))
+              params(_capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities))
              }
             def capabilities=(_capabilities); end
             sig {
-              params(capabilities: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer::Capabilities)).void
+              params(capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities)).void
              }
             def initialize(capabilities: nil); end
           end
           # The Customer Configuration allows the Account to be used in inbound payment flows.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer))
+           }
           def customer; end
           sig {
-            params(_customer: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Customer))
+            params(_customer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer))
            }
           def customer=(_customer); end
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant))
+           }
           def merchant; end
           sig {
-            params(_merchant: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant))
+            params(_merchant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant))
            }
           def merchant=(_merchant); end
           # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient))
+           }
           def recipient; end
           sig {
-            params(_recipient: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient))
+            params(_recipient: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient))
            }
           def recipient=(_recipient); end
           # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer)) }
           def storer; end
           sig {
-            params(_storer: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration::Storer))
+            params(_storer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer))
            }
           def storer=(_storer); end
           sig {
-            params(customer: T.nilable(V2::Core::AccountCreateParams::Configuration::Customer), merchant: T.nilable(V2::Core::AccountCreateParams::Configuration::Merchant), recipient: T.nilable(V2::Core::AccountCreateParams::Configuration::Recipient), storer: T.nilable(V2::Core::AccountCreateParams::Configuration::Storer)).void
+            params(customer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant), recipient: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient), storer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer)).void
            }
           def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil); end
         end
@@ -1949,21 +1955,23 @@ module Stripe
           sig { params(_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
           def locales=(_locales); end
           # Account profile information.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Defaults::Profile)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Profile)) }
           def profile; end
           sig {
-            params(_profile: T.nilable(V2::Core::AccountCreateParams::Defaults::Profile)).returns(T.nilable(V2::Core::AccountCreateParams::Defaults::Profile))
+            params(_profile: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Profile)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Profile))
            }
           def profile=(_profile); end
           # Default responsibilities held by either Stripe or the platform.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Defaults::Responsibilities)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities))
+           }
           def responsibilities; end
           sig {
-            params(_responsibilities: T.nilable(V2::Core::AccountCreateParams::Defaults::Responsibilities)).returns(T.nilable(V2::Core::AccountCreateParams::Defaults::Responsibilities))
+            params(_responsibilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities))
            }
           def responsibilities=(_responsibilities); end
           sig {
-            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(V2::Core::AccountCreateParams::Defaults::Profile), responsibilities: T.nilable(V2::Core::AccountCreateParams::Defaults::Responsibilities)).void
+            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities)).void
            }
           def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil); end
         end
@@ -2106,74 +2114,74 @@ module Stripe
               end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account))
                }
               def account; end
               sig {
-                params(_account: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account))
+                params(_account: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account))
                }
               def account=(_account); end
               # Details on the Account's acceptance of Treasury-specific terms of service.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer))
                }
               def storer; end
               sig {
-                params(_storer: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer))
+                params(_storer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer))
                }
               def storer=(_storer); end
               sig {
-                params(account: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account), storer: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer)).void
+                params(account: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account), storer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Storer)).void
                }
               def initialize(account: nil, storer: nil); end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration))
              }
             def directorship_declaration; end
             sig {
-              params(_directorship_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration))
+              params(_directorship_declaration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration))
              }
             def directorship_declaration=(_directorship_declaration); end
             # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration))
              }
             def ownership_declaration; end
             sig {
-              params(_ownership_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration))
+              params(_ownership_declaration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration))
              }
             def ownership_declaration=(_ownership_declaration); end
             # Attestation that all Persons with a specific Relationship value have been provided.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided))
              }
             def persons_provided; end
             sig {
-              params(_persons_provided: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided))
+              params(_persons_provided: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided))
              }
             def persons_provided=(_persons_provided); end
             # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration))
              }
             def representative_declaration; end
             sig {
-              params(_representative_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration))
+              params(_representative_declaration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration))
              }
             def representative_declaration=(_representative_declaration); end
             # Attestations of accepted terms of service agreements.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService))
              }
             def terms_of_service; end
             sig {
-              params(_terms_of_service: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService))
+              params(_terms_of_service: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService))
              }
             def terms_of_service=(_terms_of_service); end
             sig {
-              params(directorship_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration), ownership_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration), persons_provided: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided), representative_declaration: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration), terms_of_service: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService)).void
+              params(directorship_declaration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::DirectorshipDeclaration), ownership_declaration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::OwnershipDeclaration), persons_provided: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::PersonsProvided), representative_declaration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::RepresentativeDeclaration), terms_of_service: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService)).void
              }
             def initialize(
               directorship_declaration: nil,
@@ -2250,11 +2258,11 @@ module Stripe
               end
               # A non-negative integer representing the amount in the smallest currency unit.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
                }
               def amount; end
               sig {
-                params(_amount: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
+                params(_amount: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
                }
               def amount=(_amount); end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -2263,7 +2271,7 @@ module Stripe
               sig { params(_fiscal_year_end: T.nilable(String)).returns(T.nilable(String)) }
               def fiscal_year_end=(_fiscal_year_end); end
               sig {
-                params(amount: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount), fiscal_year_end: T.nilable(String)).void
+                params(amount: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue::Amount), fiscal_year_end: T.nilable(String)).void
                }
               def initialize(amount: nil, fiscal_year_end: nil); end
             end
@@ -2369,11 +2377,11 @@ module Stripe
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
                 sig {
-                  returns(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
+                  returns(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
                  }
                 def front_back; end
                 sig {
-                  params(_front_back: V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack).returns(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
+                  params(_front_back: ::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
                  }
                 def front_back=(_front_back); end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -2382,7 +2390,7 @@ module Stripe
                 sig { params(_type: String).returns(String) }
                 def type=(_type); end
                 sig {
-                  params(front_back: V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack, type: String).void
+                  params(front_back: ::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack, type: String).void
                  }
                 def initialize(front_back: nil, type: nil); end
               end
@@ -2430,98 +2438,98 @@ module Stripe
               end
               # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
                }
               def bank_account_ownership_verification; end
               sig {
-                params(_bank_account_ownership_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
+                params(_bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
                }
               def bank_account_ownership_verification=(_bank_account_ownership_verification); end
               # One or more documents that demonstrate proof of a company’s license to operate.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
                }
               def company_license; end
               sig {
-                params(_company_license: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
+                params(_company_license: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
                }
               def company_license=(_company_license); end
               # One or more documents showing the company’s Memorandum of Association.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
                }
               def company_memorandum_of_association; end
               sig {
-                params(_company_memorandum_of_association: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
+                params(_company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
                }
               def company_memorandum_of_association=(_company_memorandum_of_association); end
               # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
                }
               def company_ministerial_decree; end
               sig {
-                params(_company_ministerial_decree: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
+                params(_company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
                }
               def company_ministerial_decree=(_company_ministerial_decree); end
               # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
                }
               def company_registration_verification; end
               sig {
-                params(_company_registration_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
+                params(_company_registration_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
                }
               def company_registration_verification=(_company_registration_verification); end
               # One or more documents that demonstrate proof of a company’s tax ID.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))
                }
               def company_tax_id_verification; end
               sig {
-                params(_company_tax_id_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))
+                params(_company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))
                }
               def company_tax_id_verification=(_company_tax_id_verification); end
               # A document verifying the business.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification))
                }
               def primary_verification; end
               sig {
-                params(_primary_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification))
+                params(_primary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification))
                }
               def primary_verification=(_primary_verification); end
               # One or more documents that demonstrate proof of address.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
                }
               def proof_of_address; end
               sig {
-                params(_proof_of_address: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
+                params(_proof_of_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
                }
               def proof_of_address=(_proof_of_address); end
               # One or more documents showing the company’s proof of registration with the national business registry.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
                }
               def proof_of_registration; end
               sig {
-                params(_proof_of_registration: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
+                params(_proof_of_registration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
                }
               def proof_of_registration=(_proof_of_registration); end
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
                }
               def proof_of_ultimate_beneficial_ownership; end
               sig {
-                params(_proof_of_ultimate_beneficial_ownership: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
+                params(_proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
                }
               def proof_of_ultimate_beneficial_ownership=(
                 _proof_of_ultimate_beneficial_ownership
               ); end
               sig {
-                params(bank_account_ownership_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification), company_license: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification), primary_verification: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification), proof_of_address: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_registration: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
+                params(bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification), primary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification), proof_of_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_registration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
                }
               def initialize(
                 bank_account_ownership_verification: nil,
@@ -2572,15 +2580,15 @@ module Stripe
               end
               # A non-negative integer representing the amount in the smallest currency unit.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
                }
               def amount; end
               sig {
-                params(_amount: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
+                params(_amount: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
                }
               def amount=(_amount); end
               sig {
-                params(amount: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).void
+                params(amount: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).void
                }
               def initialize(amount: nil); end
             end
@@ -2704,24 +2712,24 @@ module Stripe
               end
               # Kana Address.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana))
                }
               def kana; end
               sig {
-                params(_kana: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana))
+                params(_kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana))
                }
               def kana=(_kana); end
               # Kanji Address.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))
                }
               def kanji; end
               sig {
-                params(_kanji: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))
+                params(_kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))
                }
               def kanji=(_kanji); end
               sig {
-                params(kana: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana), kanji: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)).void
+                params(kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)).void
                }
               def initialize(kana: nil, kanji: nil); end
             end
@@ -2746,52 +2754,52 @@ module Stripe
               end
               # Kana name.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana))
                }
               def kana; end
               sig {
-                params(_kana: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana))
+                params(_kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana))
                }
               def kana=(_kana); end
               # Kanji name.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji))
                }
               def kanji; end
               sig {
-                params(_kanji: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji))
+                params(_kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji))
                }
               def kanji=(_kanji); end
               sig {
-                params(kana: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana), kanji: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji)).void
+                params(kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames::Kanji)).void
                }
               def initialize(kana: nil, kanji: nil); end
             end
             # The business registration address of the business entity.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Address))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address))
              }
             def address; end
             sig {
-              params(_address: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Address)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Address))
+              params(_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address))
              }
             def address=(_address); end
             # The business gross annual revenue for its preceding fiscal year.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue))
              }
             def annual_revenue; end
             sig {
-              params(_annual_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue))
+              params(_annual_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue))
              }
             def annual_revenue=(_annual_revenue); end
             # A document verifying the business.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents))
              }
             def documents; end
             sig {
-              params(_documents: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents))
+              params(_documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents))
              }
             def documents=(_documents); end
             # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
@@ -2801,20 +2809,20 @@ module Stripe
             def estimated_worker_count=(_estimated_worker_count); end
             # The ID numbers of a business entity.
             sig {
-              returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]))
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]))
              }
             def id_numbers; end
             sig {
-              params(_id_numbers: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber])).returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]))
+              params(_id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]))
              }
             def id_numbers=(_id_numbers); end
             # An estimate of the monthly revenue of the business.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue))
              }
             def monthly_estimated_revenue; end
             sig {
-              params(_monthly_estimated_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue))
+              params(_monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue))
              }
             def monthly_estimated_revenue=(_monthly_estimated_revenue); end
             # The phone number of the Business Entity.
@@ -2829,29 +2837,29 @@ module Stripe
             def registered_name=(_registered_name); end
             # When the business was incorporated or registered.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate))
              }
             def registration_date; end
             sig {
-              params(_registration_date: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate))
+              params(_registration_date: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate))
              }
             def registration_date=(_registration_date); end
             # The business registration address of the business entity in non latin script.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses))
              }
             def script_addresses; end
             sig {
-              params(_script_addresses: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses))
+              params(_script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses))
              }
             def script_addresses=(_script_addresses); end
             # The business legal name in non latin script.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames))
              }
             def script_names; end
             sig {
-              params(_script_names: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames))
+              params(_script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames))
              }
             def script_names=(_script_names); end
             # The category identifying the legal structure of the business.
@@ -2860,7 +2868,7 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
               address: nil,
@@ -3073,11 +3081,11 @@ module Stripe
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
                 sig {
-                  returns(V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
+                  returns(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
                  }
                 def front_back; end
                 sig {
-                  params(_front_back: V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack).returns(V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
+                  params(_front_back: ::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
                  }
                 def front_back=(_front_back); end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -3086,7 +3094,7 @@ module Stripe
                 sig { params(_type: String).returns(String) }
                 def type=(_type); end
                 sig {
-                  params(front_back: V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack, type: String).void
+                  params(front_back: ::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack, type: String).void
                  }
                 def initialize(front_back: nil, type: nil); end
               end
@@ -3107,11 +3115,11 @@ module Stripe
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
                 sig {
-                  returns(V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
+                  returns(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
                  }
                 def front_back; end
                 sig {
-                  params(_front_back: V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack).returns(V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
+                  params(_front_back: ::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
                  }
                 def front_back=(_front_back); end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -3120,7 +3128,7 @@ module Stripe
                 sig { params(_type: String).returns(String) }
                 def type=(_type); end
                 sig {
-                  params(front_back: V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack, type: String).void
+                  params(front_back: ::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack, type: String).void
                  }
                 def initialize(front_back: nil, type: nil); end
               end
@@ -3140,51 +3148,51 @@ module Stripe
               end
               # One or more documents that demonstrate proof that this person is authorized to represent the company.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization))
                }
               def company_authorization; end
               sig {
-                params(_company_authorization: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization))
+                params(_company_authorization: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization))
                }
               def company_authorization=(_company_authorization); end
               # One or more documents showing the person’s passport page with photo and personal data.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport))
                }
               def passport; end
               sig {
-                params(_passport: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport))
+                params(_passport: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport))
                }
               def passport=(_passport); end
               # An identifying document showing the person's name, either a passport or local ID card.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification))
                }
               def primary_verification; end
               sig {
-                params(_primary_verification: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification))
+                params(_primary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification))
                }
               def primary_verification=(_primary_verification); end
               # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification))
                }
               def secondary_verification; end
               sig {
-                params(_secondary_verification: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification))
+                params(_secondary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification))
                }
               def secondary_verification=(_secondary_verification); end
               # One or more documents showing the person’s visa required for living in the country where they are residing.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa))
                }
               def visa; end
               sig {
-                params(_visa: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa))
+                params(_visa: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa))
                }
               def visa=(_visa); end
               sig {
-                params(company_authorization: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization), passport: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport), primary_verification: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification), secondary_verification: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification), visa: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa)).void
+                params(company_authorization: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport), primary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification), secondary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification), visa: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa)).void
                }
               def initialize(
                 company_authorization: nil,
@@ -3346,24 +3354,24 @@ module Stripe
               end
               # Kana Address.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana))
                }
               def kana; end
               sig {
-                params(_kana: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana))
+                params(_kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana))
                }
               def kana=(_kana); end
               # Kanji Address.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji))
                }
               def kanji; end
               sig {
-                params(_kanji: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji))
+                params(_kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji))
                }
               def kanji=(_kanji); end
               sig {
-                params(kana: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana), kanji: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji)).void
+                params(kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses::Kanji)).void
                }
               def initialize(kana: nil, kanji: nil); end
             end
@@ -3398,68 +3406,70 @@ module Stripe
               end
               # Persons name in kana script.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana))
                }
               def kana; end
               sig {
-                params(_kana: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana))
+                params(_kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana))
                }
               def kana=(_kana); end
               # Persons name in kanji script.
               sig {
-                returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji))
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji))
                }
               def kanji; end
               sig {
-                params(_kanji: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji))
+                params(_kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji))
                }
               def kanji=(_kanji); end
               sig {
-                params(kana: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana), kanji: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji)).void
+                params(kana: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames::Kanji)).void
                }
               def initialize(kana: nil, kanji: nil); end
             end
             # Additional addresses associated with the individual.
             sig {
-              returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress]))
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress]))
              }
             def additional_addresses; end
             sig {
-              params(_additional_addresses: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress])).returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress]))
+              params(_additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress]))
              }
             def additional_addresses=(_additional_addresses); end
             # Additional names (e.g. aliases) associated with the individual.
             sig {
-              returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalName]))
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalName]))
              }
             def additional_names; end
             sig {
-              params(_additional_names: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalName])).returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalName]))
+              params(_additional_names: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalName])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalName]))
              }
             def additional_names=(_additional_names); end
             # The individual's residential address.
-            sig { returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Address)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Address))
+             }
             def address; end
             sig {
-              params(_address: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Address)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Address))
+              params(_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Address)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Address))
              }
             def address=(_address); end
             # The individual's date of birth.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth))
              }
             def date_of_birth; end
             sig {
-              params(_date_of_birth: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth))
+              params(_date_of_birth: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth))
              }
             def date_of_birth=(_date_of_birth); end
             # Documents that may be submitted to satisfy various informational requests.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents))
              }
             def documents; end
             sig {
-              params(_documents: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents))
+              params(_documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents))
              }
             def documents=(_documents); end
             # The individual's email address.
@@ -3474,11 +3484,11 @@ module Stripe
             def given_name=(_given_name); end
             # The identification numbers (e.g., SSN) associated with the individual.
             sig {
-              returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::IdNumber]))
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::IdNumber]))
              }
             def id_numbers; end
             sig {
-              params(_id_numbers: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::IdNumber])).returns(T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::IdNumber]))
+              params(_id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::IdNumber])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::IdNumber]))
              }
             def id_numbers=(_id_numbers); end
             # The individual's gender (International regulations require either "male" or "female").
@@ -3512,29 +3522,29 @@ module Stripe
             def political_exposure=(_political_exposure); end
             # The relationship that this individual has with the account's identity.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Relationship))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Relationship))
              }
             def relationship; end
             sig {
-              params(_relationship: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Relationship)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Relationship))
+              params(_relationship: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Relationship)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Relationship))
              }
             def relationship=(_relationship); end
             # The script addresses (e.g., non-Latin characters) associated with the individual.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses))
              }
             def script_addresses; end
             sig {
-              params(_script_addresses: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses))
+              params(_script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses))
              }
             def script_addresses=(_script_addresses); end
             # The individuals primary name in non latin script.
             sig {
-              returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames))
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames))
              }
             def script_names; end
             sig {
-              params(_script_names: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames))
+              params(_script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames))
              }
             def script_names=(_script_names); end
             # The individual's last name.
@@ -3543,7 +3553,7 @@ module Stripe
             sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
             def surname=(_surname); end
             sig {
-              params(additional_addresses: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress]), additional_names: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::AdditionalName]), address: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Address), date_of_birth: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth), documents: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Documents), email: T.nilable(String), given_name: T.nilable(String), id_numbers: T.nilable(T::Array[V2::Core::AccountCreateParams::Identity::Individual::IdNumber]), legal_gender: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), nationalities: T.nilable(T::Array[String]), phone: T.nilable(String), political_exposure: T.nilable(String), relationship: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::Relationship), script_addresses: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses), script_names: T.nilable(V2::Core::AccountCreateParams::Identity::Individual::ScriptNames), surname: T.nilable(String)).void
+              params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalAddress]), additional_names: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::AdditionalName]), address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Address), date_of_birth: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::DateOfBirth), documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents), email: T.nilable(String), given_name: T.nilable(String), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::Individual::IdNumber]), legal_gender: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), nationalities: T.nilable(T::Array[String]), phone: T.nilable(String), political_exposure: T.nilable(String), relationship: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Relationship), script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::ScriptNames), surname: T.nilable(String)).void
              }
             def initialize(
               additional_addresses: nil,
@@ -3566,17 +3576,21 @@ module Stripe
             ); end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations))
+           }
           def attestations; end
           sig {
-            params(_attestations: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Attestations))
+            params(_attestations: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations))
            }
           def attestations=(_attestations); end
           # Information about the company or business.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails))
+           }
           def business_details; end
           sig {
-            params(_business_details: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails))
+            params(_business_details: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails))
            }
           def business_details=(_business_details); end
           # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
@@ -3590,14 +3604,14 @@ module Stripe
           sig { params(_entity_type: T.nilable(String)).returns(T.nilable(String)) }
           def entity_type=(_entity_type); end
           # Information about the person represented by the account.
-          sig { returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual)) }
           def individual; end
           sig {
-            params(_individual: T.nilable(V2::Core::AccountCreateParams::Identity::Individual)).returns(T.nilable(V2::Core::AccountCreateParams::Identity::Individual))
+            params(_individual: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual))
            }
           def individual=(_individual); end
           sig {
-            params(attestations: T.nilable(V2::Core::AccountCreateParams::Identity::Attestations), business_details: T.nilable(V2::Core::AccountCreateParams::Identity::BusinessDetails), country: T.nilable(String), entity_type: T.nilable(String), individual: T.nilable(V2::Core::AccountCreateParams::Identity::Individual)).void
+            params(attestations: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations), business_details: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails), country: T.nilable(String), entity_type: T.nilable(String), individual: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual)).void
            }
           def initialize(
             attestations: nil,
@@ -3613,10 +3627,10 @@ module Stripe
         sig { params(_account_token: T.nilable(String)).returns(T.nilable(String)) }
         def account_token=(_account_token); end
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
-        sig { returns(T.nilable(V2::Core::AccountCreateParams::Configuration)) }
+        sig { returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration)) }
         def configuration; end
         sig {
-          params(_configuration: T.nilable(V2::Core::AccountCreateParams::Configuration)).returns(T.nilable(V2::Core::AccountCreateParams::Configuration))
+          params(_configuration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration))
          }
         def configuration=(_configuration); end
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
@@ -3635,10 +3649,10 @@ module Stripe
         sig { params(_dashboard: T.nilable(String)).returns(T.nilable(String)) }
         def dashboard=(_dashboard); end
         # Default values to be used on Account Configurations.
-        sig { returns(T.nilable(V2::Core::AccountCreateParams::Defaults)) }
+        sig { returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults)) }
         def defaults; end
         sig {
-          params(_defaults: T.nilable(V2::Core::AccountCreateParams::Defaults)).returns(T.nilable(V2::Core::AccountCreateParams::Defaults))
+          params(_defaults: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults))
          }
         def defaults=(_defaults); end
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
@@ -3647,10 +3661,10 @@ module Stripe
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
         # Information about the company, individual, and business represented by the Account.
-        sig { returns(T.nilable(V2::Core::AccountCreateParams::Identity)) }
+        sig { returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity)) }
         def identity; end
         sig {
-          params(_identity: T.nilable(V2::Core::AccountCreateParams::Identity)).returns(T.nilable(V2::Core::AccountCreateParams::Identity))
+          params(_identity: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity))
          }
         def identity=(_identity); end
         # Additional fields to include in the response.
@@ -3666,7 +3680,7 @@ module Stripe
          }
         def metadata=(_metadata); end
         sig {
-          params(account_token: T.nilable(String), configuration: T.nilable(V2::Core::AccountCreateParams::Configuration), contact_email: T.nilable(String), contact_phone: T.nilable(String), dashboard: T.nilable(String), defaults: T.nilable(V2::Core::AccountCreateParams::Defaults), display_name: T.nilable(String), identity: T.nilable(V2::Core::AccountCreateParams::Identity), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
+          params(account_token: T.nilable(String), configuration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration), contact_email: T.nilable(String), contact_phone: T.nilable(String), dashboard: T.nilable(String), defaults: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults), display_name: T.nilable(String), identity: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
          }
         def initialize(
           account_token: nil,

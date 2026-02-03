@@ -52,11 +52,11 @@ module Stripe
       def card_logo=(_card_logo); end
       # Hash containing carrier text, for use with physical bundles that support carrier text.
       sig {
-        returns(T.nilable(T.any(String, Issuing::PersonalizationDesignUpdateParams::CarrierText)))
+        returns(T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignUpdateParams::CarrierText)))
        }
       def carrier_text; end
       sig {
-        params(_carrier_text: T.nilable(T.any(String, Issuing::PersonalizationDesignUpdateParams::CarrierText))).returns(T.nilable(T.any(String, Issuing::PersonalizationDesignUpdateParams::CarrierText)))
+        params(_carrier_text: T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignUpdateParams::CarrierText))).returns(T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignUpdateParams::CarrierText)))
        }
       def carrier_text=(_carrier_text); end
       # Specifies which fields in the response should be expanded.
@@ -87,10 +87,10 @@ module Stripe
       sig { params(_physical_bundle: T.nilable(String)).returns(T.nilable(String)) }
       def physical_bundle=(_physical_bundle); end
       # Information on whether this personalization design is used to create cards when one is not specified.
-      sig { returns(T.nilable(Issuing::PersonalizationDesignUpdateParams::Preferences)) }
+      sig { returns(T.nilable(::Stripe::Issuing::PersonalizationDesignUpdateParams::Preferences)) }
       def preferences; end
       sig {
-        params(_preferences: T.nilable(Issuing::PersonalizationDesignUpdateParams::Preferences)).returns(T.nilable(Issuing::PersonalizationDesignUpdateParams::Preferences))
+        params(_preferences: T.nilable(::Stripe::Issuing::PersonalizationDesignUpdateParams::Preferences)).returns(T.nilable(::Stripe::Issuing::PersonalizationDesignUpdateParams::Preferences))
        }
       def preferences=(_preferences); end
       # If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
@@ -99,7 +99,7 @@ module Stripe
       sig { params(_transfer_lookup_key: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def transfer_lookup_key=(_transfer_lookup_key); end
       sig {
-        params(card_logo: T.nilable(String), carrier_text: T.nilable(T.any(String, Issuing::PersonalizationDesignUpdateParams::CarrierText)), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), physical_bundle: T.nilable(String), preferences: T.nilable(Issuing::PersonalizationDesignUpdateParams::Preferences), transfer_lookup_key: T.nilable(T::Boolean)).void
+        params(card_logo: T.nilable(String), carrier_text: T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignUpdateParams::CarrierText)), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), physical_bundle: T.nilable(String), preferences: T.nilable(::Stripe::Issuing::PersonalizationDesignUpdateParams::Preferences), transfer_lookup_key: T.nilable(T::Boolean)).void
        }
       def initialize(
         card_logo: nil,

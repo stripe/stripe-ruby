@@ -31,10 +31,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp or a dictionary with a number of different query options.
-    sig { returns(T.nilable(T.any(PaymentIntentListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::PaymentIntentListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(PaymentIntentListParams::Created, Integer))).returns(T.nilable(T.any(PaymentIntentListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::PaymentIntentListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::PaymentIntentListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return PaymentIntents for the customer that this customer ID specifies.
@@ -68,7 +68,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(created: T.nilable(T.any(PaymentIntentListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::PaymentIntentListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
      }
     def initialize(
       created: nil,

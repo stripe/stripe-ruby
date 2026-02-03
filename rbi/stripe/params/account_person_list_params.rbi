@@ -63,10 +63,10 @@ module Stripe
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
     # Filters on the list of people returned based on the person's relationship to the account's company.
-    sig { returns(T.nilable(AccountPersonListParams::Relationship)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonListParams::Relationship)) }
     def relationship; end
     sig {
-      params(_relationship: T.nilable(AccountPersonListParams::Relationship)).returns(T.nilable(AccountPersonListParams::Relationship))
+      params(_relationship: T.nilable(::Stripe::AccountPersonListParams::Relationship)).returns(T.nilable(::Stripe::AccountPersonListParams::Relationship))
      }
     def relationship=(_relationship); end
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -75,7 +75,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), relationship: T.nilable(AccountPersonListParams::Relationship), starting_after: T.nilable(String)).void
+      params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), relationship: T.nilable(::Stripe::AccountPersonListParams::Relationship), starting_after: T.nilable(String)).void
      }
     def initialize(
       ending_before: nil,

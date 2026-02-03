@@ -66,10 +66,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://docs.stripe.com/reporting/statements/api) documentation.
-      sig { returns(T.nilable(Reporting::ReportRunCreateParams::Parameters)) }
+      sig { returns(T.nilable(::Stripe::Reporting::ReportRunCreateParams::Parameters)) }
       def parameters; end
       sig {
-        params(_parameters: T.nilable(Reporting::ReportRunCreateParams::Parameters)).returns(T.nilable(Reporting::ReportRunCreateParams::Parameters))
+        params(_parameters: T.nilable(::Stripe::Reporting::ReportRunCreateParams::Parameters)).returns(T.nilable(::Stripe::Reporting::ReportRunCreateParams::Parameters))
        }
       def parameters=(_parameters); end
       # The ID of the [report type](https://docs.stripe.com/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
@@ -78,7 +78,7 @@ module Stripe
       sig { params(_report_type: String).returns(String) }
       def report_type=(_report_type); end
       sig {
-        params(expand: T.nilable(T::Array[String]), parameters: T.nilable(Reporting::ReportRunCreateParams::Parameters), report_type: String).void
+        params(expand: T.nilable(T::Array[String]), parameters: T.nilable(::Stripe::Reporting::ReportRunCreateParams::Parameters), report_type: String).void
        }
       def initialize(expand: nil, parameters: nil, report_type: nil); end
     end

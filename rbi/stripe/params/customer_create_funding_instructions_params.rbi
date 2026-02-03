@@ -16,11 +16,11 @@ module Stripe
       end
       # Configuration for eu_bank_transfer funding type.
       sig {
-        returns(T.nilable(CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer))
+        returns(T.nilable(::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer))
        }
       def eu_bank_transfer; end
       sig {
-        params(_eu_bank_transfer: T.nilable(CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer)).returns(T.nilable(CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer))
+        params(_eu_bank_transfer: T.nilable(::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer)).returns(T.nilable(::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer))
        }
       def eu_bank_transfer=(_eu_bank_transfer); end
       # List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -38,15 +38,15 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(eu_bank_transfer: T.nilable(CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer), requested_address_types: T.nilable(T::Array[String]), type: String).void
+        params(eu_bank_transfer: T.nilable(::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer::EuBankTransfer), requested_address_types: T.nilable(T::Array[String]), type: String).void
        }
       def initialize(eu_bank_transfer: nil, requested_address_types: nil, type: nil); end
     end
     # Additional parameters for `bank_transfer` funding types
-    sig { returns(CustomerCreateFundingInstructionsParams::BankTransfer) }
+    sig { returns(::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer) }
     def bank_transfer; end
     sig {
-      params(_bank_transfer: CustomerCreateFundingInstructionsParams::BankTransfer).returns(CustomerCreateFundingInstructionsParams::BankTransfer)
+      params(_bank_transfer: ::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer).returns(::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer)
      }
     def bank_transfer=(_bank_transfer); end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -65,7 +65,7 @@ module Stripe
     sig { params(_funding_type: String).returns(String) }
     def funding_type=(_funding_type); end
     sig {
-      params(bank_transfer: CustomerCreateFundingInstructionsParams::BankTransfer, currency: String, expand: T.nilable(T::Array[String]), funding_type: String).void
+      params(bank_transfer: ::Stripe::CustomerCreateFundingInstructionsParams::BankTransfer, currency: String, expand: T.nilable(T::Array[String]), funding_type: String).void
      }
     def initialize(bank_transfer: nil, currency: nil, expand: nil, funding_type: nil); end
   end

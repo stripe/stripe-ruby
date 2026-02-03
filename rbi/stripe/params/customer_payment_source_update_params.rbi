@@ -49,10 +49,10 @@ module Stripe
         ); end
       end
       # Owner's address.
-      sig { returns(T.nilable(CustomerPaymentSourceUpdateParams::Owner::Address)) }
+      sig { returns(T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner::Address)) }
       def address; end
       sig {
-        params(_address: T.nilable(CustomerPaymentSourceUpdateParams::Owner::Address)).returns(T.nilable(CustomerPaymentSourceUpdateParams::Owner::Address))
+        params(_address: T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner::Address)).returns(T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner::Address))
        }
       def address=(_address); end
       # Owner's email address.
@@ -71,7 +71,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: T.nilable(CustomerPaymentSourceUpdateParams::Owner::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+        params(address: T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
        }
       def initialize(address: nil, email: nil, name: nil, phone: nil); end
     end
@@ -143,14 +143,14 @@ module Stripe
     sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
     def name=(_name); end
     # Attribute for param field owner
-    sig { returns(T.nilable(CustomerPaymentSourceUpdateParams::Owner)) }
+    sig { returns(T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner)) }
     def owner; end
     sig {
-      params(_owner: T.nilable(CustomerPaymentSourceUpdateParams::Owner)).returns(T.nilable(CustomerPaymentSourceUpdateParams::Owner))
+      params(_owner: T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner)).returns(T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner))
      }
     def owner=(_owner); end
     sig {
-      params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), owner: T.nilable(CustomerPaymentSourceUpdateParams::Owner)).void
+      params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), owner: T.nilable(::Stripe::CustomerPaymentSourceUpdateParams::Owner)).void
      }
     def initialize(
       account_holder_name: nil,

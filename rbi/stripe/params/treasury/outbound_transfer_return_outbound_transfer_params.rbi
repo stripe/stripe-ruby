@@ -21,15 +21,15 @@ module Stripe
       def expand=(_expand); end
       # Details about a returned OutboundTransfer.
       sig {
-        returns(T.nilable(Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails))
+        returns(T.nilable(::Stripe::Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails))
        }
       def returned_details; end
       sig {
-        params(_returned_details: T.nilable(Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails)).returns(T.nilable(Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails))
+        params(_returned_details: T.nilable(::Stripe::Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails)).returns(T.nilable(::Stripe::Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails))
        }
       def returned_details=(_returned_details); end
       sig {
-        params(expand: T.nilable(T::Array[String]), returned_details: T.nilable(Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails)).void
+        params(expand: T.nilable(T::Array[String]), returned_details: T.nilable(::Stripe::Treasury::OutboundTransferReturnOutboundTransferParams::ReturnedDetails)).void
        }
       def initialize(expand: nil, returned_details: nil); end
     end

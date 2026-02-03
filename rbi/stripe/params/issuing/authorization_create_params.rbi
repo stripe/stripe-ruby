@@ -94,41 +94,43 @@ module Stripe
           end
           # Breakdown of fuel portion of the purchase.
           sig {
-            returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel))
+            returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel))
            }
           def fuel; end
           sig {
-            params(_fuel: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel))
+            params(_fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel))
            }
           def fuel=(_fuel); end
           # Breakdown of non-fuel portion of the purchase.
           sig {
-            returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel))
+            returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel))
            }
           def non_fuel; end
           sig {
-            params(_non_fuel: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel))
+            params(_non_fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel))
            }
           def non_fuel=(_non_fuel); end
           # Information about tax included in this transaction.
           sig {
-            returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax))
+            returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax))
            }
           def tax; end
           sig {
-            params(_tax: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax))
+            params(_tax: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax))
            }
           def tax=(_tax); end
           sig {
-            params(fuel: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax)).void
+            params(fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax)).void
            }
           def initialize(fuel: nil, non_fuel: nil, tax: nil); end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
-        sig { returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData)) }
+        sig {
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData))
+         }
         def cardholder_prompt_data; end
         sig {
-          params(_cardholder_prompt_data: T.nilable(Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData))
+          params(_cardholder_prompt_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData))
          }
         def cardholder_prompt_data=(_cardholder_prompt_data); end
         # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
@@ -137,10 +139,12 @@ module Stripe
         sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
         def purchase_type=(_purchase_type); end
         # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
-        sig { returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown)) }
+        sig {
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown))
+         }
         def reported_breakdown; end
         sig {
-          params(_reported_breakdown: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown))
+          params(_reported_breakdown: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown))
          }
         def reported_breakdown=(_reported_breakdown); end
         # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
@@ -149,7 +153,7 @@ module Stripe
         sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
         def service_type=(_service_type); end
         sig {
-          params(cardholder_prompt_data: T.nilable(Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
+          params(cardholder_prompt_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
          }
         def initialize(
           cardholder_prompt_data: nil,
@@ -329,31 +333,33 @@ module Stripe
         end
         # Stripe's assessment of this authorization's likelihood of being card testing activity.
         sig {
-          returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk))
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk))
          }
         def card_testing_risk; end
         sig {
-          params(_card_testing_risk: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk)).returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk))
+          params(_card_testing_risk: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk))
          }
         def card_testing_risk=(_card_testing_risk); end
         # Stripe’s assessment of this authorization’s likelihood to be fraudulent.
-        sig { returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk)) }
+        sig {
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk))
+         }
         def fraud_risk; end
         sig {
-          params(_fraud_risk: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk)).returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk))
+          params(_fraud_risk: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk))
          }
         def fraud_risk=(_fraud_risk); end
         # The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
         sig {
-          returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk))
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk))
          }
         def merchant_dispute_risk; end
         sig {
-          params(_merchant_dispute_risk: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk)).returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk))
+          params(_merchant_dispute_risk: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk))
          }
         def merchant_dispute_risk=(_merchant_dispute_risk); end
         sig {
-          params(card_testing_risk: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk), fraud_risk: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk), merchant_dispute_risk: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk)).void
+          params(card_testing_risk: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk), fraud_risk: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::FraudRisk), merchant_dispute_risk: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk)).void
          }
         def initialize(card_testing_risk: nil, fraud_risk: nil, merchant_dispute_risk: nil); end
       end
@@ -393,11 +399,11 @@ module Stripe
         def address_postal_code_check=(_address_postal_code_check); end
         # The exemption applied to this authorization.
         sig {
-          returns(T.nilable(Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption))
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption))
          }
         def authentication_exemption; end
         sig {
-          params(_authentication_exemption: T.nilable(Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption)).returns(T.nilable(Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption))
+          params(_authentication_exemption: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption))
          }
         def authentication_exemption=(_authentication_exemption); end
         # Whether the cardholder provided a CVC and if it matched Stripe’s record.
@@ -412,15 +418,15 @@ module Stripe
         def expiry_check=(_expiry_check); end
         # 3D Secure details.
         sig {
-          returns(T.nilable(Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure))
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure))
          }
         def three_d_secure; end
         sig {
-          params(_three_d_secure: T.nilable(Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure)).returns(T.nilable(Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure))
+          params(_three_d_secure: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure))
          }
         def three_d_secure=(_three_d_secure); end
         sig {
-          params(address_line1_check: T.nilable(String), address_postal_code_check: T.nilable(String), authentication_exemption: T.nilable(Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption), cvc_check: T.nilable(String), expiry_check: T.nilable(String), three_d_secure: T.nilable(Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure)).void
+          params(address_line1_check: T.nilable(String), address_postal_code_check: T.nilable(String), authentication_exemption: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::AuthenticationExemption), cvc_check: T.nilable(String), expiry_check: T.nilable(String), three_d_secure: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData::ThreeDSecure)).void
          }
         def initialize(
           address_line1_check: nil,
@@ -437,10 +443,10 @@ module Stripe
       sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount=(_amount); end
       # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
-      sig { returns(T.nilable(Issuing::AuthorizationCreateParams::AmountDetails)) }
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails)) }
       def amount_details; end
       sig {
-        params(_amount_details: T.nilable(Issuing::AuthorizationCreateParams::AmountDetails)).returns(T.nilable(Issuing::AuthorizationCreateParams::AmountDetails))
+        params(_amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails))
        }
       def amount_details=(_amount_details); end
       # How the card details were provided. Defaults to online.
@@ -464,10 +470,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Fleet-specific information for authorizations using Fleet cards.
-      sig { returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet)) }
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet)) }
       def fleet; end
       sig {
-        params(_fleet: T.nilable(Issuing::AuthorizationCreateParams::Fleet)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fleet))
+        params(_fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet))
        }
       def fleet=(_fleet); end
       # Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
@@ -476,10 +482,10 @@ module Stripe
       sig { params(_fraud_disputability_likelihood: T.nilable(String)).returns(T.nilable(String)) }
       def fraud_disputability_likelihood=(_fraud_disputability_likelihood); end
       # Information about fuel that was purchased with this transaction.
-      sig { returns(T.nilable(Issuing::AuthorizationCreateParams::Fuel)) }
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel)) }
       def fuel; end
       sig {
-        params(_fuel: T.nilable(Issuing::AuthorizationCreateParams::Fuel)).returns(T.nilable(Issuing::AuthorizationCreateParams::Fuel))
+        params(_fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel))
        }
       def fuel=(_fuel); end
       # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
@@ -498,31 +504,31 @@ module Stripe
       sig { params(_merchant_currency: T.nilable(String)).returns(T.nilable(String)) }
       def merchant_currency=(_merchant_currency); end
       # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
-      sig { returns(T.nilable(Issuing::AuthorizationCreateParams::MerchantData)) }
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData)) }
       def merchant_data; end
       sig {
-        params(_merchant_data: T.nilable(Issuing::AuthorizationCreateParams::MerchantData)).returns(T.nilable(Issuing::AuthorizationCreateParams::MerchantData))
+        params(_merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData))
        }
       def merchant_data=(_merchant_data); end
       # Details about the authorization, such as identifiers, set by the card network.
-      sig { returns(T.nilable(Issuing::AuthorizationCreateParams::NetworkData)) }
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData)) }
       def network_data; end
       sig {
-        params(_network_data: T.nilable(Issuing::AuthorizationCreateParams::NetworkData)).returns(T.nilable(Issuing::AuthorizationCreateParams::NetworkData))
+        params(_network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData))
        }
       def network_data=(_network_data); end
       # Stripe’s assessment of the fraud risk for this authorization.
-      sig { returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment)) }
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment)) }
       def risk_assessment; end
       sig {
-        params(_risk_assessment: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment)).returns(T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment))
+        params(_risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment))
        }
       def risk_assessment=(_risk_assessment); end
       # Verifications that Stripe performed on information that the cardholder provided to the merchant.
-      sig { returns(T.nilable(Issuing::AuthorizationCreateParams::VerificationData)) }
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData)) }
       def verification_data; end
       sig {
-        params(_verification_data: T.nilable(Issuing::AuthorizationCreateParams::VerificationData)).returns(T.nilable(Issuing::AuthorizationCreateParams::VerificationData))
+        params(_verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData))
        }
       def verification_data=(_verification_data); end
       # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
@@ -531,7 +537,7 @@ module Stripe
       sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
       def wallet=(_wallet); end
       sig {
-        params(amount: T.nilable(Integer), amount_details: T.nilable(Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(Issuing::AuthorizationCreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
+        params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
        }
       def initialize(
         amount: nil,

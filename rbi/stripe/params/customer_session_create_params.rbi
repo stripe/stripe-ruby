@@ -46,14 +46,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # This hash defines whether the customer sheet supports certain features.
-        sig { returns(T.nilable(CustomerSessionCreateParams::Components::CustomerSheet::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(CustomerSessionCreateParams::Components::CustomerSheet::Features)).returns(T.nilable(CustomerSessionCreateParams::Components::CustomerSheet::Features))
+          params(_features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet::Features)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(CustomerSessionCreateParams::Components::CustomerSheet::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -116,15 +118,15 @@ module Stripe
         def enabled=(_enabled); end
         # This hash defines whether the mobile payment element supports certain features.
         sig {
-          returns(T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement::Features))
+          returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement::Features)).returns(T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement::Features))
+          params(_features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement::Features)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -191,15 +193,15 @@ module Stripe
         def enabled=(_enabled); end
         # This hash defines whether the Payment Element supports certain features.
         sig {
-          returns(T.nilable(CustomerSessionCreateParams::Components::PaymentElement::Features))
+          returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(CustomerSessionCreateParams::Components::PaymentElement::Features)).returns(T.nilable(CustomerSessionCreateParams::Components::PaymentElement::Features))
+          params(_features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement::Features)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(CustomerSessionCreateParams::Components::PaymentElement::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -237,61 +239,65 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # This hash defines whether the Tax ID Element supports certain features.
-        sig { returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features)).returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features))
+          params(_features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement::Features)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
       # Configuration for buy button.
-      sig { returns(T.nilable(CustomerSessionCreateParams::Components::BuyButton)) }
+      sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton)) }
       def buy_button; end
       sig {
-        params(_buy_button: T.nilable(CustomerSessionCreateParams::Components::BuyButton)).returns(T.nilable(CustomerSessionCreateParams::Components::BuyButton))
+        params(_buy_button: T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton))
        }
       def buy_button=(_buy_button); end
       # Configuration for the customer sheet.
-      sig { returns(T.nilable(CustomerSessionCreateParams::Components::CustomerSheet)) }
+      sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet)) }
       def customer_sheet; end
       sig {
-        params(_customer_sheet: T.nilable(CustomerSessionCreateParams::Components::CustomerSheet)).returns(T.nilable(CustomerSessionCreateParams::Components::CustomerSheet))
+        params(_customer_sheet: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet))
        }
       def customer_sheet=(_customer_sheet); end
       # Configuration for the mobile payment element.
-      sig { returns(T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement)) }
+      sig {
+        returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement))
+       }
       def mobile_payment_element; end
       sig {
-        params(_mobile_payment_element: T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement)).returns(T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement))
+        params(_mobile_payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement))
        }
       def mobile_payment_element=(_mobile_payment_element); end
       # Configuration for the Payment Element.
-      sig { returns(T.nilable(CustomerSessionCreateParams::Components::PaymentElement)) }
+      sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement)) }
       def payment_element; end
       sig {
-        params(_payment_element: T.nilable(CustomerSessionCreateParams::Components::PaymentElement)).returns(T.nilable(CustomerSessionCreateParams::Components::PaymentElement))
+        params(_payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement))
        }
       def payment_element=(_payment_element); end
       # Configuration for the pricing table.
-      sig { returns(T.nilable(CustomerSessionCreateParams::Components::PricingTable)) }
+      sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::PricingTable)) }
       def pricing_table; end
       sig {
-        params(_pricing_table: T.nilable(CustomerSessionCreateParams::Components::PricingTable)).returns(T.nilable(CustomerSessionCreateParams::Components::PricingTable))
+        params(_pricing_table: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PricingTable)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::PricingTable))
        }
       def pricing_table=(_pricing_table); end
       # Configuration for the Tax ID Element.
-      sig { returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement)) }
+      sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement)) }
       def tax_id_element; end
       sig {
-        params(_tax_id_element: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement)).returns(T.nilable(CustomerSessionCreateParams::Components::TaxIdElement))
+        params(_tax_id_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement))
        }
       def tax_id_element=(_tax_id_element); end
       sig {
-        params(buy_button: T.nilable(CustomerSessionCreateParams::Components::BuyButton), customer_sheet: T.nilable(CustomerSessionCreateParams::Components::CustomerSheet), mobile_payment_element: T.nilable(CustomerSessionCreateParams::Components::MobilePaymentElement), payment_element: T.nilable(CustomerSessionCreateParams::Components::PaymentElement), pricing_table: T.nilable(CustomerSessionCreateParams::Components::PricingTable), tax_id_element: T.nilable(CustomerSessionCreateParams::Components::TaxIdElement)).void
+        params(buy_button: T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton), customer_sheet: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet), mobile_payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement), payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement), pricing_table: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PricingTable), tax_id_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::TaxIdElement)).void
        }
       def initialize(
         buy_button: nil,
@@ -303,10 +309,10 @@ module Stripe
       ); end
     end
     # Configuration for each component. At least 1 component must be enabled.
-    sig { returns(CustomerSessionCreateParams::Components) }
+    sig { returns(::Stripe::CustomerSessionCreateParams::Components) }
     def components; end
     sig {
-      params(_components: CustomerSessionCreateParams::Components).returns(CustomerSessionCreateParams::Components)
+      params(_components: ::Stripe::CustomerSessionCreateParams::Components).returns(::Stripe::CustomerSessionCreateParams::Components)
      }
     def components=(_components); end
     # The ID of an existing customer for which to create the Customer Session.
@@ -325,7 +331,7 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     sig {
-      params(components: CustomerSessionCreateParams::Components, customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String])).void
+      params(components: ::Stripe::CustomerSessionCreateParams::Components, customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String])).void
      }
     def initialize(components: nil, customer: nil, customer_account: nil, expand: nil); end
   end

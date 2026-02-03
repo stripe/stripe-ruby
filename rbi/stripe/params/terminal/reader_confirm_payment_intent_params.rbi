@@ -15,10 +15,12 @@ module Stripe
         def initialize(return_url: nil); end
       end
       # Configuration overrides for this confirmation, such as surcharge settings and return URL.
-      sig { returns(T.nilable(Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig)) }
+      sig {
+        returns(T.nilable(::Stripe::Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig))
+       }
       def confirm_config; end
       sig {
-        params(_confirm_config: T.nilable(Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig)).returns(T.nilable(Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig))
+        params(_confirm_config: T.nilable(::Stripe::Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig)).returns(T.nilable(::Stripe::Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig))
        }
       def confirm_config=(_confirm_config); end
       # Specifies which fields in the response should be expanded.
@@ -32,7 +34,7 @@ module Stripe
       sig { params(_payment_intent: String).returns(String) }
       def payment_intent=(_payment_intent); end
       sig {
-        params(confirm_config: T.nilable(Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
+        params(confirm_config: T.nilable(::Stripe::Terminal::ReaderConfirmPaymentIntentParams::ConfirmConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
        }
       def initialize(confirm_config: nil, expand: nil, payment_intent: nil); end
     end

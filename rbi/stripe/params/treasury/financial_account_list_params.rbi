@@ -32,10 +32,12 @@ module Stripe
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return FinancialAccounts that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Treasury::FinancialAccountListParams::Created, Integer))) }
+      sig {
+        returns(T.nilable(T.any(::Stripe::Treasury::FinancialAccountListParams::Created, Integer)))
+       }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Treasury::FinancialAccountListParams::Created, Integer))).returns(T.nilable(T.any(Treasury::FinancialAccountListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Treasury::FinancialAccountListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Treasury::FinancialAccountListParams::Created, Integer)))
        }
       def created=(_created); end
       # An object ID cursor for use in pagination.
@@ -64,7 +66,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(created: T.nilable(T.any(Treasury::FinancialAccountListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
+        params(created: T.nilable(T.any(::Stripe::Treasury::FinancialAccountListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
       def initialize(
         created: nil,

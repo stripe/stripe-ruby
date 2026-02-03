@@ -41,10 +41,10 @@ module Stripe
         def initialize(email: nil); end
       end
       # Only return Checkout Sessions that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Checkout::SessionListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Checkout::SessionListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Checkout::SessionListParams::Created, Integer))).returns(T.nilable(T.any(Checkout::SessionListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Checkout::SessionListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Checkout::SessionListParams::Created, Integer)))
        }
       def created=(_created); end
       # Only return the Checkout Sessions for the Customer specified.
@@ -58,10 +58,10 @@ module Stripe
       sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
       def customer_account=(_customer_account); end
       # Only return the Checkout Sessions for the Customer details specified.
-      sig { returns(T.nilable(Checkout::SessionListParams::CustomerDetails)) }
+      sig { returns(T.nilable(::Stripe::Checkout::SessionListParams::CustomerDetails)) }
       def customer_details; end
       sig {
-        params(_customer_details: T.nilable(Checkout::SessionListParams::CustomerDetails)).returns(T.nilable(Checkout::SessionListParams::CustomerDetails))
+        params(_customer_details: T.nilable(::Stripe::Checkout::SessionListParams::CustomerDetails)).returns(T.nilable(::Stripe::Checkout::SessionListParams::CustomerDetails))
        }
       def customer_details=(_customer_details); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -105,7 +105,7 @@ module Stripe
       sig { params(_subscription: T.nilable(String)).returns(T.nilable(String)) }
       def subscription=(_subscription); end
       sig {
-        params(created: T.nilable(T.any(Checkout::SessionListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(Checkout::SessionListParams::CustomerDetails), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_intent: T.nilable(String), payment_link: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
+        params(created: T.nilable(T.any(::Stripe::Checkout::SessionListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::Checkout::SessionListParams::CustomerDetails), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_intent: T.nilable(String), payment_link: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
        }
       def initialize(
         created: nil,

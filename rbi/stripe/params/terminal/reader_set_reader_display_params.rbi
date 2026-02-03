@@ -31,10 +31,10 @@ module Stripe
         sig { params(_currency: String).returns(String) }
         def currency=(_currency); end
         # Array of line items to display.
-        sig { returns(T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem]) }
+        sig { returns(T::Array[::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart::LineItem]) }
         def line_items; end
         sig {
-          params(_line_items: T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem]).returns(T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem])
+          params(_line_items: T::Array[::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart::LineItem]).returns(T::Array[::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart::LineItem])
          }
         def line_items=(_line_items); end
         # The amount of tax in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -48,15 +48,15 @@ module Stripe
         sig { params(_total: Integer).returns(Integer) }
         def total=(_total); end
         sig {
-          params(currency: String, line_items: T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem], tax: T.nilable(Integer), total: Integer).void
+          params(currency: String, line_items: T::Array[::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart::LineItem], tax: T.nilable(Integer), total: Integer).void
          }
         def initialize(currency: nil, line_items: nil, tax: nil, total: nil); end
       end
       # Cart details to display on the reader screen, including line items, amounts, and currency.
-      sig { returns(T.nilable(Terminal::ReaderSetReaderDisplayParams::Cart)) }
+      sig { returns(T.nilable(::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart)) }
       def cart; end
       sig {
-        params(_cart: T.nilable(Terminal::ReaderSetReaderDisplayParams::Cart)).returns(T.nilable(Terminal::ReaderSetReaderDisplayParams::Cart))
+        params(_cart: T.nilable(::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart)).returns(T.nilable(::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart))
        }
       def cart=(_cart); end
       # Specifies which fields in the response should be expanded.
@@ -70,7 +70,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(cart: T.nilable(Terminal::ReaderSetReaderDisplayParams::Cart), expand: T.nilable(T::Array[String]), type: String).void
+        params(cart: T.nilable(::Stripe::Terminal::ReaderSetReaderDisplayParams::Cart), expand: T.nilable(T::Array[String]), type: String).void
        }
       def initialize(cart: nil, expand: nil, type: nil); end
     end

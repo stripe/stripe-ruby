@@ -46,10 +46,10 @@ module Stripe
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
     # The account or customer the tax ID belongs to. Defaults to `owner[type]=self`.
-    sig { returns(T.nilable(TaxIdListParams::Owner)) }
+    sig { returns(T.nilable(::Stripe::TaxIdListParams::Owner)) }
     def owner; end
     sig {
-      params(_owner: T.nilable(TaxIdListParams::Owner)).returns(T.nilable(TaxIdListParams::Owner))
+      params(_owner: T.nilable(::Stripe::TaxIdListParams::Owner)).returns(T.nilable(::Stripe::TaxIdListParams::Owner))
      }
     def owner=(_owner); end
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -58,7 +58,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), owner: T.nilable(TaxIdListParams::Owner), starting_after: T.nilable(String)).void
+      params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), owner: T.nilable(::Stripe::TaxIdListParams::Owner), starting_after: T.nilable(String)).void
      }
     def initialize(
       ending_before: nil,

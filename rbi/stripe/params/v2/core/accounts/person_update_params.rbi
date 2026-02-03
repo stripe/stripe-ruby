@@ -112,15 +112,15 @@ module Stripe
             end
             # Stripe terms of service agreement.
             sig {
-              returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account))
              }
             def account; end
             sig {
-              params(_account: T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account))
+              params(_account: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account))
              }
             def account=(_account); end
             sig {
-              params(account: T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account)).void
+              params(account: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService::Account)).void
              }
             def initialize(account: nil); end
           end
@@ -238,11 +238,11 @@ module Stripe
               end
               # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
               sig {
-                returns(V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack)
+                returns(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack)
                }
               def front_back; end
               sig {
-                params(_front_back: V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack).returns(V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack)
+                params(_front_back: ::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack).returns(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack)
                }
               def front_back=(_front_back); end
               # The format of the verification document. Currently supports `front_back` only.
@@ -251,7 +251,7 @@ module Stripe
               sig { params(_type: String).returns(String) }
               def type=(_type); end
               sig {
-                params(front_back: V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack, type: String).void
+                params(front_back: ::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification::FrontBack, type: String).void
                }
               def initialize(front_back: nil, type: nil); end
             end
@@ -272,11 +272,11 @@ module Stripe
               end
               # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
               sig {
-                returns(V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack)
+                returns(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack)
                }
               def front_back; end
               sig {
-                params(_front_back: V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack).returns(V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack)
+                params(_front_back: ::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack).returns(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack)
                }
               def front_back=(_front_back); end
               # The format of the verification document. Currently supports `front_back` only.
@@ -285,7 +285,7 @@ module Stripe
               sig { params(_type: String).returns(String) }
               def type=(_type); end
               sig {
-                params(front_back: V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack, type: String).void
+                params(front_back: ::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification::FrontBack, type: String).void
                }
               def initialize(front_back: nil, type: nil); end
             end
@@ -305,47 +305,51 @@ module Stripe
             end
             # One or more documents that demonstrate proof that this person is authorized to represent the company.
             sig {
-              returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization))
              }
             def company_authorization; end
             sig {
-              params(_company_authorization: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization))
+              params(_company_authorization: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization))
              }
             def company_authorization=(_company_authorization); end
             # One or more documents showing the person’s passport page with photo and personal data.
-            sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Passport)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Passport))
+             }
             def passport; end
             sig {
-              params(_passport: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Passport)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Passport))
+              params(_passport: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Passport)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Passport))
              }
             def passport=(_passport); end
             # An identifying document showing the person's name, either a passport or local ID card.
             sig {
-              returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification))
              }
             def primary_verification; end
             sig {
-              params(_primary_verification: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification))
+              params(_primary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification))
              }
             def primary_verification=(_primary_verification); end
             # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
             sig {
-              returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification))
              }
             def secondary_verification; end
             sig {
-              params(_secondary_verification: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification))
+              params(_secondary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification))
              }
             def secondary_verification=(_secondary_verification); end
             # One or more documents showing the person’s visa required for living in the country where they are residing.
-            sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Visa)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Visa))
+             }
             def visa; end
             sig {
-              params(_visa: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Visa)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Visa))
+              params(_visa: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Visa)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Visa))
              }
             def visa=(_visa); end
             sig {
-              params(company_authorization: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization), passport: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Passport), primary_verification: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification), secondary_verification: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification), visa: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents::Visa)).void
+              params(company_authorization: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Passport), primary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::PrimaryVerification), secondary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification), visa: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Visa)).void
              }
             def initialize(
               company_authorization: nil,
@@ -525,24 +529,24 @@ module Stripe
             end
             # Kana Address.
             sig {
-              returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana))
              }
             def kana; end
             sig {
-              params(_kana: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana))
+              params(_kana: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana))
              }
             def kana=(_kana); end
             # Kanji Address.
             sig {
-              returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji))
              }
             def kanji; end
             sig {
-              params(_kanji: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji))
+              params(_kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji))
              }
             def kanji=(_kanji); end
             sig {
-              params(kana: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana), kanji: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji)).void
+              params(kana: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kana), kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses::Kanji)).void
              }
             def initialize(kana: nil, kanji: nil); end
           end
@@ -576,70 +580,74 @@ module Stripe
               def initialize(given_name: nil, surname: nil); end
             end
             # Persons name in kana script.
-            sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana))
+             }
             def kana; end
             sig {
-              params(_kana: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana))
+              params(_kana: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana))
              }
             def kana=(_kana); end
             # Persons name in kanji script.
-            sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji))
+             }
             def kanji; end
             sig {
-              params(_kanji: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji))
+              params(_kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji))
              }
             def kanji=(_kanji); end
             sig {
-              params(kana: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana), kanji: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji)).void
+              params(kana: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kana), kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames::Kanji)).void
              }
             def initialize(kana: nil, kanji: nil); end
           end
           # Additional addresses associated with the person.
           sig {
-            returns(T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalAddress]))
+            returns(T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalAddress]))
            }
           def additional_addresses; end
           sig {
-            params(_additional_addresses: T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalAddress])).returns(T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalAddress]))
+            params(_additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalAddress])).returns(T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalAddress]))
            }
           def additional_addresses=(_additional_addresses); end
           # Additional names (e.g. aliases) associated with the person.
           sig {
-            returns(T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalName]))
+            returns(T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalName]))
            }
           def additional_names; end
           sig {
-            params(_additional_names: T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalName])).returns(T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalName]))
+            params(_additional_names: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalName])).returns(T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalName]))
            }
           def additional_names=(_additional_names); end
           # Attestations of accepted terms of service agreements.
           sig {
-            returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService))
+            returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService))
            }
           def additional_terms_of_service; end
           sig {
-            params(_additional_terms_of_service: T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService))
+            params(_additional_terms_of_service: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService))
            }
           def additional_terms_of_service=(_additional_terms_of_service); end
           # The primary address associated with the person.
-          sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Address)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Address)) }
           def address; end
           sig {
-            params(_address: T.nilable(V2::Core::Accounts::PersonUpdateParams::Address)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Address))
+            params(_address: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Address)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Address))
            }
           def address=(_address); end
           # The person's date of birth.
-          sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::DateOfBirth)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::DateOfBirth)) }
           def date_of_birth; end
           sig {
-            params(_date_of_birth: T.nilable(V2::Core::Accounts::PersonUpdateParams::DateOfBirth)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::DateOfBirth))
+            params(_date_of_birth: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::DateOfBirth)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::DateOfBirth))
            }
           def date_of_birth=(_date_of_birth); end
           # Documents that may be submitted to satisfy various informational requests.
-          sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents)) }
           def documents; end
           sig {
-            params(_documents: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents))
+            params(_documents: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents))
            }
           def documents=(_documents); end
           # Email.
@@ -653,10 +661,12 @@ module Stripe
           sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
           def given_name=(_given_name); end
           # The identification numbers (e.g., SSN) associated with the person.
-          sig { returns(T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::IdNumber])) }
+          sig {
+            returns(T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::IdNumber]))
+           }
           def id_numbers; end
           sig {
-            params(_id_numbers: T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::IdNumber])).returns(T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::IdNumber]))
+            params(_id_numbers: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::IdNumber])).returns(T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::IdNumber]))
            }
           def id_numbers=(_id_numbers); end
           # The person's gender (International regulations require either "male" or "female").
@@ -694,24 +704,26 @@ module Stripe
           sig { params(_political_exposure: T.nilable(String)).returns(T.nilable(String)) }
           def political_exposure=(_political_exposure); end
           # The relationship that this person has with the Account's business or legal entity.
-          sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Relationship)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Relationship)) }
           def relationship; end
           sig {
-            params(_relationship: T.nilable(V2::Core::Accounts::PersonUpdateParams::Relationship)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::Relationship))
+            params(_relationship: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Relationship)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Relationship))
            }
           def relationship=(_relationship); end
           # The script addresses (e.g., non-Latin characters) associated with the person.
-          sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses))
+           }
           def script_addresses; end
           sig {
-            params(_script_addresses: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses))
+            params(_script_addresses: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses))
            }
           def script_addresses=(_script_addresses); end
           # The script names (e.g. non-Latin characters) associated with the person.
-          sig { returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames)) }
+          sig { returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames)) }
           def script_names; end
           sig {
-            params(_script_names: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames)).returns(T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames))
+            params(_script_names: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames))
            }
           def script_names=(_script_names); end
           # The person's last name.
@@ -720,7 +732,7 @@ module Stripe
           sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
           def surname=(_surname); end
           sig {
-            params(additional_addresses: T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalAddress]), additional_names: T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::AdditionalName]), additional_terms_of_service: T.nilable(V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService), address: T.nilable(V2::Core::Accounts::PersonUpdateParams::Address), date_of_birth: T.nilable(V2::Core::Accounts::PersonUpdateParams::DateOfBirth), documents: T.nilable(V2::Core::Accounts::PersonUpdateParams::Documents), email: T.nilable(String), given_name: T.nilable(String), id_numbers: T.nilable(T::Array[V2::Core::Accounts::PersonUpdateParams::IdNumber]), legal_gender: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), nationalities: T.nilable(T::Array[String]), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), relationship: T.nilable(V2::Core::Accounts::PersonUpdateParams::Relationship), script_addresses: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptAddresses), script_names: T.nilable(V2::Core::Accounts::PersonUpdateParams::ScriptNames), surname: T.nilable(String)).void
+            params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalAddress]), additional_names: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalName]), additional_terms_of_service: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::AdditionalTermsOfService), address: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Address), date_of_birth: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::DateOfBirth), documents: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents), email: T.nilable(String), given_name: T.nilable(String), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonUpdateParams::IdNumber]), legal_gender: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), nationalities: T.nilable(T::Array[String]), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), relationship: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Relationship), script_addresses: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::ScriptNames), surname: T.nilable(String)).void
            }
           def initialize(
             additional_addresses: nil,

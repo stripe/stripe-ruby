@@ -87,10 +87,10 @@ module Stripe
         def initialize(account: nil, authorization: nil); end
       end
       # The account holder to link accounts for.
-      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::AccountHolder)) }
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder)) }
       def account_holder; end
       sig {
-        params(_account_holder: T.nilable(FinancialConnections::SessionCreateParams::AccountHolder)).returns(T.nilable(FinancialConnections::SessionCreateParams::AccountHolder))
+        params(_account_holder: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder))
        }
       def account_holder=(_account_holder); end
       # Specifies which fields in the response should be expanded.
@@ -99,24 +99,24 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Filters to restrict the kinds of accounts to collect.
-      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::Filters)) }
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters)) }
       def filters; end
       sig {
-        params(_filters: T.nilable(FinancialConnections::SessionCreateParams::Filters)).returns(T.nilable(FinancialConnections::SessionCreateParams::Filters))
+        params(_filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters))
        }
       def filters=(_filters); end
       # Settings for configuring Session-specific limits.
-      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::Limits)) }
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits)) }
       def limits; end
       sig {
-        params(_limits: T.nilable(FinancialConnections::SessionCreateParams::Limits)).returns(T.nilable(FinancialConnections::SessionCreateParams::Limits))
+        params(_limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits))
        }
       def limits=(_limits); end
       # Customize manual entry behavior
-      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::ManualEntry)) }
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry)) }
       def manual_entry; end
       sig {
-        params(_manual_entry: T.nilable(FinancialConnections::SessionCreateParams::ManualEntry)).returns(T.nilable(FinancialConnections::SessionCreateParams::ManualEntry))
+        params(_manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry))
        }
       def manual_entry=(_manual_entry); end
       # List of data features that you would like to request access to.
@@ -132,10 +132,10 @@ module Stripe
       sig { params(_prefetch: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def prefetch=(_prefetch); end
       # Options for specifying a Session targeted to relinking an authorization.
-      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions)) }
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions)) }
       def relink_options; end
       sig {
-        params(_relink_options: T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions)).returns(T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions))
+        params(_relink_options: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions))
        }
       def relink_options=(_relink_options); end
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
@@ -144,7 +144,7 @@ module Stripe
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
       sig {
-        params(account_holder: T.nilable(FinancialConnections::SessionCreateParams::AccountHolder), expand: T.nilable(T::Array[String]), filters: T.nilable(FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), relink_options: T.nilable(FinancialConnections::SessionCreateParams::RelinkOptions), return_url: T.nilable(String)).void
+        params(account_holder: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder), expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), relink_options: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions), return_url: T.nilable(String)).void
        }
       def initialize(
         account_holder: nil,

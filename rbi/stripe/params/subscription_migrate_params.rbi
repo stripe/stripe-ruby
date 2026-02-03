@@ -15,10 +15,10 @@ module Stripe
         def initialize(proration_discounts: nil); end
       end
       # Configure behavior for flexible billing mode.
-      sig { returns(T.nilable(SubscriptionMigrateParams::BillingMode::Flexible)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionMigrateParams::BillingMode::Flexible)) }
       def flexible; end
       sig {
-        params(_flexible: T.nilable(SubscriptionMigrateParams::BillingMode::Flexible)).returns(T.nilable(SubscriptionMigrateParams::BillingMode::Flexible))
+        params(_flexible: T.nilable(::Stripe::SubscriptionMigrateParams::BillingMode::Flexible)).returns(T.nilable(::Stripe::SubscriptionMigrateParams::BillingMode::Flexible))
        }
       def flexible=(_flexible); end
       # Controls the calculation and orchestration of prorations and invoices for subscriptions.
@@ -27,15 +27,15 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(flexible: T.nilable(SubscriptionMigrateParams::BillingMode::Flexible), type: String).void
+        params(flexible: T.nilable(::Stripe::SubscriptionMigrateParams::BillingMode::Flexible), type: String).void
        }
       def initialize(flexible: nil, type: nil); end
     end
     # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-    sig { returns(SubscriptionMigrateParams::BillingMode) }
+    sig { returns(::Stripe::SubscriptionMigrateParams::BillingMode) }
     def billing_mode; end
     sig {
-      params(_billing_mode: SubscriptionMigrateParams::BillingMode).returns(SubscriptionMigrateParams::BillingMode)
+      params(_billing_mode: ::Stripe::SubscriptionMigrateParams::BillingMode).returns(::Stripe::SubscriptionMigrateParams::BillingMode)
      }
     def billing_mode=(_billing_mode); end
     # Specifies which fields in the response should be expanded.
@@ -44,7 +44,7 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     sig {
-      params(billing_mode: SubscriptionMigrateParams::BillingMode, expand: T.nilable(T::Array[String])).void
+      params(billing_mode: ::Stripe::SubscriptionMigrateParams::BillingMode, expand: T.nilable(T::Array[String])).void
      }
     def initialize(billing_mode: nil, expand: nil); end
   end

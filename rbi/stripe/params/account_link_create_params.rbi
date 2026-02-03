@@ -29,10 +29,10 @@ module Stripe
     sig { params(_collect: T.nilable(String)).returns(T.nilable(String)) }
     def collect=(_collect); end
     # Specifies the requirements that Stripe collects from connected accounts in the Connect Onboarding flow.
-    sig { returns(T.nilable(AccountLinkCreateParams::CollectionOptions)) }
+    sig { returns(T.nilable(::Stripe::AccountLinkCreateParams::CollectionOptions)) }
     def collection_options; end
     sig {
-      params(_collection_options: T.nilable(AccountLinkCreateParams::CollectionOptions)).returns(T.nilable(AccountLinkCreateParams::CollectionOptions))
+      params(_collection_options: T.nilable(::Stripe::AccountLinkCreateParams::CollectionOptions)).returns(T.nilable(::Stripe::AccountLinkCreateParams::CollectionOptions))
      }
     def collection_options=(_collection_options); end
     # Specifies which fields in the response should be expanded.
@@ -58,7 +58,7 @@ module Stripe
     sig { params(_type: String).returns(String) }
     def type=(_type); end
     sig {
-      params(account: String, collect: T.nilable(String), collection_options: T.nilable(AccountLinkCreateParams::CollectionOptions), expand: T.nilable(T::Array[String]), refresh_url: T.nilable(String), return_url: T.nilable(String), type: String).void
+      params(account: String, collect: T.nilable(String), collection_options: T.nilable(::Stripe::AccountLinkCreateParams::CollectionOptions), expand: T.nilable(T::Array[String]), refresh_url: T.nilable(String), return_url: T.nilable(String), type: String).void
      }
     def initialize(
       account: nil,

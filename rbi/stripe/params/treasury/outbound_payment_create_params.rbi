@@ -52,11 +52,11 @@ module Stripe
           end
           # Billing address.
           sig {
-            returns(T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address)))
+            returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address)))
            }
           def address; end
           sig {
-            params(_address: T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address))).returns(T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address)))
+            params(_address: T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address))).returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address)))
            }
           def address=(_address); end
           # Email address.
@@ -75,7 +75,7 @@ module Stripe
           sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
           def phone=(_phone); end
           sig {
-            params(address: T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+            params(address: T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
            }
           def initialize(address: nil, email: nil, name: nil, phone: nil); end
         end
@@ -120,11 +120,11 @@ module Stripe
         end
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         sig {
-          returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails))
+          returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails))
          }
         def billing_details; end
         sig {
-          params(_billing_details: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails)).returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails))
+          params(_billing_details: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails)).returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails))
          }
         def billing_details=(_billing_details); end
         # Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
@@ -146,15 +146,15 @@ module Stripe
         def type=(_type); end
         # Required hash if type is set to `us_bank_account`.
         sig {
-          returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount))
+          returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount))
          }
         def us_bank_account; end
         sig {
-          params(_us_bank_account: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount)).returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount))
+          params(_us_bank_account: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount)).returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount))
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(billing_details: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), type: String, us_bank_account: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount)).void
+          params(billing_details: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::BillingDetails), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), type: String, us_bank_account: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount)).void
          }
         def initialize(
           billing_details: nil,
@@ -176,15 +176,15 @@ module Stripe
         end
         # Optional fields for `us_bank_account`.
         sig {
-          returns(T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
+          returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account; end
         sig {
-          params(_us_bank_account: T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
+          params(_us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(us_bank_account: T.nilable(T.any(String, Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).void
+          params(us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(us_bank_account: nil); end
       end
@@ -229,27 +229,27 @@ module Stripe
       def destination_payment_method=(_destination_payment_method); end
       # Hash used to generate the PaymentMethod to be used for this OutboundPayment. Exclusive with `destination_payment_method`.
       sig {
-        returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData))
+        returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData))
        }
       def destination_payment_method_data; end
       sig {
-        params(_destination_payment_method_data: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData)).returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData))
+        params(_destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData)).returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData))
        }
       def destination_payment_method_data=(_destination_payment_method_data); end
       # Payment method-specific configuration for this OutboundPayment.
       sig {
-        returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions))
+        returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions))
        }
       def destination_payment_method_options; end
       sig {
-        params(_destination_payment_method_options: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions)).returns(T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions))
+        params(_destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions)).returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions))
        }
       def destination_payment_method_options=(_destination_payment_method_options); end
       # End user details.
-      sig { returns(T.nilable(Treasury::OutboundPaymentCreateParams::EndUserDetails)) }
+      sig { returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::EndUserDetails)) }
       def end_user_details; end
       sig {
-        params(_end_user_details: T.nilable(Treasury::OutboundPaymentCreateParams::EndUserDetails)).returns(T.nilable(Treasury::OutboundPaymentCreateParams::EndUserDetails))
+        params(_end_user_details: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::EndUserDetails)).returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::EndUserDetails))
        }
       def end_user_details=(_end_user_details); end
       # Specifies which fields in the response should be expanded.
@@ -275,7 +275,7 @@ module Stripe
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor=(_statement_descriptor); end
       sig {
-        params(amount: Integer, currency: String, customer: T.nilable(String), description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions), end_user_details: T.nilable(Treasury::OutboundPaymentCreateParams::EndUserDetails), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), statement_descriptor: T.nilable(String)).void
+        params(amount: Integer, currency: String, customer: T.nilable(String), description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions), end_user_details: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::EndUserDetails), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), statement_descriptor: T.nilable(String)).void
        }
       def initialize(
         amount: nil,

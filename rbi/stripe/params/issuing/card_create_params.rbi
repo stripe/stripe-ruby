@@ -77,24 +77,24 @@ module Stripe
           def initialize(eori_number: nil); end
         end
         # The address that the card is shipped to.
-        sig { returns(Issuing::CardCreateParams::Shipping::Address) }
+        sig { returns(::Stripe::Issuing::CardCreateParams::Shipping::Address) }
         def address; end
         sig {
-          params(_address: Issuing::CardCreateParams::Shipping::Address).returns(Issuing::CardCreateParams::Shipping::Address)
+          params(_address: ::Stripe::Issuing::CardCreateParams::Shipping::Address).returns(::Stripe::Issuing::CardCreateParams::Shipping::Address)
          }
         def address=(_address); end
         # Address validation settings.
-        sig { returns(T.nilable(Issuing::CardCreateParams::Shipping::AddressValidation)) }
+        sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation)) }
         def address_validation; end
         sig {
-          params(_address_validation: T.nilable(Issuing::CardCreateParams::Shipping::AddressValidation)).returns(T.nilable(Issuing::CardCreateParams::Shipping::AddressValidation))
+          params(_address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation))
          }
         def address_validation=(_address_validation); end
         # Customs information for the shipment.
-        sig { returns(T.nilable(Issuing::CardCreateParams::Shipping::Customs)) }
+        sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs)) }
         def customs; end
         sig {
-          params(_customs: T.nilable(Issuing::CardCreateParams::Shipping::Customs)).returns(T.nilable(Issuing::CardCreateParams::Shipping::Customs))
+          params(_customs: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs))
          }
         def customs=(_customs); end
         # The name printed on the shipping label when shipping the card.
@@ -123,7 +123,7 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(address: Issuing::CardCreateParams::Shipping::Address, address_validation: T.nilable(Issuing::CardCreateParams::Shipping::AddressValidation), customs: T.nilable(Issuing::CardCreateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
+          params(address: ::Stripe::Issuing::CardCreateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation), customs: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
          }
         def initialize(
           address: nil,
@@ -190,15 +190,15 @@ module Stripe
         def blocked_merchant_countries=(_blocked_merchant_countries); end
         # Limit spending with amount-based rules that apply across any cards this card replaced (i.e., its `replacement_for` card and _that_ card's `replacement_for` card, up the chain).
         sig {
-          returns(T.nilable(T::Array[Issuing::CardCreateParams::SpendingControls::SpendingLimit]))
+          returns(T.nilable(T::Array[::Stripe::Issuing::CardCreateParams::SpendingControls::SpendingLimit]))
          }
         def spending_limits; end
         sig {
-          params(_spending_limits: T.nilable(T::Array[Issuing::CardCreateParams::SpendingControls::SpendingLimit])).returns(T.nilable(T::Array[Issuing::CardCreateParams::SpendingControls::SpendingLimit]))
+          params(_spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardCreateParams::SpendingControls::SpendingLimit])).returns(T.nilable(T::Array[::Stripe::Issuing::CardCreateParams::SpendingControls::SpendingLimit]))
          }
         def spending_limits=(_spending_limits); end
         sig {
-          params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[Issuing::CardCreateParams::SpendingControls::SpendingLimit])).void
+          params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardCreateParams::SpendingControls::SpendingLimit])).void
          }
         def initialize(
           allowed_categories: nil,
@@ -251,10 +251,10 @@ module Stripe
       sig { params(_personalization_design: T.nilable(String)).returns(T.nilable(String)) }
       def personalization_design=(_personalization_design); end
       # The desired PIN for this card.
-      sig { returns(T.nilable(Issuing::CardCreateParams::Pin)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::Pin)) }
       def pin; end
       sig {
-        params(_pin: T.nilable(Issuing::CardCreateParams::Pin)).returns(T.nilable(Issuing::CardCreateParams::Pin))
+        params(_pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::Pin))
        }
       def pin=(_pin); end
       # The card this is meant to be a replacement for (if any).
@@ -273,17 +273,17 @@ module Stripe
       sig { params(_second_line: T.nilable(String)).returns(T.nilable(String)) }
       def second_line=(_second_line); end
       # The address where the card will be shipped.
-      sig { returns(T.nilable(Issuing::CardCreateParams::Shipping)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping)) }
       def shipping; end
       sig {
-        params(_shipping: T.nilable(Issuing::CardCreateParams::Shipping)).returns(T.nilable(Issuing::CardCreateParams::Shipping))
+        params(_shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping))
        }
       def shipping=(_shipping); end
       # Rules that control spending for this card. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
-      sig { returns(T.nilable(Issuing::CardCreateParams::SpendingControls)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls)) }
       def spending_controls; end
       sig {
-        params(_spending_controls: T.nilable(Issuing::CardCreateParams::SpendingControls)).returns(T.nilable(Issuing::CardCreateParams::SpendingControls))
+        params(_spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls))
        }
       def spending_controls=(_spending_controls); end
       # Whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`.
@@ -297,7 +297,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(Issuing::CardCreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
+        params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
        }
       def initialize(
         cardholder: nil,

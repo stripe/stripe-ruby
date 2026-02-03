@@ -76,24 +76,24 @@ module Stripe
           def type=(_type); end
           # The type specific details of the bank account payout method.
           sig {
-            returns(T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount))
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount))
            }
           def bank_account; end
           sig {
-            params(_bank_account: T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount)).returns(T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount))
+            params(_bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount))
            }
           def bank_account=(_bank_account); end
           # The type specific details of the card payout method.
           sig {
-            returns(T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card))
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card))
            }
           def card; end
           sig {
-            params(_card: T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card)).returns(T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card))
+            params(_card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card))
            }
           def card=(_card); end
           sig {
-            params(type: String, bank_account: T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card)).void
+            params(type: String, bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card)).void
            }
           def initialize(type: nil, bank_account: nil, card: nil); end
         end
@@ -106,11 +106,11 @@ module Stripe
         # If no payout_method provided, used to create the underlying credential that is set up for outbound money movement.
         # If a payout_method provided, used to update data on the credential linked to this setup intent.
         sig {
-          returns(T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData))
+          returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData))
          }
         def payout_method_data; end
         sig {
-          params(_payout_method_data: T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData)).returns(T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData))
+          params(_payout_method_data: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData))
          }
         def payout_method_data=(_payout_method_data); end
         # Specify which type of outbound money movement this credential should be set up for (payment | transfer).
@@ -120,7 +120,7 @@ module Stripe
         sig { params(_usage_intent: T.nilable(String)).returns(T.nilable(String)) }
         def usage_intent=(_usage_intent); end
         sig {
-          params(payout_method: T.nilable(String), payout_method_data: T.nilable(V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData), usage_intent: T.nilable(String)).void
+          params(payout_method: T.nilable(String), payout_method_data: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData), usage_intent: T.nilable(String)).void
          }
         def initialize(payout_method: nil, payout_method_data: nil, usage_intent: nil); end
       end

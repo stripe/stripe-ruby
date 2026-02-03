@@ -31,10 +31,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return charges that were created during the given date interval.
-    sig { returns(T.nilable(T.any(ChargeListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::ChargeListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(ChargeListParams::Created, Integer))).returns(T.nilable(T.any(ChargeListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::ChargeListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::ChargeListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return charges for the customer specified by this customer ID.
@@ -73,7 +73,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(created: T.nilable(T.any(ChargeListParams::Created, Integer)), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_intent: T.nilable(String), starting_after: T.nilable(String), transfer_group: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::ChargeListParams::Created, Integer)), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_intent: T.nilable(String), starting_after: T.nilable(String), transfer_group: T.nilable(String)).void
      }
     def initialize(
       created: nil,

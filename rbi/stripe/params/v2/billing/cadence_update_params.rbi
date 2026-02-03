@@ -51,21 +51,23 @@ module Stripe
             def initialize(id: nil, version: nil); end
           end
           # Settings that configure bills generation, which includes calculating totals, tax, and presenting invoices. If null is provided, the current bill settings will be removed from the billing cadence.
-          sig { returns(T.nilable(V2::Billing::CadenceUpdateParams::Settings::Bill)) }
+          sig { returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Bill)) }
           def bill; end
           sig {
-            params(_bill: T.nilable(V2::Billing::CadenceUpdateParams::Settings::Bill)).returns(T.nilable(V2::Billing::CadenceUpdateParams::Settings::Bill))
+            params(_bill: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Bill)).returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Bill))
            }
           def bill=(_bill); end
           # Settings that configure and manage the behavior of collecting payments. If null is provided, the current collection settings will be removed from the billing cadence.
-          sig { returns(T.nilable(V2::Billing::CadenceUpdateParams::Settings::Collection)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Collection))
+           }
           def collection; end
           sig {
-            params(_collection: T.nilable(V2::Billing::CadenceUpdateParams::Settings::Collection)).returns(T.nilable(V2::Billing::CadenceUpdateParams::Settings::Collection))
+            params(_collection: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Collection)).returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Collection))
            }
           def collection=(_collection); end
           sig {
-            params(bill: T.nilable(V2::Billing::CadenceUpdateParams::Settings::Bill), collection: T.nilable(V2::Billing::CadenceUpdateParams::Settings::Collection)).void
+            params(bill: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Bill), collection: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings::Collection)).void
            }
           def initialize(bill: nil, collection: nil); end
         end
@@ -82,21 +84,21 @@ module Stripe
          }
         def metadata=(_metadata); end
         # The payer determines the entity financially responsible for the bill.
-        sig { returns(T.nilable(V2::Billing::CadenceUpdateParams::Payer)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Payer)) }
         def payer; end
         sig {
-          params(_payer: T.nilable(V2::Billing::CadenceUpdateParams::Payer)).returns(T.nilable(V2::Billing::CadenceUpdateParams::Payer))
+          params(_payer: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Payer)).returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Payer))
          }
         def payer=(_payer); end
         # The settings associated with the cadence.
-        sig { returns(T.nilable(V2::Billing::CadenceUpdateParams::Settings)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings)) }
         def settings; end
         sig {
-          params(_settings: T.nilable(V2::Billing::CadenceUpdateParams::Settings)).returns(T.nilable(V2::Billing::CadenceUpdateParams::Settings))
+          params(_settings: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings)).returns(T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings))
          }
         def settings=(_settings); end
         sig {
-          params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), payer: T.nilable(V2::Billing::CadenceUpdateParams::Payer), settings: T.nilable(V2::Billing::CadenceUpdateParams::Settings)).void
+          params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), payer: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Payer), settings: T.nilable(::Stripe::V2::Billing::CadenceUpdateParams::Settings)).void
          }
         def initialize(lookup_key: nil, metadata: nil, payer: nil, settings: nil); end
       end

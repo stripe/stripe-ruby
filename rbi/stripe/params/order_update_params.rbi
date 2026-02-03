@@ -58,10 +58,10 @@ module Stripe
         ); end
       end
       # The billing address provided by the customer.
-      sig { returns(T.nilable(OrderUpdateParams::BillingDetails::Address)) }
+      sig { returns(T.nilable(::Stripe::OrderUpdateParams::BillingDetails::Address)) }
       def address; end
       sig {
-        params(_address: T.nilable(OrderUpdateParams::BillingDetails::Address)).returns(T.nilable(OrderUpdateParams::BillingDetails::Address))
+        params(_address: T.nilable(::Stripe::OrderUpdateParams::BillingDetails::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::BillingDetails::Address))
        }
       def address=(_address); end
       # The billing email provided by the customer.
@@ -80,7 +80,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: T.nilable(OrderUpdateParams::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+        params(address: T.nilable(::Stripe::OrderUpdateParams::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
        }
       def initialize(address: nil, email: nil, name: nil, phone: nil); end
     end
@@ -217,11 +217,11 @@ module Stripe
         def name=(_name); end
         # The dimensions of this product for shipping purposes.
         sig {
-          returns(T.nilable(T.any(String, OrderUpdateParams::LineItem::ProductData::PackageDimensions)))
+          returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::LineItem::ProductData::PackageDimensions)))
          }
         def package_dimensions; end
         sig {
-          params(_package_dimensions: T.nilable(T.any(String, OrderUpdateParams::LineItem::ProductData::PackageDimensions))).returns(T.nilable(T.any(String, OrderUpdateParams::LineItem::ProductData::PackageDimensions)))
+          params(_package_dimensions: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::LineItem::ProductData::PackageDimensions))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::LineItem::ProductData::PackageDimensions)))
          }
         def package_dimensions=(_package_dimensions); end
         # Whether this product is shipped (i.e., physical goods).
@@ -240,7 +240,7 @@ module Stripe
         sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
         def url=(_url); end
         sig {
-          params(description: T.nilable(String), id: String, images: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: String, package_dimensions: T.nilable(T.any(String, OrderUpdateParams::LineItem::ProductData::PackageDimensions)), shippable: T.nilable(T::Boolean), tax_code: T.nilable(String), url: T.nilable(String)).void
+          params(description: T.nilable(String), id: String, images: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: String, package_dimensions: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::LineItem::ProductData::PackageDimensions)), shippable: T.nilable(T::Boolean), tax_code: T.nilable(String), url: T.nilable(String)).void
          }
         def initialize(
           description: nil,
@@ -260,10 +260,12 @@ module Stripe
       sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
       def description=(_description); end
       # The discounts applied to this line item.
-      sig { returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::LineItem::Discount]))) }
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::LineItem::Discount])))
+       }
       def discounts; end
       sig {
-        params(_discounts: T.nilable(T.any(String, T::Array[OrderUpdateParams::LineItem::Discount]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::LineItem::Discount])))
+        params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::LineItem::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::LineItem::Discount])))
        }
       def discounts=(_discounts); end
       # The ID of an existing line item on the order.
@@ -283,10 +285,10 @@ module Stripe
       # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create a Product upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define Products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
       #
       # Each time you pass `price_data` we create a Price for the Product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
-      sig { returns(T.nilable(OrderUpdateParams::LineItem::PriceData)) }
+      sig { returns(T.nilable(::Stripe::OrderUpdateParams::LineItem::PriceData)) }
       def price_data; end
       sig {
-        params(_price_data: T.nilable(OrderUpdateParams::LineItem::PriceData)).returns(T.nilable(OrderUpdateParams::LineItem::PriceData))
+        params(_price_data: T.nilable(::Stripe::OrderUpdateParams::LineItem::PriceData)).returns(T.nilable(::Stripe::OrderUpdateParams::LineItem::PriceData))
        }
       def price_data=(_price_data); end
       # The ID of a [Product](https://docs.stripe.com/api/products) to add to the Order.
@@ -301,10 +303,10 @@ module Stripe
       # `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
       #
       # `product_data` automatically creates a Product, just as if you had manually created the Product. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates.
-      sig { returns(T.nilable(OrderUpdateParams::LineItem::ProductData)) }
+      sig { returns(T.nilable(::Stripe::OrderUpdateParams::LineItem::ProductData)) }
       def product_data; end
       sig {
-        params(_product_data: T.nilable(OrderUpdateParams::LineItem::ProductData)).returns(T.nilable(OrderUpdateParams::LineItem::ProductData))
+        params(_product_data: T.nilable(::Stripe::OrderUpdateParams::LineItem::ProductData)).returns(T.nilable(::Stripe::OrderUpdateParams::LineItem::ProductData))
        }
       def product_data=(_product_data); end
       # The quantity of the line item.
@@ -320,7 +322,7 @@ module Stripe
        }
       def tax_rates=(_tax_rates); end
       sig {
-        params(description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[OrderUpdateParams::LineItem::Discount])), id: T.nilable(String), price: T.nilable(String), price_data: T.nilable(OrderUpdateParams::LineItem::PriceData), product: T.nilable(String), product_data: T.nilable(OrderUpdateParams::LineItem::ProductData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+        params(description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::LineItem::Discount])), id: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::OrderUpdateParams::LineItem::PriceData), product: T.nilable(String), product_data: T.nilable(::Stripe::OrderUpdateParams::LineItem::ProductData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
        }
       def initialize(
         description: nil,
@@ -373,11 +375,11 @@ module Stripe
             end
             # Additional fields for Mandate creation
             sig {
-              returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions))
+              returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions))
              }
             def mandate_options; end
             sig {
-              params(_mandate_options: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions))
+              params(_mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions))
              }
             def mandate_options=(_mandate_options); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -406,7 +408,7 @@ module Stripe
             sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
             def verification_method=(_verification_method); end
             sig {
-              params(mandate_options: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
+              params(mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
              }
             def initialize(
               mandate_options: nil,
@@ -526,11 +528,11 @@ module Stripe
               end
               # Configuration for the eu_bank_transfer funding type.
               sig {
-                returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
+                returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
                }
               def eu_bank_transfer; end
               sig {
-                params(_eu_bank_transfer: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
+                params(_eu_bank_transfer: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
                }
               def eu_bank_transfer=(_eu_bank_transfer); end
               # List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -548,17 +550,17 @@ module Stripe
               sig { params(_type: String).returns(String) }
               def type=(_type); end
               sig {
-                params(eu_bank_transfer: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer), requested_address_types: T.nilable(T::Array[String]), type: String).void
+                params(eu_bank_transfer: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer), requested_address_types: T.nilable(T::Array[String]), type: String).void
                }
               def initialize(eu_bank_transfer: nil, requested_address_types: nil, type: nil); end
             end
             # Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
             sig {
-              returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer))
+              returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer))
              }
             def bank_transfer; end
             sig {
-              params(_bank_transfer: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer))
+              params(_bank_transfer: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer))
              }
             def bank_transfer=(_bank_transfer); end
             # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
@@ -580,7 +582,7 @@ module Stripe
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
             sig {
-              params(bank_transfer: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer), funding_type: T.nilable(String), setup_future_usage: T.nilable(String)).void
+              params(bank_transfer: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance::BankTransfer), funding_type: T.nilable(String), setup_future_usage: T.nilable(String)).void
              }
             def initialize(bank_transfer: nil, funding_type: nil, setup_future_usage: nil); end
           end
@@ -675,11 +677,11 @@ module Stripe
               def name=(_name); end
               # Describes the upcoming charge for this subscription.
               sig {
-                returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling))
+                returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling))
                }
               def next_billing; end
               sig {
-                params(_next_billing: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling))
+                params(_next_billing: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling))
                }
               def next_billing=(_next_billing); end
               # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
@@ -688,7 +690,7 @@ module Stripe
               sig { params(_reference: String).returns(String) }
               def reference=(_reference); end
               sig {
-                params(interval: String, interval_count: T.nilable(Integer), name: T.nilable(String), next_billing: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling), reference: String).void
+                params(interval: String, interval_count: T.nilable(Integer), name: T.nilable(String), next_billing: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription::NextBilling), reference: String).void
                }
               def initialize(
                 interval: nil,
@@ -746,11 +748,11 @@ module Stripe
                   end
                   # Address of the arrival location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address))
                    }
                   def address=(_address); end
                   # Identifier name or reference for the arrival location.
@@ -759,7 +761,7 @@ module Stripe
                   sig { params(_arrival_location: T.nilable(String)).returns(T.nilable(String)) }
                   def arrival_location=(_arrival_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, arrival_location: nil); end
                 end
@@ -809,11 +811,11 @@ module Stripe
                   end
                   # Address of the departure location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address))
                    }
                   def address=(_address); end
                   # Timestamp of departure.
@@ -827,7 +829,7 @@ module Stripe
                   sig { params(_departure_location: T.nilable(String)).returns(T.nilable(String)) }
                   def departure_location=(_departure_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, departs_at: nil, departure_location: nil); end
                 end
@@ -885,11 +887,11 @@ module Stripe
                 def affiliate_name=(_affiliate_name); end
                 # Arrival details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival))
                  }
                 def arrival; end
                 sig {
-                  params(_arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival))
+                  params(_arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival))
                  }
                 def arrival=(_arrival); end
                 # Name of transportation company.
@@ -904,29 +906,29 @@ module Stripe
                 def currency=(_currency); end
                 # Departure details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure))
                  }
                 def departure; end
                 sig {
-                  params(_departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure))
+                  params(_departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure))
                  }
                 def departure=(_departure); end
                 # List of insurances for this reservation.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance]))
                  }
                 def insurances; end
                 sig {
-                  params(_insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance]))
+                  params(_insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance]))
                  }
                 def insurances=(_insurances); end
                 # List of passengers that this reservation applies to.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger]))
                  }
                 def passengers; end
                 sig {
-                  params(_passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger]))
+                  params(_passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger]))
                  }
                 def passengers=(_passengers); end
                 # Price in cents.
@@ -940,7 +942,7 @@ module Stripe
                 sig { params(_ticket_class: T.nilable(String)).returns(T.nilable(String)) }
                 def ticket_class=(_ticket_class); end
                 sig {
-                  params(affiliate_name: T.nilable(String), arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure), insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance]), passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
+                  params(affiliate_name: T.nilable(String), arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Departure), insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Insurance]), passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
                  }
                 def initialize(
                   affiliate_name: nil,
@@ -1040,11 +1042,11 @@ module Stripe
                 def access_controlled_venue=(_access_controlled_venue); end
                 # Address of the event.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address))
                  }
                 def address; end
                 sig {
-                  params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address))
+                  params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address))
                  }
                 def address=(_address); end
                 # Name of associated or partner company for the service.
@@ -1074,11 +1076,11 @@ module Stripe
                 def event_type=(_event_type); end
                 # List of insurances for this event.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance]))
                  }
                 def insurances; end
                 sig {
-                  params(_insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance]))
+                  params(_insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance]))
                  }
                 def insurances=(_insurances); end
                 # Start timestamp of the event.
@@ -1092,7 +1094,7 @@ module Stripe
                 sig { params(_venue_name: T.nilable(String)).returns(T.nilable(String)) }
                 def venue_name=(_venue_name); end
                 sig {
-                  params(access_controlled_venue: T.nilable(T::Boolean), address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address), affiliate_name: T.nilable(String), ends_at: T.nilable(Integer), event_company_name: T.nilable(String), event_name: T.nilable(String), event_type: T.nilable(String), insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance]), starts_at: T.nilable(Integer), venue_name: T.nilable(String)).void
+                  params(access_controlled_venue: T.nilable(T::Boolean), address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Address), affiliate_name: T.nilable(String), ends_at: T.nilable(Integer), event_company_name: T.nilable(String), event_name: T.nilable(String), event_type: T.nilable(String), insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail::Insurance]), starts_at: T.nilable(Integer), venue_name: T.nilable(String)).void
                  }
                 def initialize(
                   access_controlled_venue: nil,
@@ -1154,11 +1156,11 @@ module Stripe
                   end
                   # Address of the arrival location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address))
                    }
                   def address=(_address); end
                   # Identifier name or reference for the arrival location.
@@ -1167,7 +1169,7 @@ module Stripe
                   sig { params(_arrival_location: T.nilable(String)).returns(T.nilable(String)) }
                   def arrival_location=(_arrival_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, arrival_location: nil); end
                 end
@@ -1217,11 +1219,11 @@ module Stripe
                   end
                   # Address of the departure location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address))
                    }
                   def address=(_address); end
                   # Timestamp of departure.
@@ -1235,7 +1237,7 @@ module Stripe
                   sig { params(_departure_location: T.nilable(String)).returns(T.nilable(String)) }
                   def departure_location=(_departure_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, departs_at: nil, departure_location: nil); end
                 end
@@ -1293,11 +1295,11 @@ module Stripe
                 def affiliate_name=(_affiliate_name); end
                 # Arrival details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival))
                  }
                 def arrival; end
                 sig {
-                  params(_arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival))
+                  params(_arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival))
                  }
                 def arrival=(_arrival); end
                 # Name of transportation company.
@@ -1312,29 +1314,29 @@ module Stripe
                 def currency=(_currency); end
                 # Departure details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure))
                  }
                 def departure; end
                 sig {
-                  params(_departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure))
+                  params(_departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure))
                  }
                 def departure=(_departure); end
                 # List of insurances for this reservation.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance]))
                  }
                 def insurances; end
                 sig {
-                  params(_insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance]))
+                  params(_insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance]))
                  }
                 def insurances=(_insurances); end
                 # List of passengers that this reservation applies to.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger]))
                  }
                 def passengers; end
                 sig {
-                  params(_passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger]))
+                  params(_passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger]))
                  }
                 def passengers=(_passengers); end
                 # Price in cents.
@@ -1348,7 +1350,7 @@ module Stripe
                 sig { params(_ticket_class: T.nilable(String)).returns(T.nilable(String)) }
                 def ticket_class=(_ticket_class); end
                 sig {
-                  params(affiliate_name: T.nilable(String), arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure), insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance]), passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
+                  params(affiliate_name: T.nilable(String), arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Departure), insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Insurance]), passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
                  }
                 def initialize(
                   affiliate_name: nil,
@@ -1448,11 +1450,11 @@ module Stripe
                 def line_item_references=(_line_item_references); end
                 # The address of the selling or delivering merchant.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress))
                  }
                 def marketplace_seller_address; end
                 sig {
-                  params(_marketplace_seller_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress))
+                  params(_marketplace_seller_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress))
                  }
                 def marketplace_seller_address=(_marketplace_seller_address); end
                 # The name of the marketplace seller.
@@ -1520,7 +1522,7 @@ module Stripe
                  }
                 def volume_of_transactions=(_volume_of_transactions); end
                 sig {
-                  params(line_item_references: T.nilable(T::Array[String]), marketplace_seller_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress), marketplace_seller_name: T.nilable(String), marketplace_seller_reference: T.nilable(String), number_of_transactions: T.nilable(Integer), product_category: T.nilable(String), seller_last_login_at: T.nilable(Integer), seller_rating: T.nilable(String), seller_registered_at: T.nilable(Integer), seller_updated_at: T.nilable(Integer), shipping_references: T.nilable(T::Array[String]), volume_of_transactions: T.nilable(Integer)).void
+                  params(line_item_references: T.nilable(T::Array[String]), marketplace_seller_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller::MarketplaceSellerAddress), marketplace_seller_name: T.nilable(String), marketplace_seller_reference: T.nilable(String), number_of_transactions: T.nilable(Integer), product_category: T.nilable(String), seller_last_login_at: T.nilable(Integer), seller_rating: T.nilable(String), seller_registered_at: T.nilable(Integer), seller_updated_at: T.nilable(Integer), shipping_references: T.nilable(T::Array[String]), volume_of_transactions: T.nilable(Integer)).void
                  }
                 def initialize(
                   line_item_references: nil,
@@ -1584,11 +1586,11 @@ module Stripe
                   end
                   # Address of the arrival location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address))
                    }
                   def address=(_address); end
                   # Identifier name or reference for the arrival location.
@@ -1597,7 +1599,7 @@ module Stripe
                   sig { params(_arrival_location: T.nilable(String)).returns(T.nilable(String)) }
                   def arrival_location=(_arrival_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, arrival_location: nil); end
                 end
@@ -1647,11 +1649,11 @@ module Stripe
                   end
                   # Address of the departure location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address))
                    }
                   def address=(_address); end
                   # Timestamp of departure.
@@ -1665,7 +1667,7 @@ module Stripe
                   sig { params(_departure_location: T.nilable(String)).returns(T.nilable(String)) }
                   def departure_location=(_departure_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, departs_at: nil, departure_location: nil); end
                 end
@@ -1723,11 +1725,11 @@ module Stripe
                 def affiliate_name=(_affiliate_name); end
                 # Arrival details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival))
                  }
                 def arrival; end
                 sig {
-                  params(_arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival))
+                  params(_arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival))
                  }
                 def arrival=(_arrival); end
                 # Name of transportation company.
@@ -1742,29 +1744,29 @@ module Stripe
                 def currency=(_currency); end
                 # Departure details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure))
                  }
                 def departure; end
                 sig {
-                  params(_departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure))
+                  params(_departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure))
                  }
                 def departure=(_departure); end
                 # List of insurances for this reservation.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance]))
                  }
                 def insurances; end
                 sig {
-                  params(_insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance]))
+                  params(_insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance]))
                  }
                 def insurances=(_insurances); end
                 # List of passengers that this reservation applies to.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger]))
                  }
                 def passengers; end
                 sig {
-                  params(_passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger]))
+                  params(_passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger]))
                  }
                 def passengers=(_passengers); end
                 # Price in cents.
@@ -1778,7 +1780,7 @@ module Stripe
                 sig { params(_ticket_class: T.nilable(String)).returns(T.nilable(String)) }
                 def ticket_class=(_ticket_class); end
                 sig {
-                  params(affiliate_name: T.nilable(String), arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure), insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance]), passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
+                  params(affiliate_name: T.nilable(String), arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Departure), insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Insurance]), passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
                  }
                 def initialize(
                   affiliate_name: nil,
@@ -1839,11 +1841,11 @@ module Stripe
                   end
                   # Address of the arrival location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address))
                    }
                   def address=(_address); end
                   # Identifier name or reference for the arrival location.
@@ -1852,7 +1854,7 @@ module Stripe
                   sig { params(_arrival_location: T.nilable(String)).returns(T.nilable(String)) }
                   def arrival_location=(_arrival_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival::Address), arrival_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, arrival_location: nil); end
                 end
@@ -1902,11 +1904,11 @@ module Stripe
                   end
                   # Address of the departure location.
                   sig {
-                    returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address))
+                    returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address))
                    }
                   def address; end
                   sig {
-                    params(_address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address))
+                    params(_address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address))
                    }
                   def address=(_address); end
                   # Timestamp of departure.
@@ -1920,7 +1922,7 @@ module Stripe
                   sig { params(_departure_location: T.nilable(String)).returns(T.nilable(String)) }
                   def departure_location=(_departure_location); end
                   sig {
-                    params(address: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
+                    params(address: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure::Address), departs_at: T.nilable(Integer), departure_location: T.nilable(String)).void
                    }
                   def initialize(address: nil, departs_at: nil, departure_location: nil); end
                 end
@@ -1978,11 +1980,11 @@ module Stripe
                 def affiliate_name=(_affiliate_name); end
                 # Arrival details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival))
                  }
                 def arrival; end
                 sig {
-                  params(_arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival))
+                  params(_arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival))
                  }
                 def arrival=(_arrival); end
                 # Name of transportation company.
@@ -1997,29 +1999,29 @@ module Stripe
                 def currency=(_currency); end
                 # Departure details.
                 sig {
-                  returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure))
+                  returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure))
                  }
                 def departure; end
                 sig {
-                  params(_departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure))
+                  params(_departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure))
                  }
                 def departure=(_departure); end
                 # List of insurances for this reservation.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance]))
                  }
                 def insurances; end
                 sig {
-                  params(_insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance]))
+                  params(_insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance]))
                  }
                 def insurances=(_insurances); end
                 # List of passengers that this reservation applies to.
                 sig {
-                  returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger]))
+                  returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger]))
                  }
                 def passengers; end
                 sig {
-                  params(_passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger]))
+                  params(_passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger]))
                  }
                 def passengers=(_passengers); end
                 # Price in cents.
@@ -2033,7 +2035,7 @@ module Stripe
                 sig { params(_ticket_class: T.nilable(String)).returns(T.nilable(String)) }
                 def ticket_class=(_ticket_class); end
                 sig {
-                  params(affiliate_name: T.nilable(String), arrival: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure), insurances: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance]), passengers: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
+                  params(affiliate_name: T.nilable(String), arrival: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Arrival), carrier_name: T.nilable(String), currency: T.nilable(String), departure: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Departure), insurances: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Insurance]), passengers: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail::Passenger]), price: T.nilable(Integer), ticket_class: T.nilable(String)).void
                  }
                 def initialize(
                   affiliate_name: nil,
@@ -2092,78 +2094,78 @@ module Stripe
               end
               # Supplementary bus reservation details.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail])))
                }
               def bus_reservation_details; end
               sig {
-                params(_bus_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail])))
+                params(_bus_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail])))
                }
               def bus_reservation_details=(_bus_reservation_details); end
               # Supplementary event reservation details.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail])))
                }
               def event_reservation_details; end
               sig {
-                params(_event_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail])))
+                params(_event_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail])))
                }
               def event_reservation_details=(_event_reservation_details); end
               # Supplementary ferry reservation details.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail])))
                }
               def ferry_reservation_details; end
               sig {
-                params(_ferry_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail])))
+                params(_ferry_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail])))
                }
               def ferry_reservation_details=(_ferry_reservation_details); end
               # Supplementary insurance details.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance])))
                }
               def insurances; end
               sig {
-                params(_insurances: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance])))
+                params(_insurances: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance])))
                }
               def insurances=(_insurances); end
               # Supplementary marketplace seller details.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller])))
                }
               def marketplace_sellers; end
               sig {
-                params(_marketplace_sellers: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller])))
+                params(_marketplace_sellers: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller])))
                }
               def marketplace_sellers=(_marketplace_sellers); end
               # Supplementary round trip reservation details.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail])))
                }
               def round_trip_reservation_details; end
               sig {
-                params(_round_trip_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail])))
+                params(_round_trip_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail])))
                }
               def round_trip_reservation_details=(_round_trip_reservation_details); end
               # Supplementary train reservation details.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail])))
                }
               def train_reservation_details; end
               sig {
-                params(_train_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail])))
+                params(_train_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail])))
                }
               def train_reservation_details=(_train_reservation_details); end
               # Voucher details, such as a gift card or discount code.
               sig {
-                returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher])))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher])))
                }
               def vouchers; end
               sig {
-                params(_vouchers: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher])))
+                params(_vouchers: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher])))
                }
               def vouchers=(_vouchers); end
               sig {
-                params(bus_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail])), event_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail])), ferry_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail])), insurances: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance])), marketplace_sellers: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller])), round_trip_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail])), train_reservation_details: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail])), vouchers: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher]))).void
+                params(bus_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::BusReservationDetail])), event_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::EventReservationDetail])), ferry_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::FerryReservationDetail])), insurances: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Insurance])), marketplace_sellers: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::MarketplaceSeller])), round_trip_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::RoundTripReservationDetail])), train_reservation_details: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::TrainReservationDetail])), vouchers: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData::Voucher]))).void
                }
               def initialize(
                 bus_reservation_details: nil,
@@ -2187,11 +2189,11 @@ module Stripe
             def capture_method=(_capture_method); end
             # On-demand details if setting up or charging an on-demand payment.
             sig {
-              returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand))
+              returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand))
              }
             def on_demand; end
             sig {
-              params(_on_demand: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand))
+              params(_on_demand: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand))
              }
             def on_demand=(_on_demand); end
             # Preferred language of the Klarna authorization page that the customer is redirected to
@@ -2214,24 +2216,24 @@ module Stripe
             def setup_future_usage=(_setup_future_usage); end
             # Subscription details if setting up or charging a subscription.
             sig {
-              returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))
+              returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))
              }
             def subscriptions; end
             sig {
-              params(_subscriptions: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))
+              params(_subscriptions: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))
              }
             def subscriptions=(_subscriptions); end
             # Supplementary Purchase Data for the corresponding Klarna payment
             sig {
-              returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData)))
+              returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData)))
              }
             def supplementary_purchase_data; end
             sig {
-              params(_supplementary_purchase_data: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData)))
+              params(_supplementary_purchase_data: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData)))
              }
             def supplementary_purchase_data=(_supplementary_purchase_data); end
             sig {
-              params(capture_method: T.nilable(String), on_demand: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])), supplementary_purchase_data: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData))).void
+              params(capture_method: T.nilable(String), on_demand: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])), supplementary_purchase_data: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::SupplementaryPurchaseData))).void
              }
             def initialize(
               capture_method: nil,
@@ -2375,11 +2377,11 @@ module Stripe
               def sold_by=(_sold_by); end
               # The tax information for the line item.
               sig {
-                returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax))
+                returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax))
                }
               def tax; end
               sig {
-                params(_tax: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax))
+                params(_tax: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax))
                }
               def tax=(_tax); end
               # Price for a single unit of the line item in minor units. Cannot be a negative number.
@@ -2388,7 +2390,7 @@ module Stripe
               sig { params(_unit_amount: Integer).returns(Integer) }
               def unit_amount=(_unit_amount); end
               sig {
-                params(category: T.nilable(String), description: T.nilable(String), name: String, quantity: Integer, sku: T.nilable(String), sold_by: T.nilable(String), tax: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax), unit_amount: Integer).void
+                params(category: T.nilable(String), description: T.nilable(String), name: String, quantity: Integer, sku: T.nilable(String), sold_by: T.nilable(String), tax: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem::Tax), unit_amount: Integer).void
                }
               def initialize(
                 category: nil,
@@ -2408,11 +2410,11 @@ module Stripe
             def capture_method=(_capture_method); end
             # The line items purchased by the customer.
             sig {
-              returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]))
+              returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]))
              }
             def line_items; end
             sig {
-              params(_line_items: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem])).returns(T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]))
+              params(_line_items: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]))
              }
             def line_items=(_line_items); end
             # [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
@@ -2458,7 +2460,7 @@ module Stripe
              }
             def subsellers=(_subsellers); end
             sig {
-              params(capture_method: T.nilable(String), line_items: T.nilable(T::Array[OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), subsellers: T.nilable(T::Array[String])).void
+              params(capture_method: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), subsellers: T.nilable(T::Array[String])).void
              }
             def initialize(
               capture_method: nil,
@@ -2483,11 +2485,11 @@ module Stripe
             end
             # Additional fields for Mandate creation
             sig {
-              returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions))
+              returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions))
              }
             def mandate_options; end
             sig {
-              params(_mandate_options: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions))
+              params(_mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions))
              }
             def mandate_options=(_mandate_options); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2511,7 +2513,7 @@ module Stripe
             sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
             def target_date=(_target_date); end
             sig {
-              params(mandate_options: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
+              params(mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
              }
             def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
           end
@@ -2574,141 +2576,141 @@ module Stripe
           end
           # If paying by `acss_debit`, this sub-hash contains details about the ACSS Debit payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)))
            }
           def acss_debit; end
           sig {
-            params(_acss_debit: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)))
+            params(_acss_debit: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)))
            }
           def acss_debit=(_acss_debit); end
           # If paying by `afterpay_clearpay`, this sub-hash contains details about the AfterpayClearpay payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)))
            }
           def afterpay_clearpay; end
           sig {
-            params(_afterpay_clearpay: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)))
+            params(_afterpay_clearpay: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)))
            }
           def afterpay_clearpay=(_afterpay_clearpay); end
           # If paying by `alipay`, this sub-hash contains details about the Alipay payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)))
            }
           def alipay; end
           sig {
-            params(_alipay: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)))
+            params(_alipay: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)))
            }
           def alipay=(_alipay); end
           # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)))
            }
           def bancontact; end
           sig {
-            params(_bancontact: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)))
+            params(_bancontact: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)))
            }
           def bancontact=(_bancontact); end
           # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card)))
            }
           def card; end
           sig {
-            params(_card: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card)))
+            params(_card: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card)))
            }
           def card=(_card); end
           # If paying by `customer_balance`, this sub-hash contains details about the Customer Balance payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)))
            }
           def customer_balance; end
           sig {
-            params(_customer_balance: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)))
+            params(_customer_balance: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)))
            }
           def customer_balance=(_customer_balance); end
           # If paying by `ideal`, this sub-hash contains details about the iDEAL payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)))
            }
           def ideal; end
           sig {
-            params(_ideal: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)))
+            params(_ideal: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)))
            }
           def ideal=(_ideal); end
           # If paying by `klarna`, this sub-hash contains details about the Klarna payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)))
            }
           def klarna; end
           sig {
-            params(_klarna: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)))
+            params(_klarna: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)))
            }
           def klarna=(_klarna); end
           # If paying by `link`, this sub-hash contains details about the Link payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link)))
            }
           def link; end
           sig {
-            params(_link: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link)))
+            params(_link: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link)))
            }
           def link=(_link); end
           # If paying by `oxxo`, this sub-hash contains details about the OXXO payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)))
            }
           def oxxo; end
           sig {
-            params(_oxxo: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)))
+            params(_oxxo: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)))
            }
           def oxxo=(_oxxo); end
           # If paying by `p24`, this sub-hash contains details about the P24 payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24)))
            }
           def p24; end
           sig {
-            params(_p24: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24)))
+            params(_p24: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24)))
            }
           def p24=(_p24); end
           # If paying by `paypal`, this sub-hash contains details about the PayPal payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)))
            }
           def paypal; end
           sig {
-            params(_paypal: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)))
+            params(_paypal: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)))
            }
           def paypal=(_paypal); end
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Debit payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)))
            }
           def sepa_debit; end
           sig {
-            params(_sepa_debit: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)))
+            params(_sepa_debit: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)))
            }
           def sepa_debit=(_sepa_debit); end
           # If paying by `sofort`, this sub-hash contains details about the Sofort payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)))
            }
           def sofort; end
           sig {
-            params(_sofort: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)))
+            params(_sofort: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)))
            }
           def sofort=(_sofort); end
           # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the order's PaymentIntent.
           sig {
-            returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay)))
+            returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay)))
            }
           def wechat_pay; end
           sig {
-            params(_wechat_pay: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay)))
+            params(_wechat_pay: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay)))
            }
           def wechat_pay=(_wechat_pay); end
           sig {
-            params(acss_debit: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)), afterpay_clearpay: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)), alipay: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)), bancontact: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)), ideal: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)), klarna: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)), link: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link)), oxxo: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)), p24: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24)), paypal: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)), sepa_debit: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)), sofort: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)), wechat_pay: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay))).void
+            params(acss_debit: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)), afterpay_clearpay: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)), alipay: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)), bancontact: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)), ideal: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)), klarna: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)), link: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Link)), oxxo: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)), p24: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::P24)), paypal: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)), sepa_debit: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)), sofort: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)), wechat_pay: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay))).void
            }
           def initialize(
             acss_debit: nil,
@@ -2750,10 +2752,12 @@ module Stripe
          }
         def application_fee_amount=(_application_fee_amount); end
         # PaymentMethod-specific configuration to provide to the order's PaymentIntent.
-        sig { returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions)) }
+        sig {
+          returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions))
+         }
         def payment_method_options; end
         sig {
-          params(_payment_method_options: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions)).returns(T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions))
+          params(_payment_method_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
         # The list of [payment method types](https://docs.stripe.com/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
@@ -2780,15 +2784,15 @@ module Stripe
         def statement_descriptor_suffix=(_statement_descriptor_suffix); end
         # Provides configuration for completing a transfer for the order after it is paid.
         sig {
-          returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::TransferData)))
+          returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::TransferData)))
          }
         def transfer_data; end
         sig {
-          params(_transfer_data: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::TransferData))).returns(T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::TransferData)))
+          params(_transfer_data: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::TransferData))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::TransferData)))
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(application_fee_amount: T.nilable(T.any(String, Integer)), payment_method_options: T.nilable(OrderUpdateParams::Payment::Settings::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(T.any(String, OrderUpdateParams::Payment::Settings::TransferData))).void
+          params(application_fee_amount: T.nilable(T.any(String, Integer)), payment_method_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::Payment::Settings::TransferData))).void
          }
         def initialize(
           application_fee_amount: nil,
@@ -2801,13 +2805,13 @@ module Stripe
         ); end
       end
       # Settings describing how the order should configure generated PaymentIntents.
-      sig { returns(OrderUpdateParams::Payment::Settings) }
+      sig { returns(::Stripe::OrderUpdateParams::Payment::Settings) }
       def settings; end
       sig {
-        params(_settings: OrderUpdateParams::Payment::Settings).returns(OrderUpdateParams::Payment::Settings)
+        params(_settings: ::Stripe::OrderUpdateParams::Payment::Settings).returns(::Stripe::OrderUpdateParams::Payment::Settings)
        }
       def settings=(_settings); end
-      sig { params(settings: OrderUpdateParams::Payment::Settings).void }
+      sig { params(settings: ::Stripe::OrderUpdateParams::Payment::Settings).void }
       def initialize(settings: nil); end
     end
     class ShippingCost < ::Stripe::RequestParams
@@ -2843,24 +2847,24 @@ module Stripe
           end
           # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
           sig {
-            returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
+            returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
            }
           def maximum; end
           sig {
-            params(_maximum: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum)).returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
+            params(_maximum: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum)).returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
            }
           def maximum=(_maximum); end
           # The lower bound of the estimated range. If empty, represents no lower bound.
           sig {
-            returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
+            returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
            }
           def minimum; end
           sig {
-            params(_minimum: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
+            params(_minimum: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
            }
           def minimum=(_minimum); end
           sig {
-            params(maximum: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum), minimum: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).void
+            params(maximum: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum), minimum: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).void
            }
           def initialize(maximum: nil, minimum: nil); end
         end
@@ -2891,25 +2895,25 @@ module Stripe
           def currency=(_currency); end
           # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
           sig {
-            returns(T.nilable(T::Hash[String, OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
+            returns(T.nilable(T::Hash[String, ::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
            }
           def currency_options; end
           sig {
-            params(_currency_options: T.nilable(T::Hash[String, OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
+            params(_currency_options: T.nilable(T::Hash[String, ::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
            }
           def currency_options=(_currency_options); end
           sig {
-            params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).void
+            params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).void
            }
           def initialize(amount: nil, currency: nil, currency_options: nil); end
         end
         # The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
         sig {
-          returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
+          returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
          }
         def delivery_estimate; end
         sig {
-          params(_delivery_estimate: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate)).returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
+          params(_delivery_estimate: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate)).returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
          }
         def delivery_estimate=(_delivery_estimate); end
         # The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
@@ -2918,10 +2922,12 @@ module Stripe
         sig { params(_display_name: String).returns(String) }
         def display_name=(_display_name); end
         # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
-        sig { returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount)) }
+        sig {
+          returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount))
+         }
         def fixed_amount; end
         sig {
-          params(_fixed_amount: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount)).returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount))
+          params(_fixed_amount: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount)).returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount))
          }
         def fixed_amount=(_fixed_amount); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -2947,7 +2953,7 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(delivery_estimate: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate), display_name: String, fixed_amount: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
+          params(delivery_estimate: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate), display_name: String, fixed_amount: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
          }
         def initialize(
           delivery_estimate: nil,
@@ -2965,14 +2971,14 @@ module Stripe
       sig { params(_shipping_rate: T.nilable(String)).returns(T.nilable(String)) }
       def shipping_rate=(_shipping_rate); end
       # Parameters to create a new ad-hoc shipping rate for this order.
-      sig { returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData)) }
+      sig { returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData)) }
       def shipping_rate_data; end
       sig {
-        params(_shipping_rate_data: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData)).returns(T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData))
+        params(_shipping_rate_data: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData)).returns(T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData))
        }
       def shipping_rate_data=(_shipping_rate_data); end
       sig {
-        params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(OrderUpdateParams::ShippingCost::ShippingRateData)).void
+        params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::OrderUpdateParams::ShippingCost::ShippingRateData)).void
        }
       def initialize(shipping_rate: nil, shipping_rate_data: nil); end
     end
@@ -3021,10 +3027,10 @@ module Stripe
         ); end
       end
       # The shipping address for the order.
-      sig { returns(OrderUpdateParams::ShippingDetails::Address) }
+      sig { returns(::Stripe::OrderUpdateParams::ShippingDetails::Address) }
       def address; end
       sig {
-        params(_address: OrderUpdateParams::ShippingDetails::Address).returns(OrderUpdateParams::ShippingDetails::Address)
+        params(_address: ::Stripe::OrderUpdateParams::ShippingDetails::Address).returns(::Stripe::OrderUpdateParams::ShippingDetails::Address)
        }
       def address=(_address); end
       # The name of the recipient of the order.
@@ -3038,7 +3044,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: OrderUpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
+        params(address: ::Stripe::OrderUpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
@@ -3065,29 +3071,29 @@ module Stripe
        }
       def tax_exempt=(_tax_exempt); end
       # The purchaser's tax IDs to be used for this order.
-      sig { returns(T.nilable(T::Array[OrderUpdateParams::TaxDetails::TaxId])) }
+      sig { returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::TaxDetails::TaxId])) }
       def tax_ids; end
       sig {
-        params(_tax_ids: T.nilable(T::Array[OrderUpdateParams::TaxDetails::TaxId])).returns(T.nilable(T::Array[OrderUpdateParams::TaxDetails::TaxId]))
+        params(_tax_ids: T.nilable(T::Array[::Stripe::OrderUpdateParams::TaxDetails::TaxId])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::TaxDetails::TaxId]))
        }
       def tax_ids=(_tax_ids); end
       sig {
-        params(tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[OrderUpdateParams::TaxDetails::TaxId])).void
+        params(tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[::Stripe::OrderUpdateParams::TaxDetails::TaxId])).void
        }
       def initialize(tax_exempt: nil, tax_ids: nil); end
     end
     # Settings for automatic tax calculation for this order.
-    sig { returns(T.nilable(OrderUpdateParams::AutomaticTax)) }
+    sig { returns(T.nilable(::Stripe::OrderUpdateParams::AutomaticTax)) }
     def automatic_tax; end
     sig {
-      params(_automatic_tax: T.nilable(OrderUpdateParams::AutomaticTax)).returns(T.nilable(OrderUpdateParams::AutomaticTax))
+      params(_automatic_tax: T.nilable(::Stripe::OrderUpdateParams::AutomaticTax)).returns(T.nilable(::Stripe::OrderUpdateParams::AutomaticTax))
      }
     def automatic_tax=(_automatic_tax); end
     # Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
-    sig { returns(T.nilable(T.any(String, OrderUpdateParams::BillingDetails))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::BillingDetails))) }
     def billing_details; end
     sig {
-      params(_billing_details: T.nilable(T.any(String, OrderUpdateParams::BillingDetails))).returns(T.nilable(T.any(String, OrderUpdateParams::BillingDetails)))
+      params(_billing_details: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::BillingDetails))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::BillingDetails)))
      }
     def billing_details=(_billing_details); end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -3106,10 +3112,10 @@ module Stripe
     sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
     def description=(_description); end
     # The coupons, promotion codes, and/or discounts to apply to the order. Pass the empty string `""` to unset this field.
-    sig { returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Discount]))) }
+    sig { returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Discount]))) }
     def discounts; end
     sig {
-      params(_discounts: T.nilable(T.any(String, T::Array[OrderUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[OrderUpdateParams::Discount])))
+      params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Discount])))
      }
     def discounts=(_discounts); end
     # Specifies which fields in the response should be expanded.
@@ -3123,10 +3129,10 @@ module Stripe
     sig { params(_ip_address: T.nilable(String)).returns(T.nilable(String)) }
     def ip_address=(_ip_address); end
     # A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
-    sig { returns(T.nilable(T::Array[OrderUpdateParams::LineItem])) }
+    sig { returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::LineItem])) }
     def line_items; end
     sig {
-      params(_line_items: T.nilable(T::Array[OrderUpdateParams::LineItem])).returns(T.nilable(T::Array[OrderUpdateParams::LineItem]))
+      params(_line_items: T.nilable(T::Array[::Stripe::OrderUpdateParams::LineItem])).returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::LineItem]))
      }
     def line_items=(_line_items); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -3137,35 +3143,35 @@ module Stripe
      }
     def metadata=(_metadata); end
     # Payment information associated with the order, including payment settings.
-    sig { returns(T.nilable(OrderUpdateParams::Payment)) }
+    sig { returns(T.nilable(::Stripe::OrderUpdateParams::Payment)) }
     def payment; end
     sig {
-      params(_payment: T.nilable(OrderUpdateParams::Payment)).returns(T.nilable(OrderUpdateParams::Payment))
+      params(_payment: T.nilable(::Stripe::OrderUpdateParams::Payment)).returns(T.nilable(::Stripe::OrderUpdateParams::Payment))
      }
     def payment=(_payment); end
     # Settings for the customer cost of shipping for this order.
-    sig { returns(T.nilable(T.any(String, OrderUpdateParams::ShippingCost))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingCost))) }
     def shipping_cost; end
     sig {
-      params(_shipping_cost: T.nilable(T.any(String, OrderUpdateParams::ShippingCost))).returns(T.nilable(T.any(String, OrderUpdateParams::ShippingCost)))
+      params(_shipping_cost: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingCost))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingCost)))
      }
     def shipping_cost=(_shipping_cost); end
     # Shipping details for the order.
-    sig { returns(T.nilable(T.any(String, OrderUpdateParams::ShippingDetails))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingDetails))) }
     def shipping_details; end
     sig {
-      params(_shipping_details: T.nilable(T.any(String, OrderUpdateParams::ShippingDetails))).returns(T.nilable(T.any(String, OrderUpdateParams::ShippingDetails)))
+      params(_shipping_details: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingDetails))).returns(T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingDetails)))
      }
     def shipping_details=(_shipping_details); end
     # Additional tax details about the purchaser to be used for this order.
-    sig { returns(T.nilable(OrderUpdateParams::TaxDetails)) }
+    sig { returns(T.nilable(::Stripe::OrderUpdateParams::TaxDetails)) }
     def tax_details; end
     sig {
-      params(_tax_details: T.nilable(OrderUpdateParams::TaxDetails)).returns(T.nilable(OrderUpdateParams::TaxDetails))
+      params(_tax_details: T.nilable(::Stripe::OrderUpdateParams::TaxDetails)).returns(T.nilable(::Stripe::OrderUpdateParams::TaxDetails))
      }
     def tax_details=(_tax_details); end
     sig {
-      params(automatic_tax: T.nilable(OrderUpdateParams::AutomaticTax), billing_details: T.nilable(T.any(String, OrderUpdateParams::BillingDetails)), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[OrderUpdateParams::Discount])), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[OrderUpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment: T.nilable(OrderUpdateParams::Payment), shipping_cost: T.nilable(T.any(String, OrderUpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, OrderUpdateParams::ShippingDetails)), tax_details: T.nilable(OrderUpdateParams::TaxDetails)).void
+      params(automatic_tax: T.nilable(::Stripe::OrderUpdateParams::AutomaticTax), billing_details: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::BillingDetails)), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderUpdateParams::Discount])), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderUpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment: T.nilable(::Stripe::OrderUpdateParams::Payment), shipping_cost: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, ::Stripe::OrderUpdateParams::ShippingDetails)), tax_details: T.nilable(::Stripe::OrderUpdateParams::TaxDetails)).void
      }
     def initialize(
       automatic_tax: nil,

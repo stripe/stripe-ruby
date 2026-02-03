@@ -41,17 +41,21 @@ module Stripe
         def initialize(email: nil, name: nil); end
       end
       # Details about the application submission.
-      sig { returns(Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application) }
+      sig {
+        returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application)
+       }
       def application; end
       sig {
-        params(_application: Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application).returns(Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application)
+        params(_application: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application).returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application)
        }
       def application=(_application); end
       # Information about the company or person applying or holding the account.
-      sig { returns(Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser) }
+      sig {
+        returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser)
+       }
       def credit_user; end
       sig {
-        params(_credit_user: Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser).returns(Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser)
+        params(_credit_user: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser).returns(::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser)
        }
       def credit_user=(_credit_user); end
       # Specifies which fields in the response should be expanded.
@@ -67,7 +71,7 @@ module Stripe
        }
       def metadata=(_metadata); end
       sig {
-        params(application: Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application, credit_user: Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
+        params(application: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::Application, credit_user: ::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams::CreditUser, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
        }
       def initialize(application: nil, credit_user: nil, expand: nil, metadata: nil); end
     end

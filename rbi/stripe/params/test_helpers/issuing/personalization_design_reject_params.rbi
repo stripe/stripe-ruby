@@ -32,14 +32,16 @@ module Stripe
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
         # The reason(s) the personalization design was rejected.
-        sig { returns(TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons) }
+        sig {
+          returns(::Stripe::TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons)
+         }
         def rejection_reasons; end
         sig {
-          params(_rejection_reasons: TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons).returns(TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons)
+          params(_rejection_reasons: ::Stripe::TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons).returns(::Stripe::TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons)
          }
         def rejection_reasons=(_rejection_reasons); end
         sig {
-          params(expand: T.nilable(T::Array[String]), rejection_reasons: TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons).void
+          params(expand: T.nilable(T::Array[String]), rejection_reasons: ::Stripe::TestHelpers::Issuing::PersonalizationDesignRejectParams::RejectionReasons).void
          }
         def initialize(expand: nil, rejection_reasons: nil); end
       end

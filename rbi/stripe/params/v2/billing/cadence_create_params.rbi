@@ -34,14 +34,16 @@ module Stripe
             # The time at which the billing cycle ends.
             # This field is optional, and if not provided, it will default to
             # the time at which the cadence was created in UTC timezone.
-            sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day::Time)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day::Time))
+             }
             def time; end
             sig {
-              params(_time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day::Time)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day::Time))
+              params(_time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day::Time))
              }
             def time=(_time); end
             sig {
-              params(time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day::Time)).void
+              params(time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day::Time)).void
              }
             def initialize(time: nil); end
           end
@@ -88,14 +90,16 @@ module Stripe
             # The time at which the billing cycle ends.
             # This field is optional, and if not provided, it will default to
             # the time at which the cadence was created in UTC timezone.
-            sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month::Time)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month::Time))
+             }
             def time; end
             sig {
-              params(_time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month::Time)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month::Time))
+              params(_time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month::Time))
              }
             def time=(_time); end
             sig {
-              params(day_of_month: Integer, month_of_year: T.nilable(Integer), time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month::Time)).void
+              params(day_of_month: Integer, month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month::Time)).void
              }
             def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
           end
@@ -134,14 +138,16 @@ module Stripe
             # The time at which the billing cycle ends.
             # This field is optional, and if not provided, it will default to
             # the time at which the cadence was created in UTC timezone.
-            sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week::Time)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week::Time))
+             }
             def time; end
             sig {
-              params(_time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week::Time)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week::Time))
+              params(_time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week::Time))
              }
             def time=(_time); end
             sig {
-              params(day_of_week: Integer, time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week::Time)).void
+              params(day_of_week: Integer, time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week::Time)).void
              }
             def initialize(day_of_week: nil, time: nil); end
           end
@@ -186,14 +192,16 @@ module Stripe
             # The time at which the billing cycle ends.
             # This field is optional, and if not provided, it will default to
             # the time at which the cadence was created in UTC timezone.
-            sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year::Time)) }
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year::Time))
+             }
             def time; end
             sig {
-              params(_time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year::Time)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year::Time))
+              params(_time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year::Time))
              }
             def time=(_time); end
             sig {
-              params(day_of_month: T.nilable(Integer), month_of_year: T.nilable(Integer), time: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year::Time)).void
+              params(day_of_month: T.nilable(Integer), month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year::Time)).void
              }
             def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
           end
@@ -210,35 +218,37 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           # Specific configuration for determining billing dates when type=day.
-          sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day)) }
+          sig { returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day)) }
           def day; end
           sig {
-            params(_day: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day))
+            params(_day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day))
            }
           def day=(_day); end
           # Specific configuration for determining billing dates when type=month.
-          sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month))
+           }
           def month; end
           sig {
-            params(_month: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month))
+            params(_month: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month))
            }
           def month=(_month); end
           # Specific configuration for determining billing dates when type=week.
-          sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week)) }
+          sig { returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week)) }
           def week; end
           sig {
-            params(_week: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week))
+            params(_week: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week))
            }
           def week=(_week); end
           # Specific configuration for determining billing dates when type=year.
-          sig { returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year)) }
+          sig { returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year)) }
           def year; end
           sig {
-            params(_year: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year)).returns(T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year))
+            params(_year: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year))
            }
           def year=(_year); end
           sig {
-            params(interval_count: T.nilable(Integer), type: String, day: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Day), month: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Month), week: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Week), year: T.nilable(V2::Billing::CadenceCreateParams::BillingCycle::Year)).void
+            params(interval_count: T.nilable(Integer), type: String, day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day), month: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month), week: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year)).void
            }
           def initialize(
             interval_count: nil,
@@ -292,31 +302,33 @@ module Stripe
           # Settings that configure bill generation, which includes calculating totals, tax, and presenting invoices.
           # If no setting is provided here, the settings from the customer referenced on the payer will be used.
           # If no customer settings are present, the merchant default settings will be used.
-          sig { returns(T.nilable(V2::Billing::CadenceCreateParams::Settings::Bill)) }
+          sig { returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Bill)) }
           def bill; end
           sig {
-            params(_bill: T.nilable(V2::Billing::CadenceCreateParams::Settings::Bill)).returns(T.nilable(V2::Billing::CadenceCreateParams::Settings::Bill))
+            params(_bill: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Bill)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Bill))
            }
           def bill=(_bill); end
           # Settings that configure and manage the behavior of collecting payments.
           # If no setting is provided here, the settings from the customer referenced from the payer will be used if they exist.
           # If no customer settings are present, the merchant default settings will be used.
-          sig { returns(T.nilable(V2::Billing::CadenceCreateParams::Settings::Collection)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Collection))
+           }
           def collection; end
           sig {
-            params(_collection: T.nilable(V2::Billing::CadenceCreateParams::Settings::Collection)).returns(T.nilable(V2::Billing::CadenceCreateParams::Settings::Collection))
+            params(_collection: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Collection)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Collection))
            }
           def collection=(_collection); end
           sig {
-            params(bill: T.nilable(V2::Billing::CadenceCreateParams::Settings::Bill), collection: T.nilable(V2::Billing::CadenceCreateParams::Settings::Collection)).void
+            params(bill: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Bill), collection: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings::Collection)).void
            }
           def initialize(bill: nil, collection: nil); end
         end
         # The billing cycle is the object that defines future billing cycle dates.
-        sig { returns(V2::Billing::CadenceCreateParams::BillingCycle) }
+        sig { returns(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle) }
         def billing_cycle; end
         sig {
-          params(_billing_cycle: V2::Billing::CadenceCreateParams::BillingCycle).returns(V2::Billing::CadenceCreateParams::BillingCycle)
+          params(_billing_cycle: ::Stripe::V2::Billing::CadenceCreateParams::BillingCycle).returns(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle)
          }
         def billing_cycle=(_billing_cycle); end
         # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
@@ -332,21 +344,21 @@ module Stripe
          }
         def metadata=(_metadata); end
         # The payer determines the entity financially responsible for the bill.
-        sig { returns(V2::Billing::CadenceCreateParams::Payer) }
+        sig { returns(::Stripe::V2::Billing::CadenceCreateParams::Payer) }
         def payer; end
         sig {
-          params(_payer: V2::Billing::CadenceCreateParams::Payer).returns(V2::Billing::CadenceCreateParams::Payer)
+          params(_payer: ::Stripe::V2::Billing::CadenceCreateParams::Payer).returns(::Stripe::V2::Billing::CadenceCreateParams::Payer)
          }
         def payer=(_payer); end
         # The settings associated with the cadence.
-        sig { returns(T.nilable(V2::Billing::CadenceCreateParams::Settings)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings)) }
         def settings; end
         sig {
-          params(_settings: T.nilable(V2::Billing::CadenceCreateParams::Settings)).returns(T.nilable(V2::Billing::CadenceCreateParams::Settings))
+          params(_settings: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings))
          }
         def settings=(_settings); end
         sig {
-          params(billing_cycle: V2::Billing::CadenceCreateParams::BillingCycle, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), payer: V2::Billing::CadenceCreateParams::Payer, settings: T.nilable(V2::Billing::CadenceCreateParams::Settings)).void
+          params(billing_cycle: ::Stripe::V2::Billing::CadenceCreateParams::BillingCycle, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), payer: ::Stripe::V2::Billing::CadenceCreateParams::Payer, settings: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::Settings)).void
          }
         def initialize(
           billing_cycle: nil,

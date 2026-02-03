@@ -42,10 +42,10 @@ module Stripe
       sig { params(_lookup_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def lookup_keys=(_lookup_keys); end
       # Only return personalization designs with the given preferences.
-      sig { returns(T.nilable(Issuing::PersonalizationDesignListParams::Preferences)) }
+      sig { returns(T.nilable(::Stripe::Issuing::PersonalizationDesignListParams::Preferences)) }
       def preferences; end
       sig {
-        params(_preferences: T.nilable(Issuing::PersonalizationDesignListParams::Preferences)).returns(T.nilable(Issuing::PersonalizationDesignListParams::Preferences))
+        params(_preferences: T.nilable(::Stripe::Issuing::PersonalizationDesignListParams::Preferences)).returns(T.nilable(::Stripe::Issuing::PersonalizationDesignListParams::Preferences))
        }
       def preferences=(_preferences); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -59,7 +59,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), preferences: T.nilable(Issuing::PersonalizationDesignListParams::Preferences), starting_after: T.nilable(String), status: T.nilable(String)).void
+        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), preferences: T.nilable(::Stripe::Issuing::PersonalizationDesignListParams::Preferences), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
       def initialize(
         ending_before: nil,

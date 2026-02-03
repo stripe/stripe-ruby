@@ -58,17 +58,21 @@ module Stripe
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return TransactionEntries that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Treasury::TransactionEntryListParams::Created, Integer))) }
+      sig {
+        returns(T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::Created, Integer)))
+       }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Treasury::TransactionEntryListParams::Created, Integer))).returns(T.nilable(T.any(Treasury::TransactionEntryListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::Created, Integer)))
        }
       def created=(_created); end
       # Attribute for param field effective_at
-      sig { returns(T.nilable(T.any(Treasury::TransactionEntryListParams::EffectiveAt, Integer))) }
+      sig {
+        returns(T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::EffectiveAt, Integer)))
+       }
       def effective_at; end
       sig {
-        params(_effective_at: T.nilable(T.any(Treasury::TransactionEntryListParams::EffectiveAt, Integer))).returns(T.nilable(T.any(Treasury::TransactionEntryListParams::EffectiveAt, Integer)))
+        params(_effective_at: T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::EffectiveAt, Integer))).returns(T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::EffectiveAt, Integer)))
        }
       def effective_at=(_effective_at); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -107,7 +111,7 @@ module Stripe
       sig { params(_transaction: T.nilable(String)).returns(T.nilable(String)) }
       def transaction=(_transaction); end
       sig {
-        params(created: T.nilable(T.any(Treasury::TransactionEntryListParams::Created, Integer)), effective_at: T.nilable(T.any(Treasury::TransactionEntryListParams::EffectiveAt, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), order_by: T.nilable(String), starting_after: T.nilable(String), transaction: T.nilable(String)).void
+        params(created: T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::Created, Integer)), effective_at: T.nilable(T.any(::Stripe::Treasury::TransactionEntryListParams::EffectiveAt, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), order_by: T.nilable(String), starting_after: T.nilable(String), transaction: T.nilable(String)).void
        }
       def initialize(
         created: nil,

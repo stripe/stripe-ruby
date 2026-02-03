@@ -147,24 +147,24 @@ module Stripe
         ); end
       end
       # The full address of the location.
-      sig { returns(T.nilable(Terminal::LocationCreateParams::Address)) }
+      sig { returns(T.nilable(::Stripe::Terminal::LocationCreateParams::Address)) }
       def address; end
       sig {
-        params(_address: T.nilable(Terminal::LocationCreateParams::Address)).returns(T.nilable(Terminal::LocationCreateParams::Address))
+        params(_address: T.nilable(::Stripe::Terminal::LocationCreateParams::Address)).returns(T.nilable(::Stripe::Terminal::LocationCreateParams::Address))
        }
       def address=(_address); end
       # The Kana variation of the full address of the location (Japan only).
-      sig { returns(T.nilable(Terminal::LocationCreateParams::AddressKana)) }
+      sig { returns(T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKana)) }
       def address_kana; end
       sig {
-        params(_address_kana: T.nilable(Terminal::LocationCreateParams::AddressKana)).returns(T.nilable(Terminal::LocationCreateParams::AddressKana))
+        params(_address_kana: T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKana)).returns(T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKana))
        }
       def address_kana=(_address_kana); end
       # The Kanji variation of the full address of the location (Japan only).
-      sig { returns(T.nilable(Terminal::LocationCreateParams::AddressKanji)) }
+      sig { returns(T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKanji)) }
       def address_kanji; end
       sig {
-        params(_address_kanji: T.nilable(Terminal::LocationCreateParams::AddressKanji)).returns(T.nilable(Terminal::LocationCreateParams::AddressKanji))
+        params(_address_kanji: T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKanji)).returns(T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKanji))
        }
       def address_kanji=(_address_kanji); end
       # The ID of a configuration that will be used to customize all readers in this location.
@@ -205,7 +205,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: T.nilable(Terminal::LocationCreateParams::Address), address_kana: T.nilable(Terminal::LocationCreateParams::AddressKana), address_kanji: T.nilable(Terminal::LocationCreateParams::AddressKanji), configuration_overrides: T.nilable(String), display_name: T.nilable(String), display_name_kana: T.nilable(String), display_name_kanji: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String)).void
+        params(address: T.nilable(::Stripe::Terminal::LocationCreateParams::Address), address_kana: T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKana), address_kanji: T.nilable(::Stripe::Terminal::LocationCreateParams::AddressKanji), configuration_overrides: T.nilable(String), display_name: T.nilable(String), display_name_kana: T.nilable(String), display_name_kanji: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String)).void
        }
       def initialize(
         address: nil,

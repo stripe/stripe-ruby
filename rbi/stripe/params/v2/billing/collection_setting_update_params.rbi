@@ -23,15 +23,15 @@ module Stripe
           end
           # Controls emails for when the payment is due. For example after the invoice is finalized and transitions to Open state.
           sig {
-            returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue))
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue))
            }
           def payment_due; end
           sig {
-            params(_payment_due: T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue))
+            params(_payment_due: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue))
            }
           def payment_due=(_payment_due); end
           sig {
-            params(payment_due: T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue)).void
+            params(payment_due: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery::PaymentDue)).void
            }
           def initialize(payment_due: nil); end
         end
@@ -48,11 +48,11 @@ module Stripe
             end
             # Additional fields for Mandate creation.
             sig {
-              returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions))
+              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions))
              }
             def mandate_options; end
             sig {
-              params(_mandate_options: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions))
+              params(_mandate_options: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions))
              }
             def mandate_options=(_mandate_options); end
             # Verification method.
@@ -61,7 +61,7 @@ module Stripe
             sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
             def verification_method=(_verification_method); end
             sig {
-              params(mandate_options: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions), verification_method: T.nilable(String)).void
+              params(mandate_options: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions), verification_method: T.nilable(String)).void
              }
             def initialize(mandate_options: nil, verification_method: nil); end
           end
@@ -98,11 +98,11 @@ module Stripe
             end
             # Configuration options for setting up an eMandate for cards issued in India.
             sig {
-              returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions))
+              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions))
              }
             def mandate_options; end
             sig {
-              params(_mandate_options: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions))
+              params(_mandate_options: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions))
              }
             def mandate_options=(_mandate_options); end
             # Selected network to process the payment on. Depends on the available networks of the card.
@@ -119,7 +119,7 @@ module Stripe
             sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }
             def request_three_d_secure=(_request_three_d_secure); end
             sig {
-              params(mandate_options: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions), network: T.nilable(String), request_three_d_secure: T.nilable(String)).void
+              params(mandate_options: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions), network: T.nilable(String), request_three_d_secure: T.nilable(String)).void
              }
             def initialize(mandate_options: nil, network: nil, request_three_d_secure: nil); end
           end
@@ -136,11 +136,11 @@ module Stripe
               end
               # Configuration for `eu_bank_transfer` funding type. Required if `type` is `eu_bank_transfer`.
               sig {
-                returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
+                returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
                }
               def eu_bank_transfer; end
               sig {
-                params(_eu_bank_transfer: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
+                params(_eu_bank_transfer: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
                }
               def eu_bank_transfer=(_eu_bank_transfer); end
               # The bank transfer type that can be used for funding.
@@ -149,17 +149,17 @@ module Stripe
               sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
               def type=(_type); end
               sig {
-                params(eu_bank_transfer: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer), type: T.nilable(String)).void
+                params(eu_bank_transfer: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer), type: T.nilable(String)).void
                }
               def initialize(eu_bank_transfer: nil, type: nil); end
             end
             # Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
             sig {
-              returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer))
+              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer))
              }
             def bank_transfer; end
             sig {
-              params(_bank_transfer: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer))
+              params(_bank_transfer: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer))
              }
             def bank_transfer=(_bank_transfer); end
             # The funding method type to be used when there are not enough funds in the customer balance. Currently the only supported value is `bank_transfer`.
@@ -168,7 +168,7 @@ module Stripe
             sig { params(_funding_type: T.nilable(String)).returns(T.nilable(String)) }
             def funding_type=(_funding_type); end
             sig {
-              params(bank_transfer: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer), funding_type: T.nilable(String)).void
+              params(bank_transfer: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance::BankTransfer), funding_type: T.nilable(String)).void
              }
             def initialize(bank_transfer: nil, funding_type: nil); end
           end
@@ -187,11 +187,11 @@ module Stripe
               end
               # Provide filters for the linked accounts that the customer can select for the payment method.
               sig {
-                returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
+                returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
                }
               def filters; end
               sig {
-                params(_filters: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
+                params(_filters: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
                }
               def filters=(_filters); end
               # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included.
@@ -209,17 +209,17 @@ module Stripe
                }
               def prefetch=(_prefetch); end
               sig {
-                params(filters: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters), permissions: T.nilable(T::Array[String]), prefetch: T.nilable(T::Array[String])).void
+                params(filters: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters), permissions: T.nilable(T::Array[String]), prefetch: T.nilable(T::Array[String])).void
                }
               def initialize(filters: nil, permissions: nil, prefetch: nil); end
             end
             # Additional fields for Financial Connections Session creation.
             sig {
-              returns(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections)
+              returns(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections)
              }
             def financial_connections; end
             sig {
-              params(_financial_connections: V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections).returns(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections)
+              params(_financial_connections: ::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections).returns(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections)
              }
             def financial_connections=(_financial_connections); end
             # Verification method.
@@ -228,44 +228,44 @@ module Stripe
             sig { params(_verification_method: String).returns(String) }
             def verification_method=(_verification_method); end
             sig {
-              params(financial_connections: V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, verification_method: String).void
+              params(financial_connections: ::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, verification_method: String).void
              }
             def initialize(financial_connections: nil, verification_method: nil); end
           end
           # This sub-hash contains details about the Canadian pre-authorized debit payment method options.
           sig {
-            returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit))
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit))
            }
           def acss_debit; end
           sig {
-            params(_acss_debit: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit))
+            params(_acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit))
            }
           def acss_debit=(_acss_debit); end
           # This sub-hash contains details about the Bancontact payment method.
           sig {
-            returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact))
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact))
            }
           def bancontact; end
           sig {
-            params(_bancontact: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact))
+            params(_bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact))
            }
           def bancontact=(_bancontact); end
           # This sub-hash contains details about the Card payment method options.
           sig {
-            returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card))
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card))
            }
           def card; end
           sig {
-            params(_card: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card))
+            params(_card: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card))
            }
           def card=(_card); end
           # This sub-hash contains details about the Bank transfer payment method options.
           sig {
-            returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance))
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance))
            }
           def customer_balance; end
           sig {
-            params(_customer_balance: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance))
+            params(_customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance))
            }
           def customer_balance=(_customer_balance); end
           # This sub-hash contains details about the Konbini payment method options.
@@ -284,15 +284,15 @@ module Stripe
           def sepa_debit=(_sepa_debit); end
           # This sub-hash contains details about the ACH direct debit payment method options.
           sig {
-            returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount))
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount))
            }
           def us_bank_account; end
           sig {
-            params(_us_bank_account: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount))
+            params(_us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount))
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(acss_debit: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact), card: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(T::Hash[String, T.untyped]), sepa_debit: T.nilable(T::Hash[String, T.untyped]), us_bank_account: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount)).void
+            params(acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Bancontact), card: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(T::Hash[String, T.untyped]), sepa_debit: T.nilable(T::Hash[String, T.untyped]), us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::UsBankAccount)).void
            }
           def initialize(
             acss_debit: nil,
@@ -319,10 +319,12 @@ module Stripe
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
         # Email delivery settings.
-        sig { returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery))
+         }
         def email_delivery; end
         sig {
-          params(_email_delivery: T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery))
+          params(_email_delivery: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery))
          }
         def email_delivery=(_email_delivery); end
         # Optionally change the live version of the CollectionSetting. Billing Cadences and other objects that refer to this
@@ -344,14 +346,16 @@ module Stripe
         sig { params(_payment_method_configuration: T.nilable(String)).returns(T.nilable(String)) }
         def payment_method_configuration=(_payment_method_configuration); end
         # Payment Method specific configuration to be stored on the object.
-        sig { returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions))
+         }
         def payment_method_options; end
         sig {
-          params(_payment_method_options: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions)).returns(T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions))
+          params(_payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
         sig {
-          params(collection_method: T.nilable(String), display_name: T.nilable(String), email_delivery: T.nilable(V2::Billing::CollectionSettingUpdateParams::EmailDelivery), live_version: T.nilable(String), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions)).void
+          params(collection_method: T.nilable(String), display_name: T.nilable(String), email_delivery: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::EmailDelivery), live_version: T.nilable(String), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions)).void
          }
         def initialize(
           collection_method: nil,

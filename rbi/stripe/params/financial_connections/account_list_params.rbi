@@ -27,10 +27,10 @@ module Stripe
         def initialize(account: nil, customer: nil, customer_account: nil); end
       end
       # If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
-      sig { returns(T.nilable(FinancialConnections::AccountListParams::AccountHolder)) }
+      sig { returns(T.nilable(::Stripe::FinancialConnections::AccountListParams::AccountHolder)) }
       def account_holder; end
       sig {
-        params(_account_holder: T.nilable(FinancialConnections::AccountListParams::AccountHolder)).returns(T.nilable(FinancialConnections::AccountListParams::AccountHolder))
+        params(_account_holder: T.nilable(::Stripe::FinancialConnections::AccountListParams::AccountHolder)).returns(T.nilable(::Stripe::FinancialConnections::AccountListParams::AccountHolder))
        }
       def account_holder=(_account_holder); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -59,7 +59,7 @@ module Stripe
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
       sig {
-        params(account_holder: T.nilable(FinancialConnections::AccountListParams::AccountHolder), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), session: T.nilable(String), starting_after: T.nilable(String)).void
+        params(account_holder: T.nilable(::Stripe::FinancialConnections::AccountListParams::AccountHolder), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), session: T.nilable(String), starting_after: T.nilable(String)).void
        }
       def initialize(
         account_holder: nil,

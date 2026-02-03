@@ -45,15 +45,15 @@ module Stripe
         end
         # Options that apply to the [document check](https://docs.stripe.com/identity/verification-checks?type=document).
         sig {
-          returns(T.nilable(T.any(String, Identity::VerificationSessionCreateParams::Options::Document)))
+          returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionCreateParams::Options::Document)))
          }
         def document; end
         sig {
-          params(_document: T.nilable(T.any(String, Identity::VerificationSessionCreateParams::Options::Document))).returns(T.nilable(T.any(String, Identity::VerificationSessionCreateParams::Options::Document)))
+          params(_document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionCreateParams::Options::Document))).returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionCreateParams::Options::Document)))
          }
         def document=(_document); end
         sig {
-          params(document: T.nilable(T.any(String, Identity::VerificationSessionCreateParams::Options::Document))).void
+          params(document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionCreateParams::Options::Document))).void
          }
         def initialize(document: nil); end
       end
@@ -103,17 +103,19 @@ module Stripe
        }
       def metadata=(_metadata); end
       # A set of options for the session’s verification checks.
-      sig { returns(T.nilable(Identity::VerificationSessionCreateParams::Options)) }
+      sig { returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options)) }
       def options; end
       sig {
-        params(_options: T.nilable(Identity::VerificationSessionCreateParams::Options)).returns(T.nilable(Identity::VerificationSessionCreateParams::Options))
+        params(_options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options)).returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options))
        }
       def options=(_options); end
       # Details provided about the user being verified. These details may be shown to the user.
-      sig { returns(T.nilable(Identity::VerificationSessionCreateParams::ProvidedDetails)) }
+      sig {
+        returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails))
+       }
       def provided_details; end
       sig {
-        params(_provided_details: T.nilable(Identity::VerificationSessionCreateParams::ProvidedDetails)).returns(T.nilable(Identity::VerificationSessionCreateParams::ProvidedDetails))
+        params(_provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails)).returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails))
        }
       def provided_details=(_provided_details); end
       # Customer ID
@@ -127,10 +129,10 @@ module Stripe
       sig { params(_related_customer_account: T.nilable(String)).returns(T.nilable(String)) }
       def related_customer_account=(_related_customer_account); end
       # Tokens referencing a Person resource and it's associated account.
-      sig { returns(T.nilable(Identity::VerificationSessionCreateParams::RelatedPerson)) }
+      sig { returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson)) }
       def related_person; end
       sig {
-        params(_related_person: T.nilable(Identity::VerificationSessionCreateParams::RelatedPerson)).returns(T.nilable(Identity::VerificationSessionCreateParams::RelatedPerson))
+        params(_related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson)).returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson))
        }
       def related_person=(_related_person); end
       # The URL that the user will be redirected to upon completing the verification flow.
@@ -149,7 +151,7 @@ module Stripe
       sig { params(_verification_flow: T.nilable(String)).returns(T.nilable(String)) }
       def verification_flow=(_verification_flow); end
       sig {
-        params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
+        params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
        }
       def initialize(
         client_reference_id: nil,

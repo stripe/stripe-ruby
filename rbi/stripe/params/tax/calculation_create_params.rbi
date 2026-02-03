@@ -64,10 +64,10 @@ module Stripe
           def initialize(type: nil, value: nil); end
         end
         # The customer's postal address (for example, home or business location).
-        sig { returns(T.nilable(Tax::CalculationCreateParams::CustomerDetails::Address)) }
+        sig { returns(T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails::Address)) }
         def address; end
         sig {
-          params(_address: T.nilable(Tax::CalculationCreateParams::CustomerDetails::Address)).returns(T.nilable(Tax::CalculationCreateParams::CustomerDetails::Address))
+          params(_address: T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails::Address)).returns(T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails::Address))
          }
         def address=(_address); end
         # The type of customer address provided.
@@ -81,10 +81,12 @@ module Stripe
         sig { params(_ip_address: T.nilable(String)).returns(T.nilable(String)) }
         def ip_address=(_ip_address); end
         # The customer's tax IDs. Stripe Tax might consider a transaction with applicable tax IDs to be B2B, which might affect the tax calculation result. Stripe Tax doesn't validate tax IDs for correctness.
-        sig { returns(T.nilable(T::Array[Tax::CalculationCreateParams::CustomerDetails::TaxId])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Tax::CalculationCreateParams::CustomerDetails::TaxId]))
+         }
         def tax_ids; end
         sig {
-          params(_tax_ids: T.nilable(T::Array[Tax::CalculationCreateParams::CustomerDetails::TaxId])).returns(T.nilable(T::Array[Tax::CalculationCreateParams::CustomerDetails::TaxId]))
+          params(_tax_ids: T.nilable(T::Array[::Stripe::Tax::CalculationCreateParams::CustomerDetails::TaxId])).returns(T.nilable(T::Array[::Stripe::Tax::CalculationCreateParams::CustomerDetails::TaxId]))
          }
         def tax_ids=(_tax_ids); end
         # Overrides the tax calculation result to allow you to not collect tax from your customer. Use this if you've manually checked your customer's tax exemptions. Prefer providing the customer's `tax_ids` where possible, which automatically determines whether `reverse_charge` applies.
@@ -93,7 +95,7 @@ module Stripe
         sig { params(_taxability_override: T.nilable(String)).returns(T.nilable(String)) }
         def taxability_override=(_taxability_override); end
         sig {
-          params(address: T.nilable(Tax::CalculationCreateParams::CustomerDetails::Address), address_source: T.nilable(String), ip_address: T.nilable(String), tax_ids: T.nilable(T::Array[Tax::CalculationCreateParams::CustomerDetails::TaxId]), taxability_override: T.nilable(String)).void
+          params(address: T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails::Address), address_source: T.nilable(String), ip_address: T.nilable(String), tax_ids: T.nilable(T::Array[::Stripe::Tax::CalculationCreateParams::CustomerDetails::TaxId]), taxability_override: T.nilable(String)).void
          }
         def initialize(
           address: nil,
@@ -206,13 +208,15 @@ module Stripe
           ); end
         end
         # The address from which the goods are being shipped from.
-        sig { returns(Tax::CalculationCreateParams::ShipFromDetails::Address) }
+        sig { returns(::Stripe::Tax::CalculationCreateParams::ShipFromDetails::Address) }
         def address; end
         sig {
-          params(_address: Tax::CalculationCreateParams::ShipFromDetails::Address).returns(Tax::CalculationCreateParams::ShipFromDetails::Address)
+          params(_address: ::Stripe::Tax::CalculationCreateParams::ShipFromDetails::Address).returns(::Stripe::Tax::CalculationCreateParams::ShipFromDetails::Address)
          }
         def address=(_address); end
-        sig { params(address: Tax::CalculationCreateParams::ShipFromDetails::Address).void }
+        sig {
+          params(address: ::Stripe::Tax::CalculationCreateParams::ShipFromDetails::Address).void
+         }
         def initialize(address: nil); end
       end
       class ShippingCost < ::Stripe::RequestParams
@@ -252,10 +256,10 @@ module Stripe
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
       # Details about the customer, including address and tax IDs.
-      sig { returns(T.nilable(Tax::CalculationCreateParams::CustomerDetails)) }
+      sig { returns(T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails)) }
       def customer_details; end
       sig {
-        params(_customer_details: T.nilable(Tax::CalculationCreateParams::CustomerDetails)).returns(T.nilable(Tax::CalculationCreateParams::CustomerDetails))
+        params(_customer_details: T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails)).returns(T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails))
        }
       def customer_details=(_customer_details); end
       # Specifies which fields in the response should be expanded.
@@ -264,24 +268,24 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # A list of items the customer is purchasing.
-      sig { returns(T::Array[Tax::CalculationCreateParams::LineItem]) }
+      sig { returns(T::Array[::Stripe::Tax::CalculationCreateParams::LineItem]) }
       def line_items; end
       sig {
-        params(_line_items: T::Array[Tax::CalculationCreateParams::LineItem]).returns(T::Array[Tax::CalculationCreateParams::LineItem])
+        params(_line_items: T::Array[::Stripe::Tax::CalculationCreateParams::LineItem]).returns(T::Array[::Stripe::Tax::CalculationCreateParams::LineItem])
        }
       def line_items=(_line_items); end
       # Details about the address from which the goods are being shipped.
-      sig { returns(T.nilable(Tax::CalculationCreateParams::ShipFromDetails)) }
+      sig { returns(T.nilable(::Stripe::Tax::CalculationCreateParams::ShipFromDetails)) }
       def ship_from_details; end
       sig {
-        params(_ship_from_details: T.nilable(Tax::CalculationCreateParams::ShipFromDetails)).returns(T.nilable(Tax::CalculationCreateParams::ShipFromDetails))
+        params(_ship_from_details: T.nilable(::Stripe::Tax::CalculationCreateParams::ShipFromDetails)).returns(T.nilable(::Stripe::Tax::CalculationCreateParams::ShipFromDetails))
        }
       def ship_from_details=(_ship_from_details); end
       # Shipping cost details to be used for the calculation.
-      sig { returns(T.nilable(Tax::CalculationCreateParams::ShippingCost)) }
+      sig { returns(T.nilable(::Stripe::Tax::CalculationCreateParams::ShippingCost)) }
       def shipping_cost; end
       sig {
-        params(_shipping_cost: T.nilable(Tax::CalculationCreateParams::ShippingCost)).returns(T.nilable(Tax::CalculationCreateParams::ShippingCost))
+        params(_shipping_cost: T.nilable(::Stripe::Tax::CalculationCreateParams::ShippingCost)).returns(T.nilable(::Stripe::Tax::CalculationCreateParams::ShippingCost))
        }
       def shipping_cost=(_shipping_cost); end
       # Timestamp of date at which the tax rules and rates in effect applies for the calculation. Measured in seconds since the Unix epoch. Can be up to 48 hours in the past, and up to 48 hours in the future.
@@ -290,7 +294,7 @@ module Stripe
       sig { params(_tax_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def tax_date=(_tax_date); end
       sig {
-        params(currency: String, customer: T.nilable(String), customer_details: T.nilable(Tax::CalculationCreateParams::CustomerDetails), expand: T.nilable(T::Array[String]), line_items: T::Array[Tax::CalculationCreateParams::LineItem], ship_from_details: T.nilable(Tax::CalculationCreateParams::ShipFromDetails), shipping_cost: T.nilable(Tax::CalculationCreateParams::ShippingCost), tax_date: T.nilable(Integer)).void
+        params(currency: String, customer: T.nilable(String), customer_details: T.nilable(::Stripe::Tax::CalculationCreateParams::CustomerDetails), expand: T.nilable(T::Array[String]), line_items: T::Array[::Stripe::Tax::CalculationCreateParams::LineItem], ship_from_details: T.nilable(::Stripe::Tax::CalculationCreateParams::ShipFromDetails), shipping_cost: T.nilable(::Stripe::Tax::CalculationCreateParams::ShippingCost), tax_date: T.nilable(Integer)).void
        }
       def initialize(
         currency: nil,

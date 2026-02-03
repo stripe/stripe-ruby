@@ -47,14 +47,14 @@ module Stripe
        }
       def shared_metadata=(_shared_metadata); end
       # Limits on how this SharedPaymentGrantedToken can be used.
-      sig { returns(SharedPayment::GrantedTokenCreateParams::UsageLimits) }
+      sig { returns(::Stripe::SharedPayment::GrantedTokenCreateParams::UsageLimits) }
       def usage_limits; end
       sig {
-        params(_usage_limits: SharedPayment::GrantedTokenCreateParams::UsageLimits).returns(SharedPayment::GrantedTokenCreateParams::UsageLimits)
+        params(_usage_limits: ::Stripe::SharedPayment::GrantedTokenCreateParams::UsageLimits).returns(::Stripe::SharedPayment::GrantedTokenCreateParams::UsageLimits)
        }
       def usage_limits=(_usage_limits); end
       sig {
-        params(customer: T.nilable(String), expand: T.nilable(T::Array[String]), payment_method: String, shared_metadata: T.nilable(T.any(String, T::Hash[String, String])), usage_limits: SharedPayment::GrantedTokenCreateParams::UsageLimits).void
+        params(customer: T.nilable(String), expand: T.nilable(T::Array[String]), payment_method: String, shared_metadata: T.nilable(T.any(String, T::Hash[String, String])), usage_limits: ::Stripe::SharedPayment::GrantedTokenCreateParams::UsageLimits).void
        }
       def initialize(
         customer: nil,

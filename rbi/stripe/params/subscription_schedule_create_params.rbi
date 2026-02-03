@@ -15,10 +15,10 @@ module Stripe
         def initialize(proration_discounts: nil); end
       end
       # Configure behavior for flexible billing mode.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::BillingMode::Flexible)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode::Flexible)) }
       def flexible; end
       sig {
-        params(_flexible: T.nilable(SubscriptionScheduleCreateParams::BillingMode::Flexible)).returns(T.nilable(SubscriptionScheduleCreateParams::BillingMode::Flexible))
+        params(_flexible: T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode::Flexible)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode::Flexible))
        }
       def flexible=(_flexible); end
       # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
@@ -27,7 +27,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(flexible: T.nilable(SubscriptionScheduleCreateParams::BillingMode::Flexible), type: String).void
+        params(flexible: T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode::Flexible), type: String).void
        }
       def initialize(flexible: nil, type: nil); end
     end
@@ -63,11 +63,11 @@ module Stripe
         end
         # Specifies the billing period.
         sig {
-          returns(T.nilable(SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration))
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration))
          }
         def duration; end
         sig {
-          params(_duration: T.nilable(SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration)).returns(T.nilable(SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration))
+          params(_duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration))
          }
         def duration=(_duration); end
         # The end date of the billing schedule.
@@ -81,24 +81,24 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(duration: T.nilable(SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
+          params(duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
          }
         def initialize(duration: nil, timestamp: nil, type: nil); end
       end
       # Configure billing schedule differently for individual subscription items.
       sig {
-        returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo]))
+        returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo]))
        }
       def applies_to; end
       sig {
-        params(_applies_to: T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo]))
+        params(_applies_to: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo]))
        }
       def applies_to=(_applies_to); end
       # The end date for the billing schedule.
-      sig { returns(SubscriptionScheduleCreateParams::BillingSchedule::BillUntil) }
+      sig { returns(::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil) }
       def bill_until; end
       sig {
-        params(_bill_until: SubscriptionScheduleCreateParams::BillingSchedule::BillUntil).returns(SubscriptionScheduleCreateParams::BillingSchedule::BillUntil)
+        params(_bill_until: ::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil).returns(::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil)
        }
       def bill_until=(_bill_until); end
       # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
@@ -107,7 +107,7 @@ module Stripe
       sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
       def key=(_key); end
       sig {
-        params(applies_to: T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo]), bill_until: SubscriptionScheduleCreateParams::BillingSchedule::BillUntil, key: T.nilable(String)).void
+        params(applies_to: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::AppliesTo]), bill_until: ::Stripe::SubscriptionScheduleCreateParams::BillingSchedule::BillUntil, key: T.nilable(String)).void
        }
       def initialize(applies_to: nil, bill_until: nil, key: nil); end
     end
@@ -134,15 +134,15 @@ module Stripe
         def enabled=(_enabled); end
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         sig {
-          returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability))
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability))
          }
         def liability; end
         sig {
-          params(_liability: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability)).returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability))
+          params(_liability: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability))
          }
         def liability=(_liability); end
         sig {
-          params(enabled: T::Boolean, liability: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability)).void
+          params(enabled: T::Boolean, liability: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax::Liability)).void
          }
         def initialize(enabled: nil, liability: nil); end
       end
@@ -193,15 +193,15 @@ module Stripe
         def days_until_due=(_days_until_due); end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig {
-          returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer))
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer))
          }
         def issuer; end
         sig {
-          params(_issuer: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer)).returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer))
+          params(_issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer))
          }
         def issuer=(_issuer); end
         sig {
-          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer)).void
+          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer)).void
          }
         def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
       end
@@ -225,10 +225,12 @@ module Stripe
       sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
       def application_fee_percent=(_application_fee_percent); end
       # Default settings for automatic tax computation.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax)) }
+      sig {
+        returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax))
+       }
       def automatic_tax; end
       sig {
-        params(_automatic_tax: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax)).returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax))
+        params(_automatic_tax: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax))
        }
       def automatic_tax=(_automatic_tax); end
       # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
@@ -238,11 +240,11 @@ module Stripe
       def billing_cycle_anchor=(_billing_cycle_anchor); end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
       sig {
-        returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds)))
+        returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds)))
        }
       def billing_thresholds; end
       sig {
-        params(_billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds))).returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds)))
+        params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds)))
        }
       def billing_thresholds=(_billing_thresholds); end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -261,10 +263,12 @@ module Stripe
       sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
       def description=(_description); end
       # All invoices will be billed using the specified settings.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings)) }
+      sig {
+        returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings))
+       }
       def invoice_settings; end
       sig {
-        params(_invoice_settings: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings)).returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings))
+        params(_invoice_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings))
        }
       def invoice_settings=(_invoice_settings); end
       # The account on behalf of which to charge, for each of the associated subscription's invoices.
@@ -279,15 +283,15 @@ module Stripe
       def phase_effective_at=(_phase_effective_at); end
       # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
       sig {
-        returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::TransferData)))
+        returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::TransferData)))
        }
       def transfer_data; end
       sig {
-        params(_transfer_data: T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::TransferData))).returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::TransferData)))
+        params(_transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::TransferData))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::TransferData)))
        }
       def transfer_data=(_transfer_data); end
       sig {
-        params(application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds)), collection_method: T.nilable(String), default_payment_method: T.nilable(String), description: T.nilable(String), invoice_settings: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings), on_behalf_of: T.nilable(String), phase_effective_at: T.nilable(String), transfer_data: T.nilable(T.any(String, SubscriptionScheduleCreateParams::DefaultSettings::TransferData))).void
+        params(application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::BillingThresholds)), collection_method: T.nilable(String), default_payment_method: T.nilable(String), description: T.nilable(String), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings), on_behalf_of: T.nilable(String), phase_effective_at: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::TransferData))).void
        }
       def initialize(
         application_fee_percent: nil,
@@ -323,11 +327,11 @@ module Stripe
             end
             # Time span for the redeemed discount.
             sig {
-              returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
+              returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
              }
             def duration; end
             sig {
-              params(_duration: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
+              params(_duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
              }
             def duration=(_duration); end
             # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -341,7 +345,7 @@ module Stripe
             sig { params(_type: String).returns(String) }
             def type=(_type); end
             sig {
-              params(duration: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+              params(duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
              }
             def initialize(duration: nil, timestamp: nil, type: nil); end
           end
@@ -357,11 +361,11 @@ module Stripe
           def discount=(_discount); end
           # Details to determine how long the discount should be applied for.
           sig {
-            returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
+            returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
            }
           def discount_end; end
           sig {
-            params(_discount_end: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
+            params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
            }
           def discount_end=(_discount_end); end
           # ID of the promotion code to create a new discount for.
@@ -370,7 +374,7 @@ module Stripe
           sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
           def promotion_code=(_promotion_code); end
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
+            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
            }
           def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
         end
@@ -404,21 +408,25 @@ module Stripe
             def initialize(timestamp: nil, type: nil); end
           end
           # End of the invoice item period.
-          sig { returns(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End) }
+          sig {
+            returns(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End)
+           }
           def end; end
           sig {
-            params(_end: SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End).returns(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End)
+            params(_end: ::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End).returns(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End)
            }
           def end=(_end); end
           # Start of the invoice item period.
-          sig { returns(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start) }
+          sig {
+            returns(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start)
+           }
           def start; end
           sig {
-            params(_start: SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start).returns(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start)
+            params(_start: ::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start).returns(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start)
            }
           def start=(_start); end
           sig {
-            params(end_: SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End, start: SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start).void
+            params(end_: ::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::End, start: ::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period::Start).void
            }
           def initialize(end_: nil, start: nil); end
         end
@@ -461,11 +469,11 @@ module Stripe
         end
         # The coupons to redeem into discounts for the item.
         sig {
-          returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount]))
+          returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount]))
          }
         def discounts; end
         sig {
-          params(_discounts: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount])).returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount]))
+          params(_discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount]))
          }
         def discounts=(_discounts); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -476,10 +484,12 @@ module Stripe
          }
         def metadata=(_metadata); end
         # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
-        sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period))
+         }
         def period; end
         sig {
-          params(_period: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period))
+          params(_period: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period))
          }
         def period=(_period); end
         # The ID of the price object. One of `price` or `price_data` is required.
@@ -489,11 +499,11 @@ module Stripe
         def price=(_price); end
         # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
         sig {
-          returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData))
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData))
          }
         def price_data; end
         sig {
-          params(_price_data: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData))
+          params(_price_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData))
          }
         def price_data=(_price_data); end
         # Quantity for this item. Defaults to 1.
@@ -509,7 +519,7 @@ module Stripe
          }
         def tax_rates=(_tax_rates); end
         sig {
-          params(discounts: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           discounts: nil,
@@ -542,14 +552,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability))
+         }
         def liability; end
         sig {
-          params(_liability: T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability))
+          params(_liability: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability))
          }
         def liability=(_liability); end
         sig {
-          params(enabled: T::Boolean, liability: T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability)).void
+          params(enabled: T::Boolean, liability: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax::Liability)).void
          }
         def initialize(enabled: nil, liability: nil); end
       end
@@ -589,11 +601,11 @@ module Stripe
           end
           # Time span for the redeemed discount.
           sig {
-            returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration))
+            returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration))
            }
           def duration; end
           sig {
-            params(_duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration))
+            params(_duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration))
            }
           def duration=(_duration); end
           # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -607,7 +619,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+            params(duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
            }
           def initialize(duration: nil, timestamp: nil, type: nil); end
         end
@@ -652,11 +664,11 @@ module Stripe
             end
             # Anchor the service period to a custom date. Type must be `custom` to specify.
             sig {
-              returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+              returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom))
              }
             def custom; end
             sig {
-              params(_custom: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+              params(_custom: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom))
              }
             def custom=(_custom); end
             # The type of service period anchor config. Defaults to `inherit` if omitted.
@@ -665,17 +677,17 @@ module Stripe
             sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
             def type=(_type); end
             sig {
-              params(custom: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+              params(custom: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
              }
             def initialize(custom: nil, type: nil); end
           end
           # Configures service period cycle anchoring.
           sig {
-            returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig))
+            returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig))
            }
           def service_period_anchor_config; end
           sig {
-            params(_service_period_anchor_config: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig))
+            params(_service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig))
            }
           def service_period_anchor_config=(_service_period_anchor_config); end
           # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
@@ -684,7 +696,7 @@ module Stripe
           sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
           def start_date=(_start_date); end
           sig {
-            params(service_period_anchor_config: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+            params(service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
            }
           def initialize(service_period_anchor_config: nil, start_date: nil); end
         end
@@ -699,10 +711,12 @@ module Stripe
         sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
         def discount=(_discount); end
         # Details to determine how long the discount should be applied for.
-        sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd))
+         }
         def discount_end; end
         sig {
-          params(_discount_end: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd))
+          params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd))
          }
         def discount_end=(_discount_end); end
         # ID of the promotion code to create a new discount for.
@@ -711,14 +725,16 @@ module Stripe
         sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
         def promotion_code=(_promotion_code); end
         # Settings for discount application including service period anchoring.
-        sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings))
+         }
         def settings; end
         sig {
-          params(_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings))
+          params(_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings))
          }
         def settings=(_settings); end
         sig {
-          params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(SubscriptionScheduleCreateParams::Phase::Discount::Settings)).void
+          params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Discount::Settings)).void
          }
         def initialize(
           coupon: nil,
@@ -770,14 +786,16 @@ module Stripe
         sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def days_until_due=(_days_until_due); end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer))
+         }
         def issuer; end
         sig {
-          params(_issuer: T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer))
+          params(_issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer))
          }
         def issuer=(_issuer); end
         sig {
-          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer)).void
+          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer)).void
          }
         def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
       end
@@ -809,11 +827,11 @@ module Stripe
             end
             # Time span for the redeemed discount.
             sig {
-              returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration))
+              returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration))
              }
             def duration; end
             sig {
-              params(_duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration))
+              params(_duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration))
              }
             def duration=(_duration); end
             # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -827,7 +845,7 @@ module Stripe
             sig { params(_type: String).returns(String) }
             def type=(_type); end
             sig {
-              params(duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+              params(duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
              }
             def initialize(duration: nil, timestamp: nil, type: nil); end
           end
@@ -872,11 +890,11 @@ module Stripe
               end
               # Anchor the service period to a custom date. Type must be `custom` to specify.
               sig {
-                returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
                }
               def custom; end
               sig {
-                params(_custom: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                params(_custom: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
                }
               def custom=(_custom); end
               # The type of service period anchor config. Defaults to `inherit` if omitted.
@@ -885,17 +903,17 @@ module Stripe
               sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
               def type=(_type); end
               sig {
-                params(custom: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                params(custom: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
                }
               def initialize(custom: nil, type: nil); end
             end
             # Configures service period cycle anchoring.
             sig {
-              returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig))
+              returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig))
              }
             def service_period_anchor_config; end
             sig {
-              params(_service_period_anchor_config: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig))
+              params(_service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig))
              }
             def service_period_anchor_config=(_service_period_anchor_config); end
             # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
@@ -904,7 +922,7 @@ module Stripe
             sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
             def start_date=(_start_date); end
             sig {
-              params(service_period_anchor_config: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+              params(service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
              }
             def initialize(service_period_anchor_config: nil, start_date: nil); end
           end
@@ -920,11 +938,11 @@ module Stripe
           def discount=(_discount); end
           # Details to determine how long the discount should be applied for.
           sig {
-            returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd))
+            returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd))
            }
           def discount_end; end
           sig {
-            params(_discount_end: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd))
+            params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd))
            }
           def discount_end=(_discount_end); end
           # ID of the promotion code to create a new discount for.
@@ -934,15 +952,15 @@ module Stripe
           def promotion_code=(_promotion_code); end
           # Settings for discount application including service period anchoring.
           sig {
-            returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings))
+            returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings))
            }
           def settings; end
           sig {
-            params(_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings))
+            params(_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings))
            }
           def settings=(_settings); end
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings)).void
+            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount::Settings)).void
            }
           def initialize(
             coupon: nil,
@@ -978,10 +996,12 @@ module Stripe
           sig { params(_product: String).returns(String) }
           def product=(_product); end
           # The recurring components of a price such as `interval` and `interval_count`.
-          sig { returns(SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring) }
+          sig {
+            returns(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring)
+           }
           def recurring; end
           sig {
-            params(_recurring: SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring).returns(SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring)
+            params(_recurring: ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring).returns(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring)
            }
           def recurring=(_recurring); end
           # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -1000,7 +1020,7 @@ module Stripe
           sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
           def unit_amount_decimal=(_unit_amount_decimal); end
           sig {
-            params(currency: String, product: String, recurring: SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+            params(currency: String, product: String, recurring: ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
            }
           def initialize(
             currency: nil,
@@ -1029,20 +1049,20 @@ module Stripe
         end
         # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         sig {
-          returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)))
+          returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)))
          }
         def billing_thresholds; end
         sig {
-          params(_billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds))).returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)))
+          params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)))
          }
         def billing_thresholds=(_billing_thresholds); end
         # The coupons to redeem into discounts for the subscription item.
         sig {
-          returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount])))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount])))
          }
         def discounts; end
         sig {
-          params(_discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount]))).returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount])))
+          params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount])))
          }
         def discounts=(_discounts); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -1063,10 +1083,12 @@ module Stripe
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
         # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
-        sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::PriceData)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData))
+         }
         def price_data; end
         sig {
-          params(_price_data: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::PriceData)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::PriceData))
+          params(_price_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData))
          }
         def price_data=(_price_data); end
         # Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
@@ -1082,10 +1104,10 @@ module Stripe
          }
         def tax_rates=(_tax_rates); end
         # Options that configure the trial on the subscription item.
-        sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial)) }
+        sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial)) }
         def trial; end
         sig {
-          params(_trial: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial))
+          params(_trial: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial))
          }
         def trial=(_trial); end
         # The ID of the trial offer to apply to the configuration item.
@@ -1094,7 +1116,7 @@ module Stripe
         sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
         def trial_offer=(_trial_offer); end
         sig {
-          params(billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(SubscriptionScheduleCreateParams::Phase::Item::Trial), trial_offer: T.nilable(String)).void
+          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial), trial_offer: T.nilable(String)).void
          }
         def initialize(
           billing_thresholds: nil,
@@ -1144,23 +1166,25 @@ module Stripe
         end
         # Defines how the subscription should behave when a trial ends.
         sig {
-          returns(T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior))
+          returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior))
          }
         def end_behavior; end
         sig {
-          params(_end_behavior: T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior))
+          params(_end_behavior: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior))
          }
         def end_behavior=(_end_behavior); end
         sig {
-          params(end_behavior: T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior)).void
+          params(end_behavior: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings::EndBehavior)).void
          }
         def initialize(end_behavior: nil); end
       end
       # A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
-      sig { returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem])) }
+      sig {
+        returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem]))
+       }
       def add_invoice_items; end
       sig {
-        params(_add_invoice_items: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem])).returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem]))
+        params(_add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem]))
        }
       def add_invoice_items=(_add_invoice_items); end
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
@@ -1169,10 +1193,10 @@ module Stripe
       sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
       def application_fee_percent=(_application_fee_percent); end
       # Automatic tax settings for this phase.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax)) }
       def automatic_tax; end
       sig {
-        params(_automatic_tax: T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax))
+        params(_automatic_tax: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax))
        }
       def automatic_tax=(_automatic_tax); end
       # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
@@ -1182,11 +1206,11 @@ module Stripe
       def billing_cycle_anchor=(_billing_cycle_anchor); end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
       sig {
-        returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::BillingThresholds)))
+        returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::BillingThresholds)))
        }
       def billing_thresholds; end
       sig {
-        params(_billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::BillingThresholds))).returns(T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::BillingThresholds)))
+        params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::BillingThresholds)))
        }
       def billing_thresholds=(_billing_thresholds); end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -1218,18 +1242,18 @@ module Stripe
       def description=(_description); end
       # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
       sig {
-        returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Discount])))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Discount])))
        }
       def discounts; end
       sig {
-        params(_discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Discount]))).returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Discount])))
+        params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Discount])))
        }
       def discounts=(_discounts); end
       # The number of intervals the phase should last. If set, `end_date` must not be set.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Duration)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Duration)) }
       def duration; end
       sig {
-        params(_duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Duration)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::Duration))
+        params(_duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Duration))
        }
       def duration=(_duration); end
       # Configures how the subscription schedule handles billing for phase transitions.
@@ -1243,17 +1267,17 @@ module Stripe
       sig { params(_end_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def end_date=(_end_date); end
       # All invoices will be billed using the specified settings.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings)) }
       def invoice_settings; end
       sig {
-        params(_invoice_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings))
+        params(_invoice_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings))
        }
       def invoice_settings=(_invoice_settings); end
       # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
-      sig { returns(T::Array[SubscriptionScheduleCreateParams::Phase::Item]) }
+      sig { returns(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item]) }
       def items; end
       sig {
-        params(_items: T::Array[SubscriptionScheduleCreateParams::Phase::Item]).returns(T::Array[SubscriptionScheduleCreateParams::Phase::Item])
+        params(_items: T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item]).returns(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item])
        }
       def items=(_items); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -1269,10 +1293,10 @@ module Stripe
       sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
       def on_behalf_of=(_on_behalf_of); end
       # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::PauseCollection)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::PauseCollection)) }
       def pause_collection; end
       sig {
-        params(_pause_collection: T.nilable(SubscriptionScheduleCreateParams::Phase::PauseCollection)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::PauseCollection))
+        params(_pause_collection: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::PauseCollection)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::PauseCollection))
        }
       def pause_collection=(_pause_collection); end
       # Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
@@ -1281,10 +1305,10 @@ module Stripe
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
       # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::TransferData)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TransferData)) }
       def transfer_data; end
       sig {
-        params(_transfer_data: T.nilable(SubscriptionScheduleCreateParams::Phase::TransferData)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::TransferData))
+        params(_transfer_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TransferData)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TransferData))
        }
       def transfer_data=(_transfer_data); end
       # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
@@ -1303,14 +1327,14 @@ module Stripe
       sig { params(_trial_end: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def trial_end=(_trial_end); end
       # Settings related to subscription trials.
-      sig { returns(T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings)) }
       def trial_settings; end
       sig {
-        params(_trial_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings)).returns(T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings))
+        params(_trial_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
       sig {
-        params(add_invoice_items: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(SubscriptionScheduleCreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, SubscriptionScheduleCreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[SubscriptionScheduleCreateParams::Phase::Discount])), duration: T.nilable(SubscriptionScheduleCreateParams::Phase::Duration), effective_at: T.nilable(String), end_date: T.nilable(Integer), invoice_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::InvoiceSettings), items: T::Array[SubscriptionScheduleCreateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(SubscriptionScheduleCreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(SubscriptionScheduleCreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(SubscriptionScheduleCreateParams::Phase::TrialSettings)).void
+        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Duration), effective_at: T.nilable(String), end_date: T.nilable(Integer), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::TrialSettings)).void
        }
       def initialize(
         add_invoice_items: nil,
@@ -1360,17 +1384,19 @@ module Stripe
     sig { params(_billing_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def billing_behavior=(_billing_behavior); end
     # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-    sig { returns(T.nilable(SubscriptionScheduleCreateParams::BillingMode)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode)) }
     def billing_mode; end
     sig {
-      params(_billing_mode: T.nilable(SubscriptionScheduleCreateParams::BillingMode)).returns(T.nilable(SubscriptionScheduleCreateParams::BillingMode))
+      params(_billing_mode: T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode))
      }
     def billing_mode=(_billing_mode); end
     # Sets the billing schedules for the subscription schedule.
-    sig { returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule])) }
+    sig {
+      returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule]))
+     }
     def billing_schedules; end
     sig {
-      params(_billing_schedules: T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule])).returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule]))
+      params(_billing_schedules: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule]))
      }
     def billing_schedules=(_billing_schedules); end
     # The identifier of the customer to create the subscription schedule for.
@@ -1384,10 +1410,10 @@ module Stripe
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
     def customer_account=(_customer_account); end
     # Object representing the subscription schedule's default settings.
-    sig { returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings)) }
     def default_settings; end
     sig {
-      params(_default_settings: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings)).returns(T.nilable(SubscriptionScheduleCreateParams::DefaultSettings))
+      params(_default_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings))
      }
     def default_settings=(_default_settings); end
     # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -1413,17 +1439,17 @@ module Stripe
      }
     def metadata=(_metadata); end
     # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
-    sig { returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase])) }
+    sig { returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase])) }
     def phases; end
     sig {
-      params(_phases: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase])).returns(T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase]))
+      params(_phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase]))
      }
     def phases=(_phases); end
     # If specified, the invoicing for the given billing cycle iterations will be processed now.
-    sig { returns(T.nilable(SubscriptionScheduleCreateParams::Prebilling)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Prebilling)) }
     def prebilling; end
     sig {
-      params(_prebilling: T.nilable(SubscriptionScheduleCreateParams::Prebilling)).returns(T.nilable(SubscriptionScheduleCreateParams::Prebilling))
+      params(_prebilling: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Prebilling)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Prebilling))
      }
     def prebilling=(_prebilling); end
     # When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
@@ -1434,7 +1460,7 @@ module Stripe
      }
     def start_date=(_start_date); end
     sig {
-      params(billing_behavior: T.nilable(String), billing_mode: T.nilable(SubscriptionScheduleCreateParams::BillingMode), billing_schedules: T.nilable(T::Array[SubscriptionScheduleCreateParams::BillingSchedule]), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(SubscriptionScheduleCreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[SubscriptionScheduleCreateParams::Phase]), prebilling: T.nilable(SubscriptionScheduleCreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
+      params(billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::SubscriptionScheduleCreateParams::BillingMode), billing_schedules: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::BillingSchedule]), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
      }
     def initialize(
       billing_behavior: nil,

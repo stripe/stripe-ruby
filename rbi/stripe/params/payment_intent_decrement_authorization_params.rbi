@@ -16,26 +16,28 @@ module Stripe
           def initialize(calculation: nil); end
         end
         # Tax arguments for automations
-        sig { returns(T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax)) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax))
+         }
         def tax; end
         sig {
-          params(_tax: T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax)).returns(T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax))
+          params(_tax: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax)).returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax))
          }
         def tax=(_tax); end
         sig {
-          params(tax: T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax)).void
+          params(tax: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs::Tax)).void
          }
         def initialize(tax: nil); end
       end
       # Arguments passed in automations
-      sig { returns(T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs)) }
+      sig { returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs)) }
       def inputs; end
       sig {
-        params(_inputs: T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs)).returns(T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs))
+        params(_inputs: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs)).returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs))
        }
       def inputs=(_inputs); end
       sig {
-        params(inputs: T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks::Inputs)).void
+        params(inputs: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks::Inputs)).void
        }
       def initialize(inputs: nil); end
     end
@@ -69,10 +71,10 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Automations to be run during the PaymentIntent lifecycle
-    sig { returns(T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks)) }
+    sig { returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks)) }
     def hooks; end
     sig {
-      params(_hooks: T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks)).returns(T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks))
+      params(_hooks: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks)).returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks))
      }
     def hooks=(_hooks); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -84,14 +86,14 @@ module Stripe
     def metadata=(_metadata); end
     # The parameters used to automatically create a transfer after the payment is captured.
     # Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
-    sig { returns(T.nilable(PaymentIntentDecrementAuthorizationParams::TransferData)) }
+    sig { returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::TransferData)) }
     def transfer_data; end
     sig {
-      params(_transfer_data: T.nilable(PaymentIntentDecrementAuthorizationParams::TransferData)).returns(T.nilable(PaymentIntentDecrementAuthorizationParams::TransferData))
+      params(_transfer_data: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::TransferData)).returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(amount: Integer, application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(PaymentIntentDecrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), transfer_data: T.nilable(PaymentIntentDecrementAuthorizationParams::TransferData)).void
+      params(amount: Integer, application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), transfer_data: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::TransferData)).void
      }
     def initialize(
       amount: nil,

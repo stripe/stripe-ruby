@@ -67,22 +67,24 @@ module Stripe
       def starting_after=(_starting_after); end
       # A filter on the list based on the object `transacted_at` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
       sig {
-        returns(T.nilable(T.any(FinancialConnections::TransactionListParams::TransactedAt, Integer)))
+        returns(T.nilable(T.any(::Stripe::FinancialConnections::TransactionListParams::TransactedAt, Integer)))
        }
       def transacted_at; end
       sig {
-        params(_transacted_at: T.nilable(T.any(FinancialConnections::TransactionListParams::TransactedAt, Integer))).returns(T.nilable(T.any(FinancialConnections::TransactionListParams::TransactedAt, Integer)))
+        params(_transacted_at: T.nilable(T.any(::Stripe::FinancialConnections::TransactionListParams::TransactedAt, Integer))).returns(T.nilable(T.any(::Stripe::FinancialConnections::TransactionListParams::TransactedAt, Integer)))
        }
       def transacted_at=(_transacted_at); end
       # A filter on the list based on the object `transaction_refresh` field. The value can be a dictionary with the following options:
-      sig { returns(T.nilable(FinancialConnections::TransactionListParams::TransactionRefresh)) }
+      sig {
+        returns(T.nilable(::Stripe::FinancialConnections::TransactionListParams::TransactionRefresh))
+       }
       def transaction_refresh; end
       sig {
-        params(_transaction_refresh: T.nilable(FinancialConnections::TransactionListParams::TransactionRefresh)).returns(T.nilable(FinancialConnections::TransactionListParams::TransactionRefresh))
+        params(_transaction_refresh: T.nilable(::Stripe::FinancialConnections::TransactionListParams::TransactionRefresh)).returns(T.nilable(::Stripe::FinancialConnections::TransactionListParams::TransactionRefresh))
        }
       def transaction_refresh=(_transaction_refresh); end
       sig {
-        params(account: String, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), transacted_at: T.nilable(T.any(FinancialConnections::TransactionListParams::TransactedAt, Integer)), transaction_refresh: T.nilable(FinancialConnections::TransactionListParams::TransactionRefresh)).void
+        params(account: String, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), transacted_at: T.nilable(T.any(::Stripe::FinancialConnections::TransactionListParams::TransactedAt, Integer)), transaction_refresh: T.nilable(::Stripe::FinancialConnections::TransactionListParams::TransactionRefresh)).void
        }
       def initialize(
         account: nil,

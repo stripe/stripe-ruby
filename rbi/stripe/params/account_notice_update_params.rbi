@@ -24,10 +24,10 @@ module Stripe
       def initialize(plain_text: nil, recipient: nil, subject: nil); end
     end
     # Information about the email you sent.
-    sig { returns(AccountNoticeUpdateParams::Email) }
+    sig { returns(::Stripe::AccountNoticeUpdateParams::Email) }
     def email; end
     sig {
-      params(_email: AccountNoticeUpdateParams::Email).returns(AccountNoticeUpdateParams::Email)
+      params(_email: ::Stripe::AccountNoticeUpdateParams::Email).returns(::Stripe::AccountNoticeUpdateParams::Email)
      }
     def email=(_email); end
     # Specifies which fields in the response should be expanded.
@@ -48,7 +48,7 @@ module Stripe
     sig { params(_sent_at: Integer).returns(Integer) }
     def sent_at=(_sent_at); end
     sig {
-      params(email: AccountNoticeUpdateParams::Email, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), sent_at: Integer).void
+      params(email: ::Stripe::AccountNoticeUpdateParams::Email, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), sent_at: Integer).void
      }
     def initialize(email: nil, expand: nil, metadata: nil, sent_at: nil); end
   end

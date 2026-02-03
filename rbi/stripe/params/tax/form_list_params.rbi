@@ -42,9 +42,11 @@ module Stripe
       sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def limit=(_limit); end
       # The payee whose volume is represented on the tax form.
-      sig { returns(Tax::FormListParams::Payee) }
+      sig { returns(::Stripe::Tax::FormListParams::Payee) }
       def payee; end
-      sig { params(_payee: Tax::FormListParams::Payee).returns(Tax::FormListParams::Payee) }
+      sig {
+        params(_payee: ::Stripe::Tax::FormListParams::Payee).returns(::Stripe::Tax::FormListParams::Payee)
+       }
       def payee=(_payee); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
@@ -57,7 +59,7 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payee: Tax::FormListParams::Payee, starting_after: T.nilable(String), type: T.nilable(String)).void
+        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payee: ::Stripe::Tax::FormListParams::Payee, starting_after: T.nilable(String), type: T.nilable(String)).void
        }
       def initialize(
         ending_before: nil,

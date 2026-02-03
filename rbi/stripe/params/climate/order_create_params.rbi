@@ -20,10 +20,10 @@ module Stripe
       sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount=(_amount); end
       # Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set.
-      sig { returns(T.nilable(Climate::OrderCreateParams::Beneficiary)) }
+      sig { returns(T.nilable(::Stripe::Climate::OrderCreateParams::Beneficiary)) }
       def beneficiary; end
       sig {
-        params(_beneficiary: T.nilable(Climate::OrderCreateParams::Beneficiary)).returns(T.nilable(Climate::OrderCreateParams::Beneficiary))
+        params(_beneficiary: T.nilable(::Stripe::Climate::OrderCreateParams::Beneficiary)).returns(T.nilable(::Stripe::Climate::OrderCreateParams::Beneficiary))
        }
       def beneficiary=(_beneficiary); end
       # Request currency for the order as a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a supported [settlement currency for your account](https://stripe.com/docs/currencies). If omitted, the account's default currency will be used.
@@ -54,7 +54,7 @@ module Stripe
       sig { params(_product: String).returns(String) }
       def product=(_product); end
       sig {
-        params(amount: T.nilable(Integer), beneficiary: T.nilable(Climate::OrderCreateParams::Beneficiary), currency: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), metric_tons: T.nilable(String), product: String).void
+        params(amount: T.nilable(Integer), beneficiary: T.nilable(::Stripe::Climate::OrderCreateParams::Beneficiary), currency: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), metric_tons: T.nilable(String), product: String).void
        }
       def initialize(
         amount: nil,

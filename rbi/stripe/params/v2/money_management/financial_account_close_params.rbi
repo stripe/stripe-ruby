@@ -22,15 +22,15 @@ module Stripe
         end
         # The addresses to forward any incoming transactions to.
         sig {
-          returns(T.nilable(V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings))
+          returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings))
          }
         def forwarding_settings; end
         sig {
-          params(_forwarding_settings: T.nilable(V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings)).returns(T.nilable(V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings))
+          params(_forwarding_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings))
          }
         def forwarding_settings=(_forwarding_settings); end
         sig {
-          params(forwarding_settings: T.nilable(V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings)).void
+          params(forwarding_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings)).void
          }
         def initialize(forwarding_settings: nil); end
       end

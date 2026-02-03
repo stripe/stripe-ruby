@@ -30,21 +30,23 @@ module Stripe
         sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
         def lookup_key=(_lookup_key); end
         # Details for the credit grant. Can only be set if the service action's `type` is `credit_grant`.
-        sig { returns(T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrant)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrant)) }
         def credit_grant; end
         sig {
-          params(_credit_grant: T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrant)).returns(T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrant))
+          params(_credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrant))
          }
         def credit_grant=(_credit_grant); end
         # Details for the credit grant per tenant. Can only be set if the service action's `type` is `credit_grant_per_tenant`.
-        sig { returns(T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant))
+         }
         def credit_grant_per_tenant; end
         sig {
-          params(_credit_grant_per_tenant: T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant)).returns(T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant))
+          params(_credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant))
          }
         def credit_grant_per_tenant=(_credit_grant_per_tenant); end
         sig {
-          params(lookup_key: T.nilable(String), credit_grant: T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrant), credit_grant_per_tenant: T.nilable(V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant)).void
+          params(lookup_key: T.nilable(String), credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrant), credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant)).void
          }
         def initialize(lookup_key: nil, credit_grant: nil, credit_grant_per_tenant: nil); end
       end

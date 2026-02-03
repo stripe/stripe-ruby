@@ -71,11 +71,11 @@ module Stripe
         end
         # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
         sig {
-          returns(T.nilable(ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount))
+          returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount))
          }
         def custom_unit_amount; end
         sig {
-          params(_custom_unit_amount: T.nilable(ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount)).returns(T.nilable(ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount))
+          params(_custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount)).returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount))
          }
         def custom_unit_amount=(_custom_unit_amount); end
         # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -85,11 +85,11 @@ module Stripe
         def tax_behavior=(_tax_behavior); end
         # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
         sig {
-          returns(T.nilable(T::Array[ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]))
+          returns(T.nilable(T::Array[::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]))
          }
         def tiers; end
         sig {
-          params(_tiers: T.nilable(T::Array[ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier])).returns(T.nilable(T::Array[ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]))
+          params(_tiers: T.nilable(T::Array[::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier])).returns(T.nilable(T::Array[::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]))
          }
         def tiers=(_tiers); end
         # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
@@ -103,7 +103,7 @@ module Stripe
         sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
         def unit_amount_decimal=(_unit_amount_decimal); end
         sig {
-          params(custom_unit_amount: T.nilable(ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           custom_unit_amount: nil,
@@ -160,18 +160,18 @@ module Stripe
       def currency=(_currency); end
       # Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig {
-        returns(T.nilable(T::Hash[String, ProductCreateParams::DefaultPriceData::CurrencyOptions]))
+        returns(T.nilable(T::Hash[String, ::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions]))
        }
       def currency_options; end
       sig {
-        params(_currency_options: T.nilable(T::Hash[String, ProductCreateParams::DefaultPriceData::CurrencyOptions])).returns(T.nilable(T::Hash[String, ProductCreateParams::DefaultPriceData::CurrencyOptions]))
+        params(_currency_options: T.nilable(T::Hash[String, ::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions]))
        }
       def currency_options=(_currency_options); end
       # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
-      sig { returns(T.nilable(ProductCreateParams::DefaultPriceData::CustomUnitAmount)) }
+      sig { returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CustomUnitAmount)) }
       def custom_unit_amount; end
       sig {
-        params(_custom_unit_amount: T.nilable(ProductCreateParams::DefaultPriceData::CustomUnitAmount)).returns(T.nilable(ProductCreateParams::DefaultPriceData::CustomUnitAmount))
+        params(_custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CustomUnitAmount)).returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CustomUnitAmount))
        }
       def custom_unit_amount=(_custom_unit_amount); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -182,10 +182,10 @@ module Stripe
        }
       def metadata=(_metadata); end
       # The recurring components of a price such as `interval` and `interval_count`.
-      sig { returns(T.nilable(ProductCreateParams::DefaultPriceData::Recurring)) }
+      sig { returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::Recurring)) }
       def recurring; end
       sig {
-        params(_recurring: T.nilable(ProductCreateParams::DefaultPriceData::Recurring)).returns(T.nilable(ProductCreateParams::DefaultPriceData::Recurring))
+        params(_recurring: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::Recurring)).returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::Recurring))
        }
       def recurring=(_recurring); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -204,7 +204,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(currency: String, currency_options: T.nilable(T::Hash[String, ProductCreateParams::DefaultPriceData::CurrencyOptions]), custom_unit_amount: T.nilable(ProductCreateParams::DefaultPriceData::CustomUnitAmount), metadata: T.nilable(T::Hash[String, String]), recurring: T.nilable(ProductCreateParams::DefaultPriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions]), custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CustomUnitAmount), metadata: T.nilable(T::Hash[String, String]), recurring: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         currency: nil,
@@ -270,10 +270,10 @@ module Stripe
     sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def active=(_active); end
     # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object. This Price will be set as the default price for this product.
-    sig { returns(T.nilable(ProductCreateParams::DefaultPriceData)) }
+    sig { returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData)) }
     def default_price_data; end
     sig {
-      params(_default_price_data: T.nilable(ProductCreateParams::DefaultPriceData)).returns(T.nilable(ProductCreateParams::DefaultPriceData))
+      params(_default_price_data: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData)).returns(T.nilable(::Stripe::ProductCreateParams::DefaultPriceData))
      }
     def default_price_data=(_default_price_data); end
     # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
@@ -297,10 +297,10 @@ module Stripe
     sig { params(_images: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def images=(_images); end
     # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
-    sig { returns(T.nilable(T::Array[ProductCreateParams::MarketingFeature])) }
+    sig { returns(T.nilable(T::Array[::Stripe::ProductCreateParams::MarketingFeature])) }
     def marketing_features; end
     sig {
-      params(_marketing_features: T.nilable(T::Array[ProductCreateParams::MarketingFeature])).returns(T.nilable(T::Array[ProductCreateParams::MarketingFeature]))
+      params(_marketing_features: T.nilable(T::Array[::Stripe::ProductCreateParams::MarketingFeature])).returns(T.nilable(T::Array[::Stripe::ProductCreateParams::MarketingFeature]))
      }
     def marketing_features=(_marketing_features); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -316,10 +316,10 @@ module Stripe
     sig { params(_name: String).returns(String) }
     def name=(_name); end
     # The dimensions of this product for shipping purposes.
-    sig { returns(T.nilable(ProductCreateParams::PackageDimensions)) }
+    sig { returns(T.nilable(::Stripe::ProductCreateParams::PackageDimensions)) }
     def package_dimensions; end
     sig {
-      params(_package_dimensions: T.nilable(ProductCreateParams::PackageDimensions)).returns(T.nilable(ProductCreateParams::PackageDimensions))
+      params(_package_dimensions: T.nilable(::Stripe::ProductCreateParams::PackageDimensions)).returns(T.nilable(::Stripe::ProductCreateParams::PackageDimensions))
      }
     def package_dimensions=(_package_dimensions); end
     # Whether this product is shipped (i.e., physical goods).
@@ -341,10 +341,10 @@ module Stripe
     sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
     def tax_code=(_tax_code); end
     # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
-    sig { returns(T.nilable(ProductCreateParams::TaxDetails)) }
+    sig { returns(T.nilable(::Stripe::ProductCreateParams::TaxDetails)) }
     def tax_details; end
     sig {
-      params(_tax_details: T.nilable(ProductCreateParams::TaxDetails)).returns(T.nilable(ProductCreateParams::TaxDetails))
+      params(_tax_details: T.nilable(::Stripe::ProductCreateParams::TaxDetails)).returns(T.nilable(::Stripe::ProductCreateParams::TaxDetails))
      }
     def tax_details=(_tax_details); end
     # The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
@@ -363,7 +363,7 @@ module Stripe
     sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
     def url=(_url); end
     sig {
-      params(active: T.nilable(T::Boolean), default_price_data: T.nilable(ProductCreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[ProductCreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(ProductCreateParams::PackageDimensions), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(ProductCreateParams::TaxDetails), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), default_price_data: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[::Stripe::ProductCreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(::Stripe::ProductCreateParams::PackageDimensions), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::ProductCreateParams::TaxDetails), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
      }
     def initialize(
       active: nil,

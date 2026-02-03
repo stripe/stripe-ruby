@@ -75,10 +75,10 @@ module Stripe
       sig { params(_flat_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def flat_amount=(_flat_amount); end
       # The line item amounts to reverse.
-      sig { returns(T.nilable(T::Array[Tax::TransactionCreateReversalParams::LineItem])) }
+      sig { returns(T.nilable(T::Array[::Stripe::Tax::TransactionCreateReversalParams::LineItem])) }
       def line_items; end
       sig {
-        params(_line_items: T.nilable(T::Array[Tax::TransactionCreateReversalParams::LineItem])).returns(T.nilable(T::Array[Tax::TransactionCreateReversalParams::LineItem]))
+        params(_line_items: T.nilable(T::Array[::Stripe::Tax::TransactionCreateReversalParams::LineItem])).returns(T.nilable(T::Array[::Stripe::Tax::TransactionCreateReversalParams::LineItem]))
        }
       def line_items=(_line_items); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -104,14 +104,14 @@ module Stripe
       sig { params(_reference: String).returns(String) }
       def reference=(_reference); end
       # The shipping cost to reverse.
-      sig { returns(T.nilable(Tax::TransactionCreateReversalParams::ShippingCost)) }
+      sig { returns(T.nilable(::Stripe::Tax::TransactionCreateReversalParams::ShippingCost)) }
       def shipping_cost; end
       sig {
-        params(_shipping_cost: T.nilable(Tax::TransactionCreateReversalParams::ShippingCost)).returns(T.nilable(Tax::TransactionCreateReversalParams::ShippingCost))
+        params(_shipping_cost: T.nilable(::Stripe::Tax::TransactionCreateReversalParams::ShippingCost)).returns(T.nilable(::Stripe::Tax::TransactionCreateReversalParams::ShippingCost))
        }
       def shipping_cost=(_shipping_cost); end
       sig {
-        params(expand: T.nilable(T::Array[String]), flat_amount: T.nilable(Integer), line_items: T.nilable(T::Array[Tax::TransactionCreateReversalParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), mode: String, original_transaction: String, reference: String, shipping_cost: T.nilable(Tax::TransactionCreateReversalParams::ShippingCost)).void
+        params(expand: T.nilable(T::Array[String]), flat_amount: T.nilable(Integer), line_items: T.nilable(T::Array[::Stripe::Tax::TransactionCreateReversalParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), mode: String, original_transaction: String, reference: String, shipping_cost: T.nilable(::Stripe::Tax::TransactionCreateReversalParams::ShippingCost)).void
        }
       def initialize(
         expand: nil,

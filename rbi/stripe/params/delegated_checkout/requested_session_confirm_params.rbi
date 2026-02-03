@@ -52,11 +52,11 @@ module Stripe
           end
           # The address for the billing details.
           sig {
-            returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address))
+            returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address))
            }
           def address; end
           sig {
-            params(_address: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address))
+            params(_address: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address))
            }
           def address=(_address); end
           # The email for the billing details.
@@ -75,7 +75,7 @@ module Stripe
           sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
           def phone=(_phone); end
           sig {
-            params(address: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+            params(address: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
            }
           def initialize(address: nil, email: nil, name: nil, phone: nil); end
         end
@@ -107,20 +107,20 @@ module Stripe
         end
         # The billing details for the payment method data.
         sig {
-          returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails))
+          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails))
          }
         def billing_details; end
         sig {
-          params(_billing_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails))
+          params(_billing_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails))
          }
         def billing_details=(_billing_details); end
         # The card for the payment method data.
         sig {
-          returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card))
+          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card))
          }
         def card; end
         sig {
-          params(_card: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card))
+          params(_card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card))
          }
         def card=(_card); end
         # The type of the payment method data.
@@ -129,7 +129,7 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(billing_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails), card: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card), type: T.nilable(String)).void
+          params(billing_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::BillingDetails), card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData::Card), type: T.nilable(String)).void
          }
         def initialize(billing_details: nil, card: nil, type: nil); end
       end
@@ -173,15 +173,15 @@ module Stripe
         end
         # The client device metadata details for this requested session.
         sig {
-          returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails))
+          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails))
          }
         def client_device_metadata_details; end
         sig {
-          params(_client_device_metadata_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails))
+          params(_client_device_metadata_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails))
          }
         def client_device_metadata_details=(_client_device_metadata_details); end
         sig {
-          params(client_device_metadata_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails)).void
+          params(client_device_metadata_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails::ClientDeviceMetadataDetails)).void
          }
         def initialize(client_device_metadata_details: nil); end
       end
@@ -197,22 +197,24 @@ module Stripe
       def payment_method=(_payment_method); end
       # The payment method data for this requested session.
       sig {
-        returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData))
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData))
        }
       def payment_method_data; end
       sig {
-        params(_payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData))
+        params(_payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData))
        }
       def payment_method_data=(_payment_method_data); end
       # Risk details/signals associated with the requested session
-      sig { returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)) }
+      sig {
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
+       }
       def risk_details; end
       sig {
-        params(_risk_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).returns(T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
+        params(_risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
        }
       def risk_details=(_risk_details); end
       sig {
-        params(expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), payment_method_data: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData), risk_details: T.nilable(DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
+        params(expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
        }
       def initialize(
         expand: nil,

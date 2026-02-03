@@ -21,10 +21,10 @@ module Stripe
           def initialize(value: nil, currency: nil); end
         end
         # Object containing the amount value and currency to credit.
-        sig { returns(V2::TestHelpers::FinancialAddressCreditParams::Amount) }
+        sig { returns(::Stripe::V2::TestHelpers::FinancialAddressCreditParams::Amount) }
         def amount; end
         sig {
-          params(_amount: V2::TestHelpers::FinancialAddressCreditParams::Amount).returns(V2::TestHelpers::FinancialAddressCreditParams::Amount)
+          params(_amount: ::Stripe::V2::TestHelpers::FinancialAddressCreditParams::Amount).returns(::Stripe::V2::TestHelpers::FinancialAddressCreditParams::Amount)
          }
         def amount=(_amount); end
         # Open Enum. The network to use in simulating the funds flow. This will be the reflected in the resulting ReceivedCredit.
@@ -38,7 +38,7 @@ module Stripe
         sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
         def statement_descriptor=(_statement_descriptor); end
         sig {
-          params(amount: V2::TestHelpers::FinancialAddressCreditParams::Amount, network: String, statement_descriptor: T.nilable(String)).void
+          params(amount: ::Stripe::V2::TestHelpers::FinancialAddressCreditParams::Amount, network: String, statement_descriptor: T.nilable(String)).void
          }
         def initialize(amount: nil, network: nil, statement_descriptor: nil); end
       end

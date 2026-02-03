@@ -50,13 +50,13 @@ module Stripe
           ); end
         end
         # The cardholder’s billing address.
-        sig { returns(Issuing::CardholderUpdateParams::Billing::Address) }
+        sig { returns(::Stripe::Issuing::CardholderUpdateParams::Billing::Address) }
         def address; end
         sig {
-          params(_address: Issuing::CardholderUpdateParams::Billing::Address).returns(Issuing::CardholderUpdateParams::Billing::Address)
+          params(_address: ::Stripe::Issuing::CardholderUpdateParams::Billing::Address).returns(::Stripe::Issuing::CardholderUpdateParams::Billing::Address)
          }
         def address=(_address); end
-        sig { params(address: Issuing::CardholderUpdateParams::Billing::Address).void }
+        sig { params(address: ::Stripe::Issuing::CardholderUpdateParams::Billing::Address).void }
         def initialize(address: nil); end
       end
       class Company < ::Stripe::RequestParams
@@ -93,15 +93,15 @@ module Stripe
           end
           # Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
           sig {
-            returns(T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance))
+            returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance))
            }
           def user_terms_acceptance; end
           sig {
-            params(_user_terms_acceptance: T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance)).returns(T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance))
+            params(_user_terms_acceptance: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance))
            }
           def user_terms_acceptance=(_user_terms_acceptance); end
           sig {
-            params(user_terms_acceptance: T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance)).void
+            params(user_terms_acceptance: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing::UserTermsAcceptance)).void
            }
           def initialize(user_terms_acceptance: nil); end
         end
@@ -141,30 +141,32 @@ module Stripe
           end
           # An identifying document, either a passport or local ID card.
           sig {
-            returns(T.nilable(Issuing::CardholderUpdateParams::Individual::Verification::Document))
+            returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification::Document))
            }
           def document; end
           sig {
-            params(_document: T.nilable(Issuing::CardholderUpdateParams::Individual::Verification::Document)).returns(T.nilable(Issuing::CardholderUpdateParams::Individual::Verification::Document))
+            params(_document: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification::Document)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification::Document))
            }
           def document=(_document); end
           sig {
-            params(document: T.nilable(Issuing::CardholderUpdateParams::Individual::Verification::Document)).void
+            params(document: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification::Document)).void
            }
           def initialize(document: nil); end
         end
         # Information related to the card_issuing program for this cardholder.
-        sig { returns(T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing)) }
+        sig {
+          returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing))
+         }
         def card_issuing; end
         sig {
-          params(_card_issuing: T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing)).returns(T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing))
+          params(_card_issuing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing))
          }
         def card_issuing=(_card_issuing); end
         # The date of birth of this cardholder. Cardholders must be older than 13 years old.
-        sig { returns(T.nilable(Issuing::CardholderUpdateParams::Individual::Dob)) }
+        sig { returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Dob)) }
         def dob; end
         sig {
-          params(_dob: T.nilable(Issuing::CardholderUpdateParams::Individual::Dob)).returns(T.nilable(Issuing::CardholderUpdateParams::Individual::Dob))
+          params(_dob: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Dob)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Dob))
          }
         def dob=(_dob); end
         # The first name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
@@ -178,14 +180,16 @@ module Stripe
         sig { params(_last_name: T.nilable(String)).returns(T.nilable(String)) }
         def last_name=(_last_name); end
         # Government-issued ID document for this cardholder.
-        sig { returns(T.nilable(Issuing::CardholderUpdateParams::Individual::Verification)) }
+        sig {
+          returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification))
+         }
         def verification; end
         sig {
-          params(_verification: T.nilable(Issuing::CardholderUpdateParams::Individual::Verification)).returns(T.nilable(Issuing::CardholderUpdateParams::Individual::Verification))
+          params(_verification: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification))
          }
         def verification=(_verification); end
         sig {
-          params(card_issuing: T.nilable(Issuing::CardholderUpdateParams::Individual::CardIssuing), dob: T.nilable(Issuing::CardholderUpdateParams::Individual::Dob), first_name: T.nilable(String), last_name: T.nilable(String), verification: T.nilable(Issuing::CardholderUpdateParams::Individual::Verification)).void
+          params(card_issuing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::CardIssuing), dob: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Dob), first_name: T.nilable(String), last_name: T.nilable(String), verification: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual::Verification)).void
          }
         def initialize(
           card_issuing: nil,
@@ -249,11 +253,11 @@ module Stripe
         def blocked_merchant_countries=(_blocked_merchant_countries); end
         # Limit spending with amount-based rules that apply across this cardholder's cards.
         sig {
-          returns(T.nilable(T::Array[Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]))
+          returns(T.nilable(T::Array[::Stripe::Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]))
          }
         def spending_limits; end
         sig {
-          params(_spending_limits: T.nilable(T::Array[Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit])).returns(T.nilable(T::Array[Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]))
+          params(_spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit])).returns(T.nilable(T::Array[::Stripe::Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]))
          }
         def spending_limits=(_spending_limits); end
         # Currency of amounts within `spending_limits`. Defaults to your merchant country's currency.
@@ -262,7 +266,7 @@ module Stripe
         sig { params(_spending_limits_currency: T.nilable(String)).returns(T.nilable(String)) }
         def spending_limits_currency=(_spending_limits_currency); end
         sig {
-          params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]), spending_limits_currency: T.nilable(String)).void
+          params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]), spending_limits_currency: T.nilable(String)).void
          }
         def initialize(
           allowed_categories: nil,
@@ -274,17 +278,17 @@ module Stripe
         ); end
       end
       # The cardholder's billing address.
-      sig { returns(T.nilable(Issuing::CardholderUpdateParams::Billing)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing)) }
       def billing; end
       sig {
-        params(_billing: T.nilable(Issuing::CardholderUpdateParams::Billing)).returns(T.nilable(Issuing::CardholderUpdateParams::Billing))
+        params(_billing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing))
        }
       def billing=(_billing); end
       # Additional information about a `company` cardholder.
-      sig { returns(T.nilable(Issuing::CardholderUpdateParams::Company)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company)) }
       def company; end
       sig {
-        params(_company: T.nilable(Issuing::CardholderUpdateParams::Company)).returns(T.nilable(Issuing::CardholderUpdateParams::Company))
+        params(_company: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company))
        }
       def company=(_company); end
       # The cardholder's email address.
@@ -298,10 +302,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Additional information about an `individual` cardholder.
-      sig { returns(T.nilable(Issuing::CardholderUpdateParams::Individual)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual)) }
       def individual; end
       sig {
-        params(_individual: T.nilable(Issuing::CardholderUpdateParams::Individual)).returns(T.nilable(Issuing::CardholderUpdateParams::Individual))
+        params(_individual: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual))
        }
       def individual=(_individual); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -325,10 +329,10 @@ module Stripe
        }
       def preferred_locales=(_preferred_locales); end
       # Rules that control spending across this cardholder's cards. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
-      sig { returns(T.nilable(Issuing::CardholderUpdateParams::SpendingControls)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls)) }
       def spending_controls; end
       sig {
-        params(_spending_controls: T.nilable(Issuing::CardholderUpdateParams::SpendingControls)).returns(T.nilable(Issuing::CardholderUpdateParams::SpendingControls))
+        params(_spending_controls: T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls)).returns(T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls))
        }
       def spending_controls=(_spending_controls); end
       # Specifies whether to permit authorizations on this cardholder's cards.
@@ -337,7 +341,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(billing: T.nilable(Issuing::CardholderUpdateParams::Billing), company: T.nilable(Issuing::CardholderUpdateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(Issuing::CardholderUpdateParams::Individual), metadata: T.nilable(T::Hash[String, String]), phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(Issuing::CardholderUpdateParams::SpendingControls), status: T.nilable(String)).void
+        params(billing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing), company: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual), metadata: T.nilable(T::Hash[String, String]), phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls), status: T.nilable(String)).void
        }
       def initialize(
         billing: nil,

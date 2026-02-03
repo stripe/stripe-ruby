@@ -31,10 +31,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return invoice items that were created during the given date interval.
-    sig { returns(T.nilable(T.any(InvoiceItemListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::InvoiceItemListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(InvoiceItemListParams::Created, Integer))).returns(T.nilable(T.any(InvoiceItemListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::InvoiceItemListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::InvoiceItemListParams::Created, Integer)))
      }
     def created=(_created); end
     # The identifier of the customer whose invoice items to return. If none is provided, returns all invoice items.
@@ -78,7 +78,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(created: T.nilable(T.any(InvoiceItemListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), pending: T.nilable(T::Boolean), starting_after: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::InvoiceItemListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), pending: T.nilable(T::Boolean), starting_after: T.nilable(String)).void
      }
     def initialize(
       created: nil,

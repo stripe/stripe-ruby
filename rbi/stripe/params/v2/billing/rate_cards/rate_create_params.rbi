@@ -70,11 +70,11 @@ module Stripe
           end
           # The custom pricing unit that this rate binds to.
           sig {
-            returns(T.nilable(V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount))
+            returns(T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount))
            }
           def custom_pricing_unit_amount; end
           sig {
-            params(_custom_pricing_unit_amount: T.nilable(V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount)).returns(T.nilable(V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount))
+            params(_custom_pricing_unit_amount: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount)).returns(T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount))
            }
           def custom_pricing_unit_amount=(_custom_pricing_unit_amount); end
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -97,17 +97,21 @@ module Stripe
           sig { params(_tiering_mode: T.nilable(String)).returns(T.nilable(String)) }
           def tiering_mode=(_tiering_mode); end
           # Each element represents a pricing tier. Cannot be set if `unit_amount` is provided.
-          sig { returns(T.nilable(T::Array[V2::Billing::RateCards::RateCreateParams::Tier])) }
+          sig {
+            returns(T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateCreateParams::Tier]))
+           }
           def tiers; end
           sig {
-            params(_tiers: T.nilable(T::Array[V2::Billing::RateCards::RateCreateParams::Tier])).returns(T.nilable(T::Array[V2::Billing::RateCards::RateCreateParams::Tier]))
+            params(_tiers: T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateCreateParams::Tier])).returns(T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateCreateParams::Tier]))
            }
           def tiers=(_tiers); end
           # Apply a transformation to the reported usage or set quantity before computing the amount billed.
-          sig { returns(T.nilable(V2::Billing::RateCards::RateCreateParams::TransformQuantity)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::TransformQuantity))
+           }
           def transform_quantity; end
           sig {
-            params(_transform_quantity: T.nilable(V2::Billing::RateCards::RateCreateParams::TransformQuantity)).returns(T.nilable(V2::Billing::RateCards::RateCreateParams::TransformQuantity))
+            params(_transform_quantity: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::TransformQuantity)).returns(T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::TransformQuantity))
            }
           def transform_quantity=(_transform_quantity); end
           # The per-unit amount to be charged, represented as a decimal string in minor currency units with at most 12 decimal
@@ -117,7 +121,7 @@ module Stripe
           sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
           def unit_amount=(_unit_amount); end
           sig {
-            params(custom_pricing_unit_amount: T.nilable(V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount), metadata: T.nilable(T::Hash[String, String]), metered_item: T.nilable(String), tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[V2::Billing::RateCards::RateCreateParams::Tier]), transform_quantity: T.nilable(V2::Billing::RateCards::RateCreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
+            params(custom_pricing_unit_amount: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount), metadata: T.nilable(T::Hash[String, String]), metered_item: T.nilable(String), tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateCreateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
            }
           def initialize(
             custom_pricing_unit_amount: nil,

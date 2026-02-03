@@ -91,10 +91,12 @@ module Stripe
             ); end
           end
           # The tax rates to be applied.
-          sig { returns(T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate]) }
+          sig {
+            returns(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate])
+           }
           def rates; end
           sig {
-            params(_rates: T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate]).returns(T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate])
+            params(_rates: T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate]).returns(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate])
            }
           def rates=(_rates); end
           # The start time for the tax rate.
@@ -103,33 +105,33 @@ module Stripe
           sig { params(_starts_at: T.nilable(String)).returns(T.nilable(String)) }
           def starts_at=(_starts_at); end
           sig {
-            params(rates: T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate], starts_at: T.nilable(String)).void
+            params(rates: T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate::Rate], starts_at: T.nilable(String)).void
            }
           def initialize(rates: nil, starts_at: nil); end
         end
         # Location where the rule applies.
-        sig { returns(T.nilable(V2::Tax::ManualRuleUpdateParams::Location)) }
+        sig { returns(T.nilable(::Stripe::V2::Tax::ManualRuleUpdateParams::Location)) }
         def location; end
         sig {
-          params(_location: T.nilable(V2::Tax::ManualRuleUpdateParams::Location)).returns(T.nilable(V2::Tax::ManualRuleUpdateParams::Location))
+          params(_location: T.nilable(::Stripe::V2::Tax::ManualRuleUpdateParams::Location)).returns(T.nilable(::Stripe::V2::Tax::ManualRuleUpdateParams::Location))
          }
         def location=(_location); end
         # Products associated with the rule.
-        sig { returns(T.nilable(T::Array[V2::Tax::ManualRuleUpdateParams::Product])) }
+        sig { returns(T.nilable(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::Product])) }
         def products; end
         sig {
-          params(_products: T.nilable(T::Array[V2::Tax::ManualRuleUpdateParams::Product])).returns(T.nilable(T::Array[V2::Tax::ManualRuleUpdateParams::Product]))
+          params(_products: T.nilable(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::Product])).returns(T.nilable(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::Product]))
          }
         def products=(_products); end
         # Tax rates to be applied.
-        sig { returns(T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate]) }
+        sig { returns(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate]) }
         def scheduled_tax_rates; end
         sig {
-          params(_scheduled_tax_rates: T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate]).returns(T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate])
+          params(_scheduled_tax_rates: T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate]).returns(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate])
          }
         def scheduled_tax_rates=(_scheduled_tax_rates); end
         sig {
-          params(location: T.nilable(V2::Tax::ManualRuleUpdateParams::Location), products: T.nilable(T::Array[V2::Tax::ManualRuleUpdateParams::Product]), scheduled_tax_rates: T::Array[V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate]).void
+          params(location: T.nilable(::Stripe::V2::Tax::ManualRuleUpdateParams::Location), products: T.nilable(T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::Product]), scheduled_tax_rates: T::Array[::Stripe::V2::Tax::ManualRuleUpdateParams::ScheduledTaxRate]).void
          }
         def initialize(location: nil, products: nil, scheduled_tax_rates: nil); end
       end

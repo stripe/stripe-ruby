@@ -76,37 +76,37 @@ module Stripe
           def initialize(currency: nil, payout_method: nil, recipient: nil); end
         end
         # The "presentment amount" to be sent to the recipient.
-        sig { returns(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount) }
+        sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount) }
         def amount; end
         sig {
-          params(_amount: V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount).returns(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount)
+          params(_amount: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount).returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount)
          }
         def amount=(_amount); end
         # Method to be used to send the OutboundPayment.
         sig {
-          returns(T.nilable(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions))
+          returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions))
          }
         def delivery_options; end
         sig {
-          params(_delivery_options: T.nilable(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions)).returns(T.nilable(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions))
+          params(_delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions))
          }
         def delivery_options=(_delivery_options); end
         # Request details about the sender of an OutboundPaymentQuote.
-        sig { returns(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From) }
+        sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From) }
         def from; end
         sig {
-          params(_from: V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From).returns(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From)
+          params(_from: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From).returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From)
          }
         def from=(_from); end
         # Request details about the recipient of an OutboundPaymentQuote.
-        sig { returns(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To) }
+        sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To) }
         def to; end
         sig {
-          params(_to: V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To).returns(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To)
+          params(_to: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To).returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To)
          }
         def to=(_to); end
         sig {
-          params(amount: V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount, delivery_options: T.nilable(V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions), from: V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From, to: V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To).void
+          params(amount: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::DeliveryOptions), from: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::From, to: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To).void
          }
         def initialize(amount: nil, delivery_options: nil, from: nil, to: nil); end
       end

@@ -31,10 +31,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return events that were created during the given date interval.
-    sig { returns(T.nilable(T.any(EventListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::EventListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(EventListParams::Created, Integer))).returns(T.nilable(T.any(EventListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::EventListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::EventListParams::Created, Integer)))
      }
     def created=(_created); end
     # Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned.
@@ -73,7 +73,7 @@ module Stripe
     sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def types=(_types); end
     sig {
-      params(created: T.nilable(T.any(EventListParams::Created, Integer)), delivery_success: T.nilable(T::Boolean), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), types: T.nilable(T::Array[String])).void
+      params(created: T.nilable(T.any(::Stripe::EventListParams::Created, Integer)), delivery_success: T.nilable(T::Boolean), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), types: T.nilable(T::Array[String])).void
      }
     def initialize(
       created: nil,

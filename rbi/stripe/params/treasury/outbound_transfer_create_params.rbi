@@ -31,15 +31,15 @@ module Stripe
         end
         # Optional fields for `us_bank_account`.
         sig {
-          returns(T.nilable(T.any(String, Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
+          returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account; end
         sig {
-          params(_us_bank_account: T.nilable(T.any(String, Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
+          params(_us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(us_bank_account: T.nilable(T.any(String, Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).void
+          params(us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(us_bank_account: nil); end
       end
@@ -54,10 +54,12 @@ module Stripe
           def initialize(addenda: nil); end
         end
         # Optional fields for `ach`.
-        sig { returns(T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails::Ach)) }
+        sig {
+          returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach))
+         }
         def ach; end
         sig {
-          params(_ach: T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails::Ach)).returns(T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails::Ach))
+          params(_ach: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach)).returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach))
          }
         def ach=(_ach); end
         # The type of flow that originated the OutboundTransfer.
@@ -66,7 +68,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(ach: T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails::Ach), type: String).void
+          params(ach: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach), type: String).void
          }
         def initialize(ach: nil, type: nil); end
       end
@@ -92,20 +94,20 @@ module Stripe
       def destination_payment_method=(_destination_payment_method); end
       # Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with `destination_payment_method`.
       sig {
-        returns(T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData))
+        returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData))
        }
       def destination_payment_method_data; end
       sig {
-        params(_destination_payment_method_data: T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData)).returns(T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData))
+        params(_destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData)).returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData))
        }
       def destination_payment_method_data=(_destination_payment_method_data); end
       # Hash describing payment method configuration details.
       sig {
-        returns(T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions))
+        returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions))
        }
       def destination_payment_method_options; end
       sig {
-        params(_destination_payment_method_options: T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions)).returns(T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions))
+        params(_destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions)).returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions))
        }
       def destination_payment_method_options=(_destination_payment_method_options); end
       # Specifies which fields in the response should be expanded.
@@ -126,10 +128,10 @@ module Stripe
        }
       def metadata=(_metadata); end
       # Details about the network used for the OutboundTransfer.
-      sig { returns(T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails)) }
+      sig { returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails)) }
       def network_details; end
       sig {
-        params(_network_details: T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails)).returns(T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails))
+        params(_network_details: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails)).returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails))
        }
       def network_details=(_network_details); end
       # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer". Can only include -#.$&*, spaces, and alphanumeric characters.
@@ -138,7 +140,7 @@ module Stripe
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor=(_statement_descriptor); end
       sig {
-        params(amount: Integer, currency: String, description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), network_details: T.nilable(Treasury::OutboundTransferCreateParams::NetworkDetails), statement_descriptor: T.nilable(String)).void
+        params(amount: Integer, currency: String, description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), network_details: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails), statement_descriptor: T.nilable(String)).void
        }
       def initialize(
         amount: nil,

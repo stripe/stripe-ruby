@@ -69,10 +69,10 @@ module Stripe
         ); end
       end
       # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
-      sig { returns(T.nilable(PriceUpdateParams::CurrencyOptions::CustomUnitAmount)) }
+      sig { returns(T.nilable(::Stripe::PriceUpdateParams::CurrencyOptions::CustomUnitAmount)) }
       def custom_unit_amount; end
       sig {
-        params(_custom_unit_amount: T.nilable(PriceUpdateParams::CurrencyOptions::CustomUnitAmount)).returns(T.nilable(PriceUpdateParams::CurrencyOptions::CustomUnitAmount))
+        params(_custom_unit_amount: T.nilable(::Stripe::PriceUpdateParams::CurrencyOptions::CustomUnitAmount)).returns(T.nilable(::Stripe::PriceUpdateParams::CurrencyOptions::CustomUnitAmount))
        }
       def custom_unit_amount=(_custom_unit_amount); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -81,10 +81,10 @@ module Stripe
       sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def tax_behavior=(_tax_behavior); end
       # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-      sig { returns(T.nilable(T::Array[PriceUpdateParams::CurrencyOptions::Tier])) }
+      sig { returns(T.nilable(T::Array[::Stripe::PriceUpdateParams::CurrencyOptions::Tier])) }
       def tiers; end
       sig {
-        params(_tiers: T.nilable(T::Array[PriceUpdateParams::CurrencyOptions::Tier])).returns(T.nilable(T::Array[PriceUpdateParams::CurrencyOptions::Tier]))
+        params(_tiers: T.nilable(T::Array[::Stripe::PriceUpdateParams::CurrencyOptions::Tier])).returns(T.nilable(T::Array[::Stripe::PriceUpdateParams::CurrencyOptions::Tier]))
        }
       def tiers=(_tiers); end
       # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
@@ -98,7 +98,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(custom_unit_amount: T.nilable(PriceUpdateParams::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[PriceUpdateParams::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(custom_unit_amount: T.nilable(::Stripe::PriceUpdateParams::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::PriceUpdateParams::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         custom_unit_amount: nil,
@@ -133,10 +133,12 @@ module Stripe
     sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def active=(_active); end
     # Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-    sig { returns(T.nilable(T.any(String, T::Hash[String, PriceUpdateParams::CurrencyOptions]))) }
+    sig {
+      returns(T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceUpdateParams::CurrencyOptions])))
+     }
     def currency_options; end
     sig {
-      params(_currency_options: T.nilable(T.any(String, T::Hash[String, PriceUpdateParams::CurrencyOptions]))).returns(T.nilable(T.any(String, T::Hash[String, PriceUpdateParams::CurrencyOptions])))
+      params(_currency_options: T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceUpdateParams::CurrencyOptions]))).returns(T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceUpdateParams::CurrencyOptions])))
      }
     def currency_options=(_currency_options); end
     # Specifies which fields in the response should be expanded.
@@ -157,10 +159,10 @@ module Stripe
      }
     def metadata=(_metadata); end
     # If specified, subscriptions using this price will be updated to use the new referenced price.
-    sig { returns(T.nilable(T.any(String, PriceUpdateParams::MigrateTo))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo))) }
     def migrate_to; end
     sig {
-      params(_migrate_to: T.nilable(T.any(String, PriceUpdateParams::MigrateTo))).returns(T.nilable(T.any(String, PriceUpdateParams::MigrateTo)))
+      params(_migrate_to: T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo))).returns(T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo)))
      }
     def migrate_to=(_migrate_to); end
     # A brief description of the price, hidden from customers.
@@ -179,7 +181,7 @@ module Stripe
     sig { params(_transfer_lookup_key: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def transfer_lookup_key=(_transfer_lookup_key); end
     sig {
-      params(active: T.nilable(T::Boolean), currency_options: T.nilable(T.any(String, T::Hash[String, PriceUpdateParams::CurrencyOptions])), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), migrate_to: T.nilable(T.any(String, PriceUpdateParams::MigrateTo)), nickname: T.nilable(String), tax_behavior: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean)).void
+      params(active: T.nilable(T::Boolean), currency_options: T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceUpdateParams::CurrencyOptions])), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), migrate_to: T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo)), nickname: T.nilable(String), tax_behavior: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean)).void
      }
     def initialize(
       active: nil,

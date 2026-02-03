@@ -591,154 +591,154 @@ module Stripe
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
         # Tipping configuration for AED
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aed)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aed)) }
         def aed; end
         sig {
-          params(_aed: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aed)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aed))
+          params(_aed: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aed)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aed))
          }
         def aed=(_aed); end
         # Tipping configuration for AUD
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aud)) }
         def aud; end
         sig {
-          params(_aud: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud))
+          params(_aud: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aud)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aud))
          }
         def aud=(_aud); end
         # Tipping configuration for CAD
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Cad)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Cad)) }
         def cad; end
         sig {
-          params(_cad: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Cad)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Cad))
+          params(_cad: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Cad)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Cad))
          }
         def cad=(_cad); end
         # Tipping configuration for CHF
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Chf)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Chf)) }
         def chf; end
         sig {
-          params(_chf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Chf)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Chf))
+          params(_chf: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Chf)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Chf))
          }
         def chf=(_chf); end
         # Tipping configuration for CZK
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Czk)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Czk)) }
         def czk; end
         sig {
-          params(_czk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Czk)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Czk))
+          params(_czk: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Czk)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Czk))
          }
         def czk=(_czk); end
         # Tipping configuration for DKK
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Dkk)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Dkk)) }
         def dkk; end
         sig {
-          params(_dkk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Dkk)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Dkk))
+          params(_dkk: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Dkk)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Dkk))
          }
         def dkk=(_dkk); end
         # Tipping configuration for EUR
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Eur)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Eur)) }
         def eur; end
         sig {
-          params(_eur: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Eur)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Eur))
+          params(_eur: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Eur)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Eur))
          }
         def eur=(_eur); end
         # Tipping configuration for GBP
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gbp)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gbp)) }
         def gbp; end
         sig {
-          params(_gbp: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gbp)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gbp))
+          params(_gbp: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gbp)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gbp))
          }
         def gbp=(_gbp); end
         # Tipping configuration for GIP
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gip)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gip)) }
         def gip; end
         sig {
-          params(_gip: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gip)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gip))
+          params(_gip: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gip)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gip))
          }
         def gip=(_gip); end
         # Tipping configuration for HKD
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Hkd)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Hkd)) }
         def hkd; end
         sig {
-          params(_hkd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Hkd)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Hkd))
+          params(_hkd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Hkd)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Hkd))
          }
         def hkd=(_hkd); end
         # Tipping configuration for HUF
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Huf)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Huf)) }
         def huf; end
         sig {
-          params(_huf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Huf)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Huf))
+          params(_huf: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Huf)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Huf))
          }
         def huf=(_huf); end
         # Tipping configuration for JPY
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Jpy)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Jpy)) }
         def jpy; end
         sig {
-          params(_jpy: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Jpy)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Jpy))
+          params(_jpy: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Jpy)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Jpy))
          }
         def jpy=(_jpy); end
         # Tipping configuration for MXN
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Mxn)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Mxn)) }
         def mxn; end
         sig {
-          params(_mxn: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Mxn)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Mxn))
+          params(_mxn: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Mxn)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Mxn))
          }
         def mxn=(_mxn); end
         # Tipping configuration for MYR
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Myr)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Myr)) }
         def myr; end
         sig {
-          params(_myr: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Myr)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Myr))
+          params(_myr: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Myr)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Myr))
          }
         def myr=(_myr); end
         # Tipping configuration for NOK
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nok)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nok)) }
         def nok; end
         sig {
-          params(_nok: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nok)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nok))
+          params(_nok: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nok)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nok))
          }
         def nok=(_nok); end
         # Tipping configuration for NZD
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nzd)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nzd)) }
         def nzd; end
         sig {
-          params(_nzd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nzd)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nzd))
+          params(_nzd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nzd)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nzd))
          }
         def nzd=(_nzd); end
         # Tipping configuration for PLN
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Pln)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Pln)) }
         def pln; end
         sig {
-          params(_pln: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Pln)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Pln))
+          params(_pln: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Pln)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Pln))
          }
         def pln=(_pln); end
         # Tipping configuration for RON
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Ron)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Ron)) }
         def ron; end
         sig {
-          params(_ron: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Ron)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Ron))
+          params(_ron: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Ron)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Ron))
          }
         def ron=(_ron); end
         # Tipping configuration for SEK
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sek)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sek)) }
         def sek; end
         sig {
-          params(_sek: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sek)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sek))
+          params(_sek: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sek)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sek))
          }
         def sek=(_sek); end
         # Tipping configuration for SGD
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sgd)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sgd)) }
         def sgd; end
         sig {
-          params(_sgd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sgd)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sgd))
+          params(_sgd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sgd)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sgd))
          }
         def sgd=(_sgd); end
         # Tipping configuration for USD
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Usd)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Usd)) }
         def usd; end
         sig {
-          params(_usd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Usd)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Usd))
+          params(_usd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Usd)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Usd))
          }
         def usd=(_usd); end
         sig {
-          params(aed: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aed), aud: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Aud), cad: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Cad), chf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Chf), czk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Czk), dkk: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Dkk), eur: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Eur), gbp: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gbp), gip: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Gip), hkd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Hkd), huf: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Huf), jpy: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Jpy), mxn: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Mxn), myr: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Myr), nok: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nok), nzd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Nzd), pln: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Pln), ron: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Ron), sek: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sek), sgd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Sgd), usd: T.nilable(Terminal::ConfigurationUpdateParams::Tipping::Usd)).void
+          params(aed: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aed), aud: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Aud), cad: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Cad), chf: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Chf), czk: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Czk), dkk: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Dkk), eur: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Eur), gbp: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gbp), gip: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Gip), hkd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Hkd), huf: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Huf), jpy: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Jpy), mxn: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Mxn), myr: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Myr), nok: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nok), nzd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Nzd), pln: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Pln), ron: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Ron), sek: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sek), sgd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Sgd), usd: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Tipping::Usd)).void
          }
         def initialize(
           aed: nil,
@@ -852,24 +852,28 @@ module Stripe
           def initialize(password: nil, ssid: nil); end
         end
         # Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap)) }
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap))
+         }
         def enterprise_eap_peap; end
         sig {
-          params(_enterprise_eap_peap: T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap))
+          params(_enterprise_eap_peap: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap))
          }
         def enterprise_eap_peap=(_enterprise_eap_peap); end
         # Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls)) }
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls))
+         }
         def enterprise_eap_tls; end
         sig {
-          params(_enterprise_eap_tls: T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls))
+          params(_enterprise_eap_tls: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls))
          }
         def enterprise_eap_tls=(_enterprise_eap_tls); end
         # Credentials for a WPA-Personal WiFi network.
-        sig { returns(T.nilable(Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk)) }
+        sig { returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk)) }
         def personal_psk; end
         sig {
-          params(_personal_psk: T.nilable(Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk)).returns(T.nilable(Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk))
+          params(_personal_psk: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk)).returns(T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk))
          }
         def personal_psk=(_personal_psk); end
         # Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
@@ -878,7 +882,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(enterprise_eap_peap: T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap), enterprise_eap_tls: T.nilable(Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls), personal_psk: T.nilable(Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk), type: String).void
+          params(enterprise_eap_peap: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapPeap), enterprise_eap_tls: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::EnterpriseEapTls), personal_psk: T.nilable(::Stripe::Terminal::ConfigurationUpdateParams::Wifi::PersonalPsk), type: String).void
          }
         def initialize(
           enterprise_eap_peap: nil,
@@ -888,17 +892,21 @@ module Stripe
         ); end
       end
       # An object containing device type specific settings for BBPOS WisePad 3 readers.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWisepad3))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWisepad3)))
+       }
       def bbpos_wisepad3; end
       sig {
-        params(_bbpos_wisepad3: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWisepad3))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWisepad3)))
+        params(_bbpos_wisepad3: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWisepad3))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWisepad3)))
        }
       def bbpos_wisepad3=(_bbpos_wisepad3); end
       # An object containing device type specific settings for BBPOS WisePOS E readers.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWiseposE))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWiseposE)))
+       }
       def bbpos_wisepos_e; end
       sig {
-        params(_bbpos_wisepos_e: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWiseposE))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWiseposE)))
+        params(_bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWiseposE))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWiseposE)))
        }
       def bbpos_wisepos_e=(_bbpos_wisepos_e); end
       # Specifies which fields in the response should be expanded.
@@ -912,56 +920,68 @@ module Stripe
       sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
       def name=(_name); end
       # Configurations for collecting transactions offline.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Offline))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Offline)))
+       }
       def offline; end
       sig {
-        params(_offline: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Offline))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Offline)))
+        params(_offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Offline))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Offline)))
        }
       def offline=(_offline); end
       # Configurations for reader security settings.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::ReaderSecurity))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::ReaderSecurity)))
+       }
       def reader_security; end
       sig {
-        params(_reader_security: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::ReaderSecurity))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::ReaderSecurity)))
+        params(_reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::ReaderSecurity))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::ReaderSecurity)))
        }
       def reader_security=(_reader_security); end
       # Reboot time settings for readers. that support customized reboot time configuration.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::RebootWindow))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::RebootWindow)))
+       }
       def reboot_window; end
       sig {
-        params(_reboot_window: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::RebootWindow))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::RebootWindow)))
+        params(_reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::RebootWindow))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::RebootWindow)))
        }
       def reboot_window=(_reboot_window); end
       # An object containing device type specific settings for Stripe S700 readers.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::StripeS700))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS700)))
+       }
       def stripe_s700; end
       sig {
-        params(_stripe_s700: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::StripeS700))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::StripeS700)))
+        params(_stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS700))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS700)))
        }
       def stripe_s700=(_stripe_s700); end
       # Tipping configurations for readers. supporting on-reader tips
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Tipping))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Tipping)))
+       }
       def tipping; end
       sig {
-        params(_tipping: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Tipping))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Tipping)))
+        params(_tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Tipping))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Tipping)))
        }
       def tipping=(_tipping); end
       # An object containing device type specific settings for Verifone P400 readers.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::VerifoneP400))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP400)))
+       }
       def verifone_p400; end
       sig {
-        params(_verifone_p400: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::VerifoneP400))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::VerifoneP400)))
+        params(_verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP400))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP400)))
        }
       def verifone_p400=(_verifone_p400); end
       # Configurations for connecting to a WiFi network.
-      sig { returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Wifi))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Wifi))) }
       def wifi; end
       sig {
-        params(_wifi: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Wifi))).returns(T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Wifi)))
+        params(_wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Wifi))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Wifi)))
        }
       def wifi=(_wifi); end
       sig {
-        params(bbpos_wisepad3: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWisepad3)), bbpos_wisepos_e: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::BbposWiseposE)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Offline)), reader_security: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::ReaderSecurity)), reboot_window: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::StripeS700)), tipping: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Tipping)), verifone_p400: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::VerifoneP400)), wifi: T.nilable(T.any(String, Terminal::ConfigurationUpdateParams::Wifi))).void
+        params(bbpos_wisepad3: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWisepad3)), bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWiseposE)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Offline)), reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::ReaderSecurity)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS700)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Tipping)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP400)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Wifi))).void
        }
       def initialize(
         bbpos_wisepad3: nil,

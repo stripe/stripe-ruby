@@ -17,10 +17,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -29,7 +31,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -44,10 +46,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -56,7 +60,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -80,10 +84,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -92,7 +98,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -107,10 +113,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::At::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::At::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::At::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -119,7 +127,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::At::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -134,10 +142,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -146,7 +156,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -161,10 +171,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -173,7 +185,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -197,10 +209,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -209,7 +223,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -224,10 +238,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -236,7 +252,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -251,10 +267,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -263,7 +281,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -278,10 +296,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -290,7 +310,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -305,10 +325,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -317,7 +339,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -332,10 +354,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -344,7 +368,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -359,10 +383,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -371,7 +397,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -395,10 +421,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -407,7 +435,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -432,11 +460,11 @@ module Stripe
           end
           # Options for the provincial tax registration.
           sig {
-            returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard))
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard))
            }
           def province_standard; end
           sig {
-            params(_province_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard))
+            params(_province_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard))
            }
           def province_standard=(_province_standard); end
           # Type of registration to be created in Canada.
@@ -445,7 +473,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(province_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard), type: String).void
+            params(province_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca::ProvinceStandard), type: String).void
            }
           def initialize(province_standard: nil, type: nil); end
         end
@@ -460,10 +488,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -472,7 +502,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -487,10 +517,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -499,7 +531,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -559,10 +591,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -571,7 +605,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -586,10 +620,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -598,7 +634,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -613,10 +649,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::De::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::De::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::De::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -625,7 +663,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::De::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -640,10 +678,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -652,7 +692,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -676,10 +716,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -688,7 +730,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -712,10 +754,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -724,7 +768,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -739,10 +783,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -751,7 +797,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -766,10 +812,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -778,7 +826,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -793,10 +841,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -805,7 +855,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -820,10 +870,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -832,7 +884,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -856,10 +908,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -868,7 +922,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -883,10 +937,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -895,7 +951,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -910,10 +966,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -922,7 +980,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -937,10 +995,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -949,7 +1009,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -973,10 +1033,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -985,7 +1047,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1009,10 +1071,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1021,7 +1085,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1036,10 +1100,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::It::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::It::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::It::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1048,7 +1114,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::It::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1063,10 +1129,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1075,7 +1143,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1144,10 +1212,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1156,7 +1226,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1171,10 +1241,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1183,7 +1255,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1198,10 +1270,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1210,7 +1284,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1243,10 +1317,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1255,7 +1331,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1270,10 +1346,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1282,7 +1360,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1297,10 +1375,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1309,7 +1389,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1324,10 +1404,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1336,7 +1418,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1378,10 +1460,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1390,7 +1474,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1405,10 +1489,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::No::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::No::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::No::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1417,7 +1503,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::No::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1441,10 +1527,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1453,7 +1541,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1468,10 +1556,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1480,7 +1570,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1513,10 +1603,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1525,7 +1617,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1540,10 +1632,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1552,7 +1646,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1567,10 +1661,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1579,7 +1675,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1594,10 +1690,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1606,7 +1704,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1639,10 +1737,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1651,7 +1751,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1666,10 +1766,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1678,7 +1780,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1693,10 +1795,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1705,7 +1809,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1720,10 +1824,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in an EU country.
@@ -1732,7 +1838,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1756,10 +1862,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1768,7 +1876,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1871,34 +1979,34 @@ module Stripe
             end
             # Elections for the state sales tax registration.
             sig {
-              returns(T::Array[Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election])
+              returns(T::Array[::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election])
              }
             def elections; end
             sig {
-              params(_elections: T::Array[Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election]).returns(T::Array[Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election])
+              params(_elections: T::Array[::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election]).returns(T::Array[::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election])
              }
             def elections=(_elections); end
             sig {
-              params(elections: T::Array[Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election]).void
+              params(elections: T::Array[::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax::Election]).void
              }
             def initialize(elections: nil); end
           end
           # Options for the local amusement tax registration.
           sig {
-            returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax))
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax))
            }
           def local_amusement_tax; end
           sig {
-            params(_local_amusement_tax: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax))
+            params(_local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax))
            }
           def local_amusement_tax=(_local_amusement_tax); end
           # Options for the local lease tax registration.
           sig {
-            returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax))
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax))
            }
           def local_lease_tax; end
           sig {
-            params(_local_lease_tax: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax))
+            params(_local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax))
            }
           def local_lease_tax=(_local_lease_tax); end
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
@@ -1908,11 +2016,11 @@ module Stripe
           def state=(_state); end
           # Options for the state sales tax registration.
           sig {
-            returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax))
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax))
            }
           def state_sales_tax; end
           sig {
-            params(_state_sales_tax: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax))
+            params(_state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax))
            }
           def state_sales_tax=(_state_sales_tax); end
           # Type of registration to be created in the US.
@@ -1921,7 +2029,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(local_amusement_tax: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), state: String, state_sales_tax: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String).void
+            params(local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String).void
            }
           def initialize(
             local_amusement_tax: nil,
@@ -1942,10 +2050,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1954,7 +2064,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -1987,10 +2097,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -1999,7 +2111,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
@@ -2023,10 +2135,12 @@ module Stripe
             def initialize(place_of_supply_scheme: nil); end
           end
           # Options for the standard registration.
-          sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw::Standard)) }
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw::Standard))
+           }
           def standard; end
           sig {
-            params(_standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw::Standard)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw::Standard))
+            params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw::Standard))
            }
           def standard=(_standard); end
           # Type of registration to be created in `country`.
@@ -2035,712 +2149,712 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(standard: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw::Standard), type: String).void
            }
           def initialize(standard: nil, type: nil); end
         end
         # Options for the registration in AE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae)) }
         def ae; end
         sig {
-          params(_ae: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae))
+          params(_ae: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae))
          }
         def ae=(_ae); end
         # Options for the registration in AL.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al)) }
         def al; end
         sig {
-          params(_al: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al))
+          params(_al: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al))
          }
         def al=(_al); end
         # Options for the registration in AM.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Am)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Am)) }
         def am; end
         sig {
-          params(_am: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Am)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Am))
+          params(_am: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Am)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Am))
          }
         def am=(_am); end
         # Options for the registration in AO.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao)) }
         def ao; end
         sig {
-          params(_ao: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao))
+          params(_ao: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao))
          }
         def ao=(_ao); end
         # Options for the registration in AT.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::At)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At)) }
         def at; end
         sig {
-          params(_at: T.nilable(Tax::RegistrationCreateParams::CountryOptions::At)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::At))
+          params(_at: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At))
          }
         def at=(_at); end
         # Options for the registration in AU.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au)) }
         def au; end
         sig {
-          params(_au: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au))
+          params(_au: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au))
          }
         def au=(_au); end
         # Options for the registration in AW.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw)) }
         def aw; end
         sig {
-          params(_aw: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw))
+          params(_aw: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw))
          }
         def aw=(_aw); end
         # Options for the registration in AZ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Az)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Az)) }
         def az; end
         sig {
-          params(_az: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Az)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Az))
+          params(_az: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Az)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Az))
          }
         def az=(_az); end
         # Options for the registration in BA.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba)) }
         def ba; end
         sig {
-          params(_ba: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba))
+          params(_ba: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba))
          }
         def ba=(_ba); end
         # Options for the registration in BB.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb)) }
         def bb; end
         sig {
-          params(_bb: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb))
+          params(_bb: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb))
          }
         def bb=(_bb); end
         # Options for the registration in BD.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd)) }
         def bd; end
         sig {
-          params(_bd: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd))
+          params(_bd: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd))
          }
         def bd=(_bd); end
         # Options for the registration in BE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be)) }
         def be; end
         sig {
-          params(_be: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be))
+          params(_be: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be))
          }
         def be=(_be); end
         # Options for the registration in BF.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf)) }
         def bf; end
         sig {
-          params(_bf: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf))
+          params(_bf: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf))
          }
         def bf=(_bf); end
         # Options for the registration in BG.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg)) }
         def bg; end
         sig {
-          params(_bg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg))
+          params(_bg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg))
          }
         def bg=(_bg); end
         # Options for the registration in BH.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh)) }
         def bh; end
         sig {
-          params(_bh: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh))
+          params(_bh: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh))
          }
         def bh=(_bh); end
         # Options for the registration in BJ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bj)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bj)) }
         def bj; end
         sig {
-          params(_bj: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bj)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bj))
+          params(_bj: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bj)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bj))
          }
         def bj=(_bj); end
         # Options for the registration in BS.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs)) }
         def bs; end
         sig {
-          params(_bs: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs))
+          params(_bs: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs))
          }
         def bs=(_bs); end
         # Options for the registration in BY.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::By)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::By)) }
         def by; end
         sig {
-          params(_by: T.nilable(Tax::RegistrationCreateParams::CountryOptions::By)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::By))
+          params(_by: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::By)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::By))
          }
         def by=(_by); end
         # Options for the registration in CA.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca)) }
         def ca; end
         sig {
-          params(_ca: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca))
+          params(_ca: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca))
          }
         def ca=(_ca); end
         # Options for the registration in CD.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd)) }
         def cd; end
         sig {
-          params(_cd: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd))
+          params(_cd: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd))
          }
         def cd=(_cd); end
         # Options for the registration in CH.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch)) }
         def ch; end
         sig {
-          params(_ch: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch))
+          params(_ch: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch))
          }
         def ch=(_ch); end
         # Options for the registration in CL.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cl)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cl)) }
         def cl; end
         sig {
-          params(_cl: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cl)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cl))
+          params(_cl: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cl)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cl))
          }
         def cl=(_cl); end
         # Options for the registration in CM.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cm)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cm)) }
         def cm; end
         sig {
-          params(_cm: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cm)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cm))
+          params(_cm: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cm)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cm))
          }
         def cm=(_cm); end
         # Options for the registration in CO.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Co)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Co)) }
         def co; end
         sig {
-          params(_co: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Co)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Co))
+          params(_co: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Co)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Co))
          }
         def co=(_co); end
         # Options for the registration in CR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cr)) }
         def cr; end
         sig {
-          params(_cr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cr))
+          params(_cr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cr))
          }
         def cr=(_cr); end
         # Options for the registration in CV.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cv)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cv)) }
         def cv; end
         sig {
-          params(_cv: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cv)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cv))
+          params(_cv: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cv)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cv))
          }
         def cv=(_cv); end
         # Options for the registration in CY.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy)) }
         def cy; end
         sig {
-          params(_cy: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy))
+          params(_cy: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy))
          }
         def cy=(_cy); end
         # Options for the registration in CZ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz)) }
         def cz; end
         sig {
-          params(_cz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz))
+          params(_cz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz))
          }
         def cz=(_cz); end
         # Options for the registration in DE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::De)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De)) }
         def de; end
         sig {
-          params(_de: T.nilable(Tax::RegistrationCreateParams::CountryOptions::De)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::De))
+          params(_de: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De))
          }
         def de=(_de); end
         # Options for the registration in DK.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk)) }
         def dk; end
         sig {
-          params(_dk: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk))
+          params(_dk: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk))
          }
         def dk=(_dk); end
         # Options for the registration in EC.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ec)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ec)) }
         def ec; end
         sig {
-          params(_ec: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ec)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ec))
+          params(_ec: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ec)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ec))
          }
         def ec=(_ec); end
         # Options for the registration in EE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee)) }
         def ee; end
         sig {
-          params(_ee: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee))
+          params(_ee: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee))
          }
         def ee=(_ee); end
         # Options for the registration in EG.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Eg)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Eg)) }
         def eg; end
         sig {
-          params(_eg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Eg)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Eg))
+          params(_eg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Eg)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Eg))
          }
         def eg=(_eg); end
         # Options for the registration in ES.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es)) }
         def es; end
         sig {
-          params(_es: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es))
+          params(_es: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es))
          }
         def es=(_es); end
         # Options for the registration in ET.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et)) }
         def et; end
         sig {
-          params(_et: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et))
+          params(_et: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et))
          }
         def et=(_et); end
         # Options for the registration in FI.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi)) }
         def fi; end
         sig {
-          params(_fi: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi))
+          params(_fi: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi))
          }
         def fi=(_fi); end
         # Options for the registration in FR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr)) }
         def fr; end
         sig {
-          params(_fr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr))
+          params(_fr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr))
          }
         def fr=(_fr); end
         # Options for the registration in GB.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb)) }
         def gb; end
         sig {
-          params(_gb: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb))
+          params(_gb: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb))
          }
         def gb=(_gb); end
         # Options for the registration in GE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ge)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ge)) }
         def ge; end
         sig {
-          params(_ge: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ge)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ge))
+          params(_ge: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ge)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ge))
          }
         def ge=(_ge); end
         # Options for the registration in GN.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn)) }
         def gn; end
         sig {
-          params(_gn: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn))
+          params(_gn: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn))
          }
         def gn=(_gn); end
         # Options for the registration in GR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr)) }
         def gr; end
         sig {
-          params(_gr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr))
+          params(_gr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr))
          }
         def gr=(_gr); end
         # Options for the registration in HR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr)) }
         def hr; end
         sig {
-          params(_hr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr))
+          params(_hr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr))
          }
         def hr=(_hr); end
         # Options for the registration in HU.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu)) }
         def hu; end
         sig {
-          params(_hu: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu))
+          params(_hu: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu))
          }
         def hu=(_hu); end
         # Options for the registration in ID.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Id)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Id)) }
         def id; end
         sig {
-          params(_id: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Id)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Id))
+          params(_id: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Id)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Id))
          }
         def id=(_id); end
         # Options for the registration in IE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie)) }
         def ie; end
         sig {
-          params(_ie: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie))
+          params(_ie: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie))
          }
         def ie=(_ie); end
         # Options for the registration in IN.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::In)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::In)) }
         def in; end
         sig {
-          params(_in: T.nilable(Tax::RegistrationCreateParams::CountryOptions::In)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::In))
+          params(_in: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::In)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::In))
          }
         def in=(_in); end
         # Options for the registration in IS.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is)) }
         def is; end
         sig {
-          params(_is: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is))
+          params(_is: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is))
          }
         def is=(_is); end
         # Options for the registration in IT.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::It)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It)) }
         def it; end
         sig {
-          params(_it: T.nilable(Tax::RegistrationCreateParams::CountryOptions::It)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::It))
+          params(_it: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It))
          }
         def it=(_it); end
         # Options for the registration in JP.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp)) }
         def jp; end
         sig {
-          params(_jp: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp))
+          params(_jp: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp))
          }
         def jp=(_jp); end
         # Options for the registration in KE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ke)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ke)) }
         def ke; end
         sig {
-          params(_ke: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ke)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ke))
+          params(_ke: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ke)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ke))
          }
         def ke=(_ke); end
         # Options for the registration in KG.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kg)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kg)) }
         def kg; end
         sig {
-          params(_kg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kg)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kg))
+          params(_kg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kg)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kg))
          }
         def kg=(_kg); end
         # Options for the registration in KH.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kh)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kh)) }
         def kh; end
         sig {
-          params(_kh: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kh)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kh))
+          params(_kh: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kh)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kh))
          }
         def kh=(_kh); end
         # Options for the registration in KR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kr)) }
         def kr; end
         sig {
-          params(_kr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kr))
+          params(_kr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kr))
          }
         def kr=(_kr); end
         # Options for the registration in KZ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kz)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kz)) }
         def kz; end
         sig {
-          params(_kz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kz)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kz))
+          params(_kz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kz)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kz))
          }
         def kz=(_kz); end
         # Options for the registration in LA.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::La)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::La)) }
         def la; end
         sig {
-          params(_la: T.nilable(Tax::RegistrationCreateParams::CountryOptions::La)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::La))
+          params(_la: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::La)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::La))
          }
         def la=(_la); end
         # Options for the registration in LT.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt)) }
         def lt; end
         sig {
-          params(_lt: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt))
+          params(_lt: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt))
          }
         def lt=(_lt); end
         # Options for the registration in LU.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu)) }
         def lu; end
         sig {
-          params(_lu: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu))
+          params(_lu: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu))
          }
         def lu=(_lu); end
         # Options for the registration in LV.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv)) }
         def lv; end
         sig {
-          params(_lv: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv))
+          params(_lv: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv))
          }
         def lv=(_lv); end
         # Options for the registration in MA.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ma)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ma)) }
         def ma; end
         sig {
-          params(_ma: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ma)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ma))
+          params(_ma: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ma)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ma))
          }
         def ma=(_ma); end
         # Options for the registration in MD.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Md)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Md)) }
         def md; end
         sig {
-          params(_md: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Md)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Md))
+          params(_md: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Md)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Md))
          }
         def md=(_md); end
         # Options for the registration in ME.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me)) }
         def me; end
         sig {
-          params(_me: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me))
+          params(_me: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me))
          }
         def me=(_me); end
         # Options for the registration in MK.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk)) }
         def mk; end
         sig {
-          params(_mk: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk))
+          params(_mk: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk))
          }
         def mk=(_mk); end
         # Options for the registration in MR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr)) }
         def mr; end
         sig {
-          params(_mr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr))
+          params(_mr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr))
          }
         def mr=(_mr); end
         # Options for the registration in MT.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt)) }
         def mt; end
         sig {
-          params(_mt: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt))
+          params(_mt: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt))
          }
         def mt=(_mt); end
         # Options for the registration in MX.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mx)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mx)) }
         def mx; end
         sig {
-          params(_mx: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mx)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mx))
+          params(_mx: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mx)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mx))
          }
         def mx=(_mx); end
         # Options for the registration in MY.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::My)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::My)) }
         def my; end
         sig {
-          params(_my: T.nilable(Tax::RegistrationCreateParams::CountryOptions::My)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::My))
+          params(_my: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::My)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::My))
          }
         def my=(_my); end
         # Options for the registration in NG.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ng)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ng)) }
         def ng; end
         sig {
-          params(_ng: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ng)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ng))
+          params(_ng: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ng)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ng))
          }
         def ng=(_ng); end
         # Options for the registration in NL.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl)) }
         def nl; end
         sig {
-          params(_nl: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl))
+          params(_nl: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl))
          }
         def nl=(_nl); end
         # Options for the registration in NO.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::No)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No)) }
         def no; end
         sig {
-          params(_no: T.nilable(Tax::RegistrationCreateParams::CountryOptions::No)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::No))
+          params(_no: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No))
          }
         def no=(_no); end
         # Options for the registration in NP.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Np)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Np)) }
         def np; end
         sig {
-          params(_np: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Np)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Np))
+          params(_np: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Np)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Np))
          }
         def np=(_np); end
         # Options for the registration in NZ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz)) }
         def nz; end
         sig {
-          params(_nz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz))
+          params(_nz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz))
          }
         def nz=(_nz); end
         # Options for the registration in OM.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om)) }
         def om; end
         sig {
-          params(_om: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om))
+          params(_om: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om))
          }
         def om=(_om); end
         # Options for the registration in PE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pe)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pe)) }
         def pe; end
         sig {
-          params(_pe: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pe)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pe))
+          params(_pe: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pe)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pe))
          }
         def pe=(_pe); end
         # Options for the registration in PH.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ph)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ph)) }
         def ph; end
         sig {
-          params(_ph: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ph)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ph))
+          params(_ph: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ph)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ph))
          }
         def ph=(_ph); end
         # Options for the registration in PL.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl)) }
         def pl; end
         sig {
-          params(_pl: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl))
+          params(_pl: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl))
          }
         def pl=(_pl); end
         # Options for the registration in PT.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt)) }
         def pt; end
         sig {
-          params(_pt: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt))
+          params(_pt: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt))
          }
         def pt=(_pt); end
         # Options for the registration in RO.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro)) }
         def ro; end
         sig {
-          params(_ro: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro))
+          params(_ro: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro))
          }
         def ro=(_ro); end
         # Options for the registration in RS.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs)) }
         def rs; end
         sig {
-          params(_rs: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs))
+          params(_rs: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs))
          }
         def rs=(_rs); end
         # Options for the registration in RU.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ru)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ru)) }
         def ru; end
         sig {
-          params(_ru: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ru)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ru))
+          params(_ru: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ru)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ru))
          }
         def ru=(_ru); end
         # Options for the registration in SA.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sa)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sa)) }
         def sa; end
         sig {
-          params(_sa: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sa)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sa))
+          params(_sa: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sa)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sa))
          }
         def sa=(_sa); end
         # Options for the registration in SE.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se)) }
         def se; end
         sig {
-          params(_se: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se))
+          params(_se: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se))
          }
         def se=(_se); end
         # Options for the registration in SG.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg)) }
         def sg; end
         sig {
-          params(_sg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg))
+          params(_sg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg))
          }
         def sg=(_sg); end
         # Options for the registration in SI.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si)) }
         def si; end
         sig {
-          params(_si: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si))
+          params(_si: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si))
          }
         def si=(_si); end
         # Options for the registration in SK.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk)) }
         def sk; end
         sig {
-          params(_sk: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk))
+          params(_sk: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk))
          }
         def sk=(_sk); end
         # Options for the registration in SN.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sn)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sn)) }
         def sn; end
         sig {
-          params(_sn: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sn)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sn))
+          params(_sn: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sn)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sn))
          }
         def sn=(_sn); end
         # Options for the registration in SR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr)) }
         def sr; end
         sig {
-          params(_sr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr))
+          params(_sr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr))
          }
         def sr=(_sr); end
         # Options for the registration in TH.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Th)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Th)) }
         def th; end
         sig {
-          params(_th: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Th)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Th))
+          params(_th: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Th)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Th))
          }
         def th=(_th); end
         # Options for the registration in TJ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tj)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tj)) }
         def tj; end
         sig {
-          params(_tj: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tj)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tj))
+          params(_tj: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tj)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tj))
          }
         def tj=(_tj); end
         # Options for the registration in TR.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tr)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tr)) }
         def tr; end
         sig {
-          params(_tr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tr)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tr))
+          params(_tr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tr)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tr))
          }
         def tr=(_tr); end
         # Options for the registration in TW.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tw)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tw)) }
         def tw; end
         sig {
-          params(_tw: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tw)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tw))
+          params(_tw: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tw)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tw))
          }
         def tw=(_tw); end
         # Options for the registration in TZ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tz)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tz)) }
         def tz; end
         sig {
-          params(_tz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tz)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tz))
+          params(_tz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tz)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tz))
          }
         def tz=(_tz); end
         # Options for the registration in UA.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ua)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ua)) }
         def ua; end
         sig {
-          params(_ua: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ua)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ua))
+          params(_ua: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ua)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ua))
          }
         def ua=(_ua); end
         # Options for the registration in UG.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ug)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ug)) }
         def ug; end
         sig {
-          params(_ug: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ug)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ug))
+          params(_ug: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ug)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ug))
          }
         def ug=(_ug); end
         # Options for the registration in US.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us)) }
         def us; end
         sig {
-          params(_us: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us))
+          params(_us: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us))
          }
         def us=(_us); end
         # Options for the registration in UY.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy)) }
         def uy; end
         sig {
-          params(_uy: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy))
+          params(_uy: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy))
          }
         def uy=(_uy); end
         # Options for the registration in UZ.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uz)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uz)) }
         def uz; end
         sig {
-          params(_uz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uz)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uz))
+          params(_uz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uz)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uz))
          }
         def uz=(_uz); end
         # Options for the registration in VN.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Vn)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Vn)) }
         def vn; end
         sig {
-          params(_vn: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Vn)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Vn))
+          params(_vn: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Vn)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Vn))
          }
         def vn=(_vn); end
         # Options for the registration in ZA.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za)) }
         def za; end
         sig {
-          params(_za: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za))
+          params(_za: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za))
          }
         def za=(_za); end
         # Options for the registration in ZM.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zm)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zm)) }
         def zm; end
         sig {
-          params(_zm: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zm)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zm))
+          params(_zm: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zm)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zm))
          }
         def zm=(_zm); end
         # Options for the registration in ZW.
-        sig { returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw)) }
+        sig { returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw)) }
         def zw; end
         sig {
-          params(_zw: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw)).returns(T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw))
+          params(_zw: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw))
          }
         def zw=(_zw); end
         sig {
-          params(ae: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ae), al: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Al), am: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Am), ao: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ao), at: T.nilable(Tax::RegistrationCreateParams::CountryOptions::At), au: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Au), aw: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Aw), az: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Az), ba: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ba), bb: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bb), bd: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bd), be: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Be), bf: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bf), bg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bg), bh: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bh), bj: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bj), bs: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Bs), by: T.nilable(Tax::RegistrationCreateParams::CountryOptions::By), ca: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ca), cd: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cd), ch: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ch), cl: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cl), cm: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cm), co: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Co), cr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cr), cv: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cv), cy: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cy), cz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Cz), de: T.nilable(Tax::RegistrationCreateParams::CountryOptions::De), dk: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Dk), ec: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ec), ee: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ee), eg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Eg), es: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Es), et: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Et), fi: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fi), fr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Fr), gb: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gb), ge: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ge), gn: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gn), gr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Gr), hr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hr), hu: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Hu), id: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Id), ie: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ie), in_: T.nilable(Tax::RegistrationCreateParams::CountryOptions::In), is: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Is), it: T.nilable(Tax::RegistrationCreateParams::CountryOptions::It), jp: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Jp), ke: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ke), kg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kg), kh: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kh), kr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kr), kz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Kz), la: T.nilable(Tax::RegistrationCreateParams::CountryOptions::La), lt: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lt), lu: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lu), lv: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Lv), ma: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ma), md: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Md), me: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Me), mk: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mk), mr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mr), mt: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mt), mx: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Mx), my: T.nilable(Tax::RegistrationCreateParams::CountryOptions::My), ng: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ng), nl: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nl), no: T.nilable(Tax::RegistrationCreateParams::CountryOptions::No), np: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Np), nz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Nz), om: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Om), pe: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pe), ph: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ph), pl: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pl), pt: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Pt), ro: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ro), rs: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Rs), ru: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ru), sa: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sa), se: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Se), sg: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sg), si: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Si), sk: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sk), sn: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sn), sr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Sr), th: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Th), tj: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tj), tr: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tr), tw: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tw), tz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Tz), ua: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ua), ug: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Ug), us: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Us), uy: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uy), uz: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Uz), vn: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Vn), za: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Za), zm: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zm), zw: T.nilable(Tax::RegistrationCreateParams::CountryOptions::Zw)).void
+          params(ae: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ae), al: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Al), am: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Am), ao: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ao), at: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At), au: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Au), aw: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Aw), az: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Az), ba: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ba), bb: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bb), bd: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bd), be: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be), bf: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bf), bg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg), bh: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bh), bj: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bj), bs: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bs), by: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::By), ca: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ca), cd: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cd), ch: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ch), cl: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cl), cm: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cm), co: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Co), cr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cr), cv: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cv), cy: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy), cz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz), de: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De), dk: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk), ec: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ec), ee: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee), eg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Eg), es: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es), et: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Et), fi: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi), fr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr), gb: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gb), ge: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ge), gn: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gn), gr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr), hr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr), hu: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu), id: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Id), ie: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie), in_: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::In), is: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Is), it: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It), jp: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Jp), ke: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ke), kg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kg), kh: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kh), kr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kr), kz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Kz), la: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::La), lt: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt), lu: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu), lv: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv), ma: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ma), md: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Md), me: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Me), mk: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mk), mr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mr), mt: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt), mx: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mx), my: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::My), ng: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ng), nl: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl), no: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::No), np: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Np), nz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nz), om: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Om), pe: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pe), ph: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ph), pl: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl), pt: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt), ro: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro), rs: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Rs), ru: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ru), sa: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sa), se: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se), sg: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sg), si: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si), sk: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk), sn: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sn), sr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sr), th: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Th), tj: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tj), tr: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tr), tw: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tw), tz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Tz), ua: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ua), ug: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ug), us: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us), uy: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uy), uz: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Uz), vn: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Vn), za: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Za), zm: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zm), zw: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Zw)).void
          }
         def initialize(
           ae: nil,
@@ -2856,10 +2970,10 @@ module Stripe
       sig { params(_country: String).returns(String) }
       def country=(_country); end
       # Specific options for a registration in the specified `country`.
-      sig { returns(Tax::RegistrationCreateParams::CountryOptions) }
+      sig { returns(::Stripe::Tax::RegistrationCreateParams::CountryOptions) }
       def country_options; end
       sig {
-        params(_country_options: Tax::RegistrationCreateParams::CountryOptions).returns(Tax::RegistrationCreateParams::CountryOptions)
+        params(_country_options: ::Stripe::Tax::RegistrationCreateParams::CountryOptions).returns(::Stripe::Tax::RegistrationCreateParams::CountryOptions)
        }
       def country_options=(_country_options); end
       # Specifies which fields in the response should be expanded.
@@ -2873,7 +2987,7 @@ module Stripe
       sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def expires_at=(_expires_at); end
       sig {
-        params(active_from: T.any(String, Integer), country: String, country_options: Tax::RegistrationCreateParams::CountryOptions, expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer)).void
+        params(active_from: T.any(String, Integer), country: String, country_options: ::Stripe::Tax::RegistrationCreateParams::CountryOptions, expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer)).void
        }
       def initialize(
         active_from: nil,

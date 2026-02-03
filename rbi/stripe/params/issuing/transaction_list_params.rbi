@@ -42,10 +42,10 @@ module Stripe
       sig { params(_cardholder: T.nilable(String)).returns(T.nilable(String)) }
       def cardholder=(_cardholder); end
       # Only return transactions that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Issuing::TransactionListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Issuing::TransactionListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Issuing::TransactionListParams::Created, Integer))).returns(T.nilable(T.any(Issuing::TransactionListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Issuing::TransactionListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Issuing::TransactionListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -79,7 +79,7 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(card: T.nilable(String), cardholder: T.nilable(String), created: T.nilable(T.any(Issuing::TransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), settlement: T.nilable(String), starting_after: T.nilable(String), type: T.nilable(String)).void
+        params(card: T.nilable(String), cardholder: T.nilable(String), created: T.nilable(T.any(::Stripe::Issuing::TransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), settlement: T.nilable(String), starting_after: T.nilable(String), type: T.nilable(String)).void
        }
       def initialize(
         card: nil,

@@ -27,14 +27,16 @@ module Stripe
         def initialize(date: nil, ip: nil, user_agent: nil); end
       end
       # Details on the legal guardian's acceptance of the main Stripe service agreement.
-      sig { returns(T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances::Account)) }
+      sig {
+        returns(T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances::Account))
+       }
       def account; end
       sig {
-        params(_account: T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances::Account)).returns(T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances::Account))
+        params(_account: T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances::Account)).returns(T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances::Account))
        }
       def account=(_account); end
       sig {
-        params(account: T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances::Account)).void
+        params(account: T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances::Account)).void
        }
       def initialize(account: nil); end
     end
@@ -227,28 +229,30 @@ module Stripe
         def initialize(files: nil); end
       end
       # One or more documents that demonstrate proof that this person is authorized to represent the company.
-      sig { returns(T.nilable(AccountPersonCreateParams::Documents::CompanyAuthorization)) }
+      sig {
+        returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents::CompanyAuthorization))
+       }
       def company_authorization; end
       sig {
-        params(_company_authorization: T.nilable(AccountPersonCreateParams::Documents::CompanyAuthorization)).returns(T.nilable(AccountPersonCreateParams::Documents::CompanyAuthorization))
+        params(_company_authorization: T.nilable(::Stripe::AccountPersonCreateParams::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents::CompanyAuthorization))
        }
       def company_authorization=(_company_authorization); end
       # One or more documents showing the person's passport page with photo and personal data.
-      sig { returns(T.nilable(AccountPersonCreateParams::Documents::Passport)) }
+      sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents::Passport)) }
       def passport; end
       sig {
-        params(_passport: T.nilable(AccountPersonCreateParams::Documents::Passport)).returns(T.nilable(AccountPersonCreateParams::Documents::Passport))
+        params(_passport: T.nilable(::Stripe::AccountPersonCreateParams::Documents::Passport)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents::Passport))
        }
       def passport=(_passport); end
       # One or more documents showing the person's visa required for living in the country where they are residing.
-      sig { returns(T.nilable(AccountPersonCreateParams::Documents::Visa)) }
+      sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents::Visa)) }
       def visa; end
       sig {
-        params(_visa: T.nilable(AccountPersonCreateParams::Documents::Visa)).returns(T.nilable(AccountPersonCreateParams::Documents::Visa))
+        params(_visa: T.nilable(::Stripe::AccountPersonCreateParams::Documents::Visa)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents::Visa))
        }
       def visa=(_visa); end
       sig {
-        params(company_authorization: T.nilable(AccountPersonCreateParams::Documents::CompanyAuthorization), passport: T.nilable(AccountPersonCreateParams::Documents::Passport), visa: T.nilable(AccountPersonCreateParams::Documents::Visa)).void
+        params(company_authorization: T.nilable(::Stripe::AccountPersonCreateParams::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::AccountPersonCreateParams::Documents::Passport), visa: T.nilable(::Stripe::AccountPersonCreateParams::Documents::Visa)).void
        }
       def initialize(company_authorization: nil, passport: nil, visa: nil); end
     end
@@ -412,17 +416,17 @@ module Stripe
         def initialize(race: nil, race_other: nil); end
       end
       # The persons ethnicity details
-      sig { returns(T.nilable(AccountPersonCreateParams::UsCfpbData::EthnicityDetails)) }
+      sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::EthnicityDetails)) }
       def ethnicity_details; end
       sig {
-        params(_ethnicity_details: T.nilable(AccountPersonCreateParams::UsCfpbData::EthnicityDetails)).returns(T.nilable(AccountPersonCreateParams::UsCfpbData::EthnicityDetails))
+        params(_ethnicity_details: T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::EthnicityDetails)).returns(T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::EthnicityDetails))
        }
       def ethnicity_details=(_ethnicity_details); end
       # The persons race details
-      sig { returns(T.nilable(AccountPersonCreateParams::UsCfpbData::RaceDetails)) }
+      sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::RaceDetails)) }
       def race_details; end
       sig {
-        params(_race_details: T.nilable(AccountPersonCreateParams::UsCfpbData::RaceDetails)).returns(T.nilable(AccountPersonCreateParams::UsCfpbData::RaceDetails))
+        params(_race_details: T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::RaceDetails)).returns(T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::RaceDetails))
        }
       def race_details=(_race_details); end
       # The persons self-identified gender
@@ -431,7 +435,7 @@ module Stripe
       sig { params(_self_identified_gender: T.nilable(String)).returns(T.nilable(String)) }
       def self_identified_gender=(_self_identified_gender); end
       sig {
-        params(ethnicity_details: T.nilable(AccountPersonCreateParams::UsCfpbData::EthnicityDetails), race_details: T.nilable(AccountPersonCreateParams::UsCfpbData::RaceDetails), self_identified_gender: T.nilable(String)).void
+        params(ethnicity_details: T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::EthnicityDetails), race_details: T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData::RaceDetails), self_identified_gender: T.nilable(String)).void
        }
       def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil); end
     end
@@ -465,64 +469,66 @@ module Stripe
         def initialize(back: nil, front: nil); end
       end
       # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
-      sig { returns(T.nilable(AccountPersonCreateParams::Verification::AdditionalDocument)) }
+      sig {
+        returns(T.nilable(::Stripe::AccountPersonCreateParams::Verification::AdditionalDocument))
+       }
       def additional_document; end
       sig {
-        params(_additional_document: T.nilable(AccountPersonCreateParams::Verification::AdditionalDocument)).returns(T.nilable(AccountPersonCreateParams::Verification::AdditionalDocument))
+        params(_additional_document: T.nilable(::Stripe::AccountPersonCreateParams::Verification::AdditionalDocument)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Verification::AdditionalDocument))
        }
       def additional_document=(_additional_document); end
       # An identifying document, either a passport or local ID card.
-      sig { returns(T.nilable(AccountPersonCreateParams::Verification::Document)) }
+      sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::Verification::Document)) }
       def document; end
       sig {
-        params(_document: T.nilable(AccountPersonCreateParams::Verification::Document)).returns(T.nilable(AccountPersonCreateParams::Verification::Document))
+        params(_document: T.nilable(::Stripe::AccountPersonCreateParams::Verification::Document)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Verification::Document))
        }
       def document=(_document); end
       sig {
-        params(additional_document: T.nilable(AccountPersonCreateParams::Verification::AdditionalDocument), document: T.nilable(AccountPersonCreateParams::Verification::Document)).void
+        params(additional_document: T.nilable(::Stripe::AccountPersonCreateParams::Verification::AdditionalDocument), document: T.nilable(::Stripe::AccountPersonCreateParams::Verification::Document)).void
        }
       def initialize(additional_document: nil, document: nil); end
     end
     # Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
-    sig { returns(T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances)) }
     def additional_tos_acceptances; end
     sig {
-      params(_additional_tos_acceptances: T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances)).returns(T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances))
+      params(_additional_tos_acceptances: T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances)).returns(T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances))
      }
     def additional_tos_acceptances=(_additional_tos_acceptances); end
     # The person's address.
-    sig { returns(T.nilable(AccountPersonCreateParams::Address)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::Address)) }
     def address; end
     sig {
-      params(_address: T.nilable(AccountPersonCreateParams::Address)).returns(T.nilable(AccountPersonCreateParams::Address))
+      params(_address: T.nilable(::Stripe::AccountPersonCreateParams::Address)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Address))
      }
     def address=(_address); end
     # The Kana variation of the person's address (Japan only).
-    sig { returns(T.nilable(AccountPersonCreateParams::AddressKana)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::AddressKana)) }
     def address_kana; end
     sig {
-      params(_address_kana: T.nilable(AccountPersonCreateParams::AddressKana)).returns(T.nilable(AccountPersonCreateParams::AddressKana))
+      params(_address_kana: T.nilable(::Stripe::AccountPersonCreateParams::AddressKana)).returns(T.nilable(::Stripe::AccountPersonCreateParams::AddressKana))
      }
     def address_kana=(_address_kana); end
     # The Kanji variation of the person's address (Japan only).
-    sig { returns(T.nilable(AccountPersonCreateParams::AddressKanji)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::AddressKanji)) }
     def address_kanji; end
     sig {
-      params(_address_kanji: T.nilable(AccountPersonCreateParams::AddressKanji)).returns(T.nilable(AccountPersonCreateParams::AddressKanji))
+      params(_address_kanji: T.nilable(::Stripe::AccountPersonCreateParams::AddressKanji)).returns(T.nilable(::Stripe::AccountPersonCreateParams::AddressKanji))
      }
     def address_kanji=(_address_kanji); end
     # The person's date of birth.
-    sig { returns(T.nilable(T.any(String, AccountPersonCreateParams::Dob))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::AccountPersonCreateParams::Dob))) }
     def dob; end
     sig {
-      params(_dob: T.nilable(T.any(String, AccountPersonCreateParams::Dob))).returns(T.nilable(T.any(String, AccountPersonCreateParams::Dob)))
+      params(_dob: T.nilable(T.any(String, ::Stripe::AccountPersonCreateParams::Dob))).returns(T.nilable(T.any(String, ::Stripe::AccountPersonCreateParams::Dob)))
      }
     def dob=(_dob); end
     # Documents that may be submitted to satisfy various informational requests.
-    sig { returns(T.nilable(AccountPersonCreateParams::Documents)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents)) }
     def documents; end
     sig {
-      params(_documents: T.nilable(AccountPersonCreateParams::Documents)).returns(T.nilable(AccountPersonCreateParams::Documents))
+      params(_documents: T.nilable(::Stripe::AccountPersonCreateParams::Documents)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Documents))
      }
     def documents=(_documents); end
     # The person's email address.
@@ -620,31 +626,33 @@ module Stripe
     sig { params(_political_exposure: T.nilable(String)).returns(T.nilable(String)) }
     def political_exposure=(_political_exposure); end
     # The person's registered address.
-    sig { returns(T.nilable(AccountPersonCreateParams::RegisteredAddress)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::RegisteredAddress)) }
     def registered_address; end
     sig {
-      params(_registered_address: T.nilable(AccountPersonCreateParams::RegisteredAddress)).returns(T.nilable(AccountPersonCreateParams::RegisteredAddress))
+      params(_registered_address: T.nilable(::Stripe::AccountPersonCreateParams::RegisteredAddress)).returns(T.nilable(::Stripe::AccountPersonCreateParams::RegisteredAddress))
      }
     def registered_address=(_registered_address); end
     # The relationship that this person has with the account's legal entity.
-    sig { returns(T.nilable(AccountPersonCreateParams::Relationship)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::Relationship)) }
     def relationship; end
     sig {
-      params(_relationship: T.nilable(AccountPersonCreateParams::Relationship)).returns(T.nilable(AccountPersonCreateParams::Relationship))
+      params(_relationship: T.nilable(::Stripe::AccountPersonCreateParams::Relationship)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Relationship))
      }
     def relationship=(_relationship); end
     # The credit applicant's self-reported yearly income in minor units.
-    sig { returns(T.nilable(AccountPersonCreateParams::SelfReportedIncome)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedIncome)) }
     def self_reported_income; end
     sig {
-      params(_self_reported_income: T.nilable(AccountPersonCreateParams::SelfReportedIncome)).returns(T.nilable(AccountPersonCreateParams::SelfReportedIncome))
+      params(_self_reported_income: T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedIncome)).returns(T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedIncome))
      }
     def self_reported_income=(_self_reported_income); end
     # The credit applicant's self-reported monthly housing payment in minor units.
-    sig { returns(T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)) }
+    sig {
+      returns(T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedMonthlyHousingPayment))
+     }
     def self_reported_monthly_housing_payment; end
     sig {
-      params(_self_reported_monthly_housing_payment: T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)).returns(T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment))
+      params(_self_reported_monthly_housing_payment: T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedMonthlyHousingPayment)).returns(T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedMonthlyHousingPayment))
      }
     def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
     # The last four digits of the person's Social Security number (U.S. only).
@@ -653,21 +661,21 @@ module Stripe
     sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
     def ssn_last_4=(_ssn_last_4); end
     # Demographic data related to the person.
-    sig { returns(T.nilable(AccountPersonCreateParams::UsCfpbData)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData)) }
     def us_cfpb_data; end
     sig {
-      params(_us_cfpb_data: T.nilable(AccountPersonCreateParams::UsCfpbData)).returns(T.nilable(AccountPersonCreateParams::UsCfpbData))
+      params(_us_cfpb_data: T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData)).returns(T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData))
      }
     def us_cfpb_data=(_us_cfpb_data); end
     # The person's verification status.
-    sig { returns(T.nilable(AccountPersonCreateParams::Verification)) }
+    sig { returns(T.nilable(::Stripe::AccountPersonCreateParams::Verification)) }
     def verification; end
     sig {
-      params(_verification: T.nilable(AccountPersonCreateParams::Verification)).returns(T.nilable(AccountPersonCreateParams::Verification))
+      params(_verification: T.nilable(::Stripe::AccountPersonCreateParams::Verification)).returns(T.nilable(::Stripe::AccountPersonCreateParams::Verification))
      }
     def verification=(_verification); end
     sig {
-      params(additional_tos_acceptances: T.nilable(AccountPersonCreateParams::AdditionalTosAcceptances), address: T.nilable(AccountPersonCreateParams::Address), address_kana: T.nilable(AccountPersonCreateParams::AddressKana), address_kanji: T.nilable(AccountPersonCreateParams::AddressKanji), dob: T.nilable(T.any(String, AccountPersonCreateParams::Dob)), documents: T.nilable(AccountPersonCreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(AccountPersonCreateParams::RegisteredAddress), relationship: T.nilable(AccountPersonCreateParams::Relationship), self_reported_income: T.nilable(AccountPersonCreateParams::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(AccountPersonCreateParams::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(AccountPersonCreateParams::UsCfpbData), verification: T.nilable(AccountPersonCreateParams::Verification)).void
+      params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonCreateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonCreateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonCreateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonCreateParams::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::AccountPersonCreateParams::Dob)), documents: T.nilable(::Stripe::AccountPersonCreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonCreateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonCreateParams::Relationship), self_reported_income: T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(::Stripe::AccountPersonCreateParams::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonCreateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonCreateParams::Verification)).void
      }
     def initialize(
       additional_tos_acceptances: nil,

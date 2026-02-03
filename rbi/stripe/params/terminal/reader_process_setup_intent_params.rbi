@@ -27,10 +27,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Configuration overrides for this setup, such as MOTO and customer cancellation settings.
-      sig { returns(T.nilable(Terminal::ReaderProcessSetupIntentParams::ProcessConfig)) }
+      sig { returns(T.nilable(::Stripe::Terminal::ReaderProcessSetupIntentParams::ProcessConfig)) }
       def process_config; end
       sig {
-        params(_process_config: T.nilable(Terminal::ReaderProcessSetupIntentParams::ProcessConfig)).returns(T.nilable(Terminal::ReaderProcessSetupIntentParams::ProcessConfig))
+        params(_process_config: T.nilable(::Stripe::Terminal::ReaderProcessSetupIntentParams::ProcessConfig)).returns(T.nilable(::Stripe::Terminal::ReaderProcessSetupIntentParams::ProcessConfig))
        }
       def process_config=(_process_config); end
       # The ID of the SetupIntent to process on the reader.
@@ -39,7 +39,7 @@ module Stripe
       sig { params(_setup_intent: String).returns(String) }
       def setup_intent=(_setup_intent); end
       sig {
-        params(allow_redisplay: String, expand: T.nilable(T::Array[String]), process_config: T.nilable(Terminal::ReaderProcessSetupIntentParams::ProcessConfig), setup_intent: String).void
+        params(allow_redisplay: String, expand: T.nilable(T::Array[String]), process_config: T.nilable(::Stripe::Terminal::ReaderProcessSetupIntentParams::ProcessConfig), setup_intent: String).void
        }
       def initialize(allow_redisplay: nil, expand: nil, process_config: nil, setup_intent: nil); end
     end

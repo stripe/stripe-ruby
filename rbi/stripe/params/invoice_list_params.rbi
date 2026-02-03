@@ -67,10 +67,10 @@ module Stripe
     sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
     def collection_method=(_collection_method); end
     # Only return invoices that were created during the given date interval.
-    sig { returns(T.nilable(T.any(InvoiceListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::InvoiceListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(InvoiceListParams::Created, Integer))).returns(T.nilable(T.any(InvoiceListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::InvoiceListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::InvoiceListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return invoices for the customer specified by this customer ID.
@@ -84,10 +84,10 @@ module Stripe
     sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
     def customer_account=(_customer_account); end
     # Attribute for param field due_date
-    sig { returns(T.nilable(T.any(InvoiceListParams::DueDate, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::InvoiceListParams::DueDate, Integer))) }
     def due_date; end
     sig {
-      params(_due_date: T.nilable(T.any(InvoiceListParams::DueDate, Integer))).returns(T.nilable(T.any(InvoiceListParams::DueDate, Integer)))
+      params(_due_date: T.nilable(T.any(::Stripe::InvoiceListParams::DueDate, Integer))).returns(T.nilable(T.any(::Stripe::InvoiceListParams::DueDate, Integer)))
      }
     def due_date=(_due_date); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -121,7 +121,7 @@ module Stripe
     sig { params(_subscription: T.nilable(String)).returns(T.nilable(String)) }
     def subscription=(_subscription); end
     sig {
-      params(billing_cadence: T.nilable(String), collection_method: T.nilable(String), created: T.nilable(T.any(InvoiceListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), due_date: T.nilable(T.any(InvoiceListParams::DueDate, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
+      params(billing_cadence: T.nilable(String), collection_method: T.nilable(String), created: T.nilable(T.any(::Stripe::InvoiceListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), due_date: T.nilable(T.any(::Stripe::InvoiceListParams::DueDate, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
      }
     def initialize(
       billing_cadence: nil,

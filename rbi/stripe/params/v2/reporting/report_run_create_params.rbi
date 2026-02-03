@@ -30,14 +30,14 @@ module Stripe
          }
         def report_parameters=(_report_parameters); end
         # Optional settings to customize the results of the `ReportRun`.
-        sig { returns(T.nilable(V2::Reporting::ReportRunCreateParams::ResultOptions)) }
+        sig { returns(T.nilable(::Stripe::V2::Reporting::ReportRunCreateParams::ResultOptions)) }
         def result_options; end
         sig {
-          params(_result_options: T.nilable(V2::Reporting::ReportRunCreateParams::ResultOptions)).returns(T.nilable(V2::Reporting::ReportRunCreateParams::ResultOptions))
+          params(_result_options: T.nilable(::Stripe::V2::Reporting::ReportRunCreateParams::ResultOptions)).returns(T.nilable(::Stripe::V2::Reporting::ReportRunCreateParams::ResultOptions))
          }
         def result_options=(_result_options); end
         sig {
-          params(report: String, report_parameters: T::Hash[String, T.untyped], result_options: T.nilable(V2::Reporting::ReportRunCreateParams::ResultOptions)).void
+          params(report: String, report_parameters: T::Hash[String, T.untyped], result_options: T.nilable(::Stripe::V2::Reporting::ReportRunCreateParams::ResultOptions)).void
          }
         def initialize(report: nil, report_parameters: nil, result_options: nil); end
       end

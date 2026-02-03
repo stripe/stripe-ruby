@@ -62,30 +62,34 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           # Details if this component is a License Fee.
-          sig { returns(T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee))
+           }
           def license_fee; end
           sig {
-            params(_license_fee: T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee)).returns(T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee))
+            params(_license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee))
            }
           def license_fee=(_license_fee); end
           # Details if this component is a Rate Card.
-          sig { returns(T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::RateCard)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::RateCard))
+           }
           def rate_card; end
           sig {
-            params(_rate_card: T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::RateCard)).returns(T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::RateCard))
+            params(_rate_card: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::RateCard)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::RateCard))
            }
           def rate_card=(_rate_card); end
           # Details if this component is a Service Action.
           sig {
-            returns(T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction))
+            returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction))
            }
           def service_action; end
           sig {
-            params(_service_action: T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction)).returns(T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction))
+            params(_service_action: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction))
            }
           def service_action=(_service_action); end
           sig {
-            params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), type: String, license_fee: T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee), rate_card: T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::RateCard), service_action: T.nilable(V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction)).void
+            params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), type: String, license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee), rate_card: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::RateCard), service_action: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction)).void
            }
           def initialize(
             lookup_key: nil,

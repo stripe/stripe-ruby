@@ -38,10 +38,10 @@ module Stripe
     sig { params(_file: T.untyped).returns(T.untyped) }
     def file=(_file); end
     # Optional parameters that automatically create a [file link](https://api.stripe.com#file_links) for the newly created file.
-    sig { returns(T.nilable(FileCreateParams::FileLinkData)) }
+    sig { returns(T.nilable(::Stripe::FileCreateParams::FileLinkData)) }
     def file_link_data; end
     sig {
-      params(_file_link_data: T.nilable(FileCreateParams::FileLinkData)).returns(T.nilable(FileCreateParams::FileLinkData))
+      params(_file_link_data: T.nilable(::Stripe::FileCreateParams::FileLinkData)).returns(T.nilable(::Stripe::FileCreateParams::FileLinkData))
      }
     def file_link_data=(_file_link_data); end
     # The [purpose](https://docs.stripe.com/file-upload#uploading-a-file) of the uploaded file.
@@ -50,7 +50,7 @@ module Stripe
     sig { params(_purpose: String).returns(String) }
     def purpose=(_purpose); end
     sig {
-      params(expand: T.nilable(T::Array[String]), file: T.untyped, file_link_data: T.nilable(FileCreateParams::FileLinkData), purpose: String).void
+      params(expand: T.nilable(T::Array[String]), file: T.untyped, file_link_data: T.nilable(::Stripe::FileCreateParams::FileLinkData), purpose: String).void
      }
     def initialize(expand: nil, file: nil, file_link_data: nil, purpose: nil); end
   end

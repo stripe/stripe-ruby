@@ -57,17 +57,17 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # A positive integer representing how much to transfer.
-    sig { returns(T.nilable(T.any(TopupListParams::Amount, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::TopupListParams::Amount, Integer))) }
     def amount; end
     sig {
-      params(_amount: T.nilable(T.any(TopupListParams::Amount, Integer))).returns(T.nilable(T.any(TopupListParams::Amount, Integer)))
+      params(_amount: T.nilable(T.any(::Stripe::TopupListParams::Amount, Integer))).returns(T.nilable(T.any(::Stripe::TopupListParams::Amount, Integer)))
      }
     def amount=(_amount); end
     # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
-    sig { returns(T.nilable(T.any(TopupListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::TopupListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(TopupListParams::Created, Integer))).returns(T.nilable(T.any(TopupListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::TopupListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::TopupListParams::Created, Integer)))
      }
     def created=(_created); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -96,7 +96,7 @@ module Stripe
     sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
     def status=(_status); end
     sig {
-      params(amount: T.nilable(T.any(TopupListParams::Amount, Integer)), created: T.nilable(T.any(TopupListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
+      params(amount: T.nilable(T.any(::Stripe::TopupListParams::Amount, Integer)), created: T.nilable(T.any(::Stripe::TopupListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

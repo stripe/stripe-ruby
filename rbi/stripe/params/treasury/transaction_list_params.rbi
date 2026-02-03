@@ -60,23 +60,23 @@ module Stripe
         end
         # Returns Transactions with `posted_at` within the specified range.
         sig {
-          returns(T.nilable(T.any(Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer)))
+          returns(T.nilable(T.any(::Stripe::Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer)))
          }
         def posted_at; end
         sig {
-          params(_posted_at: T.nilable(T.any(Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer))).returns(T.nilable(T.any(Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer)))
+          params(_posted_at: T.nilable(T.any(::Stripe::Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer))).returns(T.nilable(T.any(::Stripe::Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer)))
          }
         def posted_at=(_posted_at); end
         sig {
-          params(posted_at: T.nilable(T.any(Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer))).void
+          params(posted_at: T.nilable(T.any(::Stripe::Treasury::TransactionListParams::StatusTransitions::PostedAt, Integer))).void
          }
         def initialize(posted_at: nil); end
       end
       # Only return Transactions that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Treasury::TransactionListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Treasury::TransactionListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Treasury::TransactionListParams::Created, Integer))).returns(T.nilable(T.any(Treasury::TransactionListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Treasury::TransactionListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Treasury::TransactionListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -115,14 +115,14 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       # A filter for the `status_transitions.posted_at` timestamp. When using this filter, `status=posted` and `order_by=posted_at` must also be specified.
-      sig { returns(T.nilable(Treasury::TransactionListParams::StatusTransitions)) }
+      sig { returns(T.nilable(::Stripe::Treasury::TransactionListParams::StatusTransitions)) }
       def status_transitions; end
       sig {
-        params(_status_transitions: T.nilable(Treasury::TransactionListParams::StatusTransitions)).returns(T.nilable(Treasury::TransactionListParams::StatusTransitions))
+        params(_status_transitions: T.nilable(::Stripe::Treasury::TransactionListParams::StatusTransitions)).returns(T.nilable(::Stripe::Treasury::TransactionListParams::StatusTransitions))
        }
       def status_transitions=(_status_transitions); end
       sig {
-        params(created: T.nilable(T.any(Treasury::TransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), order_by: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), status_transitions: T.nilable(Treasury::TransactionListParams::StatusTransitions)).void
+        params(created: T.nilable(T.any(::Stripe::Treasury::TransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), order_by: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), status_transitions: T.nilable(::Stripe::Treasury::TransactionListParams::StatusTransitions)).void
        }
       def initialize(
         created: nil,

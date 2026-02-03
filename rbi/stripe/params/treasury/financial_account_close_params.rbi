@@ -32,14 +32,16 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
-      sig { returns(T.nilable(Treasury::FinancialAccountCloseParams::ForwardingSettings)) }
+      sig {
+        returns(T.nilable(::Stripe::Treasury::FinancialAccountCloseParams::ForwardingSettings))
+       }
       def forwarding_settings; end
       sig {
-        params(_forwarding_settings: T.nilable(Treasury::FinancialAccountCloseParams::ForwardingSettings)).returns(T.nilable(Treasury::FinancialAccountCloseParams::ForwardingSettings))
+        params(_forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccountCloseParams::ForwardingSettings)).returns(T.nilable(::Stripe::Treasury::FinancialAccountCloseParams::ForwardingSettings))
        }
       def forwarding_settings=(_forwarding_settings); end
       sig {
-        params(expand: T.nilable(T::Array[String]), forwarding_settings: T.nilable(Treasury::FinancialAccountCloseParams::ForwardingSettings)).void
+        params(expand: T.nilable(T::Array[String]), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccountCloseParams::ForwardingSettings)).void
        }
       def initialize(expand: nil, forwarding_settings: nil); end
     end

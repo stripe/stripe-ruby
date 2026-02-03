@@ -35,9 +35,11 @@ module Stripe
       sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def limit=(_limit); end
       # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
-      sig { returns(Apps::SecretListParams::Scope) }
+      sig { returns(::Stripe::Apps::SecretListParams::Scope) }
       def scope; end
-      sig { params(_scope: Apps::SecretListParams::Scope).returns(Apps::SecretListParams::Scope) }
+      sig {
+        params(_scope: ::Stripe::Apps::SecretListParams::Scope).returns(::Stripe::Apps::SecretListParams::Scope)
+       }
       def scope=(_scope); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
@@ -45,7 +47,7 @@ module Stripe
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
       sig {
-        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), scope: Apps::SecretListParams::Scope, starting_after: T.nilable(String)).void
+        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), scope: ::Stripe::Apps::SecretListParams::Scope, starting_after: T.nilable(String)).void
        }
       def initialize(
         ending_before: nil,

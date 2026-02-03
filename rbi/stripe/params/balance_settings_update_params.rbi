@@ -39,10 +39,12 @@ module Stripe
          }
         def minimum_balance_by_currency=(_minimum_balance_by_currency); end
         # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.
-        sig { returns(T.nilable(BalanceSettingsUpdateParams::Payments::Payouts::Schedule)) }
+        sig {
+          returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts::Schedule))
+         }
         def schedule; end
         sig {
-          params(_schedule: T.nilable(BalanceSettingsUpdateParams::Payments::Payouts::Schedule)).returns(T.nilable(BalanceSettingsUpdateParams::Payments::Payouts::Schedule))
+          params(_schedule: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts::Schedule)).returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts::Schedule))
          }
         def schedule=(_schedule); end
         # The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
@@ -51,7 +53,7 @@ module Stripe
         sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
         def statement_descriptor=(_statement_descriptor); end
         sig {
-          params(minimum_balance_by_currency: T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)])), schedule: T.nilable(BalanceSettingsUpdateParams::Payments::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
+          params(minimum_balance_by_currency: T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)])), schedule: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
          }
         def initialize(
           minimum_balance_by_currency: nil,
@@ -76,21 +78,21 @@ module Stripe
       sig { params(_debit_negative_balances: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def debit_negative_balances=(_debit_negative_balances); end
       # Settings specific to the account's payouts.
-      sig { returns(T.nilable(BalanceSettingsUpdateParams::Payments::Payouts)) }
+      sig { returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts)) }
       def payouts; end
       sig {
-        params(_payouts: T.nilable(BalanceSettingsUpdateParams::Payments::Payouts)).returns(T.nilable(BalanceSettingsUpdateParams::Payments::Payouts))
+        params(_payouts: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts)).returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts))
        }
       def payouts=(_payouts); end
       # Settings related to the account's balance settlement timing.
-      sig { returns(T.nilable(BalanceSettingsUpdateParams::Payments::SettlementTiming)) }
+      sig { returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming)) }
       def settlement_timing; end
       sig {
-        params(_settlement_timing: T.nilable(BalanceSettingsUpdateParams::Payments::SettlementTiming)).returns(T.nilable(BalanceSettingsUpdateParams::Payments::SettlementTiming))
+        params(_settlement_timing: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming)).returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming))
        }
       def settlement_timing=(_settlement_timing); end
       sig {
-        params(debit_negative_balances: T.nilable(T::Boolean), payouts: T.nilable(BalanceSettingsUpdateParams::Payments::Payouts), settlement_timing: T.nilable(BalanceSettingsUpdateParams::Payments::SettlementTiming)).void
+        params(debit_negative_balances: T.nilable(T::Boolean), payouts: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts), settlement_timing: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming)).void
        }
       def initialize(debit_negative_balances: nil, payouts: nil, settlement_timing: nil); end
     end
@@ -100,14 +102,14 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
-    sig { returns(T.nilable(BalanceSettingsUpdateParams::Payments)) }
+    sig { returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments)) }
     def payments; end
     sig {
-      params(_payments: T.nilable(BalanceSettingsUpdateParams::Payments)).returns(T.nilable(BalanceSettingsUpdateParams::Payments))
+      params(_payments: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments)).returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments))
      }
     def payments=(_payments); end
     sig {
-      params(expand: T.nilable(T::Array[String]), payments: T.nilable(BalanceSettingsUpdateParams::Payments)).void
+      params(expand: T.nilable(T::Array[String]), payments: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments)).void
      }
     def initialize(expand: nil, payments: nil); end
   end

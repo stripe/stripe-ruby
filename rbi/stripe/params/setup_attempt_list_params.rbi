@@ -33,10 +33,10 @@ module Stripe
     # A filter on the list, based on the object `created` field. The value
     # can be a string with an integer Unix timestamp or a
     # dictionary with a number of different query options.
-    sig { returns(T.nilable(T.any(SetupAttemptListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SetupAttemptListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(SetupAttemptListParams::Created, Integer))).returns(T.nilable(T.any(SetupAttemptListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::SetupAttemptListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::SetupAttemptListParams::Created, Integer)))
      }
     def created=(_created); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -66,7 +66,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(created: T.nilable(T.any(SetupAttemptListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), setup_intent: String, starting_after: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::SetupAttemptListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), setup_intent: String, starting_after: T.nilable(String)).void
      }
     def initialize(
       created: nil,

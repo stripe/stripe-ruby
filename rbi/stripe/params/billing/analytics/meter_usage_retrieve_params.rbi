@@ -67,10 +67,12 @@ module Stripe
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
         # An array of meter parameters to specify which meters to include in the usage data. If not specified, usage across all meters for the customer is included.
-        sig { returns(T.nilable(T::Array[Billing::Analytics::MeterUsageRetrieveParams::Meter])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Billing::Analytics::MeterUsageRetrieveParams::Meter]))
+         }
         def meters; end
         sig {
-          params(_meters: T.nilable(T::Array[Billing::Analytics::MeterUsageRetrieveParams::Meter])).returns(T.nilable(T::Array[Billing::Analytics::MeterUsageRetrieveParams::Meter]))
+          params(_meters: T.nilable(T::Array[::Stripe::Billing::Analytics::MeterUsageRetrieveParams::Meter])).returns(T.nilable(T::Array[::Stripe::Billing::Analytics::MeterUsageRetrieveParams::Meter]))
          }
         def meters=(_meters); end
         # The timestamp from when to start aggregating meter events (inclusive). Must be aligned with minute boundaries.
@@ -89,7 +91,7 @@ module Stripe
         sig { params(_value_grouping_window: T.nilable(String)).returns(T.nilable(String)) }
         def value_grouping_window=(_value_grouping_window); end
         sig {
-          params(customer: String, ends_at: Integer, expand: T.nilable(T::Array[String]), meters: T.nilable(T::Array[Billing::Analytics::MeterUsageRetrieveParams::Meter]), starts_at: Integer, timezone: T.nilable(String), value_grouping_window: T.nilable(String)).void
+          params(customer: String, ends_at: Integer, expand: T.nilable(T::Array[String]), meters: T.nilable(T::Array[::Stripe::Billing::Analytics::MeterUsageRetrieveParams::Meter]), starts_at: Integer, timezone: T.nilable(String), value_grouping_window: T.nilable(String)).void
          }
         def initialize(
           customer: nil,

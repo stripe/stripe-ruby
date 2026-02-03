@@ -37,10 +37,12 @@ module Stripe
       sig { params(_client_reference_id: T.nilable(String)).returns(T.nilable(String)) }
       def client_reference_id=(_client_reference_id); end
       # Only return VerificationSessions that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Identity::VerificationSessionListParams::Created, Integer))) }
+      sig {
+        returns(T.nilable(T.any(::Stripe::Identity::VerificationSessionListParams::Created, Integer)))
+       }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Identity::VerificationSessionListParams::Created, Integer))).returns(T.nilable(T.any(Identity::VerificationSessionListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Identity::VerificationSessionListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Identity::VerificationSessionListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -79,7 +81,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(client_reference_id: T.nilable(String), created: T.nilable(T.any(Identity::VerificationSessionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), related_customer: T.nilable(String), related_customer_account: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String)).void
+        params(client_reference_id: T.nilable(String), created: T.nilable(T.any(::Stripe::Identity::VerificationSessionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), related_customer: T.nilable(String), related_customer_account: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
       def initialize(
         client_reference_id: nil,

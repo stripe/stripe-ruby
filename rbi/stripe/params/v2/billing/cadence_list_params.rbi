@@ -39,10 +39,10 @@ module Stripe
          }
         def lookup_keys=(_lookup_keys); end
         # If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock` and `lookup_keys`.
-        sig { returns(T.nilable(V2::Billing::CadenceListParams::Payer)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::CadenceListParams::Payer)) }
         def payer; end
         sig {
-          params(_payer: T.nilable(V2::Billing::CadenceListParams::Payer)).returns(T.nilable(V2::Billing::CadenceListParams::Payer))
+          params(_payer: T.nilable(::Stripe::V2::Billing::CadenceListParams::Payer)).returns(T.nilable(::Stripe::V2::Billing::CadenceListParams::Payer))
          }
         def payer=(_payer); end
         # If provided, only cadences that specifically reference the provided test clock ID (via the
@@ -53,7 +53,7 @@ module Stripe
         sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
         def test_clock=(_test_clock); end
         sig {
-          params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), payer: T.nilable(V2::Billing::CadenceListParams::Payer), test_clock: T.nilable(String)).void
+          params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), payer: T.nilable(::Stripe::V2::Billing::CadenceListParams::Payer), test_clock: T.nilable(String)).void
          }
         def initialize(include: nil, limit: nil, lookup_keys: nil, payer: nil, test_clock: nil); end
       end

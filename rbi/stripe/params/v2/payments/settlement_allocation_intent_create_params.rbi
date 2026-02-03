@@ -21,10 +21,10 @@ module Stripe
           def initialize(value: nil, currency: nil); end
         end
         # The amount and currency of the SettlementAllocationIntent. Allowed Currencies are `gbp` | `eur`.
-        sig { returns(V2::Payments::SettlementAllocationIntentCreateParams::Amount) }
+        sig { returns(::Stripe::V2::Payments::SettlementAllocationIntentCreateParams::Amount) }
         def amount; end
         sig {
-          params(_amount: V2::Payments::SettlementAllocationIntentCreateParams::Amount).returns(V2::Payments::SettlementAllocationIntentCreateParams::Amount)
+          params(_amount: ::Stripe::V2::Payments::SettlementAllocationIntentCreateParams::Amount).returns(::Stripe::V2::Payments::SettlementAllocationIntentCreateParams::Amount)
          }
         def amount=(_amount); end
         # Date when we expect to receive the funds. Must be in future .
@@ -50,7 +50,7 @@ module Stripe
         sig { params(_reference: String).returns(String) }
         def reference=(_reference); end
         sig {
-          params(amount: V2::Payments::SettlementAllocationIntentCreateParams::Amount, expected_settlement_date: String, financial_account: String, metadata: T.nilable(T::Hash[String, String]), reference: String).void
+          params(amount: ::Stripe::V2::Payments::SettlementAllocationIntentCreateParams::Amount, expected_settlement_date: String, financial_account: String, metadata: T.nilable(T::Hash[String, String]), reference: String).void
          }
         def initialize(
           amount: nil,

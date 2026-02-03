@@ -15,10 +15,10 @@ module Stripe
         def initialize(identifier: nil); end
       end
       # Specifies which event to cancel.
-      sig { returns(T.nilable(Billing::MeterEventAdjustmentCreateParams::Cancel)) }
+      sig { returns(T.nilable(::Stripe::Billing::MeterEventAdjustmentCreateParams::Cancel)) }
       def cancel; end
       sig {
-        params(_cancel: T.nilable(Billing::MeterEventAdjustmentCreateParams::Cancel)).returns(T.nilable(Billing::MeterEventAdjustmentCreateParams::Cancel))
+        params(_cancel: T.nilable(::Stripe::Billing::MeterEventAdjustmentCreateParams::Cancel)).returns(T.nilable(::Stripe::Billing::MeterEventAdjustmentCreateParams::Cancel))
        }
       def cancel=(_cancel); end
       # The name of the meter event. Corresponds with the `event_name` field on a meter.
@@ -37,7 +37,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(cancel: T.nilable(Billing::MeterEventAdjustmentCreateParams::Cancel), event_name: String, expand: T.nilable(T::Array[String]), type: String).void
+        params(cancel: T.nilable(::Stripe::Billing::MeterEventAdjustmentCreateParams::Cancel), event_name: String, expand: T.nilable(T::Array[String]), type: String).void
        }
       def initialize(cancel: nil, event_name: nil, expand: nil, type: nil); end
     end

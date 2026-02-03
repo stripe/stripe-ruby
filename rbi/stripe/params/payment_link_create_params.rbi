@@ -24,17 +24,19 @@ module Stripe
         def initialize(url: nil); end
       end
       # Configuration when `type=hosted_confirmation`.
-      sig { returns(T.nilable(PaymentLinkCreateParams::AfterCompletion::HostedConfirmation)) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::HostedConfirmation))
+       }
       def hosted_confirmation; end
       sig {
-        params(_hosted_confirmation: T.nilable(PaymentLinkCreateParams::AfterCompletion::HostedConfirmation)).returns(T.nilable(PaymentLinkCreateParams::AfterCompletion::HostedConfirmation))
+        params(_hosted_confirmation: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::HostedConfirmation)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::HostedConfirmation))
        }
       def hosted_confirmation=(_hosted_confirmation); end
       # Configuration when `type=redirect`.
-      sig { returns(T.nilable(PaymentLinkCreateParams::AfterCompletion::Redirect)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::Redirect)) }
       def redirect; end
       sig {
-        params(_redirect: T.nilable(PaymentLinkCreateParams::AfterCompletion::Redirect)).returns(T.nilable(PaymentLinkCreateParams::AfterCompletion::Redirect))
+        params(_redirect: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::Redirect)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::Redirect))
        }
       def redirect=(_redirect); end
       # The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
@@ -43,7 +45,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(hosted_confirmation: T.nilable(PaymentLinkCreateParams::AfterCompletion::HostedConfirmation), redirect: T.nilable(PaymentLinkCreateParams::AfterCompletion::Redirect), type: String).void
+        params(hosted_confirmation: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::HostedConfirmation), redirect: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion::Redirect), type: String).void
        }
       def initialize(hosted_confirmation: nil, redirect: nil, type: nil); end
     end
@@ -70,14 +72,14 @@ module Stripe
       sig { params(_enabled: T::Boolean).returns(T::Boolean) }
       def enabled=(_enabled); end
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-      sig { returns(T.nilable(PaymentLinkCreateParams::AutomaticTax::Liability)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax::Liability)) }
       def liability; end
       sig {
-        params(_liability: T.nilable(PaymentLinkCreateParams::AutomaticTax::Liability)).returns(T.nilable(PaymentLinkCreateParams::AutomaticTax::Liability))
+        params(_liability: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax::Liability)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax::Liability))
        }
       def liability=(_liability); end
       sig {
-        params(enabled: T::Boolean, liability: T.nilable(PaymentLinkCreateParams::AutomaticTax::Liability)).void
+        params(enabled: T::Boolean, liability: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax::Liability)).void
        }
       def initialize(enabled: nil, liability: nil); end
     end
@@ -94,11 +96,11 @@ module Stripe
       end
       # Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
       sig {
-        returns(T.nilable(PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement))
+        returns(T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement))
        }
       def payment_method_reuse_agreement; end
       sig {
-        params(_payment_method_reuse_agreement: T.nilable(PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement)).returns(T.nilable(PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement))
+        params(_payment_method_reuse_agreement: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement))
        }
       def payment_method_reuse_agreement=(_payment_method_reuse_agreement); end
       # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
@@ -115,7 +117,7 @@ module Stripe
       sig { params(_terms_of_service: T.nilable(String)).returns(T.nilable(String)) }
       def terms_of_service=(_terms_of_service); end
       sig {
-        params(payment_method_reuse_agreement: T.nilable(PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement), promotions: T.nilable(String), terms_of_service: T.nilable(String)).void
+        params(payment_method_reuse_agreement: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection::PaymentMethodReuseAgreement), promotions: T.nilable(String), terms_of_service: T.nilable(String)).void
        }
       def initialize(
         payment_method_reuse_agreement: nil,
@@ -145,14 +147,14 @@ module Stripe
         sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
         def default_value=(_default_value); end
         # The options available for the customer to select. Up to 200 options allowed.
-        sig { returns(T::Array[PaymentLinkCreateParams::CustomField::Dropdown::Option]) }
+        sig { returns(T::Array[::Stripe::PaymentLinkCreateParams::CustomField::Dropdown::Option]) }
         def options; end
         sig {
-          params(_options: T::Array[PaymentLinkCreateParams::CustomField::Dropdown::Option]).returns(T::Array[PaymentLinkCreateParams::CustomField::Dropdown::Option])
+          params(_options: T::Array[::Stripe::PaymentLinkCreateParams::CustomField::Dropdown::Option]).returns(T::Array[::Stripe::PaymentLinkCreateParams::CustomField::Dropdown::Option])
          }
         def options=(_options); end
         sig {
-          params(default_value: T.nilable(String), options: T::Array[PaymentLinkCreateParams::CustomField::Dropdown::Option]).void
+          params(default_value: T.nilable(String), options: T::Array[::Stripe::PaymentLinkCreateParams::CustomField::Dropdown::Option]).void
          }
         def initialize(default_value: nil, options: nil); end
       end
@@ -213,10 +215,10 @@ module Stripe
         def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
       end
       # Configuration for `type=dropdown` fields.
-      sig { returns(T.nilable(PaymentLinkCreateParams::CustomField::Dropdown)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Dropdown)) }
       def dropdown; end
       sig {
-        params(_dropdown: T.nilable(PaymentLinkCreateParams::CustomField::Dropdown)).returns(T.nilable(PaymentLinkCreateParams::CustomField::Dropdown))
+        params(_dropdown: T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Dropdown)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Dropdown))
        }
       def dropdown=(_dropdown); end
       # String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
@@ -225,17 +227,17 @@ module Stripe
       sig { params(_key: String).returns(String) }
       def key=(_key); end
       # The label for the field, displayed to the customer.
-      sig { returns(PaymentLinkCreateParams::CustomField::Label) }
+      sig { returns(::Stripe::PaymentLinkCreateParams::CustomField::Label) }
       def label; end
       sig {
-        params(_label: PaymentLinkCreateParams::CustomField::Label).returns(PaymentLinkCreateParams::CustomField::Label)
+        params(_label: ::Stripe::PaymentLinkCreateParams::CustomField::Label).returns(::Stripe::PaymentLinkCreateParams::CustomField::Label)
        }
       def label=(_label); end
       # Configuration for `type=numeric` fields.
-      sig { returns(T.nilable(PaymentLinkCreateParams::CustomField::Numeric)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Numeric)) }
       def numeric; end
       sig {
-        params(_numeric: T.nilable(PaymentLinkCreateParams::CustomField::Numeric)).returns(T.nilable(PaymentLinkCreateParams::CustomField::Numeric))
+        params(_numeric: T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Numeric)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Numeric))
        }
       def numeric=(_numeric); end
       # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
@@ -244,10 +246,10 @@ module Stripe
       sig { params(_optional: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def optional=(_optional); end
       # Configuration for `type=text` fields.
-      sig { returns(T.nilable(PaymentLinkCreateParams::CustomField::Text)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Text)) }
       def text; end
       sig {
-        params(_text: T.nilable(PaymentLinkCreateParams::CustomField::Text)).returns(T.nilable(PaymentLinkCreateParams::CustomField::Text))
+        params(_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Text)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Text))
        }
       def text=(_text); end
       # The type of the field.
@@ -256,7 +258,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(dropdown: T.nilable(PaymentLinkCreateParams::CustomField::Dropdown), key: String, label: PaymentLinkCreateParams::CustomField::Label, numeric: T.nilable(PaymentLinkCreateParams::CustomField::Numeric), optional: T.nilable(T::Boolean), text: T.nilable(PaymentLinkCreateParams::CustomField::Text), type: String).void
+        params(dropdown: T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Dropdown), key: String, label: ::Stripe::PaymentLinkCreateParams::CustomField::Label, numeric: T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Numeric), optional: T.nilable(T::Boolean), text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomField::Text), type: String).void
        }
       def initialize(
         dropdown: nil,
@@ -306,39 +308,43 @@ module Stripe
         def initialize(message: nil); end
       end
       # Custom text that should be displayed after the payment confirmation button.
-      sig { returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::AfterSubmit))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::AfterSubmit)))
+       }
       def after_submit; end
       sig {
-        params(_after_submit: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::AfterSubmit))).returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::AfterSubmit)))
+        params(_after_submit: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::AfterSubmit))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::AfterSubmit)))
        }
       def after_submit=(_after_submit); end
       # Custom text that should be displayed alongside shipping address collection.
       sig {
-        returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::ShippingAddress)))
+        returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::ShippingAddress)))
        }
       def shipping_address; end
       sig {
-        params(_shipping_address: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::ShippingAddress))).returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::ShippingAddress)))
+        params(_shipping_address: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::ShippingAddress))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::ShippingAddress)))
        }
       def shipping_address=(_shipping_address); end
       # Custom text that should be displayed alongside the payment confirmation button.
-      sig { returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::Submit))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::Submit)))
+       }
       def submit; end
       sig {
-        params(_submit: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::Submit))).returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::Submit)))
+        params(_submit: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::Submit))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::Submit)))
        }
       def submit=(_submit); end
       # Custom text that should be displayed in place of the default terms of service agreement text.
       sig {
-        returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance)))
+        returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance)))
        }
       def terms_of_service_acceptance; end
       sig {
-        params(_terms_of_service_acceptance: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance))).returns(T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance)))
+        params(_terms_of_service_acceptance: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance)))
        }
       def terms_of_service_acceptance=(_terms_of_service_acceptance); end
       sig {
-        params(after_submit: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::AfterSubmit)), shipping_address: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::ShippingAddress)), submit: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::Submit)), terms_of_service_acceptance: T.nilable(T.any(String, PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance))).void
+        params(after_submit: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::AfterSubmit)), shipping_address: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::ShippingAddress)), submit: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::Submit)), terms_of_service_acceptance: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::CustomText::TermsOfServiceAcceptance))).void
        }
       def initialize(
         after_submit: nil,
@@ -404,11 +410,11 @@ module Stripe
         def account_tax_ids=(_account_tax_ids); end
         # Default custom fields to be displayed on invoices for this customer.
         sig {
-          returns(T.nilable(T.any(String, T::Array[PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField])))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField])))
          }
         def custom_fields; end
         sig {
-          params(_custom_fields: T.nilable(T.any(String, T::Array[PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField]))).returns(T.nilable(T.any(String, T::Array[PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField])))
+          params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField])))
          }
         def custom_fields=(_custom_fields); end
         # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -422,10 +428,12 @@ module Stripe
         sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
         def footer=(_footer); end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        sig { returns(T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer)) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer))
+         }
         def issuer; end
         sig {
-          params(_issuer: T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer))
+          params(_issuer: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer))
          }
         def issuer=(_issuer); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -437,15 +445,15 @@ module Stripe
         def metadata=(_metadata); end
         # Default options for invoice PDF rendering for this customer.
         sig {
-          returns(T.nilable(T.any(String, PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions)))
+          returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions)))
          }
         def rendering_options; end
         sig {
-          params(_rendering_options: T.nilable(T.any(String, PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions))).returns(T.nilable(T.any(String, PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions)))
+          params(_rendering_options: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions)))
          }
         def rendering_options=(_rendering_options); end
         sig {
-          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), custom_fields: T.nilable(T.any(String, T::Array[PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField])), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), rendering_options: T.nilable(T.any(String, PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions))).void
+          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::CustomField])), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), rendering_options: T.nilable(T.any(String, ::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData::RenderingOptions))).void
          }
         def initialize(
           account_tax_ids: nil,
@@ -463,14 +471,14 @@ module Stripe
       sig { params(_enabled: T::Boolean).returns(T::Boolean) }
       def enabled=(_enabled); end
       # Invoice PDF configuration.
-      sig { returns(T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData)) }
       def invoice_data; end
       sig {
-        params(_invoice_data: T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData)).returns(T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData))
+        params(_invoice_data: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData))
        }
       def invoice_data=(_invoice_data); end
       sig {
-        params(enabled: T::Boolean, invoice_data: T.nilable(PaymentLinkCreateParams::InvoiceCreation::InvoiceData)).void
+        params(enabled: T::Boolean, invoice_data: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation::InvoiceData)).void
        }
       def initialize(enabled: nil, invoice_data: nil); end
     end
@@ -541,11 +549,11 @@ module Stripe
           def tax_code=(_tax_code); end
           # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
           sig {
-            returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+            returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
            }
           def tax_details; end
           sig {
-            params(_tax_details: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails)).returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+            params(_tax_details: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
            }
           def tax_details=(_tax_details); end
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
@@ -554,7 +562,7 @@ module Stripe
           sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
           def unit_label=(_unit_label); end
           sig {
-            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
+            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
            }
           def initialize(
             description: nil,
@@ -591,17 +599,21 @@ module Stripe
         sig { params(_product: T.nilable(String)).returns(T.nilable(String)) }
         def product=(_product); end
         # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
-        sig { returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData)) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData))
+         }
         def product_data; end
         sig {
-          params(_product_data: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData)).returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData))
+          params(_product_data: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData))
          }
         def product_data=(_product_data); end
         # The recurring components of a price such as `interval` and `interval_count`.
-        sig { returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::Recurring)) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::Recurring))
+         }
         def recurring; end
         sig {
-          params(_recurring: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::Recurring)).returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData::Recurring))
+          params(_recurring: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::Recurring)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::Recurring))
          }
         def recurring=(_recurring); end
         # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -620,7 +632,7 @@ module Stripe
         sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
         def unit_amount_decimal=(_unit_amount_decimal); end
         sig {
-          params(currency: String, product: T.nilable(String), product_data: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::ProductData), recurring: T.nilable(PaymentLinkCreateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData), recurring: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           currency: nil,
@@ -633,10 +645,10 @@ module Stripe
         ); end
       end
       # When set, provides configuration for this item’s quantity to be adjusted by the customer during checkout.
-      sig { returns(T.nilable(PaymentLinkCreateParams::LineItem::AdjustableQuantity)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::AdjustableQuantity)) }
       def adjustable_quantity; end
       sig {
-        params(_adjustable_quantity: T.nilable(PaymentLinkCreateParams::LineItem::AdjustableQuantity)).returns(T.nilable(PaymentLinkCreateParams::LineItem::AdjustableQuantity))
+        params(_adjustable_quantity: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::AdjustableQuantity)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::AdjustableQuantity))
        }
       def adjustable_quantity=(_adjustable_quantity); end
       # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
@@ -645,10 +657,10 @@ module Stripe
       sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
       def price=(_price); end
       # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
-      sig { returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData)) }
       def price_data; end
       sig {
-        params(_price_data: T.nilable(PaymentLinkCreateParams::LineItem::PriceData)).returns(T.nilable(PaymentLinkCreateParams::LineItem::PriceData))
+        params(_price_data: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData))
        }
       def price_data=(_price_data); end
       # The quantity of the line item being purchased.
@@ -657,7 +669,7 @@ module Stripe
       sig { params(_quantity: Integer).returns(Integer) }
       def quantity=(_quantity); end
       sig {
-        params(adjustable_quantity: T.nilable(PaymentLinkCreateParams::LineItem::AdjustableQuantity), price: T.nilable(String), price_data: T.nilable(PaymentLinkCreateParams::LineItem::PriceData), quantity: Integer).void
+        params(adjustable_quantity: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::AdjustableQuantity), price: T.nilable(String), price_data: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData), quantity: Integer).void
        }
       def initialize(adjustable_quantity: nil, price: nil, price_data: nil, quantity: nil); end
     end
@@ -691,21 +703,21 @@ module Stripe
         def initialize(enabled: nil, optional: nil); end
       end
       # Controls settings applied for collecting the customer's business name.
-      sig { returns(T.nilable(PaymentLinkCreateParams::NameCollection::Business)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Business)) }
       def business; end
       sig {
-        params(_business: T.nilable(PaymentLinkCreateParams::NameCollection::Business)).returns(T.nilable(PaymentLinkCreateParams::NameCollection::Business))
+        params(_business: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Business)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Business))
        }
       def business=(_business); end
       # Controls settings applied for collecting the customer's individual name.
-      sig { returns(T.nilable(PaymentLinkCreateParams::NameCollection::Individual)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Individual)) }
       def individual; end
       sig {
-        params(_individual: T.nilable(PaymentLinkCreateParams::NameCollection::Individual)).returns(T.nilable(PaymentLinkCreateParams::NameCollection::Individual))
+        params(_individual: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Individual)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Individual))
        }
       def individual=(_individual); end
       sig {
-        params(business: T.nilable(PaymentLinkCreateParams::NameCollection::Business), individual: T.nilable(PaymentLinkCreateParams::NameCollection::Individual)).void
+        params(business: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Business), individual: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection::Individual)).void
        }
       def initialize(business: nil, individual: nil); end
     end
@@ -732,10 +744,12 @@ module Stripe
         def initialize(enabled: nil, maximum: nil, minimum: nil); end
       end
       # When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
-      sig { returns(T.nilable(PaymentLinkCreateParams::OptionalItem::AdjustableQuantity)) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentLinkCreateParams::OptionalItem::AdjustableQuantity))
+       }
       def adjustable_quantity; end
       sig {
-        params(_adjustable_quantity: T.nilable(PaymentLinkCreateParams::OptionalItem::AdjustableQuantity)).returns(T.nilable(PaymentLinkCreateParams::OptionalItem::AdjustableQuantity))
+        params(_adjustable_quantity: T.nilable(::Stripe::PaymentLinkCreateParams::OptionalItem::AdjustableQuantity)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::OptionalItem::AdjustableQuantity))
        }
       def adjustable_quantity=(_adjustable_quantity); end
       # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object.
@@ -749,7 +763,7 @@ module Stripe
       sig { params(_quantity: Integer).returns(Integer) }
       def quantity=(_quantity); end
       sig {
-        params(adjustable_quantity: T.nilable(PaymentLinkCreateParams::OptionalItem::AdjustableQuantity), price: String, quantity: Integer).void
+        params(adjustable_quantity: T.nilable(::Stripe::PaymentLinkCreateParams::OptionalItem::AdjustableQuantity), price: String, quantity: Integer).void
        }
       def initialize(adjustable_quantity: nil, price: nil, quantity: nil); end
     end
@@ -836,14 +850,14 @@ module Stripe
         def initialize(limit: nil); end
       end
       # Configuration for the `completed_sessions` restriction type.
-      sig { returns(PaymentLinkCreateParams::Restrictions::CompletedSessions) }
+      sig { returns(::Stripe::PaymentLinkCreateParams::Restrictions::CompletedSessions) }
       def completed_sessions; end
       sig {
-        params(_completed_sessions: PaymentLinkCreateParams::Restrictions::CompletedSessions).returns(PaymentLinkCreateParams::Restrictions::CompletedSessions)
+        params(_completed_sessions: ::Stripe::PaymentLinkCreateParams::Restrictions::CompletedSessions).returns(::Stripe::PaymentLinkCreateParams::Restrictions::CompletedSessions)
        }
       def completed_sessions=(_completed_sessions); end
       sig {
-        params(completed_sessions: PaymentLinkCreateParams::Restrictions::CompletedSessions).void
+        params(completed_sessions: ::Stripe::PaymentLinkCreateParams::Restrictions::CompletedSessions).void
        }
       def initialize(completed_sessions: nil); end
     end
@@ -884,15 +898,15 @@ module Stripe
         end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig {
-          returns(T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer))
+          returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer))
          }
         def issuer; end
         sig {
-          params(_issuer: T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer)).returns(T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer))
+          params(_issuer: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer))
          }
         def issuer=(_issuer); end
         sig {
-          params(issuer: T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer)).void
+          params(issuer: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings::Issuer)).void
          }
         def initialize(issuer: nil); end
       end
@@ -907,14 +921,16 @@ module Stripe
           def initialize(missing_payment_method: nil); end
         end
         # Defines how the subscription should behave when the user's free trial ends.
-        sig { returns(PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior) }
+        sig {
+          returns(::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior)
+         }
         def end_behavior; end
         sig {
-          params(_end_behavior: PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior).returns(PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior)
+          params(_end_behavior: ::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior).returns(::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior)
          }
         def end_behavior=(_end_behavior); end
         sig {
-          params(end_behavior: PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior).void
+          params(end_behavior: ::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings::EndBehavior).void
          }
         def initialize(end_behavior: nil); end
       end
@@ -924,10 +940,12 @@ module Stripe
       sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
       def description=(_description); end
       # All invoices will be billed using the specified settings.
-      sig { returns(T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings)) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings))
+       }
       def invoice_settings; end
       sig {
-        params(_invoice_settings: T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings))
+        params(_invoice_settings: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings))
        }
       def invoice_settings=(_invoice_settings); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
@@ -943,14 +961,14 @@ module Stripe
       sig { params(_trial_period_days: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def trial_period_days=(_trial_period_days); end
       # Settings related to subscription trials.
-      sig { returns(T.nilable(PaymentLinkCreateParams::SubscriptionData::TrialSettings)) }
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings)) }
       def trial_settings; end
       sig {
-        params(_trial_settings: T.nilable(PaymentLinkCreateParams::SubscriptionData::TrialSettings)).returns(T.nilable(PaymentLinkCreateParams::SubscriptionData::TrialSettings))
+        params(_trial_settings: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
       sig {
-        params(description: T.nilable(String), invoice_settings: T.nilable(PaymentLinkCreateParams::SubscriptionData::InvoiceSettings), metadata: T.nilable(T::Hash[String, String]), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(PaymentLinkCreateParams::SubscriptionData::TrialSettings)).void
+        params(description: T.nilable(String), invoice_settings: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::InvoiceSettings), metadata: T.nilable(T::Hash[String, String]), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData::TrialSettings)).void
        }
       def initialize(
         description: nil,
@@ -992,10 +1010,10 @@ module Stripe
       def initialize(amount: nil, destination: nil); end
     end
     # Behavior after the purchase is complete.
-    sig { returns(T.nilable(PaymentLinkCreateParams::AfterCompletion)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion)) }
     def after_completion; end
     sig {
-      params(_after_completion: T.nilable(PaymentLinkCreateParams::AfterCompletion)).returns(T.nilable(PaymentLinkCreateParams::AfterCompletion))
+      params(_after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion))
      }
     def after_completion=(_after_completion); end
     # Enables user redeemable promotion codes.
@@ -1014,10 +1032,10 @@ module Stripe
     sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
     def application_fee_percent=(_application_fee_percent); end
     # Configuration for automatic tax collection.
-    sig { returns(T.nilable(PaymentLinkCreateParams::AutomaticTax)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax)) }
     def automatic_tax; end
     sig {
-      params(_automatic_tax: T.nilable(PaymentLinkCreateParams::AutomaticTax)).returns(T.nilable(PaymentLinkCreateParams::AutomaticTax))
+      params(_automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax))
      }
     def automatic_tax=(_automatic_tax); end
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
@@ -1026,10 +1044,10 @@ module Stripe
     sig { params(_billing_address_collection: T.nilable(String)).returns(T.nilable(String)) }
     def billing_address_collection=(_billing_address_collection); end
     # Configure fields to gather active consent from customers.
-    sig { returns(T.nilable(PaymentLinkCreateParams::ConsentCollection)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection)) }
     def consent_collection; end
     sig {
-      params(_consent_collection: T.nilable(PaymentLinkCreateParams::ConsentCollection)).returns(T.nilable(PaymentLinkCreateParams::ConsentCollection))
+      params(_consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection))
      }
     def consent_collection=(_consent_collection); end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price.
@@ -1038,17 +1056,17 @@ module Stripe
     sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
     def currency=(_currency); end
     # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
-    sig { returns(T.nilable(T::Array[PaymentLinkCreateParams::CustomField])) }
+    sig { returns(T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField])) }
     def custom_fields; end
     sig {
-      params(_custom_fields: T.nilable(T::Array[PaymentLinkCreateParams::CustomField])).returns(T.nilable(T::Array[PaymentLinkCreateParams::CustomField]))
+      params(_custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField])).returns(T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]))
      }
     def custom_fields=(_custom_fields); end
     # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
-    sig { returns(T.nilable(PaymentLinkCreateParams::CustomText)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomText)) }
     def custom_text; end
     sig {
-      params(_custom_text: T.nilable(PaymentLinkCreateParams::CustomText)).returns(T.nilable(PaymentLinkCreateParams::CustomText))
+      params(_custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::CustomText))
      }
     def custom_text=(_custom_text); end
     # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
@@ -1067,17 +1085,17 @@ module Stripe
     sig { params(_inactive_message: T.nilable(String)).returns(T.nilable(String)) }
     def inactive_message=(_inactive_message); end
     # Generate a post-purchase Invoice for one-time payments.
-    sig { returns(T.nilable(PaymentLinkCreateParams::InvoiceCreation)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation)) }
     def invoice_creation; end
     sig {
-      params(_invoice_creation: T.nilable(PaymentLinkCreateParams::InvoiceCreation)).returns(T.nilable(PaymentLinkCreateParams::InvoiceCreation))
+      params(_invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation))
      }
     def invoice_creation=(_invoice_creation); end
     # The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
-    sig { returns(T::Array[PaymentLinkCreateParams::LineItem]) }
+    sig { returns(T::Array[::Stripe::PaymentLinkCreateParams::LineItem]) }
     def line_items; end
     sig {
-      params(_line_items: T::Array[PaymentLinkCreateParams::LineItem]).returns(T::Array[PaymentLinkCreateParams::LineItem])
+      params(_line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem]).returns(T::Array[::Stripe::PaymentLinkCreateParams::LineItem])
      }
     def line_items=(_line_items); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
@@ -1088,10 +1106,10 @@ module Stripe
      }
     def metadata=(_metadata); end
     # Controls settings applied for collecting the customer's name.
-    sig { returns(T.nilable(PaymentLinkCreateParams::NameCollection)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection)) }
     def name_collection; end
     sig {
-      params(_name_collection: T.nilable(PaymentLinkCreateParams::NameCollection)).returns(T.nilable(PaymentLinkCreateParams::NameCollection))
+      params(_name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection))
      }
     def name_collection=(_name_collection); end
     # The account on behalf of which to charge.
@@ -1102,17 +1120,17 @@ module Stripe
     # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
     # There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
     # There is a maximum of 20 combined line items and optional items.
-    sig { returns(T.nilable(T::Array[PaymentLinkCreateParams::OptionalItem])) }
+    sig { returns(T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem])) }
     def optional_items; end
     sig {
-      params(_optional_items: T.nilable(T::Array[PaymentLinkCreateParams::OptionalItem])).returns(T.nilable(T::Array[PaymentLinkCreateParams::OptionalItem]))
+      params(_optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem])).returns(T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]))
      }
     def optional_items=(_optional_items); end
     # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
-    sig { returns(T.nilable(PaymentLinkCreateParams::PaymentIntentData)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData)) }
     def payment_intent_data; end
     sig {
-      params(_payment_intent_data: T.nilable(PaymentLinkCreateParams::PaymentIntentData)).returns(T.nilable(PaymentLinkCreateParams::PaymentIntentData))
+      params(_payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData))
      }
     def payment_intent_data=(_payment_intent_data); end
     # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -1134,31 +1152,31 @@ module Stripe
     # Controls phone number collection settings during checkout.
     #
     # We recommend that you review your privacy policy and check with your legal contacts.
-    sig { returns(T.nilable(PaymentLinkCreateParams::PhoneNumberCollection)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection)) }
     def phone_number_collection; end
     sig {
-      params(_phone_number_collection: T.nilable(PaymentLinkCreateParams::PhoneNumberCollection)).returns(T.nilable(PaymentLinkCreateParams::PhoneNumberCollection))
+      params(_phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection))
      }
     def phone_number_collection=(_phone_number_collection); end
     # Settings that restrict the usage of a payment link.
-    sig { returns(T.nilable(PaymentLinkCreateParams::Restrictions)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions)) }
     def restrictions; end
     sig {
-      params(_restrictions: T.nilable(PaymentLinkCreateParams::Restrictions)).returns(T.nilable(PaymentLinkCreateParams::Restrictions))
+      params(_restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions))
      }
     def restrictions=(_restrictions); end
     # Configuration for collecting the customer's shipping address.
-    sig { returns(T.nilable(PaymentLinkCreateParams::ShippingAddressCollection)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection)) }
     def shipping_address_collection; end
     sig {
-      params(_shipping_address_collection: T.nilable(PaymentLinkCreateParams::ShippingAddressCollection)).returns(T.nilable(PaymentLinkCreateParams::ShippingAddressCollection))
+      params(_shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection))
      }
     def shipping_address_collection=(_shipping_address_collection); end
     # The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
-    sig { returns(T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption])) }
+    sig { returns(T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption])) }
     def shipping_options; end
     sig {
-      params(_shipping_options: T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption])).returns(T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption]))
+      params(_shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption])).returns(T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]))
      }
     def shipping_options=(_shipping_options); end
     # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
@@ -1167,28 +1185,28 @@ module Stripe
     sig { params(_submit_type: T.nilable(String)).returns(T.nilable(String)) }
     def submit_type=(_submit_type); end
     # When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
-    sig { returns(T.nilable(PaymentLinkCreateParams::SubscriptionData)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData)) }
     def subscription_data; end
     sig {
-      params(_subscription_data: T.nilable(PaymentLinkCreateParams::SubscriptionData)).returns(T.nilable(PaymentLinkCreateParams::SubscriptionData))
+      params(_subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData))
      }
     def subscription_data=(_subscription_data); end
     # Controls tax ID collection during checkout.
-    sig { returns(T.nilable(PaymentLinkCreateParams::TaxIdCollection)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection)) }
     def tax_id_collection; end
     sig {
-      params(_tax_id_collection: T.nilable(PaymentLinkCreateParams::TaxIdCollection)).returns(T.nilable(PaymentLinkCreateParams::TaxIdCollection))
+      params(_tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection))
      }
     def tax_id_collection=(_tax_id_collection); end
     # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
-    sig { returns(T.nilable(PaymentLinkCreateParams::TransferData)) }
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)) }
     def transfer_data; end
     sig {
-      params(_transfer_data: T.nilable(PaymentLinkCreateParams::TransferData)).returns(T.nilable(PaymentLinkCreateParams::TransferData))
+      params(_transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(after_completion: T.nilable(PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[PaymentLinkCreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(PaymentLinkCreateParams::TransferData)).void
+      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
      }
     def initialize(
       after_completion: nil,

@@ -32,10 +32,12 @@ module Stripe
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return BlocklistEntries that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Identity::BlocklistEntryListParams::Created, Integer))) }
+      sig {
+        returns(T.nilable(T.any(::Stripe::Identity::BlocklistEntryListParams::Created, Integer)))
+       }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Identity::BlocklistEntryListParams::Created, Integer))).returns(T.nilable(T.any(Identity::BlocklistEntryListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Identity::BlocklistEntryListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Identity::BlocklistEntryListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -74,7 +76,7 @@ module Stripe
       sig { params(_verification_report: T.nilable(String)).returns(T.nilable(String)) }
       def verification_report=(_verification_report); end
       sig {
-        params(created: T.nilable(T.any(Identity::BlocklistEntryListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String), verification_report: T.nilable(String)).void
+        params(created: T.nilable(T.any(::Stripe::Identity::BlocklistEntryListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String), verification_report: T.nilable(String)).void
        }
       def initialize(
         created: nil,

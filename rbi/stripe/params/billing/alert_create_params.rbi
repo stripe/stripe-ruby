@@ -30,11 +30,11 @@ module Stripe
                 end
                 # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
                 sig {
-                  returns(T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]))
+                  returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]))
                  }
                 def billable_items; end
                 sig {
-                  params(_billable_items: T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem])).returns(T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]))
+                  params(_billable_items: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]))
                  }
                 def billable_items=(_billable_items); end
                 # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
@@ -44,53 +44,53 @@ module Stripe
                 def price_type=(_price_type); end
                 # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
                 sig {
-                  returns(T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price]))
+                  returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price]))
                  }
                 def prices; end
                 sig {
-                  params(_prices: T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price])).returns(T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price]))
+                  params(_prices: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price]))
                  }
                 def prices=(_prices); end
                 sig {
-                  params(billable_items: T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price])).void
+                  params(billable_items: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price])).void
                  }
                 def initialize(billable_items: nil, price_type: nil, prices: nil); end
               end
               # Specify the scope of this applicability config.
               sig {
-                returns(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope)
+                returns(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope)
                }
               def scope; end
               sig {
-                params(_scope: Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope).returns(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope)
+                params(_scope: ::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope).returns(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope)
                }
               def scope=(_scope); end
               sig {
-                params(scope: Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope).void
+                params(scope: ::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope).void
                }
               def initialize(scope: nil); end
             end
             # The applicability configuration for this credit grants filter.
             sig {
-              returns(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig)
+              returns(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig)
              }
             def applicability_config; end
             sig {
-              params(_applicability_config: Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig).returns(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig)
+              params(_applicability_config: ::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig).returns(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig)
              }
             def applicability_config=(_applicability_config); end
             sig {
-              params(applicability_config: Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig).void
+              params(applicability_config: ::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig).void
              }
             def initialize(applicability_config: nil); end
           end
           # The credit grants for which to configure the credit balance alert.
           sig {
-            returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants))
+            returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants))
            }
           def credit_grants; end
           sig {
-            params(_credit_grants: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants)).returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants))
+            params(_credit_grants: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants))
            }
           def credit_grants=(_credit_grants); end
           # Limit the scope to this credit balance alert only to this customer.
@@ -104,7 +104,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(credit_grants: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants), customer: T.nilable(String), type: String).void
+            params(credit_grants: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter::CreditGrants), customer: T.nilable(String), type: String).void
            }
           def initialize(credit_grants: nil, customer: nil, type: nil); end
         end
@@ -144,45 +144,45 @@ module Stripe
           def balance_type=(_balance_type); end
           # The custom pricing unit amount.
           sig {
-            returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit))
+            returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit))
            }
           def custom_pricing_unit; end
           sig {
-            params(_custom_pricing_unit: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit)).returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit))
+            params(_custom_pricing_unit: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit))
            }
           def custom_pricing_unit=(_custom_pricing_unit); end
           # The monetary amount.
           sig {
-            returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary))
+            returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary))
            }
           def monetary; end
           sig {
-            params(_monetary: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary)).returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary))
+            params(_monetary: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary))
            }
           def monetary=(_monetary); end
           sig {
-            params(balance_type: String, custom_pricing_unit: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit), monetary: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary)).void
+            params(balance_type: String, custom_pricing_unit: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit), monetary: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary)).void
            }
           def initialize(balance_type: nil, custom_pricing_unit: nil, monetary: nil); end
         end
         # The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
         sig {
-          returns(T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter]))
+          returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter]))
          }
         def filters; end
         sig {
-          params(_filters: T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter])).returns(T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter]))
+          params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter]))
          }
         def filters=(_filters); end
         # Defines at which value the alert will fire.
-        sig { returns(Billing::AlertCreateParams::CreditBalanceThreshold::Lte) }
+        sig { returns(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte) }
         def lte; end
         sig {
-          params(_lte: Billing::AlertCreateParams::CreditBalanceThreshold::Lte).returns(Billing::AlertCreateParams::CreditBalanceThreshold::Lte)
+          params(_lte: ::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte).returns(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte)
          }
         def lte=(_lte); end
         sig {
-          params(filters: T.nilable(T::Array[Billing::AlertCreateParams::CreditBalanceThreshold::Filter]), lte: Billing::AlertCreateParams::CreditBalanceThreshold::Lte).void
+          params(filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte).void
          }
         def initialize(filters: nil, lte: nil); end
       end
@@ -202,10 +202,12 @@ module Stripe
           def initialize(customer: nil, type: nil); end
         end
         # The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
-        sig { returns(T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]))
+         }
         def filters; end
         sig {
-          params(_filters: T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter]))
+          params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]))
          }
         def filters=(_filters); end
         # Defines at which value the alert will fire.
@@ -224,7 +226,7 @@ module Stripe
         sig { params(_recurrence: String).returns(String) }
         def recurrence=(_recurrence); end
         sig {
-          params(filters: T.nilable(T::Array[Billing::AlertCreateParams::UsageThreshold::Filter]), gte: Integer, meter: String, recurrence: String).void
+          params(filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]), gte: Integer, meter: String, recurrence: String).void
          }
         def initialize(filters: nil, gte: nil, meter: nil, recurrence: nil); end
       end
@@ -234,10 +236,10 @@ module Stripe
       sig { params(_alert_type: String).returns(String) }
       def alert_type=(_alert_type); end
       # The configuration of the credit balance threshold.
-      sig { returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold)) }
+      sig { returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold)) }
       def credit_balance_threshold; end
       sig {
-        params(_credit_balance_threshold: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold)).returns(T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold))
+        params(_credit_balance_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold))
        }
       def credit_balance_threshold=(_credit_balance_threshold); end
       # Specifies which fields in the response should be expanded.
@@ -251,14 +253,14 @@ module Stripe
       sig { params(_title: String).returns(String) }
       def title=(_title); end
       # The configuration of the usage threshold.
-      sig { returns(T.nilable(Billing::AlertCreateParams::UsageThreshold)) }
+      sig { returns(T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)) }
       def usage_threshold; end
       sig {
-        params(_usage_threshold: T.nilable(Billing::AlertCreateParams::UsageThreshold)).returns(T.nilable(Billing::AlertCreateParams::UsageThreshold))
+        params(_usage_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold))
        }
       def usage_threshold=(_usage_threshold); end
       sig {
-        params(alert_type: String, credit_balance_threshold: T.nilable(Billing::AlertCreateParams::CreditBalanceThreshold), expand: T.nilable(T::Array[String]), title: String, usage_threshold: T.nilable(Billing::AlertCreateParams::UsageThreshold)).void
+        params(alert_type: String, credit_balance_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold), expand: T.nilable(T::Array[String]), title: String, usage_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)).void
        }
       def initialize(
         alert_type: nil,

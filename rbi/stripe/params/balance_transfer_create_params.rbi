@@ -29,10 +29,12 @@ module Stripe
         def initialize(charge: nil, type: nil); end
       end
       # Attribute for param field allocated_funds
-      sig { returns(T.nilable(BalanceTransferCreateParams::SourceBalance::AllocatedFunds)) }
+      sig {
+        returns(T.nilable(::Stripe::BalanceTransferCreateParams::SourceBalance::AllocatedFunds))
+       }
       def allocated_funds; end
       sig {
-        params(_allocated_funds: T.nilable(BalanceTransferCreateParams::SourceBalance::AllocatedFunds)).returns(T.nilable(BalanceTransferCreateParams::SourceBalance::AllocatedFunds))
+        params(_allocated_funds: T.nilable(::Stripe::BalanceTransferCreateParams::SourceBalance::AllocatedFunds)).returns(T.nilable(::Stripe::BalanceTransferCreateParams::SourceBalance::AllocatedFunds))
        }
       def allocated_funds=(_allocated_funds); end
       # Source balance type to pull funds from for the Balance Transfer.
@@ -41,7 +43,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(allocated_funds: T.nilable(BalanceTransferCreateParams::SourceBalance::AllocatedFunds), type: String).void
+        params(allocated_funds: T.nilable(::Stripe::BalanceTransferCreateParams::SourceBalance::AllocatedFunds), type: String).void
        }
       def initialize(allocated_funds: nil, type: nil); end
     end
@@ -56,10 +58,10 @@ module Stripe
     sig { params(_currency: String).returns(String) }
     def currency=(_currency); end
     # The balance to which funds are transferred.
-    sig { returns(BalanceTransferCreateParams::DestinationBalance) }
+    sig { returns(::Stripe::BalanceTransferCreateParams::DestinationBalance) }
     def destination_balance; end
     sig {
-      params(_destination_balance: BalanceTransferCreateParams::DestinationBalance).returns(BalanceTransferCreateParams::DestinationBalance)
+      params(_destination_balance: ::Stripe::BalanceTransferCreateParams::DestinationBalance).returns(::Stripe::BalanceTransferCreateParams::DestinationBalance)
      }
     def destination_balance=(_destination_balance); end
     # Specifies which fields in the response should be expanded.
@@ -75,14 +77,14 @@ module Stripe
      }
     def metadata=(_metadata); end
     # The balance from which funds are transferred, including details specific to the balance you choose.
-    sig { returns(BalanceTransferCreateParams::SourceBalance) }
+    sig { returns(::Stripe::BalanceTransferCreateParams::SourceBalance) }
     def source_balance; end
     sig {
-      params(_source_balance: BalanceTransferCreateParams::SourceBalance).returns(BalanceTransferCreateParams::SourceBalance)
+      params(_source_balance: ::Stripe::BalanceTransferCreateParams::SourceBalance).returns(::Stripe::BalanceTransferCreateParams::SourceBalance)
      }
     def source_balance=(_source_balance); end
     sig {
-      params(amount: Integer, currency: String, destination_balance: BalanceTransferCreateParams::DestinationBalance, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), source_balance: BalanceTransferCreateParams::SourceBalance).void
+      params(amount: Integer, currency: String, destination_balance: ::Stripe::BalanceTransferCreateParams::DestinationBalance, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), source_balance: ::Stripe::BalanceTransferCreateParams::SourceBalance).void
      }
     def initialize(
       amount: nil,

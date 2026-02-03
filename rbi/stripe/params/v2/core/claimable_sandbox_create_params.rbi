@@ -33,14 +33,14 @@ module Stripe
         sig { params(_enable_mcp_access: T::Boolean).returns(T::Boolean) }
         def enable_mcp_access=(_enable_mcp_access); end
         # Values that are prefilled when a user claims the sandbox. When a user claims the sandbox, they will be able to update these values.
-        sig { returns(V2::Core::ClaimableSandboxCreateParams::Prefill) }
+        sig { returns(::Stripe::V2::Core::ClaimableSandboxCreateParams::Prefill) }
         def prefill; end
         sig {
-          params(_prefill: V2::Core::ClaimableSandboxCreateParams::Prefill).returns(V2::Core::ClaimableSandboxCreateParams::Prefill)
+          params(_prefill: ::Stripe::V2::Core::ClaimableSandboxCreateParams::Prefill).returns(::Stripe::V2::Core::ClaimableSandboxCreateParams::Prefill)
          }
         def prefill=(_prefill); end
         sig {
-          params(enable_mcp_access: T::Boolean, prefill: V2::Core::ClaimableSandboxCreateParams::Prefill).void
+          params(enable_mcp_access: T::Boolean, prefill: ::Stripe::V2::Core::ClaimableSandboxCreateParams::Prefill).void
          }
         def initialize(enable_mcp_access: nil, prefill: nil); end
       end

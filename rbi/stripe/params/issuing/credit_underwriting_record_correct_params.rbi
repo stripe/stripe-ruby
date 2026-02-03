@@ -120,38 +120,38 @@ module Stripe
         end
         # Details about the application rejection.
         sig {
-          returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected))
+          returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected))
          }
         def application_rejected; end
         sig {
-          params(_application_rejected: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected))
+          params(_application_rejected: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected))
          }
         def application_rejected=(_application_rejected); end
         # Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy/)
         sig {
-          returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved))
+          returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved))
          }
         def credit_limit_approved; end
         sig {
-          params(_credit_limit_approved: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved))
+          params(_credit_limit_approved: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved))
          }
         def credit_limit_approved=(_credit_limit_approved); end
         # Details about the credit limit decreased.
         sig {
-          returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased))
+          returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased))
          }
         def credit_limit_decreased; end
         sig {
-          params(_credit_limit_decreased: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased))
+          params(_credit_limit_decreased: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased))
          }
         def credit_limit_decreased=(_credit_limit_decreased); end
         # Details about the credit line closed.
         sig {
-          returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed))
+          returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed))
          }
         def credit_line_closed; end
         sig {
-          params(_credit_line_closed: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed))
+          params(_credit_line_closed: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed))
          }
         def credit_line_closed=(_credit_line_closed); end
         # Outcome of the decision.
@@ -160,7 +160,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(application_rejected: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected), credit_limit_approved: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved), credit_limit_decreased: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased), credit_line_closed: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed), type: String).void
+          params(application_rejected: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::ApplicationRejected), credit_limit_approved: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitApproved), credit_limit_decreased: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLimitDecreased), credit_line_closed: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision::CreditLineClosed), type: String).void
          }
         def initialize(
           application_rejected: nil,
@@ -185,17 +185,21 @@ module Stripe
         def initialize(explanation: nil, original_decision_type: nil); end
       end
       # Details about the application submission.
-      sig { returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Application)) }
+      sig {
+        returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Application))
+       }
       def application; end
       sig {
-        params(_application: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Application)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Application))
+        params(_application: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Application)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Application))
        }
       def application=(_application); end
       # Information about the company or person applying or holding the account.
-      sig { returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::CreditUser)) }
+      sig {
+        returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::CreditUser))
+       }
       def credit_user; end
       sig {
-        params(_credit_user: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::CreditUser)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::CreditUser))
+        params(_credit_user: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::CreditUser)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::CreditUser))
        }
       def credit_user=(_credit_user); end
       # Date when a decision was made.
@@ -204,10 +208,10 @@ module Stripe
       sig { params(_decided_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def decided_at=(_decided_at); end
       # Details about the decision.
-      sig { returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision)) }
       def decision; end
       sig {
-        params(_decision: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision))
+        params(_decision: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision))
        }
       def decision=(_decision); end
       # Specifies which fields in the response should be expanded.
@@ -229,15 +233,15 @@ module Stripe
       def regulatory_reporting_file=(_regulatory_reporting_file); end
       # If an exception to the usual underwriting criteria was made for this decision, details about the exception must be provided. Exceptions should only be granted in rare circumstances, in consultation with Stripe Compliance.
       sig {
-        returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException))
+        returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException))
        }
       def underwriting_exception; end
       sig {
-        params(_underwriting_exception: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException)).returns(T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException))
+        params(_underwriting_exception: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException)).returns(T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException))
        }
       def underwriting_exception=(_underwriting_exception); end
       sig {
-        params(application: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Application), credit_user: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::CreditUser), decided_at: T.nilable(Integer), decision: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::Decision), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), regulatory_reporting_file: T.nilable(String), underwriting_exception: T.nilable(Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException)).void
+        params(application: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Application), credit_user: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::CreditUser), decided_at: T.nilable(Integer), decision: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::Decision), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), regulatory_reporting_file: T.nilable(String), underwriting_exception: T.nilable(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams::UnderwritingException)).void
        }
       def initialize(
         application: nil,

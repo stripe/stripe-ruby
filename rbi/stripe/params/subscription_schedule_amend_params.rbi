@@ -31,20 +31,20 @@ module Stripe
         end
         # Use the `end` time of a given discount.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd))
          }
         def discount_end; end
         sig {
-          params(_discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd))
+          params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd))
          }
         def discount_end=(_discount_end); end
         # Time span for the amendment starting from the `amendment_start`.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration))
          }
         def duration; end
         sig {
-          params(_duration: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration))
+          params(_duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration))
          }
         def duration=(_duration); end
         # A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
@@ -58,7 +58,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd), duration: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+          params(discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::DiscountEnd), duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd::Duration), timestamp: T.nilable(Integer), type: String).void
          }
         def initialize(discount_end: nil, duration: nil, timestamp: nil, type: nil); end
       end
@@ -83,20 +83,20 @@ module Stripe
         end
         # Details of another amendment in the same array, immediately after which this amendment should begin.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd))
          }
         def amendment_end; end
         sig {
-          params(_amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd))
+          params(_amendment_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd))
          }
         def amendment_end=(_amendment_end); end
         # Use the `end` time of a given discount.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd))
          }
         def discount_end; end
         sig {
-          params(_discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd))
+          params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd))
          }
         def discount_end=(_discount_end); end
         # A precise Unix timestamp for the amendment to start.
@@ -110,7 +110,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd), discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd), timestamp: T.nilable(Integer), type: String).void
+          params(amendment_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::AmendmentEnd), discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart::DiscountEnd), timestamp: T.nilable(Integer), type: String).void
          }
         def initialize(amendment_end: nil, discount_end: nil, timestamp: nil, type: nil); end
       end
@@ -131,11 +131,11 @@ module Stripe
         end
         # Specify which subscription items the billing schedule applies to.
         sig {
-          returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]))
+          returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]))
          }
         def applies_to; end
         sig {
-          params(_applies_to: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]))
+          params(_applies_to: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]))
          }
         def applies_to=(_applies_to); end
         # Select the action.
@@ -144,7 +144,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(applies_to: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]), type: String).void
+          params(applies_to: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction::AppliesTo]), type: String).void
          }
         def initialize(applies_to: nil, type: nil); end
       end
@@ -200,11 +200,11 @@ module Stripe
               end
               # Anchor the service period to a custom date. Type must be `custom` to specify.
               sig {
-                returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom))
+                returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom))
                }
               def custom; end
               sig {
-                params(_custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom))
+                params(_custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom))
                }
               def custom=(_custom); end
               # The type of service period anchor config. Defaults to `inherit` if omitted.
@@ -213,17 +213,17 @@ module Stripe
               sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
               def type=(_type); end
               sig {
-                params(custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                params(custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
                }
               def initialize(custom: nil, type: nil); end
             end
             # Configures service period cycle anchoring.
             sig {
-              returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig))
+              returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig))
              }
             def service_period_anchor_config; end
             sig {
-              params(_service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig))
+              params(_service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig))
              }
             def service_period_anchor_config=(_service_period_anchor_config); end
             # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
@@ -232,7 +232,7 @@ module Stripe
             sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
             def start_date=(_start_date); end
             sig {
-              params(service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+              params(service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
              }
             def initialize(service_period_anchor_config: nil, start_date: nil); end
           end
@@ -248,11 +248,11 @@ module Stripe
           def discount=(_discount); end
           # Details to determine how long the discount should be applied for.
           sig {
-            returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd))
+            returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd))
            }
           def discount_end; end
           sig {
-            params(_discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd))
+            params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd))
            }
           def discount_end=(_discount_end); end
           # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
@@ -267,15 +267,15 @@ module Stripe
           def promotion_code=(_promotion_code); end
           # Settings for discount application including service period anchoring.
           sig {
-            returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings))
+            returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings))
            }
           def settings; end
           sig {
-            params(_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings))
+            params(_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings))
            }
           def settings=(_settings); end
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd), index: T.nilable(Integer), promotion_code: T.nilable(String), settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings)).void
+            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::DiscountEnd), index: T.nilable(Integer), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add::Settings)).void
            }
           def initialize(
             coupon: nil,
@@ -349,11 +349,11 @@ module Stripe
               end
               # Anchor the service period to a custom date. Type must be `custom` to specify.
               sig {
-                returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom))
+                returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom))
                }
               def custom; end
               sig {
-                params(_custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom))
+                params(_custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom))
                }
               def custom=(_custom); end
               # The type of service period anchor config. Defaults to `inherit` if omitted.
@@ -362,17 +362,17 @@ module Stripe
               sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
               def type=(_type); end
               sig {
-                params(custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                params(custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
                }
               def initialize(custom: nil, type: nil); end
             end
             # Configures service period cycle anchoring.
             sig {
-              returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig))
+              returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig))
              }
             def service_period_anchor_config; end
             sig {
-              params(_service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig))
+              params(_service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig))
              }
             def service_period_anchor_config=(_service_period_anchor_config); end
             # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
@@ -381,7 +381,7 @@ module Stripe
             sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
             def start_date=(_start_date); end
             sig {
-              params(service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+              params(service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
              }
             def initialize(service_period_anchor_config: nil, start_date: nil); end
           end
@@ -402,39 +402,43 @@ module Stripe
           def promotion_code=(_promotion_code); end
           # Settings for discount application including service period anchoring.
           sig {
-            returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings))
+            returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings))
            }
           def settings; end
           sig {
-            params(_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings))
+            params(_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings))
            }
           def settings=(_settings); end
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String), settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings)).void
+            params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set::Settings)).void
            }
           def initialize(coupon: nil, discount: nil, promotion_code: nil, settings: nil); end
         end
         # Details of the discount to add.
-        sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add))
+         }
         def add; end
         sig {
-          params(_add: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add))
+          params(_add: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add))
          }
         def add=(_add); end
         # Details of the discount to remove.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove))
          }
         def remove; end
         sig {
-          params(_remove: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove))
+          params(_remove: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove))
          }
         def remove=(_remove); end
         # Details of the discount to replace the existing discounts with.
-        sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set))
+         }
         def set; end
         sig {
-          params(_set: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set))
+          params(_set: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set))
          }
         def set=(_set); end
         # Determines the type of discount action.
@@ -443,7 +447,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(add: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add), remove: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove), set: T.nilable(SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set), type: String).void
+          params(add: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Add), remove: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Remove), set: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction::Set), type: String).void
          }
         def initialize(add: nil, remove: nil, set: nil, type: nil); end
       end
@@ -467,11 +471,11 @@ module Stripe
               end
               # Time span for the redeemed discount.
               sig {
-                returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
+                returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
                }
               def duration; end
               sig {
-                params(_duration: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
+                params(_duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
                }
               def duration=(_duration); end
               # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -485,7 +489,7 @@ module Stripe
               sig { params(_type: String).returns(String) }
               def type=(_type); end
               sig {
-                params(duration: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+                params(duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                }
               def initialize(duration: nil, timestamp: nil, type: nil); end
             end
@@ -530,11 +534,11 @@ module Stripe
                 end
                 # Anchor the service period to a custom date. Type must be `custom` to specify.
                 sig {
-                  returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                  returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom))
                  }
                 def custom; end
                 sig {
-                  params(_custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                  params(_custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom))
                  }
                 def custom=(_custom); end
                 # The type of service period anchor config. Defaults to `inherit` if omitted.
@@ -543,17 +547,17 @@ module Stripe
                 sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
                 def type=(_type); end
                 sig {
-                  params(custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                  params(custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
                  }
                 def initialize(custom: nil, type: nil); end
               end
               # Configures service period cycle anchoring.
               sig {
-                returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig))
+                returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig))
                }
               def service_period_anchor_config; end
               sig {
-                params(_service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig))
+                params(_service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig))
                }
               def service_period_anchor_config=(_service_period_anchor_config); end
               # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
@@ -562,7 +566,7 @@ module Stripe
               sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
               def start_date=(_start_date); end
               sig {
-                params(service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+                params(service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
                }
               def initialize(service_period_anchor_config: nil, start_date: nil); end
             end
@@ -578,11 +582,11 @@ module Stripe
             def discount=(_discount); end
             # Details to determine how long the discount should be applied for.
             sig {
-              returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd))
+              returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd))
              }
             def discount_end; end
             sig {
-              params(_discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd))
+              params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd))
              }
             def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
@@ -592,15 +596,15 @@ module Stripe
             def promotion_code=(_promotion_code); end
             # Settings for discount application including service period anchoring.
             sig {
-              returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings))
+              returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings))
              }
             def settings; end
             sig {
-              params(_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings))
+              params(_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings))
              }
             def settings=(_settings); end
             sig {
-              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings)).void
+              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount::Settings)).void
              }
             def initialize(
               coupon: nil,
@@ -628,11 +632,11 @@ module Stripe
           end
           # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
           sig {
-            returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]))
+            returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]))
            }
           def discounts; end
           sig {
-            params(_discounts: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]))
+            params(_discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]))
            }
           def discounts=(_discounts); end
           # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -661,11 +665,11 @@ module Stripe
           def tax_rates=(_tax_rates); end
           # Options that configure the trial on the subscription item.
           sig {
-            returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial))
+            returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial))
            }
           def trial; end
           sig {
-            params(_trial: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial))
+            params(_trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial))
            }
           def trial=(_trial); end
           # The ID of the trial offer to apply to the configuration item.
@@ -674,7 +678,7 @@ module Stripe
           sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
           def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial), trial_offer: T.nilable(String)).void
+            params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -714,11 +718,11 @@ module Stripe
               end
               # Time span for the redeemed discount.
               sig {
-                returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
+                returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
                }
               def duration; end
               sig {
-                params(_duration: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
+                params(_duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
                }
               def duration=(_duration); end
               # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -732,7 +736,7 @@ module Stripe
               sig { params(_type: String).returns(String) }
               def type=(_type); end
               sig {
-                params(duration: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+                params(duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                }
               def initialize(duration: nil, timestamp: nil, type: nil); end
             end
@@ -777,11 +781,11 @@ module Stripe
                 end
                 # Anchor the service period to a custom date. Type must be `custom` to specify.
                 sig {
-                  returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                  returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom))
                  }
                 def custom; end
                 sig {
-                  params(_custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                  params(_custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom))
                  }
                 def custom=(_custom); end
                 # The type of service period anchor config. Defaults to `inherit` if omitted.
@@ -790,17 +794,17 @@ module Stripe
                 sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
                 def type=(_type); end
                 sig {
-                  params(custom: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                  params(custom: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
                  }
                 def initialize(custom: nil, type: nil); end
               end
               # Configures service period cycle anchoring.
               sig {
-                returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig))
+                returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig))
                }
               def service_period_anchor_config; end
               sig {
-                params(_service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig))
+                params(_service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig))
                }
               def service_period_anchor_config=(_service_period_anchor_config); end
               # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
@@ -809,7 +813,7 @@ module Stripe
               sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
               def start_date=(_start_date); end
               sig {
-                params(service_period_anchor_config: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+                params(service_period_anchor_config: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
                }
               def initialize(service_period_anchor_config: nil, start_date: nil); end
             end
@@ -825,11 +829,11 @@ module Stripe
             def discount=(_discount); end
             # Details to determine how long the discount should be applied for.
             sig {
-              returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd))
+              returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd))
              }
             def discount_end; end
             sig {
-              params(_discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd))
+              params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd))
              }
             def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
@@ -839,15 +843,15 @@ module Stripe
             def promotion_code=(_promotion_code); end
             # Settings for discount application including service period anchoring.
             sig {
-              returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings))
+              returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings))
              }
             def settings; end
             sig {
-              params(_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings))
+              params(_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings))
              }
             def settings=(_settings); end
             sig {
-              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings)).void
+              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount::Settings)).void
              }
             def initialize(
               coupon: nil,
@@ -875,11 +879,11 @@ module Stripe
           end
           # If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
           sig {
-            returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]))
+            returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]))
            }
           def discounts; end
           sig {
-            params(_discounts: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]))
+            params(_discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]))
            }
           def discounts=(_discounts); end
           # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
@@ -908,11 +912,11 @@ module Stripe
           def tax_rates=(_tax_rates); end
           # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
           sig {
-            returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial))
+            returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial))
            }
           def trial; end
           sig {
-            params(_trial: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial))
+            params(_trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial))
            }
           def trial=(_trial); end
           # The ID of the trial offer to apply to the configuration item.
@@ -921,7 +925,7 @@ module Stripe
           sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
           def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial), trial_offer: T.nilable(String)).void
+            params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -934,24 +938,30 @@ module Stripe
           ); end
         end
         # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
-        sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add))
+         }
         def add; end
         sig {
-          params(_add: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add))
+          params(_add: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add))
          }
         def add=(_add); end
         # Details of the subscription item to remove.
-        sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove))
+         }
         def remove; end
         sig {
-          params(_remove: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove))
+          params(_remove: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove))
          }
         def remove=(_remove); end
         # Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
-        sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set))
+         }
         def set; end
         sig {
-          params(_set: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set))
+          params(_set: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set))
          }
         def set=(_set); end
         # Determines the type of item action.
@@ -960,7 +970,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(add: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Add), remove: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove), set: T.nilable(SubscriptionScheduleAmendParams::Amendment::ItemAction::Set), type: String).void
+          params(add: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add), remove: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Remove), set: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set), type: String).void
          }
         def initialize(add: nil, remove: nil, set: nil, type: nil); end
       end
@@ -1006,11 +1016,11 @@ module Stripe
         end
         # Details of the pause_collection behavior to apply to the amendment.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set))
          }
         def set; end
         sig {
-          params(_set: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set))
+          params(_set: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set))
          }
         def set=(_set); end
         # Determines the type of the pause_collection amendment.
@@ -1019,7 +1029,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(set: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set), type: String).void
+          params(set: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection::Set), type: String).void
          }
         def initialize(set: nil, type: nil); end
       end
@@ -1035,30 +1045,30 @@ module Stripe
         end
         # Defines how the subscription should behave when a trial ends.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior))
          }
         def end_behavior; end
         sig {
-          params(_end_behavior: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior))
+          params(_end_behavior: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior))
          }
         def end_behavior=(_end_behavior); end
         sig {
-          params(end_behavior: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior)).void
+          params(end_behavior: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings::EndBehavior)).void
          }
         def initialize(end_behavior: nil); end
       end
       # Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
-      sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd)) }
       def amendment_end; end
       sig {
-        params(_amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd))
+        params(_amendment_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd))
        }
       def amendment_end=(_amendment_end); end
       # Details to identify the earliest timestamp where the proposed change should take effect.
-      sig { returns(SubscriptionScheduleAmendParams::Amendment::AmendmentStart) }
+      sig { returns(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart) }
       def amendment_start; end
       sig {
-        params(_amendment_start: SubscriptionScheduleAmendParams::Amendment::AmendmentStart).returns(SubscriptionScheduleAmendParams::Amendment::AmendmentStart)
+        params(_amendment_start: ::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart).returns(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart)
        }
       def amendment_start=(_amendment_start); end
       # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
@@ -1068,20 +1078,20 @@ module Stripe
       def billing_cycle_anchor=(_billing_cycle_anchor); end
       # Actions to apply to the billing schedules.
       sig {
-        returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
+        returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
        }
       def billing_schedules_actions; end
       sig {
-        params(_billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
+        params(_billing_schedules_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]))
        }
       def billing_schedules_actions=(_billing_schedules_actions); end
       # Changes to the coupons being redeemed or discounts being applied during the amendment time span.
       sig {
-        returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]))
+        returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction]))
        }
       def discount_actions; end
       sig {
-        params(_discount_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]))
+        params(_discount_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction]))
        }
       def discount_actions=(_discount_actions); end
       # Configures how the subscription schedule handles billing for phase transitions.
@@ -1090,19 +1100,21 @@ module Stripe
       sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
       def effective_at=(_effective_at); end
       # Changes to the subscription items during the amendment time span.
-      sig { returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction])) }
+      sig {
+        returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction]))
+       }
       def item_actions; end
       sig {
-        params(_item_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction]))
+        params(_item_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction]))
        }
       def item_actions=(_item_actions); end
       # Instructions for how to modify phase metadata
       sig {
-        returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction]))
+        returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::MetadataAction]))
        }
       def metadata_actions; end
       sig {
-        params(_metadata_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction]))
+        params(_metadata_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::MetadataAction])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::MetadataAction]))
        }
       def metadata_actions=(_metadata_actions); end
       # Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
@@ -1111,10 +1123,12 @@ module Stripe
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
       # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
-      sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection)) }
+      sig {
+        returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection))
+       }
       def set_pause_collection; end
       sig {
-        params(_set_pause_collection: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection))
+        params(_set_pause_collection: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection))
        }
       def set_pause_collection=(_set_pause_collection); end
       # Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
@@ -1123,14 +1137,16 @@ module Stripe
       sig { params(_set_schedule_end: T.nilable(String)).returns(T.nilable(String)) }
       def set_schedule_end=(_set_schedule_end); end
       # Settings related to subscription trials.
-      sig { returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings)) }
+      sig {
+        returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings))
+       }
       def trial_settings; end
       sig {
-        params(_trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings)).returns(T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings))
+        params(_trial_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings))
        }
       def trial_settings=(_trial_settings); end
       sig {
-        params(amendment_end: T.nilable(SubscriptionScheduleAmendParams::Amendment::AmendmentEnd), amendment_start: SubscriptionScheduleAmendParams::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), billing_schedules_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]), discount_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::DiscountAction]), effective_at: T.nilable(String), item_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(SubscriptionScheduleAmendParams::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(SubscriptionScheduleAmendParams::Amendment::TrialSettings)).void
+        params(amendment_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentEnd), amendment_start: ::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), billing_schedules_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::BillingSchedulesAction]), discount_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::DiscountAction]), effective_at: T.nilable(String), item_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::TrialSettings)).void
        }
       def initialize(
         amendment_end: nil,
@@ -1160,11 +1176,11 @@ module Stripe
         end
         # Start the prebilled period when a specified amendment begins.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart))
          }
         def amendment_start; end
         sig {
-          params(_amendment_start: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart)).returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart))
+          params(_amendment_start: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart))
          }
         def amendment_start=(_amendment_start); end
         # Start the prebilled period at a precise integer timestamp, starting from the Unix epoch.
@@ -1178,7 +1194,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(amendment_start: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart), timestamp: T.nilable(Integer), type: String).void
+          params(amendment_start: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom::AmendmentStart), timestamp: T.nilable(Integer), type: String).void
          }
         def initialize(amendment_start: nil, timestamp: nil, type: nil); end
       end
@@ -1208,18 +1224,20 @@ module Stripe
         end
         # End the prebilled period when a specified amendment ends.
         sig {
-          returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd))
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd))
          }
         def amendment_end; end
         sig {
-          params(_amendment_end: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd)).returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd))
+          params(_amendment_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd))
          }
         def amendment_end=(_amendment_end); end
         # Time span for prebilling, starting from `bill_from`.
-        sig { returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration))
+         }
         def duration; end
         sig {
-          params(_duration: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration)).returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration))
+          params(_duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration))
          }
         def duration=(_duration); end
         # End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
@@ -1233,22 +1251,22 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(amendment_end: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd), duration: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
+          params(amendment_end: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::AmendmentEnd), duration: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
          }
         def initialize(amendment_end: nil, duration: nil, timestamp: nil, type: nil); end
       end
       # The beginning of the prebilled time period. The default value is `now`.
-      sig { returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom)) }
       def bill_from; end
       sig {
-        params(_bill_from: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom)).returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom))
+        params(_bill_from: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom))
        }
       def bill_from=(_bill_from); end
       # The end of the prebilled time period.
-      sig { returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil)) }
       def bill_until; end
       sig {
-        params(_bill_until: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil)).returns(T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil))
+        params(_bill_until: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil))
        }
       def bill_until=(_bill_until); end
       # When the prebilling invoice should be created. The default value is `now`.
@@ -1262,7 +1280,7 @@ module Stripe
       sig { params(_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def update_behavior=(_update_behavior); end
       sig {
-        params(bill_from: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillFrom), bill_until: T.nilable(SubscriptionScheduleAmendParams::Prebilling::BillUntil), invoice_at: T.nilable(String), update_behavior: T.nilable(String)).void
+        params(bill_from: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillFrom), bill_until: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Prebilling::BillUntil), invoice_at: T.nilable(String), update_behavior: T.nilable(String)).void
        }
       def initialize(bill_from: nil, bill_until: nil, invoice_at: nil, update_behavior: nil); end
     end
@@ -1276,10 +1294,10 @@ module Stripe
       def initialize(end_behavior: nil); end
     end
     # Changes to apply to the phases of the subscription schedule, in the order provided.
-    sig { returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment])) }
+    sig { returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment])) }
     def amendments; end
     sig {
-      params(_amendments: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment])).returns(T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment]))
+      params(_amendments: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment]))
      }
     def amendments=(_amendments); end
     # Specifies which fields in the response should be expanded.
@@ -1288,10 +1306,12 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Provide any time periods to bill in advance.
-    sig { returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleAmendParams::Prebilling]))) }
+    sig {
+      returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleAmendParams::Prebilling])))
+     }
     def prebilling; end
     sig {
-      params(_prebilling: T.nilable(T.any(String, T::Array[SubscriptionScheduleAmendParams::Prebilling]))).returns(T.nilable(T.any(String, T::Array[SubscriptionScheduleAmendParams::Prebilling])))
+      params(_prebilling: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleAmendParams::Prebilling]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleAmendParams::Prebilling])))
      }
     def prebilling=(_prebilling); end
     # In cases where the amendment changes the currently active phase,
@@ -1301,14 +1321,14 @@ module Stripe
     sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def proration_behavior=(_proration_behavior); end
     # Changes to apply to the subscription schedule.
-    sig { returns(T.nilable(SubscriptionScheduleAmendParams::ScheduleSettings)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::ScheduleSettings)) }
     def schedule_settings; end
     sig {
-      params(_schedule_settings: T.nilable(SubscriptionScheduleAmendParams::ScheduleSettings)).returns(T.nilable(SubscriptionScheduleAmendParams::ScheduleSettings))
+      params(_schedule_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::ScheduleSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::ScheduleSettings))
      }
     def schedule_settings=(_schedule_settings); end
     sig {
-      params(amendments: T.nilable(T::Array[SubscriptionScheduleAmendParams::Amendment]), expand: T.nilable(T::Array[String]), prebilling: T.nilable(T.any(String, T::Array[SubscriptionScheduleAmendParams::Prebilling])), proration_behavior: T.nilable(String), schedule_settings: T.nilable(SubscriptionScheduleAmendParams::ScheduleSettings)).void
+      params(amendments: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment]), expand: T.nilable(T::Array[String]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleAmendParams::Prebilling])), proration_behavior: T.nilable(String), schedule_settings: T.nilable(::Stripe::SubscriptionScheduleAmendParams::ScheduleSettings)).void
      }
     def initialize(
       amendments: nil,

@@ -60,10 +60,10 @@ module Stripe
       sig { params(_product: String).returns(String) }
       def product=(_product); end
       # The recurring components of a price such as `interval` and `interval_count`.
-      sig { returns(SubscriptionItemUpdateParams::PriceData::Recurring) }
+      sig { returns(::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring) }
       def recurring; end
       sig {
-        params(_recurring: SubscriptionItemUpdateParams::PriceData::Recurring).returns(SubscriptionItemUpdateParams::PriceData::Recurring)
+        params(_recurring: ::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring).returns(::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring)
        }
       def recurring=(_recurring); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -82,7 +82,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(currency: String, product: String, recurring: SubscriptionItemUpdateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(currency: String, product: String, recurring: ::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         currency: nil,
@@ -94,17 +94,21 @@ module Stripe
       ); end
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-    sig { returns(T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds))) }
+    sig {
+      returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)))
+     }
     def billing_thresholds; end
     sig {
-      params(_billing_thresholds: T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds))).returns(T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds)))
+      params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)))
      }
     def billing_thresholds=(_billing_thresholds); end
     # The coupons to redeem into discounts for the subscription item.
-    sig { returns(T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount]))) }
+    sig {
+      returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])))
+     }
     def discounts; end
     sig {
-      params(_discounts: T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount])))
+      params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])))
      }
     def discounts=(_discounts); end
     # Specifies which fields in the response should be expanded.
@@ -146,10 +150,10 @@ module Stripe
     sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
     def price=(_price); end
     # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
-    sig { returns(T.nilable(SubscriptionItemUpdateParams::PriceData)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData)) }
     def price_data; end
     sig {
-      params(_price_data: T.nilable(SubscriptionItemUpdateParams::PriceData)).returns(T.nilable(SubscriptionItemUpdateParams::PriceData))
+      params(_price_data: T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData))
      }
     def price_data=(_price_data); end
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -175,7 +179,7 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(billing_thresholds: T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       billing_thresholds: nil,

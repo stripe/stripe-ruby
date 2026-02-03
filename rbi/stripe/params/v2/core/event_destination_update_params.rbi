@@ -45,14 +45,16 @@ module Stripe
         sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
         def name=(_name); end
         # Webhook endpoint configuration.
-        sig { returns(T.nilable(V2::Core::EventDestinationUpdateParams::WebhookEndpoint)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Core::EventDestinationUpdateParams::WebhookEndpoint))
+         }
         def webhook_endpoint; end
         sig {
-          params(_webhook_endpoint: T.nilable(V2::Core::EventDestinationUpdateParams::WebhookEndpoint)).returns(T.nilable(V2::Core::EventDestinationUpdateParams::WebhookEndpoint))
+          params(_webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationUpdateParams::WebhookEndpoint)).returns(T.nilable(::Stripe::V2::Core::EventDestinationUpdateParams::WebhookEndpoint))
          }
         def webhook_endpoint=(_webhook_endpoint); end
         sig {
-          params(description: T.nilable(String), enabled_events: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), name: T.nilable(String), webhook_endpoint: T.nilable(V2::Core::EventDestinationUpdateParams::WebhookEndpoint)).void
+          params(description: T.nilable(String), enabled_events: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), name: T.nilable(String), webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationUpdateParams::WebhookEndpoint)).void
          }
         def initialize(
           description: nil,

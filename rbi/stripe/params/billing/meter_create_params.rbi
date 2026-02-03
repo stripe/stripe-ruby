@@ -38,17 +38,17 @@ module Stripe
         def initialize(event_payload_key: nil); end
       end
       # Fields that specify how to map a meter event to a customer.
-      sig { returns(T.nilable(Billing::MeterCreateParams::CustomerMapping)) }
+      sig { returns(T.nilable(::Stripe::Billing::MeterCreateParams::CustomerMapping)) }
       def customer_mapping; end
       sig {
-        params(_customer_mapping: T.nilable(Billing::MeterCreateParams::CustomerMapping)).returns(T.nilable(Billing::MeterCreateParams::CustomerMapping))
+        params(_customer_mapping: T.nilable(::Stripe::Billing::MeterCreateParams::CustomerMapping)).returns(T.nilable(::Stripe::Billing::MeterCreateParams::CustomerMapping))
        }
       def customer_mapping=(_customer_mapping); end
       # The default settings to aggregate a meter's events with.
-      sig { returns(Billing::MeterCreateParams::DefaultAggregation) }
+      sig { returns(::Stripe::Billing::MeterCreateParams::DefaultAggregation) }
       def default_aggregation; end
       sig {
-        params(_default_aggregation: Billing::MeterCreateParams::DefaultAggregation).returns(Billing::MeterCreateParams::DefaultAggregation)
+        params(_default_aggregation: ::Stripe::Billing::MeterCreateParams::DefaultAggregation).returns(::Stripe::Billing::MeterCreateParams::DefaultAggregation)
        }
       def default_aggregation=(_default_aggregation); end
       # The meter’s name. Not visible to the customer.
@@ -72,14 +72,14 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Fields that specify how to calculate a meter event's value.
-      sig { returns(T.nilable(Billing::MeterCreateParams::ValueSettings)) }
+      sig { returns(T.nilable(::Stripe::Billing::MeterCreateParams::ValueSettings)) }
       def value_settings; end
       sig {
-        params(_value_settings: T.nilable(Billing::MeterCreateParams::ValueSettings)).returns(T.nilable(Billing::MeterCreateParams::ValueSettings))
+        params(_value_settings: T.nilable(::Stripe::Billing::MeterCreateParams::ValueSettings)).returns(T.nilable(::Stripe::Billing::MeterCreateParams::ValueSettings))
        }
       def value_settings=(_value_settings); end
       sig {
-        params(customer_mapping: T.nilable(Billing::MeterCreateParams::CustomerMapping), default_aggregation: Billing::MeterCreateParams::DefaultAggregation, display_name: String, event_name: String, event_time_window: T.nilable(String), expand: T.nilable(T::Array[String]), value_settings: T.nilable(Billing::MeterCreateParams::ValueSettings)).void
+        params(customer_mapping: T.nilable(::Stripe::Billing::MeterCreateParams::CustomerMapping), default_aggregation: ::Stripe::Billing::MeterCreateParams::DefaultAggregation, display_name: String, event_name: String, event_time_window: T.nilable(String), expand: T.nilable(T::Array[String]), value_settings: T.nilable(::Stripe::Billing::MeterCreateParams::ValueSettings)).void
        }
       def initialize(
         customer_mapping: nil,

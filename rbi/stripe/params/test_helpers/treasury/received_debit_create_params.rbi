@@ -35,15 +35,15 @@ module Stripe
           def type=(_type); end
           # Optional fields for `us_bank_account`.
           sig {
-            returns(T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
            }
           def us_bank_account; end
           sig {
-            params(_us_bank_account: T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).returns(T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
+            params(_us_bank_account: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(type: String, us_bank_account: T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).void
+            params(type: String, us_bank_account: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).void
            }
           def initialize(type: nil, us_bank_account: nil); end
         end
@@ -74,11 +74,11 @@ module Stripe
         def financial_account=(_financial_account); end
         # Initiating payment method details for the object.
         sig {
-          returns(T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails))
+          returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails))
          }
         def initiating_payment_method_details; end
         sig {
-          params(_initiating_payment_method_details: T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails)).returns(T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails))
+          params(_initiating_payment_method_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails)).returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails))
          }
         def initiating_payment_method_details=(_initiating_payment_method_details); end
         # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
@@ -87,7 +87,7 @@ module Stripe
         sig { params(_network: String).returns(String) }
         def network=(_network); end
         sig {
-          params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, initiating_payment_method_details: T.nilable(TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails), network: String).void
+          params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, initiating_payment_method_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitCreateParams::InitiatingPaymentMethodDetails), network: String).void
          }
         def initialize(
           amount: nil,

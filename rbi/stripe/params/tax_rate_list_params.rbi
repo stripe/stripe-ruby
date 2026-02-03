@@ -36,10 +36,10 @@ module Stripe
     sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def active=(_active); end
     # Optional range for filtering created date.
-    sig { returns(T.nilable(T.any(TaxRateListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::TaxRateListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(TaxRateListParams::Created, Integer))).returns(T.nilable(T.any(TaxRateListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::TaxRateListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::TaxRateListParams::Created, Integer)))
      }
     def created=(_created); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -68,7 +68,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(active: T.nilable(T::Boolean), created: T.nilable(T.any(TaxRateListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), inclusive: T.nilable(T::Boolean), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), created: T.nilable(T.any(::Stripe::TaxRateListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), inclusive: T.nilable(T::Boolean), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
      }
     def initialize(
       active: nil,

@@ -46,11 +46,11 @@ module Stripe
       def quantity=(_quantity); end
       # A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
       sig {
-        returns(T.nilable(T.any(String, T::Array[CreditNotePreviewLinesListParams::Line::TaxAmount])))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::CreditNotePreviewLinesListParams::Line::TaxAmount])))
        }
       def tax_amounts; end
       sig {
-        params(_tax_amounts: T.nilable(T.any(String, T::Array[CreditNotePreviewLinesListParams::Line::TaxAmount]))).returns(T.nilable(T.any(String, T::Array[CreditNotePreviewLinesListParams::Line::TaxAmount])))
+        params(_tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::CreditNotePreviewLinesListParams::Line::TaxAmount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::CreditNotePreviewLinesListParams::Line::TaxAmount])))
        }
       def tax_amounts=(_tax_amounts); end
       # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
@@ -76,7 +76,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[CreditNotePreviewLinesListParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String])), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::CreditNotePreviewLinesListParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String])), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -111,10 +111,12 @@ module Stripe
       sig { params(_amount_refunded: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount_refunded=(_amount_refunded); end
       # The PaymentRecord refund details to link to this credit note. Required when `type` is `payment_record_refund`.
-      sig { returns(T.nilable(CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund)) }
+      sig {
+        returns(T.nilable(::Stripe::CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund))
+       }
       def payment_record_refund; end
       sig {
-        params(_payment_record_refund: T.nilable(CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund)).returns(T.nilable(CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund))
+        params(_payment_record_refund: T.nilable(::Stripe::CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund)).returns(T.nilable(::Stripe::CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund))
        }
       def payment_record_refund=(_payment_record_refund); end
       # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
@@ -128,7 +130,7 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(amount_refunded: T.nilable(Integer), payment_record_refund: T.nilable(CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund), refund: T.nilable(String), type: T.nilable(String)).void
+        params(amount_refunded: T.nilable(Integer), payment_record_refund: T.nilable(::Stripe::CreditNotePreviewLinesListParams::Refund::PaymentRecordRefund), refund: T.nilable(String), type: T.nilable(String)).void
        }
       def initialize(amount_refunded: nil, payment_record_refund: nil, refund: nil, type: nil); end
     end
@@ -182,10 +184,10 @@ module Stripe
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
     # Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
-    sig { returns(T.nilable(T::Array[CreditNotePreviewLinesListParams::Line])) }
+    sig { returns(T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Line])) }
     def lines; end
     sig {
-      params(_lines: T.nilable(T::Array[CreditNotePreviewLinesListParams::Line])).returns(T.nilable(T::Array[CreditNotePreviewLinesListParams::Line]))
+      params(_lines: T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Line])).returns(T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Line]))
      }
     def lines=(_lines); end
     # The credit note's memo appears on the credit note PDF.
@@ -216,17 +218,17 @@ module Stripe
     sig { params(_refund_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def refund_amount=(_refund_amount); end
     # Refunds to link to this credit note.
-    sig { returns(T.nilable(T::Array[CreditNotePreviewLinesListParams::Refund])) }
+    sig { returns(T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Refund])) }
     def refunds; end
     sig {
-      params(_refunds: T.nilable(T::Array[CreditNotePreviewLinesListParams::Refund])).returns(T.nilable(T::Array[CreditNotePreviewLinesListParams::Refund]))
+      params(_refunds: T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Refund])).returns(T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Refund]))
      }
     def refunds=(_refunds); end
     # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
-    sig { returns(T.nilable(CreditNotePreviewLinesListParams::ShippingCost)) }
+    sig { returns(T.nilable(::Stripe::CreditNotePreviewLinesListParams::ShippingCost)) }
     def shipping_cost; end
     sig {
-      params(_shipping_cost: T.nilable(CreditNotePreviewLinesListParams::ShippingCost)).returns(T.nilable(CreditNotePreviewLinesListParams::ShippingCost))
+      params(_shipping_cost: T.nilable(::Stripe::CreditNotePreviewLinesListParams::ShippingCost)).returns(T.nilable(::Stripe::CreditNotePreviewLinesListParams::ShippingCost))
      }
     def shipping_cost=(_shipping_cost); end
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -235,7 +237,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, limit: T.nilable(Integer), lines: T.nilable(T::Array[CreditNotePreviewLinesListParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[CreditNotePreviewLinesListParams::Refund]), shipping_cost: T.nilable(CreditNotePreviewLinesListParams::ShippingCost), starting_after: T.nilable(String)).void
+      params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, limit: T.nilable(Integer), lines: T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[::Stripe::CreditNotePreviewLinesListParams::Refund]), shipping_cost: T.nilable(::Stripe::CreditNotePreviewLinesListParams::ShippingCost), starting_after: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

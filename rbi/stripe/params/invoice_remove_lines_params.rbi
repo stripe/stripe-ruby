@@ -31,14 +31,14 @@ module Stripe
      }
     def invoice_metadata=(_invoice_metadata); end
     # The line items to remove.
-    sig { returns(T::Array[InvoiceRemoveLinesParams::Line]) }
+    sig { returns(T::Array[::Stripe::InvoiceRemoveLinesParams::Line]) }
     def lines; end
     sig {
-      params(_lines: T::Array[InvoiceRemoveLinesParams::Line]).returns(T::Array[InvoiceRemoveLinesParams::Line])
+      params(_lines: T::Array[::Stripe::InvoiceRemoveLinesParams::Line]).returns(T::Array[::Stripe::InvoiceRemoveLinesParams::Line])
      }
     def lines=(_lines); end
     sig {
-      params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[InvoiceRemoveLinesParams::Line]).void
+      params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[::Stripe::InvoiceRemoveLinesParams::Line]).void
      }
     def initialize(expand: nil, invoice_metadata: nil, lines: nil); end
   end

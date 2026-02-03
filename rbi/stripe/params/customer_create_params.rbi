@@ -59,13 +59,15 @@ module Stripe
       end
       # Settings controlling the behavior of the customer's cash balance,
       # such as reconciliation of funds received.
-      sig { returns(T.nilable(CustomerCreateParams::CashBalance::Settings)) }
+      sig { returns(T.nilable(::Stripe::CustomerCreateParams::CashBalance::Settings)) }
       def settings; end
       sig {
-        params(_settings: T.nilable(CustomerCreateParams::CashBalance::Settings)).returns(T.nilable(CustomerCreateParams::CashBalance::Settings))
+        params(_settings: T.nilable(::Stripe::CustomerCreateParams::CashBalance::Settings)).returns(T.nilable(::Stripe::CustomerCreateParams::CashBalance::Settings))
        }
       def settings=(_settings); end
-      sig { params(settings: T.nilable(CustomerCreateParams::CashBalance::Settings)).void }
+      sig {
+        params(settings: T.nilable(::Stripe::CustomerCreateParams::CashBalance::Settings)).void
+       }
       def initialize(settings: nil); end
     end
     class InvoiceSettings < ::Stripe::RequestParams
@@ -103,11 +105,11 @@ module Stripe
       end
       # The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
       sig {
-        returns(T.nilable(T.any(String, T::Array[CustomerCreateParams::InvoiceSettings::CustomField])))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::CustomerCreateParams::InvoiceSettings::CustomField])))
        }
       def custom_fields; end
       sig {
-        params(_custom_fields: T.nilable(T.any(String, T::Array[CustomerCreateParams::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[CustomerCreateParams::InvoiceSettings::CustomField])))
+        params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::CustomerCreateParams::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::CustomerCreateParams::InvoiceSettings::CustomField])))
        }
       def custom_fields=(_custom_fields); end
       # ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
@@ -122,15 +124,15 @@ module Stripe
       def footer=(_footer); end
       # Default options for invoice PDF rendering for this customer.
       sig {
-        returns(T.nilable(T.any(String, CustomerCreateParams::InvoiceSettings::RenderingOptions)))
+        returns(T.nilable(T.any(String, ::Stripe::CustomerCreateParams::InvoiceSettings::RenderingOptions)))
        }
       def rendering_options; end
       sig {
-        params(_rendering_options: T.nilable(T.any(String, CustomerCreateParams::InvoiceSettings::RenderingOptions))).returns(T.nilable(T.any(String, CustomerCreateParams::InvoiceSettings::RenderingOptions)))
+        params(_rendering_options: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::InvoiceSettings::RenderingOptions))).returns(T.nilable(T.any(String, ::Stripe::CustomerCreateParams::InvoiceSettings::RenderingOptions)))
        }
       def rendering_options=(_rendering_options); end
       sig {
-        params(custom_fields: T.nilable(T.any(String, T::Array[CustomerCreateParams::InvoiceSettings::CustomField])), default_payment_method: T.nilable(String), footer: T.nilable(String), rendering_options: T.nilable(T.any(String, CustomerCreateParams::InvoiceSettings::RenderingOptions))).void
+        params(custom_fields: T.nilable(T.any(String, T::Array[::Stripe::CustomerCreateParams::InvoiceSettings::CustomField])), default_payment_method: T.nilable(String), footer: T.nilable(String), rendering_options: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::InvoiceSettings::RenderingOptions))).void
        }
       def initialize(
         custom_fields: nil,
@@ -184,10 +186,10 @@ module Stripe
         ); end
       end
       # Customer shipping address.
-      sig { returns(CustomerCreateParams::Shipping::Address) }
+      sig { returns(::Stripe::CustomerCreateParams::Shipping::Address) }
       def address; end
       sig {
-        params(_address: CustomerCreateParams::Shipping::Address).returns(CustomerCreateParams::Shipping::Address)
+        params(_address: ::Stripe::CustomerCreateParams::Shipping::Address).returns(::Stripe::CustomerCreateParams::Shipping::Address)
        }
       def address=(_address); end
       # Customer name.
@@ -201,7 +203,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: CustomerCreateParams::Shipping::Address, name: String, phone: T.nilable(String)).void
+        params(address: ::Stripe::CustomerCreateParams::Shipping::Address, name: String, phone: T.nilable(String)).void
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
@@ -234,10 +236,10 @@ module Stripe
       def initialize(type: nil, value: nil); end
     end
     # The customer's address. Learn about [country-specific requirements for calculating tax](https://docs.stripe.com/invoicing/taxes?dashboard-or-api=dashboard#set-up-customer).
-    sig { returns(T.nilable(T.any(String, CustomerCreateParams::Address))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address))) }
     def address; end
     sig {
-      params(_address: T.nilable(T.any(String, CustomerCreateParams::Address))).returns(T.nilable(T.any(String, CustomerCreateParams::Address)))
+      params(_address: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address))).returns(T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address)))
      }
     def address=(_address); end
     # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
@@ -251,10 +253,10 @@ module Stripe
     sig { params(_business_name: T.nilable(String)).returns(T.nilable(String)) }
     def business_name=(_business_name); end
     # Balance information and default balance settings for this customer.
-    sig { returns(T.nilable(CustomerCreateParams::CashBalance)) }
+    sig { returns(T.nilable(::Stripe::CustomerCreateParams::CashBalance)) }
     def cash_balance; end
     sig {
-      params(_cash_balance: T.nilable(CustomerCreateParams::CashBalance)).returns(T.nilable(CustomerCreateParams::CashBalance))
+      params(_cash_balance: T.nilable(::Stripe::CustomerCreateParams::CashBalance)).returns(T.nilable(::Stripe::CustomerCreateParams::CashBalance))
      }
     def cash_balance=(_cash_balance); end
     # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
@@ -283,10 +285,10 @@ module Stripe
     sig { params(_invoice_prefix: T.nilable(String)).returns(T.nilable(String)) }
     def invoice_prefix=(_invoice_prefix); end
     # Default invoice settings for this customer.
-    sig { returns(T.nilable(CustomerCreateParams::InvoiceSettings)) }
+    sig { returns(T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings)) }
     def invoice_settings; end
     sig {
-      params(_invoice_settings: T.nilable(CustomerCreateParams::InvoiceSettings)).returns(T.nilable(CustomerCreateParams::InvoiceSettings))
+      params(_invoice_settings: T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings)).returns(T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings))
      }
     def invoice_settings=(_invoice_settings); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -324,10 +326,10 @@ module Stripe
      }
     def preferred_locales=(_preferred_locales); end
     # The customer's shipping information. Appears on invoices emailed to this customer.
-    sig { returns(T.nilable(T.any(String, CustomerCreateParams::Shipping))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping))) }
     def shipping; end
     sig {
-      params(_shipping: T.nilable(T.any(String, CustomerCreateParams::Shipping))).returns(T.nilable(T.any(String, CustomerCreateParams::Shipping)))
+      params(_shipping: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping))).returns(T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping)))
      }
     def shipping=(_shipping); end
     # Attribute for param field source
@@ -336,10 +338,10 @@ module Stripe
     sig { params(_source: T.nilable(String)).returns(T.nilable(String)) }
     def source=(_source); end
     # Tax details about the customer.
-    sig { returns(T.nilable(CustomerCreateParams::Tax)) }
+    sig { returns(T.nilable(::Stripe::CustomerCreateParams::Tax)) }
     def tax; end
     sig {
-      params(_tax: T.nilable(CustomerCreateParams::Tax)).returns(T.nilable(CustomerCreateParams::Tax))
+      params(_tax: T.nilable(::Stripe::CustomerCreateParams::Tax)).returns(T.nilable(::Stripe::CustomerCreateParams::Tax))
      }
     def tax=(_tax); end
     # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
@@ -350,10 +352,10 @@ module Stripe
      }
     def tax_exempt=(_tax_exempt); end
     # The customer's tax IDs.
-    sig { returns(T.nilable(T::Array[CustomerCreateParams::TaxIdDatum])) }
+    sig { returns(T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum])) }
     def tax_id_data; end
     sig {
-      params(_tax_id_data: T.nilable(T::Array[CustomerCreateParams::TaxIdDatum])).returns(T.nilable(T::Array[CustomerCreateParams::TaxIdDatum]))
+      params(_tax_id_data: T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum])).returns(T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum]))
      }
     def tax_id_data=(_tax_id_data); end
     # ID of the test clock to attach to the customer.
@@ -367,7 +369,7 @@ module Stripe
     sig { params(_validate: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def validate=(_validate); end
     sig {
-      params(address: T.nilable(T.any(String, CustomerCreateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(CustomerCreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(CustomerCreateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, CustomerCreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(CustomerCreateParams::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_id_data: T.nilable(T::Array[CustomerCreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
+      params(address: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(::Stripe::CustomerCreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::CustomerCreateParams::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_id_data: T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
      }
     def initialize(
       address: nil,

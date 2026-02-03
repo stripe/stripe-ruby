@@ -325,60 +325,66 @@ module Stripe
           ); end
         end
         # Evidence provided when `reason` is 'canceled'.
-        sig { returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Canceled))) }
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Canceled)))
+         }
         def canceled; end
         sig {
-          params(_canceled: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Canceled))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Canceled)))
+          params(_canceled: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Canceled))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Canceled)))
          }
         def canceled=(_canceled); end
         # Evidence provided when `reason` is 'duplicate'.
-        sig { returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Duplicate))) }
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Duplicate)))
+         }
         def duplicate; end
         sig {
-          params(_duplicate: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Duplicate))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Duplicate)))
+          params(_duplicate: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Duplicate))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Duplicate)))
          }
         def duplicate=(_duplicate); end
         # Evidence provided when `reason` is 'fraudulent'.
         sig {
-          returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Fraudulent)))
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Fraudulent)))
          }
         def fraudulent; end
         sig {
-          params(_fraudulent: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Fraudulent))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Fraudulent)))
+          params(_fraudulent: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Fraudulent))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Fraudulent)))
          }
         def fraudulent=(_fraudulent); end
         # Evidence provided when `reason` is 'merchandise_not_as_described'.
         sig {
-          returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed)))
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed)))
          }
         def merchandise_not_as_described; end
         sig {
-          params(_merchandise_not_as_described: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed)))
+          params(_merchandise_not_as_described: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed)))
          }
         def merchandise_not_as_described=(_merchandise_not_as_described); end
         # Evidence provided when `reason` is 'no_valid_authorization'.
         sig {
-          returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NoValidAuthorization)))
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NoValidAuthorization)))
          }
         def no_valid_authorization; end
         sig {
-          params(_no_valid_authorization: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NoValidAuthorization))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NoValidAuthorization)))
+          params(_no_valid_authorization: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NoValidAuthorization))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NoValidAuthorization)))
          }
         def no_valid_authorization=(_no_valid_authorization); end
         # Evidence provided when `reason` is 'not_received'.
         sig {
-          returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NotReceived)))
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NotReceived)))
          }
         def not_received; end
         sig {
-          params(_not_received: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NotReceived))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NotReceived)))
+          params(_not_received: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NotReceived))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NotReceived)))
          }
         def not_received=(_not_received); end
         # Evidence provided when `reason` is 'other'.
-        sig { returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Other))) }
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Other)))
+         }
         def other; end
         sig {
-          params(_other: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Other))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Other)))
+          params(_other: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Other))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Other)))
          }
         def other=(_other); end
         # The reason for filing the dispute. The evidence should be submitted in the field of the same name.
@@ -388,15 +394,15 @@ module Stripe
         def reason=(_reason); end
         # Evidence provided when `reason` is 'service_not_as_described'.
         sig {
-          returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed)))
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed)))
          }
         def service_not_as_described; end
         sig {
-          params(_service_not_as_described: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed))).returns(T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed)))
+          params(_service_not_as_described: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed))).returns(T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed)))
          }
         def service_not_as_described=(_service_not_as_described); end
         sig {
-          params(canceled: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Canceled)), duplicate: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Duplicate)), fraudulent: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Fraudulent)), merchandise_not_as_described: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed)), no_valid_authorization: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NoValidAuthorization)), not_received: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::NotReceived)), other: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::Other)), reason: T.nilable(String), service_not_as_described: T.nilable(T.any(String, Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed))).void
+          params(canceled: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Canceled)), duplicate: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Duplicate)), fraudulent: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Fraudulent)), merchandise_not_as_described: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::MerchandiseNotAsDescribed)), no_valid_authorization: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NoValidAuthorization)), not_received: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::NotReceived)), other: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::Other)), reason: T.nilable(String), service_not_as_described: T.nilable(T.any(String, ::Stripe::Issuing::DisputeCreateParams::Evidence::ServiceNotAsDescribed))).void
          }
         def initialize(
           canceled: nil,
@@ -425,10 +431,10 @@ module Stripe
       sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount=(_amount); end
       # Evidence provided for the dispute.
-      sig { returns(T.nilable(Issuing::DisputeCreateParams::Evidence)) }
+      sig { returns(T.nilable(::Stripe::Issuing::DisputeCreateParams::Evidence)) }
       def evidence; end
       sig {
-        params(_evidence: T.nilable(Issuing::DisputeCreateParams::Evidence)).returns(T.nilable(Issuing::DisputeCreateParams::Evidence))
+        params(_evidence: T.nilable(::Stripe::Issuing::DisputeCreateParams::Evidence)).returns(T.nilable(::Stripe::Issuing::DisputeCreateParams::Evidence))
        }
       def evidence=(_evidence); end
       # Specifies which fields in the response should be expanded.
@@ -449,14 +455,14 @@ module Stripe
       sig { params(_transaction: T.nilable(String)).returns(T.nilable(String)) }
       def transaction=(_transaction); end
       # Params for disputes related to Treasury FinancialAccounts
-      sig { returns(T.nilable(Issuing::DisputeCreateParams::Treasury)) }
+      sig { returns(T.nilable(::Stripe::Issuing::DisputeCreateParams::Treasury)) }
       def treasury; end
       sig {
-        params(_treasury: T.nilable(Issuing::DisputeCreateParams::Treasury)).returns(T.nilable(Issuing::DisputeCreateParams::Treasury))
+        params(_treasury: T.nilable(::Stripe::Issuing::DisputeCreateParams::Treasury)).returns(T.nilable(::Stripe::Issuing::DisputeCreateParams::Treasury))
        }
       def treasury=(_treasury); end
       sig {
-        params(amount: T.nilable(Integer), evidence: T.nilable(Issuing::DisputeCreateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), transaction: T.nilable(String), treasury: T.nilable(Issuing::DisputeCreateParams::Treasury)).void
+        params(amount: T.nilable(Integer), evidence: T.nilable(::Stripe::Issuing::DisputeCreateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), transaction: T.nilable(String), treasury: T.nilable(::Stripe::Issuing::DisputeCreateParams::Treasury)).void
        }
       def initialize(
         amount: nil,

@@ -40,14 +40,14 @@ module Stripe
       sig { params(_payload: String).returns(String) }
       def payload=(_payload); end
       # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
-      sig { returns(Apps::SecretCreateParams::Scope) }
+      sig { returns(::Stripe::Apps::SecretCreateParams::Scope) }
       def scope; end
       sig {
-        params(_scope: Apps::SecretCreateParams::Scope).returns(Apps::SecretCreateParams::Scope)
+        params(_scope: ::Stripe::Apps::SecretCreateParams::Scope).returns(::Stripe::Apps::SecretCreateParams::Scope)
        }
       def scope=(_scope); end
       sig {
-        params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), name: String, payload: String, scope: Apps::SecretCreateParams::Scope).void
+        params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), name: String, payload: String, scope: ::Stripe::Apps::SecretCreateParams::Scope).void
        }
       def initialize(expand: nil, expires_at: nil, name: nil, payload: nil, scope: nil); end
     end

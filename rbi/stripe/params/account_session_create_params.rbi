@@ -36,15 +36,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::AccountManagement::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::AccountManagement::Features)).returns(T.nilable(AccountSessionCreateParams::Components::AccountManagement::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::AccountManagement::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -79,15 +79,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::AccountOnboarding::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::AccountOnboarding::Features)).returns(T.nilable(AccountSessionCreateParams::Components::AccountOnboarding::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::AccountOnboarding::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -141,14 +141,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::Balances::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::Balances::Features)).returns(T.nilable(AccountSessionCreateParams::Components::Balances::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::Balances::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -194,14 +196,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::DisputesList::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::DisputesList::Features)).returns(T.nilable(AccountSessionCreateParams::Components::DisputesList::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::DisputesList::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -213,14 +217,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # An empty list, because this embedded component has no features.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::Documents::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::Documents::Features)).returns(T.nilable(AccountSessionCreateParams::Components::Documents::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::Documents::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -267,15 +273,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccount::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::FinancialAccount::Features)).returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccount::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::FinancialAccount::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -298,15 +304,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions::Features)).returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -347,15 +353,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features)).returns(T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -403,14 +409,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::IssuingCard::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::IssuingCard::Features)).returns(T.nilable(AccountSessionCreateParams::Components::IssuingCard::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::IssuingCard::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -467,15 +475,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::IssuingCardsList::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::IssuingCardsList::Features)).returns(T.nilable(AccountSessionCreateParams::Components::IssuingCardsList::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::IssuingCardsList::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -510,15 +518,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::NotificationBanner::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::NotificationBanner::Features)).returns(T.nilable(AccountSessionCreateParams::Components::NotificationBanner::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::NotificationBanner::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -564,14 +572,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::PaymentDetails::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::PaymentDetails::Features)).returns(T.nilable(AccountSessionCreateParams::Components::PaymentDetails::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::PaymentDetails::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -612,15 +622,15 @@ module Stripe
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::PaymentDisputes::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::PaymentDisputes::Features)).returns(T.nilable(AccountSessionCreateParams::Components::PaymentDisputes::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::PaymentDisputes::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -666,14 +676,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::Payments::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::Payments::Features)).returns(T.nilable(AccountSessionCreateParams::Components::Payments::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::Payments::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -685,14 +697,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # An empty list, because this embedded component has no features.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::PayoutDetails::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::PayoutDetails::Features)).returns(T.nilable(AccountSessionCreateParams::Components::PayoutDetails::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::PayoutDetails::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -746,14 +760,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # The list of features enabled in the embedded component.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::Payouts::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::Payouts::Features)).returns(T.nilable(AccountSessionCreateParams::Components::Payouts::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::Payouts::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -765,14 +781,16 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # An empty list, because this embedded component has no features.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::PayoutsList::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::PayoutsList::Features)).returns(T.nilable(AccountSessionCreateParams::Components::PayoutsList::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::PayoutsList::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -785,15 +803,15 @@ module Stripe
         def enabled=(_enabled); end
         # An empty list, because this embedded component has no features.
         sig {
-          returns(T.nilable(AccountSessionCreateParams::Components::TaxRegistrations::Features))
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations::Features))
          }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::TaxRegistrations::Features)).returns(T.nilable(AccountSessionCreateParams::Components::TaxRegistrations::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::TaxRegistrations::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -805,154 +823,164 @@ module Stripe
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
         # An empty list, because this embedded component has no features.
-        sig { returns(T.nilable(AccountSessionCreateParams::Components::TaxSettings::Features)) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings::Features))
+         }
         def features; end
         sig {
-          params(_features: T.nilable(AccountSessionCreateParams::Components::TaxSettings::Features)).returns(T.nilable(AccountSessionCreateParams::Components::TaxSettings::Features))
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings::Features))
          }
         def features=(_features); end
         sig {
-          params(enabled: T::Boolean, features: T.nilable(AccountSessionCreateParams::Components::TaxSettings::Features)).void
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
       # Configuration for the [account management](/connect/supported-embedded-components/account-management/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::AccountManagement)) }
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement))
+       }
       def account_management; end
       sig {
-        params(_account_management: T.nilable(AccountSessionCreateParams::Components::AccountManagement)).returns(T.nilable(AccountSessionCreateParams::Components::AccountManagement))
+        params(_account_management: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement))
        }
       def account_management=(_account_management); end
       # Configuration for the [account onboarding](/connect/supported-embedded-components/account-onboarding/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::AccountOnboarding)) }
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding))
+       }
       def account_onboarding; end
       sig {
-        params(_account_onboarding: T.nilable(AccountSessionCreateParams::Components::AccountOnboarding)).returns(T.nilable(AccountSessionCreateParams::Components::AccountOnboarding))
+        params(_account_onboarding: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding))
        }
       def account_onboarding=(_account_onboarding); end
       # Configuration for the [balances](/connect/supported-embedded-components/balances/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::Balances)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances)) }
       def balances; end
       sig {
-        params(_balances: T.nilable(AccountSessionCreateParams::Components::Balances)).returns(T.nilable(AccountSessionCreateParams::Components::Balances))
+        params(_balances: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances))
        }
       def balances=(_balances); end
       # Configuration for the [disputes list](/connect/supported-embedded-components/disputes-list/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::DisputesList)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList)) }
       def disputes_list; end
       sig {
-        params(_disputes_list: T.nilable(AccountSessionCreateParams::Components::DisputesList)).returns(T.nilable(AccountSessionCreateParams::Components::DisputesList))
+        params(_disputes_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList))
        }
       def disputes_list=(_disputes_list); end
       # Configuration for the [documents](/connect/supported-embedded-components/documents/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::Documents)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents)) }
       def documents; end
       sig {
-        params(_documents: T.nilable(AccountSessionCreateParams::Components::Documents)).returns(T.nilable(AccountSessionCreateParams::Components::Documents))
+        params(_documents: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents))
        }
       def documents=(_documents); end
       # Configuration for the [financial account](/connect/supported-embedded-components/financial-account/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccount)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount)) }
       def financial_account; end
       sig {
-        params(_financial_account: T.nilable(AccountSessionCreateParams::Components::FinancialAccount)).returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccount))
+        params(_financial_account: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount))
        }
       def financial_account=(_financial_account); end
       # Configuration for the [financial account transactions](/connect/supported-embedded-components/financial-account-transactions/) embedded component.
       sig {
-        returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions))
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions))
        }
       def financial_account_transactions; end
       sig {
-        params(_financial_account_transactions: T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions)).returns(T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions))
+        params(_financial_account_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions))
        }
       def financial_account_transactions=(_financial_account_transactions); end
       # Configuration for the [instant payouts promotion](/connect/supported-embedded-components/instant-payouts-promotion/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion)) }
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion))
+       }
       def instant_payouts_promotion; end
       sig {
-        params(_instant_payouts_promotion: T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion)).returns(T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion))
+        params(_instant_payouts_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion))
        }
       def instant_payouts_promotion=(_instant_payouts_promotion); end
       # Configuration for the [issuing card](/connect/supported-embedded-components/issuing-card/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::IssuingCard)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard)) }
       def issuing_card; end
       sig {
-        params(_issuing_card: T.nilable(AccountSessionCreateParams::Components::IssuingCard)).returns(T.nilable(AccountSessionCreateParams::Components::IssuingCard))
+        params(_issuing_card: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard))
        }
       def issuing_card=(_issuing_card); end
       # Configuration for the [issuing cards list](/connect/supported-embedded-components/issuing-cards-list/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::IssuingCardsList)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList)) }
       def issuing_cards_list; end
       sig {
-        params(_issuing_cards_list: T.nilable(AccountSessionCreateParams::Components::IssuingCardsList)).returns(T.nilable(AccountSessionCreateParams::Components::IssuingCardsList))
+        params(_issuing_cards_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList))
        }
       def issuing_cards_list=(_issuing_cards_list); end
       # Configuration for the [notification banner](/connect/supported-embedded-components/notification-banner/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::NotificationBanner)) }
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner))
+       }
       def notification_banner; end
       sig {
-        params(_notification_banner: T.nilable(AccountSessionCreateParams::Components::NotificationBanner)).returns(T.nilable(AccountSessionCreateParams::Components::NotificationBanner))
+        params(_notification_banner: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner))
        }
       def notification_banner=(_notification_banner); end
       # Configuration for the [payment details](/connect/supported-embedded-components/payment-details/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::PaymentDetails)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails)) }
       def payment_details; end
       sig {
-        params(_payment_details: T.nilable(AccountSessionCreateParams::Components::PaymentDetails)).returns(T.nilable(AccountSessionCreateParams::Components::PaymentDetails))
+        params(_payment_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails))
        }
       def payment_details=(_payment_details); end
       # Configuration for the [payment disputes](/connect/supported-embedded-components/payment-disputes/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::PaymentDisputes)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes)) }
       def payment_disputes; end
       sig {
-        params(_payment_disputes: T.nilable(AccountSessionCreateParams::Components::PaymentDisputes)).returns(T.nilable(AccountSessionCreateParams::Components::PaymentDisputes))
+        params(_payment_disputes: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes))
        }
       def payment_disputes=(_payment_disputes); end
       # Configuration for the [payments](/connect/supported-embedded-components/payments/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::Payments)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments)) }
       def payments; end
       sig {
-        params(_payments: T.nilable(AccountSessionCreateParams::Components::Payments)).returns(T.nilable(AccountSessionCreateParams::Components::Payments))
+        params(_payments: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments))
        }
       def payments=(_payments); end
       # Configuration for the [payout details](/connect/supported-embedded-components/payout-details/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::PayoutDetails)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails)) }
       def payout_details; end
       sig {
-        params(_payout_details: T.nilable(AccountSessionCreateParams::Components::PayoutDetails)).returns(T.nilable(AccountSessionCreateParams::Components::PayoutDetails))
+        params(_payout_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails))
        }
       def payout_details=(_payout_details); end
       # Configuration for the [payouts](/connect/supported-embedded-components/payouts/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::Payouts)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts)) }
       def payouts; end
       sig {
-        params(_payouts: T.nilable(AccountSessionCreateParams::Components::Payouts)).returns(T.nilable(AccountSessionCreateParams::Components::Payouts))
+        params(_payouts: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts))
        }
       def payouts=(_payouts); end
       # Configuration for the [payouts list](/connect/supported-embedded-components/payouts-list/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::PayoutsList)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList)) }
       def payouts_list; end
       sig {
-        params(_payouts_list: T.nilable(AccountSessionCreateParams::Components::PayoutsList)).returns(T.nilable(AccountSessionCreateParams::Components::PayoutsList))
+        params(_payouts_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList))
        }
       def payouts_list=(_payouts_list); end
       # Configuration for the [tax registrations](/connect/supported-embedded-components/tax-registrations/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::TaxRegistrations)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations)) }
       def tax_registrations; end
       sig {
-        params(_tax_registrations: T.nilable(AccountSessionCreateParams::Components::TaxRegistrations)).returns(T.nilable(AccountSessionCreateParams::Components::TaxRegistrations))
+        params(_tax_registrations: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations))
        }
       def tax_registrations=(_tax_registrations); end
       # Configuration for the [tax settings](/connect/supported-embedded-components/tax-settings/) embedded component.
-      sig { returns(T.nilable(AccountSessionCreateParams::Components::TaxSettings)) }
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings)) }
       def tax_settings; end
       sig {
-        params(_tax_settings: T.nilable(AccountSessionCreateParams::Components::TaxSettings)).returns(T.nilable(AccountSessionCreateParams::Components::TaxSettings))
+        params(_tax_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings))
        }
       def tax_settings=(_tax_settings); end
       sig {
-        params(account_management: T.nilable(AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(AccountSessionCreateParams::Components::AccountOnboarding), balances: T.nilable(AccountSessionCreateParams::Components::Balances), disputes_list: T.nilable(AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(AccountSessionCreateParams::Components::Documents), financial_account: T.nilable(AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(AccountSessionCreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(AccountSessionCreateParams::Components::PaymentDisputes), payments: T.nilable(AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(AccountSessionCreateParams::Components::PayoutDetails), payouts: T.nilable(AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(AccountSessionCreateParams::Components::PayoutsList), tax_registrations: T.nilable(AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(AccountSessionCreateParams::Components::TaxSettings)).void
+        params(account_management: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding), balances: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances), disputes_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents), financial_account: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes), payments: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails), payouts: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList), tax_registrations: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings)).void
        }
       def initialize(
         account_management: nil,
@@ -982,10 +1010,10 @@ module Stripe
     sig { params(_account: String).returns(String) }
     def account=(_account); end
     # Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
-    sig { returns(AccountSessionCreateParams::Components) }
+    sig { returns(::Stripe::AccountSessionCreateParams::Components) }
     def components; end
     sig {
-      params(_components: AccountSessionCreateParams::Components).returns(AccountSessionCreateParams::Components)
+      params(_components: ::Stripe::AccountSessionCreateParams::Components).returns(::Stripe::AccountSessionCreateParams::Components)
      }
     def components=(_components); end
     # Specifies which fields in the response should be expanded.
@@ -994,7 +1022,7 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     sig {
-      params(account: String, components: AccountSessionCreateParams::Components, expand: T.nilable(T::Array[String])).void
+      params(account: String, components: ::Stripe::AccountSessionCreateParams::Components, expand: T.nilable(T::Array[String])).void
      }
     def initialize(account: nil, components: nil, expand: nil); end
   end

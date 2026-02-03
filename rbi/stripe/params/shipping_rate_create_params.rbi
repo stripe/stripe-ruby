@@ -34,21 +34,21 @@ module Stripe
         def initialize(unit: nil, value: nil); end
       end
       # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
-      sig { returns(T.nilable(ShippingRateCreateParams::DeliveryEstimate::Maximum)) }
+      sig { returns(T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Maximum)) }
       def maximum; end
       sig {
-        params(_maximum: T.nilable(ShippingRateCreateParams::DeliveryEstimate::Maximum)).returns(T.nilable(ShippingRateCreateParams::DeliveryEstimate::Maximum))
+        params(_maximum: T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Maximum)).returns(T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Maximum))
        }
       def maximum=(_maximum); end
       # The lower bound of the estimated range. If empty, represents no lower bound.
-      sig { returns(T.nilable(ShippingRateCreateParams::DeliveryEstimate::Minimum)) }
+      sig { returns(T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Minimum)) }
       def minimum; end
       sig {
-        params(_minimum: T.nilable(ShippingRateCreateParams::DeliveryEstimate::Minimum)).returns(T.nilable(ShippingRateCreateParams::DeliveryEstimate::Minimum))
+        params(_minimum: T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Minimum)).returns(T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Minimum))
        }
       def minimum=(_minimum); end
       sig {
-        params(maximum: T.nilable(ShippingRateCreateParams::DeliveryEstimate::Maximum), minimum: T.nilable(ShippingRateCreateParams::DeliveryEstimate::Minimum)).void
+        params(maximum: T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Maximum), minimum: T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate::Minimum)).void
        }
       def initialize(maximum: nil, minimum: nil); end
     end
@@ -79,23 +79,23 @@ module Stripe
       def currency=(_currency); end
       # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig {
-        returns(T.nilable(T::Hash[String, ShippingRateCreateParams::FixedAmount::CurrencyOptions]))
+        returns(T.nilable(T::Hash[String, ::Stripe::ShippingRateCreateParams::FixedAmount::CurrencyOptions]))
        }
       def currency_options; end
       sig {
-        params(_currency_options: T.nilable(T::Hash[String, ShippingRateCreateParams::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, ShippingRateCreateParams::FixedAmount::CurrencyOptions]))
+        params(_currency_options: T.nilable(T::Hash[String, ::Stripe::ShippingRateCreateParams::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::ShippingRateCreateParams::FixedAmount::CurrencyOptions]))
        }
       def currency_options=(_currency_options); end
       sig {
-        params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, ShippingRateCreateParams::FixedAmount::CurrencyOptions])).void
+        params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::ShippingRateCreateParams::FixedAmount::CurrencyOptions])).void
        }
       def initialize(amount: nil, currency: nil, currency_options: nil); end
     end
     # The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
-    sig { returns(T.nilable(ShippingRateCreateParams::DeliveryEstimate)) }
+    sig { returns(T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate)) }
     def delivery_estimate; end
     sig {
-      params(_delivery_estimate: T.nilable(ShippingRateCreateParams::DeliveryEstimate)).returns(T.nilable(ShippingRateCreateParams::DeliveryEstimate))
+      params(_delivery_estimate: T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate)).returns(T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate))
      }
     def delivery_estimate=(_delivery_estimate); end
     # The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
@@ -109,10 +109,10 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
-    sig { returns(T.nilable(ShippingRateCreateParams::FixedAmount)) }
+    sig { returns(T.nilable(::Stripe::ShippingRateCreateParams::FixedAmount)) }
     def fixed_amount; end
     sig {
-      params(_fixed_amount: T.nilable(ShippingRateCreateParams::FixedAmount)).returns(T.nilable(ShippingRateCreateParams::FixedAmount))
+      params(_fixed_amount: T.nilable(::Stripe::ShippingRateCreateParams::FixedAmount)).returns(T.nilable(::Stripe::ShippingRateCreateParams::FixedAmount))
      }
     def fixed_amount=(_fixed_amount); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -138,7 +138,7 @@ module Stripe
     sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
     def type=(_type); end
     sig {
-      params(delivery_estimate: T.nilable(ShippingRateCreateParams::DeliveryEstimate), display_name: String, expand: T.nilable(T::Array[String]), fixed_amount: T.nilable(ShippingRateCreateParams::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
+      params(delivery_estimate: T.nilable(::Stripe::ShippingRateCreateParams::DeliveryEstimate), display_name: String, expand: T.nilable(T::Array[String]), fixed_amount: T.nilable(::Stripe::ShippingRateCreateParams::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
      }
     def initialize(
       delivery_estimate: nil,

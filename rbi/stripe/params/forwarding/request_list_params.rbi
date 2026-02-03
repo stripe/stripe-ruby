@@ -32,10 +32,10 @@ module Stripe
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Similar to other List endpoints, filters results based on created timestamp. You can pass gt, gte, lt, and lte timestamp values.
-      sig { returns(T.nilable(Forwarding::RequestListParams::Created)) }
+      sig { returns(T.nilable(::Stripe::Forwarding::RequestListParams::Created)) }
       def created; end
       sig {
-        params(_created: T.nilable(Forwarding::RequestListParams::Created)).returns(T.nilable(Forwarding::RequestListParams::Created))
+        params(_created: T.nilable(::Stripe::Forwarding::RequestListParams::Created)).returns(T.nilable(::Stripe::Forwarding::RequestListParams::Created))
        }
       def created=(_created); end
       # A pagination cursor to fetch the previous page of the list. The value must be a ForwardingRequest ID.
@@ -59,7 +59,7 @@ module Stripe
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
       sig {
-        params(created: T.nilable(Forwarding::RequestListParams::Created), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+        params(created: T.nilable(::Stripe::Forwarding::RequestListParams::Created), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
       def initialize(
         created: nil,

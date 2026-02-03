@@ -79,21 +79,25 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         # Amazon EventBridge configuration.
-        sig { returns(T.nilable(V2::Core::EventDestinationCreateParams::AmazonEventbridge)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
+         }
         def amazon_eventbridge; end
         sig {
-          params(_amazon_eventbridge: T.nilable(V2::Core::EventDestinationCreateParams::AmazonEventbridge)).returns(T.nilable(V2::Core::EventDestinationCreateParams::AmazonEventbridge))
+          params(_amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
          }
         def amazon_eventbridge=(_amazon_eventbridge); end
         # Webhook endpoint configuration.
-        sig { returns(T.nilable(V2::Core::EventDestinationCreateParams::WebhookEndpoint)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint))
+         }
         def webhook_endpoint; end
         sig {
-          params(_webhook_endpoint: T.nilable(V2::Core::EventDestinationCreateParams::WebhookEndpoint)).returns(T.nilable(V2::Core::EventDestinationCreateParams::WebhookEndpoint))
+          params(_webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint))
          }
         def webhook_endpoint=(_webhook_endpoint); end
         sig {
-          params(description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, amazon_eventbridge: T.nilable(V2::Core::EventDestinationCreateParams::AmazonEventbridge), webhook_endpoint: T.nilable(V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
+          params(description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
          }
         def initialize(
           description: nil,

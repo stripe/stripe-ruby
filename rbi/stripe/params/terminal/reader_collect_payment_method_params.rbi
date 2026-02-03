@@ -34,15 +34,15 @@ module Stripe
         def skip_tipping=(_skip_tipping); end
         # Tipping configuration for this transaction.
         sig {
-          returns(T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping))
+          returns(T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping))
          }
         def tipping; end
         sig {
-          params(_tipping: T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping)).returns(T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping))
+          params(_tipping: T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping)).returns(T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping))
          }
         def tipping=(_tipping); end
         sig {
-          params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping)).void
+          params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig::Tipping)).void
          }
         def initialize(
           allow_redisplay: nil,
@@ -52,10 +52,12 @@ module Stripe
         ); end
       end
       # Configuration overrides for this collection, such as tipping, surcharging, and customer cancellation settings.
-      sig { returns(T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig)) }
+      sig {
+        returns(T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig))
+       }
       def collect_config; end
       sig {
-        params(_collect_config: T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig)).returns(T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig))
+        params(_collect_config: T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig)).returns(T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig))
        }
       def collect_config=(_collect_config); end
       # Specifies which fields in the response should be expanded.
@@ -69,7 +71,7 @@ module Stripe
       sig { params(_payment_intent: String).returns(String) }
       def payment_intent=(_payment_intent); end
       sig {
-        params(collect_config: T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
+        params(collect_config: T.nilable(::Stripe::Terminal::ReaderCollectPaymentMethodParams::CollectConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
        }
       def initialize(collect_config: nil, expand: nil, payment_intent: nil); end
     end

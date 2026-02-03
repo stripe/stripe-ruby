@@ -50,10 +50,10 @@ module Stripe
         def initialize(account_subcategories: nil, countries: nil); end
       end
       # The account holder to link accounts for.
-      sig { returns(FinancialConnections::SessionCreateParams::AccountHolder) }
+      sig { returns(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder) }
       def account_holder; end
       sig {
-        params(_account_holder: FinancialConnections::SessionCreateParams::AccountHolder).returns(FinancialConnections::SessionCreateParams::AccountHolder)
+        params(_account_holder: ::Stripe::FinancialConnections::SessionCreateParams::AccountHolder).returns(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder)
        }
       def account_holder=(_account_holder); end
       # Specifies which fields in the response should be expanded.
@@ -62,10 +62,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Filters to restrict the kinds of accounts to collect.
-      sig { returns(T.nilable(FinancialConnections::SessionCreateParams::Filters)) }
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters)) }
       def filters; end
       sig {
-        params(_filters: T.nilable(FinancialConnections::SessionCreateParams::Filters)).returns(T.nilable(FinancialConnections::SessionCreateParams::Filters))
+        params(_filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters))
        }
       def filters=(_filters); end
       # List of data features that you would like to request access to.
@@ -86,7 +86,7 @@ module Stripe
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
       sig {
-        params(account_holder: FinancialConnections::SessionCreateParams::AccountHolder, expand: T.nilable(T::Array[String]), filters: T.nilable(FinancialConnections::SessionCreateParams::Filters), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), return_url: T.nilable(String)).void
+        params(account_holder: ::Stripe::FinancialConnections::SessionCreateParams::AccountHolder, expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), return_url: T.nilable(String)).void
        }
       def initialize(
         account_holder: nil,

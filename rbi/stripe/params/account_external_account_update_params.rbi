@@ -16,15 +16,15 @@ module Stripe
       end
       # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the bank account that displays the last 4 digits of the account number, either a statement or a check.
       sig {
-        returns(T.nilable(AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification))
+        returns(T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification))
        }
       def bank_account_ownership_verification; end
       sig {
-        params(_bank_account_ownership_verification: T.nilable(AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification)).returns(T.nilable(AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification))
+        params(_bank_account_ownership_verification: T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification)).returns(T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification))
        }
       def bank_account_ownership_verification=(_bank_account_ownership_verification); end
       sig {
-        params(bank_account_ownership_verification: T.nilable(AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification)).void
+        params(bank_account_ownership_verification: T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents::BankAccountOwnershipVerification)).void
        }
       def initialize(bank_account_ownership_verification: nil); end
     end
@@ -81,10 +81,10 @@ module Stripe
     sig { params(_default_for_currency: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def default_for_currency=(_default_for_currency); end
     # Documents that may be submitted to satisfy various informational requests.
-    sig { returns(T.nilable(AccountExternalAccountUpdateParams::Documents)) }
+    sig { returns(T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents)) }
     def documents; end
     sig {
-      params(_documents: T.nilable(AccountExternalAccountUpdateParams::Documents)).returns(T.nilable(AccountExternalAccountUpdateParams::Documents))
+      params(_documents: T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents)).returns(T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents))
      }
     def documents=(_documents); end
     # Two digit number representing the card’s expiration month.
@@ -115,7 +115,7 @@ module Stripe
     sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
     def name=(_name); end
     sig {
-      params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(T.any(String, String)), account_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), default_for_currency: T.nilable(T::Boolean), documents: T.nilable(AccountExternalAccountUpdateParams::Documents), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
+      params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(T.any(String, String)), account_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), default_for_currency: T.nilable(T::Boolean), documents: T.nilable(::Stripe::AccountExternalAccountUpdateParams::Documents), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
      }
     def initialize(
       account_holder_name: nil,

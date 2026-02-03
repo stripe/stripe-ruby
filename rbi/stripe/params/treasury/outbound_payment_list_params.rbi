@@ -32,10 +32,12 @@ module Stripe
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return OutboundPayments that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Treasury::OutboundPaymentListParams::Created, Integer))) }
+      sig {
+        returns(T.nilable(T.any(::Stripe::Treasury::OutboundPaymentListParams::Created, Integer)))
+       }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Treasury::OutboundPaymentListParams::Created, Integer))).returns(T.nilable(T.any(Treasury::OutboundPaymentListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Treasury::OutboundPaymentListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Treasury::OutboundPaymentListParams::Created, Integer)))
        }
       def created=(_created); end
       # Only return OutboundPayments sent to this customer.
@@ -74,7 +76,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(created: T.nilable(T.any(Treasury::OutboundPaymentListParams::Created, Integer)), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
+        params(created: T.nilable(T.any(::Stripe::Treasury::OutboundPaymentListParams::Created, Integer)), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
       def initialize(
         created: nil,

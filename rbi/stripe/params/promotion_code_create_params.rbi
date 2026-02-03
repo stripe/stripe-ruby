@@ -30,11 +30,11 @@ module Stripe
       end
       # Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig {
-        returns(T.nilable(T::Hash[String, PromotionCodeCreateParams::Restrictions::CurrencyOptions]))
+        returns(T.nilable(T::Hash[String, ::Stripe::PromotionCodeCreateParams::Restrictions::CurrencyOptions]))
        }
       def currency_options; end
       sig {
-        params(_currency_options: T.nilable(T::Hash[String, PromotionCodeCreateParams::Restrictions::CurrencyOptions])).returns(T.nilable(T::Hash[String, PromotionCodeCreateParams::Restrictions::CurrencyOptions]))
+        params(_currency_options: T.nilable(T::Hash[String, ::Stripe::PromotionCodeCreateParams::Restrictions::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::PromotionCodeCreateParams::Restrictions::CurrencyOptions]))
        }
       def currency_options=(_currency_options); end
       # A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices
@@ -53,7 +53,7 @@ module Stripe
       sig { params(_minimum_amount_currency: T.nilable(String)).returns(T.nilable(String)) }
       def minimum_amount_currency=(_minimum_amount_currency); end
       sig {
-        params(currency_options: T.nilable(T::Hash[String, PromotionCodeCreateParams::Restrictions::CurrencyOptions]), first_time_transaction: T.nilable(T::Boolean), minimum_amount: T.nilable(Integer), minimum_amount_currency: T.nilable(String)).void
+        params(currency_options: T.nilable(T::Hash[String, ::Stripe::PromotionCodeCreateParams::Restrictions::CurrencyOptions]), first_time_transaction: T.nilable(T::Boolean), minimum_amount: T.nilable(Integer), minimum_amount_currency: T.nilable(String)).void
        }
       def initialize(
         currency_options: nil,
@@ -107,21 +107,21 @@ module Stripe
      }
     def metadata=(_metadata); end
     # The promotion referenced by this promotion code.
-    sig { returns(PromotionCodeCreateParams::Promotion) }
+    sig { returns(::Stripe::PromotionCodeCreateParams::Promotion) }
     def promotion; end
     sig {
-      params(_promotion: PromotionCodeCreateParams::Promotion).returns(PromotionCodeCreateParams::Promotion)
+      params(_promotion: ::Stripe::PromotionCodeCreateParams::Promotion).returns(::Stripe::PromotionCodeCreateParams::Promotion)
      }
     def promotion=(_promotion); end
     # Settings that restrict the redemption of the promotion code.
-    sig { returns(T.nilable(PromotionCodeCreateParams::Restrictions)) }
+    sig { returns(T.nilable(::Stripe::PromotionCodeCreateParams::Restrictions)) }
     def restrictions; end
     sig {
-      params(_restrictions: T.nilable(PromotionCodeCreateParams::Restrictions)).returns(T.nilable(PromotionCodeCreateParams::Restrictions))
+      params(_restrictions: T.nilable(::Stripe::PromotionCodeCreateParams::Restrictions)).returns(T.nilable(::Stripe::PromotionCodeCreateParams::Restrictions))
      }
     def restrictions=(_restrictions); end
     sig {
-      params(active: T.nilable(T::Boolean), code: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), max_redemptions: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), promotion: PromotionCodeCreateParams::Promotion, restrictions: T.nilable(PromotionCodeCreateParams::Restrictions)).void
+      params(active: T.nilable(T::Boolean), code: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), max_redemptions: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), promotion: ::Stripe::PromotionCodeCreateParams::Promotion, restrictions: T.nilable(::Stripe::PromotionCodeCreateParams::Restrictions)).void
      }
     def initialize(
       active: nil,

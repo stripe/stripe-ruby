@@ -33,10 +33,10 @@ module Stripe
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # Set of filters to query events within a range of `created` timestamps.
-        sig { returns(T.nilable(V2::Core::EventListParams::Created)) }
+        sig { returns(T.nilable(::Stripe::V2::Core::EventListParams::Created)) }
         def created; end
         sig {
-          params(_created: T.nilable(V2::Core::EventListParams::Created)).returns(T.nilable(V2::Core::EventListParams::Created))
+          params(_created: T.nilable(::Stripe::V2::Core::EventListParams::Created)).returns(T.nilable(::Stripe::V2::Core::EventListParams::Created))
          }
         def created=(_created); end
         # The page size.
@@ -57,7 +57,7 @@ module Stripe
         sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def types=(_types); end
         sig {
-          params(created: T.nilable(V2::Core::EventListParams::Created), limit: T.nilable(Integer), object_id_: T.nilable(String), types: T.nilable(T::Array[String])).void
+          params(created: T.nilable(::Stripe::V2::Core::EventListParams::Created), limit: T.nilable(Integer), object_id_: T.nilable(String), types: T.nilable(T::Array[String])).void
          }
         def initialize(created: nil, limit: nil, object_id_: nil, types: nil); end
       end

@@ -36,15 +36,15 @@ module Stripe
           end
           # Adds an ABA FinancialAddress to the FinancialAccount.
           sig {
-            returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba))
+            returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba))
            }
           def aba; end
           sig {
-            params(_aba: T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba))
+            params(_aba: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba))
            }
           def aba=(_aba); end
           sig {
-            params(aba: T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba)).void
+            params(aba: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses::Aba)).void
            }
           def initialize(aba: nil); end
         end
@@ -60,15 +60,15 @@ module Stripe
           end
           # Enables ACH Debits via the InboundTransfers API.
           sig {
-            returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach))
+            returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach))
            }
           def ach; end
           sig {
-            params(_ach: T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach))
+            params(_ach: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach))
            }
           def ach=(_ach); end
           sig {
-            params(ach: T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach)).void
+            params(ach: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers::Ach)).void
            }
           def initialize(ach: nil); end
         end
@@ -102,24 +102,24 @@ module Stripe
           end
           # Enables ACH transfers via the OutboundPayments API.
           sig {
-            returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach))
+            returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach))
            }
           def ach; end
           sig {
-            params(_ach: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach))
+            params(_ach: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach))
            }
           def ach=(_ach); end
           # Enables US domestic wire transfers via the OutboundPayments API.
           sig {
-            returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire))
+            returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire))
            }
           def us_domestic_wire; end
           sig {
-            params(_us_domestic_wire: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire))
+            params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire))
            }
           def us_domestic_wire=(_us_domestic_wire); end
           sig {
-            params(ach: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach), us_domestic_wire: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire)).void
+            params(ach: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments::UsDomesticWire)).void
            }
           def initialize(ach: nil, us_domestic_wire: nil); end
         end
@@ -144,90 +144,92 @@ module Stripe
           end
           # Enables ACH transfers via the OutboundTransfers API.
           sig {
-            returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach))
+            returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach))
            }
           def ach; end
           sig {
-            params(_ach: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach))
+            params(_ach: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach))
            }
           def ach=(_ach); end
           # Enables US domestic wire transfers via the OutboundTransfers API.
           sig {
-            returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire))
+            returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire))
            }
           def us_domestic_wire; end
           sig {
-            params(_us_domestic_wire: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire))
+            params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire))
            }
           def us_domestic_wire=(_us_domestic_wire); end
           sig {
-            params(ach: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach), us_domestic_wire: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire)).void
+            params(ach: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers::UsDomesticWire)).void
            }
           def initialize(ach: nil, us_domestic_wire: nil); end
         end
         # Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
-        sig { returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::CardIssuing)) }
+        sig {
+          returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::CardIssuing))
+         }
         def card_issuing; end
         sig {
-          params(_card_issuing: T.nilable(Treasury::FinancialAccountUpdateParams::Features::CardIssuing)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::CardIssuing))
+          params(_card_issuing: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::CardIssuing)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::CardIssuing))
          }
         def card_issuing=(_card_issuing); end
         # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
         sig {
-          returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::DepositInsurance))
+          returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::DepositInsurance))
          }
         def deposit_insurance; end
         sig {
-          params(_deposit_insurance: T.nilable(Treasury::FinancialAccountUpdateParams::Features::DepositInsurance)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::DepositInsurance))
+          params(_deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::DepositInsurance)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::DepositInsurance))
          }
         def deposit_insurance=(_deposit_insurance); end
         # Contains Features that add FinancialAddresses to the FinancialAccount.
         sig {
-          returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses))
+          returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses))
          }
         def financial_addresses; end
         sig {
-          params(_financial_addresses: T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses))
+          params(_financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses))
          }
         def financial_addresses=(_financial_addresses); end
         # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
         sig {
-          returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers))
+          returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers))
          }
         def inbound_transfers; end
         sig {
-          params(_inbound_transfers: T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers))
+          params(_inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers))
          }
         def inbound_transfers=(_inbound_transfers); end
         # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
         sig {
-          returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows))
+          returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows))
          }
         def intra_stripe_flows; end
         sig {
-          params(_intra_stripe_flows: T.nilable(Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows))
+          params(_intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows))
          }
         def intra_stripe_flows=(_intra_stripe_flows); end
         # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
         sig {
-          returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments))
+          returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments))
          }
         def outbound_payments; end
         sig {
-          params(_outbound_payments: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments))
+          params(_outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments))
          }
         def outbound_payments=(_outbound_payments); end
         # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         sig {
-          returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers))
+          returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers))
          }
         def outbound_transfers; end
         sig {
-          params(_outbound_transfers: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers))
+          params(_outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers))
          }
         def outbound_transfers=(_outbound_transfers); end
         sig {
-          params(card_issuing: T.nilable(Treasury::FinancialAccountUpdateParams::Features::CardIssuing), deposit_insurance: T.nilable(Treasury::FinancialAccountUpdateParams::Features::DepositInsurance), financial_addresses: T.nilable(Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses), inbound_transfers: T.nilable(Treasury::FinancialAccountUpdateParams::Features::InboundTransfers), intra_stripe_flows: T.nilable(Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows), outbound_payments: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundPayments), outbound_transfers: T.nilable(Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers)).void
+          params(card_issuing: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::CardIssuing), deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::DepositInsurance), financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::FinancialAddresses), inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::InboundTransfers), intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::IntraStripeFlows), outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundPayments), outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features::OutboundTransfers)).void
          }
         def initialize(
           card_issuing: nil,
@@ -280,17 +282,19 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
-      sig { returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features)) }
+      sig { returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features)) }
       def features; end
       sig {
-        params(_features: T.nilable(Treasury::FinancialAccountUpdateParams::Features)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::Features))
+        params(_features: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features))
        }
       def features=(_features); end
       # A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
-      sig { returns(T.nilable(Treasury::FinancialAccountUpdateParams::ForwardingSettings)) }
+      sig {
+        returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::ForwardingSettings))
+       }
       def forwarding_settings; end
       sig {
-        params(_forwarding_settings: T.nilable(Treasury::FinancialAccountUpdateParams::ForwardingSettings)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::ForwardingSettings))
+        params(_forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::ForwardingSettings)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::ForwardingSettings))
        }
       def forwarding_settings=(_forwarding_settings); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -306,14 +310,16 @@ module Stripe
       sig { params(_nickname: T.nilable(String)).returns(T.nilable(String)) }
       def nickname=(_nickname); end
       # The set of functionalities that the platform can restrict on the FinancialAccount.
-      sig { returns(T.nilable(Treasury::FinancialAccountUpdateParams::PlatformRestrictions)) }
+      sig {
+        returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::PlatformRestrictions))
+       }
       def platform_restrictions; end
       sig {
-        params(_platform_restrictions: T.nilable(Treasury::FinancialAccountUpdateParams::PlatformRestrictions)).returns(T.nilable(Treasury::FinancialAccountUpdateParams::PlatformRestrictions))
+        params(_platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::PlatformRestrictions)).returns(T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::PlatformRestrictions))
        }
       def platform_restrictions=(_platform_restrictions); end
       sig {
-        params(expand: T.nilable(T::Array[String]), features: T.nilable(Treasury::FinancialAccountUpdateParams::Features), forwarding_settings: T.nilable(Treasury::FinancialAccountUpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(Treasury::FinancialAccountUpdateParams::PlatformRestrictions)).void
+        params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::Features), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccountUpdateParams::PlatformRestrictions)).void
        }
       def initialize(
         expand: nil,

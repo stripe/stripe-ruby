@@ -60,10 +60,10 @@ module Stripe
       sig { params(_product: String).returns(String) }
       def product=(_product); end
       # The recurring components of a price such as `interval` and `interval_count`.
-      sig { returns(SubscriptionItemCreateParams::PriceData::Recurring) }
+      sig { returns(::Stripe::SubscriptionItemCreateParams::PriceData::Recurring) }
       def recurring; end
       sig {
-        params(_recurring: SubscriptionItemCreateParams::PriceData::Recurring).returns(SubscriptionItemCreateParams::PriceData::Recurring)
+        params(_recurring: ::Stripe::SubscriptionItemCreateParams::PriceData::Recurring).returns(::Stripe::SubscriptionItemCreateParams::PriceData::Recurring)
        }
       def recurring=(_recurring); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -82,7 +82,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(currency: String, product: String, recurring: SubscriptionItemCreateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(currency: String, product: String, recurring: ::Stripe::SubscriptionItemCreateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         currency: nil,
@@ -94,17 +94,21 @@ module Stripe
       ); end
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-    sig { returns(T.nilable(T.any(String, SubscriptionItemCreateParams::BillingThresholds))) }
+    sig {
+      returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds)))
+     }
     def billing_thresholds; end
     sig {
-      params(_billing_thresholds: T.nilable(T.any(String, SubscriptionItemCreateParams::BillingThresholds))).returns(T.nilable(T.any(String, SubscriptionItemCreateParams::BillingThresholds)))
+      params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds)))
      }
     def billing_thresholds=(_billing_thresholds); end
     # The coupons to redeem into discounts for the subscription item.
-    sig { returns(T.nilable(T.any(String, T::Array[SubscriptionItemCreateParams::Discount]))) }
+    sig {
+      returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemCreateParams::Discount])))
+     }
     def discounts; end
     sig {
-      params(_discounts: T.nilable(T.any(String, T::Array[SubscriptionItemCreateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[SubscriptionItemCreateParams::Discount])))
+      params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemCreateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemCreateParams::Discount])))
      }
     def discounts=(_discounts); end
     # Specifies which fields in the response should be expanded.
@@ -141,10 +145,10 @@ module Stripe
     sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
     def price=(_price); end
     # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
-    sig { returns(T.nilable(SubscriptionItemCreateParams::PriceData)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionItemCreateParams::PriceData)) }
     def price_data; end
     sig {
-      params(_price_data: T.nilable(SubscriptionItemCreateParams::PriceData)).returns(T.nilable(SubscriptionItemCreateParams::PriceData))
+      params(_price_data: T.nilable(::Stripe::SubscriptionItemCreateParams::PriceData)).returns(T.nilable(::Stripe::SubscriptionItemCreateParams::PriceData))
      }
     def price_data=(_price_data); end
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -175,7 +179,7 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(billing_thresholds: T.nilable(T.any(String, SubscriptionItemCreateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[SubscriptionItemCreateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionItemCreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemCreateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItemCreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       billing_thresholds: nil,

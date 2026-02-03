@@ -58,10 +58,10 @@ module Stripe
         ); end
       end
       # Shipping address.
-      sig { returns(ChargeUpdateParams::Shipping::Address) }
+      sig { returns(::Stripe::ChargeUpdateParams::Shipping::Address) }
       def address; end
       sig {
-        params(_address: ChargeUpdateParams::Shipping::Address).returns(ChargeUpdateParams::Shipping::Address)
+        params(_address: ::Stripe::ChargeUpdateParams::Shipping::Address).returns(::Stripe::ChargeUpdateParams::Shipping::Address)
        }
       def address=(_address); end
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
@@ -85,7 +85,7 @@ module Stripe
       sig { params(_tracking_number: T.nilable(String)).returns(T.nilable(String)) }
       def tracking_number=(_tracking_number); end
       sig {
-        params(address: ChargeUpdateParams::Shipping::Address, carrier: T.nilable(String), name: String, phone: T.nilable(String), tracking_number: T.nilable(String)).void
+        params(address: ::Stripe::ChargeUpdateParams::Shipping::Address, carrier: T.nilable(String), name: String, phone: T.nilable(String), tracking_number: T.nilable(String)).void
        }
       def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
     end
@@ -105,10 +105,10 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
-    sig { returns(T.nilable(ChargeUpdateParams::FraudDetails)) }
+    sig { returns(T.nilable(::Stripe::ChargeUpdateParams::FraudDetails)) }
     def fraud_details; end
     sig {
-      params(_fraud_details: T.nilable(ChargeUpdateParams::FraudDetails)).returns(T.nilable(ChargeUpdateParams::FraudDetails))
+      params(_fraud_details: T.nilable(::Stripe::ChargeUpdateParams::FraudDetails)).returns(T.nilable(::Stripe::ChargeUpdateParams::FraudDetails))
      }
     def fraud_details=(_fraud_details); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -124,10 +124,10 @@ module Stripe
     sig { params(_receipt_email: T.nilable(String)).returns(T.nilable(String)) }
     def receipt_email=(_receipt_email); end
     # Shipping information for the charge. Helps prevent fraud on charges for physical goods.
-    sig { returns(T.nilable(ChargeUpdateParams::Shipping)) }
+    sig { returns(T.nilable(::Stripe::ChargeUpdateParams::Shipping)) }
     def shipping; end
     sig {
-      params(_shipping: T.nilable(ChargeUpdateParams::Shipping)).returns(T.nilable(ChargeUpdateParams::Shipping))
+      params(_shipping: T.nilable(::Stripe::ChargeUpdateParams::Shipping)).returns(T.nilable(::Stripe::ChargeUpdateParams::Shipping))
      }
     def shipping=(_shipping); end
     # A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
@@ -136,7 +136,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(ChargeUpdateParams::FraudDetails), metadata: T.nilable(T.any(String, T::Hash[String, String])), receipt_email: T.nilable(String), shipping: T.nilable(ChargeUpdateParams::Shipping), transfer_group: T.nilable(String)).void
+      params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(::Stripe::ChargeUpdateParams::FraudDetails), metadata: T.nilable(T.any(String, T::Hash[String, String])), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::ChargeUpdateParams::Shipping), transfer_group: T.nilable(String)).void
      }
     def initialize(
       customer: nil,

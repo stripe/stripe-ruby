@@ -16,15 +16,15 @@ module Stripe
       end
       # Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig {
-        returns(T.nilable(T::Hash[String, PromotionCodeUpdateParams::Restrictions::CurrencyOptions]))
+        returns(T.nilable(T::Hash[String, ::Stripe::PromotionCodeUpdateParams::Restrictions::CurrencyOptions]))
        }
       def currency_options; end
       sig {
-        params(_currency_options: T.nilable(T::Hash[String, PromotionCodeUpdateParams::Restrictions::CurrencyOptions])).returns(T.nilable(T::Hash[String, PromotionCodeUpdateParams::Restrictions::CurrencyOptions]))
+        params(_currency_options: T.nilable(T::Hash[String, ::Stripe::PromotionCodeUpdateParams::Restrictions::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::PromotionCodeUpdateParams::Restrictions::CurrencyOptions]))
        }
       def currency_options=(_currency_options); end
       sig {
-        params(currency_options: T.nilable(T::Hash[String, PromotionCodeUpdateParams::Restrictions::CurrencyOptions])).void
+        params(currency_options: T.nilable(T::Hash[String, ::Stripe::PromotionCodeUpdateParams::Restrictions::CurrencyOptions])).void
        }
       def initialize(currency_options: nil); end
     end
@@ -46,14 +46,14 @@ module Stripe
      }
     def metadata=(_metadata); end
     # Settings that restrict the redemption of the promotion code.
-    sig { returns(T.nilable(PromotionCodeUpdateParams::Restrictions)) }
+    sig { returns(T.nilable(::Stripe::PromotionCodeUpdateParams::Restrictions)) }
     def restrictions; end
     sig {
-      params(_restrictions: T.nilable(PromotionCodeUpdateParams::Restrictions)).returns(T.nilable(PromotionCodeUpdateParams::Restrictions))
+      params(_restrictions: T.nilable(::Stripe::PromotionCodeUpdateParams::Restrictions)).returns(T.nilable(::Stripe::PromotionCodeUpdateParams::Restrictions))
      }
     def restrictions=(_restrictions); end
     sig {
-      params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), restrictions: T.nilable(PromotionCodeUpdateParams::Restrictions)).void
+      params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), restrictions: T.nilable(::Stripe::PromotionCodeUpdateParams::Restrictions)).void
      }
     def initialize(active: nil, expand: nil, metadata: nil, restrictions: nil); end
   end

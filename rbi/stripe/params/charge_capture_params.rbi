@@ -51,10 +51,10 @@ module Stripe
     sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor_suffix=(_statement_descriptor_suffix); end
     # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
-    sig { returns(T.nilable(ChargeCaptureParams::TransferData)) }
+    sig { returns(T.nilable(::Stripe::ChargeCaptureParams::TransferData)) }
     def transfer_data; end
     sig {
-      params(_transfer_data: T.nilable(ChargeCaptureParams::TransferData)).returns(T.nilable(ChargeCaptureParams::TransferData))
+      params(_transfer_data: T.nilable(::Stripe::ChargeCaptureParams::TransferData)).returns(T.nilable(::Stripe::ChargeCaptureParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
     # A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
@@ -63,7 +63,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), receipt_email: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(ChargeCaptureParams::TransferData), transfer_group: T.nilable(String)).void
+      params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), receipt_email: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::ChargeCaptureParams::TransferData), transfer_group: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

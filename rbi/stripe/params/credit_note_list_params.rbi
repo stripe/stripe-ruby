@@ -31,10 +31,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return credit notes that were created during the given date interval.
-    sig { returns(T.nilable(T.any(CreditNoteListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::CreditNoteListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(CreditNoteListParams::Created, Integer))).returns(T.nilable(T.any(CreditNoteListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::CreditNoteListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::CreditNoteListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return credit notes for the customer specified by this customer ID.
@@ -73,7 +73,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(created: T.nilable(T.any(CreditNoteListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::CreditNoteListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
      }
     def initialize(
       created: nil,

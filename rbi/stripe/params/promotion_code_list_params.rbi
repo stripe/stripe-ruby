@@ -46,10 +46,10 @@ module Stripe
     sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
     def coupon=(_coupon); end
     # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
-    sig { returns(T.nilable(T.any(PromotionCodeListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::PromotionCodeListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(PromotionCodeListParams::Created, Integer))).returns(T.nilable(T.any(PromotionCodeListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::PromotionCodeListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::PromotionCodeListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return promotion codes that are restricted to this customer.
@@ -83,7 +83,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(active: T.nilable(T::Boolean), code: T.nilable(String), coupon: T.nilable(String), created: T.nilable(T.any(PromotionCodeListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), code: T.nilable(String), coupon: T.nilable(String), created: T.nilable(T.any(::Stripe::PromotionCodeListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
      }
     def initialize(
       active: nil,

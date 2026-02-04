@@ -26,14 +26,16 @@ module Stripe
         sig { params(_body: T.nilable(String)).returns(T.nilable(String)) }
         def body=(_body); end
         # The headers to include in the forwarded request. Can be omitted if no additional headers (excluding Stripe-generated ones such as the Content-Type header) should be included.
-        sig { returns(T.nilable(T::Array[Forwarding::RequestCreateParams::Request::Header])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Forwarding::RequestCreateParams::Request::Header]))
+         }
         def headers; end
         sig {
-          params(_headers: T.nilable(T::Array[Forwarding::RequestCreateParams::Request::Header])).returns(T.nilable(T::Array[Forwarding::RequestCreateParams::Request::Header]))
+          params(_headers: T.nilable(T::Array[::Stripe::Forwarding::RequestCreateParams::Request::Header])).returns(T.nilable(T::Array[::Stripe::Forwarding::RequestCreateParams::Request::Header]))
          }
         def headers=(_headers); end
         sig {
-          params(body: T.nilable(String), headers: T.nilable(T::Array[Forwarding::RequestCreateParams::Request::Header])).void
+          params(body: T.nilable(String), headers: T.nilable(T::Array[::Stripe::Forwarding::RequestCreateParams::Request::Header])).void
          }
         def initialize(body: nil, headers: nil); end
       end
@@ -60,10 +62,10 @@ module Stripe
       sig { params(_replacements: T::Array[String]).returns(T::Array[String]) }
       def replacements=(_replacements); end
       # The request body and headers to be sent to the destination endpoint.
-      sig { returns(Forwarding::RequestCreateParams::Request) }
+      sig { returns(::Stripe::Forwarding::RequestCreateParams::Request) }
       def request; end
       sig {
-        params(_request: Forwarding::RequestCreateParams::Request).returns(Forwarding::RequestCreateParams::Request)
+        params(_request: ::Stripe::Forwarding::RequestCreateParams::Request).returns(::Stripe::Forwarding::RequestCreateParams::Request)
        }
       def request=(_request); end
       # The destination URL for the forwarded request. Must be supported by the config.
@@ -72,7 +74,7 @@ module Stripe
       sig { params(_url: String).returns(String) }
       def url=(_url); end
       sig {
-        params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_method: String, replacements: T::Array[String], request: Forwarding::RequestCreateParams::Request, url: String).void
+        params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_method: String, replacements: T::Array[String], request: ::Stripe::Forwarding::RequestCreateParams::Request, url: String).void
        }
       def initialize(
         expand: nil,

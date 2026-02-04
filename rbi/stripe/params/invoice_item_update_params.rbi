@@ -101,10 +101,10 @@ module Stripe
     sig { params(_discountable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def discountable=(_discountable); end
     # The coupons, promotion codes & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
-    sig { returns(T.nilable(T.any(String, T::Array[InvoiceItemUpdateParams::Discount]))) }
+    sig { returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount]))) }
     def discounts; end
     sig {
-      params(_discounts: T.nilable(T.any(String, T::Array[InvoiceItemUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[InvoiceItemUpdateParams::Discount])))
+      params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount])))
      }
     def discounts=(_discounts); end
     # Specifies which fields in the response should be expanded.
@@ -120,24 +120,24 @@ module Stripe
      }
     def metadata=(_metadata); end
     # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
-    sig { returns(T.nilable(InvoiceItemUpdateParams::Period)) }
+    sig { returns(T.nilable(::Stripe::InvoiceItemUpdateParams::Period)) }
     def period; end
     sig {
-      params(_period: T.nilable(InvoiceItemUpdateParams::Period)).returns(T.nilable(InvoiceItemUpdateParams::Period))
+      params(_period: T.nilable(::Stripe::InvoiceItemUpdateParams::Period)).returns(T.nilable(::Stripe::InvoiceItemUpdateParams::Period))
      }
     def period=(_period); end
     # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
-    sig { returns(T.nilable(InvoiceItemUpdateParams::PriceData)) }
+    sig { returns(T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData)) }
     def price_data; end
     sig {
-      params(_price_data: T.nilable(InvoiceItemUpdateParams::PriceData)).returns(T.nilable(InvoiceItemUpdateParams::PriceData))
+      params(_price_data: T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData)).returns(T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData))
      }
     def price_data=(_price_data); end
     # The pricing information for the invoice item.
-    sig { returns(T.nilable(InvoiceItemUpdateParams::Pricing)) }
+    sig { returns(T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing)) }
     def pricing; end
     sig {
-      params(_pricing: T.nilable(InvoiceItemUpdateParams::Pricing)).returns(T.nilable(InvoiceItemUpdateParams::Pricing))
+      params(_pricing: T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing)).returns(T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing))
      }
     def pricing=(_pricing); end
     # Non-negative integer. The quantity of units for the invoice item.
@@ -168,7 +168,7 @@ module Stripe
     sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
     def unit_amount_decimal=(_unit_amount_decimal); end
     sig {
-      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[InvoiceItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(InvoiceItemUpdateParams::Period), price_data: T.nilable(InvoiceItemUpdateParams::PriceData), pricing: T.nilable(InvoiceItemUpdateParams::Pricing), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount_decimal: T.nilable(String)).void
+      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount_decimal: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

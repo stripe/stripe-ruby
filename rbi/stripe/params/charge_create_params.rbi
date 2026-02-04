@@ -72,10 +72,10 @@ module Stripe
         ); end
       end
       # Shipping address.
-      sig { returns(ChargeCreateParams::Shipping::Address) }
+      sig { returns(::Stripe::ChargeCreateParams::Shipping::Address) }
       def address; end
       sig {
-        params(_address: ChargeCreateParams::Shipping::Address).returns(ChargeCreateParams::Shipping::Address)
+        params(_address: ::Stripe::ChargeCreateParams::Shipping::Address).returns(::Stripe::ChargeCreateParams::Shipping::Address)
        }
       def address=(_address); end
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
@@ -99,7 +99,7 @@ module Stripe
       sig { params(_tracking_number: T.nilable(String)).returns(T.nilable(String)) }
       def tracking_number=(_tracking_number); end
       sig {
-        params(address: ChargeCreateParams::Shipping::Address, carrier: T.nilable(String), name: String, phone: T.nilable(String), tracking_number: T.nilable(String)).void
+        params(address: ::Stripe::ChargeCreateParams::Shipping::Address, carrier: T.nilable(String), name: String, phone: T.nilable(String), tracking_number: T.nilable(String)).void
        }
       def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
     end
@@ -153,10 +153,10 @@ module Stripe
     sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
     def description=(_description); end
     # Attribute for param field destination
-    sig { returns(T.nilable(ChargeCreateParams::Destination)) }
+    sig { returns(T.nilable(::Stripe::ChargeCreateParams::Destination)) }
     def destination; end
     sig {
-      params(_destination: T.nilable(ChargeCreateParams::Destination)).returns(T.nilable(ChargeCreateParams::Destination))
+      params(_destination: T.nilable(::Stripe::ChargeCreateParams::Destination)).returns(T.nilable(::Stripe::ChargeCreateParams::Destination))
      }
     def destination=(_destination); end
     # Specifies which fields in the response should be expanded.
@@ -177,10 +177,10 @@ module Stripe
     sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
     def on_behalf_of=(_on_behalf_of); end
     # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
-    sig { returns(T.nilable(ChargeCreateParams::RadarOptions)) }
+    sig { returns(T.nilable(::Stripe::ChargeCreateParams::RadarOptions)) }
     def radar_options; end
     sig {
-      params(_radar_options: T.nilable(ChargeCreateParams::RadarOptions)).returns(T.nilable(ChargeCreateParams::RadarOptions))
+      params(_radar_options: T.nilable(::Stripe::ChargeCreateParams::RadarOptions)).returns(T.nilable(::Stripe::ChargeCreateParams::RadarOptions))
      }
     def radar_options=(_radar_options); end
     # The email address to which this charge's [receipt](https://docs.stripe.com/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://docs.stripe.com/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
@@ -189,10 +189,10 @@ module Stripe
     sig { params(_receipt_email: T.nilable(String)).returns(T.nilable(String)) }
     def receipt_email=(_receipt_email); end
     # Shipping information for the charge. Helps prevent fraud on charges for physical goods.
-    sig { returns(T.nilable(ChargeCreateParams::Shipping)) }
+    sig { returns(T.nilable(::Stripe::ChargeCreateParams::Shipping)) }
     def shipping; end
     sig {
-      params(_shipping: T.nilable(ChargeCreateParams::Shipping)).returns(T.nilable(ChargeCreateParams::Shipping))
+      params(_shipping: T.nilable(::Stripe::ChargeCreateParams::Shipping)).returns(T.nilable(::Stripe::ChargeCreateParams::Shipping))
      }
     def shipping=(_shipping); end
     # A payment source to be charged. This can be the ID of a [card](https://docs.stripe.com/api#cards) (i.e., credit or debit card), a [bank account](https://docs.stripe.com/api#bank_accounts), a [source](https://docs.stripe.com/api#sources), a [token](https://docs.stripe.com/api#tokens), or a [connected account](https://docs.stripe.com/connect/account-debits#charging-a-connected-account). For certain sources---namely, [cards](https://docs.stripe.com/api#cards), [bank accounts](https://docs.stripe.com/api#bank_accounts), and attached [sources](https://docs.stripe.com/api#sources)---you must also pass the ID of the associated customer.
@@ -213,10 +213,10 @@ module Stripe
     sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor_suffix=(_statement_descriptor_suffix); end
     # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
-    sig { returns(T.nilable(ChargeCreateParams::TransferData)) }
+    sig { returns(T.nilable(::Stripe::ChargeCreateParams::TransferData)) }
     def transfer_data; end
     sig {
-      params(_transfer_data: T.nilable(ChargeCreateParams::TransferData)).returns(T.nilable(ChargeCreateParams::TransferData))
+      params(_transfer_data: T.nilable(::Stripe::ChargeCreateParams::TransferData)).returns(T.nilable(::Stripe::ChargeCreateParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
     # A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options).
@@ -225,7 +225,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(ChargeCreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), on_behalf_of: T.nilable(String), radar_options: T.nilable(ChargeCreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(ChargeCreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(ChargeCreateParams::TransferData), transfer_group: T.nilable(String)).void
+      params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(::Stripe::ChargeCreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), on_behalf_of: T.nilable(String), radar_options: T.nilable(::Stripe::ChargeCreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::ChargeCreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::ChargeCreateParams::TransferData), transfer_group: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

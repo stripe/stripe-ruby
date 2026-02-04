@@ -171,17 +171,17 @@ module Stripe
     sig { params(_nickname: T.nilable(String)).returns(T.nilable(String)) }
     def nickname=(_nickname); end
     # Attribute for param field product
-    sig { returns(T.nilable(T.any(PlanCreateParams::Product, String))) }
+    sig { returns(T.nilable(T.any(::Stripe::PlanCreateParams::Product, String))) }
     def product; end
     sig {
-      params(_product: T.nilable(T.any(PlanCreateParams::Product, String))).returns(T.nilable(T.any(PlanCreateParams::Product, String)))
+      params(_product: T.nilable(T.any(::Stripe::PlanCreateParams::Product, String))).returns(T.nilable(T.any(::Stripe::PlanCreateParams::Product, String)))
      }
     def product=(_product); end
     # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-    sig { returns(T.nilable(T::Array[PlanCreateParams::Tier])) }
+    sig { returns(T.nilable(T::Array[::Stripe::PlanCreateParams::Tier])) }
     def tiers; end
     sig {
-      params(_tiers: T.nilable(T::Array[PlanCreateParams::Tier])).returns(T.nilable(T::Array[PlanCreateParams::Tier]))
+      params(_tiers: T.nilable(T::Array[::Stripe::PlanCreateParams::Tier])).returns(T.nilable(T::Array[::Stripe::PlanCreateParams::Tier]))
      }
     def tiers=(_tiers); end
     # Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
@@ -190,10 +190,10 @@ module Stripe
     sig { params(_tiers_mode: T.nilable(String)).returns(T.nilable(String)) }
     def tiers_mode=(_tiers_mode); end
     # Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
-    sig { returns(T.nilable(PlanCreateParams::TransformUsage)) }
+    sig { returns(T.nilable(::Stripe::PlanCreateParams::TransformUsage)) }
     def transform_usage; end
     sig {
-      params(_transform_usage: T.nilable(PlanCreateParams::TransformUsage)).returns(T.nilable(PlanCreateParams::TransformUsage))
+      params(_transform_usage: T.nilable(::Stripe::PlanCreateParams::TransformUsage)).returns(T.nilable(::Stripe::PlanCreateParams::TransformUsage))
      }
     def transform_usage=(_transform_usage); end
     # Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://docs.stripe.com/api#create_subscription-trial_from_plan).
@@ -207,7 +207,7 @@ module Stripe
     sig { params(_usage_type: T.nilable(String)).returns(T.nilable(String)) }
     def usage_type=(_usage_type); end
     sig {
-      params(active: T.nilable(T::Boolean), amount: T.nilable(Integer), amount_decimal: T.nilable(String), billing_scheme: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), id: T.nilable(String), interval: String, interval_count: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), meter: T.nilable(String), nickname: T.nilable(String), product: T.nilable(T.any(PlanCreateParams::Product, String)), tiers: T.nilable(T::Array[PlanCreateParams::Tier]), tiers_mode: T.nilable(String), transform_usage: T.nilable(PlanCreateParams::TransformUsage), trial_period_days: T.nilable(Integer), usage_type: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), amount: T.nilable(Integer), amount_decimal: T.nilable(String), billing_scheme: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), id: T.nilable(String), interval: String, interval_count: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), meter: T.nilable(String), nickname: T.nilable(String), product: T.nilable(T.any(::Stripe::PlanCreateParams::Product, String)), tiers: T.nilable(T::Array[::Stripe::PlanCreateParams::Tier]), tiers_mode: T.nilable(String), transform_usage: T.nilable(::Stripe::PlanCreateParams::TransformUsage), trial_period_days: T.nilable(Integer), usage_type: T.nilable(String)).void
      }
     def initialize(
       active: nil,

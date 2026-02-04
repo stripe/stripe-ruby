@@ -76,11 +76,11 @@ module Stripe
       end
       # The physical shipping address.
       sig {
-        returns(T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address))
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address))
        }
       def address; end
       sig {
-        params(_address: T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address)).returns(T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address))
+        params(_address: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address))
        }
       def address=(_address); end
       # The shipping recipient's name.
@@ -94,17 +94,17 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
+        params(address: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
     # Customer information for this payment.
     sig {
-      returns(T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails))
+      returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails))
      }
     def customer_details; end
     sig {
-      params(_customer_details: T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails)).returns(T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails))
+      params(_customer_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails))
      }
     def customer_details=(_customer_details); end
     # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -126,15 +126,15 @@ module Stripe
     def metadata=(_metadata); end
     # Shipping information for this payment.
     sig {
-      returns(T.nilable(T.any(String, PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails)))
+      returns(T.nilable(T.any(String, ::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails)))
      }
     def shipping_details; end
     sig {
-      params(_shipping_details: T.nilable(T.any(String, PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails))).returns(T.nilable(T.any(String, PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails)))
+      params(_shipping_details: T.nilable(T.any(String, ::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails))).returns(T.nilable(T.any(String, ::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails)))
      }
     def shipping_details=(_shipping_details); end
     sig {
-      params(customer_details: T.nilable(PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails), description: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), shipping_details: T.nilable(T.any(String, PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails))).void
+      params(customer_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::CustomerDetails), description: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), shipping_details: T.nilable(T.any(String, ::Stripe::PaymentRecordReportPaymentAttemptInformationalParams::ShippingDetails))).void
      }
     def initialize(
       customer_details: nil,

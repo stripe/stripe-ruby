@@ -39,15 +39,15 @@ module Stripe
         def skip_tipping=(_skip_tipping); end
         # Tipping configuration for this transaction.
         sig {
-          returns(T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping))
+          returns(T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping))
          }
         def tipping; end
         sig {
-          params(_tipping: T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping)).returns(T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping))
+          params(_tipping: T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping)).returns(T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping))
          }
         def tipping=(_tipping); end
         sig {
-          params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), return_url: T.nilable(String), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping)).void
+          params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), return_url: T.nilable(String), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping)).void
          }
         def initialize(
           allow_redisplay: nil,
@@ -68,14 +68,16 @@ module Stripe
       sig { params(_payment_intent: String).returns(String) }
       def payment_intent=(_payment_intent); end
       # Configuration overrides for this transaction, such as tipping and customer cancellation settings.
-      sig { returns(T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig)) }
+      sig {
+        returns(T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig))
+       }
       def process_config; end
       sig {
-        params(_process_config: T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig)).returns(T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig))
+        params(_process_config: T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig)).returns(T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig))
        }
       def process_config=(_process_config); end
       sig {
-        params(expand: T.nilable(T::Array[String]), payment_intent: String, process_config: T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig)).void
+        params(expand: T.nilable(T::Array[String]), payment_intent: String, process_config: T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig)).void
        }
       def initialize(expand: nil, payment_intent: nil, process_config: nil); end
     end

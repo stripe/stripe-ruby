@@ -25,14 +25,14 @@ module Stripe
       sig { params(_enabled: T::Boolean).returns(T::Boolean) }
       def enabled=(_enabled); end
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-      sig { returns(T.nilable(InvoiceUpdateParams::AutomaticTax::Liability)) }
+      sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax::Liability)) }
       def liability; end
       sig {
-        params(_liability: T.nilable(InvoiceUpdateParams::AutomaticTax::Liability)).returns(T.nilable(InvoiceUpdateParams::AutomaticTax::Liability))
+        params(_liability: T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax::Liability)).returns(T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax::Liability))
        }
       def liability=(_liability); end
       sig {
-        params(enabled: T::Boolean, liability: T.nilable(InvoiceUpdateParams::AutomaticTax::Liability)).void
+        params(enabled: T::Boolean, liability: T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax::Liability)).void
        }
       def initialize(enabled: nil, liability: nil); end
     end
@@ -99,11 +99,11 @@ module Stripe
           end
           # Additional fields for Mandate creation
           sig {
-            returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions))
+            returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions))
            }
           def mandate_options; end
           sig {
-            params(_mandate_options: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions))
+            params(_mandate_options: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions))
            }
           def mandate_options=(_mandate_options); end
           # Verification method for the intent
@@ -112,7 +112,7 @@ module Stripe
           sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
           def verification_method=(_verification_method); end
           sig {
-            params(mandate_options: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions), verification_method: T.nilable(String)).void
+            params(mandate_options: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions), verification_method: T.nilable(String)).void
            }
           def initialize(mandate_options: nil, verification_method: nil); end
         end
@@ -157,15 +157,15 @@ module Stripe
             def enabled=(_enabled); end
             # The selected installment plan to use for this invoice.
             sig {
-              returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))
+              returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))
              }
             def plan; end
             sig {
-              params(_plan: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))
+              params(_plan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))
              }
             def plan=(_plan); end
             sig {
-              params(enabled: T.nilable(T::Boolean), plan: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))).void
+              params(enabled: T.nilable(T::Boolean), plan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))).void
              }
             def initialize(enabled: nil, plan: nil); end
           end
@@ -173,11 +173,11 @@ module Stripe
           #
           # For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
           sig {
-            returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments))
+            returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments))
            }
           def installments; end
           sig {
-            params(_installments: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments))
+            params(_installments: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments))
            }
           def installments=(_installments); end
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -186,7 +186,7 @@ module Stripe
           sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }
           def request_three_d_secure=(_request_three_d_secure); end
           sig {
-            params(installments: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments), request_three_d_secure: T.nilable(String)).void
+            params(installments: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments), request_three_d_secure: T.nilable(String)).void
            }
           def initialize(installments: nil, request_three_d_secure: nil); end
         end
@@ -203,11 +203,11 @@ module Stripe
             end
             # Configuration for eu_bank_transfer funding type.
             sig {
-              returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
+              returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
              }
             def eu_bank_transfer; end
             sig {
-              params(_eu_bank_transfer: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
+              params(_eu_bank_transfer: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer))
              }
             def eu_bank_transfer=(_eu_bank_transfer); end
             # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
@@ -216,17 +216,17 @@ module Stripe
             sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
             def type=(_type); end
             sig {
-              params(eu_bank_transfer: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer), type: T.nilable(String)).void
+              params(eu_bank_transfer: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer::EuBankTransfer), type: T.nilable(String)).void
              }
             def initialize(eu_bank_transfer: nil, type: nil); end
           end
           # Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
           sig {
-            returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer))
+            returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer))
            }
           def bank_transfer; end
           sig {
-            params(_bank_transfer: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer))
+            params(_bank_transfer: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer))
            }
           def bank_transfer=(_bank_transfer); end
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
@@ -235,7 +235,7 @@ module Stripe
           sig { params(_funding_type: T.nilable(String)).returns(T.nilable(String)) }
           def funding_type=(_funding_type); end
           sig {
-            params(bank_transfer: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer), funding_type: T.nilable(String)).void
+            params(bank_transfer: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance::BankTransfer), funding_type: T.nilable(String)).void
            }
           def initialize(bank_transfer: nil, funding_type: nil); end
         end
@@ -257,15 +257,15 @@ module Stripe
           end
           # Additional fields for Mandate creation.
           sig {
-            returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions))
+            returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions))
            }
           def mandate_options; end
           sig {
-            params(_mandate_options: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions))
+            params(_mandate_options: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions))
            }
           def mandate_options=(_mandate_options); end
           sig {
-            params(mandate_options: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions)).void
+            params(mandate_options: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto::MandateOptions)).void
            }
           def initialize(mandate_options: nil); end
         end
@@ -285,11 +285,11 @@ module Stripe
             end
             # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
-              returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
+              returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
              }
             def filters; end
             sig {
-              params(_filters: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
+              params(_filters: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters))
              }
             def filters=(_filters); end
             # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
@@ -307,17 +307,17 @@ module Stripe
              }
             def prefetch=(_prefetch); end
             sig {
-              params(filters: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters), permissions: T.nilable(T::Array[String]), prefetch: T.nilable(T::Array[String])).void
+              params(filters: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters), permissions: T.nilable(T::Array[String]), prefetch: T.nilable(T::Array[String])).void
              }
             def initialize(filters: nil, permissions: nil, prefetch: nil); end
           end
           # Additional fields for Financial Connections Session creation
           sig {
-            returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections))
+            returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections))
            }
           def financial_connections; end
           sig {
-            params(_financial_connections: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections))
+            params(_financial_connections: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections))
            }
           def financial_connections=(_financial_connections); end
           # Verification method for the intent
@@ -326,84 +326,84 @@ module Stripe
           sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
           def verification_method=(_verification_method); end
           sig {
-            params(financial_connections: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections), verification_method: T.nilable(String)).void
+            params(financial_connections: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount::FinancialConnections), verification_method: T.nilable(String)).void
            }
           def initialize(financial_connections: nil, verification_method: nil); end
         end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
          }
         def acss_debit; end
         sig {
-          params(_acss_debit: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
+          params(_acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
          }
         def acss_debit=(_acss_debit); end
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
          }
         def bancontact; end
         sig {
-          params(_bancontact: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
+          params(_bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
          }
         def bancontact=(_bancontact); end
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
          }
         def card; end
         sig {
-          params(_card: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
+          params(_card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
          }
         def card=(_card); end
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
          }
         def customer_balance; end
         sig {
-          params(_customer_balance: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
+          params(_customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
          }
         def customer_balance=(_customer_balance); end
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
          }
         def konbini; end
         sig {
-          params(_konbini: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
+          params(_konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
          }
         def konbini=(_konbini); end
         # If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)))
          }
         def payto; end
         sig {
-          params(_payto: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)))
+          params(_payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)))
          }
         def payto=(_payto); end
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
          }
         def sepa_debit; end
         sig {
-          params(_sepa_debit: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
+          params(_sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
          }
         def sepa_debit=(_sepa_debit); end
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account; end
         sig {
-          params(_us_bank_account: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
+          params(_us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), konbini: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), sepa_debit: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), us_bank_account: T.nilable(T.any(String, InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(
           acss_debit: nil,
@@ -422,10 +422,12 @@ module Stripe
       sig { params(_default_mandate: T.nilable(String)).returns(T.nilable(String)) }
       def default_mandate=(_default_mandate); end
       # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
-      sig { returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions)) }
+      sig {
+        returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions))
+       }
       def payment_method_options; end
       sig {
-        params(_payment_method_options: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions))
+        params(_payment_method_options: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions))
        }
       def payment_method_options=(_payment_method_options); end
       # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -436,7 +438,7 @@ module Stripe
        }
       def payment_method_types=(_payment_method_types); end
       sig {
-        params(default_mandate: T.nilable(String), payment_method_options: T.nilable(InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.any(String, T::Array[String]))).void
+        params(default_mandate: T.nilable(String), payment_method_options: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.any(String, T::Array[String]))).void
        }
       def initialize(
         default_mandate: nil,
@@ -464,10 +466,10 @@ module Stripe
        }
       def amount_tax_display=(_amount_tax_display); end
       # Invoice pdf rendering options
-      sig { returns(T.nilable(InvoiceUpdateParams::Rendering::Pdf)) }
+      sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::Rendering::Pdf)) }
       def pdf; end
       sig {
-        params(_pdf: T.nilable(InvoiceUpdateParams::Rendering::Pdf)).returns(T.nilable(InvoiceUpdateParams::Rendering::Pdf))
+        params(_pdf: T.nilable(::Stripe::InvoiceUpdateParams::Rendering::Pdf)).returns(T.nilable(::Stripe::InvoiceUpdateParams::Rendering::Pdf))
        }
       def pdf=(_pdf); end
       # ID of the invoice rendering template to use for this invoice.
@@ -483,7 +485,7 @@ module Stripe
        }
       def template_version=(_template_version); end
       sig {
-        params(amount_tax_display: T.nilable(T.any(String, String)), pdf: T.nilable(InvoiceUpdateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
+        params(amount_tax_display: T.nilable(T.any(String, String)), pdf: T.nilable(::Stripe::InvoiceUpdateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
        }
       def initialize(amount_tax_display: nil, pdf: nil, template: nil, template_version: nil); end
     end
@@ -520,24 +522,24 @@ module Stripe
           end
           # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
           sig {
-            returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
+            returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
            }
           def maximum; end
           sig {
-            params(_maximum: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum)).returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
+            params(_maximum: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum)).returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum))
            }
           def maximum=(_maximum); end
           # The lower bound of the estimated range. If empty, represents no lower bound.
           sig {
-            returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
+            returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
            }
           def minimum; end
           sig {
-            params(_minimum: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
+            params(_minimum: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum))
            }
           def minimum=(_minimum); end
           sig {
-            params(maximum: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum), minimum: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).void
+            params(maximum: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Maximum), minimum: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate::Minimum)).void
            }
           def initialize(maximum: nil, minimum: nil); end
         end
@@ -568,25 +570,25 @@ module Stripe
           def currency=(_currency); end
           # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
           sig {
-            returns(T.nilable(T::Hash[String, InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
+            returns(T.nilable(T::Hash[String, ::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
            }
           def currency_options; end
           sig {
-            params(_currency_options: T.nilable(T::Hash[String, InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
+            params(_currency_options: T.nilable(T::Hash[String, ::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions]))
            }
           def currency_options=(_currency_options); end
           sig {
-            params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).void
+            params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount::CurrencyOptions])).void
            }
           def initialize(amount: nil, currency: nil, currency_options: nil); end
         end
         # The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
         sig {
-          returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
+          returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
          }
         def delivery_estimate; end
         sig {
-          params(_delivery_estimate: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate)).returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
+          params(_delivery_estimate: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate)).returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate))
          }
         def delivery_estimate=(_delivery_estimate); end
         # The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
@@ -595,10 +597,12 @@ module Stripe
         sig { params(_display_name: String).returns(String) }
         def display_name=(_display_name); end
         # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
-        sig { returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount)) }
+        sig {
+          returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount))
+         }
         def fixed_amount; end
         sig {
-          params(_fixed_amount: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount)).returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount))
+          params(_fixed_amount: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount)).returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount))
          }
         def fixed_amount=(_fixed_amount); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -624,7 +628,7 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(delivery_estimate: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate), display_name: String, fixed_amount: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
+          params(delivery_estimate: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::DeliveryEstimate), display_name: String, fixed_amount: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
          }
         def initialize(
           delivery_estimate: nil,
@@ -642,14 +646,14 @@ module Stripe
       sig { params(_shipping_rate: T.nilable(String)).returns(T.nilable(String)) }
       def shipping_rate=(_shipping_rate); end
       # Parameters to create a new ad-hoc shipping rate for this order.
-      sig { returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData)) }
+      sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData)) }
       def shipping_rate_data; end
       sig {
-        params(_shipping_rate_data: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData)).returns(T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData))
+        params(_shipping_rate_data: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData)).returns(T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData))
        }
       def shipping_rate_data=(_shipping_rate_data); end
       sig {
-        params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(InvoiceUpdateParams::ShippingCost::ShippingRateData)).void
+        params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::InvoiceUpdateParams::ShippingCost::ShippingRateData)).void
        }
       def initialize(shipping_rate: nil, shipping_rate_data: nil); end
     end
@@ -698,10 +702,10 @@ module Stripe
         ); end
       end
       # Shipping address
-      sig { returns(InvoiceUpdateParams::ShippingDetails::Address) }
+      sig { returns(::Stripe::InvoiceUpdateParams::ShippingDetails::Address) }
       def address; end
       sig {
-        params(_address: InvoiceUpdateParams::ShippingDetails::Address).returns(InvoiceUpdateParams::ShippingDetails::Address)
+        params(_address: ::Stripe::InvoiceUpdateParams::ShippingDetails::Address).returns(::Stripe::InvoiceUpdateParams::ShippingDetails::Address)
        }
       def address=(_address); end
       # Recipient name.
@@ -715,7 +719,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: InvoiceUpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
+        params(address: ::Stripe::InvoiceUpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
@@ -751,10 +755,10 @@ module Stripe
     sig { params(_auto_advance: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def auto_advance=(_auto_advance); end
     # Settings for automatic tax lookup for this invoice.
-    sig { returns(T.nilable(InvoiceUpdateParams::AutomaticTax)) }
+    sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax)) }
     def automatic_tax; end
     sig {
-      params(_automatic_tax: T.nilable(InvoiceUpdateParams::AutomaticTax)).returns(T.nilable(InvoiceUpdateParams::AutomaticTax))
+      params(_automatic_tax: T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax)).returns(T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax))
      }
     def automatic_tax=(_automatic_tax); end
     # The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
@@ -768,10 +772,10 @@ module Stripe
     sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
     def collection_method=(_collection_method); end
     # A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields.
-    sig { returns(T.nilable(T.any(String, T::Array[InvoiceUpdateParams::CustomField]))) }
+    sig { returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::CustomField]))) }
     def custom_fields; end
     sig {
-      params(_custom_fields: T.nilable(T.any(String, T::Array[InvoiceUpdateParams::CustomField]))).returns(T.nilable(T.any(String, T::Array[InvoiceUpdateParams::CustomField])))
+      params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::CustomField])))
      }
     def custom_fields=(_custom_fields); end
     # The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
@@ -802,10 +806,10 @@ module Stripe
     sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
     def description=(_description); end
     # The discounts that will apply to the invoice. Pass an empty string to remove previously-defined discounts.
-    sig { returns(T.nilable(T.any(String, T::Array[InvoiceUpdateParams::Discount]))) }
+    sig { returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::Discount]))) }
     def discounts; end
     sig {
-      params(_discounts: T.nilable(T.any(String, T::Array[InvoiceUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[InvoiceUpdateParams::Discount])))
+      params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::Discount])))
      }
     def discounts=(_discounts); end
     # The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
@@ -831,10 +835,10 @@ module Stripe
     sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
     def footer=(_footer); end
     # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-    sig { returns(T.nilable(InvoiceUpdateParams::Issuer)) }
+    sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::Issuer)) }
     def issuer; end
     sig {
-      params(_issuer: T.nilable(InvoiceUpdateParams::Issuer)).returns(T.nilable(InvoiceUpdateParams::Issuer))
+      params(_issuer: T.nilable(::Stripe::InvoiceUpdateParams::Issuer)).returns(T.nilable(::Stripe::InvoiceUpdateParams::Issuer))
      }
     def issuer=(_issuer); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -855,31 +859,31 @@ module Stripe
     sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
     def on_behalf_of=(_on_behalf_of); end
     # Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
-    sig { returns(T.nilable(InvoiceUpdateParams::PaymentSettings)) }
+    sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings)) }
     def payment_settings; end
     sig {
-      params(_payment_settings: T.nilable(InvoiceUpdateParams::PaymentSettings)).returns(T.nilable(InvoiceUpdateParams::PaymentSettings))
+      params(_payment_settings: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings))
      }
     def payment_settings=(_payment_settings); end
     # The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
-    sig { returns(T.nilable(InvoiceUpdateParams::Rendering)) }
+    sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::Rendering)) }
     def rendering; end
     sig {
-      params(_rendering: T.nilable(InvoiceUpdateParams::Rendering)).returns(T.nilable(InvoiceUpdateParams::Rendering))
+      params(_rendering: T.nilable(::Stripe::InvoiceUpdateParams::Rendering)).returns(T.nilable(::Stripe::InvoiceUpdateParams::Rendering))
      }
     def rendering=(_rendering); end
     # Settings for the cost of shipping for this invoice.
-    sig { returns(T.nilable(T.any(String, InvoiceUpdateParams::ShippingCost))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingCost))) }
     def shipping_cost; end
     sig {
-      params(_shipping_cost: T.nilable(T.any(String, InvoiceUpdateParams::ShippingCost))).returns(T.nilable(T.any(String, InvoiceUpdateParams::ShippingCost)))
+      params(_shipping_cost: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingCost))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingCost)))
      }
     def shipping_cost=(_shipping_cost); end
     # Shipping details for the invoice. The Invoice PDF will use the `shipping_details` value if it is set, otherwise the PDF will render the shipping address from the customer.
-    sig { returns(T.nilable(T.any(String, InvoiceUpdateParams::ShippingDetails))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingDetails))) }
     def shipping_details; end
     sig {
-      params(_shipping_details: T.nilable(T.any(String, InvoiceUpdateParams::ShippingDetails))).returns(T.nilable(T.any(String, InvoiceUpdateParams::ShippingDetails)))
+      params(_shipping_details: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingDetails))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingDetails)))
      }
     def shipping_details=(_shipping_details); end
     # Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`.
@@ -888,14 +892,14 @@ module Stripe
     sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor=(_statement_descriptor); end
     # If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge. This will be unset if you POST an empty value.
-    sig { returns(T.nilable(T.any(String, InvoiceUpdateParams::TransferData))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::TransferData))) }
     def transfer_data; end
     sig {
-      params(_transfer_data: T.nilable(T.any(String, InvoiceUpdateParams::TransferData))).returns(T.nilable(T.any(String, InvoiceUpdateParams::TransferData)))
+      params(_transfer_data: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::TransferData))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::TransferData)))
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(InvoiceUpdateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[InvoiceUpdateParams::CustomField])), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[InvoiceUpdateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(T.any(String, Integer)), expand: T.nilable(T::Array[String]), footer: T.nilable(String), issuer: T.nilable(InvoiceUpdateParams::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(InvoiceUpdateParams::PaymentSettings), rendering: T.nilable(InvoiceUpdateParams::Rendering), shipping_cost: T.nilable(T.any(String, InvoiceUpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, InvoiceUpdateParams::ShippingDetails)), statement_descriptor: T.nilable(String), transfer_data: T.nilable(T.any(String, InvoiceUpdateParams::TransferData))).void
+      params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::CustomField])), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(T.any(String, Integer)), expand: T.nilable(T::Array[String]), footer: T.nilable(String), issuer: T.nilable(::Stripe::InvoiceUpdateParams::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings), rendering: T.nilable(::Stripe::InvoiceUpdateParams::Rendering), shipping_cost: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingDetails)), statement_descriptor: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::TransferData))).void
      }
     def initialize(
       account_tax_ids: nil,

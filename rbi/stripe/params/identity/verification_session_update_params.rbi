@@ -45,15 +45,15 @@ module Stripe
         end
         # Options that apply to the [document check](https://docs.stripe.com/identity/verification-checks?type=document).
         sig {
-          returns(T.nilable(T.any(String, Identity::VerificationSessionUpdateParams::Options::Document)))
+          returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionUpdateParams::Options::Document)))
          }
         def document; end
         sig {
-          params(_document: T.nilable(T.any(String, Identity::VerificationSessionUpdateParams::Options::Document))).returns(T.nilable(T.any(String, Identity::VerificationSessionUpdateParams::Options::Document)))
+          params(_document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionUpdateParams::Options::Document))).returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionUpdateParams::Options::Document)))
          }
         def document=(_document); end
         sig {
-          params(document: T.nilable(T.any(String, Identity::VerificationSessionUpdateParams::Options::Document))).void
+          params(document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionUpdateParams::Options::Document))).void
          }
         def initialize(document: nil); end
       end
@@ -84,17 +84,19 @@ module Stripe
        }
       def metadata=(_metadata); end
       # A set of options for the session’s verification checks.
-      sig { returns(T.nilable(Identity::VerificationSessionUpdateParams::Options)) }
+      sig { returns(T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options)) }
       def options; end
       sig {
-        params(_options: T.nilable(Identity::VerificationSessionUpdateParams::Options)).returns(T.nilable(Identity::VerificationSessionUpdateParams::Options))
+        params(_options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options)).returns(T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options))
        }
       def options=(_options); end
       # Details provided about the user being verified. These details may be shown to the user.
-      sig { returns(T.nilable(Identity::VerificationSessionUpdateParams::ProvidedDetails)) }
+      sig {
+        returns(T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails))
+       }
       def provided_details; end
       sig {
-        params(_provided_details: T.nilable(Identity::VerificationSessionUpdateParams::ProvidedDetails)).returns(T.nilable(Identity::VerificationSessionUpdateParams::ProvidedDetails))
+        params(_provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails)).returns(T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails))
        }
       def provided_details=(_provided_details); end
       # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
@@ -103,7 +105,7 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String)).void
+        params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String)).void
        }
       def initialize(
         expand: nil,

@@ -52,10 +52,10 @@ module Stripe
       def initialize(payment_intent: nil, payment_record: nil, type: nil); end
     end
     # Only return invoice payments that were created during the given date interval.
-    sig { returns(T.nilable(T.any(InvoicePaymentListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::InvoicePaymentListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(InvoicePaymentListParams::Created, Integer))).returns(T.nilable(T.any(InvoicePaymentListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::InvoicePaymentListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::InvoicePaymentListParams::Created, Integer)))
      }
     def created=(_created); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -79,10 +79,10 @@ module Stripe
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
     # The payment details of the invoice payments to return.
-    sig { returns(T.nilable(InvoicePaymentListParams::Payment)) }
+    sig { returns(T.nilable(::Stripe::InvoicePaymentListParams::Payment)) }
     def payment; end
     sig {
-      params(_payment: T.nilable(InvoicePaymentListParams::Payment)).returns(T.nilable(InvoicePaymentListParams::Payment))
+      params(_payment: T.nilable(::Stripe::InvoicePaymentListParams::Payment)).returns(T.nilable(::Stripe::InvoicePaymentListParams::Payment))
      }
     def payment=(_payment); end
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -96,7 +96,7 @@ module Stripe
     sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
     def status=(_status); end
     sig {
-      params(created: T.nilable(T.any(InvoicePaymentListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), payment: T.nilable(InvoicePaymentListParams::Payment), starting_after: T.nilable(String), status: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::InvoicePaymentListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), payment: T.nilable(::Stripe::InvoicePaymentListParams::Payment), starting_after: T.nilable(String), status: T.nilable(String)).void
      }
     def initialize(
       created: nil,

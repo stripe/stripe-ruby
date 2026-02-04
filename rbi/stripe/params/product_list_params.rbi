@@ -36,10 +36,10 @@ module Stripe
     sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def active=(_active); end
     # Only return products that were created during the given date interval.
-    sig { returns(T.nilable(T.any(ProductListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::ProductListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(ProductListParams::Created, Integer))).returns(T.nilable(T.any(ProductListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::ProductListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::ProductListParams::Created, Integer)))
      }
     def created=(_created); end
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -83,7 +83,7 @@ module Stripe
     sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
     def url=(_url); end
     sig {
-      params(active: T.nilable(T::Boolean), created: T.nilable(T.any(ProductListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), ids: T.nilable(T::Array[String]), limit: T.nilable(Integer), shippable: T.nilable(T::Boolean), starting_after: T.nilable(String), type: T.nilable(String), url: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), created: T.nilable(T.any(::Stripe::ProductListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), ids: T.nilable(T::Array[String]), limit: T.nilable(Integer), shippable: T.nilable(T::Boolean), starting_after: T.nilable(String), type: T.nilable(String), url: T.nilable(String)).void
      }
     def initialize(
       active: nil,

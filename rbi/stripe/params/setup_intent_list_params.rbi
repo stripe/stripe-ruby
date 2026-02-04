@@ -38,10 +38,10 @@ module Stripe
     sig { params(_attach_to_self: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def attach_to_self=(_attach_to_self); end
     # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
-    sig { returns(T.nilable(T.any(SetupIntentListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SetupIntentListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(SetupIntentListParams::Created, Integer))).returns(T.nilable(T.any(SetupIntentListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::SetupIntentListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::SetupIntentListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return SetupIntents for the customer specified by this customer ID.
@@ -80,7 +80,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), created: T.nilable(T.any(SetupIntentListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_method: T.nilable(String), starting_after: T.nilable(String)).void
+      params(attach_to_self: T.nilable(T::Boolean), created: T.nilable(T.any(::Stripe::SetupIntentListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_method: T.nilable(String), starting_after: T.nilable(String)).void
      }
     def initialize(
       attach_to_self: nil,

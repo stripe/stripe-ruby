@@ -56,19 +56,21 @@ module Stripe
         sig { params(_amount_tip: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def amount_tip=(_amount_tip); end
         # Simulated data for the card payment method.
-        sig { returns(T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card)) }
+        sig {
+          returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card))
+         }
         def card; end
         sig {
-          params(_card: T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card)).returns(T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card))
+          params(_card: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card)).returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card))
          }
         def card=(_card); end
         # Simulated data for the card_present payment method.
         sig {
-          returns(T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent))
+          returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent))
          }
         def card_present; end
         sig {
-          params(_card_present: T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent)).returns(T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent))
+          params(_card_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent)).returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent))
          }
         def card_present=(_card_present); end
         # Specifies which fields in the response should be expanded.
@@ -78,11 +80,11 @@ module Stripe
         def expand=(_expand); end
         # Simulated data for the interac_present payment method.
         sig {
-          returns(T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent))
+          returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent))
          }
         def interac_present; end
         sig {
-          params(_interac_present: T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent)).returns(T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent))
+          params(_interac_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent)).returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent))
          }
         def interac_present=(_interac_present); end
         # Simulated payment type.
@@ -91,7 +93,7 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(amount_tip: T.nilable(Integer), card: T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card), card_present: T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent), expand: T.nilable(T::Array[String]), interac_present: T.nilable(TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent), type: T.nilable(String)).void
+          params(amount_tip: T.nilable(Integer), card: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card), card_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent), expand: T.nilable(T::Array[String]), interac_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent), type: T.nilable(String)).void
          }
         def initialize(
           amount_tip: nil,

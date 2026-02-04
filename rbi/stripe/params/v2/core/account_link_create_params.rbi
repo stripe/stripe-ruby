@@ -24,11 +24,11 @@ module Stripe
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig {
-              returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions))
+              returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions))
              }
             def collection_options; end
             sig {
-              params(_collection_options: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions)).returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions))
+              params(_collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions))
              }
             def collection_options=(_collection_options); end
             # Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
@@ -47,7 +47,7 @@ module Stripe
             sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
             def return_url=(_return_url); end
             sig {
-              params(collection_options: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
+              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
              }
             def initialize(
               collection_options: nil,
@@ -73,11 +73,11 @@ module Stripe
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig {
-              returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions))
+              returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions))
              }
             def collection_options; end
             sig {
-              params(_collection_options: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions)).returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions))
+              params(_collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions))
              }
             def collection_options=(_collection_options); end
             # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
@@ -96,7 +96,7 @@ module Stripe
             sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
             def return_url=(_return_url); end
             sig {
-              params(collection_options: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
+              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
              }
             def initialize(
               collection_options: nil,
@@ -111,21 +111,25 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           # Hash containing configuration options for an Account Link object that onboards a new account.
-          sig { returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding))
+           }
           def account_onboarding; end
           sig {
-            params(_account_onboarding: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding)).returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding))
+            params(_account_onboarding: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding))
            }
           def account_onboarding=(_account_onboarding); end
           # Hash containing configuration options for an Account Link that updates an existing account.
-          sig { returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate))
+           }
           def account_update; end
           sig {
-            params(_account_update: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate)).returns(T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate))
+            params(_account_update: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate))
            }
           def account_update=(_account_update); end
           sig {
-            params(type: String, account_onboarding: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding), account_update: T.nilable(V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate)).void
+            params(type: String, account_onboarding: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding), account_update: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate)).void
            }
           def initialize(type: nil, account_onboarding: nil, account_update: nil); end
         end
@@ -135,13 +139,15 @@ module Stripe
         sig { params(_account: String).returns(String) }
         def account=(_account); end
         # The use case of the AccountLink.
-        sig { returns(V2::Core::AccountLinkCreateParams::UseCase) }
+        sig { returns(::Stripe::V2::Core::AccountLinkCreateParams::UseCase) }
         def use_case; end
         sig {
-          params(_use_case: V2::Core::AccountLinkCreateParams::UseCase).returns(V2::Core::AccountLinkCreateParams::UseCase)
+          params(_use_case: ::Stripe::V2::Core::AccountLinkCreateParams::UseCase).returns(::Stripe::V2::Core::AccountLinkCreateParams::UseCase)
          }
         def use_case=(_use_case); end
-        sig { params(account: String, use_case: V2::Core::AccountLinkCreateParams::UseCase).void }
+        sig {
+          params(account: String, use_case: ::Stripe::V2::Core::AccountLinkCreateParams::UseCase).void
+         }
         def initialize(account: nil, use_case: nil); end
       end
     end

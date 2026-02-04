@@ -177,11 +177,11 @@ module Stripe
     def expand=(_expand); end
     # A token, like the ones returned by [Stripe.js](https://docs.stripe.com/js) or a dictionary containing a user's external account details (with the options shown below). Please refer to full [documentation](https://stripe.com/docs/api/external_accounts) instead.
     sig {
-      returns(T.any(String, AccountExternalAccountCreateParams::Card, AccountExternalAccountCreateParams::BankAccount, AccountExternalAccountCreateParams::CardToken))
+      returns(T.any(String, ::Stripe::AccountExternalAccountCreateParams::Card, ::Stripe::AccountExternalAccountCreateParams::BankAccount, ::Stripe::AccountExternalAccountCreateParams::CardToken))
      }
     def external_account; end
     sig {
-      params(_external_account: T.any(String, AccountExternalAccountCreateParams::Card, AccountExternalAccountCreateParams::BankAccount, AccountExternalAccountCreateParams::CardToken)).returns(T.any(String, AccountExternalAccountCreateParams::Card, AccountExternalAccountCreateParams::BankAccount, AccountExternalAccountCreateParams::CardToken))
+      params(_external_account: T.any(String, ::Stripe::AccountExternalAccountCreateParams::Card, ::Stripe::AccountExternalAccountCreateParams::BankAccount, ::Stripe::AccountExternalAccountCreateParams::CardToken)).returns(T.any(String, ::Stripe::AccountExternalAccountCreateParams::Card, ::Stripe::AccountExternalAccountCreateParams::BankAccount, ::Stripe::AccountExternalAccountCreateParams::CardToken))
      }
     def external_account=(_external_account); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -192,7 +192,7 @@ module Stripe
      }
     def metadata=(_metadata); end
     sig {
-      params(default_for_currency: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), external_account: T.any(String, AccountExternalAccountCreateParams::Card, AccountExternalAccountCreateParams::BankAccount, AccountExternalAccountCreateParams::CardToken), metadata: T.nilable(T::Hash[String, String])).void
+      params(default_for_currency: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), external_account: T.any(String, ::Stripe::AccountExternalAccountCreateParams::Card, ::Stripe::AccountExternalAccountCreateParams::BankAccount, ::Stripe::AccountExternalAccountCreateParams::CardToken), metadata: T.nilable(T::Hash[String, String])).void
      }
     def initialize(
       default_for_currency: nil,

@@ -27,6 +27,22 @@ This release changes the pinned API version to `2026-01-28.preview`.
   - Nil input params are now preserved when calling V2 APIs.  Add additional tests for nil when calling V2 services you do not accidentally include an unintentional nil value.  V1 API calls are not affected (nil values are stripped from params hashes in V1).
 * [#1747](https://github.com/stripe/stripe-ruby/pull/1747) Add EventNotificationHandler example
 
+## 18.3.0 - 2026-01-28
+This release changes the pinned API version to `2026-01-28.clover`.
+
+* [#1771](https://github.com/stripe/stripe-ruby/pull/1771) Update generated code
+  * Add support for new resource `Radar::PaymentEvaluation`
+  * Add support for `create` method on resource `Radar::PaymentEvaluation`
+  * Add support for `adjustable_quantity` on `LineItem`
+  * Change `Invoice::PaymentSetting::PaymentMethodOption.payto` and `Subscription::PaymentSetting::PaymentMethodOption.payto` to be required
+  * Add support for `enforce_arithmetic_validation` on `PaymentIntentCaptureParams::AmountDetail`, `PaymentIntentConfirmParams::AmountDetail`, `PaymentIntentCreateParams::AmountDetail`, `PaymentIntentIncrementAuthorizationParams::AmountDetail`, and `PaymentIntentUpdateParams::AmountDetail`
+  * Add support for `error` on `PaymentIntent::AmountDetail`
+  * Remove support for `bgn` on `Terminal::Configuration::Tipping`, `Terminal::ConfigurationCreateParams::Tipping`, and `Terminal::ConfigurationUpdateParams::Tipping`
+  * Add support for `topup` on `Treasury::ReceivedDebit::LinkedFlow`
+  * Add support for `contact_phone` on `V2::Core::AccountCreateParams`, `V2::Core::AccountTokenCreateParams`, `V2::Core::AccountUpdateParams`, and `V2::Core::Account`
+  * Add support for `registration_date` on `V2::Core::Account::Identity::BusinessDetail`, `V2::Core::AccountCreateParams::Identity::BusinessDetail`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail`
+* [#1769](https://github.com/stripe/stripe-ruby/pull/1769) Document usage of undocumented API parameters
+
 ## 18.2.0 - 2026-01-16
 * [#1767](https://github.com/stripe/stripe-ruby/pull/1767) Update generated code
   * Add support for event notifications `V2CoreAccountClosedEvent`, `V2CoreAccountCreatedEvent`, `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingDefaultsUpdatedEvent`, `V2CoreAccountIncludingFutureRequirementsUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, `V2CoreAccountIncludingRequirementsUpdatedEvent`, and `V2CoreAccountUpdatedEvent` with related object `V2::Core::Account`

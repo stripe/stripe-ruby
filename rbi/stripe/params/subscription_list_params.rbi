@@ -92,10 +92,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Filter subscriptions by their automatic tax settings.
-    sig { returns(T.nilable(SubscriptionListParams::AutomaticTax)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionListParams::AutomaticTax)) }
     def automatic_tax; end
     sig {
-      params(_automatic_tax: T.nilable(SubscriptionListParams::AutomaticTax)).returns(T.nilable(SubscriptionListParams::AutomaticTax))
+      params(_automatic_tax: T.nilable(::Stripe::SubscriptionListParams::AutomaticTax)).returns(T.nilable(::Stripe::SubscriptionListParams::AutomaticTax))
      }
     def automatic_tax=(_automatic_tax); end
     # The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.
@@ -104,24 +104,24 @@ module Stripe
     sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
     def collection_method=(_collection_method); end
     # Only return subscriptions that were created during the given date interval.
-    sig { returns(T.nilable(T.any(SubscriptionListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SubscriptionListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(SubscriptionListParams::Created, Integer))).returns(T.nilable(T.any(SubscriptionListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::SubscriptionListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return subscriptions whose minimum item current_period_end falls within the given date interval.
-    sig { returns(T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodEnd, Integer))) }
     def current_period_end; end
     sig {
-      params(_current_period_end: T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer))).returns(T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer)))
+      params(_current_period_end: T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodEnd, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodEnd, Integer)))
      }
     def current_period_end=(_current_period_end); end
     # Only return subscriptions whose maximum item current_period_start falls within the given date interval.
-    sig { returns(T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodStart, Integer))) }
     def current_period_start; end
     sig {
-      params(_current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer))).returns(T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)))
+      params(_current_period_start: T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodStart, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodStart, Integer)))
      }
     def current_period_start=(_current_period_start); end
     # The ID of the customer whose subscriptions you're retrieving.
@@ -175,7 +175,7 @@ module Stripe
     sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
     def test_clock=(_test_clock); end
     sig {
-      params(automatic_tax: T.nilable(SubscriptionListParams::AutomaticTax), collection_method: T.nilable(String), created: T.nilable(T.any(SubscriptionListParams::Created, Integer)), current_period_end: T.nilable(T.any(SubscriptionListParams::CurrentPeriodEnd, Integer)), current_period_start: T.nilable(T.any(SubscriptionListParams::CurrentPeriodStart, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), plan: T.nilable(String), price: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
+      params(automatic_tax: T.nilable(::Stripe::SubscriptionListParams::AutomaticTax), collection_method: T.nilable(String), created: T.nilable(T.any(::Stripe::SubscriptionListParams::Created, Integer)), current_period_end: T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodEnd, Integer)), current_period_start: T.nilable(T.any(::Stripe::SubscriptionListParams::CurrentPeriodStart, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), plan: T.nilable(String), price: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
      }
     def initialize(
       automatic_tax: nil,

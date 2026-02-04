@@ -92,10 +92,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # The objects to redact. These root objects and their related ones will be validated for redaction.
-      sig { returns(Privacy::RedactionJobCreateParams::Objects) }
+      sig { returns(::Stripe::Privacy::RedactionJobCreateParams::Objects) }
       def objects; end
       sig {
-        params(_objects: Privacy::RedactionJobCreateParams::Objects).returns(Privacy::RedactionJobCreateParams::Objects)
+        params(_objects: ::Stripe::Privacy::RedactionJobCreateParams::Objects).returns(::Stripe::Privacy::RedactionJobCreateParams::Objects)
        }
       def objects=(_objects); end
       # Determines the validation behavior of the job. Default is `error`.
@@ -104,7 +104,7 @@ module Stripe
       sig { params(_validation_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def validation_behavior=(_validation_behavior); end
       sig {
-        params(expand: T.nilable(T::Array[String]), objects: Privacy::RedactionJobCreateParams::Objects, validation_behavior: T.nilable(String)).void
+        params(expand: T.nilable(T::Array[String]), objects: ::Stripe::Privacy::RedactionJobCreateParams::Objects, validation_behavior: T.nilable(String)).void
        }
       def initialize(expand: nil, objects: nil, validation_behavior: nil); end
     end

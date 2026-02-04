@@ -37,10 +37,10 @@ module Stripe
       sig { params(_cardholder: T.nilable(String)).returns(T.nilable(String)) }
       def cardholder=(_cardholder); end
       # Only return cards that were issued during the given date interval.
-      sig { returns(T.nilable(T.any(Issuing::CardListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Issuing::CardListParams::Created, Integer))).returns(T.nilable(T.any(Issuing::CardListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -94,7 +94,7 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(cardholder: T.nilable(String), created: T.nilable(T.any(Issuing::CardListParams::Created, Integer)), ending_before: T.nilable(String), exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), last4: T.nilable(String), limit: T.nilable(Integer), personalization_design: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String)).void
+        params(cardholder: T.nilable(String), created: T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer)), ending_before: T.nilable(String), exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), last4: T.nilable(String), limit: T.nilable(Integer), personalization_design: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String)).void
        }
       def initialize(
         cardholder: nil,

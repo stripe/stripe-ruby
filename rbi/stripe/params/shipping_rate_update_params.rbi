@@ -21,15 +21,15 @@ module Stripe
       end
       # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig {
-        returns(T.nilable(T::Hash[String, ShippingRateUpdateParams::FixedAmount::CurrencyOptions]))
+        returns(T.nilable(T::Hash[String, ::Stripe::ShippingRateUpdateParams::FixedAmount::CurrencyOptions]))
        }
       def currency_options; end
       sig {
-        params(_currency_options: T.nilable(T::Hash[String, ShippingRateUpdateParams::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, ShippingRateUpdateParams::FixedAmount::CurrencyOptions]))
+        params(_currency_options: T.nilable(T::Hash[String, ::Stripe::ShippingRateUpdateParams::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::ShippingRateUpdateParams::FixedAmount::CurrencyOptions]))
        }
       def currency_options=(_currency_options); end
       sig {
-        params(currency_options: T.nilable(T::Hash[String, ShippingRateUpdateParams::FixedAmount::CurrencyOptions])).void
+        params(currency_options: T.nilable(T::Hash[String, ::Stripe::ShippingRateUpdateParams::FixedAmount::CurrencyOptions])).void
        }
       def initialize(currency_options: nil); end
     end
@@ -44,10 +44,10 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
-    sig { returns(T.nilable(ShippingRateUpdateParams::FixedAmount)) }
+    sig { returns(T.nilable(::Stripe::ShippingRateUpdateParams::FixedAmount)) }
     def fixed_amount; end
     sig {
-      params(_fixed_amount: T.nilable(ShippingRateUpdateParams::FixedAmount)).returns(T.nilable(ShippingRateUpdateParams::FixedAmount))
+      params(_fixed_amount: T.nilable(::Stripe::ShippingRateUpdateParams::FixedAmount)).returns(T.nilable(::Stripe::ShippingRateUpdateParams::FixedAmount))
      }
     def fixed_amount=(_fixed_amount); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -63,7 +63,7 @@ module Stripe
     sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def tax_behavior=(_tax_behavior); end
     sig {
-      params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fixed_amount: T.nilable(ShippingRateUpdateParams::FixedAmount), metadata: T.nilable(T.any(String, T::Hash[String, String])), tax_behavior: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fixed_amount: T.nilable(::Stripe::ShippingRateUpdateParams::FixedAmount), metadata: T.nilable(T.any(String, T::Hash[String, String])), tax_behavior: T.nilable(String)).void
      }
     def initialize(
       active: nil,

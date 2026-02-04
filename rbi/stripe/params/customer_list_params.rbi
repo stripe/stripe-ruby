@@ -31,10 +31,10 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return customers that were created during the given date interval.
-    sig { returns(T.nilable(T.any(CustomerListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::CustomerListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(CustomerListParams::Created, Integer))).returns(T.nilable(T.any(CustomerListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::CustomerListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::CustomerListParams::Created, Integer)))
      }
     def created=(_created); end
     # A case-sensitive filter on the list based on the customer's `email` field. The value must be a string.
@@ -68,7 +68,7 @@ module Stripe
     sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
     def test_clock=(_test_clock); end
     sig {
-      params(created: T.nilable(T.any(CustomerListParams::Created, Integer)), email: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), test_clock: T.nilable(String)).void
+      params(created: T.nilable(T.any(::Stripe::CustomerListParams::Created, Integer)), email: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), test_clock: T.nilable(String)).void
      }
     def initialize(
       created: nil,

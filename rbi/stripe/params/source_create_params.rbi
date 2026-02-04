@@ -47,17 +47,17 @@ module Stripe
         sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
         def ip=(_ip); end
         # The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
-        sig { returns(T.nilable(SourceCreateParams::Mandate::Acceptance::Offline)) }
+        sig { returns(T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Offline)) }
         def offline; end
         sig {
-          params(_offline: T.nilable(SourceCreateParams::Mandate::Acceptance::Offline)).returns(T.nilable(SourceCreateParams::Mandate::Acceptance::Offline))
+          params(_offline: T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Offline)).returns(T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Offline))
          }
         def offline=(_offline); end
         # The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
-        sig { returns(T.nilable(SourceCreateParams::Mandate::Acceptance::Online)) }
+        sig { returns(T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Online)) }
         def online; end
         sig {
-          params(_online: T.nilable(SourceCreateParams::Mandate::Acceptance::Online)).returns(T.nilable(SourceCreateParams::Mandate::Acceptance::Online))
+          params(_online: T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Online)).returns(T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Online))
          }
         def online=(_online); end
         # The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
@@ -76,7 +76,7 @@ module Stripe
         sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
         def user_agent=(_user_agent); end
         sig {
-          params(date: T.nilable(Integer), ip: T.nilable(String), offline: T.nilable(SourceCreateParams::Mandate::Acceptance::Offline), online: T.nilable(SourceCreateParams::Mandate::Acceptance::Online), status: String, type: T.nilable(String), user_agent: T.nilable(String)).void
+          params(date: T.nilable(Integer), ip: T.nilable(String), offline: T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Offline), online: T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance::Online), status: String, type: T.nilable(String), user_agent: T.nilable(String)).void
          }
         def initialize(
           date: nil,
@@ -89,10 +89,10 @@ module Stripe
         ); end
       end
       # The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
-      sig { returns(T.nilable(SourceCreateParams::Mandate::Acceptance)) }
+      sig { returns(T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance)) }
       def acceptance; end
       sig {
-        params(_acceptance: T.nilable(SourceCreateParams::Mandate::Acceptance)).returns(T.nilable(SourceCreateParams::Mandate::Acceptance))
+        params(_acceptance: T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance)).returns(T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance))
        }
       def acceptance=(_acceptance); end
       # The amount specified by the mandate. (Leave null for a mandate covering all amounts)
@@ -118,7 +118,7 @@ module Stripe
       sig { params(_notification_method: T.nilable(String)).returns(T.nilable(String)) }
       def notification_method=(_notification_method); end
       sig {
-        params(acceptance: T.nilable(SourceCreateParams::Mandate::Acceptance), amount: T.nilable(T.any(String, Integer)), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
+        params(acceptance: T.nilable(::Stripe::SourceCreateParams::Mandate::Acceptance), amount: T.nilable(T.any(String, Integer)), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
        }
       def initialize(
         acceptance: nil,
@@ -173,10 +173,10 @@ module Stripe
         ); end
       end
       # Owner's address.
-      sig { returns(T.nilable(SourceCreateParams::Owner::Address)) }
+      sig { returns(T.nilable(::Stripe::SourceCreateParams::Owner::Address)) }
       def address; end
       sig {
-        params(_address: T.nilable(SourceCreateParams::Owner::Address)).returns(T.nilable(SourceCreateParams::Owner::Address))
+        params(_address: T.nilable(::Stripe::SourceCreateParams::Owner::Address)).returns(T.nilable(::Stripe::SourceCreateParams::Owner::Address))
        }
       def address=(_address); end
       # Owner's email address.
@@ -195,7 +195,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: T.nilable(SourceCreateParams::Owner::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+        params(address: T.nilable(::Stripe::SourceCreateParams::Owner::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
        }
       def initialize(address: nil, email: nil, name: nil, phone: nil); end
     end
@@ -306,10 +306,10 @@ module Stripe
           ); end
         end
         # Shipping address.
-        sig { returns(SourceCreateParams::SourceOrder::Shipping::Address) }
+        sig { returns(::Stripe::SourceCreateParams::SourceOrder::Shipping::Address) }
         def address; end
         sig {
-          params(_address: SourceCreateParams::SourceOrder::Shipping::Address).returns(SourceCreateParams::SourceOrder::Shipping::Address)
+          params(_address: ::Stripe::SourceCreateParams::SourceOrder::Shipping::Address).returns(::Stripe::SourceCreateParams::SourceOrder::Shipping::Address)
          }
         def address=(_address); end
         # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
@@ -333,26 +333,26 @@ module Stripe
         sig { params(_tracking_number: T.nilable(String)).returns(T.nilable(String)) }
         def tracking_number=(_tracking_number); end
         sig {
-          params(address: SourceCreateParams::SourceOrder::Shipping::Address, carrier: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tracking_number: T.nilable(String)).void
+          params(address: ::Stripe::SourceCreateParams::SourceOrder::Shipping::Address, carrier: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tracking_number: T.nilable(String)).void
          }
         def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
       end
       # List of items constituting the order.
-      sig { returns(T.nilable(T::Array[SourceCreateParams::SourceOrder::Item])) }
+      sig { returns(T.nilable(T::Array[::Stripe::SourceCreateParams::SourceOrder::Item])) }
       def items; end
       sig {
-        params(_items: T.nilable(T::Array[SourceCreateParams::SourceOrder::Item])).returns(T.nilable(T::Array[SourceCreateParams::SourceOrder::Item]))
+        params(_items: T.nilable(T::Array[::Stripe::SourceCreateParams::SourceOrder::Item])).returns(T.nilable(T::Array[::Stripe::SourceCreateParams::SourceOrder::Item]))
        }
       def items=(_items); end
       # Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-      sig { returns(T.nilable(SourceCreateParams::SourceOrder::Shipping)) }
+      sig { returns(T.nilable(::Stripe::SourceCreateParams::SourceOrder::Shipping)) }
       def shipping; end
       sig {
-        params(_shipping: T.nilable(SourceCreateParams::SourceOrder::Shipping)).returns(T.nilable(SourceCreateParams::SourceOrder::Shipping))
+        params(_shipping: T.nilable(::Stripe::SourceCreateParams::SourceOrder::Shipping)).returns(T.nilable(::Stripe::SourceCreateParams::SourceOrder::Shipping))
        }
       def shipping=(_shipping); end
       sig {
-        params(items: T.nilable(T::Array[SourceCreateParams::SourceOrder::Item]), shipping: T.nilable(SourceCreateParams::SourceOrder::Shipping)).void
+        params(items: T.nilable(T::Array[::Stripe::SourceCreateParams::SourceOrder::Item]), shipping: T.nilable(::Stripe::SourceCreateParams::SourceOrder::Shipping)).void
        }
       def initialize(items: nil, shipping: nil); end
     end
@@ -382,10 +382,10 @@ module Stripe
     sig { params(_flow: T.nilable(String)).returns(T.nilable(String)) }
     def flow=(_flow); end
     # Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-    sig { returns(T.nilable(SourceCreateParams::Mandate)) }
+    sig { returns(T.nilable(::Stripe::SourceCreateParams::Mandate)) }
     def mandate; end
     sig {
-      params(_mandate: T.nilable(SourceCreateParams::Mandate)).returns(T.nilable(SourceCreateParams::Mandate))
+      params(_mandate: T.nilable(::Stripe::SourceCreateParams::Mandate)).returns(T.nilable(::Stripe::SourceCreateParams::Mandate))
      }
     def mandate=(_mandate); end
     # Attribute for param field metadata
@@ -401,31 +401,31 @@ module Stripe
     sig { params(_original_source: T.nilable(String)).returns(T.nilable(String)) }
     def original_source=(_original_source); end
     # Information about the owner of the payment instrument that may be used or required by particular source types.
-    sig { returns(T.nilable(SourceCreateParams::Owner)) }
+    sig { returns(T.nilable(::Stripe::SourceCreateParams::Owner)) }
     def owner; end
     sig {
-      params(_owner: T.nilable(SourceCreateParams::Owner)).returns(T.nilable(SourceCreateParams::Owner))
+      params(_owner: T.nilable(::Stripe::SourceCreateParams::Owner)).returns(T.nilable(::Stripe::SourceCreateParams::Owner))
      }
     def owner=(_owner); end
     # Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
-    sig { returns(T.nilable(SourceCreateParams::Receiver)) }
+    sig { returns(T.nilable(::Stripe::SourceCreateParams::Receiver)) }
     def receiver; end
     sig {
-      params(_receiver: T.nilable(SourceCreateParams::Receiver)).returns(T.nilable(SourceCreateParams::Receiver))
+      params(_receiver: T.nilable(::Stripe::SourceCreateParams::Receiver)).returns(T.nilable(::Stripe::SourceCreateParams::Receiver))
      }
     def receiver=(_receiver); end
     # Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
-    sig { returns(T.nilable(SourceCreateParams::Redirect)) }
+    sig { returns(T.nilable(::Stripe::SourceCreateParams::Redirect)) }
     def redirect; end
     sig {
-      params(_redirect: T.nilable(SourceCreateParams::Redirect)).returns(T.nilable(SourceCreateParams::Redirect))
+      params(_redirect: T.nilable(::Stripe::SourceCreateParams::Redirect)).returns(T.nilable(::Stripe::SourceCreateParams::Redirect))
      }
     def redirect=(_redirect); end
     # Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-    sig { returns(T.nilable(SourceCreateParams::SourceOrder)) }
+    sig { returns(T.nilable(::Stripe::SourceCreateParams::SourceOrder)) }
     def source_order; end
     sig {
-      params(_source_order: T.nilable(SourceCreateParams::SourceOrder)).returns(T.nilable(SourceCreateParams::SourceOrder))
+      params(_source_order: T.nilable(::Stripe::SourceCreateParams::SourceOrder)).returns(T.nilable(::Stripe::SourceCreateParams::SourceOrder))
      }
     def source_order=(_source_order); end
     # An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all.
@@ -449,7 +449,7 @@ module Stripe
     sig { params(_usage: T.nilable(String)).returns(T.nilable(String)) }
     def usage=(_usage); end
     sig {
-      params(amount: T.nilable(Integer), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), flow: T.nilable(String), mandate: T.nilable(SourceCreateParams::Mandate), metadata: T.nilable(T::Hash[String, String]), original_source: T.nilable(String), owner: T.nilable(SourceCreateParams::Owner), receiver: T.nilable(SourceCreateParams::Receiver), redirect: T.nilable(SourceCreateParams::Redirect), source_order: T.nilable(SourceCreateParams::SourceOrder), statement_descriptor: T.nilable(String), token: T.nilable(String), type: T.nilable(String), usage: T.nilable(String)).void
+      params(amount: T.nilable(Integer), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), flow: T.nilable(String), mandate: T.nilable(::Stripe::SourceCreateParams::Mandate), metadata: T.nilable(T::Hash[String, String]), original_source: T.nilable(String), owner: T.nilable(::Stripe::SourceCreateParams::Owner), receiver: T.nilable(::Stripe::SourceCreateParams::Receiver), redirect: T.nilable(::Stripe::SourceCreateParams::Redirect), source_order: T.nilable(::Stripe::SourceCreateParams::SourceOrder), statement_descriptor: T.nilable(String), token: T.nilable(String), type: T.nilable(String), usage: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

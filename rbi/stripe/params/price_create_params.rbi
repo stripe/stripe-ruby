@@ -69,10 +69,10 @@ module Stripe
         ); end
       end
       # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
-      sig { returns(T.nilable(PriceCreateParams::CurrencyOptions::CustomUnitAmount)) }
+      sig { returns(T.nilable(::Stripe::PriceCreateParams::CurrencyOptions::CustomUnitAmount)) }
       def custom_unit_amount; end
       sig {
-        params(_custom_unit_amount: T.nilable(PriceCreateParams::CurrencyOptions::CustomUnitAmount)).returns(T.nilable(PriceCreateParams::CurrencyOptions::CustomUnitAmount))
+        params(_custom_unit_amount: T.nilable(::Stripe::PriceCreateParams::CurrencyOptions::CustomUnitAmount)).returns(T.nilable(::Stripe::PriceCreateParams::CurrencyOptions::CustomUnitAmount))
        }
       def custom_unit_amount=(_custom_unit_amount); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -81,10 +81,10 @@ module Stripe
       sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def tax_behavior=(_tax_behavior); end
       # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-      sig { returns(T.nilable(T::Array[PriceCreateParams::CurrencyOptions::Tier])) }
+      sig { returns(T.nilable(T::Array[::Stripe::PriceCreateParams::CurrencyOptions::Tier])) }
       def tiers; end
       sig {
-        params(_tiers: T.nilable(T::Array[PriceCreateParams::CurrencyOptions::Tier])).returns(T.nilable(T::Array[PriceCreateParams::CurrencyOptions::Tier]))
+        params(_tiers: T.nilable(T::Array[::Stripe::PriceCreateParams::CurrencyOptions::Tier])).returns(T.nilable(T::Array[::Stripe::PriceCreateParams::CurrencyOptions::Tier]))
        }
       def tiers=(_tiers); end
       # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
@@ -98,7 +98,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(custom_unit_amount: T.nilable(PriceCreateParams::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[PriceCreateParams::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(custom_unit_amount: T.nilable(::Stripe::PriceCreateParams::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::PriceCreateParams::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         custom_unit_amount: nil,
@@ -291,17 +291,17 @@ module Stripe
     sig { params(_currency: String).returns(String) }
     def currency=(_currency); end
     # Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-    sig { returns(T.nilable(T::Hash[String, PriceCreateParams::CurrencyOptions])) }
+    sig { returns(T.nilable(T::Hash[String, ::Stripe::PriceCreateParams::CurrencyOptions])) }
     def currency_options; end
     sig {
-      params(_currency_options: T.nilable(T::Hash[String, PriceCreateParams::CurrencyOptions])).returns(T.nilable(T::Hash[String, PriceCreateParams::CurrencyOptions]))
+      params(_currency_options: T.nilable(T::Hash[String, ::Stripe::PriceCreateParams::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::PriceCreateParams::CurrencyOptions]))
      }
     def currency_options=(_currency_options); end
     # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
-    sig { returns(T.nilable(PriceCreateParams::CustomUnitAmount)) }
+    sig { returns(T.nilable(::Stripe::PriceCreateParams::CustomUnitAmount)) }
     def custom_unit_amount; end
     sig {
-      params(_custom_unit_amount: T.nilable(PriceCreateParams::CustomUnitAmount)).returns(T.nilable(PriceCreateParams::CustomUnitAmount))
+      params(_custom_unit_amount: T.nilable(::Stripe::PriceCreateParams::CustomUnitAmount)).returns(T.nilable(::Stripe::PriceCreateParams::CustomUnitAmount))
      }
     def custom_unit_amount=(_custom_unit_amount); end
     # Specifies which fields in the response should be expanded.
@@ -332,17 +332,17 @@ module Stripe
     sig { params(_product: T.nilable(String)).returns(T.nilable(String)) }
     def product=(_product); end
     # These fields can be used to create a new product that this price will belong to.
-    sig { returns(T.nilable(PriceCreateParams::ProductData)) }
+    sig { returns(T.nilable(::Stripe::PriceCreateParams::ProductData)) }
     def product_data; end
     sig {
-      params(_product_data: T.nilable(PriceCreateParams::ProductData)).returns(T.nilable(PriceCreateParams::ProductData))
+      params(_product_data: T.nilable(::Stripe::PriceCreateParams::ProductData)).returns(T.nilable(::Stripe::PriceCreateParams::ProductData))
      }
     def product_data=(_product_data); end
     # The recurring components of a price such as `interval` and `usage_type`.
-    sig { returns(T.nilable(PriceCreateParams::Recurring)) }
+    sig { returns(T.nilable(::Stripe::PriceCreateParams::Recurring)) }
     def recurring; end
     sig {
-      params(_recurring: T.nilable(PriceCreateParams::Recurring)).returns(T.nilable(PriceCreateParams::Recurring))
+      params(_recurring: T.nilable(::Stripe::PriceCreateParams::Recurring)).returns(T.nilable(::Stripe::PriceCreateParams::Recurring))
      }
     def recurring=(_recurring); end
     # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -351,10 +351,10 @@ module Stripe
     sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def tax_behavior=(_tax_behavior); end
     # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-    sig { returns(T.nilable(T::Array[PriceCreateParams::Tier])) }
+    sig { returns(T.nilable(T::Array[::Stripe::PriceCreateParams::Tier])) }
     def tiers; end
     sig {
-      params(_tiers: T.nilable(T::Array[PriceCreateParams::Tier])).returns(T.nilable(T::Array[PriceCreateParams::Tier]))
+      params(_tiers: T.nilable(T::Array[::Stripe::PriceCreateParams::Tier])).returns(T.nilable(T::Array[::Stripe::PriceCreateParams::Tier]))
      }
     def tiers=(_tiers); end
     # Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
@@ -368,10 +368,10 @@ module Stripe
     sig { params(_transfer_lookup_key: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def transfer_lookup_key=(_transfer_lookup_key); end
     # Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
-    sig { returns(T.nilable(PriceCreateParams::TransformQuantity)) }
+    sig { returns(T.nilable(::Stripe::PriceCreateParams::TransformQuantity)) }
     def transform_quantity; end
     sig {
-      params(_transform_quantity: T.nilable(PriceCreateParams::TransformQuantity)).returns(T.nilable(PriceCreateParams::TransformQuantity))
+      params(_transform_quantity: T.nilable(::Stripe::PriceCreateParams::TransformQuantity)).returns(T.nilable(::Stripe::PriceCreateParams::TransformQuantity))
      }
     def transform_quantity=(_transform_quantity); end
     # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge. One of `unit_amount`, `unit_amount_decimal`, or `custom_unit_amount` is required, unless `billing_scheme=tiered`.
@@ -385,7 +385,7 @@ module Stripe
     sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
     def unit_amount_decimal=(_unit_amount_decimal); end
     sig {
-      params(active: T.nilable(T::Boolean), billing_scheme: T.nilable(String), currency: String, currency_options: T.nilable(T::Hash[String, PriceCreateParams::CurrencyOptions]), custom_unit_amount: T.nilable(PriceCreateParams::CustomUnitAmount), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), product: T.nilable(String), product_data: T.nilable(PriceCreateParams::ProductData), recurring: T.nilable(PriceCreateParams::Recurring), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[PriceCreateParams::Tier]), tiers_mode: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean), transform_quantity: T.nilable(PriceCreateParams::TransformQuantity), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), billing_scheme: T.nilable(String), currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::PriceCreateParams::CurrencyOptions]), custom_unit_amount: T.nilable(::Stripe::PriceCreateParams::CustomUnitAmount), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), product: T.nilable(String), product_data: T.nilable(::Stripe::PriceCreateParams::ProductData), recurring: T.nilable(::Stripe::PriceCreateParams::Recurring), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::PriceCreateParams::Tier]), tiers_mode: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean), transform_quantity: T.nilable(::Stripe::PriceCreateParams::TransformQuantity), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
      }
     def initialize(
       active: nil,

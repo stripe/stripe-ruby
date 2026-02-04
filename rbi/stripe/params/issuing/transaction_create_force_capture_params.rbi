@@ -142,43 +142,43 @@ module Stripe
             end
             # Breakdown of fuel portion of the purchase.
             sig {
-              returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel))
+              returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel))
              }
             def fuel; end
             sig {
-              params(_fuel: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel))
+              params(_fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel))
              }
             def fuel=(_fuel); end
             # Breakdown of non-fuel portion of the purchase.
             sig {
-              returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel))
+              returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel))
              }
             def non_fuel; end
             sig {
-              params(_non_fuel: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel))
+              params(_non_fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel))
              }
             def non_fuel=(_non_fuel); end
             # Information about tax included in this transaction.
             sig {
-              returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax))
+              returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax))
              }
             def tax; end
             sig {
-              params(_tax: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax))
+              params(_tax: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax))
              }
             def tax=(_tax); end
             sig {
-              params(fuel: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax)).void
+              params(fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax)).void
              }
             def initialize(fuel: nil, non_fuel: nil, tax: nil); end
           end
           # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
           sig {
-            returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData))
+            returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData))
            }
           def cardholder_prompt_data; end
           sig {
-            params(_cardholder_prompt_data: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData))
+            params(_cardholder_prompt_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData))
            }
           def cardholder_prompt_data=(_cardholder_prompt_data); end
           # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
@@ -188,11 +188,11 @@ module Stripe
           def purchase_type=(_purchase_type); end
           # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
           sig {
-            returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown))
+            returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown))
            }
           def reported_breakdown; end
           sig {
-            params(_reported_breakdown: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown))
+            params(_reported_breakdown: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown))
            }
           def reported_breakdown=(_reported_breakdown); end
           # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
@@ -201,7 +201,7 @@ module Stripe
           sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
           def service_type=(_service_type); end
           sig {
-            params(cardholder_prompt_data: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
+            params(cardholder_prompt_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
            }
           def initialize(
             cardholder_prompt_data: nil,
@@ -271,11 +271,11 @@ module Stripe
           def refundable=(_refundable); end
           # The legs of the trip.
           sig {
-            returns(T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment]))
+            returns(T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment]))
            }
           def segments; end
           sig {
-            params(_segments: T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment])).returns(T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment]))
+            params(_segments: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment])).returns(T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment]))
            }
           def segments=(_segments); end
           # The travel agency that issued the ticket.
@@ -284,7 +284,7 @@ module Stripe
           sig { params(_travel_agency: T.nilable(String)).returns(T.nilable(String)) }
           def travel_agency=(_travel_agency); end
           sig {
-            params(departure_at: T.nilable(Integer), passenger_name: T.nilable(String), refundable: T.nilable(T::Boolean), segments: T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment]), travel_agency: T.nilable(String)).void
+            params(departure_at: T.nilable(Integer), passenger_name: T.nilable(String), refundable: T.nilable(T::Boolean), segments: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight::Segment]), travel_agency: T.nilable(String)).void
            }
           def initialize(
             departure_at: nil,
@@ -373,47 +373,47 @@ module Stripe
         end
         # Fleet-specific information for transactions using Fleet cards.
         sig {
-          returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet))
+          returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet))
          }
         def fleet; end
         sig {
-          params(_fleet: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet))
+          params(_fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet))
          }
         def fleet=(_fleet); end
         # Information about the flight that was purchased with this transaction.
         sig {
-          returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight))
+          returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight))
          }
         def flight; end
         sig {
-          params(_flight: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight))
+          params(_flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight))
          }
         def flight=(_flight); end
         # Information about fuel that was purchased with this transaction.
         sig {
-          returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
+          returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
          }
         def fuel; end
         sig {
-          params(_fuel: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
+          params(_fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
         # Information about lodging that was purchased with this transaction.
         sig {
-          returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
+          returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
          }
         def lodging; end
         sig {
-          params(_lodging: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
+          params(_lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
          }
         def lodging=(_lodging); end
         # The line items in the purchase.
         sig {
-          returns(T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]))
+          returns(T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]))
          }
         def receipt; end
         sig {
-          params(_receipt: T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt])).returns(T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]))
+          params(_receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt])).returns(T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]))
          }
         def receipt=(_receipt); end
         # A merchant-specific order number.
@@ -422,7 +422,7 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
@@ -454,21 +454,25 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
-      sig { returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::MerchantData)) }
+      sig {
+        returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData))
+       }
       def merchant_data; end
       sig {
-        params(_merchant_data: T.nilable(Issuing::TransactionCreateForceCaptureParams::MerchantData)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::MerchantData))
+        params(_merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData))
        }
       def merchant_data=(_merchant_data); end
       # Additional purchase information that is optionally provided by the merchant.
-      sig { returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)) }
+      sig {
+        returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails))
+       }
       def purchase_details; end
       sig {
-        params(_purchase_details: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).returns(T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails))
+        params(_purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails))
        }
       def purchase_details=(_purchase_details); end
       sig {
-        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_data: T.nilable(Issuing::TransactionCreateForceCaptureParams::MerchantData), purchase_details: T.nilable(Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).void
+        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData), purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).void
        }
       def initialize(
         amount: nil,

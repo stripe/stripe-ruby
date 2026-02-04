@@ -30,12 +30,14 @@ module Stripe
       sig { params(_name: String).returns(String) }
       def name=(_name); end
       # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
-      sig { returns(Apps::SecretFindParams::Scope) }
+      sig { returns(::Stripe::Apps::SecretFindParams::Scope) }
       def scope; end
-      sig { params(_scope: Apps::SecretFindParams::Scope).returns(Apps::SecretFindParams::Scope) }
+      sig {
+        params(_scope: ::Stripe::Apps::SecretFindParams::Scope).returns(::Stripe::Apps::SecretFindParams::Scope)
+       }
       def scope=(_scope); end
       sig {
-        params(expand: T.nilable(T::Array[String]), name: String, scope: Apps::SecretFindParams::Scope).void
+        params(expand: T.nilable(T::Array[String]), name: String, scope: ::Stripe::Apps::SecretFindParams::Scope).void
        }
       def initialize(expand: nil, name: nil, scope: nil); end
     end

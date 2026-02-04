@@ -43,11 +43,11 @@ module Stripe
           # against what was provided by the bank. Doing so is required for all bank accounts not owned
           # by you before making domestic UK OutboundPayments.
           sig {
-            returns(T.nilable(V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee))
+            returns(T.nilable(::Stripe::V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee))
            }
           def confirmation_of_payee; end
           sig {
-            params(_confirmation_of_payee: T.nilable(V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee)).returns(T.nilable(V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee))
+            params(_confirmation_of_payee: T.nilable(::Stripe::V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee)).returns(T.nilable(::Stripe::V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee))
            }
           def confirmation_of_payee=(_confirmation_of_payee); end
           # The Sort Code of the bank account.
@@ -56,7 +56,7 @@ module Stripe
           sig { params(_sort_code: String).returns(String) }
           def sort_code=(_sort_code); end
           sig {
-            params(account_number: String, bank_account_type: T.nilable(String), confirmation_of_payee: T.nilable(V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee), sort_code: String).void
+            params(account_number: String, bank_account_type: T.nilable(String), confirmation_of_payee: T.nilable(::Stripe::V2::Core::Vault::GbBankAccountCreateParams::ConfirmationOfPayee), sort_code: String).void
            }
           def initialize(
             account_number: nil,

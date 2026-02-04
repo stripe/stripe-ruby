@@ -70,14 +70,14 @@ module Stripe
     sig { params(_payment_record: T.nilable(String)).returns(T.nilable(String)) }
     def payment_record=(_payment_record); end
     # The PaymentRecord data for attaching an out of band payment to the invoice.
-    sig { returns(T.nilable(InvoiceAttachPaymentParams::PaymentRecordData)) }
+    sig { returns(T.nilable(::Stripe::InvoiceAttachPaymentParams::PaymentRecordData)) }
     def payment_record_data; end
     sig {
-      params(_payment_record_data: T.nilable(InvoiceAttachPaymentParams::PaymentRecordData)).returns(T.nilable(InvoiceAttachPaymentParams::PaymentRecordData))
+      params(_payment_record_data: T.nilable(::Stripe::InvoiceAttachPaymentParams::PaymentRecordData)).returns(T.nilable(::Stripe::InvoiceAttachPaymentParams::PaymentRecordData))
      }
     def payment_record_data=(_payment_record_data); end
     sig {
-      params(amount_requested: T.nilable(Integer), expand: T.nilable(T::Array[String]), payment_intent: T.nilable(String), payment_record: T.nilable(String), payment_record_data: T.nilable(InvoiceAttachPaymentParams::PaymentRecordData)).void
+      params(amount_requested: T.nilable(Integer), expand: T.nilable(T::Array[String]), payment_intent: T.nilable(String), payment_record: T.nilable(String), payment_record_data: T.nilable(::Stripe::InvoiceAttachPaymentParams::PaymentRecordData)).void
      }
     def initialize(
       amount_requested: nil,

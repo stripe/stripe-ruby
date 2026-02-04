@@ -109,24 +109,26 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return subscription schedules that were created canceled the given date interval.
-    sig { returns(T.nilable(T.any(SubscriptionScheduleListParams::CanceledAt, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CanceledAt, Integer))) }
     def canceled_at; end
     sig {
-      params(_canceled_at: T.nilable(T.any(SubscriptionScheduleListParams::CanceledAt, Integer))).returns(T.nilable(T.any(SubscriptionScheduleListParams::CanceledAt, Integer)))
+      params(_canceled_at: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CanceledAt, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CanceledAt, Integer)))
      }
     def canceled_at=(_canceled_at); end
     # Only return subscription schedules that completed during the given date interval.
-    sig { returns(T.nilable(T.any(SubscriptionScheduleListParams::CompletedAt, Integer))) }
+    sig {
+      returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CompletedAt, Integer)))
+     }
     def completed_at; end
     sig {
-      params(_completed_at: T.nilable(T.any(SubscriptionScheduleListParams::CompletedAt, Integer))).returns(T.nilable(T.any(SubscriptionScheduleListParams::CompletedAt, Integer)))
+      params(_completed_at: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CompletedAt, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CompletedAt, Integer)))
      }
     def completed_at=(_completed_at); end
     # Only return subscription schedules that were created during the given date interval.
-    sig { returns(T.nilable(T.any(SubscriptionScheduleListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(SubscriptionScheduleListParams::Created, Integer))).returns(T.nilable(T.any(SubscriptionScheduleListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return subscription schedules for the given customer.
@@ -155,10 +157,10 @@ module Stripe
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
     # Only return subscription schedules that were released during the given date interval.
-    sig { returns(T.nilable(T.any(SubscriptionScheduleListParams::ReleasedAt, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::ReleasedAt, Integer))) }
     def released_at; end
     sig {
-      params(_released_at: T.nilable(T.any(SubscriptionScheduleListParams::ReleasedAt, Integer))).returns(T.nilable(T.any(SubscriptionScheduleListParams::ReleasedAt, Integer)))
+      params(_released_at: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::ReleasedAt, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::ReleasedAt, Integer)))
      }
     def released_at=(_released_at); end
     # Only return subscription schedules that have not started yet.
@@ -172,7 +174,7 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(canceled_at: T.nilable(T.any(SubscriptionScheduleListParams::CanceledAt, Integer)), completed_at: T.nilable(T.any(SubscriptionScheduleListParams::CompletedAt, Integer)), created: T.nilable(T.any(SubscriptionScheduleListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), released_at: T.nilable(T.any(SubscriptionScheduleListParams::ReleasedAt, Integer)), scheduled: T.nilable(T::Boolean), starting_after: T.nilable(String)).void
+      params(canceled_at: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CanceledAt, Integer)), completed_at: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::CompletedAt, Integer)), created: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), released_at: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::ReleasedAt, Integer)), scheduled: T.nilable(T::Boolean), starting_after: T.nilable(String)).void
      }
     def initialize(
       canceled_at: nil,

@@ -32,10 +32,10 @@ module Stripe
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return items that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Radar::ValueListItemListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Radar::ValueListItemListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Radar::ValueListItemListParams::Created, Integer))).returns(T.nilable(T.any(Radar::ValueListItemListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Radar::ValueListItemListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Radar::ValueListItemListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -69,7 +69,7 @@ module Stripe
       sig { params(_value_list: String).returns(String) }
       def value_list=(_value_list); end
       sig {
-        params(created: T.nilable(T.any(Radar::ValueListItemListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), value: T.nilable(String), value_list: String).void
+        params(created: T.nilable(T.any(::Stripe::Radar::ValueListItemListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), value: T.nilable(String), value_list: String).void
        }
       def initialize(
         created: nil,

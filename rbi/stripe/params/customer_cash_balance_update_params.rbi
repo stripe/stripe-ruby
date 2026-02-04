@@ -19,14 +19,14 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # A hash of settings for this cash balance.
-    sig { returns(T.nilable(CustomerCashBalanceUpdateParams::Settings)) }
+    sig { returns(T.nilable(::Stripe::CustomerCashBalanceUpdateParams::Settings)) }
     def settings; end
     sig {
-      params(_settings: T.nilable(CustomerCashBalanceUpdateParams::Settings)).returns(T.nilable(CustomerCashBalanceUpdateParams::Settings))
+      params(_settings: T.nilable(::Stripe::CustomerCashBalanceUpdateParams::Settings)).returns(T.nilable(::Stripe::CustomerCashBalanceUpdateParams::Settings))
      }
     def settings=(_settings); end
     sig {
-      params(expand: T.nilable(T::Array[String]), settings: T.nilable(CustomerCashBalanceUpdateParams::Settings)).void
+      params(expand: T.nilable(T::Array[String]), settings: T.nilable(::Stripe::CustomerCashBalanceUpdateParams::Settings)).void
      }
     def initialize(expand: nil, settings: nil); end
   end

@@ -14,10 +14,10 @@ module Stripe
       def initialize(amount_off: nil); end
     end
     # Coupons defined in each available currency option (only supported if the coupon is amount-based). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-    sig { returns(T.nilable(T::Hash[String, CouponUpdateParams::CurrencyOptions])) }
+    sig { returns(T.nilable(T::Hash[String, ::Stripe::CouponUpdateParams::CurrencyOptions])) }
     def currency_options; end
     sig {
-      params(_currency_options: T.nilable(T::Hash[String, CouponUpdateParams::CurrencyOptions])).returns(T.nilable(T::Hash[String, CouponUpdateParams::CurrencyOptions]))
+      params(_currency_options: T.nilable(T::Hash[String, ::Stripe::CouponUpdateParams::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::CouponUpdateParams::CurrencyOptions]))
      }
     def currency_options=(_currency_options); end
     # Specifies which fields in the response should be expanded.
@@ -38,7 +38,7 @@ module Stripe
     sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
     def name=(_name); end
     sig {
-      params(currency_options: T.nilable(T::Hash[String, CouponUpdateParams::CurrencyOptions]), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
+      params(currency_options: T.nilable(T::Hash[String, ::Stripe::CouponUpdateParams::CurrencyOptions]), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
      }
     def initialize(currency_options: nil, expand: nil, metadata: nil, name: nil); end
   end

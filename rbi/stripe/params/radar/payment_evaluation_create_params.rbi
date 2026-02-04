@@ -65,11 +65,11 @@ module Stripe
           end
           # Describes card money movement details for the payment evaluation.
           sig {
-            returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
+            returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
            }
           def card; end
           sig {
-            params(_card: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card)).returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
+            params(_card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
            }
           def card=(_card); end
           # Describes the type of money movement. Currently only `card` is supported.
@@ -78,7 +78,7 @@ module Stripe
           sig { params(_money_movement_type: String).returns(String) }
           def money_movement_type=(_money_movement_type); end
           sig {
-            params(card: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card), money_movement_type: String).void
+            params(card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card), money_movement_type: String).void
            }
           def initialize(card: nil, money_movement_type: nil); end
         end
@@ -129,11 +129,11 @@ module Stripe
             end
             # Billing address.
             sig {
-              returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address))
+              returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address))
              }
             def address; end
             sig {
-              params(_address: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address)).returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address))
+              params(_address: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address))
              }
             def address=(_address); end
             # Email address.
@@ -152,17 +152,17 @@ module Stripe
             sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
             def phone=(_phone); end
             sig {
-              params(address: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+              params(address: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
              }
             def initialize(address: nil, email: nil, name: nil, phone: nil); end
           end
           # Billing information associated with the payment evaluation.
           sig {
-            returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails))
+            returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails))
            }
           def billing_details; end
           sig {
-            params(_billing_details: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails)).returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails))
+            params(_billing_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails))
            }
           def billing_details=(_billing_details); end
           # ID of the payment method used in this payment evaluation.
@@ -171,7 +171,7 @@ module Stripe
           sig { params(_payment_method: String).returns(String) }
           def payment_method=(_payment_method); end
           sig {
-            params(billing_details: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails), payment_method: String).void
+            params(billing_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails), payment_method: String).void
            }
           def initialize(billing_details: nil, payment_method: nil); end
         end
@@ -221,11 +221,11 @@ module Stripe
           end
           # Shipping address.
           sig {
-            returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address))
+            returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address))
            }
           def address; end
           sig {
-            params(_address: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address)).returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address))
+            params(_address: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address))
            }
           def address=(_address); end
           # Shipping name.
@@ -239,7 +239,7 @@ module Stripe
           sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
           def phone=(_phone); end
           sig {
-            params(address: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
+            params(address: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
            }
           def initialize(address: nil, name: nil, phone: nil); end
         end
@@ -260,27 +260,29 @@ module Stripe
         def description=(_description); end
         # Details about the payment's customer presence and type.
         sig {
-          returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails))
+          returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails))
          }
         def money_movement_details; end
         sig {
-          params(_money_movement_details: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails)).returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails))
+          params(_money_movement_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails))
          }
         def money_movement_details=(_money_movement_details); end
         # Details about the payment method to use for the payment.
-        sig { returns(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails) }
+        sig {
+          returns(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails)
+         }
         def payment_method_details; end
         sig {
-          params(_payment_method_details: Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails).returns(Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails)
+          params(_payment_method_details: ::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails).returns(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails)
          }
         def payment_method_details=(_payment_method_details); end
         # Shipping details for the payment evaluation.
         sig {
-          returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails))
+          returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails))
          }
         def shipping_details; end
         sig {
-          params(_shipping_details: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails)).returns(T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails))
+          params(_shipping_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails))
          }
         def shipping_details=(_shipping_details); end
         # Payment statement descriptor.
@@ -289,7 +291,7 @@ module Stripe
         sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
         def statement_descriptor=(_statement_descriptor); end
         sig {
-          params(amount: Integer, currency: String, description: T.nilable(String), money_movement_details: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails), payment_method_details: Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails, shipping_details: T.nilable(Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails), statement_descriptor: T.nilable(String)).void
+          params(amount: Integer, currency: String, description: T.nilable(String), money_movement_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails), payment_method_details: ::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails, shipping_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::ShippingDetails), statement_descriptor: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -302,17 +304,19 @@ module Stripe
         ); end
       end
       # Details about the Client Device Metadata to associate with the payment evaluation.
-      sig { returns(T.nilable(Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails)) }
+      sig {
+        returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails))
+       }
       def client_device_metadata_details; end
       sig {
-        params(_client_device_metadata_details: T.nilable(Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails)).returns(T.nilable(Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails))
+        params(_client_device_metadata_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails))
        }
       def client_device_metadata_details=(_client_device_metadata_details); end
       # Details about the customer associated with the payment evaluation.
-      sig { returns(Radar::PaymentEvaluationCreateParams::CustomerDetails) }
+      sig { returns(::Stripe::Radar::PaymentEvaluationCreateParams::CustomerDetails) }
       def customer_details; end
       sig {
-        params(_customer_details: Radar::PaymentEvaluationCreateParams::CustomerDetails).returns(Radar::PaymentEvaluationCreateParams::CustomerDetails)
+        params(_customer_details: ::Stripe::Radar::PaymentEvaluationCreateParams::CustomerDetails).returns(::Stripe::Radar::PaymentEvaluationCreateParams::CustomerDetails)
        }
       def customer_details=(_customer_details); end
       # Specifies which fields in the response should be expanded.
@@ -328,14 +332,14 @@ module Stripe
        }
       def metadata=(_metadata); end
       # Details about the payment.
-      sig { returns(Radar::PaymentEvaluationCreateParams::PaymentDetails) }
+      sig { returns(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails) }
       def payment_details; end
       sig {
-        params(_payment_details: Radar::PaymentEvaluationCreateParams::PaymentDetails).returns(Radar::PaymentEvaluationCreateParams::PaymentDetails)
+        params(_payment_details: ::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails).returns(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails)
        }
       def payment_details=(_payment_details); end
       sig {
-        params(client_device_metadata_details: T.nilable(Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails), customer_details: Radar::PaymentEvaluationCreateParams::CustomerDetails, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_details: Radar::PaymentEvaluationCreateParams::PaymentDetails).void
+        params(client_device_metadata_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails), customer_details: ::Stripe::Radar::PaymentEvaluationCreateParams::CustomerDetails, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_details: ::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails).void
        }
       def initialize(
         client_device_metadata_details: nil,

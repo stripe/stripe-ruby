@@ -35,17 +35,17 @@ module Stripe
         def initialize(destination: nil); end
       end
       # The payment transaction details that are intended for the FX Quote.
-      sig { returns(T.nilable(FxQuoteCreateParams::Usage::Payment)) }
+      sig { returns(T.nilable(::Stripe::FxQuoteCreateParams::Usage::Payment)) }
       def payment; end
       sig {
-        params(_payment: T.nilable(FxQuoteCreateParams::Usage::Payment)).returns(T.nilable(FxQuoteCreateParams::Usage::Payment))
+        params(_payment: T.nilable(::Stripe::FxQuoteCreateParams::Usage::Payment)).returns(T.nilable(::Stripe::FxQuoteCreateParams::Usage::Payment))
        }
       def payment=(_payment); end
       # The transfer transaction details that are intended for the FX Quote.
-      sig { returns(T.nilable(FxQuoteCreateParams::Usage::Transfer)) }
+      sig { returns(T.nilable(::Stripe::FxQuoteCreateParams::Usage::Transfer)) }
       def transfer; end
       sig {
-        params(_transfer: T.nilable(FxQuoteCreateParams::Usage::Transfer)).returns(T.nilable(FxQuoteCreateParams::Usage::Transfer))
+        params(_transfer: T.nilable(::Stripe::FxQuoteCreateParams::Usage::Transfer)).returns(T.nilable(::Stripe::FxQuoteCreateParams::Usage::Transfer))
        }
       def transfer=(_transfer); end
       # Which transaction the FX Quote will be used for
@@ -56,7 +56,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(payment: T.nilable(FxQuoteCreateParams::Usage::Payment), transfer: T.nilable(FxQuoteCreateParams::Usage::Transfer), type: String).void
+        params(payment: T.nilable(::Stripe::FxQuoteCreateParams::Usage::Payment), transfer: T.nilable(::Stripe::FxQuoteCreateParams::Usage::Transfer), type: String).void
        }
       def initialize(payment: nil, transfer: nil, type: nil); end
     end
@@ -81,14 +81,14 @@ module Stripe
     sig { params(_to_currency: String).returns(String) }
     def to_currency=(_to_currency); end
     # The usage specific information for the quote.
-    sig { returns(T.nilable(FxQuoteCreateParams::Usage)) }
+    sig { returns(T.nilable(::Stripe::FxQuoteCreateParams::Usage)) }
     def usage; end
     sig {
-      params(_usage: T.nilable(FxQuoteCreateParams::Usage)).returns(T.nilable(FxQuoteCreateParams::Usage))
+      params(_usage: T.nilable(::Stripe::FxQuoteCreateParams::Usage)).returns(T.nilable(::Stripe::FxQuoteCreateParams::Usage))
      }
     def usage=(_usage); end
     sig {
-      params(expand: T.nilable(T::Array[String]), from_currencies: T::Array[String], lock_duration: String, to_currency: String, usage: T.nilable(FxQuoteCreateParams::Usage)).void
+      params(expand: T.nilable(T::Array[String]), from_currencies: T::Array[String], lock_duration: String, to_currency: String, usage: T.nilable(::Stripe::FxQuoteCreateParams::Usage)).void
      }
     def initialize(
       expand: nil,

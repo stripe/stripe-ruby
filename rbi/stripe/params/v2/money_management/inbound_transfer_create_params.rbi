@@ -50,10 +50,10 @@ module Stripe
           def initialize(currency: nil, financial_account: nil); end
         end
         # The amount, in specified currency, by which the FinancialAccount balance will increase due to the InboundTransfer.
-        sig { returns(V2::MoneyManagement::InboundTransferCreateParams::Amount) }
+        sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::Amount) }
         def amount; end
         sig {
-          params(_amount: V2::MoneyManagement::InboundTransferCreateParams::Amount).returns(V2::MoneyManagement::InboundTransferCreateParams::Amount)
+          params(_amount: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::Amount).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::Amount)
          }
         def amount=(_amount); end
         # An optional, freeform description field intended to store metadata.
@@ -62,21 +62,21 @@ module Stripe
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
         # Object containing details about where the funds will originate from.
-        sig { returns(V2::MoneyManagement::InboundTransferCreateParams::From) }
+        sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From) }
         def from; end
         sig {
-          params(_from: V2::MoneyManagement::InboundTransferCreateParams::From).returns(V2::MoneyManagement::InboundTransferCreateParams::From)
+          params(_from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From)
          }
         def from=(_from); end
         # Object containing details about where the funds will land.
-        sig { returns(V2::MoneyManagement::InboundTransferCreateParams::To) }
+        sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To) }
         def to; end
         sig {
-          params(_to: V2::MoneyManagement::InboundTransferCreateParams::To).returns(V2::MoneyManagement::InboundTransferCreateParams::To)
+          params(_to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To)
          }
         def to=(_to); end
         sig {
-          params(amount: V2::MoneyManagement::InboundTransferCreateParams::Amount, description: T.nilable(String), from: V2::MoneyManagement::InboundTransferCreateParams::From, to: V2::MoneyManagement::InboundTransferCreateParams::To).void
+          params(amount: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
          }
         def initialize(amount: nil, description: nil, from: nil, to: nil); end
       end

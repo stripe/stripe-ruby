@@ -23,11 +23,11 @@ module Stripe
           end
           # Time span for the redeemed discount.
           sig {
-            returns(T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration))
+            returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration))
            }
           def duration; end
           sig {
-            params(_duration: T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration)).returns(T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration))
+            params(_duration: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration))
            }
           def duration=(_duration); end
           # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -41,7 +41,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(duration: T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+            params(duration: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
            }
           def initialize(duration: nil, timestamp: nil, type: nil); end
         end
@@ -56,10 +56,10 @@ module Stripe
         sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
         def discount=(_discount); end
         # Details to determine how long the discount should be applied for.
-        sig { returns(T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd)) }
+        sig { returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd)) }
         def discount_end; end
         sig {
-          params(_discount_end: T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd)).returns(T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd))
+          params(_discount_end: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd))
          }
         def discount_end=(_discount_end); end
         # ID of the promotion code to create a new discount for.
@@ -68,7 +68,7 @@ module Stripe
         sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
         def promotion_code=(_promotion_code); end
         sig {
-          params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(InvoiceUpdateLinesParams::Line::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
+          params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
          }
         def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
       end
@@ -143,10 +143,10 @@ module Stripe
         sig { params(_product: T.nilable(String)).returns(T.nilable(String)) }
         def product=(_product); end
         # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
-        sig { returns(T.nilable(InvoiceUpdateLinesParams::Line::PriceData::ProductData)) }
+        sig { returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData::ProductData)) }
         def product_data; end
         sig {
-          params(_product_data: T.nilable(InvoiceUpdateLinesParams::Line::PriceData::ProductData)).returns(T.nilable(InvoiceUpdateLinesParams::Line::PriceData::ProductData))
+          params(_product_data: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData::ProductData)).returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData::ProductData))
          }
         def product_data=(_product_data); end
         # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -165,7 +165,7 @@ module Stripe
         sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
         def unit_amount_decimal=(_unit_amount_decimal); end
         sig {
-          params(currency: String, product: T.nilable(String), product_data: T.nilable(InvoiceUpdateLinesParams::Line::PriceData::ProductData), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData::ProductData), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           currency: nil,
@@ -255,10 +255,10 @@ module Stripe
         # Data to find or create a TaxRate object.
         #
         # Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item’s `tax_rates`, and cannot be directly added to invoices, payments, or line items.
-        sig { returns(InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData) }
+        sig { returns(::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData) }
         def tax_rate_data; end
         sig {
-          params(_tax_rate_data: InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData).returns(InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData)
+          params(_tax_rate_data: ::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData).returns(::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData)
          }
         def tax_rate_data=(_tax_rate_data); end
         # The reasoning behind this tax, for example, if the product is tax exempt.
@@ -272,7 +272,7 @@ module Stripe
         sig { params(_taxable_amount: Integer).returns(Integer) }
         def taxable_amount=(_taxable_amount); end
         sig {
-          params(amount: Integer, tax_rate_data: InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData, taxability_reason: T.nilable(String), taxable_amount: Integer).void
+          params(amount: Integer, tax_rate_data: ::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount::TaxRateData, taxability_reason: T.nilable(String), taxable_amount: Integer).void
          }
         def initialize(
           amount: nil,
@@ -297,10 +297,12 @@ module Stripe
       sig { params(_discountable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def discountable=(_discountable); end
       # The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
-      sig { returns(T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::Discount]))) }
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::Discount])))
+       }
       def discounts; end
       sig {
-        params(_discounts: T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::Discount]))).returns(T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::Discount])))
+        params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::Discount])))
        }
       def discounts=(_discounts); end
       # ID of an existing line item on the invoice.
@@ -323,24 +325,24 @@ module Stripe
        }
       def metadata=(_metadata); end
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
-      sig { returns(T.nilable(InvoiceUpdateLinesParams::Line::Period)) }
+      sig { returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Period)) }
       def period; end
       sig {
-        params(_period: T.nilable(InvoiceUpdateLinesParams::Line::Period)).returns(T.nilable(InvoiceUpdateLinesParams::Line::Period))
+        params(_period: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Period)).returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Period))
        }
       def period=(_period); end
       # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
-      sig { returns(T.nilable(InvoiceUpdateLinesParams::Line::PriceData)) }
+      sig { returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData)) }
       def price_data; end
       sig {
-        params(_price_data: T.nilable(InvoiceUpdateLinesParams::Line::PriceData)).returns(T.nilable(InvoiceUpdateLinesParams::Line::PriceData))
+        params(_price_data: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData)).returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData))
        }
       def price_data=(_price_data); end
       # The pricing information for the invoice item.
-      sig { returns(T.nilable(InvoiceUpdateLinesParams::Line::Pricing)) }
+      sig { returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing)) }
       def pricing; end
       sig {
-        params(_pricing: T.nilable(InvoiceUpdateLinesParams::Line::Pricing)).returns(T.nilable(InvoiceUpdateLinesParams::Line::Pricing))
+        params(_pricing: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing)).returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing))
        }
       def pricing=(_pricing); end
       # Non-negative integer. The quantity of units for the line item.
@@ -349,10 +351,12 @@ module Stripe
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
       # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
-      sig { returns(T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::TaxAmount]))) }
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount])))
+       }
       def tax_amounts; end
       sig {
-        params(_tax_amounts: T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::TaxAmount]))).returns(T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::TaxAmount])))
+        params(_tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount])))
        }
       def tax_amounts=(_tax_amounts); end
       # The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
@@ -363,7 +367,7 @@ module Stripe
        }
       def tax_rates=(_tax_rates); end
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::Discount])), id: String, margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(InvoiceUpdateLinesParams::Line::Period), price_data: T.nilable(InvoiceUpdateLinesParams::Line::PriceData), pricing: T.nilable(InvoiceUpdateLinesParams::Line::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[InvoiceUpdateLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::Discount])), id: String, margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
        }
       def initialize(
         amount: nil,
@@ -394,14 +398,14 @@ module Stripe
      }
     def invoice_metadata=(_invoice_metadata); end
     # The line items to update.
-    sig { returns(T::Array[InvoiceUpdateLinesParams::Line]) }
+    sig { returns(T::Array[::Stripe::InvoiceUpdateLinesParams::Line]) }
     def lines; end
     sig {
-      params(_lines: T::Array[InvoiceUpdateLinesParams::Line]).returns(T::Array[InvoiceUpdateLinesParams::Line])
+      params(_lines: T::Array[::Stripe::InvoiceUpdateLinesParams::Line]).returns(T::Array[::Stripe::InvoiceUpdateLinesParams::Line])
      }
     def lines=(_lines); end
     sig {
-      params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[InvoiceUpdateLinesParams::Line]).void
+      params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[::Stripe::InvoiceUpdateLinesParams::Line]).void
      }
     def initialize(expand: nil, invoice_metadata: nil, lines: nil); end
   end

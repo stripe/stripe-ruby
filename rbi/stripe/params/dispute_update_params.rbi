@@ -90,15 +90,15 @@ module Stripe
             def product_description=(_product_description); end
             # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
             sig {
-              returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress))
+              returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress))
              }
             def shipping_address; end
             sig {
-              params(_shipping_address: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress)).returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress))
+              params(_shipping_address: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress)).returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress))
              }
             def shipping_address=(_shipping_address); end
             sig {
-              params(customer_account_id: T.nilable(String), customer_device_fingerprint: T.nilable(String), customer_device_id: T.nilable(String), customer_email_address: T.nilable(String), customer_purchase_ip: T.nilable(String), merchandise_or_services: T.nilable(String), product_description: T.nilable(String), shipping_address: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress)).void
+              params(customer_account_id: T.nilable(String), customer_device_fingerprint: T.nilable(String), customer_device_id: T.nilable(String), customer_email_address: T.nilable(String), customer_purchase_ip: T.nilable(String), merchandise_or_services: T.nilable(String), product_description: T.nilable(String), shipping_address: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress)).void
              }
             def initialize(
               customer_account_id: nil,
@@ -194,15 +194,15 @@ module Stripe
             def product_description=(_product_description); end
             # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
             sig {
-              returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress))
+              returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress))
              }
             def shipping_address; end
             sig {
-              params(_shipping_address: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress)).returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress))
+              params(_shipping_address: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress)).returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress))
              }
             def shipping_address=(_shipping_address); end
             sig {
-              params(charge: String, customer_account_id: T.nilable(String), customer_device_fingerprint: T.nilable(String), customer_device_id: T.nilable(String), customer_email_address: T.nilable(String), customer_purchase_ip: T.nilable(String), product_description: T.nilable(String), shipping_address: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress)).void
+              params(charge: String, customer_account_id: T.nilable(String), customer_device_fingerprint: T.nilable(String), customer_device_id: T.nilable(String), customer_email_address: T.nilable(String), customer_purchase_ip: T.nilable(String), product_description: T.nilable(String), shipping_address: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress)).void
              }
             def initialize(
               charge: nil,
@@ -217,24 +217,24 @@ module Stripe
           end
           # Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission.
           sig {
-            returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction))
+            returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction))
            }
           def disputed_transaction; end
           sig {
-            params(_disputed_transaction: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction)).returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction))
+            params(_disputed_transaction: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction)).returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction))
            }
           def disputed_transaction=(_disputed_transaction); end
           # List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission.
           sig {
-            returns(T.nilable(T::Array[DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction]))
+            returns(T.nilable(T::Array[::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction]))
            }
           def prior_undisputed_transactions; end
           sig {
-            params(_prior_undisputed_transactions: T.nilable(T::Array[DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction])).returns(T.nilable(T::Array[DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction]))
+            params(_prior_undisputed_transactions: T.nilable(T::Array[::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction])).returns(T.nilable(T::Array[::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction]))
            }
           def prior_undisputed_transactions=(_prior_undisputed_transactions); end
           sig {
-            params(disputed_transaction: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction), prior_undisputed_transactions: T.nilable(T::Array[DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction])).void
+            params(disputed_transaction: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction), prior_undisputed_transactions: T.nilable(T::Array[::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction])).void
            }
           def initialize(disputed_transaction: nil, prior_undisputed_transactions: nil); end
         end
@@ -249,22 +249,24 @@ module Stripe
         end
         # Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
         sig {
-          returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3))
+          returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3))
          }
         def visa_compelling_evidence_3; end
         sig {
-          params(_visa_compelling_evidence_3: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3)).returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3))
+          params(_visa_compelling_evidence_3: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3)).returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3))
          }
         def visa_compelling_evidence_3=(_visa_compelling_evidence_3); end
         # Evidence provided for Visa compliance evidence submission.
-        sig { returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance)) }
+        sig {
+          returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance))
+         }
         def visa_compliance; end
         sig {
-          params(_visa_compliance: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance)).returns(T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance))
+          params(_visa_compliance: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance)).returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance))
          }
         def visa_compliance=(_visa_compliance); end
         sig {
-          params(visa_compelling_evidence_3: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3), visa_compliance: T.nilable(DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance)).void
+          params(visa_compelling_evidence_3: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3), visa_compliance: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance)).void
          }
         def initialize(visa_compelling_evidence_3: nil, visa_compliance: nil); end
       end
@@ -334,10 +336,12 @@ module Stripe
       sig { params(_duplicate_charge_id: T.nilable(String)).returns(T.nilable(String)) }
       def duplicate_charge_id=(_duplicate_charge_id); end
       # Additional evidence for qualifying evidence programs.
-      sig { returns(T.nilable(T.any(String, DisputeUpdateParams::Evidence::EnhancedEvidence))) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence)))
+       }
       def enhanced_evidence; end
       sig {
-        params(_enhanced_evidence: T.nilable(T.any(String, DisputeUpdateParams::Evidence::EnhancedEvidence))).returns(T.nilable(T.any(String, DisputeUpdateParams::Evidence::EnhancedEvidence)))
+        params(_enhanced_evidence: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence))).returns(T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence)))
        }
       def enhanced_evidence=(_enhanced_evidence); end
       # A description of the product or service that was sold. Has a maximum character count of 20,000.
@@ -411,7 +415,7 @@ module Stripe
       sig { params(_uncategorized_text: T.nilable(String)).returns(T.nilable(String)) }
       def uncategorized_text=(_uncategorized_text); end
       sig {
-        params(access_activity_log: T.nilable(String), billing_address: T.nilable(String), cancellation_policy: T.nilable(String), cancellation_policy_disclosure: T.nilable(String), cancellation_rebuttal: T.nilable(String), customer_communication: T.nilable(String), customer_email_address: T.nilable(String), customer_name: T.nilable(String), customer_purchase_ip: T.nilable(String), customer_signature: T.nilable(String), duplicate_charge_documentation: T.nilable(String), duplicate_charge_explanation: T.nilable(String), duplicate_charge_id: T.nilable(String), enhanced_evidence: T.nilable(T.any(String, DisputeUpdateParams::Evidence::EnhancedEvidence)), product_description: T.nilable(String), receipt: T.nilable(String), refund_policy: T.nilable(String), refund_policy_disclosure: T.nilable(String), refund_refusal_explanation: T.nilable(String), service_date: T.nilable(String), service_documentation: T.nilable(String), shipping_address: T.nilable(String), shipping_carrier: T.nilable(String), shipping_date: T.nilable(String), shipping_documentation: T.nilable(String), shipping_tracking_number: T.nilable(String), uncategorized_file: T.nilable(String), uncategorized_text: T.nilable(String)).void
+        params(access_activity_log: T.nilable(String), billing_address: T.nilable(String), cancellation_policy: T.nilable(String), cancellation_policy_disclosure: T.nilable(String), cancellation_rebuttal: T.nilable(String), customer_communication: T.nilable(String), customer_email_address: T.nilable(String), customer_name: T.nilable(String), customer_purchase_ip: T.nilable(String), customer_signature: T.nilable(String), duplicate_charge_documentation: T.nilable(String), duplicate_charge_explanation: T.nilable(String), duplicate_charge_id: T.nilable(String), enhanced_evidence: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence)), product_description: T.nilable(String), receipt: T.nilable(String), refund_policy: T.nilable(String), refund_policy_disclosure: T.nilable(String), refund_refusal_explanation: T.nilable(String), service_date: T.nilable(String), service_documentation: T.nilable(String), shipping_address: T.nilable(String), shipping_carrier: T.nilable(String), shipping_date: T.nilable(String), shipping_documentation: T.nilable(String), shipping_tracking_number: T.nilable(String), uncategorized_file: T.nilable(String), uncategorized_text: T.nilable(String)).void
        }
       def initialize(
         access_activity_log: nil,
@@ -445,10 +449,10 @@ module Stripe
       ); end
     end
     # Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
-    sig { returns(T.nilable(DisputeUpdateParams::Evidence)) }
+    sig { returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence)) }
     def evidence; end
     sig {
-      params(_evidence: T.nilable(DisputeUpdateParams::Evidence)).returns(T.nilable(DisputeUpdateParams::Evidence))
+      params(_evidence: T.nilable(::Stripe::DisputeUpdateParams::Evidence)).returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence))
      }
     def evidence=(_evidence); end
     # Specifies which fields in the response should be expanded.
@@ -474,7 +478,7 @@ module Stripe
     sig { params(_submit: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def submit=(_submit); end
     sig {
-      params(evidence: T.nilable(DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), intended_submission_method: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
+      params(evidence: T.nilable(::Stripe::DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), intended_submission_method: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
      }
     def initialize(
       evidence: nil,

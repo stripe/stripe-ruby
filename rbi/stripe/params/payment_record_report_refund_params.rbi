@@ -29,10 +29,12 @@ module Stripe
         def initialize(refund_reference: nil); end
       end
       # Information about the custom processor used to make this refund.
-      sig { returns(T.nilable(PaymentRecordReportRefundParams::ProcessorDetails::Custom)) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordReportRefundParams::ProcessorDetails::Custom))
+       }
       def custom; end
       sig {
-        params(_custom: T.nilable(PaymentRecordReportRefundParams::ProcessorDetails::Custom)).returns(T.nilable(PaymentRecordReportRefundParams::ProcessorDetails::Custom))
+        params(_custom: T.nilable(::Stripe::PaymentRecordReportRefundParams::ProcessorDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecordReportRefundParams::ProcessorDetails::Custom))
        }
       def custom=(_custom); end
       # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
@@ -41,7 +43,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(custom: T.nilable(PaymentRecordReportRefundParams::ProcessorDetails::Custom), type: String).void
+        params(custom: T.nilable(::Stripe::PaymentRecordReportRefundParams::ProcessorDetails::Custom), type: String).void
        }
       def initialize(custom: nil, type: nil); end
     end
@@ -55,10 +57,10 @@ module Stripe
       def initialize(refunded_at: nil); end
     end
     # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing how much of this payment to refund. Can refund only up to the remaining, unrefunded amount of the payment.
-    sig { returns(T.nilable(PaymentRecordReportRefundParams::Amount)) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount)) }
     def amount; end
     sig {
-      params(_amount: T.nilable(PaymentRecordReportRefundParams::Amount)).returns(T.nilable(PaymentRecordReportRefundParams::Amount))
+      params(_amount: T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount)).returns(T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount))
      }
     def amount=(_amount); end
     # Specifies which fields in the response should be expanded.
@@ -84,21 +86,21 @@ module Stripe
     sig { params(_outcome: String).returns(String) }
     def outcome=(_outcome); end
     # Processor information for this refund.
-    sig { returns(PaymentRecordReportRefundParams::ProcessorDetails) }
+    sig { returns(::Stripe::PaymentRecordReportRefundParams::ProcessorDetails) }
     def processor_details; end
     sig {
-      params(_processor_details: PaymentRecordReportRefundParams::ProcessorDetails).returns(PaymentRecordReportRefundParams::ProcessorDetails)
+      params(_processor_details: ::Stripe::PaymentRecordReportRefundParams::ProcessorDetails).returns(::Stripe::PaymentRecordReportRefundParams::ProcessorDetails)
      }
     def processor_details=(_processor_details); end
     # Information about the payment attempt refund.
-    sig { returns(PaymentRecordReportRefundParams::Refunded) }
+    sig { returns(::Stripe::PaymentRecordReportRefundParams::Refunded) }
     def refunded; end
     sig {
-      params(_refunded: PaymentRecordReportRefundParams::Refunded).returns(PaymentRecordReportRefundParams::Refunded)
+      params(_refunded: ::Stripe::PaymentRecordReportRefundParams::Refunded).returns(::Stripe::PaymentRecordReportRefundParams::Refunded)
      }
     def refunded=(_refunded); end
     sig {
-      params(amount: T.nilable(PaymentRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: String, processor_details: PaymentRecordReportRefundParams::ProcessorDetails, refunded: PaymentRecordReportRefundParams::Refunded).void
+      params(amount: T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: String, processor_details: ::Stripe::PaymentRecordReportRefundParams::ProcessorDetails, refunded: ::Stripe::PaymentRecordReportRefundParams::Refunded).void
      }
     def initialize(
       amount: nil,

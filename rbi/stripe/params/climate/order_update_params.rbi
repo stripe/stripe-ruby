@@ -15,10 +15,10 @@ module Stripe
         def initialize(public_name: nil); end
       end
       # Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set.
-      sig { returns(T.nilable(T.any(String, Climate::OrderUpdateParams::Beneficiary))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Climate::OrderUpdateParams::Beneficiary))) }
       def beneficiary; end
       sig {
-        params(_beneficiary: T.nilable(T.any(String, Climate::OrderUpdateParams::Beneficiary))).returns(T.nilable(T.any(String, Climate::OrderUpdateParams::Beneficiary)))
+        params(_beneficiary: T.nilable(T.any(String, ::Stripe::Climate::OrderUpdateParams::Beneficiary))).returns(T.nilable(T.any(String, ::Stripe::Climate::OrderUpdateParams::Beneficiary)))
        }
       def beneficiary=(_beneficiary); end
       # Specifies which fields in the response should be expanded.
@@ -34,7 +34,7 @@ module Stripe
        }
       def metadata=(_metadata); end
       sig {
-        params(beneficiary: T.nilable(T.any(String, Climate::OrderUpdateParams::Beneficiary)), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
+        params(beneficiary: T.nilable(T.any(String, ::Stripe::Climate::OrderUpdateParams::Beneficiary)), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
        }
       def initialize(beneficiary: nil, expand: nil, metadata: nil); end
     end

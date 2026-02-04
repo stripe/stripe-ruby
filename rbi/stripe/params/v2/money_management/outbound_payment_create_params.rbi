@@ -81,19 +81,19 @@ module Stripe
           def initialize(currency: nil, payout_method: nil, recipient: nil); end
         end
         # The "presentment amount" to be sent to the recipient.
-        sig { returns(V2::MoneyManagement::OutboundPaymentCreateParams::Amount) }
+        sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::Amount) }
         def amount; end
         sig {
-          params(_amount: V2::MoneyManagement::OutboundPaymentCreateParams::Amount).returns(V2::MoneyManagement::OutboundPaymentCreateParams::Amount)
+          params(_amount: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::Amount).returns(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::Amount)
          }
         def amount=(_amount); end
         # Delivery options to be used to send the OutboundPayment.
         sig {
-          returns(T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions))
+          returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions))
          }
         def delivery_options; end
         sig {
-          params(_delivery_options: T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions)).returns(T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions))
+          params(_delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions))
          }
         def delivery_options=(_delivery_options); end
         # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users.
@@ -102,10 +102,10 @@ module Stripe
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
         # From which FinancialAccount and BalanceType to pull funds from.
-        sig { returns(V2::MoneyManagement::OutboundPaymentCreateParams::From) }
+        sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::From) }
         def from; end
         sig {
-          params(_from: V2::MoneyManagement::OutboundPaymentCreateParams::From).returns(V2::MoneyManagement::OutboundPaymentCreateParams::From)
+          params(_from: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::From).returns(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::From)
          }
         def from=(_from); end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -122,22 +122,22 @@ module Stripe
         def outbound_payment_quote=(_outbound_payment_quote); end
         # Details about the notification settings for the OutboundPayment recipient.
         sig {
-          returns(T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification))
+          returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification))
          }
         def recipient_notification; end
         sig {
-          params(_recipient_notification: T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification)).returns(T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification))
+          params(_recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification))
          }
         def recipient_notification=(_recipient_notification); end
         # To which payout method to send the OutboundPayment.
-        sig { returns(V2::MoneyManagement::OutboundPaymentCreateParams::To) }
+        sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::To) }
         def to; end
         sig {
-          params(_to: V2::MoneyManagement::OutboundPaymentCreateParams::To).returns(V2::MoneyManagement::OutboundPaymentCreateParams::To)
+          params(_to: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::To).returns(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::To)
          }
         def to=(_to); end
         sig {
-          params(amount: V2::MoneyManagement::OutboundPaymentCreateParams::Amount, delivery_options: T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions), description: T.nilable(String), from: V2::MoneyManagement::OutboundPaymentCreateParams::From, metadata: T.nilable(T::Hash[String, String]), outbound_payment_quote: T.nilable(String), recipient_notification: T.nilable(V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification), to: V2::MoneyManagement::OutboundPaymentCreateParams::To).void
+          params(amount: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::From, metadata: T.nilable(T::Hash[String, String]), outbound_payment_quote: T.nilable(String), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification), to: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::To).void
          }
         def initialize(
           amount: nil,

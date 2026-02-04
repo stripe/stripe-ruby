@@ -91,11 +91,11 @@ module Stripe
           end
           # Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
           sig {
-            returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason))
+            returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason))
            }
           def cancellation_reason; end
           sig {
-            params(_cancellation_reason: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason))
+            params(_cancellation_reason: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason))
            }
           def cancellation_reason=(_cancellation_reason); end
           # Whether the feature is enabled.
@@ -114,7 +114,7 @@ module Stripe
           sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
           def proration_behavior=(_proration_behavior); end
           sig {
-            params(cancellation_reason: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason), enabled: T.nilable(T::Boolean), mode: T.nilable(String), proration_behavior: T.nilable(String)).void
+            params(cancellation_reason: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel::CancellationReason), enabled: T.nilable(T::Boolean), mode: T.nilable(String), proration_behavior: T.nilable(String)).void
            }
           def initialize(
             cancellation_reason: nil,
@@ -148,11 +148,11 @@ module Stripe
             end
             # Control whether the quantity of the product can be adjusted.
             sig {
-              returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity))
+              returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity))
              }
             def adjustable_quantity; end
             sig {
-              params(_adjustable_quantity: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity))
+              params(_adjustable_quantity: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity))
              }
             def adjustable_quantity=(_adjustable_quantity); end
             # The list of price IDs for the product that a subscription can be updated to.
@@ -166,7 +166,7 @@ module Stripe
             sig { params(_product: String).returns(String) }
             def product=(_product); end
             sig {
-              params(adjustable_quantity: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity), prices: T::Array[String], product: String).void
+              params(adjustable_quantity: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity), prices: T::Array[String], product: String).void
              }
             def initialize(adjustable_quantity: nil, prices: nil, product: nil); end
           end
@@ -182,15 +182,15 @@ module Stripe
             end
             # List of conditions. When any condition is true, the update will be scheduled at the end of the current period.
             sig {
-              returns(T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])))
+              returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])))
              }
             def conditions; end
             sig {
-              params(_conditions: T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]))).returns(T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])))
+              params(_conditions: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]))).returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])))
              }
             def conditions=(_conditions); end
             sig {
-              params(conditions: T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]))).void
+              params(conditions: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]))).void
              }
             def initialize(conditions: nil); end
           end
@@ -213,11 +213,11 @@ module Stripe
           def enabled=(_enabled); end
           # The list of up to 10 products that support subscription updates.
           sig {
-            returns(T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])))
+            returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])))
            }
           def products; end
           sig {
-            params(_products: T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product]))).returns(T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])))
+            params(_products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product]))).returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])))
            }
           def products=(_products); end
           # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
@@ -227,11 +227,11 @@ module Stripe
           def proration_behavior=(_proration_behavior); end
           # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
           sig {
-            returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
+            returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
            }
           def schedule_at_period_end; end
           sig {
-            params(_schedule_at_period_end: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
+            params(_schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
            }
           def schedule_at_period_end=(_schedule_at_period_end); end
           # The behavior when updating a subscription that is trialing.
@@ -240,7 +240,7 @@ module Stripe
           sig { params(_trial_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
           def trial_update_behavior=(_trial_update_behavior); end
           sig {
-            params(billing_cycle_anchor: T.nilable(String), default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
+            params(billing_cycle_anchor: T.nilable(String), default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
            }
           def initialize(
             billing_cycle_anchor: nil,
@@ -254,51 +254,51 @@ module Stripe
         end
         # Information about updating the customer details in the portal.
         sig {
-          returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate))
+          returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate))
          }
         def customer_update; end
         sig {
-          params(_customer_update: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate))
+          params(_customer_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate))
          }
         def customer_update=(_customer_update); end
         # Information about showing the billing history in the portal.
         sig {
-          returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory))
+          returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory))
          }
         def invoice_history; end
         sig {
-          params(_invoice_history: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory))
+          params(_invoice_history: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory))
          }
         def invoice_history=(_invoice_history); end
         # Information about updating payment methods in the portal.
         sig {
-          returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate))
+          returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate))
          }
         def payment_method_update; end
         sig {
-          params(_payment_method_update: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate))
+          params(_payment_method_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate))
          }
         def payment_method_update=(_payment_method_update); end
         # Information about canceling subscriptions in the portal.
         sig {
-          returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel))
+          returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel))
          }
         def subscription_cancel; end
         sig {
-          params(_subscription_cancel: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel))
+          params(_subscription_cancel: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel))
          }
         def subscription_cancel=(_subscription_cancel); end
         # Information about updating subscriptions in the portal.
         sig {
-          returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate))
+          returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate))
          }
         def subscription_update; end
         sig {
-          params(_subscription_update: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate))
+          params(_subscription_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate))
          }
         def subscription_update=(_subscription_update); end
         sig {
-          params(customer_update: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate), invoice_history: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory), payment_method_update: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate), subscription_cancel: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel), subscription_update: T.nilable(BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate)).void
+          params(customer_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate), invoice_history: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory), payment_method_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate), subscription_cancel: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel), subscription_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate)).void
          }
         def initialize(
           customer_update: nil,
@@ -325,10 +325,12 @@ module Stripe
       sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def active=(_active); end
       # The business information shown to customers in the portal.
-      sig { returns(T.nilable(BillingPortal::ConfigurationUpdateParams::BusinessProfile)) }
+      sig {
+        returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::BusinessProfile))
+       }
       def business_profile; end
       sig {
-        params(_business_profile: T.nilable(BillingPortal::ConfigurationUpdateParams::BusinessProfile)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::BusinessProfile))
+        params(_business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::BusinessProfile)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::BusinessProfile))
        }
       def business_profile=(_business_profile); end
       # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
@@ -342,17 +344,17 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Information about the features available in the portal.
-      sig { returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features)) }
+      sig { returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features)) }
       def features; end
       sig {
-        params(_features: T.nilable(BillingPortal::ConfigurationUpdateParams::Features)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::Features))
+        params(_features: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features))
        }
       def features=(_features); end
       # The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
-      sig { returns(T.nilable(BillingPortal::ConfigurationUpdateParams::LoginPage)) }
+      sig { returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::LoginPage)) }
       def login_page; end
       sig {
-        params(_login_page: T.nilable(BillingPortal::ConfigurationUpdateParams::LoginPage)).returns(T.nilable(BillingPortal::ConfigurationUpdateParams::LoginPage))
+        params(_login_page: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::LoginPage)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::LoginPage))
        }
       def login_page=(_login_page); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -368,7 +370,7 @@ module Stripe
       sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
       def name=(_name); end
       sig {
-        params(active: T.nilable(T::Boolean), business_profile: T.nilable(BillingPortal::ConfigurationUpdateParams::BusinessProfile), default_return_url: T.nilable(String), expand: T.nilable(T::Array[String]), features: T.nilable(BillingPortal::ConfigurationUpdateParams::Features), login_page: T.nilable(BillingPortal::ConfigurationUpdateParams::LoginPage), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
+        params(active: T.nilable(T::Boolean), business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::BusinessProfile), default_return_url: T.nilable(String), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features), login_page: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::LoginPage), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
        }
       def initialize(
         active: nil,

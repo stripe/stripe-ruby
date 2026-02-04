@@ -22,15 +22,15 @@ module Stripe
         end
         # The options associated with the Apple Terms and Conditions link type.
         sig {
-          returns(T.nilable(Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions))
+          returns(T.nilable(::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions))
          }
         def apple_terms_and_conditions; end
         sig {
-          params(_apple_terms_and_conditions: T.nilable(Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions)).returns(T.nilable(Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions))
+          params(_apple_terms_and_conditions: T.nilable(::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions)).returns(T.nilable(::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions))
          }
         def apple_terms_and_conditions=(_apple_terms_and_conditions); end
         sig {
-          params(apple_terms_and_conditions: T.nilable(Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions)).void
+          params(apple_terms_and_conditions: T.nilable(::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions::AppleTermsAndConditions)).void
          }
         def initialize(apple_terms_and_conditions: nil); end
       end
@@ -40,10 +40,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Specific fields needed to generate the desired link type.
-      sig { returns(Terminal::OnboardingLinkCreateParams::LinkOptions) }
+      sig { returns(::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions) }
       def link_options; end
       sig {
-        params(_link_options: Terminal::OnboardingLinkCreateParams::LinkOptions).returns(Terminal::OnboardingLinkCreateParams::LinkOptions)
+        params(_link_options: ::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions).returns(::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions)
        }
       def link_options=(_link_options); end
       # The type of link being generated.
@@ -57,7 +57,7 @@ module Stripe
       sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
       def on_behalf_of=(_on_behalf_of); end
       sig {
-        params(expand: T.nilable(T::Array[String]), link_options: Terminal::OnboardingLinkCreateParams::LinkOptions, link_type: String, on_behalf_of: T.nilable(String)).void
+        params(expand: T.nilable(T::Array[String]), link_options: ::Stripe::Terminal::OnboardingLinkCreateParams::LinkOptions, link_type: String, on_behalf_of: T.nilable(String)).void
        }
       def initialize(expand: nil, link_options: nil, link_type: nil, on_behalf_of: nil); end
     end

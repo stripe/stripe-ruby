@@ -64,20 +64,20 @@ module Stripe
           ); end
         end
         # The location of the business for tax purposes.
-        sig { returns(Tax::SettingsUpdateParams::HeadOffice::Address) }
+        sig { returns(::Stripe::Tax::SettingsUpdateParams::HeadOffice::Address) }
         def address; end
         sig {
-          params(_address: Tax::SettingsUpdateParams::HeadOffice::Address).returns(Tax::SettingsUpdateParams::HeadOffice::Address)
+          params(_address: ::Stripe::Tax::SettingsUpdateParams::HeadOffice::Address).returns(::Stripe::Tax::SettingsUpdateParams::HeadOffice::Address)
          }
         def address=(_address); end
-        sig { params(address: Tax::SettingsUpdateParams::HeadOffice::Address).void }
+        sig { params(address: ::Stripe::Tax::SettingsUpdateParams::HeadOffice::Address).void }
         def initialize(address: nil); end
       end
       # Default configuration to be used on Stripe Tax calculations.
-      sig { returns(T.nilable(Tax::SettingsUpdateParams::Defaults)) }
+      sig { returns(T.nilable(::Stripe::Tax::SettingsUpdateParams::Defaults)) }
       def defaults; end
       sig {
-        params(_defaults: T.nilable(Tax::SettingsUpdateParams::Defaults)).returns(T.nilable(Tax::SettingsUpdateParams::Defaults))
+        params(_defaults: T.nilable(::Stripe::Tax::SettingsUpdateParams::Defaults)).returns(T.nilable(::Stripe::Tax::SettingsUpdateParams::Defaults))
        }
       def defaults=(_defaults); end
       # Specifies which fields in the response should be expanded.
@@ -86,14 +86,14 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # The place where your business is located.
-      sig { returns(T.nilable(Tax::SettingsUpdateParams::HeadOffice)) }
+      sig { returns(T.nilable(::Stripe::Tax::SettingsUpdateParams::HeadOffice)) }
       def head_office; end
       sig {
-        params(_head_office: T.nilable(Tax::SettingsUpdateParams::HeadOffice)).returns(T.nilable(Tax::SettingsUpdateParams::HeadOffice))
+        params(_head_office: T.nilable(::Stripe::Tax::SettingsUpdateParams::HeadOffice)).returns(T.nilable(::Stripe::Tax::SettingsUpdateParams::HeadOffice))
        }
       def head_office=(_head_office); end
       sig {
-        params(defaults: T.nilable(Tax::SettingsUpdateParams::Defaults), expand: T.nilable(T::Array[String]), head_office: T.nilable(Tax::SettingsUpdateParams::HeadOffice)).void
+        params(defaults: T.nilable(::Stripe::Tax::SettingsUpdateParams::Defaults), expand: T.nilable(T::Array[String]), head_office: T.nilable(::Stripe::Tax::SettingsUpdateParams::HeadOffice)).void
        }
       def initialize(defaults: nil, expand: nil, head_office: nil); end
     end

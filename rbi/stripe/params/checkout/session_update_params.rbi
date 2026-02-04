@@ -21,14 +21,14 @@ module Stripe
           def initialize(account: nil, type: nil); end
         end
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        sig { returns(T.nilable(Checkout::SessionUpdateParams::AutomaticTax::Liability)) }
+        sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax::Liability)) }
         def liability; end
         sig {
-          params(_liability: T.nilable(Checkout::SessionUpdateParams::AutomaticTax::Liability)).returns(T.nilable(Checkout::SessionUpdateParams::AutomaticTax::Liability))
+          params(_liability: T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax::Liability)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax::Liability))
          }
         def liability=(_liability); end
         sig {
-          params(liability: T.nilable(Checkout::SessionUpdateParams::AutomaticTax::Liability)).void
+          params(liability: T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax::Liability)).void
          }
         def initialize(liability: nil); end
       end
@@ -79,11 +79,11 @@ module Stripe
           end
           # The address of the customer
           sig {
-            returns(Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address)
+            returns(::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address)
            }
           def address; end
           sig {
-            params(_address: Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address).returns(Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address)
+            params(_address: ::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address).returns(::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address)
            }
           def address=(_address); end
           # The name of customer
@@ -92,21 +92,21 @@ module Stripe
           sig { params(_name: String).returns(String) }
           def name=(_name); end
           sig {
-            params(address: Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address, name: String).void
+            params(address: ::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails::Address, name: String).void
            }
           def initialize(address: nil, name: nil); end
         end
         # The shipping details to apply to this Session.
         sig {
-          returns(T.nilable(Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails))
+          returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails))
          }
         def shipping_details; end
         sig {
-          params(_shipping_details: T.nilable(Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails)).returns(T.nilable(Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails))
+          params(_shipping_details: T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails))
          }
         def shipping_details=(_shipping_details); end
         sig {
-          params(shipping_details: T.nilable(Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails)).void
+          params(shipping_details: T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation::ShippingDetails)).void
          }
         def initialize(shipping_details: nil); end
       end
@@ -162,14 +162,14 @@ module Stripe
         sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
         def coupon=(_coupon); end
         # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
-        sig { returns(T.nilable(Checkout::SessionUpdateParams::Discount::CouponData)) }
+        sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::Discount::CouponData)) }
         def coupon_data; end
         sig {
-          params(_coupon_data: T.nilable(Checkout::SessionUpdateParams::Discount::CouponData)).returns(T.nilable(Checkout::SessionUpdateParams::Discount::CouponData))
+          params(_coupon_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::Discount::CouponData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::Discount::CouponData))
          }
         def coupon_data=(_coupon_data); end
         sig {
-          params(coupon: T.nilable(String), coupon_data: T.nilable(Checkout::SessionUpdateParams::Discount::CouponData)).void
+          params(coupon: T.nilable(String), coupon_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::Discount::CouponData)).void
          }
         def initialize(coupon: nil, coupon_data: nil); end
       end
@@ -191,27 +191,29 @@ module Stripe
           end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           sig {
-            returns(T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer))
+            returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer))
            }
           def issuer; end
           sig {
-            params(_issuer: T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer))
+            params(_issuer: T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer))
            }
           def issuer=(_issuer); end
           sig {
-            params(issuer: T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer)).void
+            params(issuer: T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData::Issuer)).void
            }
           def initialize(issuer: nil); end
         end
         # Parameters passed when creating invoices for payment-mode Checkout Sessions.
-        sig { returns(T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData)) }
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData))
+         }
         def invoice_data; end
         sig {
-          params(_invoice_data: T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData)).returns(T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData))
+          params(_invoice_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData))
          }
         def invoice_data=(_invoice_data); end
         sig {
-          params(invoice_data: T.nilable(Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData)).void
+          params(invoice_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation::InvoiceData)).void
          }
         def initialize(invoice_data: nil); end
       end
@@ -311,18 +313,20 @@ module Stripe
           def product=(_product); end
           # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
           sig {
-            returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::ProductData))
+            returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData))
            }
           def product_data; end
           sig {
-            params(_product_data: T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::ProductData)).returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::ProductData))
+            params(_product_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData))
            }
           def product_data=(_product_data); end
           # The recurring components of a price such as `interval` and `interval_count`.
-          sig { returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::Recurring)) }
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::Recurring))
+           }
           def recurring; end
           sig {
-            params(_recurring: T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::Recurring)).returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::Recurring))
+            params(_recurring: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::Recurring)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::Recurring))
            }
           def recurring=(_recurring); end
           # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -341,7 +345,7 @@ module Stripe
           sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
           def unit_amount_decimal=(_unit_amount_decimal); end
           sig {
-            params(currency: String, product: T.nilable(String), product_data: T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::ProductData), recurring: T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+            params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData), recurring: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
            }
           def initialize(
             currency: nil,
@@ -354,10 +358,12 @@ module Stripe
           ); end
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
-        sig { returns(T.nilable(Checkout::SessionUpdateParams::LineItem::AdjustableQuantity)) }
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::AdjustableQuantity))
+         }
         def adjustable_quantity; end
         sig {
-          params(_adjustable_quantity: T.nilable(Checkout::SessionUpdateParams::LineItem::AdjustableQuantity)).returns(T.nilable(Checkout::SessionUpdateParams::LineItem::AdjustableQuantity))
+          params(_adjustable_quantity: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::AdjustableQuantity)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::AdjustableQuantity))
          }
         def adjustable_quantity=(_adjustable_quantity); end
         # ID of an existing line item.
@@ -378,10 +384,10 @@ module Stripe
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
         # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
-        sig { returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData)) }
+        sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
-          params(_price_data: T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData)).returns(T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData))
+          params(_price_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData))
          }
         def price_data=(_price_data); end
         # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
@@ -397,7 +403,7 @@ module Stripe
          }
         def tax_rates=(_tax_rates); end
         sig {
-          params(adjustable_quantity: T.nilable(Checkout::SessionUpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), price: T.nilable(String), price_data: T.nilable(Checkout::SessionUpdateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           adjustable_quantity: nil,
@@ -442,24 +448,24 @@ module Stripe
             end
             # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
             sig {
-              returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum))
+              returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum))
              }
             def maximum; end
             sig {
-              params(_maximum: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum)).returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum))
+              params(_maximum: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum))
              }
             def maximum=(_maximum); end
             # The lower bound of the estimated range. If empty, represents no lower bound.
             sig {
-              returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum))
+              returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum))
              }
             def minimum; end
             sig {
-              params(_minimum: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum)).returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum))
+              params(_minimum: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum))
              }
             def minimum=(_minimum); end
             sig {
-              params(maximum: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum), minimum: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum)).void
+              params(maximum: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum), minimum: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum)).void
              }
             def initialize(maximum: nil, minimum: nil); end
           end
@@ -490,25 +496,25 @@ module Stripe
             def currency=(_currency); end
             # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
             sig {
-              returns(T.nilable(T::Hash[String, Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions]))
+              returns(T.nilable(T::Hash[String, ::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions]))
              }
             def currency_options; end
             sig {
-              params(_currency_options: T.nilable(T::Hash[String, Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions]))
+              params(_currency_options: T.nilable(T::Hash[String, ::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions]))
              }
             def currency_options=(_currency_options); end
             sig {
-              params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions])).void
+              params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions])).void
              }
             def initialize(amount: nil, currency: nil, currency_options: nil); end
           end
           # The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
           sig {
-            returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate))
+            returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate))
            }
           def delivery_estimate; end
           sig {
-            params(_delivery_estimate: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate)).returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate))
+            params(_delivery_estimate: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate))
            }
           def delivery_estimate=(_delivery_estimate); end
           # The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
@@ -518,11 +524,11 @@ module Stripe
           def display_name=(_display_name); end
           # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
           sig {
-            returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount))
+            returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount))
            }
           def fixed_amount; end
           sig {
-            params(_fixed_amount: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount)).returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount))
+            params(_fixed_amount: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount))
            }
           def fixed_amount=(_fixed_amount); end
           # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -548,7 +554,7 @@ module Stripe
           sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
           def type=(_type); end
           sig {
-            params(delivery_estimate: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate), display_name: String, fixed_amount: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
+            params(delivery_estimate: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate), display_name: String, fixed_amount: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
            }
           def initialize(
             delivery_estimate: nil,
@@ -566,14 +572,16 @@ module Stripe
         sig { params(_shipping_rate: T.nilable(String)).returns(T.nilable(String)) }
         def shipping_rate=(_shipping_rate); end
         # Parameters to be passed to Shipping Rate creation for this shipping option.
-        sig { returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)) }
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData))
+         }
         def shipping_rate_data; end
         sig {
-          params(_shipping_rate_data: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).returns(T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData))
+          params(_shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData))
          }
         def shipping_rate_data=(_shipping_rate_data); end
         sig {
-          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).void
+          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).void
          }
         def initialize(shipping_rate: nil, shipping_rate_data: nil); end
       end
@@ -595,23 +603,25 @@ module Stripe
           end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           sig {
-            returns(T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer))
+            returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer))
            }
           def issuer; end
           sig {
-            params(_issuer: T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer)).returns(T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer))
+            params(_issuer: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer))
            }
           def issuer=(_issuer); end
           sig {
-            params(issuer: T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer)).void
+            params(issuer: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings::Issuer)).void
            }
           def initialize(issuer: nil); end
         end
         # All invoices will be billed using the specified settings.
-        sig { returns(T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings)) }
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings))
+         }
         def invoice_settings; end
         sig {
-          params(_invoice_settings: T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings))
+          params(_invoice_settings: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings))
          }
         def invoice_settings=(_invoice_settings); end
         # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
@@ -627,29 +637,31 @@ module Stripe
          }
         def trial_period_days=(_trial_period_days); end
         sig {
-          params(invoice_settings: T.nilable(Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings), trial_end: T.nilable(Integer), trial_period_days: T.nilable(T.any(String, Integer))).void
+          params(invoice_settings: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings), trial_end: T.nilable(Integer), trial_period_days: T.nilable(T.any(String, Integer))).void
          }
         def initialize(invoice_settings: nil, trial_end: nil, trial_period_days: nil); end
       end
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
-      sig { returns(T.nilable(Checkout::SessionUpdateParams::AutomaticTax)) }
+      sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax)) }
       def automatic_tax; end
       sig {
-        params(_automatic_tax: T.nilable(Checkout::SessionUpdateParams::AutomaticTax)).returns(T.nilable(Checkout::SessionUpdateParams::AutomaticTax))
+        params(_automatic_tax: T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax))
        }
       def automatic_tax=(_automatic_tax); end
       # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
-      sig { returns(T.nilable(Checkout::SessionUpdateParams::CollectedInformation)) }
+      sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation)) }
       def collected_information; end
       sig {
-        params(_collected_information: T.nilable(Checkout::SessionUpdateParams::CollectedInformation)).returns(T.nilable(Checkout::SessionUpdateParams::CollectedInformation))
+        params(_collected_information: T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation))
        }
       def collected_information=(_collected_information); end
       # List of coupons and promotion codes attached to the Checkout Session.
-      sig { returns(T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::Discount]))) }
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::Discount])))
+       }
       def discounts; end
       sig {
-        params(_discounts: T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::Discount])))
+        params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::Discount])))
        }
       def discounts=(_discounts); end
       # Specifies which fields in the response should be expanded.
@@ -658,10 +670,10 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Generate a post-purchase Invoice for one-time payments.
-      sig { returns(T.nilable(Checkout::SessionUpdateParams::InvoiceCreation)) }
+      sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation)) }
       def invoice_creation; end
       sig {
-        params(_invoice_creation: T.nilable(Checkout::SessionUpdateParams::InvoiceCreation)).returns(T.nilable(Checkout::SessionUpdateParams::InvoiceCreation))
+        params(_invoice_creation: T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation))
        }
       def invoice_creation=(_invoice_creation); end
       # A list of items the customer is purchasing.
@@ -677,10 +689,10 @@ module Stripe
       # To remove an existing line item, omit the line item's ID from the retransmitted array.
       #
       # To reorder a line item, specify it at the desired position in the retransmitted array.
-      sig { returns(T.nilable(T::Array[Checkout::SessionUpdateParams::LineItem])) }
+      sig { returns(T.nilable(T::Array[::Stripe::Checkout::SessionUpdateParams::LineItem])) }
       def line_items; end
       sig {
-        params(_line_items: T.nilable(T::Array[Checkout::SessionUpdateParams::LineItem])).returns(T.nilable(T::Array[Checkout::SessionUpdateParams::LineItem]))
+        params(_line_items: T.nilable(T::Array[::Stripe::Checkout::SessionUpdateParams::LineItem])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionUpdateParams::LineItem]))
        }
       def line_items=(_line_items); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -692,22 +704,22 @@ module Stripe
       def metadata=(_metadata); end
       # The shipping rate options to apply to this Session. Up to a maximum of 5.
       sig {
-        returns(T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::ShippingOption])))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::ShippingOption])))
        }
       def shipping_options; end
       sig {
-        params(_shipping_options: T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::ShippingOption]))).returns(T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::ShippingOption])))
+        params(_shipping_options: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::ShippingOption]))).returns(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::ShippingOption])))
        }
       def shipping_options=(_shipping_options); end
       # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
-      sig { returns(T.nilable(Checkout::SessionUpdateParams::SubscriptionData)) }
+      sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData)) }
       def subscription_data; end
       sig {
-        params(_subscription_data: T.nilable(Checkout::SessionUpdateParams::SubscriptionData)).returns(T.nilable(Checkout::SessionUpdateParams::SubscriptionData))
+        params(_subscription_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData))
        }
       def subscription_data=(_subscription_data); end
       sig {
-        params(automatic_tax: T.nilable(Checkout::SessionUpdateParams::AutomaticTax), collected_information: T.nilable(Checkout::SessionUpdateParams::CollectedInformation), discounts: T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::Discount])), expand: T.nilable(T::Array[String]), invoice_creation: T.nilable(Checkout::SessionUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[Checkout::SessionUpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), shipping_options: T.nilable(T.any(String, T::Array[Checkout::SessionUpdateParams::ShippingOption])), subscription_data: T.nilable(Checkout::SessionUpdateParams::SubscriptionData)).void
+        params(automatic_tax: T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax), collected_information: T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation), discounts: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::Discount])), expand: T.nilable(T::Array[String]), invoice_creation: T.nilable(::Stripe::Checkout::SessionUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionUpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::ShippingOption])), subscription_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData)).void
        }
       def initialize(
         automatic_tax: nil,

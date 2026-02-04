@@ -4,9 +4,9 @@
 module Stripe
   class SubscriptionPauseParams < ::Stripe::RequestParams
     class BillFor < ::Stripe::RequestParams
-      # Controls whether to debit for accrued metered usage in the current billing period. The default is `false`.
+      # Controls whether to debit for accrued metered usage in the current billing period. The default is `true`.
       attr_accessor :outstanding_usage
-      # Controls whether to credit for licensed items in the current billing period. The default is `false`.
+      # Controls whether to credit for licensed items in the current billing period. The default is `true`.
       attr_accessor :unused_time
 
       def initialize(outstanding_usage: nil, unused_time: nil)

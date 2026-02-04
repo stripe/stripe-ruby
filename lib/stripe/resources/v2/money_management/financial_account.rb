@@ -11,6 +11,21 @@ module Stripe
           "v2.money_management.financial_account"
         end
 
+        class AccruedFees < ::Stripe::StripeObject
+          # The currencies enabled for fee accrual on this FinancialAccount.
+          attr_reader :currencies
+          # Direction of fee accrual for this FinancialAccount.
+          attr_reader :direction
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Balance < ::Stripe::StripeObject
           class Available < ::Stripe::StripeObject
             # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
@@ -103,13 +118,43 @@ module Stripe
         end
 
         class Payments < ::Stripe::StripeObject
+          class StartingBalance < ::Stripe::StripeObject
+            class Available < ::Stripe::StripeObject
+              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+              attr_reader :value
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              attr_reader :currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # When the balance was projected.
+            attr_reader :at
+            # The available balance at the time when the balance was projected.
+            attr_reader :available
+
+            def self.inner_class_types
+              @inner_class_types = { available: Available }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The currency that non-settlement currency payments will be converted to.
           attr_reader :default_currency
           # Settlement currencies enabled for this FinancialAccount. Payments in other currencies will be automatically converted to `default_currency`.
           attr_reader :settlement_currencies
+          # Describes the available balance when it was projected.
+          attr_reader :starting_balance
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { starting_balance: StartingBalance }
           end
 
           def self.field_remappings
@@ -170,6 +215,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # If this is a `accrued_fees` FinancialAccount, this hash include details specific to `accrued_fees` FinancialAccount.
+        attr_reader :accrued_fees
         # Multi-currency balance of this FinancialAccount, split by availability state. Each balance is represented as a hash where the key is the three-letter ISO currency code, in lowercase, and the value is the amount for that currency.
         attr_reader :balance
         # Open Enum. Two-letter country code that represents the country where the LegalEntity associated with the FinancialAccount is based in.
@@ -205,6 +252,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            accrued_fees: AccruedFees,
             balance: Balance,
             managed_by: ManagedBy,
             other: Other,

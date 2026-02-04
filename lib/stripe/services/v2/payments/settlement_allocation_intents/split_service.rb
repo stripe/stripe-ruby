@@ -28,6 +28,17 @@ module Stripe
             )
           end
 
+          # List SettlementAllocationIntentSplits API.
+          def list(settlement_allocation_intent_id, params = {}, opts = {})
+            request(
+              method: :get,
+              path: format("/v2/payments/settlement_allocation_intents/%<settlement_allocation_intent_id>s/splits", { settlement_allocation_intent_id: CGI.escape(settlement_allocation_intent_id) }),
+              params: params,
+              opts: opts,
+              base_address: :api
+            )
+          end
+
           # Retrieve SettlementAllocationIntentSplit API.
           def retrieve(settlement_allocation_intent_id, id, params = {}, opts = {})
             request(

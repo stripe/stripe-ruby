@@ -216,6 +216,45 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class CardSpend < ::Stripe::StripeObject
+          class Dispute < ::Stripe::StripeObject
+            # The reference to the v1 issuing dispute ID.
+            sig { returns(String) }
+            def issuing_dispute_v1; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Refund < ::Stripe::StripeObject
+            # The reference to the v1 issuing transaction ID.
+            sig { returns(String) }
+            def issuing_transaction_v1; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The reference to the issuing card object.
+          sig { returns(String) }
+          def card_v1_id; end
+          # Hash containing information about the Dispute that triggered this credit.
+          sig { returns(T.nilable(Dispute)) }
+          def dispute; end
+          # Hash containing information about the Refund that triggered this credit.
+          sig { returns(T.nilable(Refund)) }
+          def refund; end
+          def self.inner_class_types
+            @inner_class_types = {dispute: Dispute, refund: Refund}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class StripeBalancePayment < ::Stripe::StripeObject
           # Statement descriptor for the Stripe Balance Payment.
           sig { returns(T.nilable(String)) }
@@ -273,6 +312,9 @@ module Stripe
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
         sig { returns(T.nilable(BankTransfer)) }
         def bank_transfer; end
+        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
+        sig { returns(T.nilable(CardSpend)) }
+        def card_spend; end
         # This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
         sig { returns(T.nilable(StripeBalancePayment)) }
         def stripe_balance_payment; end

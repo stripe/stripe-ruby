@@ -39,11 +39,11 @@ module Stripe
           end
           # ACH network tracking details.
           sig {
-            returns(T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach))
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach))
            }
           def ach; end
           sig {
-            params(_ach: T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach)).returns(T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach))
+            params(_ach: T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach)).returns(T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach))
            }
           def ach=(_ach); end
           # The US bank account network used to send funds.
@@ -53,15 +53,15 @@ module Stripe
           def type=(_type); end
           # US domestic wire network tracking details.
           sig {
-            returns(T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire))
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire))
            }
           def us_domestic_wire; end
           sig {
-            params(_us_domestic_wire: T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire)).returns(T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire))
+            params(_us_domestic_wire: T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire)).returns(T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire))
            }
           def us_domestic_wire=(_us_domestic_wire); end
           sig {
-            params(ach: T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach), type: String, us_domestic_wire: T.nilable(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire)).void
+            params(ach: T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::Ach), type: String, us_domestic_wire: T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails::UsDomesticWire)).void
            }
           def initialize(ach: nil, type: nil, us_domestic_wire: nil); end
         end
@@ -71,14 +71,16 @@ module Stripe
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
         # Details about network-specific tracking information.
-        sig { returns(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails) }
+        sig {
+          returns(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails)
+         }
         def tracking_details; end
         sig {
-          params(_tracking_details: TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails).returns(TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails)
+          params(_tracking_details: ::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails).returns(::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails)
          }
         def tracking_details=(_tracking_details); end
         sig {
-          params(expand: T.nilable(T::Array[String]), tracking_details: TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails).void
+          params(expand: T.nilable(T::Array[String]), tracking_details: ::Stripe::TestHelpers::Treasury::OutboundPaymentUpdateParams::TrackingDetails).void
          }
         def initialize(expand: nil, tracking_details: nil); end
       end

@@ -614,6 +614,21 @@ module Stripe
               end
             end
 
+            class RegistrationDate < ::Stripe::RequestParams
+              # The day of registration, between 1 and 31.
+              attr_accessor :day
+              # The month of registration, between 1 and 12.
+              attr_accessor :month
+              # The four-digit year of registration.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+
             class ScriptAddresses < ::Stripe::RequestParams
               class Kana < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -741,6 +756,8 @@ module Stripe
             attr_accessor :phone
             # The business legal name.
             attr_accessor :registered_name
+            # When the business was incorporated or registered.
+            attr_accessor :registration_date
             # The business registration address of the business entity in non latin script.
             attr_accessor :script_addresses
             # The business legal name in non latin script.
@@ -758,6 +775,7 @@ module Stripe
               monthly_estimated_revenue: nil,
               phone: nil,
               registered_name: nil,
+              registration_date: nil,
               script_addresses: nil,
               script_names: nil,
               structure: nil
@@ -771,6 +789,7 @@ module Stripe
               @monthly_estimated_revenue = monthly_estimated_revenue
               @phone = phone
               @registered_name = registered_name
+              @registration_date = registration_date
               @script_addresses = script_addresses
               @script_names = script_names
               @structure = structure
@@ -1243,13 +1262,16 @@ module Stripe
         end
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         attr_accessor :contact_email
+        # The default contact phone for the Account.
+        attr_accessor :contact_phone
         # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
         attr_accessor :display_name
         # Information about the company, individual, and business represented by the Account.
         attr_accessor :identity
 
-        def initialize(contact_email: nil, display_name: nil, identity: nil)
+        def initialize(contact_email: nil, contact_phone: nil, display_name: nil, identity: nil)
           @contact_email = contact_email
+          @contact_phone = contact_phone
           @display_name = display_name
           @identity = identity
         end

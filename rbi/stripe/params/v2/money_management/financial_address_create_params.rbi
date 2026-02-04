@@ -22,11 +22,11 @@ module Stripe
         def financial_account=(_financial_account); end
         # Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
         sig {
-          returns(T.nilable(V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount))
+          returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount))
          }
         def sepa_bank_account; end
         sig {
-          params(_sepa_bank_account: T.nilable(V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount)).returns(T.nilable(V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount))
+          params(_sepa_bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount))
          }
         def sepa_bank_account=(_sepa_bank_account); end
         # The type of FinancialAddress details to provision.
@@ -35,7 +35,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(financial_account: String, sepa_bank_account: T.nilable(V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount), type: String).void
+          params(financial_account: String, sepa_bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::SepaBankAccount), type: String).void
          }
         def initialize(financial_account: nil, sepa_bank_account: nil, type: nil); end
       end

@@ -63,18 +63,18 @@ module Stripe
         def meter=(_meter); end
         # Optional array of Meter segments to filter event dimension keys for billing.
         sig {
-          returns(T.nilable(T::Array[V2::Billing::MeteredItemCreateParams::MeterSegmentCondition]))
+          returns(T.nilable(T::Array[::Stripe::V2::Billing::MeteredItemCreateParams::MeterSegmentCondition]))
          }
         def meter_segment_conditions; end
         sig {
-          params(_meter_segment_conditions: T.nilable(T::Array[V2::Billing::MeteredItemCreateParams::MeterSegmentCondition])).returns(T.nilable(T::Array[V2::Billing::MeteredItemCreateParams::MeterSegmentCondition]))
+          params(_meter_segment_conditions: T.nilable(T::Array[::Stripe::V2::Billing::MeteredItemCreateParams::MeterSegmentCondition])).returns(T.nilable(T::Array[::Stripe::V2::Billing::MeteredItemCreateParams::MeterSegmentCondition]))
          }
         def meter_segment_conditions=(_meter_segment_conditions); end
         # Stripe Tax details.
-        sig { returns(T.nilable(V2::Billing::MeteredItemCreateParams::TaxDetails)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::MeteredItemCreateParams::TaxDetails)) }
         def tax_details; end
         sig {
-          params(_tax_details: T.nilable(V2::Billing::MeteredItemCreateParams::TaxDetails)).returns(T.nilable(V2::Billing::MeteredItemCreateParams::TaxDetails))
+          params(_tax_details: T.nilable(::Stripe::V2::Billing::MeteredItemCreateParams::TaxDetails)).returns(T.nilable(::Stripe::V2::Billing::MeteredItemCreateParams::TaxDetails))
          }
         def tax_details=(_tax_details); end
         # The unit to use when displaying prices for this billable item in places like Checkout. For example, set this field
@@ -86,7 +86,7 @@ module Stripe
         sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
         def unit_label=(_unit_label); end
         sig {
-          params(display_name: String, invoice_presentation_dimensions: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), meter: String, meter_segment_conditions: T.nilable(T::Array[V2::Billing::MeteredItemCreateParams::MeterSegmentCondition]), tax_details: T.nilable(V2::Billing::MeteredItemCreateParams::TaxDetails), unit_label: T.nilable(String)).void
+          params(display_name: String, invoice_presentation_dimensions: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), meter: String, meter_segment_conditions: T.nilable(T::Array[::Stripe::V2::Billing::MeteredItemCreateParams::MeterSegmentCondition]), tax_details: T.nilable(::Stripe::V2::Billing::MeteredItemCreateParams::TaxDetails), unit_label: T.nilable(String)).void
          }
         def initialize(
           display_name: nil,

@@ -49,10 +49,10 @@ module Stripe
         ); end
       end
       # The physical address of the tax location.
-      sig { returns(Tax::LocationCreateParams::Address) }
+      sig { returns(::Stripe::Tax::LocationCreateParams::Address) }
       def address; end
       sig {
-        params(_address: Tax::LocationCreateParams::Address).returns(Tax::LocationCreateParams::Address)
+        params(_address: ::Stripe::Tax::LocationCreateParams::Address).returns(::Stripe::Tax::LocationCreateParams::Address)
        }
       def address=(_address); end
       # Details to identify the tax location by its venue, types of events held, or available services, such as "A spacious auditorium suitable for large concerts and events.".
@@ -71,7 +71,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(address: Tax::LocationCreateParams::Address, description: T.nilable(String), expand: T.nilable(T::Array[String]), type: String).void
+        params(address: ::Stripe::Tax::LocationCreateParams::Address, description: T.nilable(String), expand: T.nilable(T::Array[String]), type: String).void
        }
       def initialize(address: nil, description: nil, expand: nil, type: nil); end
     end

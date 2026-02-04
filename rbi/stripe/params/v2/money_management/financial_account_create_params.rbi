@@ -28,10 +28,12 @@ module Stripe
          }
         def metadata=(_metadata); end
         # Parameters specific to creating `storage` type FinancialAccounts.
-        sig { returns(T.nilable(V2::MoneyManagement::FinancialAccountCreateParams::Storage)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage))
+         }
         def storage; end
         sig {
-          params(_storage: T.nilable(V2::MoneyManagement::FinancialAccountCreateParams::Storage)).returns(T.nilable(V2::MoneyManagement::FinancialAccountCreateParams::Storage))
+          params(_storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage))
          }
         def storage=(_storage); end
         # The type of FinancialAccount to create.
@@ -40,7 +42,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(display_name: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), storage: T.nilable(V2::MoneyManagement::FinancialAccountCreateParams::Storage), type: String).void
+          params(display_name: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage), type: String).void
          }
         def initialize(display_name: nil, metadata: nil, storage: nil, type: nil); end
       end

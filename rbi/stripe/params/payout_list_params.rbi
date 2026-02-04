@@ -57,17 +57,17 @@ module Stripe
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
     # Only return payouts that are expected to arrive during the given date interval.
-    sig { returns(T.nilable(T.any(PayoutListParams::ArrivalDate, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::PayoutListParams::ArrivalDate, Integer))) }
     def arrival_date; end
     sig {
-      params(_arrival_date: T.nilable(T.any(PayoutListParams::ArrivalDate, Integer))).returns(T.nilable(T.any(PayoutListParams::ArrivalDate, Integer)))
+      params(_arrival_date: T.nilable(T.any(::Stripe::PayoutListParams::ArrivalDate, Integer))).returns(T.nilable(T.any(::Stripe::PayoutListParams::ArrivalDate, Integer)))
      }
     def arrival_date=(_arrival_date); end
     # Only return payouts that were created during the given date interval.
-    sig { returns(T.nilable(T.any(PayoutListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::PayoutListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(PayoutListParams::Created, Integer))).returns(T.nilable(T.any(PayoutListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::PayoutListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::PayoutListParams::Created, Integer)))
      }
     def created=(_created); end
     # The ID of an external account - only return payouts sent to this external account.
@@ -101,7 +101,7 @@ module Stripe
     sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
     def status=(_status); end
     sig {
-      params(arrival_date: T.nilable(T.any(PayoutListParams::ArrivalDate, Integer)), created: T.nilable(T.any(PayoutListParams::Created, Integer)), destination: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
+      params(arrival_date: T.nilable(T.any(::Stripe::PayoutListParams::ArrivalDate, Integer)), created: T.nilable(T.any(::Stripe::PayoutListParams::Created, Integer)), destination: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
      }
     def initialize(
       arrival_date: nil,

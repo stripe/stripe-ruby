@@ -35,17 +35,19 @@ module Stripe
           def initialize(currency: nil, value: nil); end
         end
         # The custom pricing unit amount.
-        sig { returns(T.nilable(Billing::CreditGrantCreateParams::Amount::CustomPricingUnit)) }
+        sig {
+          returns(T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit))
+         }
         def custom_pricing_unit; end
         sig {
-          params(_custom_pricing_unit: T.nilable(Billing::CreditGrantCreateParams::Amount::CustomPricingUnit)).returns(T.nilable(Billing::CreditGrantCreateParams::Amount::CustomPricingUnit))
+          params(_custom_pricing_unit: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit)).returns(T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit))
          }
         def custom_pricing_unit=(_custom_pricing_unit); end
         # The monetary amount.
-        sig { returns(T.nilable(Billing::CreditGrantCreateParams::Amount::Monetary)) }
+        sig { returns(T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary)) }
         def monetary; end
         sig {
-          params(_monetary: T.nilable(Billing::CreditGrantCreateParams::Amount::Monetary)).returns(T.nilable(Billing::CreditGrantCreateParams::Amount::Monetary))
+          params(_monetary: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary)).returns(T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary))
          }
         def monetary=(_monetary); end
         # The type of this amount. We currently only support `monetary` billing credits.
@@ -54,7 +56,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(custom_pricing_unit: T.nilable(Billing::CreditGrantCreateParams::Amount::CustomPricingUnit), monetary: T.nilable(Billing::CreditGrantCreateParams::Amount::Monetary), type: String).void
+          params(custom_pricing_unit: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary), type: String).void
          }
         def initialize(custom_pricing_unit: nil, monetary: nil, type: nil); end
       end
@@ -80,11 +82,11 @@ module Stripe
           end
           # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
           sig {
-            returns(T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]))
+            returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]))
            }
           def billable_items; end
           sig {
-            params(_billable_items: T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem])).returns(T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]))
+            params(_billable_items: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem])).returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]))
            }
           def billable_items=(_billable_items); end
           # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
@@ -94,40 +96,42 @@ module Stripe
           def price_type=(_price_type); end
           # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
           sig {
-            returns(T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price]))
+            returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price]))
            }
           def prices; end
           sig {
-            params(_prices: T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).returns(T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price]))
+            params(_prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price]))
            }
           def prices=(_prices); end
           sig {
-            params(billable_items: T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).void
+            params(billable_items: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).void
            }
           def initialize(billable_items: nil, price_type: nil, prices: nil); end
         end
         # Specify the scope of this applicability config.
-        sig { returns(Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope) }
+        sig { returns(::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope) }
         def scope; end
         sig {
-          params(_scope: Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope).returns(Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope)
+          params(_scope: ::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope).returns(::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope)
          }
         def scope=(_scope); end
-        sig { params(scope: Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope).void }
+        sig {
+          params(scope: ::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope).void
+         }
         def initialize(scope: nil); end
       end
       # Amount of this credit grant.
-      sig { returns(Billing::CreditGrantCreateParams::Amount) }
+      sig { returns(::Stripe::Billing::CreditGrantCreateParams::Amount) }
       def amount; end
       sig {
-        params(_amount: Billing::CreditGrantCreateParams::Amount).returns(Billing::CreditGrantCreateParams::Amount)
+        params(_amount: ::Stripe::Billing::CreditGrantCreateParams::Amount).returns(::Stripe::Billing::CreditGrantCreateParams::Amount)
        }
       def amount=(_amount); end
       # Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
-      sig { returns(Billing::CreditGrantCreateParams::ApplicabilityConfig) }
+      sig { returns(::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig) }
       def applicability_config; end
       sig {
-        params(_applicability_config: Billing::CreditGrantCreateParams::ApplicabilityConfig).returns(Billing::CreditGrantCreateParams::ApplicabilityConfig)
+        params(_applicability_config: ::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig).returns(::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig)
        }
       def applicability_config=(_applicability_config); end
       # The category of this credit grant. It defaults to `paid` if not specified.
@@ -178,7 +182,7 @@ module Stripe
       sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def priority=(_priority); end
       sig {
-        params(amount: Billing::CreditGrantCreateParams::Amount, applicability_config: Billing::CreditGrantCreateParams::ApplicabilityConfig, category: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), priority: T.nilable(Integer)).void
+        params(amount: ::Stripe::Billing::CreditGrantCreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig, category: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), priority: T.nilable(Integer)).void
        }
       def initialize(
         amount: nil,

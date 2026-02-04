@@ -44,15 +44,15 @@ module Stripe
           def mode=(_mode); end
           # Details of the recipient.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient))
            }
           def recipient; end
           sig {
-            params(_recipient: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient))
+            params(_recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient))
            }
           def recipient=(_recipient); end
           sig {
-            params(mode: T.nilable(String), recipient: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient)).void
+            params(mode: T.nilable(String), recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery::Recipient)).void
            }
           def initialize(mode: nil, recipient: nil); end
         end
@@ -180,10 +180,12 @@ module Stripe
           ); end
         end
         # Affiliate details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Affiliate)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Affiliate))
+         }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Affiliate))
          }
         def affiliate=(_affiliate); end
         # The booking number associated with the car rental.
@@ -222,24 +224,30 @@ module Stripe
         sig { params(_days_rented: Integer).returns(Integer) }
         def days_rented=(_days_rented); end
         # Delivery details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery))
+         }
         def delivery; end
         sig {
-          params(_delivery: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery))
+          params(_delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery))
          }
         def delivery=(_delivery); end
         # The details of the distance traveled during the rental period.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Distance)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Distance))
+         }
         def distance; end
         sig {
-          params(_distance: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Distance)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Distance))
+          params(_distance: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Distance)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Distance))
          }
         def distance=(_distance); end
         # The details of the passengers in the travel reservation
-        sig { returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRental::Driver])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Driver]))
+         }
         def drivers; end
         sig {
-          params(_drivers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRental::Driver])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRental::Driver]))
+          params(_drivers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Driver])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Driver]))
          }
         def drivers=(_drivers); end
         # List of additional charges being billed.
@@ -255,10 +263,12 @@ module Stripe
         sig { params(_no_show: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def no_show=(_no_show); end
         # Car pick-up address.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress))
+         }
         def pickup_address; end
         sig {
-          params(_pickup_address: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress))
+          params(_pickup_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress))
          }
         def pickup_address=(_pickup_address); end
         # Car pick-up time. Measured in seconds since the Unix epoch.
@@ -287,10 +297,12 @@ module Stripe
         sig { params(_renter_name: T.nilable(String)).returns(T.nilable(String)) }
         def renter_name=(_renter_name); end
         # Car return address.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress))
+         }
         def return_address; end
         sig {
-          params(_return_address: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress))
+          params(_return_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress))
          }
         def return_address=(_return_address); end
         # Car return time. Measured in seconds since the Unix epoch.
@@ -314,7 +326,7 @@ module Stripe
         sig { params(_vehicle_identification_number: T.nilable(String)).returns(T.nilable(String)) }
         def vehicle_identification_number=(_vehicle_identification_number); end
         sig {
-          params(affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Delivery), distance: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::Distance), drivers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, pickup_location_name: T.nilable(String), rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, return_location_name: T.nilable(String), tax_exempt: T.nilable(T::Boolean), vehicle_identification_number: T.nilable(String)).void
+          params(affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Delivery), distance: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Distance), drivers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, pickup_location_name: T.nilable(String), rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, return_location_name: T.nilable(String), tax_exempt: T.nilable(T::Boolean), vehicle_identification_number: T.nilable(String)).void
          }
         def initialize(
           affiliate: nil,
@@ -394,11 +406,11 @@ module Stripe
           end
           # Driver's date of birth.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth))
            }
           def date_of_birth; end
           sig {
-            params(_date_of_birth: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth))
+            params(_date_of_birth: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth))
            }
           def date_of_birth=(_date_of_birth); end
           # Driver's identification number.
@@ -419,7 +431,7 @@ module Stripe
           sig { params(_name: String).returns(String) }
           def name=(_name); end
           sig {
-            params(date_of_birth: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth), driver_identification_number: T.nilable(String), driver_tax_number: T.nilable(String), name: String).void
+            params(date_of_birth: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver::DateOfBirth), driver_identification_number: T.nilable(String), driver_tax_number: T.nilable(String), name: String).void
            }
           def initialize(
             date_of_birth: nil,
@@ -473,10 +485,12 @@ module Stripe
             ); end
           end
           # Address of the rental location.
-          sig { returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address) }
+          sig {
+            returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address)
+           }
           def address; end
           sig {
-            params(_address: ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address).returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address)
+            params(_address: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address).returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address)
            }
           def address=(_address); end
           # Location name.
@@ -490,7 +504,7 @@ module Stripe
           sig { params(_time: Integer).returns(Integer) }
           def time=(_time); end
           sig {
-            params(address: ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address, location_name: T.nilable(String), time: Integer).void
+            params(address: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff::Address, location_name: T.nilable(String), time: Integer).void
            }
           def initialize(address: nil, location_name: nil, time: nil); end
         end
@@ -570,10 +584,12 @@ module Stripe
             ); end
           end
           # Address of the rental location.
-          sig { returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address) }
+          sig {
+            returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address)
+           }
           def address; end
           sig {
-            params(_address: ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address).returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address)
+            params(_address: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address).returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address)
            }
           def address=(_address); end
           # Location name.
@@ -587,7 +603,7 @@ module Stripe
           sig { params(_time: Integer).returns(Integer) }
           def time=(_time); end
           sig {
-            params(address: ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address, location_name: T.nilable(String), time: Integer).void
+            params(address: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup::Address, location_name: T.nilable(String), time: Integer).void
            }
           def initialize(address: nil, location_name: nil, time: nil); end
         end
@@ -664,15 +680,15 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
              }
             def taxes; end
             sig {
-              params(_taxes: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
              }
             def taxes=(_taxes); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
              }
             def initialize(tax_exempt_indicator: nil, taxes: nil); end
           end
@@ -688,20 +704,20 @@ module Stripe
           def currency=(_currency); end
           # Discount details for the rental.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts))
            }
           def discounts; end
           sig {
-            params(_discounts: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts))
+            params(_discounts: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts))
            }
           def discounts=(_discounts); end
           # Additional charges for the rental.
           sig {
-            returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge]))
+            returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge]))
            }
           def extra_charges; end
           sig {
-            params(_extra_charges: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge]))
+            params(_extra_charges: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge]))
            }
           def extra_charges=(_extra_charges); end
           # Rate per unit for the rental.
@@ -716,15 +732,15 @@ module Stripe
           def rate_unit=(_rate_unit); end
           # Tax breakdown for the rental.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax))
            }
           def tax; end
           sig {
-            params(_tax: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax))
+            params(_tax: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax))
            }
           def tax=(_tax); end
           sig {
-            params(amount: Integer, currency: T.nilable(String), discounts: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts), extra_charges: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge]), rate_per_unit: T.nilable(Integer), rate_unit: T.nilable(String), tax: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax)).void
+            params(amount: Integer, currency: T.nilable(String), discounts: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Discounts), extra_charges: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::ExtraCharge]), rate_per_unit: T.nilable(Integer), rate_unit: T.nilable(String), tax: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax)).void
            }
           def initialize(
             amount: nil,
@@ -782,10 +798,12 @@ module Stripe
           ); end
         end
         # Affiliate (such as travel agency) details for the rental.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate))
+         }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate))
          }
         def affiliate=(_affiliate); end
         # Booking confirmation number for the car rental.
@@ -809,35 +827,37 @@ module Stripe
         sig { params(_days_rented: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def days_rented=(_days_rented); end
         # Distance details for the rental.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance))
+         }
         def distance; end
         sig {
-          params(_distance: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance))
+          params(_distance: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance))
          }
         def distance=(_distance); end
         # List of drivers for the rental.
         sig {
-          returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver]))
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver]))
          }
         def drivers; end
         sig {
-          params(_drivers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver]))
+          params(_drivers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver]))
          }
         def drivers=(_drivers); end
         # Drop-off location details.
-        sig { returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff) }
+        sig { returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff) }
         def drop_off; end
         sig {
-          params(_drop_off: ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff).returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff)
+          params(_drop_off: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff).returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff)
          }
         def drop_off=(_drop_off); end
         # Insurance details for the rental.
         sig {
-          returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance]))
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance]))
          }
         def insurances; end
         sig {
-          params(_insurances: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance]))
+          params(_insurances: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance]))
          }
         def insurances=(_insurances); end
         # Indicates if the customer was a no-show.
@@ -846,10 +866,10 @@ module Stripe
         sig { params(_no_show_indicator: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def no_show_indicator=(_no_show_indicator); end
         # Pickup location details.
-        sig { returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup) }
+        sig { returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup) }
         def pickup; end
         sig {
-          params(_pickup: ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup).returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup)
+          params(_pickup: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup).returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup)
          }
         def pickup=(_pickup); end
         # Name of the person renting the vehicle.
@@ -858,21 +878,23 @@ module Stripe
         sig { params(_renter_name: T.nilable(String)).returns(T.nilable(String)) }
         def renter_name=(_renter_name); end
         # Total cost breakdown for the rental.
-        sig { returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total) }
+        sig { returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total) }
         def total; end
         sig {
-          params(_total: ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total).returns(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total)
+          params(_total: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total).returns(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total)
          }
         def total=(_total); end
         # Vehicle details for the rental.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle))
+         }
         def vehicle; end
         sig {
-          params(_vehicle: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle))
+          params(_vehicle: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle))
          }
         def vehicle=(_vehicle); end
         sig {
-          params(affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate), booking_number: T.nilable(String), carrier_name: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: T.nilable(Integer), distance: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance), drivers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver]), drop_off: ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff, insurances: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance]), no_show_indicator: T.nilable(T::Boolean), pickup: ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup, renter_name: T.nilable(String), total: ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total, vehicle: T.nilable(ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle)).void
+          params(affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Affiliate), booking_number: T.nilable(String), carrier_name: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: T.nilable(Integer), distance: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Distance), drivers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Driver]), drop_off: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::DropOff, insurances: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Insurance]), no_show_indicator: T.nilable(T::Boolean), pickup: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Pickup, renter_name: T.nilable(String), total: ::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total, vehicle: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Vehicle)).void
          }
         def initialize(
           affiliate: nil,
@@ -973,15 +995,15 @@ module Stripe
           def mode=(_mode); end
           # Details of the recipient.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient))
            }
           def recipient; end
           sig {
-            params(_recipient: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient))
+            params(_recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient))
            }
           def recipient=(_recipient); end
           sig {
-            params(mode: T.nilable(String), recipient: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient)).void
+            params(mode: T.nilable(String), recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery::Recipient)).void
            }
           def initialize(mode: nil, recipient: nil); end
         end
@@ -993,17 +1015,21 @@ module Stripe
          }
         def access_controlled_venue=(_access_controlled_venue); end
         # The event location's address.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Address)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Address))
+         }
         def address; end
         sig {
-          params(_address: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Address)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Address))
+          params(_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Address)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Address))
          }
         def address=(_address); end
         # Affiliate details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate))
+         }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate))
          }
         def affiliate=(_affiliate); end
         # The name of the company
@@ -1012,10 +1038,12 @@ module Stripe
         sig { params(_company: T.nilable(String)).returns(T.nilable(String)) }
         def company=(_company); end
         # Delivery details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery))
+         }
         def delivery; end
         sig {
-          params(_delivery: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery))
+          params(_delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery))
          }
         def delivery=(_delivery); end
         # Event end time. Measured in seconds since the Unix epoch.
@@ -1039,7 +1067,7 @@ module Stripe
         sig { params(_starts_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def starts_at=(_starts_at); end
         sig {
-          params(access_controlled_venue: T.nilable(T::Boolean), address: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Address), affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate), company: T.nilable(String), delivery: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails::Delivery), ends_at: T.nilable(Integer), genre: T.nilable(String), name: String, starts_at: T.nilable(Integer)).void
+          params(access_controlled_venue: T.nilable(T::Boolean), address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Address), affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Affiliate), company: T.nilable(String), delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails::Delivery), ends_at: T.nilable(Integer), genre: T.nilable(String), name: String, starts_at: T.nilable(Integer)).void
          }
         def initialize(
           access_controlled_venue: nil,
@@ -1092,15 +1120,15 @@ module Stripe
           def mode=(_mode); end
           # Details of the recipient.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient))
            }
           def recipient; end
           sig {
-            params(_recipient: T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient))
+            params(_recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient))
            }
           def recipient=(_recipient); end
           sig {
-            params(mode: T.nilable(String), recipient: T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient)).void
+            params(mode: T.nilable(String), recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery::Recipient)).void
            }
           def initialize(mode: nil, recipient: nil); end
         end
@@ -1169,10 +1197,10 @@ module Stripe
           ); end
         end
         # Affiliate details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Affiliate)) }
+        sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Affiliate)) }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Affiliate))
          }
         def affiliate=(_affiliate); end
         # The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
@@ -1186,10 +1214,10 @@ module Stripe
         sig { params(_carrier: T.nilable(String)).returns(T.nilable(String)) }
         def carrier=(_carrier); end
         # Delivery details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery)) }
+        sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery)) }
         def delivery; end
         sig {
-          params(_delivery: T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery))
+          params(_delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery))
          }
         def delivery=(_delivery); end
         # The name of the person or entity on the reservation.
@@ -1198,17 +1226,19 @@ module Stripe
         sig { params(_passenger_name: T.nilable(String)).returns(T.nilable(String)) }
         def passenger_name=(_passenger_name); end
         # The details of the passengers in the travel reservation.
-        sig { returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Flight::Passenger])) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Passenger]))
+         }
         def passengers; end
         sig {
-          params(_passengers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Flight::Passenger])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Flight::Passenger]))
+          params(_passengers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Passenger])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Passenger]))
          }
         def passengers=(_passengers); end
         # The individual flight segments associated with the trip.
-        sig { returns(T::Array[ChargeCaptureParams::PaymentDetails::Flight::Segment]) }
+        sig { returns(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Segment]) }
         def segments; end
         sig {
-          params(_segments: T::Array[ChargeCaptureParams::PaymentDetails::Flight::Segment]).returns(T::Array[ChargeCaptureParams::PaymentDetails::Flight::Segment])
+          params(_segments: T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Segment]).returns(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Segment])
          }
         def segments=(_segments); end
         # The ticket number associated with the travel reservation.
@@ -1217,7 +1247,7 @@ module Stripe
         sig { params(_ticket_number: T.nilable(String)).returns(T.nilable(String)) }
         def ticket_number=(_ticket_number); end
         sig {
-          params(affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Affiliate), agency_number: T.nilable(String), carrier: T.nilable(String), delivery: T.nilable(ChargeCaptureParams::PaymentDetails::Flight::Delivery), passenger_name: T.nilable(String), passengers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Flight::Passenger]), segments: T::Array[ChargeCaptureParams::PaymentDetails::Flight::Segment], ticket_number: T.nilable(String)).void
+          params(affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Affiliate), agency_number: T.nilable(String), carrier: T.nilable(String), delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Delivery), passenger_name: T.nilable(String), passengers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Passenger]), segments: T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Flight::Segment], ticket_number: T.nilable(String)).void
          }
         def initialize(
           affiliate: nil,
@@ -1351,10 +1381,12 @@ module Stripe
           sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def amount=(_amount); end
           # Arrival details.
-          sig { returns(ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival) }
+          sig {
+            returns(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival)
+           }
           def arrival; end
           sig {
-            params(_arrival: ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival).returns(ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival)
+            params(_arrival: ::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival).returns(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival)
            }
           def arrival=(_arrival); end
           # Airline carrier code.
@@ -1373,10 +1405,12 @@ module Stripe
           sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
           def currency=(_currency); end
           # Departure details.
-          sig { returns(ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure) }
+          sig {
+            returns(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure)
+           }
           def departure; end
           sig {
-            params(_departure: ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure).returns(ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure)
+            params(_departure: ::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure).returns(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure)
            }
           def departure=(_departure); end
           # Exchange ticket number.
@@ -1427,7 +1461,7 @@ module Stripe
           sig { params(_ticket_number: T.nilable(String)).returns(T.nilable(String)) }
           def ticket_number=(_ticket_number); end
           sig {
-            params(amount: T.nilable(Integer), arrival: ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival, carrier_code: String, carrier_name: T.nilable(String), currency: T.nilable(String), departure: ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure, exchange_ticket_number: T.nilable(String), fare_basis_code: T.nilable(String), fees: T.nilable(Integer), flight_number: T.nilable(String), is_stop_over_indicator: T.nilable(T::Boolean), refundable: T.nilable(T::Boolean), service_class: String, tax_amount: T.nilable(Integer), ticket_number: T.nilable(String)).void
+            params(amount: T.nilable(Integer), arrival: ::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Arrival, carrier_code: String, carrier_name: T.nilable(String), currency: T.nilable(String), departure: ::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment::Departure, exchange_ticket_number: T.nilable(String), fare_basis_code: T.nilable(String), fees: T.nilable(Integer), flight_number: T.nilable(String), is_stop_over_indicator: T.nilable(T::Boolean), refundable: T.nilable(T::Boolean), service_class: String, tax_amount: T.nilable(Integer), ticket_number: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
@@ -1495,15 +1529,15 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
              }
             def taxes; end
             sig {
-              params(_taxes: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
              }
             def taxes=(_taxes); end
             sig {
-              params(taxes: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
              }
             def initialize(taxes: nil); end
           end
@@ -1524,31 +1558,33 @@ module Stripe
           def currency=(_currency); end
           # Discount details.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts))
            }
           def discounts; end
           sig {
-            params(_discounts: T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts))
+            params(_discounts: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts))
            }
           def discounts=(_discounts); end
           # Additional charges.
           sig {
-            returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge]))
+            returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge]))
            }
           def extra_charges; end
           sig {
-            params(_extra_charges: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge]))
+            params(_extra_charges: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge]))
            }
           def extra_charges=(_extra_charges); end
           # Tax breakdown.
-          sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax)) }
+          sig {
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax))
+           }
           def tax; end
           sig {
-            params(_tax: T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax))
+            params(_tax: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax))
            }
           def tax=(_tax); end
           sig {
-            params(amount: Integer, credit_reason: T.nilable(String), currency: T.nilable(String), discounts: T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts), extra_charges: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge]), tax: T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax)).void
+            params(amount: Integer, credit_reason: T.nilable(String), currency: T.nilable(String), discounts: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Discounts), extra_charges: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::ExtraCharge]), tax: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax)).void
            }
           def initialize(
             amount: nil,
@@ -1560,10 +1596,12 @@ module Stripe
           ); end
         end
         # Affiliate details if applicable.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate))
+         }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate))
          }
         def affiliate=(_affiliate); end
         # Reservation reference.
@@ -1585,27 +1623,29 @@ module Stripe
         def endorsements_and_restrictions=(_endorsements_and_restrictions); end
         # List of insurances.
         sig {
-          returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance]))
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance]))
          }
         def insurances; end
         sig {
-          params(_insurances: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance]))
+          params(_insurances: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance]))
          }
         def insurances=(_insurances); end
         # List of passengers.
         sig {
-          returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger]))
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger]))
          }
         def passengers; end
         sig {
-          params(_passengers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger]))
+          params(_passengers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger]))
          }
         def passengers=(_passengers); end
         # List of flight segments.
-        sig { returns(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Segment]) }
+        sig {
+          returns(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment])
+         }
         def segments; end
         sig {
-          params(_segments: T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Segment]).returns(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Segment])
+          params(_segments: T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment]).returns(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment])
          }
         def segments=(_segments); end
         # Electronic ticket indicator.
@@ -1616,10 +1656,10 @@ module Stripe
          }
         def ticket_electronically_issued_indicator=(_ticket_electronically_issued_indicator); end
         # Total cost breakdown.
-        sig { returns(ChargeCaptureParams::PaymentDetails::FlightDatum::Total) }
+        sig { returns(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total) }
         def total; end
         sig {
-          params(_total: ChargeCaptureParams::PaymentDetails::FlightDatum::Total).returns(ChargeCaptureParams::PaymentDetails::FlightDatum::Total)
+          params(_total: ::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total).returns(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total)
          }
         def total=(_total); end
         # Type of flight transaction.
@@ -1628,7 +1668,7 @@ module Stripe
         sig { params(_transaction_type: T.nilable(String)).returns(T.nilable(String)) }
         def transaction_type=(_transaction_type); end
         sig {
-          params(affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate), booking_number: T.nilable(String), computerized_reservation_system: T.nilable(String), endorsements_and_restrictions: T.nilable(String), insurances: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance]), passengers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger]), segments: T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum::Segment], ticket_electronically_issued_indicator: T.nilable(T::Boolean), total: ChargeCaptureParams::PaymentDetails::FlightDatum::Total, transaction_type: T.nilable(String)).void
+          params(affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Affiliate), booking_number: T.nilable(String), computerized_reservation_system: T.nilable(String), endorsements_and_restrictions: T.nilable(String), insurances: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Insurance]), passengers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Passenger]), segments: T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Segment], ticket_electronically_issued_indicator: T.nilable(T::Boolean), total: ::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total, transaction_type: T.nilable(String)).void
          }
         def initialize(
           affiliate: nil,
@@ -1725,15 +1765,15 @@ module Stripe
           def mode=(_mode); end
           # Details of the recipient.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient))
            }
           def recipient; end
           sig {
-            params(_recipient: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient))
+            params(_recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient))
            }
           def recipient=(_recipient); end
           sig {
-            params(mode: T.nilable(String), recipient: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient)).void
+            params(mode: T.nilable(String), recipient: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery::Recipient)).void
            }
           def initialize(mode: nil, recipient: nil); end
         end
@@ -1747,10 +1787,10 @@ module Stripe
           def initialize(name: nil); end
         end
         # The lodging location's address.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Address)) }
+        sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Address)) }
         def address; end
         sig {
-          params(_address: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Address)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Address))
+          params(_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Address)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Address))
          }
         def address=(_address); end
         # The number of adults on the booking
@@ -1759,10 +1799,12 @@ module Stripe
         sig { params(_adults: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def adults=(_adults); end
         # Affiliate details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Affiliate)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Affiliate))
+         }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Affiliate))
          }
         def affiliate=(_affiliate); end
         # The booking number associated with the lodging reservation.
@@ -1796,10 +1838,10 @@ module Stripe
         sig { params(_daily_room_rate_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def daily_room_rate_amount=(_daily_room_rate_amount); end
         # Delivery details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery)) }
+        sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery)) }
         def delivery; end
         sig {
-          params(_delivery: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery))
+          params(_delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery))
          }
         def delivery=(_delivery); end
         # List of additional charges being billed.
@@ -1833,11 +1875,11 @@ module Stripe
         def number_of_rooms=(_number_of_rooms); end
         # The details of the passengers in the travel reservation
         sig {
-          returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Lodging::Passenger]))
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Passenger]))
          }
         def passengers; end
         sig {
-          params(_passengers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Lodging::Passenger])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Lodging::Passenger]))
+          params(_passengers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Passenger])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Passenger]))
          }
         def passengers=(_passengers); end
         # The phone number of the lodging location.
@@ -1866,7 +1908,7 @@ module Stripe
         sig { params(_total_tax_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def total_tax_amount=(_total_tax_amount); end
         sig {
-          params(address: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Address), adults: T.nilable(Integer), affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Affiliate), booking_number: T.nilable(String), category: T.nilable(String), checkin_at: Integer, checkout_at: Integer, customer_service_phone_number: T.nilable(String), daily_room_rate_amount: T.nilable(Integer), delivery: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging::Delivery), extra_charges: T.nilable(T::Array[String]), fire_safety_act_compliance: T.nilable(T::Boolean), name: T.nilable(String), no_show: T.nilable(T::Boolean), number_of_rooms: T.nilable(Integer), passengers: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::Lodging::Passenger]), property_phone_number: T.nilable(String), room_class: T.nilable(String), room_nights: T.nilable(Integer), total_room_tax_amount: T.nilable(Integer), total_tax_amount: T.nilable(Integer)).void
+          params(address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Address), adults: T.nilable(Integer), affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Affiliate), booking_number: T.nilable(String), category: T.nilable(String), checkin_at: Integer, checkout_at: Integer, customer_service_phone_number: T.nilable(String), daily_room_rate_amount: T.nilable(Integer), delivery: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Delivery), extra_charges: T.nilable(T::Array[String]), fire_safety_act_compliance: T.nilable(T::Boolean), name: T.nilable(String), no_show: T.nilable(T::Boolean), number_of_rooms: T.nilable(Integer), passengers: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::Lodging::Passenger]), property_phone_number: T.nilable(String), room_class: T.nilable(String), room_nights: T.nilable(Integer), total_room_tax_amount: T.nilable(Integer), total_tax_amount: T.nilable(Integer)).void
          }
         def initialize(
           address: nil,
@@ -2011,11 +2053,11 @@ module Stripe
           end
           # Address of the host.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address))
            }
           def address; end
           sig {
-            params(_address: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address))
+            params(_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address))
            }
           def address=(_address); end
           # Host's country of domicile.
@@ -2054,7 +2096,7 @@ module Stripe
           sig { params(_registered_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def registered_at=(_registered_at); end
           sig {
-            params(address: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address), country_of_domicile: T.nilable(String), host_reference: T.nilable(String), host_type: T.nilable(String), name: T.nilable(String), number_of_reservations: T.nilable(Integer), property_phone_number: T.nilable(String), registered_at: T.nilable(Integer)).void
+            params(address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host::Address), country_of_domicile: T.nilable(String), host_reference: T.nilable(String), host_type: T.nilable(String), name: T.nilable(String), number_of_reservations: T.nilable(Integer), property_phone_number: T.nilable(String), registered_at: T.nilable(Integer)).void
            }
           def initialize(
             address: nil,
@@ -2158,15 +2200,15 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
              }
             def taxes; end
             sig {
-              params(_taxes: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
              }
             def taxes=(_taxes); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
              }
             def initialize(tax_exempt_indicator: nil, taxes: nil); end
           end
@@ -2187,20 +2229,20 @@ module Stripe
           def currency=(_currency); end
           # Discount details for the lodging.
           sig {
-            returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts))
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts))
            }
           def discounts; end
           sig {
-            params(_discounts: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts))
+            params(_discounts: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts))
            }
           def discounts=(_discounts); end
           # Additional charges for the lodging.
           sig {
-            returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge]))
+            returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge]))
            }
           def extra_charges; end
           sig {
-            params(_extra_charges: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge]))
+            params(_extra_charges: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge]))
            }
           def extra_charges=(_extra_charges); end
           # Prepaid amount in cents.
@@ -2209,14 +2251,16 @@ module Stripe
           sig { params(_prepaid_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def prepaid_amount=(_prepaid_amount); end
           # Tax breakdown for the lodging reservation.
-          sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax)) }
+          sig {
+            returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax))
+           }
           def tax; end
           sig {
-            params(_tax: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax))
+            params(_tax: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax))
            }
           def tax=(_tax); end
           sig {
-            params(amount: Integer, cash_advances: T.nilable(Integer), currency: T.nilable(String), discounts: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts), extra_charges: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge]), prepaid_amount: T.nilable(Integer), tax: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax)).void
+            params(amount: Integer, cash_advances: T.nilable(Integer), currency: T.nilable(String), discounts: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Discounts), extra_charges: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::ExtraCharge]), prepaid_amount: T.nilable(Integer), tax: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax)).void
            }
           def initialize(
             amount: nil,
@@ -2229,17 +2273,21 @@ module Stripe
           ); end
         end
         # Accommodation details for the lodging.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation))
+         }
         def accommodation; end
         sig {
-          params(_accommodation: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation))
+          params(_accommodation: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation))
          }
         def accommodation=(_accommodation); end
         # Affiliate details if applicable.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate))
+         }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate))
          }
         def affiliate=(_affiliate); end
         # Booking confirmation number for the lodging.
@@ -2271,27 +2319,29 @@ module Stripe
         def fire_safety_act_compliance_indicator=(_fire_safety_act_compliance_indicator); end
         # List of guests for the lodging.
         sig {
-          returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest]))
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest]))
          }
         def guests; end
         sig {
-          params(_guests: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest]))
+          params(_guests: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest]))
          }
         def guests=(_guests); end
         # Host details for the lodging.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host))
+         }
         def host; end
         sig {
-          params(_host: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host))
+          params(_host: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host))
          }
         def host=(_host); end
         # List of insurances for the lodging.
         sig {
-          returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance]))
+          returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance]))
          }
         def insurances; end
         sig {
-          params(_insurances: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance])).returns(T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance]))
+          params(_insurances: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance]))
          }
         def insurances=(_insurances); end
         # Whether the renter is a no-show.
@@ -2310,14 +2360,14 @@ module Stripe
         sig { params(_renter_name: T.nilable(String)).returns(T.nilable(String)) }
         def renter_name=(_renter_name); end
         # Total details for the lodging.
-        sig { returns(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total) }
+        sig { returns(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total) }
         def total; end
         sig {
-          params(_total: ChargeCaptureParams::PaymentDetails::LodgingDatum::Total).returns(ChargeCaptureParams::PaymentDetails::LodgingDatum::Total)
+          params(_total: ::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total).returns(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total)
          }
         def total=(_total); end
         sig {
-          params(accommodation: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation), affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate), booking_number: T.nilable(String), checkin_at: Integer, checkout_at: Integer, customer_service_phone_number: T.nilable(String), fire_safety_act_compliance_indicator: T.nilable(T::Boolean), guests: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest]), host: T.nilable(ChargeCaptureParams::PaymentDetails::LodgingDatum::Host), insurances: T.nilable(T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance]), no_show_indicator: T.nilable(T::Boolean), renter_id_number: T.nilable(String), renter_name: T.nilable(String), total: ChargeCaptureParams::PaymentDetails::LodgingDatum::Total).void
+          params(accommodation: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Accommodation), affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Affiliate), booking_number: T.nilable(String), checkin_at: Integer, checkout_at: Integer, customer_service_phone_number: T.nilable(String), fire_safety_act_compliance_indicator: T.nilable(T::Boolean), guests: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Guest]), host: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Host), insurances: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Insurance]), no_show_indicator: T.nilable(T::Boolean), renter_id_number: T.nilable(String), renter_name: T.nilable(String), total: ::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total).void
          }
         def initialize(
           accommodation: nil,
@@ -2361,10 +2411,12 @@ module Stripe
           def initialize(count: nil, interval: nil); end
         end
         # Affiliate details for this purchase.
-        sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::Affiliate)) }
+        sig {
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::Affiliate))
+         }
         def affiliate; end
         sig {
-          params(_affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::Affiliate)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::Affiliate))
+          params(_affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::Affiliate)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::Affiliate))
          }
         def affiliate=(_affiliate); end
         # Info whether the subscription will be auto renewed upon expiry.
@@ -2374,11 +2426,11 @@ module Stripe
         def auto_renewal=(_auto_renewal); end
         # Subscription billing details for this purchase.
         sig {
-          returns(T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval))
+          returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval))
          }
         def billing_interval; end
         sig {
-          params(_billing_interval: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval))
+          params(_billing_interval: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval))
          }
         def billing_interval=(_billing_interval); end
         # Subscription end time. Measured in seconds since the Unix epoch.
@@ -2397,7 +2449,7 @@ module Stripe
         sig { params(_starts_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def starts_at=(_starts_at); end
         sig {
-          params(affiliate: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::Affiliate), auto_renewal: T.nilable(T::Boolean), billing_interval: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval), ends_at: T.nilable(Integer), name: String, starts_at: T.nilable(Integer)).void
+          params(affiliate: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::Affiliate), auto_renewal: T.nilable(T::Boolean), billing_interval: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription::BillingInterval), ends_at: T.nilable(Integer), name: String, starts_at: T.nilable(Integer)).void
          }
         def initialize(
           affiliate: nil,
@@ -2409,19 +2461,19 @@ module Stripe
         ); end
       end
       # Car rental details for this PaymentIntent.
-      sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental)) }
+      sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental)) }
       def car_rental; end
       sig {
-        params(_car_rental: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental))
+        params(_car_rental: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental))
        }
       def car_rental=(_car_rental); end
       # Car rental data for this PaymentIntent.
       sig {
-        returns(T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum])))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum])))
        }
       def car_rental_data; end
       sig {
-        params(_car_rental_data: T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum]))).returns(T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum])))
+        params(_car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum])))
        }
       def car_rental_data=(_car_rental_data); end
       # A unique value to identify the customer. This field is available only for card payments.
@@ -2432,42 +2484,42 @@ module Stripe
       sig { params(_customer_reference: T.nilable(String)).returns(T.nilable(String)) }
       def customer_reference=(_customer_reference); end
       # Event details for this PaymentIntent
-      sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails)) }
+      sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails)) }
       def event_details; end
       sig {
-        params(_event_details: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails))
+        params(_event_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails))
        }
       def event_details=(_event_details); end
       # Flight reservation details for this PaymentIntent
-      sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight)) }
+      sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight)) }
       def flight; end
       sig {
-        params(_flight: T.nilable(ChargeCaptureParams::PaymentDetails::Flight)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Flight))
+        params(_flight: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight))
        }
       def flight=(_flight); end
       # Flight data for this PaymentIntent.
       sig {
-        returns(T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum])))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum])))
        }
       def flight_data; end
       sig {
-        params(_flight_data: T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum]))).returns(T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum])))
+        params(_flight_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum])))
        }
       def flight_data=(_flight_data); end
       # Lodging reservation details for this PaymentIntent
-      sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging)) }
+      sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging)) }
       def lodging; end
       sig {
-        params(_lodging: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging))
+        params(_lodging: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging))
        }
       def lodging=(_lodging); end
       # Lodging data for this PaymentIntent.
       sig {
-        returns(T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum])))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum])))
        }
       def lodging_data; end
       sig {
-        params(_lodging_data: T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum]))).returns(T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum])))
+        params(_lodging_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum])))
        }
       def lodging_data=(_lodging_data); end
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
@@ -2480,14 +2532,14 @@ module Stripe
       sig { params(_order_reference: T.nilable(String)).returns(T.nilable(String)) }
       def order_reference=(_order_reference); end
       # Subscription details for this PaymentIntent
-      sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Subscription)) }
+      sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription)) }
       def subscription; end
       sig {
-        params(_subscription: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Subscription))
+        params(_subscription: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription))
        }
       def subscription=(_subscription); end
       sig {
-        params(car_rental: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails), flight: T.nilable(ChargeCaptureParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::FlightDatum])), lodging: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[ChargeCaptureParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription)).void
+        params(car_rental: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription)).void
        }
       def initialize(
         car_rental: nil,
@@ -2532,10 +2584,10 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Provides industry-specific information about the charge.
-    sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails)) }
+    sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails)) }
     def payment_details; end
     sig {
-      params(_payment_details: T.nilable(ChargeCaptureParams::PaymentDetails)).returns(T.nilable(ChargeCaptureParams::PaymentDetails))
+      params(_payment_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails))
      }
     def payment_details=(_payment_details); end
     # The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode.
@@ -2556,10 +2608,10 @@ module Stripe
     sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor_suffix=(_statement_descriptor_suffix); end
     # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
-    sig { returns(T.nilable(ChargeCaptureParams::TransferData)) }
+    sig { returns(T.nilable(::Stripe::ChargeCaptureParams::TransferData)) }
     def transfer_data; end
     sig {
-      params(_transfer_data: T.nilable(ChargeCaptureParams::TransferData)).returns(T.nilable(ChargeCaptureParams::TransferData))
+      params(_transfer_data: T.nilable(::Stripe::ChargeCaptureParams::TransferData)).returns(T.nilable(::Stripe::ChargeCaptureParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
     # A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
@@ -2568,7 +2620,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), payment_details: T.nilable(ChargeCaptureParams::PaymentDetails), receipt_email: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(ChargeCaptureParams::TransferData), transfer_group: T.nilable(String)).void
+      params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), payment_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails), receipt_email: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::ChargeCaptureParams::TransferData), transfer_group: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

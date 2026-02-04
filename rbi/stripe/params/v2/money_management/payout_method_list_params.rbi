@@ -32,14 +32,16 @@ module Stripe
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
         # Usage status filter.
-        sig { returns(T.nilable(V2::MoneyManagement::PayoutMethodListParams::UsageStatus)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodListParams::UsageStatus))
+         }
         def usage_status; end
         sig {
-          params(_usage_status: T.nilable(V2::MoneyManagement::PayoutMethodListParams::UsageStatus)).returns(T.nilable(V2::MoneyManagement::PayoutMethodListParams::UsageStatus))
+          params(_usage_status: T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodListParams::UsageStatus)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodListParams::UsageStatus))
          }
         def usage_status=(_usage_status); end
         sig {
-          params(limit: T.nilable(Integer), usage_status: T.nilable(V2::MoneyManagement::PayoutMethodListParams::UsageStatus)).void
+          params(limit: T.nilable(Integer), usage_status: T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodListParams::UsageStatus)).void
          }
         def initialize(limit: nil, usage_status: nil); end
       end

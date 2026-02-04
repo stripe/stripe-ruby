@@ -27,14 +27,14 @@ module Stripe
           sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
           def id=(_id); end
           # PEM-formatted public key.
-          sig { returns(T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey::PemKey)) }
+          sig { returns(T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey::PemKey)) }
           def pem_key; end
           sig {
-            params(_pem_key: T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey::PemKey)).returns(T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey::PemKey))
+            params(_pem_key: T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey::PemKey)).returns(T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey::PemKey))
            }
           def pem_key=(_pem_key); end
           sig {
-            params(id: T.nilable(String), pem_key: T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey::PemKey)).void
+            params(id: T.nilable(String), pem_key: T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey::PemKey)).void
            }
           def initialize(id: nil, pem_key: nil); end
         end
@@ -52,10 +52,10 @@ module Stripe
         # This must a PEM-formatted RSA key suitable for encryption, >= 2048 bits.
         # A public key is required when creating secret keys.
         # Publishable keys are not encrypted and a public key should not be included.
-        sig { returns(T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey)) }
+        sig { returns(T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey)) }
         def public_key; end
         sig {
-          params(_public_key: T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey)).returns(T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey))
+          params(_public_key: T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey)).returns(T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey))
          }
         def public_key=(_public_key); end
         # Type of the API key to create (secret or publishable).
@@ -64,7 +64,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(name: T.nilable(String), note: T.nilable(String), public_key: T.nilable(V2::Iam::ApiKeyCreateParams::PublicKey), type: String).void
+          params(name: T.nilable(String), note: T.nilable(String), public_key: T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey), type: String).void
          }
         def initialize(name: nil, note: nil, public_key: nil, type: nil); end
       end

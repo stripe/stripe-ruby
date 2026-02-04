@@ -10,6 +10,23 @@ module Stripe
           "v2.billing.pricing_plan_subscription"
         end
 
+        class CancellationDetails < ::Stripe::StripeObject
+          # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+          attr_reader :comment
+          # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+          attr_reader :feedback
+          # System-generated reason for cancellation.
+          attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class CollectionStatusTransitions < ::Stripe::StripeObject
           # When the collection status transitioned to awaiting customer action.
           attr_reader :awaiting_customer_action_at
@@ -53,6 +70,8 @@ module Stripe
         end
         # The ID of the Billing Cadence this subscription is billed on.
         attr_reader :billing_cadence
+        # Details about why the subscription was canceled, if applicable. Includes system-generated reason.
+        attr_reader :cancellation_details
         # Current collection status of this subscription.
         attr_reader :collection_status
         # Timestamps for collection status transitions.
@@ -80,6 +99,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            cancellation_details: CancellationDetails,
             collection_status_transitions: CollectionStatusTransitions,
             servicing_status_transitions: ServicingStatusTransitions,
           }

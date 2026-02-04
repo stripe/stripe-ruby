@@ -4334,6 +4334,23 @@ module Stripe
               end
             end
 
+            class RegistrationDate < ::Stripe::StripeObject
+              # The day of registration, between 1 and 31.
+              attr_reader :day
+              # The month of registration, between 1 and 12.
+              attr_reader :month
+              # The four-digit year of registration.
+              attr_reader :year
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class ScriptAddresses < ::Stripe::StripeObject
               class Kana < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
@@ -4455,6 +4472,8 @@ module Stripe
             attr_reader :phone
             # The business legal name.
             attr_reader :registered_name
+            # When the business was incorporated or registered.
+            attr_reader :registration_date
             # The business registration address of the business entity in non latin script.
             attr_reader :script_addresses
             # The business legal name in non latin script.
@@ -4469,6 +4488,7 @@ module Stripe
                 documents: Documents,
                 id_numbers: IdNumber,
                 monthly_estimated_revenue: MonthlyEstimatedRevenue,
+                registration_date: RegistrationDate,
                 script_addresses: ScriptAddresses,
                 script_names: ScriptNames,
               }
@@ -5141,6 +5161,8 @@ module Stripe
         attr_reader :configuration
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         attr_reader :contact_email
+        # The default contact phone for the Account.
+        attr_reader :contact_phone
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created
         # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.

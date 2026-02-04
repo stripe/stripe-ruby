@@ -32,10 +32,10 @@ module Stripe
         def limit=(_limit); end
         # Optionally filter by the payer associated with Billing Cadences which the Rate Card Subscriptions are subscribed to.
         # Mutually exclusive with `billing_cadence`, `rate_card`, and `rate_card_version`.
-        sig { returns(T.nilable(V2::Billing::RateCardSubscriptionListParams::Payer)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer)) }
         def payer; end
         sig {
-          params(_payer: T.nilable(V2::Billing::RateCardSubscriptionListParams::Payer)).returns(T.nilable(V2::Billing::RateCardSubscriptionListParams::Payer))
+          params(_payer: T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer)).returns(T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer))
          }
         def payer=(_payer); end
         # Optionally filter by a RateCard. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card_version`.
@@ -54,7 +54,7 @@ module Stripe
         sig { params(_servicing_status: T.nilable(String)).returns(T.nilable(String)) }
         def servicing_status=(_servicing_status); end
         sig {
-          params(billing_cadence: T.nilable(String), limit: T.nilable(Integer), payer: T.nilable(V2::Billing::RateCardSubscriptionListParams::Payer), rate_card: T.nilable(String), rate_card_version: T.nilable(String), servicing_status: T.nilable(String)).void
+          params(billing_cadence: T.nilable(String), limit: T.nilable(Integer), payer: T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer), rate_card: T.nilable(String), rate_card_version: T.nilable(String), servicing_status: T.nilable(String)).void
          }
         def initialize(
           billing_cadence: nil,

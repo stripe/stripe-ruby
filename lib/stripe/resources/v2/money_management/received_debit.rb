@@ -139,6 +139,80 @@ module Stripe
           end
         end
 
+        class CardSpend < ::Stripe::StripeObject
+          class Authorization < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+              attr_reader :value
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              attr_reader :currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Amount associated with this issuing authorization.
+            attr_reader :amount
+            # The reference to the v1 issuing authorization ID.
+            attr_reader :issuing_authorization_v1
+
+            def self.inner_class_types
+              @inner_class_types = { amount: Amount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class CardTransaction < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+              attr_reader :value
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              attr_reader :currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Amount associated with this issuing transaction.
+            attr_reader :amount
+            # The reference to the v1 issuing transaction ID.
+            attr_reader :issuing_transaction_v1
+
+            def self.inner_class_types
+              @inner_class_types = { amount: Amount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The Issuing Authorization for this card_spend. Contains the reference id and the amount.
+          attr_reader :authorization
+          # The list of card spend transactions. These contain the transaction reference ID and the amount.
+          attr_reader :card_transactions
+          # The reference to the card object that resulted in the debit.
+          attr_reader :card_v1_id
+
+          def self.inner_class_types
+            @inner_class_types = { authorization: Authorization, card_transactions: CardTransaction }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StripeBalancePayment < ::Stripe::StripeObject
           # ID of the debit agreement associated with this payment.
           attr_reader :debit_agreement
@@ -184,6 +258,8 @@ module Stripe
         attr_reader :balance_transfer
         # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
         attr_reader :bank_transfer
+        # This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
+        attr_reader :card_spend
         # This object stores details about the Stripe Balance Payment that resulted in the ReceivedDebit.
         attr_reader :stripe_balance_payment
 
@@ -195,6 +271,7 @@ module Stripe
             status_transitions: StatusTransitions,
             balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
+            card_spend: CardSpend,
             stripe_balance_payment: StripeBalancePayment,
           }
         end

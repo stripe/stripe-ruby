@@ -36,10 +36,10 @@ module Stripe
          }
         def metadata=(_metadata); end
         # Stripe Tax details.
-        sig { returns(T.nilable(V2::Billing::MeteredItemUpdateParams::TaxDetails)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::MeteredItemUpdateParams::TaxDetails)) }
         def tax_details; end
         sig {
-          params(_tax_details: T.nilable(V2::Billing::MeteredItemUpdateParams::TaxDetails)).returns(T.nilable(V2::Billing::MeteredItemUpdateParams::TaxDetails))
+          params(_tax_details: T.nilable(::Stripe::V2::Billing::MeteredItemUpdateParams::TaxDetails)).returns(T.nilable(::Stripe::V2::Billing::MeteredItemUpdateParams::TaxDetails))
          }
         def tax_details=(_tax_details); end
         # The unit to use when displaying prices for this billable item in places like Checkout. For example, set this field
@@ -52,7 +52,7 @@ module Stripe
         sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
         def unit_label=(_unit_label); end
         sig {
-          params(display_name: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), tax_details: T.nilable(V2::Billing::MeteredItemUpdateParams::TaxDetails), unit_label: T.nilable(String)).void
+          params(display_name: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), tax_details: T.nilable(::Stripe::V2::Billing::MeteredItemUpdateParams::TaxDetails), unit_label: T.nilable(String)).void
          }
         def initialize(
           display_name: nil,

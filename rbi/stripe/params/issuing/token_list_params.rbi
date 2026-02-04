@@ -37,10 +37,10 @@ module Stripe
       sig { params(_card: String).returns(String) }
       def card=(_card); end
       # Only return Issuing tokens that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Issuing::TokenListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Issuing::TokenListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Issuing::TokenListParams::Created, Integer))).returns(T.nilable(T.any(Issuing::TokenListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Issuing::TokenListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Issuing::TokenListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -69,7 +69,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(card: String, created: T.nilable(T.any(Issuing::TokenListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
+        params(card: String, created: T.nilable(T.any(::Stripe::Issuing::TokenListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
       def initialize(
         card: nil,

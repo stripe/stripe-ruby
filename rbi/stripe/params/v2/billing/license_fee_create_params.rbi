@@ -109,17 +109,17 @@ module Stripe
         sig { params(_tiering_mode: T.nilable(String)).returns(T.nilable(String)) }
         def tiering_mode=(_tiering_mode); end
         # Each element represents a pricing tier. Cannot be set if `unit_amount` is provided.
-        sig { returns(T.nilable(T::Array[V2::Billing::LicenseFeeCreateParams::Tier])) }
+        sig { returns(T.nilable(T::Array[::Stripe::V2::Billing::LicenseFeeCreateParams::Tier])) }
         def tiers; end
         sig {
-          params(_tiers: T.nilable(T::Array[V2::Billing::LicenseFeeCreateParams::Tier])).returns(T.nilable(T::Array[V2::Billing::LicenseFeeCreateParams::Tier]))
+          params(_tiers: T.nilable(T::Array[::Stripe::V2::Billing::LicenseFeeCreateParams::Tier])).returns(T.nilable(T::Array[::Stripe::V2::Billing::LicenseFeeCreateParams::Tier]))
          }
         def tiers=(_tiers); end
         # Apply a transformation to the reported usage or set quantity before computing the amount billed.
-        sig { returns(T.nilable(V2::Billing::LicenseFeeCreateParams::TransformQuantity)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::LicenseFeeCreateParams::TransformQuantity)) }
         def transform_quantity; end
         sig {
-          params(_transform_quantity: T.nilable(V2::Billing::LicenseFeeCreateParams::TransformQuantity)).returns(T.nilable(V2::Billing::LicenseFeeCreateParams::TransformQuantity))
+          params(_transform_quantity: T.nilable(::Stripe::V2::Billing::LicenseFeeCreateParams::TransformQuantity)).returns(T.nilable(::Stripe::V2::Billing::LicenseFeeCreateParams::TransformQuantity))
          }
         def transform_quantity=(_transform_quantity); end
         # The per-unit amount to be charged, represented as a decimal string in minor currency units with at most 12 decimal
@@ -129,7 +129,7 @@ module Stripe
         sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
         def unit_amount=(_unit_amount); end
         sig {
-          params(currency: String, display_name: String, licensed_item: String, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), service_interval: String, service_interval_count: Integer, tax_behavior: String, tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[V2::Billing::LicenseFeeCreateParams::Tier]), transform_quantity: T.nilable(V2::Billing::LicenseFeeCreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
+          params(currency: String, display_name: String, licensed_item: String, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), service_interval: String, service_interval_count: Integer, tax_behavior: String, tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::LicenseFeeCreateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::LicenseFeeCreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
          }
         def initialize(
           currency: nil,

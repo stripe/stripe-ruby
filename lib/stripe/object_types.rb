@@ -237,6 +237,7 @@ module Stripe
         V2::Core::AccountPersonToken.object_name => V2::Core::AccountPersonToken,
         V2::Core::AccountToken.object_name => V2::Core::AccountToken,
         V2::Core::ClaimableSandbox.object_name => V2::Core::ClaimableSandbox,
+        V2::Core::ConnectionSession.object_name => V2::Core::ConnectionSession,
         V2::Core::Event.object_name => V2::Core::Event,
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,

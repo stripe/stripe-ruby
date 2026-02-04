@@ -21,10 +21,10 @@ module Stripe
       def initialize(comment: nil, feedback: nil); end
     end
     # Details about why this subscription was cancelled
-    sig { returns(T.nilable(SubscriptionCancelParams::CancellationDetails)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionCancelParams::CancellationDetails)) }
     def cancellation_details; end
     sig {
-      params(_cancellation_details: T.nilable(SubscriptionCancelParams::CancellationDetails)).returns(T.nilable(SubscriptionCancelParams::CancellationDetails))
+      params(_cancellation_details: T.nilable(::Stripe::SubscriptionCancelParams::CancellationDetails)).returns(T.nilable(::Stripe::SubscriptionCancelParams::CancellationDetails))
      }
     def cancellation_details=(_cancellation_details); end
     # Specifies which fields in the response should be expanded.
@@ -43,7 +43,7 @@ module Stripe
     sig { params(_prorate: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def prorate=(_prorate); end
     sig {
-      params(cancellation_details: T.nilable(SubscriptionCancelParams::CancellationDetails), expand: T.nilable(T::Array[String]), invoice_now: T.nilable(T::Boolean), prorate: T.nilable(T::Boolean)).void
+      params(cancellation_details: T.nilable(::Stripe::SubscriptionCancelParams::CancellationDetails), expand: T.nilable(T::Array[String]), invoice_now: T.nilable(T::Boolean), prorate: T.nilable(T::Boolean)).void
      }
     def initialize(cancellation_details: nil, expand: nil, invoice_now: nil, prorate: nil); end
   end

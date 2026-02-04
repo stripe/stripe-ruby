@@ -21,15 +21,15 @@ module Stripe
       def expand=(_expand); end
       # Optional hash to set the return code.
       sig {
-        returns(T.nilable(Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails))
+        returns(T.nilable(::Stripe::Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails))
        }
       def returned_details; end
       sig {
-        params(_returned_details: T.nilable(Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails)).returns(T.nilable(Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails))
+        params(_returned_details: T.nilable(::Stripe::Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails)).returns(T.nilable(::Stripe::Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails))
        }
       def returned_details=(_returned_details); end
       sig {
-        params(expand: T.nilable(T::Array[String]), returned_details: T.nilable(Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails)).void
+        params(expand: T.nilable(T::Array[String]), returned_details: T.nilable(::Stripe::Treasury::OutboundPaymentReturnOutboundPaymentParams::ReturnedDetails)).void
        }
       def initialize(expand: nil, returned_details: nil); end
     end

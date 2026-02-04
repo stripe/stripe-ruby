@@ -50,14 +50,16 @@ module Stripe
         sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
         def statement_descriptor_suffix=(_statement_descriptor_suffix); end
         # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
-        sig { returns(T.nilable(V2::Payments::OffSessionPaymentCaptureParams::TransferData)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData))
+         }
         def transfer_data; end
         sig {
-          params(_transfer_data: T.nilable(V2::Payments::OffSessionPaymentCaptureParams::TransferData)).returns(T.nilable(V2::Payments::OffSessionPaymentCaptureParams::TransferData))
+          params(_transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData))
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount_to_capture: T.nilable(Integer), metadata: T::Hash[String, String], statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
+          params(amount_to_capture: T.nilable(Integer), metadata: T::Hash[String, String], statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
          }
         def initialize(
           amount_to_capture: nil,

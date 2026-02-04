@@ -5,12 +5,12 @@
 module Stripe
   class SubscriptionPauseParams < ::Stripe::RequestParams
     class BillFor < ::Stripe::RequestParams
-      # Controls whether to debit for accrued metered usage in the current billing period. The default is `false`.
+      # Controls whether to debit for accrued metered usage in the current billing period. The default is `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def outstanding_usage; end
       sig { params(_outstanding_usage: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def outstanding_usage=(_outstanding_usage); end
-      # Controls whether to credit for licensed items in the current billing period. The default is `false`.
+      # Controls whether to credit for licensed items in the current billing period. The default is `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def unused_time; end
       sig { params(_unused_time: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -21,10 +21,10 @@ module Stripe
       def initialize(outstanding_usage: nil, unused_time: nil); end
     end
     # Controls what to bill for when pausing the subscription.
-    sig { returns(T.nilable(SubscriptionPauseParams::BillFor)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionPauseParams::BillFor)) }
     def bill_for; end
     sig {
-      params(_bill_for: T.nilable(SubscriptionPauseParams::BillFor)).returns(T.nilable(SubscriptionPauseParams::BillFor))
+      params(_bill_for: T.nilable(::Stripe::SubscriptionPauseParams::BillFor)).returns(T.nilable(::Stripe::SubscriptionPauseParams::BillFor))
      }
     def bill_for=(_bill_for); end
     # Specifies which fields in the response should be expanded.
@@ -43,7 +43,7 @@ module Stripe
     sig { params(_type: String).returns(String) }
     def type=(_type); end
     sig {
-      params(bill_for: T.nilable(SubscriptionPauseParams::BillFor), expand: T.nilable(T::Array[String]), invoicing_behavior: T.nilable(String), type: String).void
+      params(bill_for: T.nilable(::Stripe::SubscriptionPauseParams::BillFor), expand: T.nilable(T::Array[String]), invoicing_behavior: T.nilable(String), type: String).void
      }
     def initialize(bill_for: nil, expand: nil, invoicing_behavior: nil, type: nil); end
   end

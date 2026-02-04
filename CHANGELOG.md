@@ -17,6 +17,26 @@ This release changes the pinned API version to `2026-01-28.preview`.
   * Add support for `subtotal` on `InvoiceLineItem`
   * Add support for `billing_cadence` on `SubscriptionListParams`
 
+## 18.3.1 - 2026-02-03
+* [#1777](https://github.com/stripe/stripe-ruby/pull/1777)
+  * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.
+
+## 18.3.0 - 2026-01-28
+This release changes the pinned API version to `2026-01-28.clover`.
+
+* [#1771](https://github.com/stripe/stripe-ruby/pull/1771) Update generated code
+  * Add support for new resource `Radar::PaymentEvaluation`
+  * Add support for `create` method on resource `Radar::PaymentEvaluation`
+  * Add support for `adjustable_quantity` on `LineItem`
+  * Change `Invoice::PaymentSetting::PaymentMethodOption.payto` and `Subscription::PaymentSetting::PaymentMethodOption.payto` to be required
+  * Add support for `enforce_arithmetic_validation` on `PaymentIntentCaptureParams::AmountDetail`, `PaymentIntentConfirmParams::AmountDetail`, `PaymentIntentCreateParams::AmountDetail`, `PaymentIntentIncrementAuthorizationParams::AmountDetail`, and `PaymentIntentUpdateParams::AmountDetail`
+  * Add support for `error` on `PaymentIntent::AmountDetail`
+  * Remove support for `bgn` on `Terminal::Configuration::Tipping`, `Terminal::ConfigurationCreateParams::Tipping`, and `Terminal::ConfigurationUpdateParams::Tipping`
+  * Add support for `topup` on `Treasury::ReceivedDebit::LinkedFlow`
+  * Add support for `contact_phone` on `V2::Core::AccountCreateParams`, `V2::Core::AccountTokenCreateParams`, `V2::Core::AccountUpdateParams`, and `V2::Core::Account`
+  * Add support for `registration_date` on `V2::Core::Account::Identity::BusinessDetail`, `V2::Core::AccountCreateParams::Identity::BusinessDetail`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail`
+* [#1769](https://github.com/stripe/stripe-ruby/pull/1769) Document usage of undocumented API parameters
+
 ## 18.3.0-alpha.1 - 2026-01-21
 * [#1770](https://github.com/stripe/stripe-ruby/pull/1770) Update generated code for private-preview
   * Remove support for `pause` method on resource `Subscription`

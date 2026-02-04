@@ -46,15 +46,15 @@ module Stripe
           end
           # Payment method options for the card payment type.
           sig {
-            returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card))
+            returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card))
            }
           def card; end
           sig {
-            params(_card: T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card)).returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card))
+            params(_card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card))
            }
           def card=(_card); end
           sig {
-            params(card: T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card)).void
+            params(card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions::Card)).void
            }
           def initialize(card: nil); end
         end
@@ -103,10 +103,10 @@ module Stripe
           def initialize(amount: nil, destination: nil); end
         end
         # The “presentment amount” to be collected from the customer.
-        sig { returns(V2::Payments::OffSessionPaymentCreateParams::Amount) }
+        sig { returns(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount) }
         def amount; end
         sig {
-          params(_amount: V2::Payments::OffSessionPaymentCreateParams::Amount).returns(V2::Payments::OffSessionPaymentCreateParams::Amount)
+          params(_amount: ::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount).returns(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount)
          }
         def amount=(_amount); end
         # The frequency of the underlying payment.
@@ -115,10 +115,10 @@ module Stripe
         sig { params(_cadence: String).returns(String) }
         def cadence=(_cadence); end
         # Details about the capture configuration for the OffSessionPayment.
-        sig { returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::Capture)) }
+        sig { returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture)) }
         def capture; end
         sig {
-          params(_capture: T.nilable(V2::Payments::OffSessionPaymentCreateParams::Capture)).returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::Capture))
+          params(_capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture))
          }
         def capture=(_capture); end
         # ID of the Customer to which this OffSessionPayment belongs.
@@ -146,27 +146,29 @@ module Stripe
         def payment_method=(_payment_method); end
         # Payment method options for the off-session payment.
         sig {
-          returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions))
+          returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions))
          }
         def payment_method_options; end
         sig {
-          params(_payment_method_options: T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions)).returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions))
+          params(_payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
         # Details about the payments orchestration configuration.
         sig {
-          returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration))
+          returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration))
          }
         def payments_orchestration; end
         sig {
-          params(_payments_orchestration: T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration)).returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration))
+          params(_payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration))
          }
         def payments_orchestration=(_payments_orchestration); end
         # Details about the OffSessionPayment retries.
-        sig { returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::RetryDetails)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails))
+         }
         def retry_details; end
         sig {
-          params(_retry_details: T.nilable(V2::Payments::OffSessionPaymentCreateParams::RetryDetails)).returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::RetryDetails))
+          params(_retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails))
          }
         def retry_details=(_retry_details); end
         # Text that appears on the customer’s statement as the statement descriptor for a
@@ -190,14 +192,16 @@ module Stripe
         sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
         def test_clock=(_test_clock); end
         # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
-        sig { returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::TransferData)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData))
+         }
         def transfer_data; end
         sig {
-          params(_transfer_data: T.nilable(V2::Payments::OffSessionPaymentCreateParams::TransferData)).returns(T.nilable(V2::Payments::OffSessionPaymentCreateParams::TransferData))
+          params(_transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData))
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount: V2::Payments::OffSessionPaymentCreateParams::Amount, cadence: String, capture: T.nilable(V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: String, payment_method_options: T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
+          params(amount: ::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount, cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: String, payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
          }
         def initialize(
           amount: nil,

@@ -42,10 +42,12 @@ module Stripe
       sig { params(_client_reference_id: T.nilable(String)).returns(T.nilable(String)) }
       def client_reference_id=(_client_reference_id); end
       # Only return VerificationReports that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Identity::VerificationReportListParams::Created, Integer))) }
+      sig {
+        returns(T.nilable(T.any(::Stripe::Identity::VerificationReportListParams::Created, Integer)))
+       }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Identity::VerificationReportListParams::Created, Integer))).returns(T.nilable(T.any(Identity::VerificationReportListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Identity::VerificationReportListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Identity::VerificationReportListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -79,7 +81,7 @@ module Stripe
       sig { params(_verification_session: T.nilable(String)).returns(T.nilable(String)) }
       def verification_session=(_verification_session); end
       sig {
-        params(blocked_by_entry: T.nilable(String), client_reference_id: T.nilable(String), created: T.nilable(T.any(Identity::VerificationReportListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), verification_session: T.nilable(String)).void
+        params(blocked_by_entry: T.nilable(String), client_reference_id: T.nilable(String), created: T.nilable(T.any(::Stripe::Identity::VerificationReportListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), verification_session: T.nilable(String)).void
        }
       def initialize(
         blocked_by_entry: nil,

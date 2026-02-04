@@ -27,10 +27,12 @@ module Stripe
           sig { params(_account: String).returns(String) }
           def account=(_account); end
           # The amount and currency of the SettlementAllocationIntentSplit.
-          sig { returns(V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount) }
+          sig {
+            returns(::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount)
+           }
           def amount; end
           sig {
-            params(_amount: V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount).returns(V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount)
+            params(_amount: ::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount).returns(::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount)
            }
           def amount=(_amount); end
           # Metadata associated with the SettlementAllocationIntentSplit.
@@ -46,7 +48,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(account: String, amount: V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount, metadata: T.nilable(T::Hash[String, String]), type: String).void
+            params(account: String, amount: ::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount, metadata: T.nilable(T::Hash[String, String]), type: String).void
            }
           def initialize(account: nil, amount: nil, metadata: nil, type: nil); end
         end

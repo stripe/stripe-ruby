@@ -57,10 +57,10 @@ module Stripe
     sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def active=(_active); end
     # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
-    sig { returns(T.nilable(T.any(PriceListParams::Created, Integer))) }
+    sig { returns(T.nilable(T.any(::Stripe::PriceListParams::Created, Integer))) }
     def created; end
     sig {
-      params(_created: T.nilable(T.any(PriceListParams::Created, Integer))).returns(T.nilable(T.any(PriceListParams::Created, Integer)))
+      params(_created: T.nilable(T.any(::Stripe::PriceListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::PriceListParams::Created, Integer)))
      }
     def created=(_created); end
     # Only return prices for the given currency.
@@ -94,10 +94,10 @@ module Stripe
     sig { params(_product: T.nilable(String)).returns(T.nilable(String)) }
     def product=(_product); end
     # Only return prices with these recurring fields.
-    sig { returns(T.nilable(PriceListParams::Recurring)) }
+    sig { returns(T.nilable(::Stripe::PriceListParams::Recurring)) }
     def recurring; end
     sig {
-      params(_recurring: T.nilable(PriceListParams::Recurring)).returns(T.nilable(PriceListParams::Recurring))
+      params(_recurring: T.nilable(::Stripe::PriceListParams::Recurring)).returns(T.nilable(::Stripe::PriceListParams::Recurring))
      }
     def recurring=(_recurring); end
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -111,7 +111,7 @@ module Stripe
     sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
     def type=(_type); end
     sig {
-      params(active: T.nilable(T::Boolean), created: T.nilable(T.any(PriceListParams::Created, Integer)), currency: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), product: T.nilable(String), recurring: T.nilable(PriceListParams::Recurring), starting_after: T.nilable(String), type: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), created: T.nilable(T.any(::Stripe::PriceListParams::Created, Integer)), currency: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), product: T.nilable(String), recurring: T.nilable(::Stripe::PriceListParams::Recurring), starting_after: T.nilable(String), type: T.nilable(String)).void
      }
     def initialize(
       active: nil,

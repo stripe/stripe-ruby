@@ -49,10 +49,10 @@ module Stripe
       sig { params(_refund_application_fee: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def refund_application_fee=(_refund_application_fee); end
       # Configuration overrides for this refund, such as customer cancellation settings.
-      sig { returns(T.nilable(Terminal::ReaderRefundPaymentParams::RefundPaymentConfig)) }
+      sig { returns(T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig)) }
       def refund_payment_config; end
       sig {
-        params(_refund_payment_config: T.nilable(Terminal::ReaderRefundPaymentParams::RefundPaymentConfig)).returns(T.nilable(Terminal::ReaderRefundPaymentParams::RefundPaymentConfig))
+        params(_refund_payment_config: T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig)).returns(T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig))
        }
       def refund_payment_config=(_refund_payment_config); end
       # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
@@ -61,7 +61,7 @@ module Stripe
       sig { params(_reverse_transfer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def reverse_transfer=(_reverse_transfer); end
       sig {
-        params(amount: T.nilable(Integer), charge: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_intent: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), refund_payment_config: T.nilable(Terminal::ReaderRefundPaymentParams::RefundPaymentConfig), reverse_transfer: T.nilable(T::Boolean)).void
+        params(amount: T.nilable(Integer), charge: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_intent: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), refund_payment_config: T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig), reverse_transfer: T.nilable(T::Boolean)).void
        }
       def initialize(
         amount: nil,

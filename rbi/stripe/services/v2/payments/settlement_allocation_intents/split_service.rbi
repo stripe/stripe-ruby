@@ -19,6 +19,12 @@ module Stripe
            }
           def create(settlement_allocation_intent_id, params = {}, opts = {}); end
 
+          # List SettlementAllocationIntentSplits API.
+          sig {
+            params(settlement_allocation_intent_id: String, params: T.any(::Stripe::V2::Payments::SettlementAllocationIntents::SplitListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
+           }
+          def list(settlement_allocation_intent_id, params = {}, opts = {}); end
+
           # Retrieve SettlementAllocationIntentSplit API.
           sig {
             params(settlement_allocation_intent_id: String, id: String, params: T.any(::Stripe::V2::Payments::SettlementAllocationIntents::SplitRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::SettlementAllocationIntentSplit)

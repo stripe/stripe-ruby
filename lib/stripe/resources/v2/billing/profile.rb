@@ -4,6 +4,7 @@
 module Stripe
   module V2
     module Billing
+      # A Billing Profile is a representation of how a bill is paid, separating payment behavior from customer identity.
       class Profile < APIResource
         OBJECT_NAME = "v2.billing.profile"
         def self.object_name

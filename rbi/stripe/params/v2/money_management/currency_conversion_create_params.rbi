@@ -23,11 +23,11 @@ module Stripe
           end
           # Amount object.
           sig {
-            returns(T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount))
+            returns(T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount))
            }
           def amount; end
           sig {
-            params(_amount: T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount)).returns(T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount))
+            params(_amount: T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount)).returns(T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount))
            }
           def amount=(_amount); end
           # A lowercase alpha3 currency code like "usd".
@@ -36,7 +36,7 @@ module Stripe
           sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
           def currency=(_currency); end
           sig {
-            params(amount: T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount), currency: T.nilable(String)).void
+            params(amount: T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From::Amount), currency: T.nilable(String)).void
            }
           def initialize(amount: nil, currency: nil); end
         end
@@ -57,11 +57,11 @@ module Stripe
           end
           # Amount object.
           sig {
-            returns(T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount))
+            returns(T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount))
            }
           def amount; end
           sig {
-            params(_amount: T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount)).returns(T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount))
+            params(_amount: T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount)).returns(T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount))
            }
           def amount=(_amount); end
           # A lowercase alpha3 currency code like "usd".
@@ -70,7 +70,7 @@ module Stripe
           sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
           def currency=(_currency); end
           sig {
-            params(amount: T.nilable(V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount), currency: T.nilable(String)).void
+            params(amount: T.nilable(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To::Amount), currency: T.nilable(String)).void
            }
           def initialize(amount: nil, currency: nil); end
         end
@@ -80,21 +80,21 @@ module Stripe
         sig { params(_financial_account: String).returns(String) }
         def financial_account=(_financial_account); end
         # From amount object indicating the from currency or optional amount.
-        sig { returns(V2::MoneyManagement::CurrencyConversionCreateParams::From) }
+        sig { returns(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From) }
         def from; end
         sig {
-          params(_from: V2::MoneyManagement::CurrencyConversionCreateParams::From).returns(V2::MoneyManagement::CurrencyConversionCreateParams::From)
+          params(_from: ::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From).returns(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From)
          }
         def from=(_from); end
         # To amount object indicating the to currency or optional amount.
-        sig { returns(V2::MoneyManagement::CurrencyConversionCreateParams::To) }
+        sig { returns(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To) }
         def to; end
         sig {
-          params(_to: V2::MoneyManagement::CurrencyConversionCreateParams::To).returns(V2::MoneyManagement::CurrencyConversionCreateParams::To)
+          params(_to: ::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To).returns(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To)
          }
         def to=(_to); end
         sig {
-          params(financial_account: String, from: V2::MoneyManagement::CurrencyConversionCreateParams::From, to: V2::MoneyManagement::CurrencyConversionCreateParams::To).void
+          params(financial_account: String, from: ::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::From, to: ::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams::To).void
          }
         def initialize(financial_account: nil, from: nil, to: nil); end
       end

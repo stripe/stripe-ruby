@@ -69,11 +69,11 @@ module Stripe
         end
         # The billing address associated with the method of payment.
         sig {
-          returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address))
+          returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address))
          }
         def address; end
         sig {
-          params(_address: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address))
+          params(_address: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address))
          }
         def address=(_address); end
         # The billing email associated with the method of payment.
@@ -92,7 +92,7 @@ module Stripe
         sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
         def phone=(_phone); end
         sig {
-          params(address: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+          params(address: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
@@ -112,20 +112,20 @@ module Stripe
       end
       # The billing details associated with the method of payment.
       sig {
-        returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
        }
       def billing_details; end
       sig {
-        params(_billing_details: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
+        params(_billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
        }
       def billing_details=(_billing_details); end
       # Information about the custom (user-defined) payment method used to make this payment.
       sig {
-        returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom))
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom))
        }
       def custom; end
       sig {
-        params(_custom: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom))
+        params(_custom: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom))
        }
       def custom=(_custom); end
       # ID of the Stripe Payment Method used to make this payment.
@@ -139,7 +139,7 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(billing_details: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails), custom: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
+        params(billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails), custom: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
        }
       def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil); end
     end
@@ -188,10 +188,12 @@ module Stripe
         ); end
       end
       # The physical shipping address.
-      sig { returns(T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address)) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address))
+       }
       def address; end
       sig {
-        params(_address: T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address))
+        params(_address: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address))
        }
       def address=(_address); end
       # The shipping recipient's name.
@@ -205,7 +207,7 @@ module Stripe
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
       sig {
-        params(address: T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
+        params(address: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
@@ -220,17 +222,17 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Information about the payment attempt failure.
-    sig { returns(T.nilable(PaymentRecordReportPaymentAttemptParams::Failed)) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Failed)) }
     def failed; end
     sig {
-      params(_failed: T.nilable(PaymentRecordReportPaymentAttemptParams::Failed)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::Failed))
+      params(_failed: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Failed)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Failed))
      }
     def failed=(_failed); end
     # Information about the payment attempt guarantee.
-    sig { returns(T.nilable(PaymentRecordReportPaymentAttemptParams::Guaranteed)) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Guaranteed)) }
     def guaranteed; end
     sig {
-      params(_guaranteed: T.nilable(PaymentRecordReportPaymentAttemptParams::Guaranteed)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::Guaranteed))
+      params(_guaranteed: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Guaranteed)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Guaranteed))
      }
     def guaranteed=(_guaranteed); end
     # When the reported payment was initiated. Measured in seconds since the Unix epoch.
@@ -251,21 +253,23 @@ module Stripe
     sig { params(_outcome: T.nilable(String)).returns(T.nilable(String)) }
     def outcome=(_outcome); end
     # Information about the Payment Method debited for this payment.
-    sig { returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails)) }
+    sig {
+      returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails))
+     }
     def payment_method_details; end
     sig {
-      params(_payment_method_details: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails))
+      params(_payment_method_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails))
      }
     def payment_method_details=(_payment_method_details); end
     # Shipping information for this payment.
-    sig { returns(T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails)) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails)) }
     def shipping_details; end
     sig {
-      params(_shipping_details: T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails)).returns(T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails))
+      params(_shipping_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails))
      }
     def shipping_details=(_shipping_details); end
     sig {
-      params(description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(PaymentRecordReportPaymentAttemptParams::Failed), guaranteed: T.nilable(PaymentRecordReportPaymentAttemptParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: T.nilable(PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails), shipping_details: T.nilable(PaymentRecordReportPaymentAttemptParams::ShippingDetails)).void
+      params(description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails), shipping_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::ShippingDetails)).void
      }
     def initialize(
       description: nil,

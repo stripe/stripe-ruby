@@ -43,24 +43,24 @@ module Stripe
             def type=(_type); end
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             sig {
-              returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit))
+              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit))
              }
             def custom_pricing_unit; end
             sig {
-              params(_custom_pricing_unit: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit))
+              params(_custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit))
              }
             def custom_pricing_unit=(_custom_pricing_unit); end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             sig {
-              returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
+              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
              }
             def monetary; end
             sig {
-              params(_monetary: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
+              params(_monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
              }
             def monetary=(_monetary); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).void
+              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).void
              }
             def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
           end
@@ -85,15 +85,15 @@ module Stripe
             end
             # The applicability scope of the credit grant.
             sig {
-              returns(V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope)
+              returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope)
              }
             def scope; end
             sig {
-              params(_scope: V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope).returns(V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope)
+              params(_scope: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope)
              }
             def scope=(_scope); end
             sig {
-              params(scope: V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope).void
+              params(scope: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig::Scope).void
              }
             def initialize(scope: nil); end
           end
@@ -107,17 +107,19 @@ module Stripe
             def initialize(type: nil); end
           end
           # The amount of the credit grant.
-          sig { returns(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount) }
+          sig { returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount) }
           def amount; end
           sig {
-            params(_amount: V2::Billing::ServiceActionCreateParams::CreditGrant::Amount).returns(V2::Billing::ServiceActionCreateParams::CreditGrant::Amount)
+            params(_amount: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount)
            }
           def amount=(_amount); end
           # Defines the scope where the credit grant is applicable.
-          sig { returns(V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig) }
+          sig {
+            returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig)
+           }
           def applicability_config; end
           sig {
-            params(_applicability_config: V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig).returns(V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig)
+            params(_applicability_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig)
            }
           def applicability_config=(_applicability_config); end
           # The category of the credit grant.
@@ -126,10 +128,12 @@ module Stripe
           sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
           def category=(_category); end
           # The expiry configuration for the credit grant.
-          sig { returns(V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig) }
+          sig {
+            returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig)
+           }
           def expiry_config; end
           sig {
-            params(_expiry_config: V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig).returns(V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig)
+            params(_expiry_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig)
            }
           def expiry_config=(_expiry_config); end
           # A descriptive name shown in dashboard.
@@ -143,7 +147,7 @@ module Stripe
           sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def priority=(_priority); end
           sig {
-            params(amount: V2::Billing::ServiceActionCreateParams::CreditGrant::Amount, applicability_config: V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig, category: T.nilable(String), expiry_config: V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig, name: String, priority: T.nilable(Integer)).void
+            params(amount: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount, applicability_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ApplicabilityConfig, category: T.nilable(String), expiry_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::ExpiryConfig, name: String, priority: T.nilable(Integer)).void
            }
           def initialize(
             amount: nil,
@@ -191,24 +195,24 @@ module Stripe
             def type=(_type); end
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             sig {
-              returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit))
+              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit))
              }
             def custom_pricing_unit; end
             sig {
-              params(_custom_pricing_unit: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit))
+              params(_custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit))
              }
             def custom_pricing_unit=(_custom_pricing_unit); end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             sig {
-              returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
+              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
              }
             def monetary; end
             sig {
-              params(_monetary: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
+              params(_monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
              }
             def monetary=(_monetary); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).void
+              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).void
              }
             def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
           end
@@ -233,15 +237,15 @@ module Stripe
             end
             # The applicability scope of the credit grant.
             sig {
-              returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope)
+              returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope)
              }
             def scope; end
             sig {
-              params(_scope: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope).returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope)
+              params(_scope: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope)
              }
             def scope=(_scope); end
             sig {
-              params(scope: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope).void
+              params(scope: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig::Scope).void
              }
             def initialize(scope: nil); end
           end
@@ -278,29 +282,29 @@ module Stripe
                 def type=(_type); end
                 # Dimension-based meter segment condition.
                 sig {
-                  returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension))
+                  returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension))
                  }
                 def dimension; end
                 sig {
-                  params(_dimension: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension))
+                  params(_dimension: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension))
                  }
                 def dimension=(_dimension); end
                 sig {
-                  params(type: String, dimension: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension)).void
+                  params(type: String, dimension: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension)).void
                  }
                 def initialize(type: nil, dimension: nil); end
               end
               # The meter segment conditions for the grant condition.
               sig {
-                returns(T::Array[V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition])
+                returns(T::Array[::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition])
                }
               def meter_segment_conditions; end
               sig {
-                params(_meter_segment_conditions: T::Array[V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition]).returns(T::Array[V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition])
+                params(_meter_segment_conditions: T::Array[::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition]).returns(T::Array[::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition])
                }
               def meter_segment_conditions=(_meter_segment_conditions); end
               sig {
-                params(meter_segment_conditions: T::Array[V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition]).void
+                params(meter_segment_conditions: T::Array[::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition]).void
                }
               def initialize(meter_segment_conditions: nil); end
             end
@@ -311,32 +315,34 @@ module Stripe
             def type=(_type); end
             # The grant condition for the meter event first per period.
             sig {
-              returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod))
+              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod))
              }
             def meter_event_first_per_period; end
             sig {
-              params(_meter_event_first_per_period: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod))
+              params(_meter_event_first_per_period: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod))
              }
             def meter_event_first_per_period=(_meter_event_first_per_period); end
             sig {
-              params(type: String, meter_event_first_per_period: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod)).void
+              params(type: String, meter_event_first_per_period: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod)).void
              }
             def initialize(type: nil, meter_event_first_per_period: nil); end
           end
           # The amount of the credit grant.
-          sig { returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount) }
+          sig {
+            returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount)
+           }
           def amount; end
           sig {
-            params(_amount: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount).returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount)
+            params(_amount: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount)
            }
           def amount=(_amount); end
           # Defines the scope where the credit grant is applicable.
           sig {
-            returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig)
+            returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig)
            }
           def applicability_config; end
           sig {
-            params(_applicability_config: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig).returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig)
+            params(_applicability_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig)
            }
           def applicability_config=(_applicability_config); end
           # The category of the credit grant.
@@ -346,20 +352,20 @@ module Stripe
           def category=(_category); end
           # The expiry configuration for the credit grant.
           sig {
-            returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig)
+            returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig)
            }
           def expiry_config; end
           sig {
-            params(_expiry_config: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig).returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig)
+            params(_expiry_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig)
            }
           def expiry_config=(_expiry_config); end
           # The grant condition for the credit grant.
           sig {
-            returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition)
+            returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition)
            }
           def grant_condition; end
           sig {
-            params(_grant_condition: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition).returns(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition)
+            params(_grant_condition: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition).returns(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition)
            }
           def grant_condition=(_grant_condition); end
           # Customer-facing name for the credit grant.
@@ -373,7 +379,7 @@ module Stripe
           sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def priority=(_priority); end
           sig {
-            params(amount: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount, applicability_config: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig, category: T.nilable(String), expiry_config: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig, grant_condition: V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition, name: String, priority: T.nilable(Integer)).void
+            params(amount: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount, applicability_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ApplicabilityConfig, category: T.nilable(String), expiry_config: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::ExpiryConfig, grant_condition: ::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition, name: String, priority: T.nilable(Integer)).void
            }
           def initialize(
             amount: nil,
@@ -406,21 +412,23 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         # Details for the credit grant. Required if `type` is `credit_grant`.
-        sig { returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant)) }
         def credit_grant; end
         sig {
-          params(_credit_grant: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant))
+          params(_credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant))
          }
         def credit_grant=(_credit_grant); end
         # Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
-        sig { returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)) }
+        sig {
+          returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant))
+         }
         def credit_grant_per_tenant; end
         sig {
-          params(_credit_grant_per_tenant: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)).returns(T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant))
+          params(_credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant))
          }
         def credit_grant_per_tenant=(_credit_grant_per_tenant); end
         sig {
-          params(lookup_key: T.nilable(String), service_interval: String, service_interval_count: Integer, type: String, credit_grant: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrant), credit_grant_per_tenant: T.nilable(V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)).void
+          params(lookup_key: T.nilable(String), service_interval: String, service_interval_count: Integer, type: String, credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant), credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)).void
          }
         def initialize(
           lookup_key: nil,

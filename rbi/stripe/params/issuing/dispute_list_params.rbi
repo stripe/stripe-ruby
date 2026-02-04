@@ -32,10 +32,10 @@ module Stripe
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return Issuing disputes that were created during the given date interval.
-      sig { returns(T.nilable(T.any(Issuing::DisputeListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Issuing::DisputeListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Issuing::DisputeListParams::Created, Integer))).returns(T.nilable(T.any(Issuing::DisputeListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Issuing::DisputeListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Issuing::DisputeListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -69,7 +69,7 @@ module Stripe
       sig { params(_transaction: T.nilable(String)).returns(T.nilable(String)) }
       def transaction=(_transaction); end
       sig {
-        params(created: T.nilable(T.any(Issuing::DisputeListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), transaction: T.nilable(String)).void
+        params(created: T.nilable(T.any(::Stripe::Issuing::DisputeListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), transaction: T.nilable(String)).void
        }
       def initialize(
         created: nil,

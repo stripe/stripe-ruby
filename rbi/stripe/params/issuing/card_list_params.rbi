@@ -51,21 +51,21 @@ module Stripe
           def initialize(primary_account_identifier: nil); end
         end
         # Filter cards by Apple Pay wallet details.
-        sig { returns(T.nilable(Issuing::CardListParams::Wallets::ApplePay)) }
+        sig { returns(T.nilable(::Stripe::Issuing::CardListParams::Wallets::ApplePay)) }
         def apple_pay; end
         sig {
-          params(_apple_pay: T.nilable(Issuing::CardListParams::Wallets::ApplePay)).returns(T.nilable(Issuing::CardListParams::Wallets::ApplePay))
+          params(_apple_pay: T.nilable(::Stripe::Issuing::CardListParams::Wallets::ApplePay)).returns(T.nilable(::Stripe::Issuing::CardListParams::Wallets::ApplePay))
          }
         def apple_pay=(_apple_pay); end
         # Filter cards by Google Pay wallet details.
-        sig { returns(T.nilable(Issuing::CardListParams::Wallets::GooglePay)) }
+        sig { returns(T.nilable(::Stripe::Issuing::CardListParams::Wallets::GooglePay)) }
         def google_pay; end
         sig {
-          params(_google_pay: T.nilable(Issuing::CardListParams::Wallets::GooglePay)).returns(T.nilable(Issuing::CardListParams::Wallets::GooglePay))
+          params(_google_pay: T.nilable(::Stripe::Issuing::CardListParams::Wallets::GooglePay)).returns(T.nilable(::Stripe::Issuing::CardListParams::Wallets::GooglePay))
          }
         def google_pay=(_google_pay); end
         sig {
-          params(apple_pay: T.nilable(Issuing::CardListParams::Wallets::ApplePay), google_pay: T.nilable(Issuing::CardListParams::Wallets::GooglePay)).void
+          params(apple_pay: T.nilable(::Stripe::Issuing::CardListParams::Wallets::ApplePay), google_pay: T.nilable(::Stripe::Issuing::CardListParams::Wallets::GooglePay)).void
          }
         def initialize(apple_pay: nil, google_pay: nil); end
       end
@@ -75,10 +75,10 @@ module Stripe
       sig { params(_cardholder: T.nilable(String)).returns(T.nilable(String)) }
       def cardholder=(_cardholder); end
       # Only return cards that were issued during the given date interval.
-      sig { returns(T.nilable(T.any(Issuing::CardListParams::Created, Integer))) }
+      sig { returns(T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer))) }
       def created; end
       sig {
-        params(_created: T.nilable(T.any(Issuing::CardListParams::Created, Integer))).returns(T.nilable(T.any(Issuing::CardListParams::Created, Integer)))
+        params(_created: T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer)))
        }
       def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -132,14 +132,14 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       # Filter cards by wallet settings.
-      sig { returns(T.nilable(Issuing::CardListParams::Wallets)) }
+      sig { returns(T.nilable(::Stripe::Issuing::CardListParams::Wallets)) }
       def wallets; end
       sig {
-        params(_wallets: T.nilable(Issuing::CardListParams::Wallets)).returns(T.nilable(Issuing::CardListParams::Wallets))
+        params(_wallets: T.nilable(::Stripe::Issuing::CardListParams::Wallets)).returns(T.nilable(::Stripe::Issuing::CardListParams::Wallets))
        }
       def wallets=(_wallets); end
       sig {
-        params(cardholder: T.nilable(String), created: T.nilable(T.any(Issuing::CardListParams::Created, Integer)), ending_before: T.nilable(String), exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), last4: T.nilable(String), limit: T.nilable(Integer), personalization_design: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String), wallets: T.nilable(Issuing::CardListParams::Wallets)).void
+        params(cardholder: T.nilable(String), created: T.nilable(T.any(::Stripe::Issuing::CardListParams::Created, Integer)), ending_before: T.nilable(String), exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), last4: T.nilable(String), limit: T.nilable(Integer), personalization_design: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String), wallets: T.nilable(::Stripe::Issuing::CardListParams::Wallets)).void
        }
       def initialize(
         cardholder: nil,

@@ -17,14 +17,16 @@ module Stripe
             def initialize(type: nil); end
           end
           # Settings for calculating tax.
-          sig { returns(T.nilable(V2::Billing::BillSettingCreateParams::Calculation::Tax)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation::Tax))
+           }
           def tax; end
           sig {
-            params(_tax: T.nilable(V2::Billing::BillSettingCreateParams::Calculation::Tax)).returns(T.nilable(V2::Billing::BillSettingCreateParams::Calculation::Tax))
+            params(_tax: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation::Tax)).returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation::Tax))
            }
           def tax=(_tax); end
           sig {
-            params(tax: T.nilable(V2::Billing::BillSettingCreateParams::Calculation::Tax)).void
+            params(tax: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation::Tax)).void
            }
           def initialize(tax: nil); end
         end
@@ -45,22 +47,24 @@ module Stripe
             def initialize(interval: nil, interval_count: nil); end
           end
           # The amount of time until the invoice will be overdue for payment.
-          sig { returns(T.nilable(V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue)) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue))
+           }
           def time_until_due; end
           sig {
-            params(_time_until_due: T.nilable(V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue)).returns(T.nilable(V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue))
+            params(_time_until_due: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue)).returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue))
            }
           def time_until_due=(_time_until_due); end
           sig {
-            params(time_until_due: T.nilable(V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue)).void
+            params(time_until_due: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice::TimeUntilDue)).void
            }
           def initialize(time_until_due: nil); end
         end
         # Settings related to calculating a bill.
-        sig { returns(T.nilable(V2::Billing::BillSettingCreateParams::Calculation)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation)) }
         def calculation; end
         sig {
-          params(_calculation: T.nilable(V2::Billing::BillSettingCreateParams::Calculation)).returns(T.nilable(V2::Billing::BillSettingCreateParams::Calculation))
+          params(_calculation: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation)).returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation))
          }
         def calculation=(_calculation); end
         # An optional customer-facing display name for the CollectionSetting object.
@@ -70,10 +74,10 @@ module Stripe
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
         # Settings related to invoice behavior.
-        sig { returns(T.nilable(V2::Billing::BillSettingCreateParams::Invoice)) }
+        sig { returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice)) }
         def invoice; end
         sig {
-          params(_invoice: T.nilable(V2::Billing::BillSettingCreateParams::Invoice)).returns(T.nilable(V2::Billing::BillSettingCreateParams::Invoice))
+          params(_invoice: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice)).returns(T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice))
          }
         def invoice=(_invoice); end
         # The ID of the invoice rendering template to be used when generating invoices.
@@ -88,7 +92,7 @@ module Stripe
         sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
         def lookup_key=(_lookup_key); end
         sig {
-          params(calculation: T.nilable(V2::Billing::BillSettingCreateParams::Calculation), display_name: T.nilable(String), invoice: T.nilable(V2::Billing::BillSettingCreateParams::Invoice), invoice_rendering_template: T.nilable(String), lookup_key: T.nilable(String)).void
+          params(calculation: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Calculation), display_name: T.nilable(String), invoice: T.nilable(::Stripe::V2::Billing::BillSettingCreateParams::Invoice), invoice_rendering_template: T.nilable(String), lookup_key: T.nilable(String)).void
          }
         def initialize(
           calculation: nil,

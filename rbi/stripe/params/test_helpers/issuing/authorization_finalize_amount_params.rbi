@@ -81,43 +81,43 @@ module Stripe
             end
             # Breakdown of fuel portion of the purchase.
             sig {
-              returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel))
+              returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel))
              }
             def fuel; end
             sig {
-              params(_fuel: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel))
+              params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel))
              }
             def fuel=(_fuel); end
             # Breakdown of non-fuel portion of the purchase.
             sig {
-              returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel))
+              returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel))
              }
             def non_fuel; end
             sig {
-              params(_non_fuel: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel))
+              params(_non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel))
              }
             def non_fuel=(_non_fuel); end
             # Information about tax included in this transaction.
             sig {
-              returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax))
+              returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax))
              }
             def tax; end
             sig {
-              params(_tax: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax))
+              params(_tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax))
              }
             def tax=(_tax); end
             sig {
-              params(fuel: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax)).void
+              params(fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown::Tax)).void
              }
             def initialize(fuel: nil, non_fuel: nil, tax: nil); end
           end
           # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
           sig {
-            returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData))
+            returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData))
            }
           def cardholder_prompt_data; end
           sig {
-            params(_cardholder_prompt_data: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData)).returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData))
+            params(_cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData))
            }
           def cardholder_prompt_data=(_cardholder_prompt_data); end
           # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
@@ -127,11 +127,11 @@ module Stripe
           def purchase_type=(_purchase_type); end
           # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
           sig {
-            returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown))
+            returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown))
            }
           def reported_breakdown; end
           sig {
-            params(_reported_breakdown: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown)).returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown))
+            params(_reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown))
            }
           def reported_breakdown=(_reported_breakdown); end
           # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
@@ -140,7 +140,7 @@ module Stripe
           sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
           def service_type=(_service_type); end
           sig {
-            params(cardholder_prompt_data: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
+            params(cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
            }
           def initialize(
             cardholder_prompt_data: nil,
@@ -197,21 +197,25 @@ module Stripe
         sig { params(_final_amount: Integer).returns(Integer) }
         def final_amount=(_final_amount); end
         # Fleet-specific information for authorizations using Fleet cards.
-        sig { returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet)) }
+        sig {
+          returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet))
+         }
         def fleet; end
         sig {
-          params(_fleet: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet)).returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet))
+          params(_fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet))
          }
         def fleet=(_fleet); end
         # Information about fuel that was purchased with this transaction.
-        sig { returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel)) }
+        sig {
+          returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel))
+         }
         def fuel; end
         sig {
-          params(_fuel: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel)).returns(T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel))
+          params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel))
          }
         def fuel=(_fuel); end
         sig {
-          params(expand: T.nilable(T::Array[String]), final_amount: Integer, fleet: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet), fuel: T.nilable(TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel)).void
+          params(expand: T.nilable(T::Array[String]), final_amount: Integer, fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fleet), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams::Fuel)).void
          }
         def initialize(expand: nil, final_amount: nil, fleet: nil, fuel: nil); end
       end

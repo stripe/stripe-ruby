@@ -84,6 +84,10 @@ module Stripe
           # The year the card expires.
           sig { returns(String) }
           def exp_year; end
+          # Uniquely identifies this particular card number. You can use this attribute to check whether two
+          # recipients who’ve signed up with you are using the same card number, for example.
+          sig { returns(String) }
+          def fingerprint; end
           # The last 4 digits of the card number.
           sig { returns(String) }
           def last4; end

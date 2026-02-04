@@ -44,10 +44,12 @@ module Stripe
           def initialize(interval: nil, interval_count: nil); end
         end
         # Time span for the redeemed discount.
-        sig { returns(T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration)) }
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration))
+         }
         def duration; end
         sig {
-          params(_duration: T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration)).returns(T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration))
+          params(_duration: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration))
          }
         def duration=(_duration); end
         # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -61,7 +63,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(duration: T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+          params(duration: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
          }
         def initialize(duration: nil, timestamp: nil, type: nil); end
       end
@@ -100,11 +102,11 @@ module Stripe
           end
           # Anchor the service period to a custom date. Type must be `custom` to specify.
           sig {
-            returns(T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+            returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom))
            }
           def custom; end
           sig {
-            params(_custom: T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+            params(_custom: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom))
            }
           def custom=(_custom); end
           # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
@@ -113,17 +115,17 @@ module Stripe
           sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
           def type=(_type); end
           sig {
-            params(custom: T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+            params(custom: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
            }
           def initialize(custom: nil, type: nil); end
         end
         # Configures service period cycle anchoring.
         sig {
-          returns(T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig))
+          returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig))
          }
         def service_period_anchor_config; end
         sig {
-          params(_service_period_anchor_config: T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig))
+          params(_service_period_anchor_config: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig))
          }
         def service_period_anchor_config=(_service_period_anchor_config); end
         # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
@@ -132,7 +134,7 @@ module Stripe
         sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
         def start_date=(_start_date); end
         sig {
-          params(service_period_anchor_config: T.nilable(SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+          params(service_period_anchor_config: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
          }
         def initialize(service_period_anchor_config: nil, start_date: nil); end
       end
@@ -147,10 +149,10 @@ module Stripe
       sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
       def discount=(_discount); end
       # Details to determine how long the discount should be applied for.
-      sig { returns(T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd)) }
       def discount_end; end
       sig {
-        params(_discount_end: T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd)).returns(T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd))
+        params(_discount_end: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd))
        }
       def discount_end=(_discount_end); end
       # ID of the promotion code to create a new discount for.
@@ -159,14 +161,14 @@ module Stripe
       sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
       def promotion_code=(_promotion_code); end
       # Settings for discount application including service period anchoring.
-      sig { returns(T.nilable(SubscriptionItemUpdateParams::Discount::Settings)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings)) }
       def settings; end
       sig {
-        params(_settings: T.nilable(SubscriptionItemUpdateParams::Discount::Settings)).returns(T.nilable(SubscriptionItemUpdateParams::Discount::Settings))
+        params(_settings: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings))
        }
       def settings=(_settings); end
       sig {
-        params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(SubscriptionItemUpdateParams::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(SubscriptionItemUpdateParams::Discount::Settings)).void
+        params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::SubscriptionItemUpdateParams::Discount::Settings)).void
        }
       def initialize(
         coupon: nil,
@@ -202,10 +204,10 @@ module Stripe
       sig { params(_product: String).returns(String) }
       def product=(_product); end
       # The recurring components of a price such as `interval` and `interval_count`.
-      sig { returns(SubscriptionItemUpdateParams::PriceData::Recurring) }
+      sig { returns(::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring) }
       def recurring; end
       sig {
-        params(_recurring: SubscriptionItemUpdateParams::PriceData::Recurring).returns(SubscriptionItemUpdateParams::PriceData::Recurring)
+        params(_recurring: ::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring).returns(::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring)
        }
       def recurring=(_recurring); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -224,7 +226,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(currency: String, product: String, recurring: SubscriptionItemUpdateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(currency: String, product: String, recurring: ::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         currency: nil,
@@ -236,24 +238,28 @@ module Stripe
       ); end
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-    sig { returns(T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds))) }
+    sig {
+      returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)))
+     }
     def billing_thresholds; end
     sig {
-      params(_billing_thresholds: T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds))).returns(T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds)))
+      params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)))
      }
     def billing_thresholds=(_billing_thresholds); end
     # The trial offer to apply to this subscription item.
-    sig { returns(T.nilable(SubscriptionItemUpdateParams::CurrentTrial)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial)) }
     def current_trial; end
     sig {
-      params(_current_trial: T.nilable(SubscriptionItemUpdateParams::CurrentTrial)).returns(T.nilable(SubscriptionItemUpdateParams::CurrentTrial))
+      params(_current_trial: T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial))
      }
     def current_trial=(_current_trial); end
     # The coupons to redeem into discounts for the subscription item.
-    sig { returns(T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount]))) }
+    sig {
+      returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])))
+     }
     def discounts; end
     sig {
-      params(_discounts: T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount])))
+      params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])))
      }
     def discounts=(_discounts); end
     # Specifies which fields in the response should be expanded.
@@ -295,10 +301,10 @@ module Stripe
     sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
     def price=(_price); end
     # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
-    sig { returns(T.nilable(SubscriptionItemUpdateParams::PriceData)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData)) }
     def price_data; end
     sig {
-      params(_price_data: T.nilable(SubscriptionItemUpdateParams::PriceData)).returns(T.nilable(SubscriptionItemUpdateParams::PriceData))
+      params(_price_data: T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData))
      }
     def price_data=(_price_data); end
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -324,7 +330,7 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(billing_thresholds: T.nilable(T.any(String, SubscriptionItemUpdateParams::BillingThresholds)), current_trial: T.nilable(SubscriptionItemUpdateParams::CurrentTrial), discounts: T.nilable(T.any(String, T::Array[SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)), current_trial: T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       billing_thresholds: nil,

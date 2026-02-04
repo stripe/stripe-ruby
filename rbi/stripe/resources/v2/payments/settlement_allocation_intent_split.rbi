@@ -51,7 +51,7 @@ module Stripe
         sig { returns(String) }
         def created; end
         # Details about the Flow object that settled the split.
-        sig { returns(Flow) }
+        sig { returns(T.nilable(Flow)) }
         def flow; end
         # Unique identifier for the SettlementAllocationIntentSplit.
         sig { returns(String) }

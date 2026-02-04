@@ -57,6 +57,41 @@ module Stripe
             end
           end
           class UsBankAccount < ::Stripe::StripeObject
+            class AccountHolderAddress < ::Stripe::StripeObject
+              # The city of the address.
+              sig { returns(String) }
+              def city; end
+              # The country of the address.
+              sig { returns(String) }
+              def country; end
+              # The first line of the address.
+              sig { returns(String) }
+              def line1; end
+              # The second line of the address.
+              sig { returns(String) }
+              def line2; end
+              # The postal / zip code of the address.
+              sig { returns(String) }
+              def postal_code; end
+              # The state of the address.
+              sig { returns(String) }
+              def state; end
+              # The town of the address.
+              sig { returns(String) }
+              def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The address of the account holder.
+            sig { returns(T.nilable(AccountHolderAddress)) }
+            def account_holder_address; end
+            # The name of the account holder.
+            sig { returns(T.nilable(String)) }
+            def account_holder_name; end
             # The account number of the US Bank Account.
             sig { returns(T.nilable(String)) }
             def account_number; end
@@ -74,7 +109,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def swift_code; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {account_holder_address: AccountHolderAddress}
             end
             def self.field_remappings
               @field_remappings = {}

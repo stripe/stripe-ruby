@@ -81,6 +81,9 @@ module Stripe
           attr_reader :exp_month
           # The year the card expires.
           attr_reader :exp_year
+          # Uniquely identifies this particular card number. You can use this attribute to check whether two
+          # recipients who’ve signed up with you are using the same card number, for example.
+          attr_reader :fingerprint
           # The last 4 digits of the card number.
           attr_reader :last4
 

@@ -82,6 +82,20 @@ module Stripe
             def initialize(type: nil, invoice_discount_rule: nil); end
           end
           class Deactivate < ::Stripe::RequestParams
+            class CancellationDetails < ::Stripe::RequestParams
+              # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+              sig { returns(T.nilable(String)) }
+              def comment; end
+              sig { params(_comment: T.nilable(String)).returns(T.nilable(String)) }
+              def comment=(_comment); end
+              # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+              sig { returns(T.nilable(String)) }
+              def feedback; end
+              sig { params(_feedback: T.nilable(String)).returns(T.nilable(String)) }
+              def feedback=(_feedback); end
+              sig { params(comment: T.nilable(String), feedback: T.nilable(String)).void }
+              def initialize(comment: nil, feedback: nil); end
+            end
             class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
               sig { returns(T.nilable(String)) }
@@ -160,6 +174,15 @@ module Stripe
                }
               def initialize(overrides: nil, pricing_plan_subscription: nil); end
             end
+            # Details about why the cancellation is being requested.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails))
+             }
+            def cancellation_details; end
+            sig {
+              params(_cancellation_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails))
+             }
+            def cancellation_details=(_cancellation_details); end
             # Allows users to override the collect at behavior.
             sig { returns(T.nilable(String)) }
             def collect_at; end
@@ -189,9 +212,10 @@ module Stripe
             sig { params(_type: String).returns(String) }
             def type=(_type); end
             sig {
-              params(collect_at: T.nilable(String), effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::EffectiveAt), pricing_plan_subscription_details: ::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails, type: String).void
+              params(cancellation_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails), collect_at: T.nilable(String), effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::EffectiveAt), pricing_plan_subscription_details: ::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails, type: String).void
              }
             def initialize(
+              cancellation_details: nil,
               collect_at: nil,
               effective_at: nil,
               pricing_plan_subscription_details: nil,
@@ -669,6 +693,388 @@ module Stripe
             subscribe: nil
           ); end
         end
+        class CadenceData < ::Stripe::RequestParams
+          class BillingCycle < ::Stripe::RequestParams
+            class Day < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                sig { returns(Integer) }
+                def hour; end
+                sig { params(_hour: Integer).returns(Integer) }
+                def hour=(_hour); end
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def minute; end
+                sig { params(_minute: Integer).returns(Integer) }
+                def minute=(_minute); end
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def second; end
+                sig { params(_second: Integer).returns(Integer) }
+                def second=(_second); end
+                sig { params(hour: Integer, minute: Integer, second: Integer).void }
+                def initialize(hour: nil, minute: nil, second: nil); end
+              end
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it will default to
+              # the time at which the cadence was created in UTC timezone.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day::Time))
+               }
+              def time; end
+              sig {
+                params(_time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day::Time)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day::Time))
+               }
+              def time=(_time); end
+              sig {
+                params(time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day::Time)).void
+               }
+              def initialize(time: nil); end
+            end
+            class Month < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                sig { returns(Integer) }
+                def hour; end
+                sig { params(_hour: Integer).returns(Integer) }
+                def hour=(_hour); end
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def minute; end
+                sig { params(_minute: Integer).returns(Integer) }
+                def minute=(_minute); end
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def second; end
+                sig { params(_second: Integer).returns(Integer) }
+                def second=(_second); end
+                sig { params(hour: Integer, minute: Integer, second: Integer).void }
+                def initialize(hour: nil, minute: nil, second: nil); end
+              end
+              # The day to anchor the billing on for a type="month" billing cycle from
+              # 1-31. If this number is greater than the number of days in the month being
+              # billed, this will anchor to the last day of the month. If not provided,
+              # this will default to the day the cadence was created.
+              sig { returns(Integer) }
+              def day_of_month; end
+              sig { params(_day_of_month: Integer).returns(Integer) }
+              def day_of_month=(_day_of_month); end
+              # The month to anchor the billing on for a type="month" billing cycle from
+              # 1-12. If not provided, this will default to the month the cadence was created.
+              # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+              # All occurrences will be calculated from month provided.
+              sig { returns(T.nilable(Integer)) }
+              def month_of_year; end
+              sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def month_of_year=(_month_of_year); end
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it will default to
+              # the time at which the cadence was created in UTC timezone.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month::Time))
+               }
+              def time; end
+              sig {
+                params(_time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month::Time)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month::Time))
+               }
+              def time=(_time); end
+              sig {
+                params(day_of_month: Integer, month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month::Time)).void
+               }
+              def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
+            end
+            class Week < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                sig { returns(Integer) }
+                def hour; end
+                sig { params(_hour: Integer).returns(Integer) }
+                def hour=(_hour); end
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def minute; end
+                sig { params(_minute: Integer).returns(Integer) }
+                def minute=(_minute); end
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def second; end
+                sig { params(_second: Integer).returns(Integer) }
+                def second=(_second); end
+                sig { params(hour: Integer, minute: Integer, second: Integer).void }
+                def initialize(hour: nil, minute: nil, second: nil); end
+              end
+              # The day of the week to bill the type=week billing cycle on.
+              # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
+              # week day numbering. If not provided, this will default to the day the
+              # cadence was created.
+              sig { returns(Integer) }
+              def day_of_week; end
+              sig { params(_day_of_week: Integer).returns(Integer) }
+              def day_of_week=(_day_of_week); end
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it will default to
+              # the time at which the cadence was created in UTC timezone.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week::Time))
+               }
+              def time; end
+              sig {
+                params(_time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week::Time)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week::Time))
+               }
+              def time=(_time); end
+              sig {
+                params(day_of_week: Integer, time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week::Time)).void
+               }
+              def initialize(day_of_week: nil, time: nil); end
+            end
+            class Year < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                sig { returns(Integer) }
+                def hour; end
+                sig { params(_hour: Integer).returns(Integer) }
+                def hour=(_hour); end
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def minute; end
+                sig { params(_minute: Integer).returns(Integer) }
+                def minute=(_minute); end
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                sig { returns(Integer) }
+                def second; end
+                sig { params(_second: Integer).returns(Integer) }
+                def second=(_second); end
+                sig { params(hour: Integer, minute: Integer, second: Integer).void }
+                def initialize(hour: nil, minute: nil, second: nil); end
+              end
+              # The day to anchor the billing on for a type="month" billing cycle from
+              # 1-31. If this number is greater than the number of days in the month being
+              # billed, this will anchor to the last day of the month. If not provided,
+              # this will default to the day the cadence was created.
+              sig { returns(T.nilable(Integer)) }
+              def day_of_month; end
+              sig { params(_day_of_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def day_of_month=(_day_of_month); end
+              # The month to bill on from 1-12. If not provided, this will default to the
+              # month the cadence was created.
+              sig { returns(T.nilable(Integer)) }
+              def month_of_year; end
+              sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def month_of_year=(_month_of_year); end
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it will default to
+              # the time at which the cadence was created in UTC timezone.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year::Time))
+               }
+              def time; end
+              sig {
+                params(_time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year::Time)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year::Time))
+               }
+              def time=(_time); end
+              sig {
+                params(day_of_month: T.nilable(Integer), month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year::Time)).void
+               }
+              def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
+            end
+            # The number of intervals (specified in the interval attribute) between
+            # cadence billings. For example, type=month and interval_count=3 bills every
+            # 3 months. If this is not provided, it will default to 1.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
+            # The frequency at which a cadence bills.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            # Specific configuration for determining billing dates when type=day.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day))
+             }
+            def day; end
+            sig {
+              params(_day: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day))
+             }
+            def day=(_day); end
+            # Specific configuration for determining billing dates when type=month.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month))
+             }
+            def month; end
+            sig {
+              params(_month: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month))
+             }
+            def month=(_month); end
+            # Specific configuration for determining billing dates when type=week.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week))
+             }
+            def week; end
+            sig {
+              params(_week: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week))
+             }
+            def week=(_week); end
+            # Specific configuration for determining billing dates when type=year.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year))
+             }
+            def year; end
+            sig {
+              params(_year: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year))
+             }
+            def year=(_year); end
+            sig {
+              params(interval_count: T.nilable(Integer), type: String, day: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day), month: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month), week: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year)).void
+             }
+            def initialize(
+              interval_count: nil,
+              type: nil,
+              day: nil,
+              month: nil,
+              week: nil,
+              year: nil
+            ); end
+          end
+          class Payer < ::Stripe::RequestParams
+            class BillingProfileData < ::Stripe::RequestParams
+              # The customer to associate with the profile.
+              sig { returns(String) }
+              def customer; end
+              sig { params(_customer: String).returns(String) }
+              def customer=(_customer); end
+              # The default payment method to use when billing this profile.
+              # If left blank, the `PaymentMethod` from the `PaymentIntent` provided
+              # on commit will be used to create the profile.
+              sig { returns(T.nilable(String)) }
+              def default_payment_method; end
+              sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+              def default_payment_method=(_default_payment_method); end
+              sig { params(customer: String, default_payment_method: T.nilable(String)).void }
+              def initialize(customer: nil, default_payment_method: nil); end
+            end
+            # The ID of the Billing Profile object which determines how a bill will be paid.
+            sig { returns(T.nilable(String)) }
+            def billing_profile; end
+            sig { params(_billing_profile: T.nilable(String)).returns(T.nilable(String)) }
+            def billing_profile=(_billing_profile); end
+            # Data for creating a new profile.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer::BillingProfileData))
+             }
+            def billing_profile_data; end
+            sig {
+              params(_billing_profile_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer::BillingProfileData)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer::BillingProfileData))
+             }
+            def billing_profile_data=(_billing_profile_data); end
+            sig {
+              params(billing_profile: T.nilable(String), billing_profile_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer::BillingProfileData)).void
+             }
+            def initialize(billing_profile: nil, billing_profile_data: nil); end
+          end
+          class Settings < ::Stripe::RequestParams
+            class Bill < ::Stripe::RequestParams
+              # The ID of the referenced settings object.
+              sig { returns(String) }
+              def id; end
+              sig { params(_id: String).returns(String) }
+              def id=(_id); end
+              # An optional field to specify the version of the Settings to use.
+              # If not provided, this will always default to the live version any time the settings are used.
+              sig { returns(T.nilable(String)) }
+              def version; end
+              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
+              def version=(_version); end
+              sig { params(id: String, version: T.nilable(String)).void }
+              def initialize(id: nil, version: nil); end
+            end
+            class Collection < ::Stripe::RequestParams
+              # The ID of the referenced settings object.
+              sig { returns(String) }
+              def id; end
+              sig { params(_id: String).returns(String) }
+              def id=(_id); end
+              # An optional field to specify the version of the Settings to use.
+              # If not provided, this will always default to the live version any time the settings are used.
+              sig { returns(T.nilable(String)) }
+              def version; end
+              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
+              def version=(_version); end
+              sig { params(id: String, version: T.nilable(String)).void }
+              def initialize(id: nil, version: nil); end
+            end
+            # Settings that configure bill generation, which includes calculating totals, tax, and presenting invoices.
+            # If no setting is provided here, the settings from the customer referenced on the payer will be used.
+            # If no customer settings are present, the merchant default settings will be used.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Bill))
+             }
+            def bill; end
+            sig {
+              params(_bill: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Bill)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Bill))
+             }
+            def bill=(_bill); end
+            # Settings that configure and manage the behavior of collecting payments.
+            # If no setting is provided here, the settings from the customer referenced from the payer will be used if they exist.
+            # If no customer settings are present, the merchant default settings will be used.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Collection))
+             }
+            def collection; end
+            sig {
+              params(_collection: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Collection)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Collection))
+             }
+            def collection=(_collection); end
+            sig {
+              params(bill: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Bill), collection: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings::Collection)).void
+             }
+            def initialize(bill: nil, collection: nil); end
+          end
+          # The billing cycle configuration for this Cadence.
+          sig { returns(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle) }
+          def billing_cycle; end
+          sig {
+            params(_billing_cycle: ::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle).returns(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle)
+           }
+          def billing_cycle=(_billing_cycle); end
+          # Information about the payer for this Cadence.
+          sig { returns(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer) }
+          def payer; end
+          sig {
+            params(_payer: ::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer).returns(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer)
+           }
+          def payer=(_payer); end
+          # Settings for creating the Cadence.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings))
+           }
+          def settings; end
+          sig {
+            params(_settings: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings))
+           }
+          def settings=(_settings); end
+          sig {
+            params(billing_cycle: ::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle, payer: ::Stripe::V2::Billing::IntentCreateParams::CadenceData::Payer, settings: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::Settings)).void
+           }
+          def initialize(billing_cycle: nil, payer: nil, settings: nil); end
+        end
         # Actions to be performed by this Billing Intent.
         sig { returns(T::Array[::Stripe::V2::Billing::IntentCreateParams::Action]) }
         def actions; end
@@ -686,10 +1092,17 @@ module Stripe
         def cadence; end
         sig { params(_cadence: T.nilable(String)).returns(T.nilable(String)) }
         def cadence=(_cadence); end
+        # Data for creating a new Cadence.
+        sig { returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)) }
+        def cadence_data; end
         sig {
-          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], currency: String, cadence: T.nilable(String)).void
+          params(_cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData))
          }
-        def initialize(actions: nil, currency: nil, cadence: nil); end
+        def cadence_data=(_cadence_data); end
+        sig {
+          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], currency: String, cadence: T.nilable(String), cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).void
+         }
+        def initialize(actions: nil, currency: nil, cadence: nil, cadence_data: nil); end
       end
     end
   end

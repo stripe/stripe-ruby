@@ -82,8 +82,16 @@ module Stripe
             attr_reader :type
             # If applicable, the ID of the Adjustment that created this Transaction.
             attr_reader :adjustment
+            # If applicable, the ID of the Application Fee that created this Transaction.
+            attr_reader :application_fee
+            # If applicable, the ID of the Application Fee Refund that created this Transaction.
+            attr_reader :application_fee_refund
+            # If applicable, the ID of the Charge that created this Transaction.
+            attr_reader :charge
             # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
             attr_reader :currency_conversion
+            # If applicable, the ID of the Dispute that created this Transaction.
+            attr_reader :dispute
             # If applicable, the ID of the FeeTransaction that created this Transaction.
             attr_reader :fee_transaction
             # If applicable, the ID of the InboundTransfer that created this Transaction.
@@ -92,10 +100,24 @@ module Stripe
             attr_reader :outbound_payment
             # If applicable, the ID of the OutboundTransfer that created this Transaction.
             attr_reader :outbound_transfer
+            # If applicable, the ID of the Payout that created this Transaction.
+            attr_reader :payout
             # If applicable, the ID of the ReceivedCredit that created this Transaction.
             attr_reader :received_credit
             # If applicable, the ID of the ReceivedDebit that created this Transaction.
             attr_reader :received_debit
+            # If applicable, the ID of the Refund that created this Transaction.
+            attr_reader :refund
+            # If applicable, the ID of the Reserve Hold that created this Transaction.
+            attr_reader :reserve_hold
+            # If applicable, the ID of the Reserve Release that created this Transaction.
+            attr_reader :reserve_release
+            # If applicable, the ID of the Topup that created this Transaction.
+            attr_reader :topup
+            # If applicable, the ID of the Transfer that created this Transaction.
+            attr_reader :transfer
+            # If applicable, the ID of the Transfer Reversal that created this Transaction.
+            attr_reader :transfer_reversal
 
             def self.inner_class_types
               @inner_class_types = {}

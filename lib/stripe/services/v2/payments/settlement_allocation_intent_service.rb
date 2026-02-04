@@ -34,6 +34,17 @@ module Stripe
           )
         end
 
+        # Lists all SettlementAllocationIntents.
+        def list(params = {}, opts = {})
+          request(
+            method: :get,
+            path: "/v2/payments/settlement_allocation_intents",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Retrieve an existing SettlementAllocationIntent.
         def retrieve(id, params = {}, opts = {})
           request(

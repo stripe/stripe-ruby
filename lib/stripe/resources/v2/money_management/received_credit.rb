@@ -213,6 +213,48 @@ module Stripe
           end
         end
 
+        class CardSpend < ::Stripe::StripeObject
+          class Dispute < ::Stripe::StripeObject
+            # The reference to the v1 issuing dispute ID.
+            attr_reader :issuing_dispute_v1
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Refund < ::Stripe::StripeObject
+            # The reference to the v1 issuing transaction ID.
+            attr_reader :issuing_transaction_v1
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The reference to the issuing card object.
+          attr_reader :card_v1_id
+          # Hash containing information about the Dispute that triggered this credit.
+          attr_reader :dispute
+          # Hash containing information about the Refund that triggered this credit.
+          attr_reader :refund
+
+          def self.inner_class_types
+            @inner_class_types = { dispute: Dispute, refund: Refund }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StripeBalancePayment < ::Stripe::StripeObject
           # Statement descriptor for the Stripe Balance Payment.
           attr_reader :statement_descriptor
@@ -256,6 +298,8 @@ module Stripe
         attr_reader :balance_transfer
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
         attr_reader :bank_transfer
+        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
+        attr_reader :card_spend
         # This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
         attr_reader :stripe_balance_payment
 
@@ -267,6 +311,7 @@ module Stripe
             status_transitions: StatusTransitions,
             balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
+            card_spend: CardSpend,
             stripe_balance_payment: StripeBalancePayment,
           }
         end

@@ -66,6 +66,20 @@ module Stripe
           end
         end
         class Deactivate < ::Stripe::StripeObject
+          class CancellationDetails < ::Stripe::StripeObject
+            # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+            sig { returns(T.nilable(String)) }
+            def comment; end
+            # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+            sig { returns(T.nilable(String)) }
+            def feedback; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
@@ -130,6 +144,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Details about why the cancellation was requested by the user.
+          sig { returns(T.nilable(CancellationDetails)) }
+          def cancellation_details; end
           # Allows users to override the collect at behavior.
           sig { returns(String) }
           def collect_at; end
@@ -144,6 +161,7 @@ module Stripe
           def pricing_plan_subscription_details; end
           def self.inner_class_types
             @inner_class_types = {
+              cancellation_details: CancellationDetails,
               effective_at: EffectiveAt,
               pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
             }

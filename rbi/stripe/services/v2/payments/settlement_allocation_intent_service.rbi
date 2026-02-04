@@ -19,6 +19,12 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
+        # Lists all SettlementAllocationIntents.
+        sig {
+          params(params: T.any(::Stripe::V2::Payments::SettlementAllocationIntentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
+         }
+        def list(params = {}, opts = {}); end
+
         # Retrieve an existing SettlementAllocationIntent.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::SettlementAllocationIntentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::SettlementAllocationIntent)

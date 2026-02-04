@@ -6,6 +6,23 @@ module Stripe
   module V2
     module Billing
       class PricingPlanSubscription < APIResource
+        class CancellationDetails < ::Stripe::StripeObject
+          # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+          sig { returns(T.nilable(String)) }
+          def comment; end
+          # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+          sig { returns(T.nilable(String)) }
+          def feedback; end
+          # System-generated reason for cancellation.
+          sig { returns(T.nilable(String)) }
+          def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class CollectionStatusTransitions < ::Stripe::StripeObject
           # When the collection status transitioned to awaiting customer action.
           sig { returns(T.nilable(String)) }
@@ -55,6 +72,9 @@ module Stripe
         # The ID of the Billing Cadence this subscription is billed on.
         sig { returns(String) }
         def billing_cadence; end
+        # Details about why the subscription was canceled, if applicable. Includes system-generated reason.
+        sig { returns(T.nilable(CancellationDetails)) }
+        def cancellation_details; end
         # Current collection status of this subscription.
         sig { returns(String) }
         def collection_status; end

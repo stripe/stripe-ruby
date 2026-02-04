@@ -49,7 +49,7 @@ module Stripe
               @round = round
             end
           end
-          # The custom pricing unit that this rate binds to.
+          # The custom pricing unit that this rate binds to. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           attr_accessor :custom_pricing_unit_amount
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
@@ -57,14 +57,14 @@ module Stripe
           attr_accessor :metered_item
           # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
           # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
-          # grows into new tiers. Can only be set if `tiers` is set.
+          # grows into new tiers. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           attr_accessor :tiering_mode
-          # Each element represents a pricing tier. Cannot be set if `unit_amount` is provided.
+          # Each element represents a pricing tier. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           attr_accessor :tiers
           # Apply a transformation to the reported usage or set quantity before computing the amount billed.
           attr_accessor :transform_quantity
           # The per-unit amount to be charged, represented as a decimal string in minor currency units with at most 12 decimal
-          # places. Cannot be set if `tiers` is provided.
+          # places. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           attr_accessor :unit_amount
 
           def initialize(

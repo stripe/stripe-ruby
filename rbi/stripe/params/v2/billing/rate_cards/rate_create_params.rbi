@@ -68,7 +68,7 @@ module Stripe
             sig { params(divide_by: Integer, round: String).void }
             def initialize(divide_by: nil, round: nil); end
           end
-          # The custom pricing unit that this rate binds to.
+          # The custom pricing unit that this rate binds to. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount))
            }
@@ -85,18 +85,18 @@ module Stripe
            }
           def metadata=(_metadata); end
           # The Metered Item that this rate binds to.
-          sig { returns(T.nilable(String)) }
+          sig { returns(String) }
           def metered_item; end
-          sig { params(_metered_item: T.nilable(String)).returns(T.nilable(String)) }
+          sig { params(_metered_item: String).returns(String) }
           def metered_item=(_metered_item); end
           # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
           # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
-          # grows into new tiers. Can only be set if `tiers` is set.
+          # grows into new tiers. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           sig { returns(T.nilable(String)) }
           def tiering_mode; end
           sig { params(_tiering_mode: T.nilable(String)).returns(T.nilable(String)) }
           def tiering_mode=(_tiering_mode); end
-          # Each element represents a pricing tier. Cannot be set if `unit_amount` is provided.
+          # Each element represents a pricing tier. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           sig {
             returns(T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateCreateParams::Tier]))
            }
@@ -115,13 +115,13 @@ module Stripe
            }
           def transform_quantity=(_transform_quantity); end
           # The per-unit amount to be charged, represented as a decimal string in minor currency units with at most 12 decimal
-          # places. Cannot be set if `tiers` is provided.
+          # places. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           sig { returns(T.nilable(String)) }
           def unit_amount; end
           sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
           def unit_amount=(_unit_amount); end
           sig {
-            params(custom_pricing_unit_amount: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount), metadata: T.nilable(T::Hash[String, String]), metered_item: T.nilable(String), tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateCreateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
+            params(custom_pricing_unit_amount: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::CustomPricingUnitAmount), metadata: T.nilable(T::Hash[String, String]), metered_item: String, tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateCreateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::RateCards::RateCreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
            }
           def initialize(
             custom_pricing_unit_amount: nil,

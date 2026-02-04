@@ -91,9 +91,21 @@ module Stripe
           # If applicable, the ID of the Adjustment that created this Transaction.
           sig { returns(T.nilable(String)) }
           def adjustment; end
+          # If applicable, the ID of the Application Fee that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def application_fee; end
+          # If applicable, the ID of the Application Fee Refund that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def application_fee_refund; end
+          # If applicable, the ID of the Charge that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def charge; end
           # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
           sig { returns(T.nilable(String)) }
           def currency_conversion; end
+          # If applicable, the ID of the Dispute that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def dispute; end
           # If applicable, the ID of the FeeTransaction that created this Transaction.
           sig { returns(T.nilable(String)) }
           def fee_transaction; end
@@ -106,12 +118,33 @@ module Stripe
           # If applicable, the ID of the OutboundTransfer that created this Transaction.
           sig { returns(T.nilable(String)) }
           def outbound_transfer; end
+          # If applicable, the ID of the Payout that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def payout; end
           # If applicable, the ID of the ReceivedCredit that created this Transaction.
           sig { returns(T.nilable(String)) }
           def received_credit; end
           # If applicable, the ID of the ReceivedDebit that created this Transaction.
           sig { returns(T.nilable(String)) }
           def received_debit; end
+          # If applicable, the ID of the Refund that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def refund; end
+          # If applicable, the ID of the Reserve Hold that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def reserve_hold; end
+          # If applicable, the ID of the Reserve Release that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def reserve_release; end
+          # If applicable, the ID of the Topup that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def topup; end
+          # If applicable, the ID of the Transfer that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def transfer; end
+          # If applicable, the ID of the Transfer Reversal that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def transfer_reversal; end
           def self.inner_class_types
             @inner_class_types = {}
           end

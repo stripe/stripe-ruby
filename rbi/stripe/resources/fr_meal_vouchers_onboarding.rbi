@@ -3,8 +3,14 @@
 
 # typed: true
 module Stripe
-  # The French Meal Vouchers Onboarding resource encapsulates the onboarding status and other related information
+  # The `French Meal Vouchers Onboarding` resource encapsulates the onboarding status and other related information
   # for a single restaurant (SIRET number) in the context of the French Meal Vouchers program.
+  #
+  # To onboard a restaurant for the French Meal Vouchers program, you create a `French Meal Vouchers Onboarding` object.
+  # You can retrieve individual objects, list all such objects, or update objects to correct the postal code of the restaurant.
+  # We identify `French Meal Vouchers Onboarding` objects with a unique, random ID.
+  #
+  # Related guide: [Set up a restaurant for titres-restaurant payments](https://docs.stripe.com/payments/meal-vouchers/fr-meal-vouchers/set-up-restaurant)
   class FrMealVouchersOnboarding < APIResource
     class Providers < ::Stripe::StripeObject
       class Conecs < ::Stripe::StripeObject
@@ -106,13 +112,17 @@ module Stripe
      }
     def self.create(params = {}, opts = {}); end
 
-    # Lists French Meal Vouchers Onboarding objects
+    # Lists French Meal Vouchers Onboarding objects. The objects are returned in sorted order, with the most recently created objects appearing first.
     sig {
       params(params: T.any(::Stripe::FrMealVouchersOnboardingListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
-    # Updates the details of a restaurant's French Meal Vouchers Onboarding object
+    # Updates the details of a restaurant's French Meal Vouchers Onboarding object by
+    # setting the values of the parameters passed. Any parameters not provided are left unchanged.
+    # After you update the object, the onboarding process automatically restarts.
+    #
+    # You can only update French Meal Vouchers Onboarding objects with the postal_code field requirement in past_due.
     sig {
       params(id: String, params: T.any(::Stripe::FrMealVouchersOnboardingUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FrMealVouchersOnboarding)
      }

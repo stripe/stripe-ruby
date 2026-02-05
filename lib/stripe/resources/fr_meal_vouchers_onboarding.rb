@@ -2,8 +2,14 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The French Meal Vouchers Onboarding resource encapsulates the onboarding status and other related information
+  # The `French Meal Vouchers Onboarding` resource encapsulates the onboarding status and other related information
   # for a single restaurant (SIRET number) in the context of the French Meal Vouchers program.
+  #
+  # To onboard a restaurant for the French Meal Vouchers program, you create a `French Meal Vouchers Onboarding` object.
+  # You can retrieve individual objects, list all such objects, or update objects to correct the postal code of the restaurant.
+  # We identify `French Meal Vouchers Onboarding` objects with a unique, random ID.
+  #
+  # Related guide: [Set up a restaurant for titres-restaurant payments](https://docs.stripe.com/payments/meal-vouchers/fr-meal-vouchers/set-up-restaurant)
   class FrMealVouchersOnboarding < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -112,7 +118,7 @@ module Stripe
       )
     end
 
-    # Lists French Meal Vouchers Onboarding objects
+    # Lists French Meal Vouchers Onboarding objects. The objects are returned in sorted order, with the most recently created objects appearing first.
     def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -122,7 +128,11 @@ module Stripe
       )
     end
 
-    # Updates the details of a restaurant's French Meal Vouchers Onboarding object
+    # Updates the details of a restaurant's French Meal Vouchers Onboarding object by
+    # setting the values of the parameters passed. Any parameters not provided are left unchanged.
+    # After you update the object, the onboarding process automatically restarts.
+    #
+    # You can only update French Meal Vouchers Onboarding objects with the postal_code field requirement in past_due.
     def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,

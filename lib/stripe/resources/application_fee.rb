@@ -61,6 +61,8 @@ module Stripe
     attr_reader :refunded
     # A list of refunds that have been applied to the fee.
     attr_reader :refunds
+    # Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
+    attr_reader :settlement_type
 
     # Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
     def self.list(params = {}, opts = {})

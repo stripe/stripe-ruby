@@ -69,6 +69,9 @@ module Stripe
     # A list of refunds that have been applied to the fee.
     sig { returns(::Stripe::ListObject) }
     def refunds; end
+    # Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
+    sig { returns(T.nilable(String)) }
+    def settlement_type; end
     # Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
     sig {
       params(params: T.any(::Stripe::ApplicationFeeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)

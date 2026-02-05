@@ -31,6 +31,10 @@ This release changes the pinned API version to `2026-01-28.preview`.
   - Nil input params are now preserved when calling V2 APIs.  Add additional tests for nil when calling V2 services you do not accidentally include an unintentional nil value.  V1 API calls are not affected (nil values are stripped from params hashes in V1).
 * [#1747](https://github.com/stripe/stripe-ruby/pull/1747) Add EventNotificationHandler example
 
+## 18.3.1 - 2026-02-03
+* [#1777](https://github.com/stripe/stripe-ruby/pull/1777)
+  * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.
+
 ## 18.3.0 - 2026-01-28
 This release changes the pinned API version to `2026-01-28.clover`.
 

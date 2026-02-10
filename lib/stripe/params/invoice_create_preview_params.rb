@@ -1174,6 +1174,15 @@ module Stripe
         end
       end
 
+      class DefaultSettings < ::Stripe::RequestParams
+        # Configures how the subscription schedule handles billing for phase transitions.
+        attr_accessor :phase_effective_at
+
+        def initialize(phase_effective_at: nil)
+          @phase_effective_at = phase_effective_at
+        end
+      end
+
       class Phase < ::Stripe::RequestParams
         class AddInvoiceItem < ::Stripe::RequestParams
           class Discount < ::Stripe::RequestParams
@@ -1897,6 +1906,8 @@ module Stripe
       attr_accessor :prebilling
       # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
       attr_accessor :proration_behavior
+      # Object representing the subscription schedule's default settings.
+      attr_accessor :default_settings
 
       def initialize(
         amendments: nil,
@@ -1906,7 +1917,8 @@ module Stripe
         end_behavior: nil,
         phases: nil,
         prebilling: nil,
-        proration_behavior: nil
+        proration_behavior: nil,
+        default_settings: nil
       )
         @amendments = amendments
         @billing_behavior = billing_behavior
@@ -1916,6 +1928,7 @@ module Stripe
         @phases = phases
         @prebilling = prebilling
         @proration_behavior = proration_behavior
+        @default_settings = default_settings
       end
     end
 

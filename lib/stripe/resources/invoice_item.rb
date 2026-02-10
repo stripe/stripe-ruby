@@ -160,6 +160,25 @@ module Stripe
         end
       end
 
+      class RateCardCustomPricingUnitOverageRateDetails < ::Stripe::StripeObject
+        # The ID of the custom pricing unit this item is associated with
+        attr_reader :custom_pricing_unit
+        # The ID of the custom pricing unit overage rate this item is associated with
+        attr_reader :custom_pricing_unit_overage_rate
+        # The ID of the one-time item this custom pricing unit overage rate is associated with
+        attr_reader :one_time_item
+        # The ID of the rate card this item is associated with
+        attr_reader :rate_card
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RateCardRateDetails < ::Stripe::StripeObject
         # The ID of billable item this item is associated with
         attr_reader :metered_item
@@ -186,12 +205,15 @@ module Stripe
       attr_reader :type
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       attr_reader :unit_amount_decimal
+      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
+      attr_reader :rate_card_custom_pricing_unit_overage_rate_details
 
       def self.inner_class_types
         @inner_class_types = {
           license_fee_details: LicenseFeeDetails,
           price_details: PriceDetails,
           rate_card_rate_details: RateCardRateDetails,
+          rate_card_custom_pricing_unit_overage_rate_details: RateCardCustomPricingUnitOverageRateDetails,
         }
       end
 

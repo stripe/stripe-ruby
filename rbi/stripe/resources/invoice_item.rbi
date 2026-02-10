@@ -151,6 +151,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class RateCardCustomPricingUnitOverageRateDetails < ::Stripe::StripeObject
+        # The ID of the custom pricing unit this item is associated with
+        sig { returns(String) }
+        def custom_pricing_unit; end
+        # The ID of the custom pricing unit overage rate this item is associated with
+        sig { returns(String) }
+        def custom_pricing_unit_overage_rate; end
+        # The ID of the one-time item this custom pricing unit overage rate is associated with
+        sig { returns(String) }
+        def one_time_item; end
+        # The ID of the rate card this item is associated with
+        sig { returns(String) }
+        def rate_card; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RateCardRateDetails < ::Stripe::StripeObject
         # The ID of billable item this item is associated with
         sig { returns(String) }
@@ -183,11 +203,15 @@ module Stripe
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
+      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
+      sig { returns(T.nilable(RateCardCustomPricingUnitOverageRateDetails)) }
+      def rate_card_custom_pricing_unit_overage_rate_details; end
       def self.inner_class_types
         @inner_class_types = {
           license_fee_details: LicenseFeeDetails,
           price_details: PriceDetails,
           rate_card_rate_details: RateCardRateDetails,
+          rate_card_custom_pricing_unit_overage_rate_details: RateCardCustomPricingUnitOverageRateDetails,
         }
       end
       def self.field_remappings

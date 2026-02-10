@@ -1890,6 +1890,15 @@ module Stripe
          }
         def initialize(applies_to: nil, bill_until: nil, key: nil); end
       end
+      class DefaultSettings < ::Stripe::RequestParams
+        # Configures how the subscription schedule handles billing for phase transitions.
+        sig { returns(T.nilable(String)) }
+        def phase_effective_at; end
+        sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+        def phase_effective_at=(_phase_effective_at); end
+        sig { params(phase_effective_at: T.nilable(String)).void }
+        def initialize(phase_effective_at: nil); end
+      end
       class Phase < ::Stripe::RequestParams
         class AddInvoiceItem < ::Stripe::RequestParams
           class Discount < ::Stripe::RequestParams
@@ -3110,8 +3119,17 @@ module Stripe
       def proration_behavior; end
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
+      # Object representing the subscription schedule's default settings.
       sig {
-        params(amendments: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule])), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling])), proration_behavior: T.nilable(String)).void
+        returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings))
+       }
+      def default_settings; end
+      sig {
+        params(_default_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings))
+       }
+      def default_settings=(_default_settings); end
+      sig {
+        params(amendments: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule])), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling])), proration_behavior: T.nilable(String), default_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings)).void
        }
       def initialize(
         amendments: nil,
@@ -3121,7 +3139,8 @@ module Stripe
         end_behavior: nil,
         phases: nil,
         prebilling: nil,
-        proration_behavior: nil
+        proration_behavior: nil,
+        default_settings: nil
       ); end
     end
     class SubscriptionDetails < ::Stripe::RequestParams

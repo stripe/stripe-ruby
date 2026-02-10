@@ -24,14 +24,20 @@ module Stripe
     def proration_date; end
     sig { params(_proration_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def proration_date=(_proration_date); end
+    # Controls when the subscription transitions from `paused` to `active`. Determines how payment on the invoice affects the resumption process.The default is `pending_if_incomplete`.
+    sig { returns(T.nilable(String)) }
+    def payment_behavior; end
+    sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
+    def payment_behavior=(_payment_behavior); end
     sig {
-      params(billing_cycle_anchor: T.nilable(String), expand: T.nilable(T::Array[String]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer)).void
+      params(billing_cycle_anchor: T.nilable(String), expand: T.nilable(T::Array[String]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), payment_behavior: T.nilable(String)).void
      }
     def initialize(
       billing_cycle_anchor: nil,
       expand: nil,
       proration_behavior: nil,
-      proration_date: nil
+      proration_date: nil,
+      payment_behavior: nil
     ); end
   end
 end

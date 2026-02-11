@@ -6,6 +6,7 @@ module Stripe
   module V2
     module Billing
       class CadenceService < StripeService
+        attr_reader :spend_modifier_rules
         # Cancel the Billing Cadence.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::CadenceCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::Cadence)

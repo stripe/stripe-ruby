@@ -5,10 +5,12 @@ module Stripe
   module V2
     module Billing
       class RateCardService < StripeService
-        attr_reader :rates, :versions
+        attr_reader :custom_pricing_unit_overage_rates, :rates, :versions
 
         def initialize(requestor)
           super
+          @custom_pricing_unit_overage_rates = Stripe::V2::Billing::RateCards::CustomPricingUnitOverageRateService
+                                               .new(@requestor)
           @rates = Stripe::V2::Billing::RateCards::RateService.new(@requestor)
           @versions = Stripe::V2::Billing::RateCards::VersionService.new(@requestor)
         end

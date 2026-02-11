@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class BillingService < StripeService
-      attr_reader :bill_settings, :cadences, :collection_settings, :custom_pricing_units, :intents, :license_fees, :license_fee_subscriptions, :licensed_items, :meter_events, :meter_event_adjustments, :meter_event_session, :meter_event_stream, :metered_items, :pricing_plans, :pricing_plan_subscriptions, :profiles, :rate_cards, :rate_card_subscriptions, :service_actions
+      attr_reader :bill_settings, :cadences, :collection_settings, :custom_pricing_units, :intents, :license_fees, :license_fee_subscriptions, :licensed_items, :meter_events, :meter_event_adjustments, :meter_event_session, :meter_event_stream, :metered_items, :one_time_items, :pricing_plans, :pricing_plan_subscriptions, :profiles, :rate_cards, :rate_card_subscriptions, :service_actions
 
       def initialize(requestor)
         super
@@ -22,6 +22,7 @@ module Stripe
         @meter_event_session = Stripe::V2::Billing::MeterEventSessionService.new(@requestor)
         @meter_event_stream = Stripe::V2::Billing::MeterEventStreamService.new(@requestor)
         @metered_items = Stripe::V2::Billing::MeteredItemService.new(@requestor)
+        @one_time_items = Stripe::V2::Billing::OneTimeItemService.new(@requestor)
         @pricing_plans = Stripe::V2::Billing::PricingPlanService.new(@requestor)
         @pricing_plan_subscriptions = Stripe::V2::Billing::PricingPlanSubscriptionService
                                       .new(@requestor)

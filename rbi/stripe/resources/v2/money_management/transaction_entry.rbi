@@ -10,10 +10,10 @@ module Stripe
         class BalanceImpact < ::Stripe::StripeObject
           class Available < ::Stripe::StripeObject
             # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(Integer) }
             def value; end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def currency; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -24,10 +24,10 @@ module Stripe
           end
           class InboundPending < ::Stripe::StripeObject
             # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(Integer) }
             def value; end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def currency; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -38,10 +38,10 @@ module Stripe
           end
           class OutboundPending < ::Stripe::StripeObject
             # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(Integer) }
             def value; end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def currency; end
             def self.inner_class_types
               @inner_class_types = {}

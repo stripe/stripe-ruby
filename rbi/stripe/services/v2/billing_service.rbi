@@ -18,6 +18,7 @@ module Stripe
       attr_reader :meter_event_session
       attr_reader :meter_event_stream
       attr_reader :metered_items
+      attr_reader :one_time_items
       attr_reader :pricing_plans
       attr_reader :pricing_plan_subscriptions
       attr_reader :profiles

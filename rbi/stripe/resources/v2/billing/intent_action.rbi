@@ -7,6 +7,17 @@ module Stripe
     module Billing
       class IntentAction < APIResource
         class Apply < ::Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
+            # When the apply action will take effect.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class InvoiceDiscountRule < ::Stripe::StripeObject
             class PercentOff < ::Stripe::StripeObject
               class MaximumApplications < ::Stripe::StripeObject
@@ -52,14 +63,97 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class SpendModifierRule < ::Stripe::StripeObject
+            class MaxBillingPeriodSpend < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                class CustomPricingUnit < ::Stripe::StripeObject
+                  # The value of the custom pricing unit.
+                  sig { returns(String) }
+                  def value; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The type of the amount.
+                sig { returns(String) }
+                def type; end
+                # The custom pricing unit amount.
+                sig { returns(T.nilable(CustomPricingUnit)) }
+                def custom_pricing_unit; end
+                def self.inner_class_types
+                  @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class CustomPricingUnitOverageRate < ::Stripe::StripeObject
+                # ID of the custom pricing unit overage rate.
+                sig { returns(String) }
+                def id; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The maximum amount allowed for the billing period.
+              sig { returns(Amount) }
+              def amount; end
+              # The configration for the overage rate for the custom pricing unit.
+              sig { returns(CustomPricingUnitOverageRate) }
+              def custom_pricing_unit_overage_rate; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  amount: Amount,
+                  custom_pricing_unit_overage_rate: CustomPricingUnitOverageRate,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # What the spend modifier applies to.
+            sig { returns(String) }
+            def applies_to; end
+            # The ID of the spend modifier.
+            sig { returns(String) }
+            def id; end
+            # Type of the spend modifier.
+            sig { returns(String) }
+            def type; end
+            # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+            sig { returns(T.nilable(MaxBillingPeriodSpend)) }
+            def max_billing_period_spend; end
+            def self.inner_class_types
+              @inner_class_types = {max_billing_period_spend: MaxBillingPeriodSpend}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # When the apply action will take effect. Defaults to on_reserve if not specified.
+          sig { returns(T.nilable(EffectiveAt)) }
+          def effective_at; end
           # Type of the apply action details.
           sig { returns(String) }
           def type; end
           # Details for applying a discount rule to future invoices.
           sig { returns(T.nilable(InvoiceDiscountRule)) }
           def invoice_discount_rule; end
+          # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+          sig { returns(T.nilable(SpendModifierRule)) }
+          def spend_modifier_rule; end
           def self.inner_class_types
-            @inner_class_types = {invoice_discount_rule: InvoiceDiscountRule}
+            @inner_class_types = {
+              effective_at: EffectiveAt,
+              invoice_discount_rule: InvoiceDiscountRule,
+              spend_modifier_rule: SpendModifierRule,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
@@ -290,14 +384,31 @@ module Stripe
           end
         end
         class Remove < ::Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
+            # When the remove action will take effect.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # When the remove action will take effect. Defaults to on_reserve if not specified.
+          sig { returns(T.nilable(EffectiveAt)) }
+          def effective_at; end
           # Type of the remove action.
           sig { returns(String) }
           def type; end
           # The ID of the discount rule to remove for future invoices.
           sig { returns(T.nilable(String)) }
           def invoice_discount_rule; end
+          # The ID of the spend modifier rule removed.
+          sig { returns(T.nilable(String)) }
+          def spend_modifier_rule; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {effective_at: EffectiveAt}
           end
           def self.field_remappings
             @field_remappings = {}

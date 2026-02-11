@@ -7,6 +7,15 @@ module Stripe
       class IntentCreateParams < ::Stripe::RequestParams
         class Action < ::Stripe::RequestParams
           class Apply < ::Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
+              # When the apply action will take effect.
+              attr_accessor :type
+
+              def initialize(type: nil)
+                @type = type
+              end
+            end
+
             class InvoiceDiscountRule < ::Stripe::RequestParams
               class PercentOff < ::Stripe::RequestParams
                 class MaximumApplications < ::Stripe::RequestParams
@@ -40,14 +49,79 @@ module Stripe
                 @percent_off = percent_off
               end
             end
+
+            class SpendModifierRule < ::Stripe::RequestParams
+              class MaxBillingPeriodSpend < ::Stripe::RequestParams
+                class Amount < ::Stripe::RequestParams
+                  class CustomPricingUnit < ::Stripe::RequestParams
+                    # The value of the custom pricing unit.
+                    attr_accessor :value
+
+                    def initialize(value: nil)
+                      @value = value
+                    end
+                  end
+                  # The type of the amount.
+                  attr_accessor :type
+                  # The custom pricing unit amount.
+                  attr_accessor :custom_pricing_unit
+
+                  def initialize(type: nil, custom_pricing_unit: nil)
+                    @type = type
+                    @custom_pricing_unit = custom_pricing_unit
+                  end
+                end
+
+                class CustomPricingUnitOverageRate < ::Stripe::RequestParams
+                  # ID of the custom pricing unit overage rate.
+                  attr_accessor :id
+
+                  def initialize(id: nil)
+                    @id = id
+                  end
+                end
+                # The maximum amount allowed for the billing period.
+                attr_accessor :amount
+                # The configration for the overage rate for the custom pricing unit.
+                attr_accessor :custom_pricing_unit_overage_rate
+
+                def initialize(amount: nil, custom_pricing_unit_overage_rate: nil)
+                  @amount = amount
+                  @custom_pricing_unit_overage_rate = custom_pricing_unit_overage_rate
+                end
+              end
+              # What the spend modifier applies to.
+              attr_accessor :applies_to
+              # Type of the spend modifier.
+              attr_accessor :type
+              # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+              attr_accessor :max_billing_period_spend
+
+              def initialize(applies_to: nil, type: nil, max_billing_period_spend: nil)
+                @applies_to = applies_to
+                @type = type
+                @max_billing_period_spend = max_billing_period_spend
+              end
+            end
+            # When the apply action will take effect. Defaults to on_reserve if not specified.
+            attr_accessor :effective_at
             # Type of the apply action details.
             attr_accessor :type
             # Details for applying a discount rule to future invoices.
             attr_accessor :invoice_discount_rule
+            # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+            attr_accessor :spend_modifier_rule
 
-            def initialize(type: nil, invoice_discount_rule: nil)
+            def initialize(
+              effective_at: nil,
+              type: nil,
+              invoice_discount_rule: nil,
+              spend_modifier_rule: nil
+            )
+              @effective_at = effective_at
               @type = type
               @invoice_discount_rule = invoice_discount_rule
+              @spend_modifier_rule = spend_modifier_rule
             end
           end
 
@@ -247,14 +321,33 @@ module Stripe
           end
 
           class Remove < ::Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
+              # When the remove action will take effect.
+              attr_accessor :type
+
+              def initialize(type: nil)
+                @type = type
+              end
+            end
+            # When the remove action will take effect. Defaults to on_reserve if not specified.
+            attr_accessor :effective_at
             # Type of the remove action.
             attr_accessor :type
             # The ID of the discount rule to remove for future invoices.
             attr_accessor :invoice_discount_rule
+            # The ID of the spend modifier rule to remove.
+            attr_accessor :spend_modifier_rule
 
-            def initialize(type: nil, invoice_discount_rule: nil)
+            def initialize(
+              effective_at: nil,
+              type: nil,
+              invoice_discount_rule: nil,
+              spend_modifier_rule: nil
+            )
+              @effective_at = effective_at
               @type = type
               @invoice_discount_rule = invoice_discount_rule
+              @spend_modifier_rule = spend_modifier_rule
             end
           end
 

@@ -11,6 +11,19 @@ module Stripe
         end
 
         class Apply < ::Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
+            # When the apply action will take effect.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class InvoiceDiscountRule < ::Stripe::StripeObject
             class PercentOff < ::Stripe::StripeObject
               class MaximumApplications < ::Stripe::StripeObject
@@ -55,13 +68,96 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class SpendModifierRule < ::Stripe::StripeObject
+            class MaxBillingPeriodSpend < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                class CustomPricingUnit < ::Stripe::StripeObject
+                  # The value of the custom pricing unit.
+                  attr_reader :value
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The type of the amount.
+                attr_reader :type
+                # The custom pricing unit amount.
+                attr_reader :custom_pricing_unit
+
+                def self.inner_class_types
+                  @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class CustomPricingUnitOverageRate < ::Stripe::StripeObject
+                # ID of the custom pricing unit overage rate.
+                attr_reader :id
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The maximum amount allowed for the billing period.
+              attr_reader :amount
+              # The configration for the overage rate for the custom pricing unit.
+              attr_reader :custom_pricing_unit_overage_rate
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  amount: Amount,
+                  custom_pricing_unit_overage_rate: CustomPricingUnitOverageRate,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # What the spend modifier applies to.
+            attr_reader :applies_to
+            # The ID of the spend modifier.
+            attr_reader :id
+            # Type of the spend modifier.
+            attr_reader :type
+            # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+            attr_reader :max_billing_period_spend
+
+            def self.inner_class_types
+              @inner_class_types = { max_billing_period_spend: MaxBillingPeriodSpend }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # When the apply action will take effect. Defaults to on_reserve if not specified.
+          attr_reader :effective_at
           # Type of the apply action details.
           attr_reader :type
           # Details for applying a discount rule to future invoices.
           attr_reader :invoice_discount_rule
+          # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+          attr_reader :spend_modifier_rule
 
           def self.inner_class_types
-            @inner_class_types = { invoice_discount_rule: InvoiceDiscountRule }
+            @inner_class_types = {
+              effective_at: EffectiveAt,
+              invoice_discount_rule: InvoiceDiscountRule,
+              spend_modifier_rule: SpendModifierRule,
+            }
           end
 
           def self.field_remappings
@@ -294,13 +390,29 @@ module Stripe
         end
 
         class Remove < ::Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
+            # When the remove action will take effect.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # When the remove action will take effect. Defaults to on_reserve if not specified.
+          attr_reader :effective_at
           # Type of the remove action.
           attr_reader :type
           # The ID of the discount rule to remove for future invoices.
           attr_reader :invoice_discount_rule
+          # The ID of the spend modifier rule removed.
+          attr_reader :spend_modifier_rule
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { effective_at: EffectiveAt }
           end
 
           def self.field_remappings

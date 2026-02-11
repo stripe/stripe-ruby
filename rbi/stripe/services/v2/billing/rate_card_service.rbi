@@ -6,6 +6,7 @@ module Stripe
   module V2
     module Billing
       class RateCardService < StripeService
+        attr_reader :custom_pricing_unit_overage_rates
         attr_reader :rates
         attr_reader :versions
         # Create a Rate Card object.

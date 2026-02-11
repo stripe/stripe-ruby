@@ -5,6 +5,14 @@ module Stripe
   module V2
     module Billing
       class CadenceService < StripeService
+        attr_reader :spend_modifier_rules
+
+        def initialize(requestor)
+          super
+          @spend_modifier_rules = Stripe::V2::Billing::Cadences::SpendModifierRuleService
+                                  .new(@requestor)
+        end
+
         # Cancel the Billing Cadence.
         def cancel(id, params = {}, opts = {})
           request(

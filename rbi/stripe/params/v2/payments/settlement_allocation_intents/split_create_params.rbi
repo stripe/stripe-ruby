@@ -9,16 +9,16 @@ module Stripe
         class SplitCreateParams < ::Stripe::RequestParams
           class Amount < ::Stripe::RequestParams
             # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(Integer) }
             def value; end
-            sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            sig { params(_value: Integer).returns(Integer) }
             def value=(_value); end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def currency; end
-            sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+            sig { params(_currency: String).returns(String) }
             def currency=(_currency); end
-            sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+            sig { params(value: Integer, currency: String).void }
             def initialize(value: nil, currency: nil); end
           end
           # The target account for settling the SettlementAllocationIntentSplit.

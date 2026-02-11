@@ -2144,11 +2144,11 @@ module Stripe
       def billing_behavior=(_billing_behavior); end
       # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
       sig {
-        returns(T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule])))
+        returns(T.nilable(T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule]))
        }
       def billing_schedules; end
       sig {
-        params(_billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule])))
+        params(_billing_schedules: T.nilable(T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule])).returns(T.nilable(T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule]))
        }
       def billing_schedules=(_billing_schedules); end
       # The customer the Subscription Data override applies to.
@@ -2183,7 +2183,7 @@ module Stripe
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
       sig {
-        params(applies_to: ::Stripe::QuoteUpdateParams::SubscriptionDataOverride::AppliesTo, bill_on_acceptance: T.nilable(T.any(String, ::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillOnAcceptance)), billing_behavior: T.nilable(String), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule])), customer: T.nilable(String), description: T.nilable(String), end_behavior: T.nilable(String), phase_effective_at: T.nilable(String), proration_behavior: T.nilable(String)).void
+        params(applies_to: ::Stripe::QuoteUpdateParams::SubscriptionDataOverride::AppliesTo, bill_on_acceptance: T.nilable(T.any(String, ::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillOnAcceptance)), billing_behavior: T.nilable(String), billing_schedules: T.nilable(T::Array[::Stripe::QuoteUpdateParams::SubscriptionDataOverride::BillingSchedule]), customer: T.nilable(String), description: T.nilable(String), end_behavior: T.nilable(String), phase_effective_at: T.nilable(String), proration_behavior: T.nilable(String)).void
        }
       def initialize(
         applies_to: nil,

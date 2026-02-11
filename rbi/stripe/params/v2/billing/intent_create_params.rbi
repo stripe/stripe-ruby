@@ -8,6 +8,15 @@ module Stripe
       class IntentCreateParams < ::Stripe::RequestParams
         class Action < ::Stripe::RequestParams
           class Apply < ::Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
+              # When the apply action will take effect.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(type: String).void }
+              def initialize(type: nil); end
+            end
             class InvoiceDiscountRule < ::Stripe::RequestParams
               class PercentOff < ::Stripe::RequestParams
                 class MaximumApplications < ::Stripe::RequestParams
@@ -62,6 +71,102 @@ module Stripe
                }
               def initialize(applies_to: nil, type: nil, percent_off: nil); end
             end
+            class SpendModifierRule < ::Stripe::RequestParams
+              class MaxBillingPeriodSpend < ::Stripe::RequestParams
+                class Amount < ::Stripe::RequestParams
+                  class CustomPricingUnit < ::Stripe::RequestParams
+                    # The value of the custom pricing unit.
+                    sig { returns(String) }
+                    def value; end
+                    sig { params(_value: String).returns(String) }
+                    def value=(_value); end
+                    sig { params(value: String).void }
+                    def initialize(value: nil); end
+                  end
+                  # The type of the amount.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
+                  # The custom pricing unit amount.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit))
+                   }
+                  def custom_pricing_unit; end
+                  sig {
+                    params(_custom_pricing_unit: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit))
+                   }
+                  def custom_pricing_unit=(_custom_pricing_unit); end
+                  sig {
+                    params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit)).void
+                   }
+                  def initialize(type: nil, custom_pricing_unit: nil); end
+                end
+                class CustomPricingUnitOverageRate < ::Stripe::RequestParams
+                  # ID of the custom pricing unit overage rate.
+                  sig { returns(String) }
+                  def id; end
+                  sig { params(_id: String).returns(String) }
+                  def id=(_id); end
+                  sig { params(id: String).void }
+                  def initialize(id: nil); end
+                end
+                # The maximum amount allowed for the billing period.
+                sig {
+                  returns(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount)
+                 }
+                def amount; end
+                sig {
+                  params(_amount: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount).returns(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount)
+                 }
+                def amount=(_amount); end
+                # The configration for the overage rate for the custom pricing unit.
+                sig {
+                  returns(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::CustomPricingUnitOverageRate)
+                 }
+                def custom_pricing_unit_overage_rate; end
+                sig {
+                  params(_custom_pricing_unit_overage_rate: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::CustomPricingUnitOverageRate).returns(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::CustomPricingUnitOverageRate)
+                 }
+                def custom_pricing_unit_overage_rate=(_custom_pricing_unit_overage_rate); end
+                sig {
+                  params(amount: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount, custom_pricing_unit_overage_rate: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::CustomPricingUnitOverageRate).void
+                 }
+                def initialize(amount: nil, custom_pricing_unit_overage_rate: nil); end
+              end
+              # What the spend modifier applies to.
+              sig { returns(String) }
+              def applies_to; end
+              sig { params(_applies_to: String).returns(String) }
+              def applies_to=(_applies_to); end
+              # Type of the spend modifier.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend))
+               }
+              def max_billing_period_spend; end
+              sig {
+                params(_max_billing_period_spend: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend))
+               }
+              def max_billing_period_spend=(_max_billing_period_spend); end
+              sig {
+                params(applies_to: String, type: String, max_billing_period_spend: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend)).void
+               }
+              def initialize(applies_to: nil, type: nil, max_billing_period_spend: nil); end
+            end
+            # When the apply action will take effect. Defaults to on_reserve if not specified.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
+             }
+            def effective_at; end
+            sig {
+              params(_effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
+             }
+            def effective_at=(_effective_at); end
             # Type of the apply action details.
             sig { returns(String) }
             def type; end
@@ -76,10 +181,24 @@ module Stripe
               params(_invoice_discount_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule))
              }
             def invoice_discount_rule=(_invoice_discount_rule); end
+            # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
             sig {
-              params(type: String, invoice_discount_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule)).void
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule))
              }
-            def initialize(type: nil, invoice_discount_rule: nil); end
+            def spend_modifier_rule; end
+            sig {
+              params(_spend_modifier_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule))
+             }
+            def spend_modifier_rule=(_spend_modifier_rule); end
+            sig {
+              params(effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt), type: String, invoice_discount_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule), spend_modifier_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule)).void
+             }
+            def initialize(
+              effective_at: nil,
+              type: nil,
+              invoice_discount_rule: nil,
+              spend_modifier_rule: nil
+            ); end
           end
           class Deactivate < ::Stripe::RequestParams
             class CancellationDetails < ::Stripe::RequestParams
@@ -400,6 +519,24 @@ module Stripe
             ); end
           end
           class Remove < ::Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
+              # When the remove action will take effect.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(type: String).void }
+              def initialize(type: nil); end
+            end
+            # When the remove action will take effect. Defaults to on_reserve if not specified.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt))
+             }
+            def effective_at; end
+            sig {
+              params(_effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt))
+             }
+            def effective_at=(_effective_at); end
             # Type of the remove action.
             sig { returns(String) }
             def type; end
@@ -410,8 +547,20 @@ module Stripe
             def invoice_discount_rule; end
             sig { params(_invoice_discount_rule: T.nilable(String)).returns(T.nilable(String)) }
             def invoice_discount_rule=(_invoice_discount_rule); end
-            sig { params(type: String, invoice_discount_rule: T.nilable(String)).void }
-            def initialize(type: nil, invoice_discount_rule: nil); end
+            # The ID of the spend modifier rule to remove.
+            sig { returns(T.nilable(String)) }
+            def spend_modifier_rule; end
+            sig { params(_spend_modifier_rule: T.nilable(String)).returns(T.nilable(String)) }
+            def spend_modifier_rule=(_spend_modifier_rule); end
+            sig {
+              params(effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt), type: String, invoice_discount_rule: T.nilable(String), spend_modifier_rule: T.nilable(String)).void
+             }
+            def initialize(
+              effective_at: nil,
+              type: nil,
+              invoice_discount_rule: nil,
+              spend_modifier_rule: nil
+            ); end
           end
           class Subscribe < ::Stripe::RequestParams
             class EffectiveAt < ::Stripe::RequestParams

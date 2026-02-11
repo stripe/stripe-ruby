@@ -420,9 +420,6 @@ just update-certs
 # or: bundle exec rake update_certs
 ```
 
-Update the bundled [stripe-mock] by editing the version number found in
-`.travis.yml`.
-
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html

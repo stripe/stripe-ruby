@@ -151,7 +151,7 @@ See [versioning in the API reference][versioning] for more information.
 
 ### Configuring CA Bundles
 
-By default, the library will use its own internal bundle of known CA
+By default, the library will use the system bundle of known CA
 certificates, but it's possible to configure your own:
 
 ```ruby
@@ -268,7 +268,7 @@ end
 ### How to use undocumented parameters and properties
 
 In some cases, you might encounter parameters on an API request or fields on an API response that aren’t available in the SDKs.
-This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK. 
+This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK.
 See [undocumented params and properties](https://docs.stripe.com/sdks/server-side?lang=ruby#undocumented-params-and-fields) to send those parameters or access those fields.
 
 ### Writing a Plugin
@@ -411,13 +411,6 @@ Run the linter:
 ```sh
 just lint
 # or: bundle exec rubocop
-```
-
-Update bundled CA certificates from the [Mozilla cURL release][curl]:
-
-```sh
-just update-certs
-# or: bundle exec rake update_certs
 ```
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys

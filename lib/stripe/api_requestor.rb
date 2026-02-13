@@ -471,7 +471,6 @@ module Stripe
       raise ArgumentError, "api_base cannot be empty" if base_url.nil? || base_url.empty?
 
       api_key ||= opts[:api_key]
-      params = Util.objects_to_ids(params, api_mode)
 
       check_api_key!(api_key)
 
@@ -479,9 +478,10 @@ module Stripe
       query_params = nil
       case method
       when :get, :head, :delete
-        query_params = params
+        query_params = Util.objects_to_ids(params)
       else
-        body_params = params
+        # For v2 body params, serialize nil values to preserve explicit nulls
+        body_params = Util.objects_to_ids(params, serialize_empty: api_mode == :v2)
       end
 
       query_params, path = merge_query_params(query_params, path)

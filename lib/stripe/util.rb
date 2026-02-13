@@ -7,7 +7,7 @@ module Stripe
     LEGAL_FIRST_CHARACTER = /[a-zA-Z_]/.freeze
     LEGAL_VARIABLE_CHARACTER = /[a-zA-Z0-9_]/.freeze
 
-    def self.objects_to_ids(obj, semantics)
+    def self.objects_to_ids(obj, serialize_empty: false)
       case obj
       when APIResource
         obj.id
@@ -15,14 +15,14 @@ module Stripe
         res = {}
         obj.each do |k, v|
           if !v.nil?
-            res[k] = objects_to_ids(v, semantics)
-          elsif semantics == :v2
+            res[k] = objects_to_ids(v, serialize_empty: serialize_empty)
+          elsif serialize_empty
             res[k] = nil
           end
         end
         res
       when Array
-        obj.map { |v| objects_to_ids(v, semantics) }
+        obj.map { |v| objects_to_ids(v, serialize_empty: serialize_empty) }
       else
         obj
       end

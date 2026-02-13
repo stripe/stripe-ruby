@@ -875,6 +875,9 @@ module Stripe
       # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
       sig { returns(String) }
       def type; end
+      # A reference to an external payment method, such as a PayPal Billing Agreement ID.
+      sig { returns(T.nilable(String)) }
+      def payment_method_reference; end
       def self.inner_class_types
         @inner_class_types = {logo: Logo}
       end

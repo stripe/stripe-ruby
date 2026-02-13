@@ -5,20 +5,44 @@
 module Stripe
   class SubscriptionPauseParams < ::Stripe::RequestParams
     class BillFor < ::Stripe::RequestParams
-      # Controls whether to debit for accrued metered usage in the current billing period. The default is `true`.
-      sig { returns(T.nilable(T::Boolean)) }
-      def outstanding_usage; end
-      sig { params(_outstanding_usage: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def outstanding_usage=(_outstanding_usage); end
-      # Controls whether to credit for licensed items in the current billing period. The default is `true`.
-      sig { returns(T.nilable(T::Boolean)) }
-      def unused_time; end
-      sig { params(_unused_time: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def unused_time=(_unused_time); end
+      class OutstandingUsageThrough < ::Stripe::RequestParams
+        # When to bill metered usage in the current period.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
+      class UnusedTimeFrom < ::Stripe::RequestParams
+        # When to credit for unused time.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
+      # Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
       sig {
-        params(outstanding_usage: T.nilable(T::Boolean), unused_time: T.nilable(T::Boolean)).void
+        returns(T.nilable(::Stripe::SubscriptionPauseParams::BillFor::OutstandingUsageThrough))
        }
-      def initialize(outstanding_usage: nil, unused_time: nil); end
+      def outstanding_usage_through; end
+      sig {
+        params(_outstanding_usage_through: T.nilable(::Stripe::SubscriptionPauseParams::BillFor::OutstandingUsageThrough)).returns(T.nilable(::Stripe::SubscriptionPauseParams::BillFor::OutstandingUsageThrough))
+       }
+      def outstanding_usage_through=(_outstanding_usage_through); end
+      # Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+      sig { returns(T.nilable(::Stripe::SubscriptionPauseParams::BillFor::UnusedTimeFrom)) }
+      def unused_time_from; end
+      sig {
+        params(_unused_time_from: T.nilable(::Stripe::SubscriptionPauseParams::BillFor::UnusedTimeFrom)).returns(T.nilable(::Stripe::SubscriptionPauseParams::BillFor::UnusedTimeFrom))
+       }
+      def unused_time_from=(_unused_time_from); end
+      sig {
+        params(outstanding_usage_through: T.nilable(::Stripe::SubscriptionPauseParams::BillFor::OutstandingUsageThrough), unused_time_from: T.nilable(::Stripe::SubscriptionPauseParams::BillFor::UnusedTimeFrom)).void
+       }
+      def initialize(outstanding_usage_through: nil, unused_time_from: nil); end
     end
     # Controls what to bill for when pausing the subscription.
     sig { returns(T.nilable(::Stripe::SubscriptionPauseParams::BillFor)) }

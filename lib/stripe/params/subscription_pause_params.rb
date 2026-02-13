@@ -4,14 +4,31 @@
 module Stripe
   class SubscriptionPauseParams < ::Stripe::RequestParams
     class BillFor < ::Stripe::RequestParams
-      # Controls whether to debit for accrued metered usage in the current billing period. The default is `true`.
-      attr_accessor :outstanding_usage
-      # Controls whether to credit for licensed items in the current billing period. The default is `true`.
-      attr_accessor :unused_time
+      class OutstandingUsageThrough < ::Stripe::RequestParams
+        # When to bill metered usage in the current period.
+        attr_accessor :type
 
-      def initialize(outstanding_usage: nil, unused_time: nil)
-        @outstanding_usage = outstanding_usage
-        @unused_time = unused_time
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+
+      class UnusedTimeFrom < ::Stripe::RequestParams
+        # When to credit for unused time.
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+      # Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
+      attr_accessor :outstanding_usage_through
+      # Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+      attr_accessor :unused_time_from
+
+      def initialize(outstanding_usage_through: nil, unused_time_from: nil)
+        @outstanding_usage_through = outstanding_usage_through
+        @unused_time_from = unused_time_from
       end
     end
     # Controls what to bill for when pausing the subscription.

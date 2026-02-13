@@ -11,21 +11,17 @@ module Stripe
     attr_accessor :proration_behavior
     # If set, prorations will be calculated as though the subscription was resumed at the given time. This can be used to apply exactly the same prorations that were previewed with the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint.
     attr_accessor :proration_date
-    # Controls when the subscription transitions from `paused` to `active`. Determines how payment on the invoice affects the resumption process.The default is `pending_if_incomplete`.
-    attr_accessor :payment_behavior
 
     def initialize(
       billing_cycle_anchor: nil,
       expand: nil,
       proration_behavior: nil,
-      proration_date: nil,
-      payment_behavior: nil
+      proration_date: nil
     )
       @billing_cycle_anchor = billing_cycle_anchor
       @expand = expand
       @proration_behavior = proration_behavior
       @proration_date = proration_date
-      @payment_behavior = payment_behavior
     end
   end
 end

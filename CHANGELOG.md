@@ -2,7 +2,7 @@
 
 ## 18.4.0-beta.3 - 2026-02-17
 * [#1787](https://github.com/stripe/stripe-ruby/pull/1787) Fix v2 typed params sending nil values on GET requests
-  - Fixes a bug on V2 GET where we were serializing `nil` query parameters as empty strings. The server would return an error in such cases like `'limit: Expected an Integer value got: .'` 
+  - Fixes a bug on V2 GET where we were serializing `nil` query parameters as empty strings. The server would return an error in such cases like `'limit: Expected an Integer value got: .'`
 
 ## 18.4.0-beta.2 - 2026-02-03
 * [#1775](https://github.com/stripe/stripe-ruby/pull/1775)
@@ -34,6 +34,10 @@ This release changes the pinned API version to `2026-01-28.preview`.
 * [#1758](https://github.com/stripe/stripe-ruby/pull/1758) Fix preserving null param values when calling v2 APIs
   - Nil input params are now preserved when calling V2 APIs.  Add additional tests for nil when calling V2 services you do not accidentally include an unintentional nil value.  V1 API calls are not affected (nil values are stripped from params hashes in V1).
 * [#1747](https://github.com/stripe/stripe-ruby/pull/1747) Add EventNotificationHandler example
+
+## 18.3.1 - 2026-02-03
+* [#1777](https://github.com/stripe/stripe-ruby/pull/1777)
+  * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.
 
 ## 18.3.0 - 2026-01-28
 This release changes the pinned API version to `2026-01-28.clover`.

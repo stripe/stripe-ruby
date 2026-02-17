@@ -1,5 +1,9 @@
 # Changelog
 
+## 18.4.0-beta.3 - 2026-02-17
+* [#1787](https://github.com/stripe/stripe-ruby/pull/1787) Fix v2 typed params sending nil values on GET requests
+  - Fixes a bug on V2 GET where we were serializing `nil` query parameters as empty strings. The server would return an error in such cases like `'limit: Expected an Integer value got: .'` 
+
 ## 18.4.0-beta.2 - 2026-02-03
 * [#1775](https://github.com/stripe/stripe-ruby/pull/1775)
   * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.

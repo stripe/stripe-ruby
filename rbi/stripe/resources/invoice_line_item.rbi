@@ -128,11 +128,48 @@ module Stripe
         end
       end
       class ScheduleDetails < ::Stripe::StripeObject
-        # The subscription schedule that generated this line item
+        class ProrationDetails < ::Stripe::StripeObject
+          class CreditedItems < ::Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            sig { returns(String) }
+            def invoice; end
+            # Credited invoice line items
+            sig { returns(T::Array[String]) }
+            def invoice_line_items; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          sig { returns(T.nilable(CreditedItems)) }
+          def credited_items; end
+          def self.inner_class_types
+            @inner_class_types = {credited_items: CreditedItems}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The subscription schedule that generated this line item.
         sig { returns(String) }
         def schedule; end
+        # The invoice item that generated this line item.
+        sig { returns(T.nilable(String)) }
+        def invoice_item; end
+        # Whether this is a proration.
+        sig { returns(T::Boolean) }
+        def proration; end
+        # Additional details for proration line items.
+        sig { returns(T.nilable(ProrationDetails)) }
+        def proration_details; end
+        # The subscription that the schedule belongs to.
+        sig { returns(T.nilable(String)) }
+        def subscription; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {proration_details: ProrationDetails}
         end
         def self.field_remappings
           @field_remappings = {}

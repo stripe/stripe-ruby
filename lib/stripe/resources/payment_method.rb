@@ -829,6 +829,10 @@ module Stripe
       attr_reader :logo
       # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
       attr_reader :type
+      # A reference to an external payment method, such as a PayPal Billing Agreement ID.
+      attr_reader :payment_method_reference
+      # Indicates whether the payment method supports off-session payments.
+      attr_reader :usage
 
       def self.inner_class_types
         @inner_class_types = { logo: Logo }

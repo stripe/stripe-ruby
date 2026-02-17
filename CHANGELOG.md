@@ -1,5 +1,9 @@
 # Changelog
 
+## 18.4.0-alpha.4 - 2026-02-17
+* [#1788](https://github.com/stripe/stripe-ruby/pull/1788) Fix v2 typed params sending nil values on GET requests
+  - Fixes a bug on V2 GET where we were serializing `nil` query parameters as empty strings. The server would return an error in such cases like `'limit: Expected an Integer value got: .'` 
+
 ## 18.4.0-alpha.3 - 2026-02-11
 * [#1780](https://github.com/stripe/stripe-ruby/pull/1780) Update generated code for private-preview
   * Add support for new resources `V2::Billing::CadenceSpendModifier`, `V2::Billing::OneTimeItem`, and `V2::Billing::RateCardCustomPricingUnitOverageRate`

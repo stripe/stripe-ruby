@@ -132,11 +132,45 @@ module Stripe
       end
 
       class ScheduleDetails < ::Stripe::StripeObject
-        # The subscription schedule that generated this line item
+        class ProrationDetails < ::Stripe::StripeObject
+          class CreditedItems < ::Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            attr_reader :invoice
+            # Credited invoice line items
+            attr_reader :invoice_line_items
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          attr_reader :credited_items
+
+          def self.inner_class_types
+            @inner_class_types = { credited_items: CreditedItems }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The subscription schedule that generated this line item.
         attr_reader :schedule
+        # The invoice item that generated this line item.
+        attr_reader :invoice_item
+        # Whether this is a proration.
+        attr_reader :proration
+        # Additional details for proration line items.
+        attr_reader :proration_details
+        # The subscription that the schedule belongs to.
+        attr_reader :subscription
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { proration_details: ProrationDetails }
         end
 
         def self.field_remappings

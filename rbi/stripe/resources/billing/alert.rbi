@@ -142,6 +142,120 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class SpendThreshold < ::Stripe::StripeObject
+        class Filters < ::Stripe::StripeObject
+          # Filter by billable item IDs.
+          sig { returns(T.nilable(T::Array[String])) }
+          def billable_items; end
+          # Filter by billing cadence ID.
+          sig { returns(T.nilable(String)) }
+          def billing_cadence; end
+          # Filter by pricing plan ID.
+          sig { returns(T.nilable(String)) }
+          def pricing_plan; end
+          # Filter by pricing plan subscription ID.
+          sig { returns(T.nilable(String)) }
+          def pricing_plan_subscription; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Gte < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(String) }
+            def currency; end
+            # A positive integer representing the amount.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              sig { returns(Integer) }
+              def created; end
+              # The name of the custom pricing unit.
+              sig { returns(String) }
+              def display_name; end
+              # Unique identifier for the object.
+              sig { returns(String) }
+              def id; end
+              # A lookup key for the custom pricing unit.
+              sig { returns(T.nilable(String)) }
+              def lookup_key; end
+              # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              sig { returns(T::Hash[String, String]) }
+              def metadata; end
+              # The status of the custom pricing unit.
+              sig { returns(String) }
+              def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The custom pricing unit object.
+            sig { returns(T.nilable(CustomPricingUnitDetails)) }
+            def custom_pricing_unit_details; end
+            # Unique identifier for the object.
+            sig { returns(String) }
+            def id; end
+            # A positive decimal string representing the amount.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The monetary amount. Present when type is `amount`.
+          sig { returns(T.nilable(Amount)) }
+          def amount; end
+          # The custom pricing unit amount. Present when type is `custom_pricing_unit`.
+          sig { returns(T.nilable(CustomPricingUnit)) }
+          def custom_pricing_unit; end
+          # The type of the threshold amount.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {amount: Amount, custom_pricing_unit: CustomPricingUnit}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Defines the period over which spend is aggregated.
+        sig { returns(String) }
+        def aggregation_period; end
+        # Filters to scope the spend calculation.
+        sig { returns(T.nilable(Filters)) }
+        def filters; end
+        # Defines the granularity of spend aggregation.
+        sig { returns(T.nilable(String)) }
+        def group_by; end
+        # The threshold value configuration for a spend threshold alert.
+        sig { returns(Gte) }
+        def gte; end
+        def self.inner_class_types
+          @inner_class_types = {filters: Filters, gte: Gte}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Defines the type of the alert.
       sig { returns(String) }
       def alert_type; end
@@ -166,6 +280,9 @@ module Stripe
       # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://docs.stripe.com/api/billing/meter).
       sig { returns(T.nilable(UsageThreshold)) }
       def usage_threshold; end
+      # Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
+      sig { returns(T.nilable(SpendThreshold)) }
+      def spend_threshold; end
       # Reactivates this alert, allowing it to trigger again.
       sig {
         params(params: T.any(::Stripe::Billing::AlertActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)

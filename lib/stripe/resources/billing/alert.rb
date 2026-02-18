@@ -144,6 +144,113 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class SpendThreshold < ::Stripe::StripeObject
+        class Filters < ::Stripe::StripeObject
+          # Filter by billable item IDs.
+          attr_reader :billable_items
+          # Filter by billing cadence ID.
+          attr_reader :billing_cadence
+          # Filter by pricing plan ID.
+          attr_reader :pricing_plan
+          # Filter by pricing plan subscription ID.
+          attr_reader :pricing_plan_subscription
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Gte < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+            # A positive integer representing the amount.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              attr_reader :created
+              # The name of the custom pricing unit.
+              attr_reader :display_name
+              # Unique identifier for the object.
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              attr_reader :status
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The custom pricing unit object.
+            attr_reader :custom_pricing_unit_details
+            # Unique identifier for the object.
+            attr_reader :id
+            # A positive decimal string representing the amount.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit_details: CustomPricingUnitDetails }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The monetary amount. Present when type is `amount`.
+          attr_reader :amount
+          # The custom pricing unit amount. Present when type is `custom_pricing_unit`.
+          attr_reader :custom_pricing_unit
+          # The type of the threshold amount.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { amount: Amount, custom_pricing_unit: CustomPricingUnit }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Defines the period over which spend is aggregated.
+        attr_reader :aggregation_period
+        # Filters to scope the spend calculation.
+        attr_reader :filters
+        # Defines the granularity of spend aggregation.
+        attr_reader :group_by
+        # The threshold value configuration for a spend threshold alert.
+        attr_reader :gte
+
+        def self.inner_class_types
+          @inner_class_types = { filters: Filters, gte: Gte }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Defines the type of the alert.
       attr_reader :alert_type
       # Encapsulates configuration of the alert to monitor billing credit balance.
@@ -160,6 +267,8 @@ module Stripe
       attr_reader :title
       # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://docs.stripe.com/api/billing/meter).
       attr_reader :usage_threshold
+      # Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
+      attr_reader :spend_threshold
 
       # Reactivates this alert, allowing it to trigger again.
       def activate(params = {}, opts = {})
@@ -235,6 +344,7 @@ module Stripe
         @inner_class_types = {
           credit_balance_threshold: CreditBalanceThreshold,
           usage_threshold: UsageThreshold,
+          spend_threshold: SpendThreshold,
         }
       end
 

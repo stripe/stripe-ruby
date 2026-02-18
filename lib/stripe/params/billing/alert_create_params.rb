@@ -115,6 +115,84 @@ module Stripe
         end
       end
 
+      class SpendThreshold < ::Stripe::RequestParams
+        class Filters < ::Stripe::RequestParams
+          # Filter by billable item IDs. Maximum of 20 billable items.
+          attr_accessor :billable_items
+          # Filter by billing cadence ID.
+          attr_accessor :billing_cadence
+          # Filter by pricing plan ID.
+          attr_accessor :pricing_plan
+          # Filter by pricing plan subscription ID.
+          attr_accessor :pricing_plan_subscription
+
+          def initialize(
+            billable_items: nil,
+            billing_cadence: nil,
+            pricing_plan: nil,
+            pricing_plan_subscription: nil
+          )
+            @billable_items = billable_items
+            @billing_cadence = billing_cadence
+            @pricing_plan = pricing_plan
+            @pricing_plan_subscription = pricing_plan_subscription
+          end
+        end
+
+        class Gte < ::Stripe::RequestParams
+          class Amount < ::Stripe::RequestParams
+            # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
+            attr_accessor :currency
+            # An integer representing the amount of the threshold.
+            attr_accessor :value
+
+            def initialize(currency: nil, value: nil)
+              @currency = currency
+              @value = value
+            end
+          end
+
+          class CustomPricingUnit < ::Stripe::RequestParams
+            # The ID of the custom pricing unit.
+            attr_accessor :id
+            # A positive decimal string representing the amount of the custom pricing unit threshold.
+            attr_accessor :value
+
+            def initialize(id: nil, value: nil)
+              @id = id
+              @value = value
+            end
+          end
+          # The monetary amount. Required when type is `amount`.
+          attr_accessor :amount
+          # The custom pricing unit amount. Required when type is `custom_pricing_unit`.
+          attr_accessor :custom_pricing_unit
+          # The type of the threshold amount.
+          attr_accessor :type
+
+          def initialize(amount: nil, custom_pricing_unit: nil, type: nil)
+            @amount = amount
+            @custom_pricing_unit = custom_pricing_unit
+            @type = type
+          end
+        end
+        # Defines the period over which spend is aggregated.
+        attr_accessor :aggregation_period
+        # Filters to scope the spend calculation.
+        attr_accessor :filters
+        # Defines the granularity of spend aggregation. Defaults to `pricing_plan_subscription`.
+        attr_accessor :group_by
+        # Defines at which value the alert will fire.
+        attr_accessor :gte
+
+        def initialize(aggregation_period: nil, filters: nil, group_by: nil, gte: nil)
+          @aggregation_period = aggregation_period
+          @filters = filters
+          @group_by = group_by
+          @gte = gte
+        end
+      end
+
       class UsageThreshold < ::Stripe::RequestParams
         class Filter < ::Stripe::RequestParams
           # Limit the scope to this usage alert only to this customer.
@@ -153,19 +231,23 @@ module Stripe
       attr_accessor :title
       # The configuration of the usage threshold.
       attr_accessor :usage_threshold
+      # The configuration of the spend threshold.
+      attr_accessor :spend_threshold
 
       def initialize(
         alert_type: nil,
         credit_balance_threshold: nil,
         expand: nil,
         title: nil,
-        usage_threshold: nil
+        usage_threshold: nil,
+        spend_threshold: nil
       )
         @alert_type = alert_type
         @credit_balance_threshold = credit_balance_threshold
         @expand = expand
         @title = title
         @usage_threshold = usage_threshold
+        @spend_threshold = spend_threshold
       end
     end
   end

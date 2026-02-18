@@ -116,6 +116,20 @@ module Stripe
        }
       def initialize(exp_month: nil, exp_year: nil, networks: nil); end
     end
+    class Custom < ::Stripe::RequestParams
+      # A reference to an external payment method, such as a PayPal Billing Agreement ID.
+      sig { returns(T.nilable(String)) }
+      def payment_method_reference; end
+      sig { params(_payment_method_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def payment_method_reference=(_payment_method_reference); end
+      # Indicates whether the payment method supports off-session payments.
+      sig { returns(T.nilable(String)) }
+      def usage; end
+      sig { params(_usage: T.nilable(String)).returns(T.nilable(String)) }
+      def usage=(_usage); end
+      sig { params(payment_method_reference: T.nilable(String), usage: T.nilable(String)).void }
+      def initialize(payment_method_reference: nil, usage: nil); end
+    end
     class Payto < ::Stripe::RequestParams
       # The account number for the bank account.
       sig { returns(T.nilable(String)) }
@@ -196,8 +210,15 @@ module Stripe
       params(_us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount)).returns(T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount))
      }
     def us_bank_account=(_us_bank_account); end
+    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    sig { returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)) }
+    def custom; end
     sig {
-      params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodUpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodUpdateParams::Card), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payto: T.nilable(::Stripe::PaymentMethodUpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount)).void
+      params(_custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)).returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Custom))
+     }
+    def custom=(_custom); end
+    sig {
+      params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodUpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodUpdateParams::Card), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payto: T.nilable(::Stripe::PaymentMethodUpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount), custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)).void
      }
     def initialize(
       allow_redisplay: nil,
@@ -206,7 +227,8 @@ module Stripe
       expand: nil,
       metadata: nil,
       payto: nil,
-      us_bank_account: nil
+      us_bank_account: nil,
+      custom: nil
     ); end
   end
 end

@@ -77,6 +77,18 @@ module Stripe
       end
     end
 
+    class Custom < ::Stripe::RequestParams
+      # A reference to an external payment method, such as a PayPal Billing Agreement ID.
+      attr_accessor :payment_method_reference
+      # Indicates whether the payment method supports off-session payments.
+      attr_accessor :usage
+
+      def initialize(payment_method_reference: nil, usage: nil)
+        @payment_method_reference = payment_method_reference
+        @usage = usage
+      end
+    end
+
     class Payto < ::Stripe::RequestParams
       # The account number for the bank account.
       attr_accessor :account_number
@@ -117,6 +129,8 @@ module Stripe
     attr_accessor :payto
     # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
     attr_accessor :us_bank_account
+    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    attr_accessor :custom
 
     def initialize(
       allow_redisplay: nil,
@@ -125,7 +139,8 @@ module Stripe
       expand: nil,
       metadata: nil,
       payto: nil,
-      us_bank_account: nil
+      us_bank_account: nil,
+      custom: nil
     )
       @allow_redisplay = allow_redisplay
       @billing_details = billing_details
@@ -134,6 +149,7 @@ module Stripe
       @metadata = metadata
       @payto = payto
       @us_bank_account = us_bank_account
+      @custom = custom
     end
   end
 end

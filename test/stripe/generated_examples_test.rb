@@ -8074,6 +8074,16 @@ module Stripe
       account_token = client.v2.core.account_tokens.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens/id_123"
     end
+    should "Test v2 core batch job post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/batch_jobs").to_return(
+        body: '{"id":"obj_123","object":"v2.core.batch_job","url":"url"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      batch_job = client.v2.core.batch_jobs.create({ endpoint: "/v1/subscription_schedules" })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/batch_jobs"
+    end
     should "Test v2 core event get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events").to_return(
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","type":"type"}],"next_page_url":null,"previous_page_url":null}',

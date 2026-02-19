@@ -9,7 +9,6 @@
   * Add support for `outstanding_usage_through` and `unused_time_from` on `SubscriptionPauseParams::BillFor`
   * Remove support for `outstanding_usage` and `unused_time` on `SubscriptionPauseParams::BillFor`
   * Remove support for `payment_behavior` on `SubscriptionResumeParams`
-* [#1791](https://github.com/stripe/stripe-ruby/pull/1791) Mbroshi/merge ruby private preview
 
 ## 18.4.0-alpha.4 - 2026-02-17
 * [#1788](https://github.com/stripe/stripe-ruby/pull/1788) Fix v2 typed params sending nil values on GET requests

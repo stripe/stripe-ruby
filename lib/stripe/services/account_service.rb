@@ -3,7 +3,7 @@
 
 module Stripe
   class AccountService < StripeService
-    attr_reader :capabilities, :external_accounts, :login_links, :persons
+    attr_reader :capabilities, :external_accounts, :login_links, :persons, :signals
 
     def initialize(requestor)
       super
@@ -11,6 +11,7 @@ module Stripe
       @external_accounts = Stripe::AccountExternalAccountService.new(@requestor)
       @login_links = Stripe::AccountLoginLinkService.new(@requestor)
       @persons = Stripe::AccountPersonService.new(@requestor)
+      @signals = Stripe::AccountSignalsService.new(@requestor)
     end
 
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.

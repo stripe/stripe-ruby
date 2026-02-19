@@ -1452,6 +1452,12 @@ module Stripe
      }
     def self.reject(account, params = {}, opts = {}); end
 
+    # Retrieves the account's Signal objects
+    sig {
+      params(account_id: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
+     }
+    def self.retrieve_signal(account_id, params = {}, opts = {}); end
+
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
     #

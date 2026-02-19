@@ -1,5 +1,16 @@
 # Changelog
 
+## 18.4.0-alpha.5 - 2026-02-19
+* [#1792](https://github.com/stripe/stripe-ruby/pull/1792) Update generated code for private-preview
+  * Add support for `spend_threshold` on `Billing::AlertCreateParams` and `Billing::Alert`
+  * Add support for `invoice_item`, `proration_details`, `proration`, and `subscription` on `InvoiceLineItem::Parent::ScheduleDetail`
+  * Add support for `custom` on `PaymentMethodUpdateParams`
+  * Add support for `payment_method_reference` and `usage` on `PaymentMethod::Custom`
+  * Add support for `outstanding_usage_through` and `unused_time_from` on `SubscriptionPauseParams::BillFor`
+  * Remove support for `outstanding_usage` and `unused_time` on `SubscriptionPauseParams::BillFor`
+  * Remove support for `payment_behavior` on `SubscriptionResumeParams`
+* [#1791](https://github.com/stripe/stripe-ruby/pull/1791) Mbroshi/merge ruby private preview
+
 ## 18.4.0-alpha.4 - 2026-02-17
 * [#1788](https://github.com/stripe/stripe-ruby/pull/1788) Fix v2 typed params sending nil values on GET requests
   - Fixes a bug on V2 GET where we were serializing `nil` query parameters as empty strings. The server would return an error in such cases like `'limit: Expected an Integer value got: .'` 

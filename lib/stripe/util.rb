@@ -4,9 +4,6 @@ require "cgi"
 
 module Stripe
   module Util
-    LEGAL_FIRST_CHARACTER = /[a-zA-Z_]/.freeze
-    LEGAL_VARIABLE_CHARACTER = /[a-zA-Z0-9_]/.freeze
-
     def self.objects_to_ids(obj, serialize_empty: false)
       case obj
       when APIResource
@@ -335,9 +332,7 @@ module Stripe
     # Return false for strings that are invalid variable names
     # Does NOT expect there to be a preceding '@' for instance variables
     def self.valid_variable_name?(key)
-      return false if key.empty? || key[0] !~ LEGAL_FIRST_CHARACTER
-
-      key[1..].chars.all? { |char| char =~ LEGAL_VARIABLE_CHARACTER }
+      key.match?(/\A[a-zA-Z_]\w*\z/)
     end
 
     def self.check_string_argument!(key)

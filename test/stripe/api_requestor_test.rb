@@ -1292,6 +1292,83 @@ module Stripe
         )
       end
 
+      should "serialize explicit nulls in v2 post request bodies" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/foo")
+          .to_return(body: JSON.generate(object: "foo"), status: 200)
+
+        requestor = APIRequestor.new("sk_test_123")
+
+        requestor.execute_request(:post, "/v2/foo", :api,
+                                  params: { name: "hello", description: nil })
+
+        assert_requested(
+          :post,
+          "#{Stripe::DEFAULT_API_BASE}/v2/foo",
+          body: "{\"name\":\"hello\",\"description\":null}"
+        )
+      end
+
+      should "not serialize unset fields in v2 post request bodies" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/foo")
+          .to_return(body: JSON.generate(object: "foo"), status: 200)
+
+        requestor = APIRequestor.new("sk_test_123")
+
+        requestor.execute_request(:post, "/v2/foo", :api,
+                                  params: { name: "hello" })
+
+        assert_requested(
+          :post,
+          "#{Stripe::DEFAULT_API_BASE}/v2/foo",
+          body: "{\"name\":\"hello\"}"
+        )
+      end
+
+      should "only serialize explicitly set fields when using RequestParams for v2 post" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events")
+          .to_return(body: JSON.generate(object: "billing.meter_event"), status: 200)
+
+        requestor = APIRequestor.new("sk_test_123")
+
+        params = Stripe::V2::Billing::MeterEventCreateParams.new(
+          event_name: "my_event",
+          payload: { stripe_customer_id: "cus_123", value: "25" }
+        )
+
+        requestor.execute_request(:post, "/v2/billing/meter_events", :api, params: params)
+
+        # Unset fields (identifier, timestamp) should NOT appear as null
+        assert_requested(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events") do |actual_req|
+          body = JSON.parse(actual_req.body)
+          assert_equal "my_event", body["event_name"]
+          assert_equal({ "stripe_customer_id" => "cus_123", "value" => "25" }, body["payload"])
+          refute body.key?("identifier"), "identifier was not set and should not be in the body"
+          refute body.key?("timestamp"), "timestamp was not set and should not be in the body"
+        end
+      end
+
+      should "serialize explicitly set nil fields when using RequestParams for v2 post" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events")
+          .to_return(body: JSON.generate(object: "billing.meter_event"), status: 200)
+
+        requestor = APIRequestor.new("sk_test_123")
+
+        params = Stripe::V2::Billing::MeterEventCreateParams.new(
+          event_name: "my_event",
+          identifier: nil,
+          payload: { stripe_customer_id: "cus_123", value: "25" }
+        )
+
+        requestor.execute_request(:post, "/v2/billing/meter_events", :api, params: params)
+
+        assert_requested(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events") do |actual_req|
+          body = JSON.parse(actual_req.body)
+          assert_equal "my_event", body["event_name"]
+          assert body.key?("identifier"), "identifier was explicitly set to nil and should be in the body"
+          assert_nil body["identifier"]
+        end
+      end
+
       %w[v1 v2].each do |mode|
         should "correctly handle #{mode} delete request responses" do
           stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/#{mode}/foo")

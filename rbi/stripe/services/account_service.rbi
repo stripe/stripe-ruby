@@ -8,6 +8,7 @@ module Stripe
     attr_reader :external_accounts
     attr_reader :login_links
     attr_reader :persons
+    attr_reader :signals
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #

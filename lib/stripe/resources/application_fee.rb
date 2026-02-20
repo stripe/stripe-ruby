@@ -31,6 +31,21 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class FundingSource < ::Stripe::StripeObject
+      # The invoice ID associated with this funding source, if applicable.
+      attr_reader :invoice
+      # The type of funding source.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # ID of the Stripe account this fee was taken from.
     attr_reader :account
     # Amount earned, in cents (or local equivalent).
@@ -61,6 +76,8 @@ module Stripe
     attr_reader :refunded
     # A list of refunds that have been applied to the fee.
     attr_reader :refunds
+    # Polymorphic funding source of the application fee. Includes the type and details of the funding source.
+    attr_reader :funding_source
     # Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
     attr_reader :settlement_type
 
@@ -70,7 +87,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { fee_source: FeeSource }
+      @inner_class_types = { fee_source: FeeSource, funding_source: FundingSource }
     end
 
     def self.field_remappings

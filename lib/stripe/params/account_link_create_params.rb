@@ -8,10 +8,13 @@ module Stripe
       attr_accessor :fields
       # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
       attr_accessor :future_requirements
+      # Specifies whether the platform collects external account information from connected accounts during Connect Onboarding. When set to `false`, external account collection is skipped. Defaults to `true`.
+      attr_accessor :external_account_collection
 
-      def initialize(fields: nil, future_requirements: nil)
+      def initialize(fields: nil, future_requirements: nil, external_account_collection: nil)
         @fields = fields
         @future_requirements = future_requirements
+        @external_account_collection = external_account_collection
       end
     end
     # The identifier of the account to create an account link for.

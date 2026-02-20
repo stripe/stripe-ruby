@@ -1341,6 +1341,16 @@ module Stripe
       )
     end
 
+    # Retrieves the account's Signal objects
+    def self.retrieve_signal(account_id, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/accounts/%<account_id>s/signals", { account_id: CGI.escape(account_id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
     #

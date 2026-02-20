@@ -18,9 +18,9 @@ module Stripe
           sig { params(_country: String).returns(String) }
           def country=(_country); end
           # Address line 1, such as the street, PO Box, or company name.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def line1; end
-          sig { params(_line1: String).returns(String) }
+          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
           # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
@@ -38,7 +38,7 @@ module Stripe
           sig { params(_state: String).returns(String) }
           def state=(_state); end
           sig {
-            params(city: String, country: String, line1: String, line2: T.nilable(String), postal_code: String, state: String).void
+            params(city: String, country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: String, state: String).void
            }
           def initialize(
             city: nil,
@@ -150,9 +150,9 @@ module Stripe
             sig { params(_country: String).returns(String) }
             def country=(_country); end
             # Address line 1, such as the street, PO Box, or company name.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def line1; end
-            sig { params(_line1: String).returns(String) }
+            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
             def line1=(_line1); end
             # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
@@ -170,7 +170,7 @@ module Stripe
             sig { params(_state: String).returns(String) }
             def state=(_state); end
             sig {
-              params(city: String, country: String, line1: String, line2: T.nilable(String), postal_code: String, state: String).void
+              params(city: String, country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: String, state: String).void
              }
             def initialize(
               city: nil,

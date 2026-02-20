@@ -25,9 +25,6 @@ lint: (format-check "--autocorrect")
 # copy of `lint` with less output
 format: (format-check "-o /dev/null --autocorrect")
 
-update-certs: install
-    bundle exec rake update_certs
-
 # run sorbet to check type definitions
 typecheck: install
     {{ if semver_matches(`ruby -e "puts RUBY_VERSION"`, ">=2.7") == "true" { \

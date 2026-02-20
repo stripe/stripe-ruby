@@ -16,18 +16,33 @@ module Stripe
         instance.send(:initialize, **kwargs)
         instance
       end
+
+      # Override attr_accessor to create setters that track explicitly set keys for V2 classes
+      def attr_accessor(*names)
+        names.each do |name|
+          # Define getter
+          define_method(name) { instance_variable_get("@#{name}") }
+
+          # Define setter that tracks the key as explicitly set
+          define_method("#{name}=") do |value|
+            @_explicitly_set_keys&.add(name)
+            instance_variable_set("@#{name}", value)
+          end
+        end
+      end
     end
 
     def to_h
       instance_variables.each_with_object({}) do |var, hash|
+        # _explicitly_set_keys is set as an instance variable.
+        # Ignore the var if it is _explicitly_set_keys itself.
         next if var == :@_explicitly_set_keys
 
         key = var.to_s.delete("@").to_sym
+        value = instance_variable_get(var)
 
         # For V2 classes, only include keys that were explicitly set
         next if @_explicitly_set_keys && !@_explicitly_set_keys.include?(key)
-
-        value = instance_variable_get(var)
 
         hash[key] = if value.is_a?(RequestParams)
                       value.to_h

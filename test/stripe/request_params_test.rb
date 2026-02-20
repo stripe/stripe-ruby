@@ -301,6 +301,24 @@ module Stripe
         refute result.key?(:timestamp), "timestamp was not set and should not be in the hash"
       end
 
+      should "serialize fields explicitly set after initialization for V2 classes" do
+        params = Stripe::V2::Billing::MeterEventCreateParams.new(
+          event_name: "my_event",
+          payload: { stripe_customer_id: "cus_123", value: "25" }
+        )
+
+        params.identifier = "Something"
+        params.timestamp = nil
+
+        result = params.to_h
+
+        assert_equal "my_event", result[:event_name]
+        assert_equal "Something", result[:identifier]
+        assert_equal({ stripe_customer_id: "cus_123", value: "25" }, result[:payload])
+        assert result.key?(:timestamp)
+        assert_nil result[:timestamp]
+      end
+
       should "serialize all fields including nil defaults for V1 classes" do
         params = FooCreateParams.new(fun: "games")
 

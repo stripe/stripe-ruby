@@ -115,6 +115,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Hosted < ::Stripe::StripeObject
+        # How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
+        sig { returns(T.nilable(String)) }
+        def delivery_method; end
+        # The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
+        sig { returns(T.nilable(String)) }
+        def return_url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The account holder for whom accounts are collected in this session.
       sig { returns(T.nilable(AccountHolder)) }
       def account_holder; end
@@ -163,6 +177,15 @@ module Stripe
       # Attribute for field status_details
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
+      # Settings for the Hosted UI mode.
+      sig { returns(T.nilable(Hosted)) }
+      def hosted; end
+      # The UI mode for this session.
+      sig { returns(T.nilable(String)) }
+      def ui_mode; end
+      # The hosted URL for this Session. Redirect customers to this URL to take them to the hosted authentication flow. This value is only present when the Session is active and the `ui_mode` is `hosted`.
+      sig { returns(T.nilable(String)) }
+      def url; end
       # To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
       sig {
         params(params: T.any(::Stripe::FinancialConnections::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Session)

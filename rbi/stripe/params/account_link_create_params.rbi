@@ -15,8 +15,17 @@ module Stripe
       def future_requirements; end
       sig { params(_future_requirements: T.nilable(String)).returns(T.nilable(String)) }
       def future_requirements=(_future_requirements); end
-      sig { params(fields: T.nilable(String), future_requirements: T.nilable(String)).void }
-      def initialize(fields: nil, future_requirements: nil); end
+      # Specifies whether the platform collects external account information from connected accounts during Connect Onboarding. When set to `false`, external account collection is skipped. Defaults to `true`.
+      sig { returns(T.nilable(T::Boolean)) }
+      def external_account_collection; end
+      sig {
+        params(_external_account_collection: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+       }
+      def external_account_collection=(_external_account_collection); end
+      sig {
+        params(fields: T.nilable(String), future_requirements: T.nilable(String), external_account_collection: T.nilable(T::Boolean)).void
+       }
+      def initialize(fields: nil, future_requirements: nil, external_account_collection: nil); end
     end
     # The identifier of the account to create an account link for.
     sig { returns(String) }

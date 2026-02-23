@@ -24,6 +24,20 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class FundingSource < ::Stripe::StripeObject
+      # The invoice ID associated with this funding source, if applicable.
+      sig { returns(T.nilable(String)) }
+      def invoice; end
+      # The type of funding source.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # ID of the Stripe account this fee was taken from.
     sig { returns(T.any(String, ::Stripe::Account)) }
     def account; end
@@ -69,6 +83,9 @@ module Stripe
     # A list of refunds that have been applied to the fee.
     sig { returns(::Stripe::ListObject) }
     def refunds; end
+    # Polymorphic funding source of the application fee. Includes the type and details of the funding source.
+    sig { returns(T.nilable(FundingSource)) }
+    def funding_source; end
     # Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
     sig { returns(T.nilable(String)) }
     def settlement_type; end

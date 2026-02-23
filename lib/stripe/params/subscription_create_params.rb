@@ -920,9 +920,12 @@ module Stripe
       class EndBehavior < ::Stripe::RequestParams
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_accessor :missing_payment_method
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+        attr_accessor :billing_cycle_anchor
 
-        def initialize(missing_payment_method: nil)
+        def initialize(missing_payment_method: nil, billing_cycle_anchor: nil)
           @missing_payment_method = missing_payment_method
+          @billing_cycle_anchor = billing_cycle_anchor
         end
       end
       # Defines how the subscription should behave when the user's free trial ends.

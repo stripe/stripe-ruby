@@ -54,6 +54,15 @@ module Stripe
          }
         def initialize(account_subcategories: nil, countries: nil, institution: nil); end
       end
+      class Hosted < ::Stripe::RequestParams
+        # How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
+        sig { returns(T.nilable(String)) }
+        def delivery_method; end
+        sig { params(_delivery_method: T.nilable(String)).returns(T.nilable(String)) }
+        def delivery_method=(_delivery_method); end
+        sig { params(delivery_method: T.nilable(String)).void }
+        def initialize(delivery_method: nil); end
+      end
       class Limits < ::Stripe::RequestParams
         # The number of accounts that can be linked in this Session.
         sig { returns(Integer) }
@@ -143,8 +152,20 @@ module Stripe
       def return_url; end
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
+      # Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted)) }
+      def hosted; end
       sig {
-        params(account_holder: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder), expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), relink_options: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions), return_url: T.nilable(String)).void
+        params(_hosted: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted))
+       }
+      def hosted=(_hosted); end
+      # The UI mode of the Session. Defaults to `modal`.
+      sig { returns(T.nilable(String)) }
+      def ui_mode; end
+      sig { params(_ui_mode: T.nilable(String)).returns(T.nilable(String)) }
+      def ui_mode=(_ui_mode); end
+      sig {
+        params(account_holder: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder), expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), relink_options: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions), return_url: T.nilable(String), hosted: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted), ui_mode: T.nilable(String)).void
        }
       def initialize(
         account_holder: nil,
@@ -155,7 +176,9 @@ module Stripe
         permissions: nil,
         prefetch: nil,
         relink_options: nil,
-        return_url: nil
+        return_url: nil,
+        hosted: nil,
+        ui_mode: nil
       ); end
     end
   end

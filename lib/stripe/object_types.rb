@@ -16,6 +16,7 @@ module Stripe
         AccountLink.object_name => AccountLink,
         AccountNotice.object_name => AccountNotice,
         AccountSession.object_name => AccountSession,
+        AccountSignals.object_name => AccountSignals,
         ApplePayDomain.object_name => ApplePayDomain,
         Application.object_name => Application,
         ApplicationFee.object_name => ApplicationFee,

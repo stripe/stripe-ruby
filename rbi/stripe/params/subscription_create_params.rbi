@@ -1448,8 +1448,13 @@ module Stripe
         def missing_payment_method; end
         sig { params(_missing_payment_method: String).returns(String) }
         def missing_payment_method=(_missing_payment_method); end
-        sig { params(missing_payment_method: String).void }
-        def initialize(missing_payment_method: nil); end
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+        sig { returns(T.nilable(String)) }
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
+        sig { params(missing_payment_method: String, billing_cycle_anchor: T.nilable(String)).void }
+        def initialize(missing_payment_method: nil, billing_cycle_anchor: nil); end
       end
       # Defines how the subscription should behave when the user's free trial ends.
       sig { returns(::Stripe::SubscriptionCreateParams::TrialSettings::EndBehavior) }

@@ -3,6 +3,7 @@
 
 module Stripe
   module V2
+    # Generated Microdeposits represent verification deposits sent to a financial address for ownership verification, containing the deposited amounts and status.
     class FinancialAddressGeneratedMicrodeposits < APIResource
       OBJECT_NAME = "financial_address_generated_microdeposits"
       def self.object_name

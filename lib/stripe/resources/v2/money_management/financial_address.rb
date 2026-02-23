@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+      # A Financial Address contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
       class FinancialAddress < APIResource
         OBJECT_NAME = "v2.money_management.financial_address"
         def self.object_name

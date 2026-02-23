@@ -3,6 +3,7 @@
 
 module Stripe
   module V2
+    # Credit Simulations represent simulated credit transactions applied to financial addresses for testing purposes.
     class FinancialAddressCreditSimulation < APIResource
       OBJECT_NAME = "financial_address_credit_simulation"
       def self.object_name

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+      # A Financial Address contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
       class FinancialAddress < APIResource
         class Credentials < ::Stripe::StripeObject
           class GbBankAccount < ::Stripe::StripeObject

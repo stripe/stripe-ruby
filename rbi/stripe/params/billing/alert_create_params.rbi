@@ -29,7 +29,7 @@ module Stripe
           params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]))
          }
         def filters=(_filters); end
-        # Defines at which value the alert will fire.
+        # Defines the threshold value that triggers the alert.
         sig { returns(Integer) }
         def gte; end
         sig { params(_gte: Integer).returns(Integer) }

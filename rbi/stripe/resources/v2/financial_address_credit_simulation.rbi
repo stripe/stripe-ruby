@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   module V2
+    # Credit Simulations represent simulated credit transactions applied to financial addresses for testing purposes.
     class FinancialAddressCreditSimulation < APIResource
       # String representing the object's type. Objects of the same type share the same value of the object field.
       sig { returns(String) }

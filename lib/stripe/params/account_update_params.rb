@@ -2097,6 +2097,8 @@ module Stripe
       end
 
       class Payments < ::Stripe::RequestParams
+        # When you enable this parameter, the customer of this Account receives an email receipt when their payment succeeds. If this parameter isn't set, the default value is `false`.
+        attr_accessor :email_customers_on_successful_payment
         # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
         attr_accessor :statement_descriptor
         # The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
@@ -2105,10 +2107,12 @@ module Stripe
         attr_accessor :statement_descriptor_kanji
 
         def initialize(
+          email_customers_on_successful_payment: nil,
           statement_descriptor: nil,
           statement_descriptor_kana: nil,
           statement_descriptor_kanji: nil
         )
+          @email_customers_on_successful_payment = email_customers_on_successful_payment
           @statement_descriptor = statement_descriptor
           @statement_descriptor_kana = statement_descriptor_kana
           @statement_descriptor_kanji = statement_descriptor_kanji
@@ -2214,6 +2218,23 @@ module Stripe
         end
       end
 
+      class SmartDisputes < ::Stripe::RequestParams
+        class AutoRespond < ::Stripe::RequestParams
+          # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Smart Disputes auto-respond settings for the account.
+        attr_accessor :auto_respond
+
+        def initialize(auto_respond: nil)
+          @auto_respond = auto_respond
+        end
+      end
+
       class TaxForms < ::Stripe::RequestParams
         # Whether the account opted out of receiving their tax forms by postal delivery.
         attr_accessor :consented_to_paperless_delivery
@@ -2265,6 +2286,8 @@ module Stripe
       attr_accessor :payouts
       # Settings specific to the PayPay payments method.
       attr_accessor :paypay_payments
+      # Settings specific to the account's use of Smart Disputes.
+      attr_accessor :smart_disputes
       # Settings specific to the account's tax forms.
       attr_accessor :tax_forms
       # Settings specific to the account's Treasury FinancialAccounts.
@@ -2281,6 +2304,7 @@ module Stripe
         payments: nil,
         payouts: nil,
         paypay_payments: nil,
+        smart_disputes: nil,
         tax_forms: nil,
         treasury: nil
       )
@@ -2294,6 +2318,7 @@ module Stripe
         @payments = payments
         @payouts = payouts
         @paypay_payments = paypay_payments
+        @smart_disputes = smart_disputes
         @tax_forms = tax_forms
         @treasury = treasury
       end

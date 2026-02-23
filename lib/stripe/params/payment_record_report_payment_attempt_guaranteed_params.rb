@@ -7,7 +7,7 @@ module Stripe
     attr_accessor :expand
     # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
     attr_accessor :guaranteed_at
-    # Attribute for param field metadata
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
 
     def initialize(expand: nil, guaranteed_at: nil, metadata: nil)

@@ -5,6 +5,7 @@
 module Stripe
   module V2
     module Billing
+      # A Meter Event Adjustment is used to cancel or modify previously recorded meter events. Meter Event Adjustments allow you to correct billing data by canceling individual events or event ranges, with tracking of adjustment status and creation time.
       class MeterEventAdjustment < APIResource
         class Cancel < ::Stripe::StripeObject
           # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.

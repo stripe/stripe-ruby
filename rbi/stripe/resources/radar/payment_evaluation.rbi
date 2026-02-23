@@ -163,20 +163,6 @@ module Stripe
         end
       end
       class Insights < ::Stripe::StripeObject
-        class CardIssuerDecline < ::Stripe::StripeObject
-          # Stripe Radar's evaluation of the likelihood that the payment will be declined by the card issuer. Scores range from 0 to 100, with higher values indicating a higher likelihood of decline.
-          sig { returns(Float) }
-          def model_score; end
-          # Recommended action based on the model score. Possible values are `block` and `continue`.
-          sig { returns(String) }
-          def recommended_action; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class FraudulentDispute < ::Stripe::StripeObject
           # Recommended action based on the risk score. Possible values are `block` and `continue`.
           sig { returns(String) }
@@ -191,9 +177,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Stripe Radar's evaluation of the likelihood of a card issuer decline on this payment.
-        sig { returns(T.nilable(CardIssuerDecline)) }
-        def card_issuer_decline; end
         # The timestamp when the evaluation was performed.
         sig { returns(Integer) }
         def evaluated_at; end
@@ -201,10 +184,7 @@ module Stripe
         sig { returns(FraudulentDispute) }
         def fraudulent_dispute; end
         def self.inner_class_types
-          @inner_class_types = {
-            card_issuer_decline: CardIssuerDecline,
-            fraudulent_dispute: FraudulentDispute,
-          }
+          @inner_class_types = {fraudulent_dispute: FraudulentDispute}
         end
         def self.field_remappings
           @field_remappings = {}

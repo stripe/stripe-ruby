@@ -9,10 +9,10 @@ module Stripe
       class OutboundPayment < APIResource
         class Amount < ::Stripe::StripeObject
           # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          sig { returns(T.nilable(Integer)) }
+          sig { returns(Integer) }
           def value; end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(T.nilable(String)) }
+          sig { returns(String) }
           def currency; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -35,10 +35,10 @@ module Stripe
         class From < ::Stripe::StripeObject
           class Debited < ::Stripe::StripeObject
             # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(Integer) }
             def value; end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def currency; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -135,10 +135,10 @@ module Stripe
         class To < ::Stripe::StripeObject
           class Credited < ::Stripe::StripeObject
             # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(T.nilable(Integer)) }
+            sig { returns(Integer) }
             def value; end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def currency; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -215,6 +215,9 @@ module Stripe
         # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         sig { returns(T.nilable(String)) }
         def outbound_payment_quote; end
+        # The purpose of the OutboundPayment.
+        sig { returns(T.nilable(String)) }
+        def purpose; end
         # A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
         sig { returns(T.nilable(String)) }
         def receipt_url; end

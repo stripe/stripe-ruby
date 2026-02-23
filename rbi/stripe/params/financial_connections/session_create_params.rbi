@@ -64,7 +64,7 @@ module Stripe
         def initialize(accounts: nil); end
       end
       class ManualEntry < ::Stripe::RequestParams
-        # Whether manual entry will be handled by Stripe during the Session.
+        # How manual entry should be handled.
         sig { returns(T.nilable(String)) }
         def mode; end
         sig { params(_mode: T.nilable(String)).returns(T.nilable(String)) }

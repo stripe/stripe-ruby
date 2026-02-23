@@ -5,6 +5,7 @@
 module Stripe
   module V2
     module Billing
+      # A Bill Setting Version is a specific configuration of a BillSetting at a point in time. Bill Setting Versions enable you to track changes to bill generation and invoice settings over time and manage which version is active for new billing operations.
       class BillSettingVersion < APIResource
         class Calculation < ::Stripe::StripeObject
           class Tax < ::Stripe::StripeObject

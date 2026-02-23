@@ -47,6 +47,9 @@ module Stripe
           # The name of the bank this bank account is in. This field is populated automatically by Stripe.
           sig { returns(String) }
           def bank_name; end
+          # The branch number of the bank account, if present.
+          sig { returns(T.nilable(String)) }
+          def branch_number; end
           # The country code of the bank account.
           sig { returns(String) }
           def country; end
@@ -65,6 +68,9 @@ module Stripe
           # The list of currencies supported by this bank account.
           sig { returns(T::Array[String]) }
           def supported_currencies; end
+          # The swift code of the bank or financial institution.
+          sig { returns(T.nilable(String)) }
+          def swift_code; end
           def self.inner_class_types
             @inner_class_types = {}
           end

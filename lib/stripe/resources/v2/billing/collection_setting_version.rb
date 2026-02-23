@@ -4,6 +4,7 @@
 module Stripe
   module V2
     module Billing
+      # A Collection Setting Version is a specific configuration of a CollectionSetting at a point in time. Collection Setting Versions enable you to track changes to payment collection settings over time and manage which version is active for new billing operations.
       class CollectionSettingVersion < APIResource
         OBJECT_NAME = "v2.billing.collection_setting_version"
         def self.object_name

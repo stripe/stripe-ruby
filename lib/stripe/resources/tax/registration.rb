@@ -1042,6 +1042,19 @@ module Stripe
           end
         end
 
+        class Lk < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Lt < ::Stripe::StripeObject
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
@@ -1996,6 +2009,8 @@ module Stripe
         attr_reader :kz
         # Attribute for field la
         attr_reader :la
+        # Attribute for field lk
+        attr_reader :lk
         # Attribute for field lt
         attr_reader :lt
         # Attribute for field lu
@@ -2144,6 +2159,7 @@ module Stripe
             kr: Kr,
             kz: Kz,
             la: La,
+            lk: Lk,
             lt: Lt,
             lu: Lu,
             lv: Lv,

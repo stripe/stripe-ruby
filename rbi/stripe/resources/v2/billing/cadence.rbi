@@ -5,6 +5,7 @@
 module Stripe
   module V2
     module Billing
+      # A Cadence represents a billing schedule applied to a customer, defining when and how often to generate invoices, such as on monthly or annual billing cycle.
       class Cadence < APIResource
         class BillingCycle < ::Stripe::StripeObject
           class Day < ::Stripe::StripeObject

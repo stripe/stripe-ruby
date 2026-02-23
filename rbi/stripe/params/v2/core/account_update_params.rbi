@@ -1300,6 +1300,30 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
+            class SmartDisputes < ::Stripe::RequestParams
+              class AutoRespond < ::Stripe::RequestParams
+                # The preference for automatic dispute responses.
+                sig { returns(T.nilable(String)) }
+                def preference; end
+                sig { params(_preference: T.nilable(String)).returns(T.nilable(String)) }
+                def preference=(_preference); end
+                sig { params(preference: T.nilable(String)).void }
+                def initialize(preference: nil); end
+              end
+              # Settings for Smart Disputes auto_respond.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes::AutoRespond))
+               }
+              def auto_respond; end
+              sig {
+                params(_auto_respond: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes::AutoRespond)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes::AutoRespond))
+               }
+              def auto_respond=(_auto_respond); end
+              sig {
+                params(auto_respond: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes::AutoRespond)).void
+               }
+              def initialize(auto_respond: nil); end
+            end
             class StatementDescriptor < ::Stripe::RequestParams
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               sig { returns(T.nilable(String)) }
@@ -1457,6 +1481,15 @@ module Stripe
               params(_script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor))
              }
             def script_statement_descriptor=(_script_statement_descriptor); end
+            # Settings for Smart Disputes automatic response feature.
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes))
+             }
+            def smart_disputes; end
+            sig {
+              params(_smart_disputes: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes))
+             }
+            def smart_disputes=(_smart_disputes); end
             # Settings for the default [statement descriptor](/connect/statement-descriptors) text.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor))
@@ -1476,7 +1509,7 @@ module Stripe
              }
             def support=(_support); end
             sig {
-              params(applied: T.nilable(T::Boolean), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Support)).void
+              params(applied: T.nilable(T::Boolean), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::ScriptStatementDescriptor), smart_disputes: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SmartDisputes), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Support)).void
              }
             def initialize(
               applied: nil,
@@ -1487,6 +1520,7 @@ module Stripe
               konbini_payments: nil,
               mcc: nil,
               script_statement_descriptor: nil,
+              smart_disputes: nil,
               statement_descriptor: nil,
               support: nil
             ); end
@@ -2322,16 +2356,16 @@ module Stripe
             class AnnualRevenue < ::Stripe::RequestParams
               class Amount < ::Stripe::RequestParams
                 # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                sig { returns(T.nilable(Integer)) }
+                sig { returns(Integer) }
                 def value; end
-                sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                sig { params(_value: Integer).returns(Integer) }
                 def value=(_value); end
                 # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                sig { returns(T.nilable(String)) }
+                sig { returns(String) }
                 def currency; end
-                sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+                sig { params(_currency: String).returns(String) }
                 def currency=(_currency); end
-                sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+                sig { params(value: Integer, currency: String).void }
                 def initialize(value: nil, currency: nil); end
               end
               # A non-negative integer representing the amount in the smallest currency unit.
@@ -2644,16 +2678,16 @@ module Stripe
             class MonthlyEstimatedRevenue < ::Stripe::RequestParams
               class Amount < ::Stripe::RequestParams
                 # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                sig { returns(T.nilable(Integer)) }
+                sig { returns(Integer) }
                 def value; end
-                sig { params(_value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                sig { params(_value: Integer).returns(Integer) }
                 def value=(_value); end
                 # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                sig { returns(T.nilable(String)) }
+                sig { returns(String) }
                 def currency; end
-                sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+                sig { params(_currency: String).returns(String) }
                 def currency=(_currency); end
-                sig { params(value: T.nilable(Integer), currency: T.nilable(String)).void }
+                sig { params(value: Integer, currency: String).void }
                 def initialize(value: nil, currency: nil); end
               end
               # A non-negative integer representing the amount in the smallest currency unit.

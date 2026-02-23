@@ -23,6 +23,15 @@ module Stripe
         sig { params(splashscreen: T.nilable(String)).void }
         def initialize(splashscreen: nil); end
       end
+      class Cellular < ::Stripe::RequestParams
+        # Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        sig { params(enabled: T::Boolean).void }
+        def initialize(enabled: nil); end
+      end
       class Offline < ::Stripe::RequestParams
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         sig { returns(T::Boolean) }
@@ -905,6 +914,15 @@ module Stripe
         params(_bbpos_wisepos_e: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWiseposE)).returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWiseposE))
        }
       def bbpos_wisepos_e=(_bbpos_wisepos_e); end
+      # Configuration for cellular connectivity.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Cellular)))
+       }
+      def cellular; end
+      sig {
+        params(_cellular: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Cellular))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Cellular)))
+       }
+      def cellular=(_cellular); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -971,11 +989,12 @@ module Stripe
        }
       def wifi=(_wifi); end
       sig {
-        params(bbpos_wisepad3: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWisepad3), bbpos_wisepos_e: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWiseposE), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Offline)), reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::ReaderSecurity)), reboot_window: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::StripeS700), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Wifi))).void
+        params(bbpos_wisepad3: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWisepad3), bbpos_wisepos_e: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWiseposE), cellular: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Cellular)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Offline)), reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::ReaderSecurity)), reboot_window: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::StripeS700), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Wifi))).void
        }
       def initialize(
         bbpos_wisepad3: nil,
         bbpos_wisepos_e: nil,
+        cellular: nil,
         expand: nil,
         name: nil,
         offline: nil,

@@ -279,6 +279,19 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class NextAction < ::Stripe::StripeObject
       class AlipayHandleRedirect < ::Stripe::StripeObject
         # The native data to be used with Alipay SDK you must redirect your customer to in order to authenticate the payment in an Android App.
@@ -2956,7 +2969,7 @@ module Stripe
       class CustomerBalance < ::Stripe::StripeObject
         class BankTransfer < ::Stripe::StripeObject
           class EuBankTransfer < ::Stripe::StripeObject
-            # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+            # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
             attr_reader :country
 
             def self.inner_class_types
@@ -3932,6 +3945,8 @@ module Stripe
         attr_reader :setup_future_usage
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         attr_reader :target_date
+        # The purpose of the transaction.
+        attr_reader :transaction_purpose
         # Bank account verification method.
         attr_reader :verification_method
         # Preferred transaction settlement speed
@@ -4355,6 +4370,8 @@ module Stripe
     attr_reader :latest_charge
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
+    # Settings for Managed Payments.
+    attr_reader :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     attr_reader :metadata
     # If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source.
@@ -4774,6 +4791,7 @@ module Stripe
         automatic_payment_methods: AutomaticPaymentMethods,
         hooks: Hooks,
         last_payment_error: LastPaymentError,
+        managed_payments: ManagedPayments,
         next_action: NextAction,
         payment_details: PaymentDetails,
         payment_method_configuration_details: PaymentMethodConfigurationDetails,

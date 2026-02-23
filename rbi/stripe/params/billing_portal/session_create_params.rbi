@@ -225,7 +225,7 @@ module Stripe
           type: nil
         ); end
       end
-      # The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
+      # The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configurations) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
       sig { returns(T.nilable(String)) }
       def configuration; end
       sig { params(_configuration: T.nilable(String)).returns(T.nilable(String)) }

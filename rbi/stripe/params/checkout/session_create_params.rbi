@@ -234,7 +234,7 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
-          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -268,7 +268,7 @@ module Stripe
           def initialize(custom: nil, type: nil); end
         end
         class Numeric < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -289,7 +289,7 @@ module Stripe
           def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         class Text < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -367,7 +367,7 @@ module Stripe
       end
       class CustomText < ::Stripe::RequestParams
         class AfterSubmit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -376,7 +376,7 @@ module Stripe
           def initialize(message: nil); end
         end
         class ShippingAddress < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -385,7 +385,7 @@ module Stripe
           def initialize(message: nil); end
         end
         class Submit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -394,7 +394,7 @@ module Stripe
           def initialize(message: nil); end
         end
         class TermsOfServiceAcceptance < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -867,6 +867,15 @@ module Stripe
           quantity: nil,
           tax_rates: nil
         ); end
+      end
+      class ManagedPayments < ::Stripe::RequestParams
+        # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        sig { returns(T.nilable(T::Boolean)) }
+        def enabled; end
+        sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def enabled=(_enabled); end
+        sig { params(enabled: T.nilable(T::Boolean)).void }
+        def initialize(enabled: nil); end
       end
       class NameCollection < ::Stripe::RequestParams
         class Business < ::Stripe::RequestParams
@@ -1623,7 +1632,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
               sig { params(_country: String).returns(String) }
@@ -3707,6 +3716,13 @@ module Stripe
       def locale; end
       sig { params(_locale: T.nilable(String)).returns(T.nilable(String)) }
       def locale=(_locale); end
+      # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+      sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments)) }
+      def managed_payments; end
+      sig {
+        params(_managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments))
+       }
+      def managed_payments=(_managed_payments); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -3909,7 +3925,7 @@ module Stripe
        }
       def wallet_options=(_wallet_options); end
       sig {
-        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions)).void
+        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions)).void
        }
       def initialize(
         adaptive_pricing: nil,
@@ -3936,6 +3952,7 @@ module Stripe
         invoice_creation: nil,
         line_items: nil,
         locale: nil,
+        managed_payments: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,

@@ -22,6 +22,15 @@ module Stripe
         end
       end
 
+      class Cellular < ::Stripe::RequestParams
+        # Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+        attr_accessor :enabled
+
+        def initialize(enabled: nil)
+          @enabled = enabled
+        end
+      end
+
       class Offline < ::Stripe::RequestParams
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         attr_accessor :enabled
@@ -557,6 +566,8 @@ module Stripe
       attr_accessor :bbpos_wisepad3
       # An object containing device type specific settings for BBPOS WisePOS E readers.
       attr_accessor :bbpos_wisepos_e
+      # Configuration for cellular connectivity.
+      attr_accessor :cellular
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Name of the configuration
@@ -579,6 +590,7 @@ module Stripe
       def initialize(
         bbpos_wisepad3: nil,
         bbpos_wisepos_e: nil,
+        cellular: nil,
         expand: nil,
         name: nil,
         offline: nil,
@@ -591,6 +603,7 @@ module Stripe
       )
         @bbpos_wisepad3 = bbpos_wisepad3
         @bbpos_wisepos_e = bbpos_wisepos_e
+        @cellular = cellular
         @expand = expand
         @name = name
         @offline = offline

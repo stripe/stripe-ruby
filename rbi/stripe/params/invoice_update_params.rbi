@@ -263,7 +263,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
               sig { params(_country: String).returns(String) }
@@ -367,7 +367,7 @@ module Stripe
             def description; end
             sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
             def description=(_description); end
-            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            # End date of the mandate or subscription.
             sig { returns(T.nilable(Integer)) }
             def end_date; end
             sig { params(_end_date: T.nilable(Integer)).returns(T.nilable(Integer)) }

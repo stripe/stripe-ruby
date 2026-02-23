@@ -47,7 +47,7 @@ module Stripe
       end
 
       class ManualEntry < ::Stripe::RequestParams
-        # Whether manual entry will be handled by Stripe during the Session.
+        # How manual entry should be handled.
         attr_accessor :mode
 
         def initialize(mode: nil)

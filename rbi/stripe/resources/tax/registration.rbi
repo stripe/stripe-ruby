@@ -924,6 +924,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Lk < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Lt < ::Stripe::StripeObject
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
@@ -1843,6 +1854,9 @@ module Stripe
         # Attribute for field la
         sig { returns(T.nilable(La)) }
         def la; end
+        # Attribute for field lk
+        sig { returns(T.nilable(Lk)) }
+        def lk; end
         # Attribute for field lt
         sig { returns(T.nilable(Lt)) }
         def lt; end
@@ -2035,6 +2049,7 @@ module Stripe
             kr: Kr,
             kz: Kz,
             la: La,
+            lk: Lk,
             lt: Lt,
             lu: Lu,
             lv: Lv,

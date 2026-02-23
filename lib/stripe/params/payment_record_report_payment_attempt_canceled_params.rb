@@ -7,7 +7,7 @@ module Stripe
     attr_accessor :canceled_at
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # Attribute for param field metadata
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
 
     def initialize(canceled_at: nil, expand: nil, metadata: nil)

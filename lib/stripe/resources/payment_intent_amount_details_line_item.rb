@@ -116,7 +116,7 @@ module Stripe
     attr_reader :product_code
     # The product name of the line item. Required for L3 rates. At most 1024 characters long.
     #
-    # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
+    # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For PayPal, this field is truncated to 127 characters.
     attr_reader :product_name
     # The quantity of items. Required for L3 rates. An integer greater than 0.
     attr_reader :quantity

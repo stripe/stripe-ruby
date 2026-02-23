@@ -44,7 +44,7 @@ module Stripe
       def quantity; end
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
-      # A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
+      # A list of up to 10 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
       sig {
         returns(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteListPreviewLineItemsParams::Line::TaxAmount])))
        }
@@ -53,14 +53,14 @@ module Stripe
         params(_tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::CreditNoteListPreviewLineItemsParams::Line::TaxAmount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteListPreviewLineItemsParams::Line::TaxAmount])))
        }
       def tax_amounts=(_tax_amounts); end
-      # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
+      # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and `tax_amounts` is not used.
       sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       def tax_rates; end
       sig {
         params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
        }
       def tax_rates=(_tax_rates); end
-      # Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
+      # Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. `custom_line_item` is not valid when the invoice is set up with `automatic_tax[enabled]=true`.
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }

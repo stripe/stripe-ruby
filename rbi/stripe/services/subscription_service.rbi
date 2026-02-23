@@ -44,7 +44,7 @@ module Stripe
      }
     def migrate(subscription, params = {}, opts = {}); end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
     sig {
       params(subscription: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }

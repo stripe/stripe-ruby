@@ -64,7 +64,7 @@ module Stripe
     end
     # Whether the promotion code is currently active. A promotion code is only active if the coupon is also valid.
     attr_reader :active
-    # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
+    # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), digits (0-9), and dashes (-).
     attr_reader :code
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created

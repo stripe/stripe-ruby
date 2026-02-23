@@ -581,7 +581,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
               sig { params(_country: String).returns(String) }

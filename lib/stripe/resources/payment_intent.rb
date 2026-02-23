@@ -1710,7 +1710,7 @@ module Stripe
       class CustomerBalance < ::Stripe::StripeObject
         class BankTransfer < ::Stripe::StripeObject
           class EuBankTransfer < ::Stripe::StripeObject
-            # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+            # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
             attr_reader :country
 
             def self.inner_class_types
@@ -2476,6 +2476,8 @@ module Stripe
         attr_reader :setup_future_usage
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         attr_reader :target_date
+        # The purpose of the transaction.
+        attr_reader :transaction_purpose
         # Bank account verification method.
         attr_reader :verification_method
         # Preferred transaction settlement speed

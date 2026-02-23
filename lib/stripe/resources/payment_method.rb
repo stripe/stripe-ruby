@@ -321,6 +321,8 @@ module Stripe
             attr_reader :issuer
             # The last four digits of the card.
             attr_reader :last4
+            # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            attr_reader :location
             # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             attr_reader :network
             # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -333,6 +335,8 @@ module Stripe
             attr_reader :preferred_locales
             # How card details were read in this transaction.
             attr_reader :read_method
+            # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+            attr_reader :reader
             # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             attr_reader :receipt
             # Attribute for field wallet

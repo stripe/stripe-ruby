@@ -14,7 +14,7 @@ module Stripe
     def failed_at; end
     sig { params(_failed_at: Integer).returns(Integer) }
     def failed_at=(_failed_at); end
-    # Attribute for param field metadata
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {

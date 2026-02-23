@@ -42,6 +42,19 @@ module Stripe
         end
       end
 
+      class Cellular < ::Stripe::StripeObject
+        # Whether a cellular-capable reader can connect to the internet over cellular.
+        attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Offline < ::Stripe::StripeObject
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         attr_reader :enabled
@@ -607,6 +620,8 @@ module Stripe
       attr_reader :bbpos_wisepad3
       # Attribute for field bbpos_wisepos_e
       attr_reader :bbpos_wisepos_e
+      # Attribute for field cellular
+      attr_reader :cellular
       # Unique identifier for the object.
       attr_reader :id
       # Whether this Configuration is the default for your account
@@ -686,6 +701,7 @@ module Stripe
         @inner_class_types = {
           bbpos_wisepad3: BbposWisepad3,
           bbpos_wisepos_e: BbposWiseposE,
+          cellular: Cellular,
           offline: Offline,
           reboot_window: RebootWindow,
           stripe_s700: StripeS700,

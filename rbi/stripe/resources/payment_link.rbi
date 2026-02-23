@@ -122,7 +122,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The value that will pre-fill on the payment page.
+        # The value that pre-fills on the payment page.
         sig { returns(T.nilable(String)) }
         def default_value; end
         # The options available for the customer to select. Up to 200 options allowed.
@@ -150,7 +150,7 @@ module Stripe
         end
       end
       class Numeric < ::Stripe::StripeObject
-        # The value that will pre-fill the field on the payment page.
+        # The value that pre-fills the field on the payment page.
         sig { returns(T.nilable(String)) }
         def default_value; end
         # The maximum character length constraint for the customer's input.
@@ -167,7 +167,7 @@ module Stripe
         end
       end
       class Text < ::Stripe::StripeObject
-        # The value that will pre-fill the field on the payment page.
+        # The value that pre-fills the field on the payment page.
         sig { returns(T.nilable(String)) }
         def default_value; end
         # The maximum character length constraint for the customer's input.
@@ -213,7 +213,7 @@ module Stripe
     end
     class CustomText < ::Stripe::StripeObject
       class AfterSubmit < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
         def self.inner_class_types
@@ -224,7 +224,7 @@ module Stripe
         end
       end
       class ShippingAddress < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
         def self.inner_class_types
@@ -235,7 +235,7 @@ module Stripe
         end
       end
       class Submit < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
         def self.inner_class_types
@@ -246,7 +246,7 @@ module Stripe
         end
       end
       class TermsOfServiceAcceptance < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
         def self.inner_class_types

@@ -234,7 +234,7 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
-          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -268,7 +268,7 @@ module Stripe
           def initialize(custom: nil, type: nil); end
         end
         class Numeric < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -289,7 +289,7 @@ module Stripe
           def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         class Text < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -367,7 +367,7 @@ module Stripe
       end
       class CustomText < ::Stripe::RequestParams
         class AfterSubmit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -376,7 +376,7 @@ module Stripe
           def initialize(message: nil); end
         end
         class ShippingAddress < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -385,7 +385,7 @@ module Stripe
           def initialize(message: nil); end
         end
         class Submit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -394,7 +394,7 @@ module Stripe
           def initialize(message: nil); end
         end
         class TermsOfServiceAcceptance < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           sig { returns(String) }
           def message; end
           sig { params(_message: String).returns(String) }
@@ -1561,7 +1561,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
               sig { params(_country: String).returns(String) }

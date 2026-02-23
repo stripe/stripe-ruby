@@ -885,6 +885,15 @@ module Stripe
           end
         end
 
+        class Lk < ::Stripe::RequestParams
+          # Type of registration to be created in `country`.
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class Lt < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
@@ -1449,7 +1458,7 @@ module Stripe
 
         class Us < ::Stripe::RequestParams
           class LocalAmusementTax < ::Stripe::RequestParams
-            # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago), `02154` (Arlington Heights), `06613` (Bloomington), `10906` (Campton Hills), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), and `68081` (Schiller Park).
+            # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `02154` (Arlington Heights), `05248` (Bensenville), `06613` (Bloomington), `10906` (Campton Hills), `14000` (Chicago), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), `64421` (Riverside), `65806` (Roselle), and `68081` (Schiller Park).
             attr_accessor :jurisdiction
 
             def initialize(jurisdiction: nil)
@@ -1707,6 +1716,8 @@ module Stripe
         attr_accessor :kz
         # Options for the registration in LA.
         attr_accessor :la
+        # Options for the registration in LK.
+        attr_accessor :lk
         # Options for the registration in LT.
         attr_accessor :lt
         # Options for the registration in LU.
@@ -1854,6 +1865,7 @@ module Stripe
           kr: nil,
           kz: nil,
           la: nil,
+          lk: nil,
           lt: nil,
           lu: nil,
           lv: nil,
@@ -1955,6 +1967,7 @@ module Stripe
           @kr = kr
           @kz = kz
           @la = la
+          @lk = lk
           @lt = lt
           @lu = lu
           @lv = lv

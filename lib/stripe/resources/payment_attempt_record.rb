@@ -207,9 +207,9 @@ module Stripe
       end
 
       class Affirm < ::Stripe::StripeObject
-        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the location that this reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        # ID of the reader this transaction was made on.
         attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         attr_reader :transaction_id
@@ -226,7 +226,7 @@ module Stripe
       class AfterpayClearpay < ::Stripe::StripeObject
         # The Afterpay order ID associated with this payment intent.
         attr_reader :order_id
-        # Order identifier shown to the merchant in Afterpay’s online portal.
+        # Order identifier shown to the merchant in Afterpay's online portal.
         attr_reader :reference
 
         def self.inner_class_types
@@ -388,11 +388,9 @@ module Stripe
         attr_reader :generated_sepa_debit_mandate
         # Last four characters of the IBAN.
         attr_reader :iban_last4
-        # Preferred language of the Bancontact authorization page that the customer is redirected to.
-        # Can be one of `en`, `de`, `fr`, or `nl`
+        # Preferred language of the Bancontact authorization page that the customer is redirected to. Can be one of `en`, `de`, `fr`, or `nl`
         attr_reader :preferred_language
-        # Owner's verified full name. Values are verified or provided by Bancontact directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+        # Owner's verified full name. Values are verified or provided by Bancontact directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
 
         def self.inner_class_types
@@ -486,11 +484,11 @@ module Stripe
 
       class Card < ::Stripe::StripeObject
         class Checks < ::Stripe::StripeObject
-          # Attribute for field address_line1_check
+          # If you provide a value for `address.line1`, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_line1_check
-          # Attribute for field address_postal_code_check
+          # If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_postal_code_check
-          # Attribute for field cvc_check
+          # If you provide a CVC, the check results is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :cvc_check
 
           def self.inner_class_types
@@ -519,7 +517,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field plan
+          # Installment plan selected for the payment.
           attr_reader :plan
 
           def self.inner_class_types
@@ -545,13 +543,13 @@ module Stripe
         end
 
         class ThreeDSecure < ::Stripe::StripeObject
-          # Attribute for field authentication_flow
+          # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
           attr_reader :authentication_flow
-          # Attribute for field result
+          # Indicates the outcome of 3D Secure authentication.
           attr_reader :result
-          # Attribute for field result_reason
+          # Additional information about why 3D Secure succeeded or failed, based on the `result`.
           attr_reader :result_reason
-          # Attribute for field version
+          # The version of 3D Secure that was used.
           attr_reader :version
 
           def self.inner_class_types
@@ -760,6 +758,8 @@ module Stripe
         attr_reader :issuer
         # The last four digits of the card.
         attr_reader :last4
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -772,6 +772,8 @@ module Stripe
         attr_reader :preferred_locales
         # How card details were read in this transaction.
         attr_reader :read_method
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         attr_reader :receipt
         # Attribute for field wallet
@@ -791,7 +793,7 @@ module Stripe
         attr_reader :buyer_id
         # A public identifier for buyers using Cash App.
         attr_reader :cashtag
-        # A unique and immutable identifier of payments assigned by Cash App
+        # A unique and immutable identifier of payments assigned by Cash App.
         attr_reader :transaction_id
 
         def self.inner_class_types
@@ -888,9 +890,7 @@ module Stripe
         attr_reader :bank_name
         # Bank Identifier Code of the bank associated with the bank account.
         attr_reader :bic
-        # Owner's verified full name. Values are verified or provided by Giropay directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-        # Giropay rarely provides this information so the attribute is usually empty.
+        # Owner's verified full name. Values are verified or provided by Giropay directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. Giropay rarely provides this information so the attribute is usually empty.
         attr_reader :verified_name
 
         def self.inner_class_types
@@ -998,6 +998,8 @@ module Stripe
         attr_reader :issuer
         # The last four digits of the card.
         attr_reader :last4
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -1006,6 +1008,8 @@ module Stripe
         attr_reader :preferred_locales
         # How card details were read in this transaction.
         attr_reader :read_method
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         attr_reader :receipt
 

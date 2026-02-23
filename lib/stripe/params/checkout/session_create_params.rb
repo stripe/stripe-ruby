@@ -164,7 +164,7 @@ module Stripe
               @value = value
             end
           end
-          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
           attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
@@ -188,7 +188,7 @@ module Stripe
         end
 
         class Numeric < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
@@ -203,7 +203,7 @@ module Stripe
         end
 
         class Text < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
@@ -252,7 +252,7 @@ module Stripe
 
       class CustomText < ::Stripe::RequestParams
         class AfterSubmit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -261,7 +261,7 @@ module Stripe
         end
 
         class ShippingAddress < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -270,7 +270,7 @@ module Stripe
         end
 
         class Submit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -279,7 +279,7 @@ module Stripe
         end
 
         class TermsOfServiceAcceptance < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -1086,7 +1086,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               attr_accessor :country
 
               def initialize(country: nil)

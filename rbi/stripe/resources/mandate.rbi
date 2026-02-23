@@ -96,6 +96,9 @@ module Stripe
         end
       end
       class BacsDebit < ::Stripe::StripeObject
+        # The display name for the account on this mandate.
+        sig { returns(T.nilable(String)) }
+        def display_name; end
         # The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`.
         sig { returns(String) }
         def network_status; end
@@ -105,6 +108,9 @@ module Stripe
         # When the mandate is revoked on the Bacs network this field displays the reason for the revocation.
         sig { returns(T.nilable(String)) }
         def revocation_reason; end
+        # The service user number for the account on this mandate.
+        sig { returns(T.nilable(String)) }
+        def service_user_number; end
         # The URL that will contain the mandate that the customer has signed.
         sig { returns(String) }
         def url; end

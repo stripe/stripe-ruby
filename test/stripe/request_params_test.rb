@@ -269,5 +269,77 @@ module Stripe
         assert_equal expected, params.to_h
       end
     end
+
+    context "V2 RequestParams explicit key tracking" do
+      should "only serialize explicitly set fields for V2 classes" do
+        params = Stripe::V2::Billing::MeterEventCreateParams.new(
+          event_name: "my_event",
+          payload: { stripe_customer_id: "cus_123", value: "25" }
+        )
+
+        result = params.to_h
+
+        assert_equal "my_event", result[:event_name]
+        assert_equal({ stripe_customer_id: "cus_123", value: "25" }, result[:payload])
+        refute result.key?(:identifier), "identifier was not set and should not be in the hash"
+        refute result.key?(:timestamp), "timestamp was not set and should not be in the hash"
+      end
+
+      should "serialize fields explicitly set to nil for V2 classes" do
+        params = Stripe::V2::Billing::MeterEventCreateParams.new(
+          event_name: "my_event",
+          identifier: nil,
+          payload: { stripe_customer_id: "cus_123", value: "25" }
+        )
+
+        result = params.to_h
+
+        assert_equal "my_event", result[:event_name]
+        assert result.key?(:identifier), "identifier was explicitly set to nil and should be in the hash"
+        assert_nil result[:identifier]
+        assert_equal({ stripe_customer_id: "cus_123", value: "25" }, result[:payload])
+        refute result.key?(:timestamp), "timestamp was not set and should not be in the hash"
+      end
+
+      should "serialize fields explicitly set after initialization for V2 classes" do
+        params = Stripe::V2::Billing::MeterEventCreateParams.new(
+          event_name: "my_event",
+          payload: { stripe_customer_id: "cus_123", value: "25" }
+        )
+
+        params.identifier = "Something"
+        params.timestamp = nil
+
+        result = params.to_h
+
+        assert_equal "my_event", result[:event_name]
+        assert_equal "Something", result[:identifier]
+        assert_equal({ stripe_customer_id: "cus_123", value: "25" }, result[:payload])
+        assert result.key?(:timestamp)
+        assert_nil result[:timestamp]
+      end
+
+      should "serialize all fields even if some fields are set after initialization for V1 classes" do
+        params = FooCreateParams.new
+
+        params.fun = "games"
+
+        result = params.to_h
+
+        assert_equal "games", result[:fun]
+        assert result.key?(:team), "V1 classes should include all fields even if not explicitly set"
+        assert_nil result[:team]
+      end
+
+      should "serialize all fields including nil defaults for V1 classes" do
+        params = FooCreateParams.new(fun: "games")
+
+        result = params.to_h
+
+        assert_equal "games", result[:fun]
+        assert result.key?(:team), "V1 classes should include all fields even if not explicitly set"
+        assert_nil result[:team]
+      end
+    end
   end
 end

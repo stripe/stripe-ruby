@@ -1,5 +1,8 @@
 # Changelog
 
+## 18.4.0-alpha.6 - 2026-02-23
+* [#1796](https://github.com/stripe/stripe-ruby/pull/1796) Ignore unset properties of V2 Request param classes when making requests
+
 ## 18.4.0-alpha.5 - 2026-02-19
 * [#1792](https://github.com/stripe/stripe-ruby/pull/1792) Update generated code for private-preview
   * Add support for `spend_threshold` on `Billing::AlertCreateParams` and `Billing::Alert`

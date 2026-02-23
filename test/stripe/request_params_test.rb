@@ -319,6 +319,18 @@ module Stripe
         assert_nil result[:timestamp]
       end
 
+      should "serialize all fields even if some fields are set after initialization for V1 classes" do
+        params = FooCreateParams.new
+
+        params.fun = "games"
+
+        result = params.to_h
+
+        assert_equal "games", result[:fun]
+        assert result.key?(:team), "V1 classes should include all fields even if not explicitly set"
+        assert_nil result[:team]
+      end
+
       should "serialize all fields including nil defaults for V1 classes" do
         params = FooCreateParams.new(fun: "games")
 

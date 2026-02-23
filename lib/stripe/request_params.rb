@@ -9,6 +9,7 @@ module Stripe
       # Override the object instantiation flow in Ruby in order to track explicitly set keys
       # V2 APIs accept null values on the backend. However, we do not want to set a key to nil
       # if the user has not explicitly set them to nil
+      # TODO(major): https://go/j/DEVSDK-2990
       def new(**kwargs)
         instance = allocate
         # Track explicitly set keys for V2 classes only

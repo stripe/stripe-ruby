@@ -70,6 +70,15 @@ module Stripe
         end
       end
 
+      class StripeS710 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        attr_accessor :splashscreen
+
+        def initialize(splashscreen: nil)
+          @splashscreen = splashscreen
+        end
+      end
+
       class Tipping < ::Stripe::RequestParams
         class Aed < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
@@ -580,6 +589,8 @@ module Stripe
       attr_accessor :reboot_window
       # An object containing device type specific settings for Stripe S700 readers.
       attr_accessor :stripe_s700
+      # An object containing device type specific settings for Stripe S710 readers.
+      attr_accessor :stripe_s710
       # Tipping configurations for readers that support on-reader tips.
       attr_accessor :tipping
       # An object containing device type specific settings for Verifone P400 readers.
@@ -597,6 +608,7 @@ module Stripe
         reader_security: nil,
         reboot_window: nil,
         stripe_s700: nil,
+        stripe_s710: nil,
         tipping: nil,
         verifone_p400: nil,
         wifi: nil
@@ -610,6 +622,7 @@ module Stripe
         @reader_security = reader_security
         @reboot_window = reboot_window
         @stripe_s700 = stripe_s700
+        @stripe_s710 = stripe_s710
         @tipping = tipping
         @verifone_p400 = verifone_p400
         @wifi = wifi

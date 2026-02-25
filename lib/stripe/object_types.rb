@@ -206,6 +206,7 @@ module Stripe
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
         V2::Core::AccountPersonToken.object_name => V2::Core::AccountPersonToken,
         V2::Core::AccountToken.object_name => V2::Core::AccountToken,
+        V2::Core::BatchJob.object_name => V2::Core::BatchJob,
         V2::Core::Event.object_name => V2::Core::Event,
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,

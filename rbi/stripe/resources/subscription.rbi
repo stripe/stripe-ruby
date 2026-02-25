@@ -693,7 +693,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Defines how a subscription behaves when a free trial ends.
+      # Defines how a subscription behaves when a trial ends.
       sig { returns(EndBehavior) }
       def end_behavior; end
       def self.inner_class_types

@@ -87,6 +87,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class StripeS710 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Tipping < ::Stripe::StripeObject
         class Aed < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -665,6 +676,9 @@ module Stripe
       # Attribute for field stripe_s700
       sig { returns(T.nilable(StripeS700)) }
       def stripe_s700; end
+      # Attribute for field stripe_s710
+      sig { returns(T.nilable(StripeS710)) }
+      def stripe_s710; end
       # Attribute for field tipping
       sig { returns(T.nilable(Tipping)) }
       def tipping; end

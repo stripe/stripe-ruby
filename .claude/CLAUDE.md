@@ -16,7 +16,7 @@
 - Main client (HTTP requests, headers, auth): `lib/stripe/stripe_client.rb`
 - Connection management: `lib/stripe/connection_manager.rb`
 - Version: `lib/stripe/version.rb`
-- Sorbet type definitions: `rbi/`. Be careful reading files in that directory, since they're very large and may blow up your context window
+- Sorbet type definitions: `rbi/`. NEVER read `rbi/stripe.rbi`, since it's a huge file that collects data already present in other `.rbi` files
 
 ## Generated Code
 

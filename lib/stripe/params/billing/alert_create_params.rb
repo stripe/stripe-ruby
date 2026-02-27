@@ -18,7 +18,7 @@ module Stripe
         end
         # The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
         attr_accessor :filters
-        # Defines at which value the alert will fire.
+        # Defines the threshold value that triggers the alert.
         attr_accessor :gte
         # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
         attr_accessor :meter

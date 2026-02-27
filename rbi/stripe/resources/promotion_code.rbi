@@ -57,7 +57,7 @@ module Stripe
     # Whether the promotion code is currently active. A promotion code is only active if the coupon is also valid.
     sig { returns(T::Boolean) }
     def active; end
-    # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
+    # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), digits (0-9), and dashes (-).
     sig { returns(String) }
     def code; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.

@@ -22,6 +22,15 @@ module Stripe
         end
       end
 
+      class Cellular < ::Stripe::RequestParams
+        # Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+        attr_accessor :enabled
+
+        def initialize(enabled: nil)
+          @enabled = enabled
+        end
+      end
+
       class Offline < ::Stripe::RequestParams
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         attr_accessor :enabled
@@ -44,6 +53,15 @@ module Stripe
       end
 
       class StripeS700 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        attr_accessor :splashscreen
+
+        def initialize(splashscreen: nil)
+          @splashscreen = splashscreen
+        end
+      end
+
+      class StripeS710 < ::Stripe::RequestParams
         # A File ID representing an image you want to display on the reader.
         attr_accessor :splashscreen
 
@@ -548,6 +566,8 @@ module Stripe
       attr_accessor :bbpos_wisepad3
       # An object containing device type specific settings for BBPOS WisePOS E readers.
       attr_accessor :bbpos_wisepos_e
+      # Configuration for cellular connectivity.
+      attr_accessor :cellular
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Name of the configuration
@@ -558,6 +578,8 @@ module Stripe
       attr_accessor :reboot_window
       # An object containing device type specific settings for Stripe S700 readers.
       attr_accessor :stripe_s700
+      # An object containing device type specific settings for Stripe S710 readers.
+      attr_accessor :stripe_s710
       # Tipping configurations for readers that support on-reader tips.
       attr_accessor :tipping
       # An object containing device type specific settings for Verifone P400 readers.
@@ -568,22 +590,26 @@ module Stripe
       def initialize(
         bbpos_wisepad3: nil,
         bbpos_wisepos_e: nil,
+        cellular: nil,
         expand: nil,
         name: nil,
         offline: nil,
         reboot_window: nil,
         stripe_s700: nil,
+        stripe_s710: nil,
         tipping: nil,
         verifone_p400: nil,
         wifi: nil
       )
         @bbpos_wisepad3 = bbpos_wisepad3
         @bbpos_wisepos_e = bbpos_wisepos_e
+        @cellular = cellular
         @expand = expand
         @name = name
         @offline = offline
         @reboot_window = reboot_window
         @stripe_s700 = stripe_s700
+        @stripe_s710 = stripe_s710
         @tipping = tipping
         @verifone_p400 = verifone_p400
         @wifi = wifi

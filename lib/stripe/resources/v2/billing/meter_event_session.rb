@@ -4,6 +4,7 @@
 module Stripe
   module V2
     module Billing
+      # A Meter Event Session is an authentication session for the high-throughput meter event API. Meter Event Sessions provide temporary authentication tokens with expiration times, enabling secure and efficient bulk submission of usage events.
       class MeterEventSession < APIResource
         OBJECT_NAME = "v2.billing.meter_event_session"
         def self.object_name

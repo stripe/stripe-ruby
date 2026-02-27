@@ -106,12 +106,16 @@ module Stripe
       end
 
       class BacsDebit < ::Stripe::StripeObject
+        # The display name for the account on this mandate.
+        attr_reader :display_name
         # The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`.
         attr_reader :network_status
         # The unique reference identifying the mandate on the Bacs network.
         attr_reader :reference
         # When the mandate is revoked on the Bacs network this field displays the reason for the revocation.
         attr_reader :revocation_reason
+        # The service user number for the account on this mandate.
+        attr_reader :service_user_number
         # The URL that will contain the mandate that the customer has signed.
         attr_reader :url
 

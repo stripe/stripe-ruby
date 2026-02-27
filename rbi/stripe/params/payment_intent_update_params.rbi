@@ -8,7 +8,7 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -17,7 +17,7 @@ module Stripe
             def initialize(commodity_code: nil); end
           end
           class CardPresent < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -77,7 +77,7 @@ module Stripe
              }
             def initialize(category: nil, description: nil, sold_by: nil); end
           end
-          # This sub-hash contains line item details that are specific to `card` payment method."
+          # This sub-hash contains line item details that are specific to the `card` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
            }
@@ -86,7 +86,7 @@ module Stripe
             params(_card: T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
            }
           def card=(_card); end
-          # This sub-hash contains line item details that are specific to `card_present` payment method."
+          # This sub-hash contains line item details that are specific to the `card_present` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
            }
@@ -95,7 +95,7 @@ module Stripe
             params(_card_present: T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
            }
           def card_present=(_card_present); end
-          # This sub-hash contains line item details that are specific to `klarna` payment method."
+          # This sub-hash contains line item details that are specific to the `klarna` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
            }
@@ -104,7 +104,7 @@ module Stripe
             params(_klarna: T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
            }
           def klarna=(_klarna); end
-          # This sub-hash contains line item details that are specific to `paypal` payment method."
+          # This sub-hash contains line item details that are specific to the `paypal` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentUpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
            }
@@ -152,7 +152,7 @@ module Stripe
         def product_code=(_product_code); end
         # The product name of the line item. Required for L3 rates. At most 1024 characters long.
         #
-        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
+        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For PayPal, this field is truncated to 127 characters.
         sig { returns(String) }
         def product_name; end
         sig { params(_product_name: String).returns(String) }
@@ -242,7 +242,7 @@ module Stripe
       #
       # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
       #
-      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      # For card payments, Stripe doesn't send line item data to card networks if there's an arithmetic validation error.
       sig { returns(T.nilable(T::Boolean)) }
       def enforce_arithmetic_validation; end
       sig {
@@ -2012,7 +2012,7 @@ module Stripe
       class CustomerBalance < ::Stripe::RequestParams
         class BankTransfer < ::Stripe::RequestParams
           class EuBankTransfer < ::Stripe::RequestParams
-            # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+            # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
             sig { returns(String) }
             def country; end
             sig { params(_country: String).returns(String) }
@@ -3118,6 +3118,13 @@ module Stripe
         def target_date; end
         sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
         def target_date=(_target_date); end
+        # The purpose of the transaction.
+        sig { returns(T.nilable(T.any(String, String))) }
+        def transaction_purpose; end
+        sig {
+          params(_transaction_purpose: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+         }
+        def transaction_purpose=(_transaction_purpose); end
         # Bank account verification method.
         sig { returns(T.nilable(String)) }
         def verification_method; end
@@ -3131,7 +3138,7 @@ module Stripe
          }
         def preferred_settlement_speed=(_preferred_settlement_speed); end
         sig {
-          params(financial_connections: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String), preferred_settlement_speed: T.nilable(T.any(String, String))).void
+          params(financial_connections: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), transaction_purpose: T.nilable(T.any(String, String)), verification_method: T.nilable(String), preferred_settlement_speed: T.nilable(T.any(String, String))).void
          }
         def initialize(
           financial_connections: nil,
@@ -3139,6 +3146,7 @@ module Stripe
           networks: nil,
           setup_future_usage: nil,
           target_date: nil,
+          transaction_purpose: nil,
           verification_method: nil,
           preferred_settlement_speed: nil
         ); end

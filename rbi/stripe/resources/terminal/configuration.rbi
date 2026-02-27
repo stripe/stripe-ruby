@@ -29,6 +29,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Cellular < ::Stripe::StripeObject
+        # Whether a cellular-capable reader can connect to the internet over cellular.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Offline < ::Stripe::StripeObject
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         sig { returns(T.nilable(T::Boolean)) }
@@ -55,6 +66,17 @@ module Stripe
         end
       end
       class StripeS700 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class StripeS710 < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def splashscreen; end
@@ -613,6 +635,9 @@ module Stripe
       # Attribute for field bbpos_wisepos_e
       sig { returns(T.nilable(BbposWiseposE)) }
       def bbpos_wisepos_e; end
+      # Attribute for field cellular
+      sig { returns(T.nilable(Cellular)) }
+      def cellular; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
@@ -637,6 +662,9 @@ module Stripe
       # Attribute for field stripe_s700
       sig { returns(T.nilable(StripeS700)) }
       def stripe_s700; end
+      # Attribute for field stripe_s710
+      sig { returns(T.nilable(StripeS710)) }
+      def stripe_s710; end
       # Attribute for field tipping
       sig { returns(T.nilable(Tipping)) }
       def tipping; end

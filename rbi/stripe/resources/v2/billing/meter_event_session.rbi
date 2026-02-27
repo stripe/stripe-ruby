@@ -5,6 +5,7 @@
 module Stripe
   module V2
     module Billing
+      # A Meter Event Session is an authentication session for the high-throughput meter event API. Meter Event Sessions provide temporary authentication tokens with expiration times, enabling secure and efficient bulk submission of usage events.
       class MeterEventSession < APIResource
         # The authentication token for this session.  Use this token when calling the
         # high-throughput meter event API.

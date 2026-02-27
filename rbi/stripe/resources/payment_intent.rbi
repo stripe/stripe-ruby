@@ -1811,7 +1811,7 @@ module Stripe
       class CustomerBalance < ::Stripe::StripeObject
         class BankTransfer < ::Stripe::StripeObject
           class EuBankTransfer < ::Stripe::StripeObject
-            # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+            # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
             sig { returns(String) }
             def country; end
             def self.inner_class_types
@@ -2545,6 +2545,9 @@ module Stripe
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
         def target_date; end
+        # The purpose of the transaction.
+        sig { returns(T.nilable(String)) }
+        def transaction_purpose; end
         # Bank account verification method.
         sig { returns(T.nilable(String)) }
         def verification_method; end

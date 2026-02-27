@@ -251,7 +251,7 @@ module Stripe
         class CustomerBalance < ::Stripe::StripeObject
           class BankTransfer < ::Stripe::StripeObject
             class EuBankTransfer < ::Stripe::StripeObject
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               attr_reader :country
 
               def self.inner_class_types
@@ -494,7 +494,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Defines how a subscription behaves when a free trial ends.
+      # Defines how a subscription behaves when a trial ends.
       attr_reader :end_behavior
 
       def self.inner_class_types
@@ -690,7 +690,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
     def resume(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -700,7 +700,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
     def self.resume(subscription, params = {}, opts = {})
       request_stripe_object(
         method: :post,

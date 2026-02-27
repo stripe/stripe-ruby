@@ -7,7 +7,7 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
 
             def initialize(commodity_code: nil)
@@ -16,7 +16,7 @@ module Stripe
           end
 
           class CardPresent < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
 
             def initialize(commodity_code: nil)
@@ -61,13 +61,13 @@ module Stripe
               @sold_by = sold_by
             end
           end
-          # This sub-hash contains line item details that are specific to `card` payment method."
+          # This sub-hash contains line item details that are specific to the `card` payment method.
           attr_accessor :card
-          # This sub-hash contains line item details that are specific to `card_present` payment method."
+          # This sub-hash contains line item details that are specific to the `card_present` payment method.
           attr_accessor :card_present
-          # This sub-hash contains line item details that are specific to `klarna` payment method."
+          # This sub-hash contains line item details that are specific to the `klarna` payment method.
           attr_accessor :klarna
-          # This sub-hash contains line item details that are specific to `paypal` payment method."
+          # This sub-hash contains line item details that are specific to the `paypal` payment method.
           attr_accessor :paypal
 
           def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil)
@@ -98,7 +98,7 @@ module Stripe
         attr_accessor :product_code
         # The product name of the line item. Required for L3 rates. At most 1024 characters long.
         #
-        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
+        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For PayPal, this field is truncated to 127 characters.
         attr_accessor :product_name
         # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
@@ -163,7 +163,7 @@ module Stripe
       #
       # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
       #
-      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      # For card payments, Stripe doesn't send line item data to card networks if there's an arithmetic validation error.
       attr_accessor :enforce_arithmetic_validation
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_accessor :line_items
@@ -1428,7 +1428,7 @@ module Stripe
       class CustomerBalance < ::Stripe::RequestParams
         class BankTransfer < ::Stripe::RequestParams
           class EuBankTransfer < ::Stripe::RequestParams
-            # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+            # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
             attr_accessor :country
 
             def initialize(country: nil)
@@ -2271,6 +2271,8 @@ module Stripe
         attr_accessor :setup_future_usage
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         attr_accessor :target_date
+        # The purpose of the transaction.
+        attr_accessor :transaction_purpose
         # Bank account verification method.
         attr_accessor :verification_method
         # Preferred transaction settlement speed
@@ -2282,6 +2284,7 @@ module Stripe
           networks: nil,
           setup_future_usage: nil,
           target_date: nil,
+          transaction_purpose: nil,
           verification_method: nil,
           preferred_settlement_speed: nil
         )
@@ -2290,6 +2293,7 @@ module Stripe
           @networks = networks
           @setup_future_usage = setup_future_usage
           @target_date = target_date
+          @transaction_purpose = transaction_purpose
           @verification_method = verification_method
           @preferred_settlement_speed = preferred_settlement_speed
         end

@@ -8,7 +8,7 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -17,7 +17,7 @@ module Stripe
             def initialize(commodity_code: nil); end
           end
           class CardPresent < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -77,7 +77,7 @@ module Stripe
              }
             def initialize(category: nil, description: nil, sold_by: nil); end
           end
-          # This sub-hash contains line item details that are specific to `card` payment method."
+          # This sub-hash contains line item details that are specific to the `card` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
            }
@@ -86,7 +86,7 @@ module Stripe
             params(_card: T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
            }
           def card=(_card); end
-          # This sub-hash contains line item details that are specific to `card_present` payment method."
+          # This sub-hash contains line item details that are specific to the `card_present` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
            }
@@ -95,7 +95,7 @@ module Stripe
             params(_card_present: T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent)).returns(T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
            }
           def card_present=(_card_present); end
-          # This sub-hash contains line item details that are specific to `klarna` payment method."
+          # This sub-hash contains line item details that are specific to the `klarna` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
            }
@@ -104,7 +104,7 @@ module Stripe
             params(_klarna: T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna)).returns(T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
            }
           def klarna=(_klarna); end
-          # This sub-hash contains line item details that are specific to `paypal` payment method."
+          # This sub-hash contains line item details that are specific to the `paypal` payment method.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
            }
@@ -152,7 +152,7 @@ module Stripe
         def product_code=(_product_code); end
         # The product name of the line item. Required for L3 rates. At most 1024 characters long.
         #
-        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
+        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For PayPal, this field is truncated to 127 characters.
         sig { returns(String) }
         def product_name; end
         sig { params(_product_name: String).returns(String) }
@@ -242,7 +242,7 @@ module Stripe
       #
       # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
       #
-      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      # For card payments, Stripe doesn't send line item data to card networks if there's an arithmetic validation error.
       sig { returns(T.nilable(T::Boolean)) }
       def enforce_arithmetic_validation; end
       sig {

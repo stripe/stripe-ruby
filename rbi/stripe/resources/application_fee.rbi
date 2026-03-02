@@ -65,6 +65,9 @@ module Stripe
     # Polymorphic source of the application fee. Includes the ID of the object the application fee was created from.
     sig { returns(T.nilable(FeeSource)) }
     def fee_source; end
+    # Polymorphic funding source of the application fee. Includes the type and details of the funding source.
+    sig { returns(T.nilable(FundingSource)) }
+    def funding_source; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
@@ -83,9 +86,6 @@ module Stripe
     # A list of refunds that have been applied to the fee.
     sig { returns(::Stripe::ListObject) }
     def refunds; end
-    # Polymorphic funding source of the application fee. Includes the type and details of the funding source.
-    sig { returns(T.nilable(FundingSource)) }
-    def funding_source; end
     # Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
     sig { returns(T.nilable(String)) }
     def settlement_type; end

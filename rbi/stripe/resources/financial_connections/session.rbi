@@ -43,6 +43,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Hosted < ::Stripe::StripeObject
+        # How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
+        sig { returns(T.nilable(String)) }
+        def delivery_method; end
+        # The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
+        sig { returns(T.nilable(String)) }
+        def return_url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Limits < ::Stripe::StripeObject
         # The number of accounts that can be linked in this Session.
         sig { returns(Integer) }
@@ -115,20 +129,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Hosted < ::Stripe::StripeObject
-        # How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
-        sig { returns(T.nilable(String)) }
-        def delivery_method; end
-        # The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
-        sig { returns(T.nilable(String)) }
-        def return_url; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # The account holder for whom accounts are collected in this session.
       sig { returns(T.nilable(AccountHolder)) }
       def account_holder; end
@@ -141,6 +141,9 @@ module Stripe
       # Attribute for field filters
       sig { returns(T.nilable(Filters)) }
       def filters; end
+      # Settings for the Hosted UI mode.
+      sig { returns(T.nilable(Hosted)) }
+      def hosted; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
@@ -177,9 +180,6 @@ module Stripe
       # Attribute for field status_details
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      # Settings for the Hosted UI mode.
-      sig { returns(T.nilable(Hosted)) }
-      def hosted; end
       # The UI mode for this session.
       sig { returns(T.nilable(String)) }
       def ui_mode; end

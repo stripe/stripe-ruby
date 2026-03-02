@@ -1035,6 +1035,9 @@ module Stripe
         end
       end
       class Payments < ::Stripe::StripeObject
+        # When enabled, the customer of this Account will receive an email receipt when their payment is successful. If this parameter is not set, the default value is `false`.
+        sig { returns(T.nilable(T::Boolean)) }
+        def email_customers_on_successful_payment; end
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         sig { returns(T.nilable(String)) }
         def statement_descriptor; end
@@ -1185,6 +1188,31 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class SmartDisputes < ::Stripe::StripeObject
+        class AutoRespond < ::Stripe::StripeObject
+          # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+          sig { returns(String) }
+          def preference; end
+          # The effective value for auto-respond. Can be 'on' or 'off'.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field auto_respond
+        sig { returns(AutoRespond) }
+        def auto_respond; end
+        def self.inner_class_types
+          @inner_class_types = {auto_respond: AutoRespond}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class TaxForms < ::Stripe::StripeObject
         # Whether the account opted out of receiving their tax forms by postal delivery.
         sig { returns(T::Boolean) }
@@ -1257,6 +1285,9 @@ module Stripe
       # Attribute for field sepa_debit_payments
       sig { returns(T.nilable(SepaDebitPayments)) }
       def sepa_debit_payments; end
+      # Attribute for field smart_disputes
+      sig { returns(T.nilable(SmartDisputes)) }
+      def smart_disputes; end
       # Attribute for field tax_forms
       sig { returns(T.nilable(TaxForms)) }
       def tax_forms; end
@@ -1276,6 +1307,7 @@ module Stripe
           payouts: Payouts,
           paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
+          smart_disputes: SmartDisputes,
           tax_forms: TaxForms,
           treasury: Treasury,
         }

@@ -987,7 +987,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
               sig { params(_country: String).returns(String) }
@@ -1128,7 +1128,7 @@ module Stripe
             def description; end
             sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
             def description=(_description); end
-            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            # End date of the mandate or subscription.
             sig { returns(T.nilable(Integer)) }
             def end_date; end
             sig { params(_end_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -1409,18 +1409,18 @@ module Stripe
     end
     class TrialSettings < ::Stripe::RequestParams
       class EndBehavior < ::Stripe::RequestParams
-        # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
-        sig { returns(String) }
-        def missing_payment_method; end
-        sig { params(_missing_payment_method: String).returns(String) }
-        def missing_payment_method=(_missing_payment_method); end
         # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
         sig { returns(T.nilable(String)) }
         def billing_cycle_anchor; end
         sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
         def billing_cycle_anchor=(_billing_cycle_anchor); end
-        sig { params(missing_payment_method: String, billing_cycle_anchor: T.nilable(String)).void }
-        def initialize(missing_payment_method: nil, billing_cycle_anchor: nil); end
+        # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        sig { returns(String) }
+        def missing_payment_method; end
+        sig { params(_missing_payment_method: String).returns(String) }
+        def missing_payment_method=(_missing_payment_method); end
+        sig { params(billing_cycle_anchor: T.nilable(String), missing_payment_method: String).void }
+        def initialize(billing_cycle_anchor: nil, missing_payment_method: nil); end
       end
       # Defines how the subscription should behave when the user's free trial ends.
       sig { returns(::Stripe::SubscriptionUpdateParams::TrialSettings::EndBehavior) }

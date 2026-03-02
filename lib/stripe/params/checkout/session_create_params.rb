@@ -239,7 +239,7 @@ module Stripe
               @value = value
             end
           end
-          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
           attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
@@ -263,7 +263,7 @@ module Stripe
         end
 
         class Numeric < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
@@ -278,7 +278,7 @@ module Stripe
         end
 
         class Text < ::Stripe::RequestParams
-          # The value that will pre-fill the field on the payment page.
+          # The value that pre-fills the field on the payment page.
           attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
@@ -327,7 +327,7 @@ module Stripe
 
       class CustomText < ::Stripe::RequestParams
         class AfterSubmit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -336,7 +336,7 @@ module Stripe
         end
 
         class ShippingAddress < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -345,7 +345,7 @@ module Stripe
         end
 
         class Submit < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -354,7 +354,7 @@ module Stripe
         end
 
         class TermsOfServiceAcceptance < ::Stripe::RequestParams
-          # Text may be up to 1200 characters in length.
+          # Text can be up to 1200 characters in length.
           attr_accessor :message
 
           def initialize(message: nil)
@@ -664,6 +664,15 @@ module Stripe
           @price_data = price_data
           @quantity = quantity
           @tax_rates = tax_rates
+        end
+      end
+
+      class ManagedPayments < ::Stripe::RequestParams
+        # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        attr_accessor :enabled
+
+        def initialize(enabled: nil)
+          @enabled = enabled
         end
       end
 
@@ -1213,7 +1222,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               attr_accessor :country
 
               def initialize(country: nil)
@@ -2548,6 +2557,8 @@ module Stripe
       attr_accessor :line_items
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
       attr_accessor :locale
+      # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+      attr_accessor :managed_payments
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
@@ -2670,6 +2681,7 @@ module Stripe
         invoice_creation: nil,
         line_items: nil,
         locale: nil,
+        managed_payments: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,
@@ -2721,6 +2733,7 @@ module Stripe
         @invoice_creation = invoice_creation
         @line_items = line_items
         @locale = locale
+        @managed_payments = managed_payments
         @metadata = metadata
         @mode = mode
         @name_collection = name_collection

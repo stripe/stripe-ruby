@@ -56,7 +56,7 @@ module Stripe
       end
 
       class ManualEntry < ::Stripe::RequestParams
-        # Whether manual entry will be handled by Stripe during the Session.
+        # How manual entry should be handled.
         attr_accessor :mode
 
         def initialize(mode: nil)
@@ -81,6 +81,8 @@ module Stripe
       attr_accessor :expand
       # Filters to restrict the kinds of accounts to collect.
       attr_accessor :filters
+      # Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+      attr_accessor :hosted
       # Settings for configuring Session-specific limits.
       attr_accessor :limits
       # Customize manual entry behavior
@@ -95,8 +97,6 @@ module Stripe
       attr_accessor :relink_options
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
       attr_accessor :return_url
-      # Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
-      attr_accessor :hosted
       # The UI mode of the Session. Defaults to `modal`.
       attr_accessor :ui_mode
 
@@ -104,25 +104,25 @@ module Stripe
         account_holder: nil,
         expand: nil,
         filters: nil,
+        hosted: nil,
         limits: nil,
         manual_entry: nil,
         permissions: nil,
         prefetch: nil,
         relink_options: nil,
         return_url: nil,
-        hosted: nil,
         ui_mode: nil
       )
         @account_holder = account_holder
         @expand = expand
         @filters = filters
+        @hosted = hosted
         @limits = limits
         @manual_entry = manual_entry
         @permissions = permissions
         @prefetch = prefetch
         @relink_options = relink_options
         @return_url = return_url
-        @hosted = hosted
         @ui_mode = ui_mode
       end
     end

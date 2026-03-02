@@ -81,6 +81,31 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class BalanceUpdateDetails < ::Stripe::StripeObject
+          class LatestMeterEvent < ::Stripe::StripeObject
+            # Time at which the object was created. Measured in seconds since the Unix epoch.
+            sig { returns(T.nilable(Integer)) }
+            def created; end
+            # Maximum event time across all meter events that were processed and included in the balance update. Measured in seconds since the Unix epoch.
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The details of the most recent meter event included in the balance update.
+          sig { returns(T.nilable(LatestMeterEvent)) }
+          def latest_meter_event; end
+          def self.inner_class_types
+            @inner_class_types = {latest_meter_event: LatestMeterEvent}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class LedgerBalance < ::Stripe::StripeObject
           class CustomPricingUnit < ::Stripe::StripeObject
             class CustomPricingUnitDetails < ::Stripe::StripeObject
@@ -161,8 +186,15 @@ module Stripe
         # Attribute for field ledger_balance
         sig { returns(LedgerBalance) }
         def ledger_balance; end
+        # Attribute for field balance_update_details
+        sig { returns(T.nilable(BalanceUpdateDetails)) }
+        def balance_update_details; end
         def self.inner_class_types
-          @inner_class_types = {available_balance: AvailableBalance, ledger_balance: LedgerBalance}
+          @inner_class_types = {
+            available_balance: AvailableBalance,
+            ledger_balance: LedgerBalance,
+            balance_update_details: BalanceUpdateDetails,
+          }
         end
         def self.field_remappings
           @field_remappings = {}

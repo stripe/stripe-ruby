@@ -194,6 +194,9 @@ module Stripe
       # Attribute for field price_details
       sig { returns(T.nilable(PriceDetails)) }
       def price_details; end
+      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
+      sig { returns(T.nilable(RateCardCustomPricingUnitOverageRateDetails)) }
+      def rate_card_custom_pricing_unit_overage_rate_details; end
       # Attribute for field rate_card_rate_details
       sig { returns(T.nilable(RateCardRateDetails)) }
       def rate_card_rate_details; end
@@ -203,15 +206,12 @@ module Stripe
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
-      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
-      sig { returns(T.nilable(RateCardCustomPricingUnitOverageRateDetails)) }
-      def rate_card_custom_pricing_unit_overage_rate_details; end
       def self.inner_class_types
         @inner_class_types = {
           license_fee_details: LicenseFeeDetails,
           price_details: PriceDetails,
-          rate_card_rate_details: RateCardRateDetails,
           rate_card_custom_pricing_unit_overage_rate_details: RateCardCustomPricingUnitOverageRateDetails,
+          rate_card_rate_details: RateCardRateDetails,
         }
       end
       def self.field_remappings

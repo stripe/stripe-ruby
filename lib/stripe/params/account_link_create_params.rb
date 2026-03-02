@@ -4,17 +4,17 @@
 module Stripe
   class AccountLinkCreateParams < ::Stripe::RequestParams
     class CollectionOptions < ::Stripe::RequestParams
+      # Specifies whether the platform collects external account information from connected accounts during Connect Onboarding. When set to `true`, the platform only collects external account information if the connected account has capabilities which require it. Some capabilities, such as `treasury`, don't require external account collection. When set to `false`, external account collection is skipped. Defaults to `true`.
+      attr_accessor :external_account_collection
       # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify `collection_options`, the default value is `currently_due`.
       attr_accessor :fields
       # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
       attr_accessor :future_requirements
-      # Specifies whether the platform collects external account information from connected accounts during Connect Onboarding. When set to `false`, external account collection is skipped. Defaults to `true`.
-      attr_accessor :external_account_collection
 
-      def initialize(fields: nil, future_requirements: nil, external_account_collection: nil)
+      def initialize(external_account_collection: nil, fields: nil, future_requirements: nil)
+        @external_account_collection = external_account_collection
         @fields = fields
         @future_requirements = future_requirements
-        @external_account_collection = external_account_collection
       end
     end
     # The identifier of the account to create an account link for.

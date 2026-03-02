@@ -203,10 +203,10 @@ module Stripe
         end
       end
       class Affirm < ::Stripe::StripeObject
-        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the location that this reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
-        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        # ID of the reader this transaction was made on.
         sig { returns(T.nilable(String)) }
         def reader; end
         # The Affirm transaction ID associated with this payment.
@@ -223,7 +223,7 @@ module Stripe
         # The Afterpay order ID associated with this payment intent.
         sig { returns(T.nilable(String)) }
         def order_id; end
-        # Order identifier shown to the merchant in Afterpay’s online portal.
+        # Order identifier shown to the merchant in Afterpay's online portal.
         sig { returns(T.nilable(String)) }
         def reference; end
         def self.inner_class_types
@@ -397,12 +397,10 @@ module Stripe
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
         def iban_last4; end
-        # Preferred language of the Bancontact authorization page that the customer is redirected to.
-        # Can be one of `en`, `de`, `fr`, or `nl`
+        # Preferred language of the Bancontact authorization page that the customer is redirected to. Can be one of `en`, `de`, `fr`, or `nl`
         sig { returns(T.nilable(String)) }
         def preferred_language; end
-        # Owner's verified full name. Values are verified or provided by Bancontact directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+        # Owner's verified full name. Values are verified or provided by Bancontact directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
         def verified_name; end
         def self.inner_class_types
@@ -482,7 +480,7 @@ module Stripe
       end
       class Boleto < ::Stripe::StripeObject
         # The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers)
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def tax_id; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -493,13 +491,13 @@ module Stripe
       end
       class Card < ::Stripe::StripeObject
         class Checks < ::Stripe::StripeObject
-          # Attribute for field address_line1_check
+          # If you provide a value for `address.line1`, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_line1_check; end
-          # Attribute for field address_postal_code_check
+          # If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_postal_code_check; end
-          # Attribute for field cvc_check
+          # If you provide a CVC, the check results is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def cvc_check; end
           def self.inner_class_types
@@ -527,7 +525,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field plan
+          # Installment plan selected for the payment.
           sig { returns(T.nilable(Plan)) }
           def plan; end
           def self.inner_class_types
@@ -549,16 +547,16 @@ module Stripe
           end
         end
         class ThreeDSecure < ::Stripe::StripeObject
-          # Attribute for field authentication_flow
+          # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
           sig { returns(T.nilable(String)) }
           def authentication_flow; end
-          # Attribute for field result
+          # Indicates the outcome of 3D Secure authentication.
           sig { returns(T.nilable(String)) }
           def result; end
-          # Attribute for field result_reason
+          # Additional information about why 3D Secure succeeded or failed, based on the `result`.
           sig { returns(T.nilable(String)) }
           def result_reason; end
-          # Attribute for field version
+          # The version of 3D Secure that was used.
           sig { returns(T.nilable(String)) }
           def version; end
           def self.inner_class_types
@@ -706,6 +704,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Reauthorization < ::Stripe::StripeObject
+          # Indicates whether or not the reauthorization feature is supported.
+          sig { returns(String) }
+          def status; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Receipt < ::Stripe::StripeObject
           # The type of account being debited or credited
           sig { returns(T.nilable(String)) }
@@ -805,6 +814,9 @@ module Stripe
         # The last four digits of the card.
         sig { returns(T.nilable(String)) }
         def last4; end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
         def network; end
@@ -823,14 +835,28 @@ module Stripe
         # How card details were read in this transaction.
         sig { returns(T.nilable(String)) }
         def read_method; end
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
         def receipt; end
         # Attribute for field wallet
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
+        # Whether the PaymentIntent can be reauthorized or not.
+        sig { returns(T.nilable(Reauthorization)) }
+        def reauthorization; end
+        # The time at which the associated PaymentIntent will transition to a terminal state if it is not reauthorized.
+        sig { returns(T.nilable(Integer)) }
+        def reauthorize_before; end
         def self.inner_class_types
-          @inner_class_types = {offline: Offline, receipt: Receipt, wallet: Wallet}
+          @inner_class_types = {
+            offline: Offline,
+            receipt: Receipt,
+            wallet: Wallet,
+            reauthorization: Reauthorization,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -843,7 +869,7 @@ module Stripe
         # A public identifier for buyers using Cash App.
         sig { returns(T.nilable(String)) }
         def cashtag; end
-        # A unique and immutable identifier of payments assigned by Cash App
+        # A unique and immutable identifier of payments assigned by Cash App.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
         def self.inner_class_types
@@ -938,9 +964,7 @@ module Stripe
         # Bank Identifier Code of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bic; end
-        # Owner's verified full name. Values are verified or provided by Giropay directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-        # Giropay rarely provides this information so the attribute is usually empty.
+        # Owner's verified full name. Values are verified or provided by Giropay directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. Giropay rarely provides this information so the attribute is usually empty.
         sig { returns(T.nilable(String)) }
         def verified_name; end
         def self.inner_class_types
@@ -1099,6 +1123,9 @@ module Stripe
         # The last four digits of the card.
         sig { returns(T.nilable(String)) }
         def last4; end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
         def network; end
@@ -1111,6 +1138,9 @@ module Stripe
         # How card details were read in this transaction.
         sig { returns(T.nilable(String)) }
         def read_method; end
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
         def receipt; end

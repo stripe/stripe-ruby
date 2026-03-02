@@ -73,7 +73,7 @@ module Stripe
         def initialize(accounts: nil); end
       end
       class ManualEntry < ::Stripe::RequestParams
-        # Whether manual entry will be handled by Stripe during the Session.
+        # How manual entry should be handled.
         sig { returns(T.nilable(String)) }
         def mode; end
         sig { params(_mode: T.nilable(String)).returns(T.nilable(String)) }
@@ -114,6 +114,13 @@ module Stripe
         params(_filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters))
        }
       def filters=(_filters); end
+      # Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted)) }
+      def hosted; end
+      sig {
+        params(_hosted: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted))
+       }
+      def hosted=(_hosted); end
       # Settings for configuring Session-specific limits.
       sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits)) }
       def limits; end
@@ -152,32 +159,25 @@ module Stripe
       def return_url; end
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
-      # Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
-      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted)) }
-      def hosted; end
-      sig {
-        params(_hosted: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted))
-       }
-      def hosted=(_hosted); end
       # The UI mode of the Session. Defaults to `modal`.
       sig { returns(T.nilable(String)) }
       def ui_mode; end
       sig { params(_ui_mode: T.nilable(String)).returns(T.nilable(String)) }
       def ui_mode=(_ui_mode); end
       sig {
-        params(account_holder: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder), expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), relink_options: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions), return_url: T.nilable(String), hosted: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted), ui_mode: T.nilable(String)).void
+        params(account_holder: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder), expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), hosted: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Hosted), limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), relink_options: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::RelinkOptions), return_url: T.nilable(String), ui_mode: T.nilable(String)).void
        }
       def initialize(
         account_holder: nil,
         expand: nil,
         filters: nil,
+        hosted: nil,
         limits: nil,
         manual_entry: nil,
         permissions: nil,
         prefetch: nil,
         relink_options: nil,
         return_url: nil,
-        hosted: nil,
         ui_mode: nil
       ); end
     end

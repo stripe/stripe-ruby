@@ -463,6 +463,55 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class Settings < ::Stripe::StripeObject
+          class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+            class Custom < ::Stripe::StripeObject
+              # The day of the month the anchor should be. Ranges from 1 to 31.
+              attr_reader :day_of_month
+              # The hour of the day the anchor should be. Ranges from 0 to 23.
+              attr_reader :hour
+              # The minute of the hour the anchor should be. Ranges from 0 to 59.
+              attr_reader :minute
+              # The month to start full cycle periods. Ranges from 1 to 12.
+              attr_reader :month
+              # The second of the minute the anchor should be. Ranges from 0 to 59.
+              attr_reader :second
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field custom
+            attr_reader :custom
+            # The type of service period anchor config.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { custom: Custom }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field service_period_anchor_config
+          attr_reader :service_period_anchor_config
+          # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+          attr_reader :start_date
+
+          def self.inner_class_types
+            @inner_class_types = { service_period_anchor_config: ServicePeriodAnchorConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # ID of the coupon to create a new discount for.
         attr_reader :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -471,9 +520,11 @@ module Stripe
         attr_reader :discount_end
         # ID of the promotion code to create a new discount for.
         attr_reader :promotion_code
+        # Attribute for field settings
+        attr_reader :settings
 
         def self.inner_class_types
-          @inner_class_types = { discount_end: DiscountEnd }
+          @inner_class_types = { discount_end: DiscountEnd, settings: Settings }
         end
 
         def self.field_remappings
@@ -541,6 +592,55 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class Settings < ::Stripe::StripeObject
+            class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+              class Custom < ::Stripe::StripeObject
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                attr_reader :day_of_month
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                attr_reader :hour
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                attr_reader :minute
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                attr_reader :month
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                attr_reader :second
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Attribute for field custom
+              attr_reader :custom
+              # The type of service period anchor config.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { custom: Custom }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field service_period_anchor_config
+            attr_reader :service_period_anchor_config
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+            attr_reader :start_date
+
+            def self.inner_class_types
+              @inner_class_types = { service_period_anchor_config: ServicePeriodAnchorConfig }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # ID of the coupon to create a new discount for.
           attr_reader :coupon
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -549,9 +649,11 @@ module Stripe
           attr_reader :discount_end
           # ID of the promotion code to create a new discount for.
           attr_reader :promotion_code
+          # Attribute for field settings
+          attr_reader :settings
 
           def self.inner_class_types
-            @inner_class_types = { discount_end: DiscountEnd }
+            @inner_class_types = { discount_end: DiscountEnd, settings: Settings }
           end
 
           def self.field_remappings

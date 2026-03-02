@@ -34,6 +34,37 @@ module Stripe
           end
         end
         class FulfillmentOption < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            class DigitalOption < ::Stripe::StripeObject
+              # The description of the digital fulfillment option.
+              sig { returns(T.nilable(String)) }
+              def description; end
+              # The digital amount of the digital fulfillment option.
+              sig { returns(Integer) }
+              def digital_amount; end
+              # The display name of the digital fulfillment option.
+              sig { returns(String) }
+              def display_name; end
+              # The key of the digital fulfillment option.
+              sig { returns(String) }
+              def key; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The digital options.
+            sig { returns(T.nilable(T::Array[DigitalOption])) }
+            def digital_options; end
+            def self.inner_class_types
+              @inner_class_types = {digital_options: DigitalOption}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Shipping < ::Stripe::StripeObject
             class ShippingOption < ::Stripe::StripeObject
               # The description of the shipping option.
@@ -77,14 +108,28 @@ module Stripe
           # The type of the fulfillment option.
           sig { returns(String) }
           def type; end
+          # The digital fulfillment option.
+          sig { returns(T.nilable(Digital)) }
+          def digital; end
           def self.inner_class_types
-            @inner_class_types = {shipping: Shipping}
+            @inner_class_types = {shipping: Shipping, digital: Digital}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class SelectedFulfillmentOption < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            # The digital option.
+            sig { returns(T.nilable(String)) }
+            def digital_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Shipping < ::Stripe::StripeObject
             # The shipping option.
             sig { returns(T.nilable(String)) }
@@ -102,8 +147,11 @@ module Stripe
           # The type of the selected fulfillment option.
           sig { returns(String) }
           def type; end
+          # The digital fulfillment option.
+          sig { returns(T.nilable(Digital)) }
+          def digital; end
           def self.inner_class_types
-            @inner_class_types = {shipping: Shipping}
+            @inner_class_types = {shipping: Shipping, digital: Digital}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -214,6 +262,9 @@ module Stripe
         # The per-unit amount of the item before any discounts or taxes are applied.
         sig { returns(Integer) }
         def unit_amount; end
+        # The fulfillment type of the line item.
+        sig { returns(String) }
+        def fulfillment_type; end
         def self.inner_class_types
           @inner_class_types = {product_details: ProductDetails}
         end
@@ -350,8 +401,34 @@ module Stripe
         end
       end
       class SellerDetails < ::Stripe::StripeObject
+        class MarketplaceSellerDetails < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The marketplace seller details.
+        sig { returns(T.nilable(MarketplaceSellerDetails)) }
+        def marketplace_seller_details; end
+        # The network profile of the seller.
+        sig { returns(T.any(String, ::Stripe::Profile)) }
+        def network_profile; end
+        # The URL to the seller's privacy notice.
+        sig { returns(T.nilable(String)) }
+        def privacy_notice_url; end
+        # The URL to the seller's return policy.
+        sig { returns(T.nilable(String)) }
+        def return_policy_url; end
+        # The URL to the seller's store policy.
+        sig { returns(T.nilable(String)) }
+        def store_policy_url; end
+        # The URL to the seller's terms of service.
+        sig { returns(T.nilable(String)) }
+        def terms_of_service_url; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {marketplace_seller_details: MarketplaceSellerDetails}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -424,7 +501,7 @@ module Stripe
       # The line items to be purchased.
       sig { returns(T::Array[LineItemDetail]) }
       def line_item_details; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

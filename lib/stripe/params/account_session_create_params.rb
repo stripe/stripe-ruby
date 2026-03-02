@@ -734,6 +734,8 @@ module Stripe
       attr_accessor :account_management
       # Configuration for the [account onboarding](/connect/supported-embedded-components/account-onboarding/) embedded component.
       attr_accessor :account_onboarding
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      attr_accessor :agentic_commerce_settings
       # Configuration for the [app install](/connect/supported-embedded-components/app-install/) embedded component.
       attr_accessor :app_install
       # Configuration for the [app viewport](/connect/supported-embedded-components/app-viewport/) embedded component.
@@ -794,8 +796,6 @@ module Stripe
       attr_accessor :tax_settings
       # Configuration for the [tax threshold monitoring](/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
       attr_accessor :tax_threshold_monitoring
-      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
-      attr_accessor :agentic_commerce_settings
       # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
       attr_accessor :terminal_hardware_orders
       # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
@@ -804,6 +804,7 @@ module Stripe
       def initialize(
         account_management: nil,
         account_onboarding: nil,
+        agentic_commerce_settings: nil,
         app_install: nil,
         app_viewport: nil,
         balances: nil,
@@ -834,12 +835,12 @@ module Stripe
         tax_registrations: nil,
         tax_settings: nil,
         tax_threshold_monitoring: nil,
-        agentic_commerce_settings: nil,
         terminal_hardware_orders: nil,
         terminal_hardware_shop: nil
       )
         @account_management = account_management
         @account_onboarding = account_onboarding
+        @agentic_commerce_settings = agentic_commerce_settings
         @app_install = app_install
         @app_viewport = app_viewport
         @balances = balances
@@ -870,7 +871,6 @@ module Stripe
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings
         @tax_threshold_monitoring = tax_threshold_monitoring
-        @agentic_commerce_settings = agentic_commerce_settings
         @terminal_hardware_orders = terminal_hardware_orders
         @terminal_hardware_shop = terminal_hardware_shop
       end

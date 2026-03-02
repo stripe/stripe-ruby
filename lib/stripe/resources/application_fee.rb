@@ -64,6 +64,8 @@ module Stripe
     attr_reader :currency
     # Polymorphic source of the application fee. Includes the ID of the object the application fee was created from.
     attr_reader :fee_source
+    # Polymorphic funding source of the application fee. Includes the type and details of the funding source.
+    attr_reader :funding_source
     # Unique identifier for the object.
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -76,8 +78,6 @@ module Stripe
     attr_reader :refunded
     # A list of refunds that have been applied to the fee.
     attr_reader :refunds
-    # Polymorphic funding source of the application fee. Includes the type and details of the funding source.
-    attr_reader :funding_source
     # Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
     attr_reader :settlement_type
 

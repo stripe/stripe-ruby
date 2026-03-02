@@ -646,7 +646,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               attr_accessor :country
 
               def initialize(country: nil)
@@ -738,7 +738,7 @@ module Stripe
             attr_accessor :amount_type
             # A description of the mandate or subscription that is meant to be displayed to the customer.
             attr_accessor :description
-            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            # End date of the mandate or subscription.
             attr_accessor :end_date
 
             def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
@@ -897,14 +897,14 @@ module Stripe
 
     class TrialSettings < ::Stripe::RequestParams
       class EndBehavior < ::Stripe::RequestParams
-        # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
-        attr_accessor :missing_payment_method
         # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
         attr_accessor :billing_cycle_anchor
+        # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        attr_accessor :missing_payment_method
 
-        def initialize(missing_payment_method: nil, billing_cycle_anchor: nil)
-          @missing_payment_method = missing_payment_method
+        def initialize(billing_cycle_anchor: nil, missing_payment_method: nil)
           @billing_cycle_anchor = billing_cycle_anchor
+          @missing_payment_method = missing_payment_method
         end
       end
       # Defines how the subscription should behave when the user's free trial ends.

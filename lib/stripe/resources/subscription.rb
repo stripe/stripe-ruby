@@ -272,6 +272,19 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class PauseCollection < ::Stripe::StripeObject
       # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
       attr_reader :behavior
@@ -365,7 +378,7 @@ module Stripe
         class CustomerBalance < ::Stripe::StripeObject
           class BankTransfer < ::Stripe::StripeObject
             class EuBankTransfer < ::Stripe::StripeObject
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               attr_reader :country
 
               def self.inner_class_types
@@ -501,7 +514,7 @@ module Stripe
             attr_reader :amount_type
             # A description of the mandate or subscription that is meant to be displayed to the customer.
             attr_reader :description
-            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            # End date of the mandate or subscription.
             attr_reader :end_date
 
             def self.inner_class_types
@@ -701,6 +714,8 @@ module Stripe
 
     class TrialSettings < ::Stripe::StripeObject
       class EndBehavior < ::Stripe::StripeObject
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+        attr_reader :billing_cycle_anchor
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_reader :missing_payment_method
 
@@ -712,7 +727,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Defines how a subscription behaves when a free trial ends.
+      # Defines how a subscription behaves when a trial ends.
       attr_reader :end_behavior
 
       def self.inner_class_types
@@ -785,6 +800,8 @@ module Stripe
     attr_reader :latest_invoice
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
+    # Settings for Managed Payments for this Subscription and resulting [Invoices](/api/invoices/object) and [PaymentIntents](/api/payment_intents/object).
+    attr_reader :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`.
@@ -956,7 +973,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
     def resume(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -966,7 +983,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
     def self.resume(subscription, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -1031,6 +1048,7 @@ module Stripe
         cancellation_details: CancellationDetails,
         invoice_settings: InvoiceSettings,
         last_price_migration_error: LastPriceMigrationError,
+        managed_payments: ManagedPayments,
         pause_collection: PauseCollection,
         payment_settings: PaymentSettings,
         pending_invoice_item_interval: PendingInvoiceItemInterval,

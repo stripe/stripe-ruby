@@ -112,39 +112,6 @@ module Stripe
         end
       end
 
-      class UsageThreshold < ::Stripe::StripeObject
-        class Filter < ::Stripe::StripeObject
-          # Limit the scope of the alert to this customer ID
-          attr_reader :customer
-          # Attribute for field type
-          attr_reader :type
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
-        attr_reader :filters
-        # The value at which this alert will trigger.
-        attr_reader :gte
-        # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
-        attr_reader :meter
-        # Defines how the alert will behave.
-        attr_reader :recurrence
-
-        def self.inner_class_types
-          @inner_class_types = { filters: Filter }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class SpendThreshold < ::Stripe::StripeObject
         class Filters < ::Stripe::StripeObject
           # Filter by billable item IDs.
@@ -251,6 +218,39 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class UsageThreshold < ::Stripe::StripeObject
+        class Filter < ::Stripe::StripeObject
+          # Limit the scope of the alert to this customer ID
+          attr_reader :customer
+          # Attribute for field type
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
+        attr_reader :filters
+        # The value at which this alert will trigger.
+        attr_reader :gte
+        # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
+        attr_reader :meter
+        # Defines how the alert will behave.
+        attr_reader :recurrence
+
+        def self.inner_class_types
+          @inner_class_types = { filters: Filter }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Defines the type of the alert.
       attr_reader :alert_type
       # Encapsulates configuration of the alert to monitor billing credit balance.
@@ -261,14 +261,14 @@ module Stripe
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
+      attr_reader :spend_threshold
       # Status of the alert. This can be active, inactive or archived.
       attr_reader :status
       # Title of the alert.
       attr_reader :title
       # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://docs.stripe.com/api/billing/meter).
       attr_reader :usage_threshold
-      # Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
-      attr_reader :spend_threshold
 
       # Reactivates this alert, allowing it to trigger again.
       def activate(params = {}, opts = {})
@@ -343,8 +343,8 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           credit_balance_threshold: CreditBalanceThreshold,
-          usage_threshold: UsageThreshold,
           spend_threshold: SpendThreshold,
+          usage_threshold: UsageThreshold,
         }
       end
 

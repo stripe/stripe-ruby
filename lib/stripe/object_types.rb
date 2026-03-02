@@ -129,6 +129,7 @@ module Stripe
         Product.object_name => Product,
         ProductCatalog::TrialOffer.object_name => ProductCatalog::TrialOffer,
         ProductFeature.object_name => ProductFeature,
+        Profile.object_name => Profile,
         PromotionCode.object_name => PromotionCode,
         Quote.object_name => Quote,
         QuoteLine.object_name => QuoteLine,

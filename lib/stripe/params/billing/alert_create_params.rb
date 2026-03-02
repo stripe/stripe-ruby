@@ -163,7 +163,7 @@ module Stripe
               @value = value
             end
           end
-          # The monetary amount. Required when type is `amount`.
+          # The monetary amount. Required when type is `amount`. The threshold is the total_before_tax, the amount consumed after all credits and discounts are applied, but before tax is applied.
           attr_accessor :amount
           # The custom pricing unit amount. Required when type is `custom_pricing_unit`.
           attr_accessor :custom_pricing_unit
@@ -207,7 +207,7 @@ module Stripe
         end
         # The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
         attr_accessor :filters
-        # Defines at which value the alert will fire.
+        # Defines the threshold value that triggers the alert.
         attr_accessor :gte
         # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
         attr_accessor :meter
@@ -227,27 +227,27 @@ module Stripe
       attr_accessor :credit_balance_threshold
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The configuration of the spend threshold. An event fires when the amount consumed exceeds the threshold, after all credits and discounts are applied but before tax is applied.
+      attr_accessor :spend_threshold
       # The title of the alert.
       attr_accessor :title
       # The configuration of the usage threshold.
       attr_accessor :usage_threshold
-      # The configuration of the spend threshold.
-      attr_accessor :spend_threshold
 
       def initialize(
         alert_type: nil,
         credit_balance_threshold: nil,
         expand: nil,
+        spend_threshold: nil,
         title: nil,
-        usage_threshold: nil,
-        spend_threshold: nil
+        usage_threshold: nil
       )
         @alert_type = alert_type
         @credit_balance_threshold = credit_balance_threshold
         @expand = expand
+        @spend_threshold = spend_threshold
         @title = title
         @usage_threshold = usage_threshold
-        @spend_threshold = spend_threshold
       end
     end
   end

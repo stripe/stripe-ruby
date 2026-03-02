@@ -108,40 +108,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class UsageThreshold < ::Stripe::StripeObject
-        class Filter < ::Stripe::StripeObject
-          # Limit the scope of the alert to this customer ID
-          sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
-          def customer; end
-          # Attribute for field type
-          sig { returns(String) }
-          def type; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
-        sig { returns(T.nilable(T::Array[Filter])) }
-        def filters; end
-        # The value at which this alert will trigger.
-        sig { returns(Integer) }
-        def gte; end
-        # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
-        sig { returns(T.any(String, ::Stripe::Billing::Meter)) }
-        def meter; end
-        # Defines how the alert will behave.
-        sig { returns(String) }
-        def recurrence; end
-        def self.inner_class_types
-          @inner_class_types = {filters: Filter}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class SpendThreshold < ::Stripe::StripeObject
         class Filters < ::Stripe::StripeObject
           # Filter by billable item IDs.
@@ -256,6 +222,40 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class UsageThreshold < ::Stripe::StripeObject
+        class Filter < ::Stripe::StripeObject
+          # Limit the scope of the alert to this customer ID
+          sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
+          def customer; end
+          # Attribute for field type
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
+        sig { returns(T.nilable(T::Array[Filter])) }
+        def filters; end
+        # The value at which this alert will trigger.
+        sig { returns(Integer) }
+        def gte; end
+        # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
+        sig { returns(T.any(String, ::Stripe::Billing::Meter)) }
+        def meter; end
+        # Defines how the alert will behave.
+        sig { returns(String) }
+        def recurrence; end
+        def self.inner_class_types
+          @inner_class_types = {filters: Filter}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Defines the type of the alert.
       sig { returns(String) }
       def alert_type; end
@@ -271,6 +271,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
+      sig { returns(T.nilable(SpendThreshold)) }
+      def spend_threshold; end
       # Status of the alert. This can be active, inactive or archived.
       sig { returns(T.nilable(String)) }
       def status; end
@@ -280,9 +283,6 @@ module Stripe
       # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://docs.stripe.com/api/billing/meter).
       sig { returns(T.nilable(UsageThreshold)) }
       def usage_threshold; end
-      # Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
-      sig { returns(T.nilable(SpendThreshold)) }
-      def spend_threshold; end
       # Reactivates this alert, allowing it to trigger again.
       sig {
         params(params: T.any(::Stripe::Billing::AlertActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)

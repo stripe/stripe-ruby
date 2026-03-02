@@ -299,19 +299,23 @@ module Stripe
     attr_accessor :metadata
     # Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
     attr_accessor :submit
+    # If not countering the full disputed amount, specify an alternate amount, less than or equal to the disputed amount.
+    attr_accessor :amount_to_counter
 
     def initialize(
       evidence: nil,
       expand: nil,
       intended_submission_method: nil,
       metadata: nil,
-      submit: nil
+      submit: nil,
+      amount_to_counter: nil
     )
       @evidence = evidence
       @expand = expand
       @intended_submission_method = intended_submission_method
       @metadata = metadata
       @submit = submit
+      @amount_to_counter = amount_to_counter
     end
   end
 end

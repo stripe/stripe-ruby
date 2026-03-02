@@ -249,7 +249,7 @@ module Stripe
             sig { params(id: String, value: String).void }
             def initialize(id: nil, value: nil); end
           end
-          # The monetary amount. Required when type is `amount`.
+          # The monetary amount. Required when type is `amount`. The threshold is the total_before_tax, the amount consumed after all credits and discounts are applied, but before tax is applied.
           sig {
             returns(T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold::Gte::Amount))
            }
@@ -330,7 +330,7 @@ module Stripe
           params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]))
          }
         def filters=(_filters); end
-        # Defines at which value the alert will fire.
+        # Defines the threshold value that triggers the alert.
         sig { returns(Integer) }
         def gte; end
         sig { params(_gte: Integer).returns(Integer) }
@@ -367,6 +367,13 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # The configuration of the spend threshold. An event fires when the amount consumed exceeds the threshold, after all credits and discounts are applied but before tax is applied.
+      sig { returns(T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold)) }
+      def spend_threshold; end
+      sig {
+        params(_spend_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold))
+       }
+      def spend_threshold=(_spend_threshold); end
       # The title of the alert.
       sig { returns(String) }
       def title; end
@@ -379,23 +386,16 @@ module Stripe
         params(_usage_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold))
        }
       def usage_threshold=(_usage_threshold); end
-      # The configuration of the spend threshold.
-      sig { returns(T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold)) }
-      def spend_threshold; end
       sig {
-        params(_spend_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold)).returns(T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold))
-       }
-      def spend_threshold=(_spend_threshold); end
-      sig {
-        params(alert_type: String, credit_balance_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold), expand: T.nilable(T::Array[String]), title: String, usage_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold), spend_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold)).void
+        params(alert_type: String, credit_balance_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold), expand: T.nilable(T::Array[String]), spend_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold), title: String, usage_threshold: T.nilable(::Stripe::Billing::AlertCreateParams::UsageThreshold)).void
        }
       def initialize(
         alert_type: nil,
         credit_balance_threshold: nil,
         expand: nil,
+        spend_threshold: nil,
         title: nil,
-        usage_threshold: nil,
-        spend_threshold: nil
+        usage_threshold: nil
       ); end
     end
   end

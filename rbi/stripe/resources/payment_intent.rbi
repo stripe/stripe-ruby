@@ -283,6 +283,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class NextAction < ::Stripe::StripeObject
       class AlipayHandleRedirect < ::Stripe::StripeObject
         # The native data to be used with Alipay SDK you must redirect your customer to in order to authenticate the payment in an Android App.
@@ -3131,6 +3142,9 @@ module Stripe
         # Attribute for field statement_details
         sig { returns(T.nilable(StatementDetails)) }
         def statement_details; end
+        # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_reauthorization; end
         def self.inner_class_types
           @inner_class_types = {
             installments: Installments,
@@ -3166,6 +3180,9 @@ module Stripe
         # Attribute for field routing
         sig { returns(T.nilable(Routing)) }
         def routing; end
+        # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_reauthorization; end
         def self.inner_class_types
           @inner_class_types = {routing: Routing}
         end
@@ -3213,7 +3230,7 @@ module Stripe
       class CustomerBalance < ::Stripe::StripeObject
         class BankTransfer < ::Stripe::StripeObject
           class EuBankTransfer < ::Stripe::StripeObject
-            # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+            # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
             sig { returns(String) }
             def country; end
             def self.inner_class_types
@@ -4161,6 +4178,9 @@ module Stripe
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
         def target_date; end
+        # The purpose of the transaction.
+        sig { returns(T.nilable(String)) }
+        def transaction_purpose; end
         # Bank account verification method.
         sig { returns(T.nilable(String)) }
         def verification_method; end
@@ -4680,6 +4700,9 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Settings for Managed Payments.
+    sig { returns(T.nilable(ManagedPayments)) }
+    def managed_payments; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     sig { returns(T::Hash[String, String]) }
     def metadata; end
@@ -5005,6 +5028,32 @@ module Stripe
       params(params: T.any(::Stripe::PaymentIntentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
+
+    # Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+    #
+    # When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+    # requires_reauthorization status with amount_capturable set to 0. This endpoint
+    # brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+    #
+    # This is useful for retail and ecommerce scenarios with delayed shipments where
+    # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+    sig {
+      params(params: T.any(::Stripe::PaymentIntentReauthorizeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+     }
+    def reauthorize(params = {}, opts = {}); end
+
+    # Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+    #
+    # When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+    # requires_reauthorization status with amount_capturable set to 0. This endpoint
+    # brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+    #
+    # This is useful for retail and ecommerce scenarios with delayed shipments where
+    # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+    sig {
+      params(intent: String, params: T.any(::Stripe::PaymentIntentReauthorizeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+     }
+    def self.reauthorize(intent, params = {}, opts = {}); end
 
     sig {
       params(params: T.any(::Stripe::PaymentIntentSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)

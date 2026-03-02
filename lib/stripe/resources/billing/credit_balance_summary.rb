@@ -81,6 +81,33 @@ module Stripe
           end
         end
 
+        class BalanceUpdateDetails < ::Stripe::StripeObject
+          class LatestMeterEvent < ::Stripe::StripeObject
+            # Time at which the object was created. Measured in seconds since the Unix epoch.
+            attr_reader :created
+            # Maximum event time across all meter events that were processed and included in the balance update. Measured in seconds since the Unix epoch.
+            attr_reader :timestamp
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The details of the most recent meter event included in the balance update.
+          attr_reader :latest_meter_event
+
+          def self.inner_class_types
+            @inner_class_types = { latest_meter_event: LatestMeterEvent }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class LedgerBalance < ::Stripe::StripeObject
           class CustomPricingUnit < ::Stripe::StripeObject
             class CustomPricingUnitDetails < ::Stripe::StripeObject
@@ -154,9 +181,15 @@ module Stripe
         attr_reader :available_balance
         # Attribute for field ledger_balance
         attr_reader :ledger_balance
+        # Attribute for field balance_update_details
+        attr_reader :balance_update_details
 
         def self.inner_class_types
-          @inner_class_types = { available_balance: AvailableBalance, ledger_balance: LedgerBalance }
+          @inner_class_types = {
+            available_balance: AvailableBalance,
+            ledger_balance: LedgerBalance,
+            balance_update_details: BalanceUpdateDetails,
+          }
         end
 
         def self.field_remappings

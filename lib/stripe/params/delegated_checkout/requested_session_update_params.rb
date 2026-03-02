@@ -37,6 +37,15 @@ module Stripe
         end
 
         class SelectedFulfillmentOption < ::Stripe::RequestParams
+          class Digital < ::Stripe::RequestParams
+            # The digital option identifier.
+            attr_accessor :digital_option
+
+            def initialize(digital_option: nil)
+              @digital_option = digital_option
+            end
+          end
+
           class Shipping < ::Stripe::RequestParams
             # The shipping option identifer.
             attr_accessor :shipping_option
@@ -49,10 +58,13 @@ module Stripe
           attr_accessor :shipping
           # The type of fulfillment option.
           attr_accessor :type
+          # The digital fulfillment option.
+          attr_accessor :digital
 
-          def initialize(shipping: nil, type: nil)
+          def initialize(shipping: nil, type: nil, digital: nil)
             @shipping = shipping
             @type = type
+            @digital = digital
           end
         end
         # The customer's address.

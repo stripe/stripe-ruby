@@ -204,6 +204,8 @@ module Stripe
         end
 
         class Storage < ::Stripe::StripeObject
+          # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
+          attr_reader :funds_usage_type
           # The currencies that this FinancialAccount can hold.
           attr_reader :holds_currencies
 

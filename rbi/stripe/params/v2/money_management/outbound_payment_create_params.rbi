@@ -157,6 +157,11 @@ module Stripe
         def outbound_payment_quote; end
         sig { params(_outbound_payment_quote: T.nilable(String)).returns(T.nilable(String)) }
         def outbound_payment_quote=(_outbound_payment_quote); end
+        # The purpose of the OutboundPayment.
+        sig { returns(T.nilable(String)) }
+        def purpose; end
+        sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+        def purpose=(_purpose); end
         # Details about the notification settings for the OutboundPayment recipient.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification))
@@ -179,7 +184,7 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::From, metadata: T.nilable(T::Hash[String, String]), outbound_payment_quote: T.nilable(String), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification), recipient_verification: T.nilable(String), to: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::To).void
+          params(amount: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::From, metadata: T.nilable(T::Hash[String, String]), outbound_payment_quote: T.nilable(String), purpose: T.nilable(String), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::RecipientNotification), recipient_verification: T.nilable(String), to: ::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::To).void
          }
         def initialize(
           amount: nil,
@@ -188,6 +193,7 @@ module Stripe
           from: nil,
           metadata: nil,
           outbound_payment_quote: nil,
+          purpose: nil,
           recipient_notification: nil,
           recipient_verification: nil,
           to: nil

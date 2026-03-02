@@ -307,6 +307,9 @@ module Stripe
         # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         sig { returns(T.nilable(String)) }
         def outbound_payment_quote; end
+        # The purpose of the OutboundPayment.
+        sig { returns(T.nilable(String)) }
+        def purpose; end
         # A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
         sig { returns(T.nilable(String)) }
         def receipt_url; end
@@ -334,7 +337,7 @@ module Stripe
         # To which payout method the OutboundPayment was sent.
         sig { returns(To) }
         def to; end
-        # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a “reference number” or something similar.
+        # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a "reference number" or something similar.
         sig { returns(TraceId) }
         def trace_id; end
         # Information to track this OutboundPayment with the recipient bank.

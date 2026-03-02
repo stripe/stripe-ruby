@@ -233,7 +233,7 @@ module Stripe
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
                   class LicenseFee < ::Stripe::RequestParams
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
                     sig { returns(String) }
                     def credit_proration_behavior; end
                     sig { params(_credit_proration_behavior: String).returns(String) }
@@ -241,12 +241,12 @@ module Stripe
                     sig { params(credit_proration_behavior: String).void }
                     def initialize(credit_proration_behavior: nil); end
                   end
-                  # Type of the partial period behavior override.
+                  # The type of behavior to override.
                   sig { returns(String) }
                   def type; end
                   sig { params(_type: String).returns(String) }
                   def type=(_type); end
-                  # Override for the license fee.
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
                    }
@@ -260,7 +260,7 @@ module Stripe
                    }
                   def initialize(type: nil, license_fee: nil); end
                 end
-                # Override for the partial period behavior.
+                # Configurations for behaviors when the action takes effect during the service period.
                 sig {
                   returns(T::Array[::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior])
                  }
@@ -274,7 +274,7 @@ module Stripe
                  }
                 def initialize(partial_period_behaviors: nil); end
               end
-              # Allows users to override the partial period behavior.
+              # Configurations for overriding behaviors related to the subscription.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides))
                }
@@ -302,7 +302,7 @@ module Stripe
               params(_cancellation_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails))
              }
             def cancellation_details=(_cancellation_details); end
-            # Allows users to override the collect at behavior.
+            # When the invoice will be collected. If not specified, the default behavior is on_effective_at.
             sig { returns(T.nilable(String)) }
             def collect_at; end
             sig { params(_collect_at: T.nilable(String)).returns(T.nilable(String)) }
@@ -383,12 +383,12 @@ module Stripe
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
                   class LicenseFee < ::Stripe::RequestParams
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                     sig { returns(String) }
                     def credit_proration_behavior; end
                     sig { params(_credit_proration_behavior: String).returns(String) }
                     def credit_proration_behavior=(_credit_proration_behavior); end
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                     sig { returns(String) }
                     def debit_proration_behavior; end
                     sig { params(_debit_proration_behavior: String).returns(String) }
@@ -401,12 +401,12 @@ module Stripe
                       debit_proration_behavior: nil
                     ); end
                   end
-                  # Type of the partial period behavior override.
+                  # The type of behavior to override.
                   sig { returns(String) }
                   def type; end
                   sig { params(_type: String).returns(String) }
                   def type=(_type); end
-                  # Override for the license fee.
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
                    }
@@ -420,7 +420,7 @@ module Stripe
                    }
                   def initialize(type: nil, license_fee: nil); end
                 end
-                # Override for the partial period behavior.
+                # Configurations for behaviors when the action takes effect during the service period.
                 sig {
                   returns(T::Array[::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior])
                  }
@@ -455,7 +455,7 @@ module Stripe
                 params(_new_pricing_plan_version: T.nilable(String)).returns(T.nilable(String))
                }
               def new_pricing_plan_version=(_new_pricing_plan_version); end
-              # Allows users to override the partial period behavior.
+              # Configurations for overriding behaviors related to the subscription.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides))
                }
@@ -480,7 +480,7 @@ module Stripe
                 pricing_plan_subscription: nil
               ); end
             end
-            # Allows users to override the collect at behavior.
+            # When the invoice will be collected. If not specified, the default behavior is next_billing_date.
             sig { returns(T.nilable(String)) }
             def collect_at; end
             sig { params(_collect_at: T.nilable(String)).returns(T.nilable(String)) }
@@ -604,7 +604,7 @@ module Stripe
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
                   class LicenseFee < ::Stripe::RequestParams
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
                     sig { returns(String) }
                     def debit_proration_behavior; end
                     sig { params(_debit_proration_behavior: String).returns(String) }
@@ -612,12 +612,12 @@ module Stripe
                     sig { params(debit_proration_behavior: String).void }
                     def initialize(debit_proration_behavior: nil); end
                   end
-                  # Type of the partial period behavior override.
+                  # The type of behavior to override.
                   sig { returns(String) }
                   def type; end
                   sig { params(_type: String).returns(String) }
                   def type=(_type); end
-                  # Override for the license fee.
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
                    }
@@ -631,7 +631,7 @@ module Stripe
                    }
                   def initialize(type: nil, license_fee: nil); end
                 end
-                # Override for the partial period behavior.
+                # Configurations for behaviors when the action takes effect during the service period.
                 sig {
                   returns(T::Array[::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior])
                  }
@@ -661,7 +661,7 @@ module Stripe
                 params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
                }
               def metadata=(_metadata); end
-              # Allows users to override the partial period behavior.
+              # Configurations for overriding behaviors related to the subscription.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides))
                }
@@ -742,7 +742,7 @@ module Stripe
                }
               def initialize(description: nil, items: nil, metadata: nil); end
             end
-            # Allows users to override the collect at behavior.
+            # When the invoice will be collected. If not specified, defaults to on_effective_at.
             sig { returns(T.nilable(String)) }
             def collect_at; end
             sig { params(_collect_at: T.nilable(String)).returns(T.nilable(String)) }

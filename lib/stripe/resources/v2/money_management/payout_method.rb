@@ -50,6 +50,8 @@ module Stripe
           attr_reader :bank_account_type
           # The name of the bank this bank account is in. This field is populated automatically by Stripe.
           attr_reader :bank_name
+          # The branch number of the bank account, if present.
+          attr_reader :branch_number
           # The country code of the bank account.
           attr_reader :country
           # List of enabled flows for this bank account (wire or local).
@@ -62,6 +64,8 @@ module Stripe
           attr_reader :routing_number
           # The list of currencies supported by this bank account.
           attr_reader :supported_currencies
+          # The swift code of the bank or financial institution.
+          attr_reader :swift_code
 
           def self.inner_class_types
             @inner_class_types = {}

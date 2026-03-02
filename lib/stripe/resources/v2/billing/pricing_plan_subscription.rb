@@ -4,6 +4,9 @@
 module Stripe
   module V2
     module Billing
+      # A Pricing Plan Subscription represents a customer's active subscription to a Pricing Plan. It tracks both the servicing
+      # status (whether the customer is receiving service) and collection status (whether payments are current). Subscriptions
+      # are created through Billing Intents and bill according to the associated Billing Cadence.
       class PricingPlanSubscription < APIResource
         OBJECT_NAME = "v2.billing.pricing_plan_subscription"
         def self.object_name

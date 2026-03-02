@@ -4,6 +4,7 @@
 module Stripe
   module V2
     module Billing
+      # Service Actions represent actions applied during service assessment periods, such as granting credits to a customer.
       class ServiceAction < APIResource
         OBJECT_NAME = "v2.billing.service_action"
         def self.object_name

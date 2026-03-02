@@ -4,6 +4,9 @@
 module Stripe
   module V2
     module Billing
+      # A Rate Card Version represents a specific configuration of a Rate Card at a point in time. Versions are created automatically
+      # when you add or modify rates on a Rate Card, allowing you to track changes and manage which version is active for new
+      # subscriptions. Each version maintains a record of when it was created.
       class RateCardVersion < APIResource
         OBJECT_NAME = "v2.billing.rate_card_version"
         def self.object_name

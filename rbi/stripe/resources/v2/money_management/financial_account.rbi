@@ -191,6 +191,9 @@ module Stripe
           end
         end
         class Storage < ::Stripe::StripeObject
+          # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
+          sig { returns(T.nilable(String)) }
+          def funds_usage_type; end
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
           def holds_currencies; end

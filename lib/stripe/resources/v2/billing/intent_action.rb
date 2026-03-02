@@ -4,6 +4,9 @@
 module Stripe
   module V2
     module Billing
+      # A Billing Intent Action represents a specific operation within a Billing Intent, such as subscribing to a Pricing Plan,
+      # modifying a subscription's quantity, or deactivating service. Each action has a specific type and associated details that
+      # define what change will be made when the Intent is committed.
       class IntentAction < APIResource
         OBJECT_NAME = "v2.billing.intent_action"
         def self.object_name
@@ -200,7 +203,7 @@ module Stripe
             class Overrides < ::Stripe::StripeObject
               class PartialPeriodBehavior < ::Stripe::StripeObject
                 class LicenseFee < ::Stripe::StripeObject
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
                   attr_reader :credit_proration_behavior
 
                   def self.inner_class_types
@@ -211,9 +214,9 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Type of the partial period behavior override.
+                # The type of behavior to override.
                 attr_reader :type
-                # Override for the license fee.
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
 
                 def self.inner_class_types
@@ -224,7 +227,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Override for the partial period behavior.
+              # Configurations for behaviors when the action takes effect during the service period.
               attr_reader :partial_period_behaviors
 
               def self.inner_class_types
@@ -235,7 +238,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Allows users to override the partial period behavior.
+            # Configurations for overriding behaviors related to the subscription.
             attr_reader :overrides
             # ID of the Pricing Plan Subscription to deactivate.
             attr_reader :pricing_plan_subscription
@@ -309,9 +312,9 @@ module Stripe
             class Overrides < ::Stripe::StripeObject
               class PartialPeriodBehavior < ::Stripe::StripeObject
                 class LicenseFee < ::Stripe::StripeObject
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                   attr_reader :credit_proration_behavior
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                   attr_reader :debit_proration_behavior
 
                   def self.inner_class_types
@@ -322,9 +325,9 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Type of the partial period behavior override.
+                # The type of behavior to override.
                 attr_reader :type
-                # Override for the license fee.
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
 
                 def self.inner_class_types
@@ -335,7 +338,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Override for the partial period behavior.
+              # Configurations for behaviors when the action takes effect during the service period.
               attr_reader :partial_period_behaviors
 
               def self.inner_class_types
@@ -352,7 +355,7 @@ module Stripe
             attr_reader :new_pricing_plan
             # Version of the Pricing Plan to use.
             attr_reader :new_pricing_plan_version
-            # Allows users to override the partial period behavior.
+            # Configurations for overriding behaviors related to the subscription.
             attr_reader :overrides
             # ID of the Pricing Plan Subscription to modify.
             attr_reader :pricing_plan_subscription
@@ -457,7 +460,7 @@ module Stripe
             class Overrides < ::Stripe::StripeObject
               class PartialPeriodBehavior < ::Stripe::StripeObject
                 class LicenseFee < ::Stripe::StripeObject
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
                   attr_reader :debit_proration_behavior
 
                   def self.inner_class_types
@@ -468,9 +471,9 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Type of the partial period behavior override.
+                # The type of behavior to override.
                 attr_reader :type
-                # Override for the license fee.
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
 
                 def self.inner_class_types
@@ -481,7 +484,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Override for the partial period behavior.
+              # Configurations for behaviors when the action takes effect during the service period.
               attr_reader :partial_period_behaviors
 
               def self.inner_class_types
@@ -496,7 +499,7 @@ module Stripe
             attr_reader :component_configurations
             # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             attr_reader :metadata
-            # Allows users to override the partial period behavior.
+            # Configurations for overriding behaviors related to the subscription.
             attr_reader :overrides
             # ID of the Pricing Plan to subscribe to.
             attr_reader :pricing_plan

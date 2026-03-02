@@ -44,6 +44,8 @@ module Stripe
         Events::V2BillingPricingPlanVersionCreatedEvent.lookup_type =>
         Events::V2BillingPricingPlanVersionCreatedEvent,
         Events::V2BillingRateCardCreatedEvent.lookup_type => Events::V2BillingRateCardCreatedEvent,
+        Events::V2BillingRateCardCustomPricingUnitOverageRateCreatedEvent.lookup_type =>
+        Events::V2BillingRateCardCustomPricingUnitOverageRateCreatedEvent,
         Events::V2BillingRateCardRateCreatedEvent.lookup_type => Events::V2BillingRateCardRateCreatedEvent,
         Events::V2BillingRateCardSubscriptionActivatedEvent.lookup_type =>
         Events::V2BillingRateCardSubscriptionActivatedEvent,
@@ -159,6 +161,17 @@ module Stripe
         Events::V2IamApiKeyPermissionsUpdatedEvent,
         Events::V2IamApiKeyRotatedEvent.lookup_type => Events::V2IamApiKeyRotatedEvent,
         Events::V2IamApiKeyUpdatedEvent.lookup_type => Events::V2IamApiKeyUpdatedEvent,
+        Events::V2IamStripeAccessGrantApprovedEvent.lookup_type =>
+        Events::V2IamStripeAccessGrantApprovedEvent,
+        Events::V2IamStripeAccessGrantCanceledEvent.lookup_type =>
+        Events::V2IamStripeAccessGrantCanceledEvent,
+        Events::V2IamStripeAccessGrantDeniedEvent.lookup_type => Events::V2IamStripeAccessGrantDeniedEvent,
+        Events::V2IamStripeAccessGrantRemovedEvent.lookup_type =>
+        Events::V2IamStripeAccessGrantRemovedEvent,
+        Events::V2IamStripeAccessGrantRequestedEvent.lookup_type =>
+        Events::V2IamStripeAccessGrantRequestedEvent,
+        Events::V2IamStripeAccessGrantUpdatedEvent.lookup_type =>
+        Events::V2IamStripeAccessGrantUpdatedEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
@@ -339,6 +352,8 @@ module Stripe
         Events::V2BillingPricingPlanVersionCreatedEventNotification,
         Events::V2BillingRateCardCreatedEventNotification.lookup_type =>
         Events::V2BillingRateCardCreatedEventNotification,
+        Events::V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification.lookup_type =>
+        Events::V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification,
         Events::V2BillingRateCardRateCreatedEventNotification.lookup_type =>
         Events::V2BillingRateCardRateCreatedEventNotification,
         Events::V2BillingRateCardSubscriptionActivatedEventNotification.lookup_type =>
@@ -471,6 +486,18 @@ module Stripe
         Events::V2IamApiKeyRotatedEventNotification,
         Events::V2IamApiKeyUpdatedEventNotification.lookup_type =>
         Events::V2IamApiKeyUpdatedEventNotification,
+        Events::V2IamStripeAccessGrantApprovedEventNotification.lookup_type =>
+        Events::V2IamStripeAccessGrantApprovedEventNotification,
+        Events::V2IamStripeAccessGrantCanceledEventNotification.lookup_type =>
+        Events::V2IamStripeAccessGrantCanceledEventNotification,
+        Events::V2IamStripeAccessGrantDeniedEventNotification.lookup_type =>
+        Events::V2IamStripeAccessGrantDeniedEventNotification,
+        Events::V2IamStripeAccessGrantRemovedEventNotification.lookup_type =>
+        Events::V2IamStripeAccessGrantRemovedEventNotification,
+        Events::V2IamStripeAccessGrantRequestedEventNotification.lookup_type =>
+        Events::V2IamStripeAccessGrantRequestedEventNotification,
+        Events::V2IamStripeAccessGrantUpdatedEventNotification.lookup_type =>
+        Events::V2IamStripeAccessGrantUpdatedEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>

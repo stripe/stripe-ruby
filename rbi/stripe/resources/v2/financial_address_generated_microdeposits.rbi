@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   module V2
+    # Generated Microdeposits represent verification deposits sent to a financial address for ownership verification, containing the deposited amounts and status.
     class FinancialAddressGeneratedMicrodeposits < APIResource
       class Amount < ::Stripe::StripeObject
         # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).

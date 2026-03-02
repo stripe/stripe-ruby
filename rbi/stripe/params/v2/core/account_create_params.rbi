@@ -1501,6 +1501,30 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
+            class SmartDisputes < ::Stripe::RequestParams
+              class AutoRespond < ::Stripe::RequestParams
+                # The preference for Smart Disputes auto-respond.
+                sig { returns(T.nilable(String)) }
+                def preference; end
+                sig { params(_preference: T.nilable(String)).returns(T.nilable(String)) }
+                def preference=(_preference); end
+                sig { params(preference: T.nilable(String)).void }
+                def initialize(preference: nil); end
+              end
+              # Settings for Smart Disputes auto_respond.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes::AutoRespond))
+               }
+              def auto_respond; end
+              sig {
+                params(_auto_respond: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes::AutoRespond)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes::AutoRespond))
+               }
+              def auto_respond=(_auto_respond); end
+              sig {
+                params(auto_respond: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes::AutoRespond)).void
+               }
+              def initialize(auto_respond: nil); end
+            end
             class StatementDescriptor < ::Stripe::RequestParams
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               sig { returns(T.nilable(String)) }
@@ -1653,6 +1677,15 @@ module Stripe
               params(_script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor))
              }
             def script_statement_descriptor=(_script_statement_descriptor); end
+            # Settings used for Smart Disputes.
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes))
+             }
+            def smart_disputes; end
+            sig {
+              params(_smart_disputes: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes))
+             }
+            def smart_disputes=(_smart_disputes); end
             # Statement descriptor.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor))
@@ -1672,7 +1705,7 @@ module Stripe
              }
             def support=(_support); end
             sig {
-              params(bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support)).void
+              params(bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor), smart_disputes: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support)).void
              }
             def initialize(
               bacs_debit_payments: nil,
@@ -1682,6 +1715,7 @@ module Stripe
               konbini_payments: nil,
               mcc: nil,
               script_statement_descriptor: nil,
+              smart_disputes: nil,
               statement_descriptor: nil,
               support: nil
             ); end
@@ -1852,6 +1886,45 @@ module Stripe
           end
           class Storer < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
+              class Consumer < ::Stripe::RequestParams
+                class HoldsCurrencies < ::Stripe::RequestParams
+                  class Usd < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can hold storage-type funds on Stripe in USD in a consumer financial account.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies::Usd))
+                   }
+                  def usd; end
+                  sig {
+                    params(_usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies::Usd))
+                   }
+                  def usd=(_usd); end
+                  sig {
+                    params(usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies::Usd)).void
+                   }
+                  def initialize(usd: nil); end
+                end
+                # Can hold storage-type funds on Stripe in a consumer financial account.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies))
+                 }
+                def holds_currencies; end
+                sig {
+                  params(_holds_currencies: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies))
+                 }
+                def holds_currencies=(_holds_currencies); end
+                sig {
+                  params(holds_currencies: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer::HoldsCurrencies)).void
+                 }
+                def initialize(holds_currencies: nil); end
+              end
               class FinancialAddresses < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -2143,6 +2216,15 @@ module Stripe
                   financial_accounts: nil
                 ); end
               end
+              # Can provision a consumer financial account on Stripe.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer))
+               }
+              def consumer; end
+              sig {
+                params(_consumer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer))
+               }
+              def consumer=(_consumer); end
               # Can provision a financial address to credit/debit a FinancialAccount.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
@@ -2189,9 +2271,10 @@ module Stripe
                }
               def outbound_transfers=(_outbound_transfers); end
               sig {
-                params(financial_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
+                params(consumer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::Consumer), financial_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
                }
               def initialize(
+                consumer: nil,
                 financial_addresses: nil,
                 holds_currencies: nil,
                 inbound_transfers: nil,

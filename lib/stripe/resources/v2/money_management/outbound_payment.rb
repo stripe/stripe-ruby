@@ -298,6 +298,8 @@ module Stripe
         attr_reader :object
         # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         attr_reader :outbound_payment_quote
+        # The purpose of the OutboundPayment.
+        attr_reader :purpose
         # A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
         attr_reader :receipt_url
         # Details about the OutboundPayment notification settings for recipient.
@@ -317,7 +319,7 @@ module Stripe
         attr_reader :status_transitions
         # To which payout method the OutboundPayment was sent.
         attr_reader :to
-        # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a “reference number” or something similar.
+        # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a "reference number" or something similar.
         attr_reader :trace_id
         # Information to track this OutboundPayment with the recipient bank.
         attr_reader :tracking_details

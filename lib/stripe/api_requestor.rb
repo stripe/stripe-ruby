@@ -964,6 +964,9 @@ module Stripe
       user_agent = "Stripe/#{api_mode} RubyBindings/#{Stripe::VERSION}"
       user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
 
+      ai_agent = SystemProfiler.detect_ai_agent
+      user_agent += " AIAgent/#{ai_agent}" unless ai_agent.empty?
+
       headers = {
         "User-Agent" => user_agent,
         "Authorization" => "Bearer #{req_opts[:api_key]}",
@@ -1125,6 +1128,23 @@ module Stripe
         "uname lookup failed"
       end
 
+      AI_AGENTS = [
+        %w[ANTIGRAVITY_CLI_ALIAS antigravity],
+        %w[CLAUDECODE claude_code],
+        %w[CLINE_ACTIVE cline],
+        %w[CODEX_SANDBOX codex_cli],
+        %w[CURSOR_AGENT cursor],
+        %w[GEMINI_CLI gemini_cli],
+        %w[OPENCODE open_code],
+      ].freeze
+
+      def self.detect_ai_agent(env = ENV)
+        AI_AGENTS.each do |env_var, agent_name|
+          return agent_name if env[env_var] && !env[env_var].empty?
+        end
+        ""
+      end
+
       def initialize
         @uname = self.class.uname
       end
@@ -1133,7 +1153,7 @@ module Stripe
         lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} " \
                        "(#{RUBY_RELEASE_DATE})"
 
-        {
+        ua = {
           application: Stripe.app_info,
           bindings_version: Stripe::VERSION,
           lang: "ruby",
@@ -1144,6 +1164,11 @@ module Stripe
           uname: @uname,
           hostname: Socket.gethostname,
         }.delete_if { |_k, v| v.nil? }
+
+        ai_agent = self.class.detect_ai_agent
+        ua[:ai_agent] = ai_agent unless ai_agent.empty?
+
+        ua
       end
     end
 

@@ -474,6 +474,64 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AffiliateAttribution < ::Stripe::StripeObject
+        class Source < ::Stripe::StripeObject
+          # The platform of the attribution source.
+          sig { returns(T.nilable(String)) }
+          def platform; end
+          # The type of the attribution source.
+          sig { returns(String) }
+          def type; end
+          # The URL of the attribution source.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Agent-scoped campaign identifier.
+        sig { returns(T.nilable(String)) }
+        def campaign_id; end
+        # Agent-scoped creative identifier.
+        sig { returns(T.nilable(String)) }
+        def creative_id; end
+        # Timestamp when the attribution token expires.
+        sig { returns(Integer) }
+        def expires_at; end
+        # Agent-issued secret to validate the legitimacy of the source of this data.
+        sig { returns(String) }
+        def identification_token; end
+        # Timestamp for when the attribution token was issued.
+        sig { returns(Integer) }
+        def issued_at; end
+        # Identifier for the attribution agent / affiliate network namespace.
+        sig { returns(String) }
+        def provider; end
+        # Agent-scoped affiliate/publisher identifier.
+        sig { returns(T.nilable(String)) }
+        def publisher_id; end
+        # Freeform key/value pairs for additional non-sensitive per-agent data.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def shared_metadata; end
+        # Context about where the attribution originated.
+        sig { returns(T.nilable(Source)) }
+        def source; end
+        # Agent-scoped sub-tracking identifier.
+        sig { returns(T.nilable(String)) }
+        def sub_id; end
+        # Whether this is the first or last touchpoint.
+        sig { returns(String) }
+        def touchpoint; end
+        def self.inner_class_types
+          @inner_class_types = {source: Source}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The subtotal amount of the requested session.
       sig { returns(T.nilable(Integer)) }
       def amount_subtotal; end
@@ -543,6 +601,9 @@ module Stripe
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def updated_at; end
+      # Affiliate attribution data associated with this requested session.
+      sig { returns(T.nilable(T::Array[AffiliateAttribution])) }
+      def affiliate_attributions; end
       # Confirms a requested session
       sig {
         params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

@@ -28,6 +28,7 @@ module Stripe
         BalanceTransfer.object_name => BalanceTransfer,
         BankAccount.object_name => BankAccount,
         Billing::Alert.object_name => Billing::Alert,
+        Billing::AlertRecovered.object_name => Billing::AlertRecovered,
         Billing::AlertTriggered.object_name => Billing::AlertTriggered,
         Billing::Analytics::MeterUsage.object_name => Billing::Analytics::MeterUsage,
         Billing::Analytics::MeterUsageRow.object_name => Billing::Analytics::MeterUsageRow,

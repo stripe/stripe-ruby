@@ -454,6 +454,55 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class AffiliateAttribution < ::Stripe::StripeObject
+        class Source < ::Stripe::StripeObject
+          # The platform of the attribution source.
+          attr_reader :platform
+          # The type of the attribution source.
+          attr_reader :type
+          # The URL of the attribution source.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Agent-scoped campaign identifier.
+        attr_reader :campaign_id
+        # Agent-scoped creative identifier.
+        attr_reader :creative_id
+        # Timestamp when the attribution token expires.
+        attr_reader :expires_at
+        # Agent-issued secret to validate the legitimacy of the source of this data.
+        attr_reader :identification_token
+        # Timestamp for when the attribution token was issued.
+        attr_reader :issued_at
+        # Identifier for the attribution agent / affiliate network namespace.
+        attr_reader :provider
+        # Agent-scoped affiliate/publisher identifier.
+        attr_reader :publisher_id
+        # Freeform key/value pairs for additional non-sensitive per-agent data.
+        attr_reader :shared_metadata
+        # Context about where the attribution originated.
+        attr_reader :source
+        # Agent-scoped sub-tracking identifier.
+        attr_reader :sub_id
+        # Whether this is the first or last touchpoint.
+        attr_reader :touchpoint
+
+        def self.inner_class_types
+          @inner_class_types = { source: Source }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The subtotal amount of the requested session.
       attr_reader :amount_subtotal
       # The total amount of the requested session.
@@ -500,6 +549,8 @@ module Stripe
       attr_reader :total_details
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated_at
+      # Affiliate attribution data associated with this requested session.
+      attr_reader :affiliate_attributions
 
       # Confirms a requested session
       def confirm(params = {}, opts = {})
@@ -570,6 +621,7 @@ module Stripe
           risk_details: RiskDetails,
           seller_details: SellerDetails,
           total_details: TotalDetails,
+          affiliate_attributions: AffiliateAttribution,
         }
       end
 

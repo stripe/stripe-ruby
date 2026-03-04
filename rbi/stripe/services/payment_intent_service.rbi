@@ -137,6 +137,19 @@ module Stripe
      }
     def list(params = {}, opts = {}); end
 
+    # Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+    #
+    # When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+    # requires_reauthorization status with amount_capturable set to 0. This endpoint
+    # brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+    #
+    # This is useful for retail and ecommerce scenarios with delayed shipments where
+    # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+    sig {
+      params(intent: String, params: T.any(::Stripe::PaymentIntentReauthorizeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+     }
+    def reauthorize(intent, params = {}, opts = {}); end
+
     # Retrieves the details of a PaymentIntent that has previously been created.
     #
     # You can retrieve a PaymentIntent client-side using a publishable key when the client_secret is in the query string.

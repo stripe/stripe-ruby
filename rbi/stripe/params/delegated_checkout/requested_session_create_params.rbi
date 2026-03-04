@@ -5,6 +5,104 @@
 module Stripe
   module DelegatedCheckout
     class RequestedSessionCreateParams < ::Stripe::RequestParams
+      class AffiliateAttribution < ::Stripe::RequestParams
+        class Source < ::Stripe::RequestParams
+          # The platform where the attribution originated.
+          sig { returns(T.nilable(String)) }
+          def platform; end
+          sig { params(_platform: T.nilable(String)).returns(T.nilable(String)) }
+          def platform=(_platform); end
+          # The type of the attribution source.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          # The URL where the attribution originated.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+          def url=(_url); end
+          sig { params(platform: T.nilable(String), type: String, url: T.nilable(String)).void }
+          def initialize(platform: nil, type: nil, url: nil); end
+        end
+        # Agent-scoped campaign identifier.
+        sig { returns(T.nilable(String)) }
+        def campaign_id; end
+        sig { params(_campaign_id: T.nilable(String)).returns(T.nilable(String)) }
+        def campaign_id=(_campaign_id); end
+        # Agent-scoped creative identifier.
+        sig { returns(T.nilable(String)) }
+        def creative_id; end
+        sig { params(_creative_id: T.nilable(String)).returns(T.nilable(String)) }
+        def creative_id=(_creative_id); end
+        # Timestamp when the attribution token expires.
+        sig { returns(Integer) }
+        def expires_at; end
+        sig { params(_expires_at: Integer).returns(Integer) }
+        def expires_at=(_expires_at); end
+        # Agent-issued secret to validate the legitimacy of the source of this data.
+        sig { returns(String) }
+        def identification_token; end
+        sig { params(_identification_token: String).returns(String) }
+        def identification_token=(_identification_token); end
+        # Timestamp for when the attribution token was issued.
+        sig { returns(Integer) }
+        def issued_at; end
+        sig { params(_issued_at: Integer).returns(Integer) }
+        def issued_at=(_issued_at); end
+        # Identifier for the attribution agent / affiliate network namespace.
+        sig { returns(String) }
+        def provider; end
+        sig { params(_provider: String).returns(String) }
+        def provider=(_provider); end
+        # Agent-scoped affiliate/publisher identifier.
+        sig { returns(T.nilable(String)) }
+        def publisher_id; end
+        sig { params(_publisher_id: T.nilable(String)).returns(T.nilable(String)) }
+        def publisher_id=(_publisher_id); end
+        # Freeform key/value pairs for additional non-sensitive per-agent data.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def shared_metadata; end
+        sig {
+          params(_shared_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def shared_metadata=(_shared_metadata); end
+        # Context about where the attribution originated.
+        sig {
+          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution::Source))
+         }
+        def source; end
+        sig {
+          params(_source: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution::Source)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution::Source))
+         }
+        def source=(_source); end
+        # Agent-scoped sub-tracking identifier.
+        sig { returns(T.nilable(String)) }
+        def sub_id; end
+        sig { params(_sub_id: T.nilable(String)).returns(T.nilable(String)) }
+        def sub_id=(_sub_id); end
+        # Whether this is the first or last touchpoint.
+        sig { returns(String) }
+        def touchpoint; end
+        sig { params(_touchpoint: String).returns(String) }
+        def touchpoint=(_touchpoint); end
+        sig {
+          params(campaign_id: T.nilable(String), creative_id: T.nilable(String), expires_at: Integer, identification_token: String, issued_at: Integer, provider: String, publisher_id: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), source: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution::Source), sub_id: T.nilable(String), touchpoint: String).void
+         }
+        def initialize(
+          campaign_id: nil,
+          creative_id: nil,
+          expires_at: nil,
+          identification_token: nil,
+          issued_at: nil,
+          provider: nil,
+          publisher_id: nil,
+          shared_metadata: nil,
+          source: nil,
+          sub_id: nil,
+          touchpoint: nil
+        ); end
+      end
       class FulfillmentDetails < ::Stripe::RequestParams
         class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -302,8 +400,17 @@ module Stripe
         params(_shared_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def shared_metadata=(_shared_metadata); end
+      # Affiliate attribution data associated with this requested session.
       sig {
-        params(currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String])).void
+        returns(T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution]))
+       }
+      def affiliate_attributions; end
+      sig {
+        params(_affiliate_attributions: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution])).returns(T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution]))
+       }
+      def affiliate_attributions=(_affiliate_attributions); end
+      sig {
+        params(currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), affiliate_attributions: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution])).void
        }
       def initialize(
         currency: nil,
@@ -316,7 +423,8 @@ module Stripe
         payment_method_data: nil,
         seller_details: nil,
         setup_future_usage: nil,
-        shared_metadata: nil
+        shared_metadata: nil,
+        affiliate_attributions: nil
       ); end
     end
   end

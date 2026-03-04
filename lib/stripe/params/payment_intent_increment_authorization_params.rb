@@ -7,7 +7,7 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
 
             def initialize(commodity_code: nil)
@@ -16,7 +16,7 @@ module Stripe
           end
 
           class CardPresent < ::Stripe::RequestParams
-            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+            # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
 
             def initialize(commodity_code: nil)
@@ -61,13 +61,13 @@ module Stripe
               @sold_by = sold_by
             end
           end
-          # This sub-hash contains line item details that are specific to `card` payment method."
+          # This sub-hash contains line item details that are specific to the `card` payment method.
           attr_accessor :card
-          # This sub-hash contains line item details that are specific to `card_present` payment method."
+          # This sub-hash contains line item details that are specific to the `card_present` payment method.
           attr_accessor :card_present
-          # This sub-hash contains line item details that are specific to `klarna` payment method."
+          # This sub-hash contains line item details that are specific to the `klarna` payment method.
           attr_accessor :klarna
-          # This sub-hash contains line item details that are specific to `paypal` payment method."
+          # This sub-hash contains line item details that are specific to the `paypal` payment method.
           attr_accessor :paypal
 
           def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil)
@@ -98,7 +98,7 @@ module Stripe
         attr_accessor :product_code
         # The product name of the line item. Required for L3 rates. At most 1024 characters long.
         #
-        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
+        # For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For PayPal, this field is truncated to 127 characters.
         attr_accessor :product_name
         # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
@@ -163,7 +163,7 @@ module Stripe
       #
       # Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
       #
-      # For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+      # For card payments, Stripe doesn't send line item data to card networks if there's an arithmetic validation error.
       attr_accessor :enforce_arithmetic_validation
       # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
       attr_accessor :line_items

@@ -184,6 +184,13 @@ module Stripe
       params(_card: T.nilable(::Stripe::PaymentMethodUpdateParams::Card)).returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Card))
      }
     def card=(_card); end
+    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    sig { returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)) }
+    def custom; end
+    sig {
+      params(_custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)).returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Custom))
+     }
+    def custom=(_custom); end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end
@@ -210,25 +217,18 @@ module Stripe
       params(_us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount)).returns(T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount))
      }
     def us_bank_account=(_us_bank_account); end
-    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
-    sig { returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)) }
-    def custom; end
     sig {
-      params(_custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)).returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Custom))
-     }
-    def custom=(_custom); end
-    sig {
-      params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodUpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodUpdateParams::Card), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payto: T.nilable(::Stripe::PaymentMethodUpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount), custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom)).void
+      params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodUpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodUpdateParams::Card), custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payto: T.nilable(::Stripe::PaymentMethodUpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount)).void
      }
     def initialize(
       allow_redisplay: nil,
       billing_details: nil,
       card: nil,
+      custom: nil,
       expand: nil,
       metadata: nil,
       payto: nil,
-      us_bank_account: nil,
-      custom: nil
+      us_bank_account: nil
     ); end
   end
 end

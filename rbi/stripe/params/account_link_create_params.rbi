@@ -5,6 +5,13 @@
 module Stripe
   class AccountLinkCreateParams < ::Stripe::RequestParams
     class CollectionOptions < ::Stripe::RequestParams
+      # Specifies whether the platform collects external account information from connected accounts during Connect Onboarding. When set to `true`, the platform only collects external account information if the connected account has capabilities which require it. Some capabilities, such as `treasury`, don't require external account collection. When set to `false`, external account collection is skipped. Defaults to `true`.
+      sig { returns(T.nilable(T::Boolean)) }
+      def external_account_collection; end
+      sig {
+        params(_external_account_collection: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+       }
+      def external_account_collection=(_external_account_collection); end
       # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify `collection_options`, the default value is `currently_due`.
       sig { returns(T.nilable(String)) }
       def fields; end
@@ -15,17 +22,10 @@ module Stripe
       def future_requirements; end
       sig { params(_future_requirements: T.nilable(String)).returns(T.nilable(String)) }
       def future_requirements=(_future_requirements); end
-      # Specifies whether the platform collects external account information from connected accounts during Connect Onboarding. When set to `false`, external account collection is skipped. Defaults to `true`.
-      sig { returns(T.nilable(T::Boolean)) }
-      def external_account_collection; end
       sig {
-        params(_external_account_collection: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+        params(external_account_collection: T.nilable(T::Boolean), fields: T.nilable(String), future_requirements: T.nilable(String)).void
        }
-      def external_account_collection=(_external_account_collection); end
-      sig {
-        params(fields: T.nilable(String), future_requirements: T.nilable(String), external_account_collection: T.nilable(T::Boolean)).void
-       }
-      def initialize(fields: nil, future_requirements: nil, external_account_collection: nil); end
+      def initialize(external_account_collection: nil, fields: nil, future_requirements: nil); end
     end
     # The identifier of the account to create an account link for.
     sig { returns(String) }

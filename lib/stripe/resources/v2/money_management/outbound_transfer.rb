@@ -216,7 +216,7 @@ module Stripe
         attr_reader :status_transitions
         # To which payout method the OutboundTransfer was sent.
         attr_reader :to
-        # A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a “reference number” or something similar.
+        # A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a "reference number" or something similar.
         attr_reader :trace_id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode

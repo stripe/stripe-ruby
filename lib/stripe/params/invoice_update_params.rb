@@ -186,7 +186,7 @@ module Stripe
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
-              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+              # The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
               attr_accessor :country
 
               def initialize(country: nil)
@@ -256,7 +256,7 @@ module Stripe
             attr_accessor :amount_type
             # A description of the mandate or subscription that is meant to be displayed to the customer.
             attr_accessor :description
-            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            # End date of the mandate or subscription.
             attr_accessor :end_date
 
             def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)

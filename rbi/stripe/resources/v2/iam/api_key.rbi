@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Iam
-      # An API key.
+      # An API key is used to authenticate API requests.
       class ApiKey < APIResource
         class ManagedBy < ::Stripe::StripeObject
           class Application < ::Stripe::StripeObject

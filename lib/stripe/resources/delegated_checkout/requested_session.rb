@@ -38,6 +38,37 @@ module Stripe
         end
 
         class FulfillmentOption < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            class DigitalOption < ::Stripe::StripeObject
+              # The description of the digital fulfillment option.
+              attr_reader :description
+              # The digital amount of the digital fulfillment option.
+              attr_reader :digital_amount
+              # The display name of the digital fulfillment option.
+              attr_reader :display_name
+              # The key of the digital fulfillment option.
+              attr_reader :key
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The digital options.
+            attr_reader :digital_options
+
+            def self.inner_class_types
+              @inner_class_types = { digital_options: DigitalOption }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Shipping < ::Stripe::StripeObject
             class ShippingOption < ::Stripe::StripeObject
               # The description of the shipping option.
@@ -76,9 +107,11 @@ module Stripe
           attr_reader :shipping
           # The type of the fulfillment option.
           attr_reader :type
+          # The digital fulfillment option.
+          attr_reader :digital
 
           def self.inner_class_types
-            @inner_class_types = { shipping: Shipping }
+            @inner_class_types = { shipping: Shipping, digital: Digital }
           end
 
           def self.field_remappings
@@ -87,6 +120,19 @@ module Stripe
         end
 
         class SelectedFulfillmentOption < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            # The digital option.
+            attr_reader :digital_option
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Shipping < ::Stripe::StripeObject
             # The shipping option.
             attr_reader :shipping_option
@@ -103,9 +149,11 @@ module Stripe
           attr_reader :shipping
           # The type of the selected fulfillment option.
           attr_reader :type
+          # The digital fulfillment option.
+          attr_reader :digital
 
           def self.inner_class_types
-            @inner_class_types = { shipping: Shipping }
+            @inner_class_types = { shipping: Shipping, digital: Digital }
           end
 
           def self.field_remappings
@@ -204,6 +252,8 @@ module Stripe
         attr_reader :sku_id
         # The per-unit amount of the item before any discounts or taxes are applied.
         attr_reader :unit_amount
+        # The fulfillment type of the line item.
+        attr_reader :fulfillment_type
 
         def self.inner_class_types
           @inner_class_types = { product_details: ProductDetails }
@@ -337,8 +387,30 @@ module Stripe
       end
 
       class SellerDetails < ::Stripe::StripeObject
+        class MarketplaceSellerDetails < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The marketplace seller details.
+        attr_reader :marketplace_seller_details
+        # The network profile of the seller.
+        attr_reader :network_profile
+        # The URL to the seller's privacy notice.
+        attr_reader :privacy_notice_url
+        # The URL to the seller's return policy.
+        attr_reader :return_policy_url
+        # The URL to the seller's store policy.
+        attr_reader :store_policy_url
+        # The URL to the seller's terms of service.
+        attr_reader :terms_of_service_url
+
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { marketplace_seller_details: MarketplaceSellerDetails }
         end
 
         def self.field_remappings
@@ -382,6 +454,55 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class AffiliateAttribution < ::Stripe::StripeObject
+        class Source < ::Stripe::StripeObject
+          # The platform of the attribution source.
+          attr_reader :platform
+          # The type of the attribution source.
+          attr_reader :type
+          # The URL of the attribution source.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Agent-scoped campaign identifier.
+        attr_reader :campaign_id
+        # Agent-scoped creative identifier.
+        attr_reader :creative_id
+        # Timestamp when the attribution token expires.
+        attr_reader :expires_at
+        # Agent-issued secret to validate the legitimacy of the source of this data.
+        attr_reader :identification_token
+        # Timestamp for when the attribution token was issued.
+        attr_reader :issued_at
+        # Identifier for the attribution agent / affiliate network namespace.
+        attr_reader :provider
+        # Agent-scoped affiliate/publisher identifier.
+        attr_reader :publisher_id
+        # Freeform key/value pairs for additional non-sensitive per-agent data.
+        attr_reader :shared_metadata
+        # Context about where the attribution originated.
+        attr_reader :source
+        # Agent-scoped sub-tracking identifier.
+        attr_reader :sub_id
+        # Whether this is the first or last touchpoint.
+        attr_reader :touchpoint
+
+        def self.inner_class_types
+          @inner_class_types = { source: Source }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The subtotal amount of the requested session.
       attr_reader :amount_subtotal
       # The total amount of the requested session.
@@ -400,7 +521,7 @@ module Stripe
       attr_reader :id
       # The line items to be purchased.
       attr_reader :line_item_details
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
@@ -428,6 +549,8 @@ module Stripe
       attr_reader :total_details
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated_at
+      # Affiliate attribution data associated with this requested session.
+      attr_reader :affiliate_attributions
 
       # Confirms a requested session
       def confirm(params = {}, opts = {})
@@ -498,6 +621,7 @@ module Stripe
           risk_details: RiskDetails,
           seller_details: SellerDetails,
           total_details: TotalDetails,
+          affiliate_attributions: AffiliateAttribution,
         }
       end
 

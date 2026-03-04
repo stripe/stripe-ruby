@@ -4,6 +4,9 @@
 module Stripe
   module V2
     module Billing
+      # A License Fee Subscription represents a customer's subscription to a License Fee at a specified quantity. It tracks
+      # the number of units (such as seats or licenses) the customer has subscribed to and bills them according to the service
+      # interval defined in the License Fee and the Billing Cadence.
       class LicenseFeeSubscription < APIResource
         OBJECT_NAME = "v2.billing.license_fee_subscription"
         def self.object_name

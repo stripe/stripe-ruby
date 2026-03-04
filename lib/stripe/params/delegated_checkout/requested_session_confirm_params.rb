@@ -4,6 +4,71 @@
 module Stripe
   module DelegatedCheckout
     class RequestedSessionConfirmParams < ::Stripe::RequestParams
+      class AffiliateAttribution < ::Stripe::RequestParams
+        class Source < ::Stripe::RequestParams
+          # The platform where the attribution originated.
+          attr_accessor :platform
+          # The type of the attribution source.
+          attr_accessor :type
+          # The URL where the attribution originated.
+          attr_accessor :url
+
+          def initialize(platform: nil, type: nil, url: nil)
+            @platform = platform
+            @type = type
+            @url = url
+          end
+        end
+        # Agent-scoped campaign identifier.
+        attr_accessor :campaign_id
+        # Agent-scoped creative identifier.
+        attr_accessor :creative_id
+        # Timestamp when the attribution token expires.
+        attr_accessor :expires_at
+        # Agent-issued secret to validate the legitimacy of the source of this data.
+        attr_accessor :identification_token
+        # Timestamp for when the attribution token was issued.
+        attr_accessor :issued_at
+        # Identifier for the attribution agent / affiliate network namespace.
+        attr_accessor :provider
+        # Agent-scoped affiliate/publisher identifier.
+        attr_accessor :publisher_id
+        # Freeform key/value pairs for additional non-sensitive per-agent data.
+        attr_accessor :shared_metadata
+        # Context about where the attribution originated.
+        attr_accessor :source
+        # Agent-scoped sub-tracking identifier.
+        attr_accessor :sub_id
+        # Whether this is the first or last touchpoint.
+        attr_accessor :touchpoint
+
+        def initialize(
+          campaign_id: nil,
+          creative_id: nil,
+          expires_at: nil,
+          identification_token: nil,
+          issued_at: nil,
+          provider: nil,
+          publisher_id: nil,
+          shared_metadata: nil,
+          source: nil,
+          sub_id: nil,
+          touchpoint: nil
+        )
+          @campaign_id = campaign_id
+          @creative_id = creative_id
+          @expires_at = expires_at
+          @identification_token = identification_token
+          @issued_at = issued_at
+          @provider = provider
+          @publisher_id = publisher_id
+          @shared_metadata = shared_metadata
+          @source = source
+          @sub_id = sub_id
+          @touchpoint = touchpoint
+        end
+      end
+
       class PaymentMethodData < ::Stripe::RequestParams
         class BillingDetails < ::Stripe::RequestParams
           class Address < ::Stripe::RequestParams
@@ -126,12 +191,21 @@ module Stripe
       attr_accessor :payment_method_data
       # Risk details/signals associated with the requested session
       attr_accessor :risk_details
+      # Affiliate attribution data associated with this requested session.
+      attr_accessor :affiliate_attributions
 
-      def initialize(expand: nil, payment_method: nil, payment_method_data: nil, risk_details: nil)
+      def initialize(
+        expand: nil,
+        payment_method: nil,
+        payment_method_data: nil,
+        risk_details: nil,
+        affiliate_attributions: nil
+      )
         @expand = expand
         @payment_method = payment_method
         @payment_method_data = payment_method_data
         @risk_details = risk_details
+        @affiliate_attributions = affiliate_attributions
       end
     end
   end

@@ -100,6 +100,8 @@ module Stripe
         attr_accessor :metadata
         # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         attr_accessor :outbound_payment_quote
+        # The purpose of the OutboundPayment.
+        attr_accessor :purpose
         # Details about the notification settings for the OutboundPayment recipient.
         attr_accessor :recipient_notification
         # The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
@@ -114,6 +116,7 @@ module Stripe
           from: nil,
           metadata: nil,
           outbound_payment_quote: nil,
+          purpose: nil,
           recipient_notification: nil,
           recipient_verification: nil,
           to: nil
@@ -124,6 +127,7 @@ module Stripe
           @from = from
           @metadata = metadata
           @outbound_payment_quote = outbound_payment_quote
+          @purpose = purpose
           @recipient_notification = recipient_notification
           @recipient_verification = recipient_verification
           @to = to

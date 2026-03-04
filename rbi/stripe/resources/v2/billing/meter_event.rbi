@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      # Fix me empty_doc_string.
+      # A Meter Event is a usage record that captures billable activity for usage-based billing. Meter Events contain an event name, timestamp, and payload with customer mapping and usage value, enabling accurate usage tracking and billing.
       class MeterEvent < APIResource
         # The creation time of this meter event.
         sig { returns(String) }

@@ -5,6 +5,9 @@
 module Stripe
   module V2
     module Billing
+      # A License Fee represents a versioned recurring charge for a Licensed Item, typically used for seat-based or quantity-based
+      # pricing. Each License Fee defines the pricing structure (flat unit amount or tiered pricing) and service interval. After
+      # creating a License Fee, you can subscribe customers to it by creating a License Fee Subscription.
       class LicenseFee < APIResource
         class Tier < ::Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.

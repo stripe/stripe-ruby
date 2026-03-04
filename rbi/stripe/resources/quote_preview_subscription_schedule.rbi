@@ -478,6 +478,57 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Settings < ::Stripe::StripeObject
+          class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+            class Custom < ::Stripe::StripeObject
+              # The day of the month the anchor should be. Ranges from 1 to 31.
+              sig { returns(Integer) }
+              def day_of_month; end
+              # The hour of the day the anchor should be. Ranges from 0 to 23.
+              sig { returns(T.nilable(Integer)) }
+              def hour; end
+              # The minute of the hour the anchor should be. Ranges from 0 to 59.
+              sig { returns(T.nilable(Integer)) }
+              def minute; end
+              # The month to start full cycle periods. Ranges from 1 to 12.
+              sig { returns(T.nilable(Integer)) }
+              def month; end
+              # The second of the minute the anchor should be. Ranges from 0 to 59.
+              sig { returns(T.nilable(Integer)) }
+              def second; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field custom
+            sig { returns(T.nilable(Custom)) }
+            def custom; end
+            # The type of service period anchor config.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {custom: Custom}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field service_period_anchor_config
+          sig { returns(ServicePeriodAnchorConfig) }
+          def service_period_anchor_config; end
+          # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+          sig { returns(String) }
+          def start_date; end
+          def self.inner_class_types
+            @inner_class_types = {service_period_anchor_config: ServicePeriodAnchorConfig}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
         def coupon; end
@@ -490,8 +541,11 @@ module Stripe
         # ID of the promotion code to create a new discount for.
         sig { returns(T.nilable(T.any(String, ::Stripe::PromotionCode))) }
         def promotion_code; end
+        # Attribute for field settings
+        sig { returns(T.nilable(Settings)) }
+        def settings; end
         def self.inner_class_types
-          @inner_class_types = {discount_end: DiscountEnd}
+          @inner_class_types = {discount_end: DiscountEnd, settings: Settings}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -555,6 +609,57 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Settings < ::Stripe::StripeObject
+            class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+              class Custom < ::Stripe::StripeObject
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                sig { returns(Integer) }
+                def day_of_month; end
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                sig { returns(T.nilable(Integer)) }
+                def hour; end
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def minute; end
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                sig { returns(T.nilable(Integer)) }
+                def month; end
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def second; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Attribute for field custom
+              sig { returns(T.nilable(Custom)) }
+              def custom; end
+              # The type of service period anchor config.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {custom: Custom}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field service_period_anchor_config
+            sig { returns(ServicePeriodAnchorConfig) }
+            def service_period_anchor_config; end
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+            sig { returns(String) }
+            def start_date; end
+            def self.inner_class_types
+              @inner_class_types = {service_period_anchor_config: ServicePeriodAnchorConfig}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
           def coupon; end
@@ -567,8 +672,11 @@ module Stripe
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(T.any(String, ::Stripe::PromotionCode))) }
           def promotion_code; end
+          # Attribute for field settings
+          sig { returns(T.nilable(Settings)) }
+          def settings; end
           def self.inner_class_types
-            @inner_class_types = {discount_end: DiscountEnd}
+            @inner_class_types = {discount_end: DiscountEnd, settings: Settings}
           end
           def self.field_remappings
             @field_remappings = {}

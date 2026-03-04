@@ -4,6 +4,9 @@
 module Stripe
   module V2
     module Billing
+      # A Pricing Plan Component represents an individual billing element within a Pricing Plan. Components can be Rate Cards
+      # for usage-based charges, License Fees for recurring fixed charges, or Service Actions for recurring credit grants. Each component
+      # is associated with a specific version of the Pricing Plan and defines one aspect of how customers are billed.
       class PricingPlanComponent < APIResource
         OBJECT_NAME = "v2.billing.pricing_plan_component"
         def self.object_name

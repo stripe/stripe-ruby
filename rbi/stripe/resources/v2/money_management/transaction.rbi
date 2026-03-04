@@ -183,7 +183,7 @@ module Stripe
         sig { returns(String) }
         def financial_account; end
         # Details about the Flow object that created the Transaction.
-        sig { returns(Flow) }
+        sig { returns(T.nilable(Flow)) }
         def flow; end
         # Unique identifier for the object.
         sig { returns(String) }

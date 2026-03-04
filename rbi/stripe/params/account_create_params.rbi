@@ -3095,6 +3095,13 @@ module Stripe
         def initialize(hosted_payment_method_save: nil); end
       end
       class Payments < ::Stripe::RequestParams
+        # When you enable this parameter, the customer of this Account receives an email receipt when their payment succeeds. If this parameter isn't set, the default value is `false`.
+        sig { returns(T.nilable(T::Boolean)) }
+        def email_customers_on_successful_payment; end
+        sig {
+          params(_email_customers_on_successful_payment: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+         }
+        def email_customers_on_successful_payment=(_email_customers_on_successful_payment); end
         # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
         sig { returns(T.nilable(String)) }
         def statement_descriptor; end
@@ -3111,9 +3118,10 @@ module Stripe
         sig { params(_statement_descriptor_kanji: T.nilable(String)).returns(T.nilable(String)) }
         def statement_descriptor_kanji=(_statement_descriptor_kanji); end
         sig {
-          params(statement_descriptor: T.nilable(String), statement_descriptor_kana: T.nilable(String), statement_descriptor_kanji: T.nilable(String)).void
+          params(email_customers_on_successful_payment: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), statement_descriptor_kana: T.nilable(String), statement_descriptor_kanji: T.nilable(String)).void
          }
         def initialize(
+          email_customers_on_successful_payment: nil,
           statement_descriptor: nil,
           statement_descriptor_kana: nil,
           statement_descriptor_kanji: nil
@@ -3280,6 +3288,30 @@ module Stripe
          }
         def initialize(additional_files: nil, goods_type: nil, site: nil); end
       end
+      class SmartDisputes < ::Stripe::RequestParams
+        class AutoRespond < ::Stripe::RequestParams
+          # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+          sig { returns(T.nilable(String)) }
+          def preference; end
+          sig { params(_preference: T.nilable(String)).returns(T.nilable(String)) }
+          def preference=(_preference); end
+          sig { params(preference: T.nilable(String)).void }
+          def initialize(preference: nil); end
+        end
+        # Smart Disputes auto-respond settings for the account.
+        sig {
+          returns(T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes::AutoRespond))
+         }
+        def auto_respond; end
+        sig {
+          params(_auto_respond: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes::AutoRespond)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes::AutoRespond))
+         }
+        def auto_respond=(_auto_respond); end
+        sig {
+          params(auto_respond: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes::AutoRespond)).void
+         }
+        def initialize(auto_respond: nil); end
+      end
       class TaxForms < ::Stripe::RequestParams
         # Whether the account opted out of receiving their tax forms by postal delivery.
         sig { returns(T.nilable(T::Boolean)) }
@@ -3395,6 +3427,13 @@ module Stripe
         params(_paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments))
        }
       def paypay_payments=(_paypay_payments); end
+      # Settings specific to the account's use of Smart Disputes.
+      sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes)) }
+      def smart_disputes; end
+      sig {
+        params(_smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes))
+       }
+      def smart_disputes=(_smart_disputes); end
       # Settings specific to the account's tax forms.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms)) }
       def tax_forms; end
@@ -3410,7 +3449,7 @@ module Stripe
        }
       def treasury=(_treasury); end
       sig {
-        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury)).void
+        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3423,6 +3462,7 @@ module Stripe
         payments: nil,
         payouts: nil,
         paypay_payments: nil,
+        smart_disputes: nil,
         tax_forms: nil,
         treasury: nil
       ); end

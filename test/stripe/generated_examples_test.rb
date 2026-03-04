@@ -9006,7 +9006,7 @@ module Stripe
     end
     should "Test v2 core account link post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links").to_return(
-        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","object":"v2.core.account_link","url":"url","use_case":{"type":"account_onboarding"},"livemode":true}',
+        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","object":"v2.core.account_link","url":"url","use_case":{"type":"recipient_onboarding"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9014,7 +9014,7 @@ module Stripe
       account_link = client.v2.core.account_links.create({
         account: "account",
         use_case: {
-          type: "account_onboarding",
+          type: "recipient_onboarding",
           account_onboarding: {
             collection_options: {
               fields: "eventually_due",
@@ -9030,6 +9030,24 @@ module Stripe
               future_requirements: "include",
             },
             configurations: ["storer"],
+            refresh_url: "refresh_url",
+            return_url: "return_url",
+          },
+          recipient_onboarding: {
+            collection_options: {
+              fields: "eventually_due",
+              future_requirements: "include",
+            },
+            configurations: ["recipient"],
+            refresh_url: "refresh_url",
+            return_url: "return_url",
+          },
+          recipient_update: {
+            collection_options: {
+              fields: "eventually_due",
+              future_requirements: "include",
+            },
+            configurations: ["recipient"],
             refresh_url: "refresh_url",
             return_url: "return_url",
           },
@@ -10082,7 +10100,7 @@ module Stripe
     end
     should "Test v2 money management transaction get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions").to_return(
-        body: '{"data":[{"amount":{"value":111972721,"currency":"usd"},"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"category":"issuing_dispute_provisional_credit_reversal","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"adjustment"},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount":{"value":111972721,"currency":"usd"},"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"category":"received_debit_reversal","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10095,7 +10113,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
       ).to_return(
-        body: '{"amount":{"value":111972721,"currency":"usd"},"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"category":"issuing_dispute_provisional_credit_reversal","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"adjustment"},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}',
+        body: '{"amount":{"value":111972721,"currency":"usd"},"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"category":"received_debit_reversal","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10108,7 +10126,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries"
       ).to_return(
-        body: '{"data":[{"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"issuing_dispute_provisional_credit_reversal","financial_account":"financial_account","flow":{"type":"adjustment"}},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"received_debit_reversal","financial_account":"financial_account"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10121,7 +10139,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries/id_123"
       ).to_return(
-        body: '{"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"issuing_dispute_provisional_credit_reversal","financial_account":"financial_account","flow":{"type":"adjustment"}},"livemode":true}',
+        body: '{"balance_impact":{"available":{"value":111972721,"currency":"usd"},"inbound_pending":{"value":111972721,"currency":"usd"},"outbound_pending":{"value":111972721,"currency":"usd"}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"received_debit_reversal","financial_account":"financial_account"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

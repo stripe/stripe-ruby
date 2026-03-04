@@ -52,7 +52,7 @@ module Stripe
     attr_reader :as_of
     # BalanceEntry contain information about every individual balance type of a card.
     attr_reader :balance
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

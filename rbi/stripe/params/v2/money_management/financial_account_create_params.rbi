@@ -7,13 +7,20 @@ module Stripe
     module MoneyManagement
       class FinancialAccountCreateParams < ::Stripe::RequestParams
         class Storage < ::Stripe::RequestParams
+          # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
+          sig { returns(T.nilable(String)) }
+          def funds_usage_type; end
+          sig { params(_funds_usage_type: T.nilable(String)).returns(T.nilable(String)) }
+          def funds_usage_type=(_funds_usage_type); end
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
           def holds_currencies; end
           sig { params(_holds_currencies: T::Array[String]).returns(T::Array[String]) }
           def holds_currencies=(_holds_currencies); end
-          sig { params(holds_currencies: T::Array[String]).void }
-          def initialize(holds_currencies: nil); end
+          sig {
+            params(funds_usage_type: T.nilable(String), holds_currencies: T::Array[String]).void
+           }
+          def initialize(funds_usage_type: nil, holds_currencies: nil); end
         end
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }

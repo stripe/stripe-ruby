@@ -630,6 +630,19 @@ module Stripe
           end
         end
 
+        class Reauthorization < ::Stripe::StripeObject
+          # Indicates whether or not the reauthorization feature is supported.
+          attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class ThreeDSecure < ::Stripe::StripeObject
           # For authenticated transactions: how the customer was authenticated by
           # the issuing bank.
@@ -947,6 +960,10 @@ module Stripe
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         attr_reader :wallet
+        # Whether the PaymentIntent can be reauthorized or not.
+        attr_reader :reauthorization
+        # The time at which the associated PaymentIntent will transition to a terminal state if it is not reauthorized.
+        attr_reader :reauthorize_before
 
         def self.inner_class_types
           @inner_class_types = {
@@ -962,6 +979,7 @@ module Stripe
             partial_authorization: PartialAuthorization,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
+            reauthorization: Reauthorization,
           }
         end
 
@@ -976,6 +994,19 @@ module Stripe
           attr_reader :stored_at
           # The method used to process this payment method offline. Only deferred is allowed.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Reauthorization < ::Stripe::StripeObject
+          # Indicates whether or not the reauthorization feature is supported.
+          attr_reader :status
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -1063,6 +1094,8 @@ module Stripe
         attr_reader :issuer
         # The last four digits of the card.
         attr_reader :last4
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -1075,13 +1108,24 @@ module Stripe
         attr_reader :preferred_locales
         # How card details were read in this transaction.
         attr_reader :read_method
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         attr_reader :receipt
         # Attribute for field wallet
         attr_reader :wallet
+        # Whether the PaymentIntent can be reauthorized or not.
+        attr_reader :reauthorization
+        # The time at which the associated PaymentIntent will transition to a terminal state if it is not reauthorized.
+        attr_reader :reauthorize_before
 
         def self.inner_class_types
-          @inner_class_types = { offline: Offline, receipt: Receipt, wallet: Wallet }
+          @inner_class_types = {
+            offline: Offline,
+            receipt: Receipt,
+            wallet: Wallet,
+            reauthorization: Reauthorization,
+          }
         end
 
         def self.field_remappings
@@ -1317,6 +1361,8 @@ module Stripe
         attr_reader :issuer
         # The last four digits of the card.
         attr_reader :last4
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -1325,6 +1371,8 @@ module Stripe
         attr_reader :preferred_locales
         # How card details were read in this transaction.
         attr_reader :read_method
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         attr_reader :receipt
 

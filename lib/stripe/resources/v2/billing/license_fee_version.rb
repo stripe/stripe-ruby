@@ -4,6 +4,9 @@
 module Stripe
   module V2
     module Billing
+      # A License Fee Version represents a specific configuration of a License Fee at a point in time. Versions are created
+      # automatically when you update the pricing structure of a License Fee, allowing you to track changes and manage which
+      # version is active for new subscriptions. Each version maintains the pricing details including unit amounts and tiers.
       class LicenseFeeVersion < APIResource
         OBJECT_NAME = "v2.billing.license_fee_version"
         def self.object_name

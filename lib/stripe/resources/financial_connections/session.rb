@@ -48,6 +48,21 @@ module Stripe
         end
       end
 
+      class Hosted < ::Stripe::StripeObject
+        # How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
+        attr_reader :delivery_method
+        # The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
+        attr_reader :return_url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Limits < ::Stripe::StripeObject
         # The number of accounts that can be linked in this Session.
         attr_reader :accounts
@@ -127,21 +142,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-
-      class Hosted < ::Stripe::StripeObject
-        # How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
-        attr_reader :delivery_method
-        # The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
-        attr_reader :return_url
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # The account holder for whom accounts are collected in this session.
       attr_reader :account_holder
       # The accounts that were collected as part of this Session.
@@ -150,6 +150,8 @@ module Stripe
       attr_reader :client_secret
       # Attribute for field filters
       attr_reader :filters
+      # Settings for the Hosted UI mode.
+      attr_reader :hosted
       # Unique identifier for the object.
       attr_reader :id
       # Attribute for field limits
@@ -174,8 +176,6 @@ module Stripe
       attr_reader :status
       # Attribute for field status_details
       attr_reader :status_details
-      # Settings for the Hosted UI mode.
-      attr_reader :hosted
       # The UI mode for this session.
       attr_reader :ui_mode
       # The hosted URL for this Session. Redirect customers to this URL to take them to the hosted authentication flow. This value is only present when the Session is active and the `ui_mode` is `hosted`.
@@ -195,12 +195,12 @@ module Stripe
         @inner_class_types = {
           account_holder: AccountHolder,
           filters: Filters,
+          hosted: Hosted,
           limits: Limits,
           manual_entry: ManualEntry,
           relink_options: RelinkOptions,
           relink_result: RelinkResult,
           status_details: StatusDetails,
-          hosted: Hosted,
         }
       end
 

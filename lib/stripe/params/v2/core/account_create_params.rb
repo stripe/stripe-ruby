@@ -999,6 +999,23 @@ module Stripe
               end
             end
 
+            class SmartDisputes < ::Stripe::RequestParams
+              class AutoRespond < ::Stripe::RequestParams
+                # The preference for Smart Disputes auto-respond.
+                attr_accessor :preference
+
+                def initialize(preference: nil)
+                  @preference = preference
+                end
+              end
+              # Settings for Smart Disputes auto_respond.
+              attr_accessor :auto_respond
+
+              def initialize(auto_respond: nil)
+                @auto_respond = auto_respond
+              end
+            end
+
             class StatementDescriptor < ::Stripe::RequestParams
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               attr_accessor :descriptor
@@ -1076,6 +1093,8 @@ module Stripe
             attr_accessor :mcc
             # Settings for the default text that appears on statements for language variations.
             attr_accessor :script_statement_descriptor
+            # Settings used for Smart Disputes.
+            attr_accessor :smart_disputes
             # Statement descriptor.
             attr_accessor :statement_descriptor
             # Publicly available contact information for sending support issues to.
@@ -1089,6 +1108,7 @@ module Stripe
               konbini_payments: nil,
               mcc: nil,
               script_statement_descriptor: nil,
+              smart_disputes: nil,
               statement_descriptor: nil,
               support: nil
             )
@@ -1099,6 +1119,7 @@ module Stripe
               @konbini_payments = konbini_payments
               @mcc = mcc
               @script_statement_descriptor = script_statement_descriptor
+              @smart_disputes = smart_disputes
               @statement_descriptor = statement_descriptor
               @support = support
             end
@@ -1212,6 +1233,31 @@ module Stripe
 
           class Storer < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
+              class Consumer < ::Stripe::RequestParams
+                class HoldsCurrencies < ::Stripe::RequestParams
+                  class Usd < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can hold storage-type funds on Stripe in USD in a consumer financial account.
+                  attr_accessor :usd
+
+                  def initialize(usd: nil)
+                    @usd = usd
+                  end
+                end
+                # Can hold storage-type funds on Stripe in a consumer financial account.
+                attr_accessor :holds_currencies
+
+                def initialize(holds_currencies: nil)
+                  @holds_currencies = holds_currencies
+                end
+              end
+
               class FinancialAddresses < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -1409,6 +1455,8 @@ module Stripe
                   @financial_accounts = financial_accounts
                 end
               end
+              # Can provision a consumer financial account on Stripe.
+              attr_accessor :consumer
               # Can provision a financial address to credit/debit a FinancialAccount.
               attr_accessor :financial_addresses
               # Can hold storage-type funds on Stripe.
@@ -1421,12 +1469,14 @@ module Stripe
               attr_accessor :outbound_transfers
 
               def initialize(
+                consumer: nil,
                 financial_addresses: nil,
                 holds_currencies: nil,
                 inbound_transfers: nil,
                 outbound_payments: nil,
                 outbound_transfers: nil
               )
+                @consumer = consumer
                 @financial_addresses = financial_addresses
                 @holds_currencies = holds_currencies
                 @inbound_transfers = inbound_transfers

@@ -938,6 +938,8 @@ module Stripe
       end
 
       class Payments < ::Stripe::StripeObject
+        # When enabled, the customer of this Account will receive an email receipt when their payment is successful. If this parameter is not set, the default value is `false`.
+        attr_reader :email_customers_on_successful_payment
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         attr_reader :statement_descriptor
         # The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
@@ -1086,6 +1088,33 @@ module Stripe
         end
       end
 
+      class SmartDisputes < ::Stripe::StripeObject
+        class AutoRespond < ::Stripe::StripeObject
+          # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+          attr_reader :preference
+          # The effective value for auto-respond. Can be 'on' or 'off'.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field auto_respond
+        attr_reader :auto_respond
+
+        def self.inner_class_types
+          @inner_class_types = { auto_respond: AutoRespond }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class TaxForms < ::Stripe::StripeObject
         # Whether the account opted out of receiving their tax forms by postal delivery.
         attr_reader :consented_to_paperless_delivery
@@ -1149,6 +1178,8 @@ module Stripe
       attr_reader :paypay_payments
       # Attribute for field sepa_debit_payments
       attr_reader :sepa_debit_payments
+      # Attribute for field smart_disputes
+      attr_reader :smart_disputes
       # Attribute for field tax_forms
       attr_reader :tax_forms
       # Attribute for field treasury
@@ -1167,6 +1198,7 @@ module Stripe
           payouts: Payouts,
           paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
+          smart_disputes: SmartDisputes,
           tax_forms: TaxForms,
           treasury: Treasury,
         }

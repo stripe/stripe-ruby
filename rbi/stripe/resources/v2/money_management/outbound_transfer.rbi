@@ -221,7 +221,7 @@ module Stripe
         # To which payout method the OutboundTransfer was sent.
         sig { returns(To) }
         def to; end
-        # A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a “reference number” or something similar.
+        # A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a "reference number" or something similar.
         sig { returns(TraceId) }
         def trace_id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

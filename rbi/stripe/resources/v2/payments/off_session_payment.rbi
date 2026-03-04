@@ -5,7 +5,12 @@
 module Stripe
   module V2
     module Payments
-      # OffSessionPayment resource.
+      # An OffSessionPayment allows you to create your own payment flow for recurring and unscheduled payments. In a single API request, you can
+      # initiate a payment and leverage Stripe's AI-powered [Smart Retries](https://docs.stripe.com/payments/off-session-payments/smart-retries)
+      # to choose the best times to retry failures to increase the chance of a successful payment.
+      # To properly interface with OffSessionPayments, we recommend setting up an event destination to listen to webhook notifications, as the
+      # OffSessionPayment will transition through its lifecycle asynchronously.
+      # Related guide: [Off-Session Payments API](https://docs.stripe.com/payments/off-session-payments).
       class OffSessionPayment < APIResource
         class AmountCapturable < ::Stripe::StripeObject
           # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).

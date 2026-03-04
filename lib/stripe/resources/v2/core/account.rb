@@ -4,7 +4,9 @@
 module Stripe
   module V2
     module Core
-      # A V2 Account is a representation of a company or individual that a Stripe user does business with. Accounts contain the contact details, Legal Entity information, and configuration required to enable the Account for use across Stripe products.
+      # An Account v2 object represents a company, individual, or other entity that interacts with a platform on Stripe. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
+      # The Accounts v2 API supports both the Global Payouts preview feature and the Connect-Billing integration preview feature. However, a particular Account can only access one of them.
+      # The Connect-Billing integration preview feature allows an Account v2 to pay subscription fees to a platform. An Account v1 required a separate Customer object to pay subscription fees.
       class Account < APIResource
         OBJECT_NAME = "v2.core.account"
         def self.object_name
@@ -2147,6 +2149,33 @@ module Stripe
               end
             end
 
+            class SmartDisputes < ::Stripe::StripeObject
+              class AutoRespond < ::Stripe::StripeObject
+                # The preference for automatic dispute responses.
+                attr_reader :preference
+                # The effective value for automatic dispute responses.
+                attr_reader :value
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Settings for Smart Disputes auto_respond.
+              attr_reader :auto_respond
+
+              def self.inner_class_types
+                @inner_class_types = { auto_respond: AutoRespond }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class StatementDescriptor < ::Stripe::StripeObject
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               attr_reader :descriptor
@@ -2222,6 +2251,8 @@ module Stripe
             attr_reader :script_statement_descriptor
             # Settings for SEPA Direct Debit payments.
             attr_reader :sepa_debit_payments
+            # Settings for Smart Disputes automatic response feature.
+            attr_reader :smart_disputes
             # Statement descriptor.
             attr_reader :statement_descriptor
             # Publicly available contact information for sending support issues to.
@@ -2236,6 +2267,7 @@ module Stripe
                 konbini_payments: KonbiniPayments,
                 script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
+                smart_disputes: SmartDisputes,
                 statement_descriptor: StatementDescriptor,
                 support: Support,
               }
@@ -2538,6 +2570,59 @@ module Stripe
 
           class Storer < ::Stripe::StripeObject
             class Capabilities < ::Stripe::StripeObject
+              class Consumer < ::Stripe::StripeObject
+                class HoldsCurrencies < ::Stripe::StripeObject
+                  class Usd < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can hold storage-type funds on Stripe consumer FAs in USD.
+                  attr_reader :usd
+
+                  def self.inner_class_types
+                    @inner_class_types = { usd: Usd }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can hold storage-type funds on Stripe consumer FAs in USD.
+                attr_reader :holds_currencies
+
+                def self.inner_class_types
+                  @inner_class_types = { holds_currencies: HoldsCurrencies }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class FinancialAddresses < ::Stripe::StripeObject
                 class BankAccounts < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
@@ -3030,6 +3115,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              # Hash containing capabilities related to consumer financial accounts.
+              attr_reader :consumer
               # Can provision a financial address to credit/debit a FinancialAccount.
               attr_reader :financial_addresses
               # Can hold storage-type funds on Stripe.
@@ -3043,6 +3130,7 @@ module Stripe
 
               def self.inner_class_types
                 @inner_class_types = {
+                  consumer: Consumer,
                   financial_addresses: FinancialAddresses,
                   holds_currencies: HoldsCurrencies,
                   inbound_transfers: InboundTransfers,

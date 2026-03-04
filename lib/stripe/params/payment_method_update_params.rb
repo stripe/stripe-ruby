@@ -121,6 +121,8 @@ module Stripe
     attr_accessor :billing_details
     # If this is a `card` PaymentMethod, this hash contains the user's card details.
     attr_accessor :card
+    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    attr_accessor :custom
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -129,27 +131,25 @@ module Stripe
     attr_accessor :payto
     # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
     attr_accessor :us_bank_account
-    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
-    attr_accessor :custom
 
     def initialize(
       allow_redisplay: nil,
       billing_details: nil,
       card: nil,
+      custom: nil,
       expand: nil,
       metadata: nil,
       payto: nil,
-      us_bank_account: nil,
-      custom: nil
+      us_bank_account: nil
     )
       @allow_redisplay = allow_redisplay
       @billing_details = billing_details
       @card = card
+      @custom = custom
       @expand = expand
       @metadata = metadata
       @payto = payto
       @us_bank_account = us_bank_account
-      @custom = custom
     end
   end
 end

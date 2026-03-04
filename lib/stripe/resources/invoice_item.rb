@@ -199,21 +199,21 @@ module Stripe
       attr_reader :license_fee_details
       # Attribute for field price_details
       attr_reader :price_details
+      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
+      attr_reader :rate_card_custom_pricing_unit_overage_rate_details
       # Attribute for field rate_card_rate_details
       attr_reader :rate_card_rate_details
       # The type of the pricing details.
       attr_reader :type
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       attr_reader :unit_amount_decimal
-      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
-      attr_reader :rate_card_custom_pricing_unit_overage_rate_details
 
       def self.inner_class_types
         @inner_class_types = {
           license_fee_details: LicenseFeeDetails,
           price_details: PriceDetails,
-          rate_card_rate_details: RateCardRateDetails,
           rate_card_custom_pricing_unit_overage_rate_details: RateCardCustomPricingUnitOverageRateDetails,
+          rate_card_rate_details: RateCardRateDetails,
         }
       end
 

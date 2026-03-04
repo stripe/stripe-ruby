@@ -795,6 +795,9 @@ module Stripe
       # Attribute for field issuing_cards_list
       sig { returns(IssuingCardsList) }
       def issuing_cards_list; end
+      # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
+      sig { returns(T.nilable(NetworkCostPassthroughReport)) }
+      def network_cost_passthrough_report; end
       # Attribute for field notification_banner
       sig { returns(NotificationBanner) }
       def notification_banner; end
@@ -822,9 +825,6 @@ module Stripe
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
-      # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
-      sig { returns(T.nilable(NetworkCostPassthroughReport)) }
-      def network_cost_passthrough_report; end
       # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
       sig { returns(T.nilable(TerminalHardwareOrders)) }
       def terminal_hardware_orders; end
@@ -848,6 +848,7 @@ module Stripe
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
+          network_cost_passthrough_report: NetworkCostPassthroughReport,
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
           payment_disputes: PaymentDisputes,
@@ -857,7 +858,6 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
-          network_cost_passthrough_report: NetworkCostPassthroughReport,
           terminal_hardware_orders: TerminalHardwareOrders,
           terminal_hardware_shop: TerminalHardwareShop,
         }

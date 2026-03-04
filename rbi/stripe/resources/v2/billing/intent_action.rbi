@@ -5,6 +5,9 @@
 module Stripe
   module V2
     module Billing
+      # A Billing Intent Action represents a specific operation within a Billing Intent, such as subscribing to a Pricing Plan,
+      # modifying a subscription's quantity, or deactivating service. Each action has a specific type and associated details that
+      # define what change will be made when the Intent is committed.
       class IntentAction < APIResource
         class Apply < ::Stripe::StripeObject
           class EffectiveAt < ::Stripe::StripeObject
@@ -192,7 +195,7 @@ module Stripe
             class Overrides < ::Stripe::StripeObject
               class PartialPeriodBehavior < ::Stripe::StripeObject
                 class LicenseFee < ::Stripe::StripeObject
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
                   sig { returns(String) }
                   def credit_proration_behavior; end
                   def self.inner_class_types
@@ -202,10 +205,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Type of the partial period behavior override.
+                # The type of behavior to override.
                 sig { returns(String) }
                 def type; end
-                # Override for the license fee.
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
                 def self.inner_class_types
@@ -215,7 +218,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Override for the partial period behavior.
+              # Configurations for behaviors when the action takes effect during the service period.
               sig { returns(T::Array[PartialPeriodBehavior]) }
               def partial_period_behaviors; end
               def self.inner_class_types
@@ -225,7 +228,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Allows users to override the partial period behavior.
+            # Configurations for overriding behaviors related to the subscription.
             sig { returns(T.nilable(Overrides)) }
             def overrides; end
             # ID of the Pricing Plan Subscription to deactivate.
@@ -300,10 +303,10 @@ module Stripe
             class Overrides < ::Stripe::StripeObject
               class PartialPeriodBehavior < ::Stripe::StripeObject
                 class LicenseFee < ::Stripe::StripeObject
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                   sig { returns(String) }
                   def credit_proration_behavior; end
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                   sig { returns(String) }
                   def debit_proration_behavior; end
                   def self.inner_class_types
@@ -313,10 +316,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Type of the partial period behavior override.
+                # The type of behavior to override.
                 sig { returns(String) }
                 def type; end
-                # Override for the license fee.
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
                 def self.inner_class_types
@@ -326,7 +329,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Override for the partial period behavior.
+              # Configurations for behaviors when the action takes effect during the service period.
               sig { returns(T::Array[PartialPeriodBehavior]) }
               def partial_period_behaviors; end
               def self.inner_class_types
@@ -345,7 +348,7 @@ module Stripe
             # Version of the Pricing Plan to use.
             sig { returns(String) }
             def new_pricing_plan_version; end
-            # Allows users to override the partial period behavior.
+            # Configurations for overriding behaviors related to the subscription.
             sig { returns(T.nilable(Overrides)) }
             def overrides; end
             # ID of the Pricing Plan Subscription to modify.
@@ -450,7 +453,7 @@ module Stripe
             class Overrides < ::Stripe::StripeObject
               class PartialPeriodBehavior < ::Stripe::StripeObject
                 class LicenseFee < ::Stripe::StripeObject
-                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
                   sig { returns(String) }
                   def debit_proration_behavior; end
                   def self.inner_class_types
@@ -460,10 +463,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # Type of the partial period behavior override.
+                # The type of behavior to override.
                 sig { returns(String) }
                 def type; end
-                # Override for the license fee.
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
                 def self.inner_class_types
@@ -473,7 +476,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Override for the partial period behavior.
+              # Configurations for behaviors when the action takes effect during the service period.
               sig { returns(T::Array[PartialPeriodBehavior]) }
               def partial_period_behaviors; end
               def self.inner_class_types
@@ -489,7 +492,7 @@ module Stripe
             # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             sig { returns(T.nilable(T::Hash[String, String])) }
             def metadata; end
-            # Allows users to override the partial period behavior.
+            # Configurations for overriding behaviors related to the subscription.
             sig { returns(T.nilable(Overrides)) }
             def overrides; end
             # ID of the Pricing Plan to subscribe to.

@@ -6,10 +6,13 @@ module Stripe
     module MoneyManagement
       class FinancialAccountCreateParams < ::Stripe::RequestParams
         class Storage < ::Stripe::RequestParams
+          # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
+          attr_accessor :funds_usage_type
           # The currencies that this FinancialAccount can hold.
           attr_accessor :holds_currencies
 
-          def initialize(holds_currencies: nil)
+          def initialize(funds_usage_type: nil, holds_currencies: nil)
+            @funds_usage_type = funds_usage_type
             @holds_currencies = holds_currencies
           end
         end

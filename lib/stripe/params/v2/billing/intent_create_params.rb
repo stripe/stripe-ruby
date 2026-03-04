@@ -154,16 +154,16 @@ module Stripe
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
                   class LicenseFee < ::Stripe::RequestParams
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
                     attr_accessor :credit_proration_behavior
 
                     def initialize(credit_proration_behavior: nil)
                       @credit_proration_behavior = credit_proration_behavior
                     end
                   end
-                  # Type of the partial period behavior override.
+                  # The type of behavior to override.
                   attr_accessor :type
-                  # Override for the license fee.
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
 
                   def initialize(type: nil, license_fee: nil)
@@ -171,14 +171,14 @@ module Stripe
                     @license_fee = license_fee
                   end
                 end
-                # Override for the partial period behavior.
+                # Configurations for behaviors when the action takes effect during the service period.
                 attr_accessor :partial_period_behaviors
 
                 def initialize(partial_period_behaviors: nil)
                   @partial_period_behaviors = partial_period_behaviors
                 end
               end
-              # Allows users to override the partial period behavior.
+              # Configurations for overriding behaviors related to the subscription.
               attr_accessor :overrides
               # ID of the pricing plan subscription to deactivate.
               attr_accessor :pricing_plan_subscription
@@ -190,7 +190,7 @@ module Stripe
             end
             # Details about why the cancellation is being requested.
             attr_accessor :cancellation_details
-            # Allows users to override the collect at behavior.
+            # When the invoice will be collected. If not specified, the default behavior is on_effective_at.
             attr_accessor :collect_at
             # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
@@ -246,9 +246,9 @@ module Stripe
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
                   class LicenseFee < ::Stripe::RequestParams
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                     attr_accessor :credit_proration_behavior
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                     attr_accessor :debit_proration_behavior
 
                     def initialize(credit_proration_behavior: nil, debit_proration_behavior: nil)
@@ -256,9 +256,9 @@ module Stripe
                       @debit_proration_behavior = debit_proration_behavior
                     end
                   end
-                  # Type of the partial period behavior override.
+                  # The type of behavior to override.
                   attr_accessor :type
-                  # Override for the license fee.
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
 
                   def initialize(type: nil, license_fee: nil)
@@ -266,7 +266,7 @@ module Stripe
                     @license_fee = license_fee
                   end
                 end
-                # Override for the partial period behavior.
+                # Configurations for behaviors when the action takes effect during the service period.
                 attr_accessor :partial_period_behaviors
 
                 def initialize(partial_period_behaviors: nil)
@@ -279,7 +279,7 @@ module Stripe
               attr_accessor :new_pricing_plan
               # The ID of the new Pricing Plan Version to use.
               attr_accessor :new_pricing_plan_version
-              # Allows users to override the partial period behavior.
+              # Configurations for overriding behaviors related to the subscription.
               attr_accessor :overrides
               # The ID of the Pricing Plan Subscription to modify.
               attr_accessor :pricing_plan_subscription
@@ -298,7 +298,7 @@ module Stripe
                 @pricing_plan_subscription = pricing_plan_subscription
               end
             end
-            # Allows users to override the collect at behavior.
+            # When the invoice will be collected. If not specified, the default behavior is next_billing_date.
             attr_accessor :collect_at
             # When the modify action will take effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
@@ -383,16 +383,16 @@ module Stripe
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
                   class LicenseFee < ::Stripe::RequestParams
-                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
                     attr_accessor :debit_proration_behavior
 
                     def initialize(debit_proration_behavior: nil)
                       @debit_proration_behavior = debit_proration_behavior
                     end
                   end
-                  # Type of the partial period behavior override.
+                  # The type of behavior to override.
                   attr_accessor :type
-                  # Override for the license fee.
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
 
                   def initialize(type: nil, license_fee: nil)
@@ -400,7 +400,7 @@ module Stripe
                     @license_fee = license_fee
                   end
                 end
-                # Override for the partial period behavior.
+                # Configurations for behaviors when the action takes effect during the service period.
                 attr_accessor :partial_period_behaviors
 
                 def initialize(partial_period_behaviors: nil)
@@ -411,7 +411,7 @@ module Stripe
               attr_accessor :component_configurations
               # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               attr_accessor :metadata
-              # Allows users to override the partial period behavior.
+              # Configurations for overriding behaviors related to the subscription.
               attr_accessor :overrides
               # ID of the Pricing Plan to subscribe to.
               attr_accessor :pricing_plan
@@ -462,7 +462,7 @@ module Stripe
                 @metadata = metadata
               end
             end
-            # Allows users to override the collect at behavior.
+            # When the invoice will be collected. If not specified, defaults to on_effective_at.
             attr_accessor :collect_at
             # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at

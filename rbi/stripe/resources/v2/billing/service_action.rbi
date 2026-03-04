@@ -5,6 +5,7 @@
 module Stripe
   module V2
     module Billing
+      # Service Actions represent actions applied during service assessment periods, such as granting credits to a customer.
       class ServiceAction < APIResource
         class CreditGrant < ::Stripe::StripeObject
           class Amount < ::Stripe::StripeObject

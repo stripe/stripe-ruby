@@ -135,7 +135,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The value that will pre-fill on the payment page.
+        # The value that pre-fills on the payment page.
         attr_reader :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         attr_reader :options
@@ -165,7 +165,7 @@ module Stripe
       end
 
       class Numeric < ::Stripe::StripeObject
-        # The value that will pre-fill the field on the payment page.
+        # The value that pre-fills the field on the payment page.
         attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
@@ -182,7 +182,7 @@ module Stripe
       end
 
       class Text < ::Stripe::StripeObject
-        # The value that will pre-fill the field on the payment page.
+        # The value that pre-fills the field on the payment page.
         attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
@@ -223,7 +223,7 @@ module Stripe
 
     class CustomText < ::Stripe::StripeObject
       class AfterSubmit < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         attr_reader :message
 
         def self.inner_class_types
@@ -236,7 +236,7 @@ module Stripe
       end
 
       class ShippingAddress < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         attr_reader :message
 
         def self.inner_class_types
@@ -249,7 +249,7 @@ module Stripe
       end
 
       class Submit < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         attr_reader :message
 
         def self.inner_class_types
@@ -262,7 +262,7 @@ module Stripe
       end
 
       class TermsOfServiceAcceptance < ::Stripe::StripeObject
-        # Text may be up to 1200 characters in length.
+        # Text can be up to 1200 characters in length.
         attr_reader :message
 
         def self.inner_class_types

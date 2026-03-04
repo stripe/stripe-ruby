@@ -146,7 +146,7 @@ module Stripe
           sig { returns(String) }
           def financial_account; end
           # Details about the Flow object that created the Transaction.
-          sig { returns(Flow) }
+          sig { returns(T.nilable(Flow)) }
           def flow; end
           def self.inner_class_types
             @inner_class_types = {flow: Flow}

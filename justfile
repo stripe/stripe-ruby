@@ -5,6 +5,9 @@ import? '../sdk-codegen/utils.just'
 _default:
     just --list --unsorted
 
+# ⭐ run lint, typecheck, and tests to prepare for CI
+prepare: lint typecheck test
+
 install *args:
     bundle install {{ if is_dependency() == "true" {"--quiet"} else {"--verbose"} }} {{ args }}
 

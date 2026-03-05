@@ -841,7 +841,7 @@ module Stripe
 
             stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
               .with do |req|
-                assert_match(/AIAgent\/cursor$/, req.headers["User-Agent"])
+                assert_match(%r{AIAgent/cursor$}, req.headers["User-Agent"])
 
                 data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"])
                 assert_equal "cursor", data["ai_agent"]
@@ -1760,7 +1760,7 @@ module Stripe
 
     context ".detect_ai_agent" do
       should "detect agent when env var is set" do
-        assert_equal "claude_code", APIRequestor::SystemProfiler.detect_ai_agent({"CLAUDECODE" => "1"})
+        assert_equal "claude_code", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "1" })
       end
 
       should "return empty string when no agent env vars are set" do
@@ -1768,11 +1768,11 @@ module Stripe
       end
 
       should "return first matching agent when multiple env vars are set" do
-        assert_equal "cursor", APIRequestor::SystemProfiler.detect_ai_agent({"CURSOR_AGENT" => "1", "OPENCODE" => "1"})
+        assert_equal "cursor", APIRequestor::SystemProfiler.detect_ai_agent({ "CURSOR_AGENT" => "1", "OPENCODE" => "1" })
       end
 
       should "ignore empty string env vars" do
-        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({"CLAUDECODE" => ""})
+        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "" })
       end
     end
   end

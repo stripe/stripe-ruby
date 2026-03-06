@@ -142,6 +142,11 @@ module Stripe
           event = event_notif.fetch_event
           assert event.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEvent)
           assert_equal "a", event.data.reason.error_types.first.sample_errors.first.request.identifier
+
+          assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v1/billing/meters/mtr_123",
+                           headers: { "Stripe-Request-Trigger" => "event=evt_234" })
+          assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234",
+                           headers: { "Stripe-Request-Trigger" => "event=evt_234" })
         end
 
         should "correctly retrieve events" do

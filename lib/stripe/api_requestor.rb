@@ -1093,13 +1093,18 @@ module Stripe
       end
 
       AI_AGENTS = [
+        # aiAgents: The beginning of the section generated from our OpenAPI spec
         %w[ANTIGRAVITY_CLI_ALIAS antigravity],
         %w[CLAUDECODE claude_code],
         %w[CLINE_ACTIVE cline],
         %w[CODEX_SANDBOX codex_cli],
+        %w[CODEX_THREAD_ID codex_cli],
+        %w[CODEX_SANDBOX_NETWORK_DISABLED codex_cli],
+        %w[CODEX_CI codex_cli],
         %w[CURSOR_AGENT cursor],
         %w[GEMINI_CLI gemini_cli],
         %w[OPENCODE open_code],
+        # aiAgents: The end of the section generated from our OpenAPI spec
       ].freeze
 
       def self.detect_ai_agent(env = ENV)

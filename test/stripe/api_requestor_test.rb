@@ -797,6 +797,9 @@ module Stripe
         context "app_info" do
           should "send app_info if set" do
             old = Stripe.app_info
+
+            APIRequestor::SystemProfiler.stubs(:detect_ai_agent).returns("")
+
             Stripe.set_app_info(
               "MyAwesomePlugin",
               partner_id: "partner_1234",
@@ -829,6 +832,26 @@ module Stripe
                         &@read_body_chunk_block)
           ensure
             Stripe.app_info = old
+          end
+        end
+
+        context "ai_agent" do
+          should "include AI agent in request headers" do
+            APIRequestor::SystemProfiler.stubs(:detect_ai_agent).returns("cursor")
+
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with do |req|
+                assert_match(%r{AIAgent/cursor$}, req.headers["User-Agent"])
+
+                data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"])
+                assert_equal "cursor", data["ai_agent"]
+
+                true
+              end.to_return(body: JSON.generate(object: "account"))
+
+            client = APIRequestor.new("sk_test_123")
+            client.send(request_method, :post, "/v1/account", :api,
+                        &@read_body_chunk_block)
           end
         end
 
@@ -1732,6 +1755,24 @@ module Stripe
       should "run without failure" do
         # as above, just verify that an exception is not thrown
         _ = APIRequestor::SystemProfiler.uname_from_system_ver
+      end
+    end
+
+    context ".detect_ai_agent" do
+      should "detect agent when env var is set" do
+        assert_equal "claude_code", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "1" })
+      end
+
+      should "return empty string when no agent env vars are set" do
+        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({})
+      end
+
+      should "return first matching agent when multiple env vars are set" do
+        assert_equal "cursor", APIRequestor::SystemProfiler.detect_ai_agent({ "CURSOR_AGENT" => "1", "OPENCODE" => "1" })
+      end
+
+      should "ignore empty string env vars" do
+        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "" })
       end
     end
   end

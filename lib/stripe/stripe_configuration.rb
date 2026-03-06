@@ -5,7 +5,7 @@ module Stripe
   #
   # =ca_bundle_path=
   # The location of a file containing a bundle of CA certificates. By default
-  # the library will use an included bundle that can successfully validate
+  # the library will use the system bundle that can successfully validate
   # Stripe certificates.
   #
   # =log_level=
@@ -66,7 +66,7 @@ module Stripe
 
     def initialize
       @api_version = ApiVersion::CURRENT
-      @ca_bundle_path = Stripe::DEFAULT_CA_BUNDLE_PATH
+      @ca_bundle_path = nil
       @enable_telemetry = true
       @verify_ssl_certs = true
 
@@ -190,7 +190,11 @@ module Stripe
     def ca_store
       @ca_store ||= begin
         store = OpenSSL::X509::Store.new
-        store.add_file(ca_bundle_path)
+        if ca_bundle_path.nil?
+          store.set_default_paths
+        else
+          store.add_file(ca_bundle_path)
+        end
         store
       end
     end

@@ -8,7 +8,7 @@ module Stripe
       should "initialize a new configuration with defaults" do
         config = Stripe::StripeConfiguration.setup
 
-        assert_equal Stripe::DEFAULT_CA_BUNDLE_PATH, config.ca_bundle_path
+        assert_nil config.ca_bundle_path
         assert_equal true, config.enable_telemetry
         assert_equal true, config.verify_ssl_certs
         assert_equal 5, config.max_network_retry_delay
@@ -137,7 +137,7 @@ module Stripe
         assert_equal("client_uploads_base.stripe.com", client_config.base_addresses[:files]) # client uploads base
         assert_equal(Stripe::DEFAULT_API_BASE, client_config.base_addresses[:api]) # default api base
         assert_equal(ApiVersion::CURRENT, client_config.api_version) # default api version
-        assert_equal(Stripe::DEFAULT_CA_BUNDLE_PATH, client_config.ca_bundle_path) # default ca bundle path
+        assert_nil client_config.ca_bundle_path # default ca bundle path
       end
     end
 

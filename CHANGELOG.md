@@ -53,6 +53,10 @@ This release uses the API version `2026-01-28.preview`.
   * Add support for `url` on `FinancialConnections::Session`
   * Add support for `billing_cycle_anchor` on `SubscriptionCreateParams::TrialSetting::EndBehavior` and `SubscriptionUpdateParams::TrialSetting::EndBehavior`
 
+## 18.4.1 - 2026-03-06
+* [#1805](https://github.com/stripe/stripe-ruby/pull/1805) Add Stripe-Request-Trigger header
+* [#1803](https://github.com/stripe/stripe-ruby/pull/1803) Add agent information to UserAgent
+
 ## 18.4.0 - 2026-02-25
 This release changes the pinned API version to `2026-02-25.clover`.
 

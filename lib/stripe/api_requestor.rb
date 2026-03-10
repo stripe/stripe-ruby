@@ -15,7 +15,6 @@ module Stripe
 
     # Initializes a new APIRequestor
     def initialize(config_arg = {})
-      @system_profiler = SystemProfiler.new
       @last_request_metrics = Queue.new
 
       @config = case config_arg
@@ -959,7 +958,7 @@ module Stripe
       headers["Stripe-Account"] = req_opts[:stripe_account] if req_opts[:stripe_account]
       headers["Stripe-Context"] = req_opts[:stripe_context] if req_opts[:stripe_context]
 
-      user_agent = @system_profiler.user_agent
+      user_agent = SystemProfiler.user_agent
       begin
         headers.update(
           "X-Stripe-Client-User-Agent" => JSON.generate(user_agent)
@@ -1061,37 +1060,6 @@ module Stripe
     # in so that we can generate a rich user agent header to help debug
     # integrations.
     class SystemProfiler
-      def self.uname
-        if ::File.exist?("/proc/version")
-          ::File.read("/proc/version").strip
-        else
-          case RbConfig::CONFIG["host_os"]
-          when /linux|darwin|bsd|sunos|solaris|cygwin/i
-            uname_from_system
-          when /mswin|mingw/i
-            uname_from_system_ver
-          else
-            "unknown platform"
-          end
-        end
-      end
-
-      def self.uname_from_system
-        (`uname -a 2>/dev/null` || "").strip
-      rescue Errno::ENOENT
-        "uname executable not found"
-      rescue Errno::ENOMEM # couldn't create subprocess
-        "uname lookup failed"
-      end
-
-      def self.uname_from_system_ver
-        (`ver` || "").strip
-      rescue Errno::ENOENT
-        "ver executable not found"
-      rescue Errno::ENOMEM # couldn't create subprocess
-        "uname lookup failed"
-      end
-
       AI_AGENTS = [
         # aiAgents: The beginning of the section generated from our OpenAPI spec
         %w[ANTIGRAVITY_CLI_ALIAS antigravity],
@@ -1114,11 +1082,7 @@ module Stripe
         ""
       end
 
-      def initialize
-        @uname = self.class.uname
-      end
-
-      def user_agent
+      def self.user_agent
         lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} " \
                        "(#{RUBY_RELEASE_DATE})"
 
@@ -1127,14 +1091,12 @@ module Stripe
           bindings_version: Stripe::VERSION,
           lang: "ruby",
           lang_version: lang_version,
-          platform: RUBY_PLATFORM,
           engine: defined?(RUBY_ENGINE) ? RUBY_ENGINE : "",
-          publisher: "stripe",
-          uname: @uname,
-          hostname: Socket.gethostname,
         }.delete_if { |_k, v| v.nil? }
 
-        ai_agent = self.class.detect_ai_agent
+        ua[:platform] = RUBY_PLATFORM if Stripe.enable_telemetry?
+
+        ai_agent = detect_ai_agent
         ua[:ai_agent] = ai_agent unless ai_agent.empty?
 
         ua

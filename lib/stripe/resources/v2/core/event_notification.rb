@@ -52,7 +52,8 @@ module Stripe
 
         # Retrieves the Event that generated this EventNotification.
         def fetch_event
-          resp = @client.raw_request(:get, "/v2/core/events/#{id}", opts: { stripe_context: context },
+          resp = @client.raw_request(:get, "/v2/core/events/#{id}", opts: { stripe_context: context,
+                                                                            "Stripe-Request-Trigger" => "event=#{id}", },
                                                                     usage: ["fetch_event"])
           @client.deserialize(resp.http_body, api_mode: :v2)
         end

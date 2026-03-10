@@ -240,7 +240,7 @@ module Stripe
       # The shared metadata for this requested session.
       attr_accessor :shared_metadata
       # Affiliate attribution data associated with this requested session.
-      attr_accessor :affiliate_attributions
+      attr_accessor :affiliate_attribution
 
       def initialize(
         currency: nil,
@@ -254,7 +254,7 @@ module Stripe
         seller_details: nil,
         setup_future_usage: nil,
         shared_metadata: nil,
-        affiliate_attributions: nil
+        affiliate_attribution: nil
       )
         @currency = currency
         @customer = customer
@@ -267,7 +267,7 @@ module Stripe
         @seller_details = seller_details
         @setup_future_usage = setup_future_usage
         @shared_metadata = shared_metadata
-        @affiliate_attributions = affiliate_attributions
+        @affiliate_attribution = affiliate_attribution
       end
     end
   end

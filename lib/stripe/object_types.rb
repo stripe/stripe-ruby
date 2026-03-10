@@ -138,6 +138,7 @@ module Stripe
         QuotePreviewSubscriptionSchedule.object_name => QuotePreviewSubscriptionSchedule,
         Radar::AccountEvaluation.object_name => Radar::AccountEvaluation,
         Radar::EarlyFraudWarning.object_name => Radar::EarlyFraudWarning,
+        Radar::IssuingAuthorizationEvaluation.object_name => Radar::IssuingAuthorizationEvaluation,
         Radar::PaymentEvaluation.object_name => Radar::PaymentEvaluation,
         Radar::ValueList.object_name => Radar::ValueList,
         Radar::ValueListItem.object_name => Radar::ValueListItem,

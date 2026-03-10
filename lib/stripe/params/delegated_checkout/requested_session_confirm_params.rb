@@ -192,20 +192,20 @@ module Stripe
       # Risk details/signals associated with the requested session
       attr_accessor :risk_details
       # Affiliate attribution data associated with this requested session.
-      attr_accessor :affiliate_attributions
+      attr_accessor :affiliate_attribution
 
       def initialize(
         expand: nil,
         payment_method: nil,
         payment_method_data: nil,
         risk_details: nil,
-        affiliate_attributions: nil
+        affiliate_attribution: nil
       )
         @expand = expand
         @payment_method = payment_method
         @payment_method_data = payment_method_data
         @risk_details = risk_details
-        @affiliate_attributions = affiliate_attributions
+        @affiliate_attribution = affiliate_attribution
       end
     end
   end

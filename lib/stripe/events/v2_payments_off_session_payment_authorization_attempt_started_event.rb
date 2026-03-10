@@ -17,7 +17,7 @@ module Stripe
           method: :get,
           path: related_object.url,
           base_address: :api,
-          opts: { stripe_context: context }
+          opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" }
         )
       end
       attr_reader :related_object
@@ -38,7 +38,7 @@ module Stripe
         resp = @client.raw_request(
           :get,
           related_object.url,
-          opts: { stripe_context: context },
+          opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" },
           usage: ["fetch_related_object"]
         )
         @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))

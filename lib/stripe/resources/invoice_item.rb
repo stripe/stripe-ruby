@@ -294,6 +294,8 @@ module Stripe
     attr_reader :tax_rates
     # ID of the test clock this invoice item belongs to.
     attr_reader :test_clock
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    attr_reader :frozen_fields
     # Always true for a deleted object
     attr_reader :deleted
 

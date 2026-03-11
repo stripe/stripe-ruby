@@ -312,6 +312,9 @@ module Stripe
     # ID of the test clock this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    sig { returns(T.nilable(T::Array[String])) }
+    def frozen_fields; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

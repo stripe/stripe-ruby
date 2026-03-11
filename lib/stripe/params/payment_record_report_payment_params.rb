@@ -36,9 +36,12 @@ module Stripe
     class Failed < ::Stripe::RequestParams
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       attr_accessor :failed_at
+      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+      attr_accessor :failure_code
 
-      def initialize(failed_at: nil)
+      def initialize(failed_at: nil, failure_code: nil)
         @failed_at = failed_at
+        @failure_code = failure_code
       end
     end
 

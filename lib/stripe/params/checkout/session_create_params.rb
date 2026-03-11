@@ -2653,6 +2653,12 @@ module Stripe
       attr_accessor :ui_mode
       # Wallet-specific configuration.
       attr_accessor :wallet_options
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      attr_accessor :approval_method
       # Attribute for param field checkout_items
       attr_accessor :checkout_items
 
@@ -2707,6 +2713,7 @@ module Stripe
         tax_id_collection: nil,
         ui_mode: nil,
         wallet_options: nil,
+        approval_method: nil,
         checkout_items: nil
       )
         @adaptive_pricing = adaptive_pricing
@@ -2759,6 +2766,7 @@ module Stripe
         @tax_id_collection = tax_id_collection
         @ui_mode = ui_mode
         @wallet_options = wallet_options
+        @approval_method = approval_method
         @checkout_items = checkout_items
       end
     end

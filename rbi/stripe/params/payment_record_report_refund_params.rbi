@@ -93,14 +93,14 @@ module Stripe
      }
     def processor_details=(_processor_details); end
     # Information about the payment attempt refund.
-    sig { returns(::Stripe::PaymentRecordReportRefundParams::Refunded) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportRefundParams::Refunded)) }
     def refunded; end
     sig {
-      params(_refunded: ::Stripe::PaymentRecordReportRefundParams::Refunded).returns(::Stripe::PaymentRecordReportRefundParams::Refunded)
+      params(_refunded: T.nilable(::Stripe::PaymentRecordReportRefundParams::Refunded)).returns(T.nilable(::Stripe::PaymentRecordReportRefundParams::Refunded))
      }
     def refunded=(_refunded); end
     sig {
-      params(amount: T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: String, processor_details: ::Stripe::PaymentRecordReportRefundParams::ProcessorDetails, refunded: ::Stripe::PaymentRecordReportRefundParams::Refunded).void
+      params(amount: T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: String, processor_details: ::Stripe::PaymentRecordReportRefundParams::ProcessorDetails, refunded: T.nilable(::Stripe::PaymentRecordReportRefundParams::Refunded)).void
      }
     def initialize(
       amount: nil,

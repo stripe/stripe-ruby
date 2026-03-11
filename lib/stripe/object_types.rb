@@ -111,6 +111,7 @@ module Stripe
         LoginLink.object_name => LoginLink,
         Mandate.object_name => Mandate,
         Margin.object_name => Margin,
+        Orchestration::PaymentAttempt.object_name => Orchestration::PaymentAttempt,
         Order.object_name => Order,
         PaymentAttemptRecord.object_name => PaymentAttemptRecord,
         PaymentIntent.object_name => PaymentIntent,

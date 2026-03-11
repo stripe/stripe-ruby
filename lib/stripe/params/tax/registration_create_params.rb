@@ -1457,6 +1457,15 @@ module Stripe
         end
 
         class Us < ::Stripe::RequestParams
+          class HomeRuleTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=home_rule_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
           class LocalAmusementTax < ::Stripe::RequestParams
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `02154` (Arlington Heights), `05248` (Bensenville), `06613` (Bloomington), `10906` (Campton Hills), `14000` (Chicago), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), `64421` (Riverside), `65806` (Roselle), and `68081` (Schiller Park).
             attr_accessor :jurisdiction
@@ -1504,19 +1513,23 @@ module Stripe
           attr_accessor :state_sales_tax
           # Type of registration to be created in the US.
           attr_accessor :type
+          # Options for the home rule tax registration.
+          attr_accessor :home_rule_tax
 
           def initialize(
             local_amusement_tax: nil,
             local_lease_tax: nil,
             state: nil,
             state_sales_tax: nil,
-            type: nil
+            type: nil,
+            home_rule_tax: nil
           )
             @local_amusement_tax = local_amusement_tax
             @local_lease_tax = local_lease_tax
             @state = state
             @state_sales_tax = state_sales_tax
             @type = type
+            @home_rule_tax = home_rule_tax
           end
         end
 

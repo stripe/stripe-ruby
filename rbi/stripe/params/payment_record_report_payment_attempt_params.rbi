@@ -10,8 +10,13 @@ module Stripe
       def failed_at; end
       sig { params(_failed_at: Integer).returns(Integer) }
       def failed_at=(_failed_at); end
-      sig { params(failed_at: Integer).void }
-      def initialize(failed_at: nil); end
+      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+      sig { returns(T.nilable(String)) }
+      def failure_code; end
+      sig { params(_failure_code: T.nilable(String)).returns(T.nilable(String)) }
+      def failure_code=(_failure_code); end
+      sig { params(failed_at: Integer, failure_code: T.nilable(String)).void }
+      def initialize(failed_at: nil, failure_code: nil); end
     end
     class Guaranteed < ::Stripe::RequestParams
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.

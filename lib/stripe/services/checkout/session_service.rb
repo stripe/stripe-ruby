@@ -11,6 +11,17 @@ module Stripe
         @line_items = Stripe::Checkout::SessionLineItemService.new(@requestor)
       end
 
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      def approve(session, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<session>s/approve", { session: CGI.escape(session) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
       # Creates a Checkout Session object.
       def create(params = {}, opts = {})
         request(

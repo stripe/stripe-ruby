@@ -47,7 +47,7 @@ module Stripe
     end
     # The account for which the signals belong to.
     attr_reader :account
-    # The delinquency signal of the account
+    # The delinquency signal of the account.
     attr_reader :delinquency
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode

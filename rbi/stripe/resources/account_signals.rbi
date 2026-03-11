@@ -48,7 +48,7 @@ module Stripe
     # The account for which the signals belong to.
     sig { returns(String) }
     def account; end
-    # The delinquency signal of the account
+    # The delinquency signal of the account.
     sig { returns(T.nilable(Delinquency)) }
     def delinquency; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

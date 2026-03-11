@@ -41,16 +41,16 @@ module Stripe
         end
         class TransformQuantity < ::Stripe::RequestParams
           # Divide usage by this number.
-          sig { returns(String) }
+          sig { returns(Integer) }
           def divide_by; end
-          sig { params(_divide_by: String).returns(String) }
+          sig { params(_divide_by: Integer).returns(Integer) }
           def divide_by=(_divide_by); end
           # After division, round the result up or down.
           sig { returns(String) }
           def round; end
           sig { params(_round: String).returns(String) }
           def round=(_round); end
-          sig { params(divide_by: String, round: String).void }
+          sig { params(divide_by: Integer, round: String).void }
           def initialize(divide_by: nil, round: nil); end
         end
         # Three-letter ISO currency code, in lowercase. Must be a supported currency.

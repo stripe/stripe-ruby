@@ -33,7 +33,7 @@ module Stripe
         end
         class TransformQuantity < ::Stripe::StripeObject
           # Divide usage by this number.
-          sig { returns(String) }
+          sig { returns(Integer) }
           def divide_by; end
           # After division, round the result up or down.
           sig { returns(String) }

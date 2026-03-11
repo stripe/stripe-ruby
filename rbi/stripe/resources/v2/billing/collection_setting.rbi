@@ -72,7 +72,7 @@ module Stripe
           class Card < ::Stripe::StripeObject
             class MandateOptions < ::Stripe::StripeObject
               # Amount to be charged for future payments.
-              sig { returns(T.nilable(String)) }
+              sig { returns(T.nilable(Integer)) }
               def amount; end
               # The AmountType for the mandate. One of `fixed` or `maximum`.
               sig { returns(T.nilable(String)) }

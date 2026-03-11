@@ -32,7 +32,7 @@ module Stripe
             sig { returns(DownloadUrl) }
             def download_url; end
             # The total size of the file in bytes.
-            sig { returns(Integer) }
+            sig { returns(String) }
             def size; end
             def self.inner_class_types
               @inner_class_types = {download_url: DownloadUrl}

@@ -77,9 +77,9 @@ module Stripe
           class Card < ::Stripe::RequestParams
             class MandateOptions < ::Stripe::RequestParams
               # Amount to be charged for future payments.
-              sig { returns(T.nilable(Integer)) }
+              sig { returns(T.nilable(String)) }
               def amount; end
-              sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              sig { params(_amount: T.nilable(String)).returns(T.nilable(String)) }
               def amount=(_amount); end
               # The AmountType for the mandate. One of `fixed` or `maximum`.
               sig { returns(T.nilable(String)) }
@@ -92,7 +92,7 @@ module Stripe
               sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
               def description=(_description); end
               sig {
-                params(amount: T.nilable(Integer), amount_type: T.nilable(String), description: T.nilable(String)).void
+                params(amount: T.nilable(String), amount_type: T.nilable(String), description: T.nilable(String)).void
                }
               def initialize(amount: nil, amount_type: nil, description: nil); end
             end

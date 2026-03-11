@@ -26,6 +26,86 @@ module Stripe
           end
         end
 
+        class PaymentMethodData < ::Stripe::RequestParams
+          class BillingDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code (ISO 3166-1 alpha-2).
+              attr_accessor :country
+              # Address line 1, such as the street, PO Box, or company name.
+              attr_accessor :line1
+              # Address line 2, such as the apartment, suite, unit, or building.
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region (ISO 3166-2).
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+            # Billing address.
+            attr_accessor :address
+            # Email address.
+            attr_accessor :email
+            # Full name.
+            attr_accessor :name
+            # Billing phone number (including extension).
+            attr_accessor :phone
+
+            def initialize(address: nil, email: nil, name: nil, phone: nil)
+              @address = address
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+
+          class Card < ::Stripe::RequestParams
+            # The card CVC.
+            attr_accessor :cvc
+            # The card expiration month.
+            attr_accessor :exp_month
+            # The card expiration year.
+            attr_accessor :exp_year
+            # The card number.
+            attr_accessor :number
+
+            def initialize(cvc: nil, exp_month: nil, exp_year: nil, number: nil)
+              @cvc = cvc
+              @exp_month = exp_month
+              @exp_year = exp_year
+              @number = number
+            end
+          end
+          # Billing information associated with the payment method.
+          attr_accessor :billing_details
+          # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+          attr_accessor :type
+          # Contains card details that can be used to create a card PaymentMethod for PCI compliant users.
+          attr_accessor :card
+
+          def initialize(billing_details: nil, type: nil, card: nil)
+            @billing_details = billing_details
+            @type = type
+            @card = card
+          end
+        end
+
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
             # If you are making a Credential On File transaction with a previously saved card, you should pass the Network Transaction ID
@@ -104,6 +184,8 @@ module Stripe
         attr_accessor :on_behalf_of
         # ID of the payment method used in this OffSessionPayment.
         attr_accessor :payment_method
+        # If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear in the payment_method property on the OffSessionPayment.
+        attr_accessor :payment_method_data
         # Payment method options for the off-session payment.
         attr_accessor :payment_method_options
         # Details about the payments orchestration configuration.
@@ -132,6 +214,7 @@ module Stripe
           metadata: nil,
           on_behalf_of: nil,
           payment_method: nil,
+          payment_method_data: nil,
           payment_method_options: nil,
           payments_orchestration: nil,
           retry_details: nil,
@@ -147,6 +230,7 @@ module Stripe
           @metadata = metadata
           @on_behalf_of = on_behalf_of
           @payment_method = payment_method
+          @payment_method_data = payment_method_data
           @payment_method_options = payment_method_options
           @payments_orchestration = payments_orchestration
           @retry_details = retry_details

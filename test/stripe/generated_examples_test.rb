@@ -10172,7 +10172,6 @@ module Stripe
         cadence: "unscheduled",
         customer: "customer",
         metadata: { key: "metadata" },
-        payment_method: "payment_method",
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
     end

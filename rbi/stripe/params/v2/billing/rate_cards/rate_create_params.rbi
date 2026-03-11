@@ -56,16 +56,16 @@ module Stripe
           end
           class TransformQuantity < ::Stripe::RequestParams
             # Divide usage by this number.
-            sig { returns(Integer) }
+            sig { returns(String) }
             def divide_by; end
-            sig { params(_divide_by: Integer).returns(Integer) }
+            sig { params(_divide_by: String).returns(String) }
             def divide_by=(_divide_by); end
             # After division, round the result up or down.
             sig { returns(String) }
             def round; end
             sig { params(_round: String).returns(String) }
             def round=(_round); end
-            sig { params(divide_by: Integer, round: String).void }
+            sig { params(divide_by: String, round: String).void }
             def initialize(divide_by: nil, round: nil); end
           end
           # The custom pricing unit that this rate binds to. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.

@@ -29,6 +29,134 @@ module Stripe
           sig { params(capture_method: String).void }
           def initialize(capture_method: nil); end
         end
+        class PaymentMethodData < ::Stripe::RequestParams
+          class BillingDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code (ISO 3166-1 alpha-2).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1, such as the street, PO Box, or company name.
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2, such as the apartment, suite, unit, or building.
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # State, county, province, or region (ISO 3166-2).
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            # Billing address.
+            sig {
+              returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails::Address))
+             }
+            def address; end
+            sig {
+              params(_address: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails::Address)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails::Address))
+             }
+            def address=(_address); end
+            # Email address.
+            sig { returns(T.nilable(String)) }
+            def email; end
+            sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+            def email=(_email); end
+            # Full name.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+            def name=(_name); end
+            # Billing phone number (including extension).
+            sig { returns(T.nilable(String)) }
+            def phone; end
+            sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+            def phone=(_phone); end
+            sig {
+              params(address: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+             }
+            def initialize(address: nil, email: nil, name: nil, phone: nil); end
+          end
+          class Card < ::Stripe::RequestParams
+            # The card CVC.
+            sig { returns(T.nilable(String)) }
+            def cvc; end
+            sig { params(_cvc: T.nilable(String)).returns(T.nilable(String)) }
+            def cvc=(_cvc); end
+            # The card expiration month.
+            sig { returns(String) }
+            def exp_month; end
+            sig { params(_exp_month: String).returns(String) }
+            def exp_month=(_exp_month); end
+            # The card expiration year.
+            sig { returns(String) }
+            def exp_year; end
+            sig { params(_exp_year: String).returns(String) }
+            def exp_year=(_exp_year); end
+            # The card number.
+            sig { returns(T.nilable(String)) }
+            def number; end
+            sig { params(_number: T.nilable(String)).returns(T.nilable(String)) }
+            def number=(_number); end
+            sig {
+              params(cvc: T.nilable(String), exp_month: String, exp_year: String, number: T.nilable(String)).void
+             }
+            def initialize(cvc: nil, exp_month: nil, exp_year: nil, number: nil); end
+          end
+          # Billing information associated with the payment method.
+          sig {
+            returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails))
+           }
+          def billing_details; end
+          sig {
+            params(_billing_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails))
+           }
+          def billing_details=(_billing_details); end
+          # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          # Contains card details that can be used to create a card PaymentMethod for PCI compliant users.
+          sig {
+            returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card))
+           }
+          def card; end
+          sig {
+            params(_card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card))
+           }
+          def card=(_card); end
+          sig {
+            params(billing_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails), type: String, card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card)).void
+           }
+          def initialize(billing_details: nil, type: nil, card: nil); end
+        end
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
             # If you are making a Credential On File transaction with a previously saved card, you should pass the Network Transaction ID
@@ -140,10 +268,19 @@ module Stripe
         sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
         def on_behalf_of=(_on_behalf_of); end
         # ID of the payment method used in this OffSessionPayment.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def payment_method; end
-        sig { params(_payment_method: String).returns(String) }
+        sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
         def payment_method=(_payment_method); end
+        # If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear in the payment_method property on the OffSessionPayment.
+        sig {
+          returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData))
+         }
+        def payment_method_data; end
+        sig {
+          params(_payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData))
+         }
+        def payment_method_data=(_payment_method_data); end
         # Payment method options for the off-session payment.
         sig {
           returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions))
@@ -201,7 +338,7 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount: ::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount, cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: String, payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
+          params(amount: ::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount, cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
          }
         def initialize(
           amount: nil,
@@ -211,6 +348,7 @@ module Stripe
           metadata: nil,
           on_behalf_of: nil,
           payment_method: nil,
+          payment_method_data: nil,
           payment_method_options: nil,
           payments_orchestration: nil,
           retry_details: nil,

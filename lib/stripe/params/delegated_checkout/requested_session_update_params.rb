@@ -47,7 +47,7 @@ module Stripe
           end
 
           class Shipping < ::Stripe::RequestParams
-            # The shipping option identifer.
+            # The shipping option identifier.
             attr_accessor :shipping_option
 
             def initialize(shipping_option: nil)
@@ -67,6 +67,41 @@ module Stripe
             @digital = digital
           end
         end
+
+        class SelectedFulfillmentOptionOverride < ::Stripe::RequestParams
+          class Digital < ::Stripe::RequestParams
+            # The digital option identifier.
+            attr_accessor :digital_option
+
+            def initialize(digital_option: nil)
+              @digital_option = digital_option
+            end
+          end
+
+          class Shipping < ::Stripe::RequestParams
+            # The shipping option identifier.
+            attr_accessor :shipping_option
+
+            def initialize(shipping_option: nil)
+              @shipping_option = shipping_option
+            end
+          end
+          # The digital fulfillment option.
+          attr_accessor :digital
+          # The line item keys that this fulfillment option override applies to.
+          attr_accessor :line_item_keys
+          # The shipping fulfillment option.
+          attr_accessor :shipping
+          # The type of fulfillment option.
+          attr_accessor :type
+
+          def initialize(digital: nil, line_item_keys: nil, shipping: nil, type: nil)
+            @digital = digital
+            @line_item_keys = line_item_keys
+            @shipping = shipping
+            @type = type
+          end
+        end
         # The customer's address.
         attr_accessor :address
         # The customer's email address.
@@ -77,19 +112,23 @@ module Stripe
         attr_accessor :phone
         # The fulfillment option to select.
         attr_accessor :selected_fulfillment_option
+        # The fulfillment option overrides for specific line items.
+        attr_accessor :selected_fulfillment_option_overrides
 
         def initialize(
           address: nil,
           email: nil,
           name: nil,
           phone: nil,
-          selected_fulfillment_option: nil
+          selected_fulfillment_option: nil,
+          selected_fulfillment_option_overrides: nil
         )
           @address = address
           @email = email
           @name = name
           @phone = phone
           @selected_fulfillment_option = selected_fulfillment_option
+          @selected_fulfillment_option_overrides = selected_fulfillment_option_overrides
         end
       end
 

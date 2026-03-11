@@ -60,7 +60,7 @@ module Stripe
             def initialize(digital_option: nil); end
           end
           class Shipping < ::Stripe::RequestParams
-            # The shipping option identifer.
+            # The shipping option identifier.
             sig { returns(String) }
             def shipping_option; end
             sig { params(_shipping_option: String).returns(String) }
@@ -96,6 +96,58 @@ module Stripe
            }
           def initialize(shipping: nil, type: nil, digital: nil); end
         end
+        class SelectedFulfillmentOptionOverride < ::Stripe::RequestParams
+          class Digital < ::Stripe::RequestParams
+            # The digital option identifier.
+            sig { returns(String) }
+            def digital_option; end
+            sig { params(_digital_option: String).returns(String) }
+            def digital_option=(_digital_option); end
+            sig { params(digital_option: String).void }
+            def initialize(digital_option: nil); end
+          end
+          class Shipping < ::Stripe::RequestParams
+            # The shipping option identifier.
+            sig { returns(String) }
+            def shipping_option; end
+            sig { params(_shipping_option: String).returns(String) }
+            def shipping_option=(_shipping_option); end
+            sig { params(shipping_option: String).void }
+            def initialize(shipping_option: nil); end
+          end
+          # The digital fulfillment option.
+          sig {
+            returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Digital))
+           }
+          def digital; end
+          sig {
+            params(_digital: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Digital)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Digital))
+           }
+          def digital=(_digital); end
+          # The line item keys that this fulfillment option override applies to.
+          sig { returns(T::Array[String]) }
+          def line_item_keys; end
+          sig { params(_line_item_keys: T::Array[String]).returns(T::Array[String]) }
+          def line_item_keys=(_line_item_keys); end
+          # The shipping fulfillment option.
+          sig {
+            returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Shipping))
+           }
+          def shipping; end
+          sig {
+            params(_shipping: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Shipping)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Shipping))
+           }
+          def shipping=(_shipping); end
+          # The type of fulfillment option.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(digital: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Digital), line_item_keys: T::Array[String], shipping: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride::Shipping), type: String).void
+           }
+          def initialize(digital: nil, line_item_keys: nil, shipping: nil, type: nil); end
+        end
         # The customer's address.
         sig {
           returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::Address))
@@ -129,15 +181,25 @@ module Stripe
           params(_selected_fulfillment_option: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption))
          }
         def selected_fulfillment_option=(_selected_fulfillment_option); end
+        # The fulfillment option overrides for specific line items.
         sig {
-          params(address: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), selected_fulfillment_option: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption)).void
+          returns(T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride]))
+         }
+        def selected_fulfillment_option_overrides; end
+        sig {
+          params(_selected_fulfillment_option_overrides: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride])).returns(T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride]))
+         }
+        def selected_fulfillment_option_overrides=(_selected_fulfillment_option_overrides); end
+        sig {
+          params(address: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), selected_fulfillment_option: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption), selected_fulfillment_option_overrides: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOptionOverride])).void
          }
         def initialize(
           address: nil,
           email: nil,
           name: nil,
           phone: nil,
-          selected_fulfillment_option: nil
+          selected_fulfillment_option: nil,
+          selected_fulfillment_option_overrides: nil
         ); end
       end
       class LineItemDetail < ::Stripe::RequestParams

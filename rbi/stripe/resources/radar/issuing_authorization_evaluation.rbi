@@ -7,31 +7,31 @@ module Stripe
     # Authorization Evaluations represent fraud risk assessments for Issuing card authorizations. They include fraud risk signals and contextual details about the authorization.
     class IssuingAuthorizationEvaluation < APIResource
       class AuthorizationDetails < ::Stripe::StripeObject
-        # The authorization amount in the smallest currency unit.
+        # The total amount of the authorization in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         sig { returns(Integer) }
         def amount; end
-        # The method used for authorization.
+        # How the card details were provided.
         sig { returns(T.nilable(String)) }
         def authorization_method; end
-        # Three-letter ISO currency code in lowercase.
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
-        # The card entry mode.
+        # Defines how the card's information was entered for the authorization.
         sig { returns(T.nilable(String)) }
         def entry_mode; end
-        # The raw code for the card entry mode.
+        # Raw code indicating the entry mode from the network message.
         sig { returns(T.nilable(String)) }
         def entry_mode_raw_code; end
-        # The time when the authorization was initiated.
+        # The timestamp of the authorization initiated in seconds.
         sig { returns(Integer) }
         def initiated_at; end
-        # The point of sale condition.
+        # Defines how the card was read at the point of sale.
         sig { returns(T.nilable(String)) }
         def point_of_sale_condition; end
-        # The raw code for the point of sale condition.
+        # Raw code indicating the point of sale condition from the network message.
         sig { returns(T.nilable(String)) }
         def point_of_sale_condition_raw_code; end
-        # External reference for the authorization.
+        # User's specified unique ID for this authorization attempt (e.g., RRN or internal reference).
         sig { returns(String) }
         def reference; end
         def self.inner_class_types
@@ -45,19 +45,19 @@ module Stripe
         # The Bank Identification Number (BIN) of the card.
         sig { returns(String) }
         def bin; end
-        # The country code associated with the card BIN.
+        # The two-letter country code of the BIN issuer.
         sig { returns(String) }
         def bin_country; end
-        # The type of card (physical or virtual).
+        # The type of the card.
         sig { returns(String) }
         def card_type; end
-        # The time when the card was created.
+        # The timestamp when the card was created.
         sig { returns(Integer) }
         def created_at; end
         # The last 4 digits of the card number.
         sig { returns(String) }
         def last4; end
-        # External reference for the card.
+        # User's specified unique ID of the card for this authorization attempt (e.g., RRN or internal reference).
         sig { returns(String) }
         def reference; end
         def self.inner_class_types
@@ -68,10 +68,10 @@ module Stripe
         end
       end
       class CardholderDetails < ::Stripe::StripeObject
-        # The time when the cardholder was created.
+        # The timestamp when the cardholder was created.
         sig { returns(T.nilable(Integer)) }
         def created_at; end
-        # External reference for the cardholder.
+        # User's specified unique ID of the cardholder for this authorization attempt (e.g., RRN or internal reference).
         sig { returns(T.nilable(String)) }
         def reference; end
         def self.inner_class_types
@@ -82,19 +82,19 @@ module Stripe
         end
       end
       class MerchantDetails < ::Stripe::StripeObject
-        # The merchant category code (MCC).
+        # The merchant category code for the seller's business.
         sig { returns(String) }
         def category_code; end
-        # The merchant country code.
+        # Country where the seller is located.
         sig { returns(T.nilable(String)) }
         def country; end
-        # The merchant name.
+        # Name of the seller.
         sig { returns(String) }
         def name; end
-        # The merchant identifier from the card network.
+        # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
         sig { returns(String) }
         def network_id; end
-        # The terminal identifier.
+        # An ID assigned by the seller to the location of the sale.
         sig { returns(T.nilable(String)) }
         def terminal_id; end
         def self.inner_class_types
@@ -105,10 +105,10 @@ module Stripe
         end
       end
       class NetworkDetails < ::Stripe::StripeObject
-        # The acquiring institution identifier.
+        # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
         sig { returns(T.nilable(String)) }
         def acquiring_institution_id; end
-        # The card network that processed the authorization.
+        # The card network over which Stripe received the authorization.
         sig { returns(T.nilable(String)) }
         def routed_network; end
         def self.inner_class_types
@@ -164,13 +164,13 @@ module Stripe
         end
       end
       class TokenDetails < ::Stripe::StripeObject
-        # The time when the token was created.
+        # The timestamp when the network token was created.
         sig { returns(T.nilable(Integer)) }
         def created_at; end
-        # External reference for the token.
+        # User's specified unique ID of the card token for this authorization attempt (e.g., RRN or internal reference).
         sig { returns(T.nilable(String)) }
         def reference; end
-        # The wallet provider, if applicable.
+        # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
         sig { returns(T.nilable(String)) }
         def wallet; end
         def self.inner_class_types
@@ -181,7 +181,7 @@ module Stripe
         end
       end
       class VerificationDetails < ::Stripe::StripeObject
-        # The result of the 3D Secure verification.
+        # The outcome of the 3D Secure authentication request.
         sig { returns(T.nilable(String)) }
         def three_d_secure_result; end
         def self.inner_class_types
@@ -191,7 +191,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Details about the authorization transaction.
+      # Details about the authorization.
       sig { returns(T.nilable(AuthorizationDetails)) }
       def authorization_details; end
       # Details about the card used in the authorization.
@@ -206,13 +206,13 @@ module Stripe
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
-      # Details about the merchant where the authorization occurred.
+      # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
       sig { returns(T.nilable(MerchantDetails)) }
       def merchant_details; end
       # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
-      # Details about the card network processing.
+      # Details about the authorization, such as identifiers, set by the card network.
       sig { returns(T.nilable(NetworkDetails)) }
       def network_details; end
       # String representing the object's type. Objects of the same type share the same value.
@@ -221,10 +221,10 @@ module Stripe
       # Collection of fraud risk signals for this authorization evaluation.
       sig { returns(Signals) }
       def signals; end
-      # Details about the token, if a tokenized payment method was used.
+      # Details about the token, if a tokenized payment method was used for the authorization.
       sig { returns(T.nilable(TokenDetails)) }
       def token_details; end
-      # Details about verification checks performed.
+      # Details about verification data for the authorization.
       sig { returns(T.nilable(VerificationDetails)) }
       def verification_details; end
       # Request a fraud risk assessment from Stripe for an Issuing card authorization.

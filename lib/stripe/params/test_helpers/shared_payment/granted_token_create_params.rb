@@ -12,11 +12,14 @@ module Stripe
           attr_accessor :expires_at
           # Max amount that can be captured using this SharedPaymentToken
           attr_accessor :max_amount
+          # The recurring interval at which the shared payment token's amount usage restrictions reset.
+          attr_accessor :recurring_interval
 
-          def initialize(currency: nil, expires_at: nil, max_amount: nil)
+          def initialize(currency: nil, expires_at: nil, max_amount: nil, recurring_interval: nil)
             @currency = currency
             @expires_at = expires_at
             @max_amount = max_amount
+            @recurring_interval = recurring_interval
           end
         end
         # The Customer that the SharedPaymentGrantedToken belongs to. Should match the Customer that the PaymentMethod is attached to if any.

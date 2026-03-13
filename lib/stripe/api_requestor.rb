@@ -109,7 +109,7 @@ module Stripe
       return false if num_retries >= config.max_network_retries
 
       case error
-      when Net::OpenTimeout, Net::ReadTimeout
+      when Net::OpenTimeout, Net::ReadTimeout, Net::HTTPFatalError
         # Retry on timeout-related problems (either on open or read).
         true
       when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, # rubocop:todo Lint/DuplicateBranch
@@ -349,6 +349,7 @@ module Stripe
       Errno::ETIMEDOUT => ERROR_MESSAGE_TIMEOUT_CONNECT,
       SocketError => ERROR_MESSAGE_CONNECTION,
 
+      Net::HTTPFatalError => ERROR_MESSAGE_CONNECTION,
       Net::OpenTimeout => ERROR_MESSAGE_TIMEOUT_CONNECT,
       Net::ReadTimeout => ERROR_MESSAGE_TIMEOUT_READ,
 

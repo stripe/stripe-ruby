@@ -317,6 +317,14 @@ module Stripe
                                           num_retries: 0)
       end
 
+      should "retry on Net::HTTPFatalError" do
+        response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+        error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+        assert APIRequestor.should_retry?(error,
+                                          num_retries: 0)
+      end
+
       should "retry on SocketError" do
         assert APIRequestor.should_retry?(SocketError.new,
                                           num_retries: 0)
@@ -1169,6 +1177,23 @@ module Stripe
             APIRequestor.expects(:sleep_time).at_least_once.returns(0)
             stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
               .to_raise(Errno::ECONNREFUSED.new)
+
+            client = APIRequestor.new("sk_test_123")
+            err = assert_raises Stripe::APIConnectionError do
+              client.send(request_method, :post, "/v1/charges", :api,
+                          &@read_body_chunk_block)
+            end
+            assert_match(/Request was retried 2 times/, err.message)
+          end
+
+          should "retry Net::HTTPFatalError failures and raise APIConnectionError if error persists" do
+            APIRequestor.expects(:sleep_time).at_least_once.returns(0)
+
+            response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+            error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+              .to_raise(error)
 
             client = APIRequestor.new("sk_test_123")
             err = assert_raises Stripe::APIConnectionError do

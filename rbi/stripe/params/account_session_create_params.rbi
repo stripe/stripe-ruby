@@ -322,13 +322,23 @@ module Stripe
         def initialize(enabled: nil, features: nil); end
       end
       class CheckScanning < ::Stripe::RequestParams
-        class Features < ::Stripe::RequestParams; end
+        class Features < ::Stripe::RequestParams
+          # Attribute for param field create_us_paper_check_on_application
+          sig { returns(T.nilable(T::Boolean)) }
+          def create_us_paper_check_on_application; end
+          sig {
+            params(_create_us_paper_check_on_application: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def create_us_paper_check_on_application=(_create_us_paper_check_on_application); end
+          sig { params(create_us_paper_check_on_application: T.nilable(T::Boolean)).void }
+          def initialize(create_us_paper_check_on_application: nil); end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
-        # An empty list, because this embedded component has no features.
+        # The list of features enabled in the embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning::Features))
          }

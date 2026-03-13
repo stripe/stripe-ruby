@@ -3,11 +3,12 @@
 
 module Stripe
   class RadarService < StripeService
-    attr_reader :account_evaluations, :early_fraud_warnings, :issuing_authorization_evaluations, :payment_evaluations, :value_lists, :value_list_items
+    attr_reader :account_evaluations, :customer_evaluations, :early_fraud_warnings, :issuing_authorization_evaluations, :payment_evaluations, :value_lists, :value_list_items
 
     def initialize(requestor)
       super
       @account_evaluations = Stripe::Radar::AccountEvaluationService.new(@requestor)
+      @customer_evaluations = Stripe::Radar::CustomerEvaluationService.new(@requestor)
       @early_fraud_warnings = Stripe::Radar::EarlyFraudWarningService.new(@requestor)
       @issuing_authorization_evaluations = Stripe::Radar::IssuingAuthorizationEvaluationService
                                            .new(@requestor)

@@ -2223,6 +2223,165 @@ module Stripe
         end
       end
 
+      class CurrentAttempt < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Customer name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PaymentMethodDetails < ::Stripe::StripeObject
+          class Card < ::Stripe::StripeObject
+            class Wallet < ::Stripe::StripeObject
+              # The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The brand of the card, accounting for customer's brand choice on dual-branded cards.
+            attr_reader :brand
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            attr_reader :country
+            # Two-digit number representing the card's expiration month.
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            attr_reader :exp_year
+            # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            #
+            # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            attr_reader :fingerprint
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            attr_reader :funding
+            # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            attr_reader :iin
+            # The last four digits of the card.
+            attr_reader :last4
+            # If this Card is part of a card wallet, this contains the details of the card wallet.
+            attr_reader :wallet
+
+            def self.inner_class_types
+              @inner_class_types = { wallet: Wallet }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Indicates whether this payment method can be shown again to its customer in a checkout flow.
+          attr_reader :allow_redisplay
+          # Attribute for field card
+          attr_reader :card
+          # The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { card: Card }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ShippingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Customer name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The customer's billing information, if provided.
+        attr_reader :billing_details
+        # The customer's email.
+        attr_reader :email
+        # The attempt ID you will pass to the [Checkout Session approve](api/checkout/sessions/approve) endpoint to approve the attempt.
+        attr_reader :id
+        # Information about the payment method the customer is attempting to pay with.
+        attr_reader :payment_method_details
+        # The customer's phone number.
+        attr_reader :phone
+        # The customer's shipping information, if provided.
+        attr_reader :shipping_details
+
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            payment_method_details: PaymentMethodDetails,
+            shipping_details: ShippingDetails,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CheckoutItem < ::Stripe::StripeObject
         class PricingPlanSubscriptionItem < ::Stripe::StripeObject
           class ComponentConfigurations < ::Stripe::StripeObject
@@ -2464,8 +2623,36 @@ module Stripe
       attr_reader :url
       # Wallet-specific configuration for this Checkout Session.
       attr_reader :wallet_options
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      attr_reader :approval_method
+      # The customer's pending attempt to pay that requires your approval. Contains information about the customer and their payment details.
+      attr_reader :current_attempt
       # Attribute for field checkout_items
       attr_reader :checkout_items
+
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      def approve(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<session>s/approve", { session: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      def self.approve(session, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<session>s/approve", { session: CGI.escape(session) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       # Creates a Checkout Session object.
       def self.create(params = {}, opts = {})
@@ -2573,6 +2760,7 @@ module Stripe
           tax_id_collection: TaxIdCollection,
           total_details: TotalDetails,
           wallet_options: WalletOptions,
+          current_attempt: CurrentAttempt,
           checkout_items: CheckoutItem,
         }
       end

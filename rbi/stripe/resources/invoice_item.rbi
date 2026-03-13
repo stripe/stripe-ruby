@@ -13,17 +13,11 @@ module Stripe
   # Related guides: [Integrate with the Invoicing API](https://docs.stripe.com/invoicing/integration), [Subscription Invoices](https://docs.stripe.com/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
     class Parent < ::Stripe::StripeObject
-      class LicenseFeeSubscriptionDetails < ::Stripe::StripeObject
-        # The license fee subscription that generated this invoice item
-        sig { returns(String) }
-        def license_fee_subscription; end
-        # The license fee version that generated this invoice item
-        sig { returns(String) }
-        def license_fee_version; end
-        # The pricing plan subscription that manages the license fee subscription
+      class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+        # The pricing plan subscription that manages this charge
         sig { returns(String) }
         def pricing_plan_subscription; end
-        # The pricing plan version at the time this invoice item was generated
+        # The pricing plan version at the time this charge was generated
         sig { returns(String) }
         def pricing_plan_version; end
         def self.inner_class_types
@@ -34,12 +28,6 @@ module Stripe
         end
       end
       class RateCardSubscriptionDetails < ::Stripe::StripeObject
-        # The pricing plan subscription that manages the rate card subscription
-        sig { returns(T.nilable(String)) }
-        def pricing_plan_subscription; end
-        # The pricing plan version at the time this invoice item was generated
-        sig { returns(T.nilable(String)) }
-        def pricing_plan_version; end
         # The rate card subscription that generated this invoice item
         sig { returns(String) }
         def rate_card_subscription; end
@@ -78,9 +66,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Details about the license fee subscription that generated this invoice item
-      sig { returns(T.nilable(LicenseFeeSubscriptionDetails)) }
-      def license_fee_subscription_details; end
       # Details about the rate card subscription that generated this invoice item
       sig { returns(T.nilable(RateCardSubscriptionDetails)) }
       def rate_card_subscription_details; end
@@ -93,12 +78,15 @@ module Stripe
       # The type of parent that generated this invoice item
       sig { returns(String) }
       def type; end
+      # Details about the pricing plan subscription that generated this invoice item
+      sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
+      def pricing_plan_subscription_details; end
       def self.inner_class_types
         @inner_class_types = {
-          license_fee_subscription_details: LicenseFeeSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
         }
       end
       def self.field_remappings

@@ -48,6 +48,7 @@ module Stripe
     attr_reader :issuing
     attr_reader :mandates
     attr_reader :margins
+    attr_reader :orchestration
     attr_reader :orders
     attr_reader :payment_attempt_records
     attr_reader :payment_intents

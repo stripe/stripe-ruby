@@ -5,23 +5,23 @@ module Stripe
   module Radar
     class IssuingAuthorizationEvaluationCreateParams < ::Stripe::RequestParams
       class AuthorizationDetails < ::Stripe::RequestParams
-        # The authorization amount in the smallest currency unit.
+        # The total amount of the authorization in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         attr_accessor :amount
-        # The method used for authorization.
+        # How the card details were provided.
         attr_accessor :authorization_method
-        # Three-letter ISO currency code in lowercase.
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The card entry mode.
+        # Defines how the card's information was entered for the authorization.
         attr_accessor :entry_mode
-        # The raw code for the card entry mode.
+        # Raw code indicating the entry mode from the network message.
         attr_accessor :entry_mode_raw_code
-        # The time when the authorization was initiated (Unix timestamp).
+        # The timestamp of the authorization initiated in seconds.
         attr_accessor :initiated_at
-        # The point of sale condition.
+        # Defines how the card was read at the point of sale.
         attr_accessor :point_of_sale_condition
-        # The raw code for the point of sale condition.
+        # Raw code indicating the point of sale condition from the network message.
         attr_accessor :point_of_sale_condition_raw_code
-        # External reference for the authorization.
+        # User's specified unique ID for this authorization attempt (e.g., RRN or internal reference).
         attr_accessor :reference
 
         def initialize(
@@ -48,17 +48,17 @@ module Stripe
       end
 
       class CardDetails < ::Stripe::RequestParams
-        # Bank Identification Number (BIN) of the card.
+        # The Bank Identification Number (BIN) of the card.
         attr_accessor :bin
-        # Two-letter ISO country code of the card's issuing bank.
+        # The two-letter country code of the BIN issuer.
         attr_accessor :bin_country
-        # The type of card (physical or virtual).
+        # The type of the card.
         attr_accessor :card_type
-        # The time when the card was created (Unix timestamp).
+        # The timestamp when the card was created.
         attr_accessor :created_at
-        # Last 4 digits of the card number.
+        # The last 4 digits of the card number.
         attr_accessor :last4
-        # External reference for the card.
+        # User's specified unique ID of the card for this authorization attempt (e.g., RRN or internal reference).
         attr_accessor :reference
 
         def initialize(
@@ -79,9 +79,9 @@ module Stripe
       end
 
       class CardholderDetails < ::Stripe::RequestParams
-        # The time when the cardholder was created (Unix timestamp).
+        # The timestamp when the cardholder was created.
         attr_accessor :created_at
-        # External reference for the cardholder.
+        # User's specified unique ID of the cardholder for this authorization attempt (e.g., RRN or internal reference).
         attr_accessor :reference
 
         def initialize(created_at: nil, reference: nil)
@@ -91,15 +91,15 @@ module Stripe
       end
 
       class MerchantDetails < ::Stripe::RequestParams
-        # Merchant Category Code (MCC).
+        # The merchant category code for the seller's business.
         attr_accessor :category_code
-        # Two-letter ISO country code of the merchant.
+        # Country where the seller is located.
         attr_accessor :country
-        # Name of the merchant.
+        # Name of the seller.
         attr_accessor :name
-        # Network merchant identifier.
+        # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
         attr_accessor :network_id
-        # Terminal identifier.
+        # An ID assigned by the seller to the location of the sale.
         attr_accessor :terminal_id
 
         def initialize(
@@ -118,9 +118,9 @@ module Stripe
       end
 
       class NetworkDetails < ::Stripe::RequestParams
-        # The acquiring institution identifier.
+        # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
         attr_accessor :acquiring_institution_id
-        # The card network that routed the authorization.
+        # The card network over which Stripe received the authorization.
         attr_accessor :routed_network
 
         def initialize(acquiring_institution_id: nil, routed_network: nil)
@@ -130,11 +130,11 @@ module Stripe
       end
 
       class TokenDetails < ::Stripe::RequestParams
-        # The time when the token was created (Unix timestamp).
+        # The timestamp when the network token was created.
         attr_accessor :created_at
-        # External reference for the token.
+        # User's specified unique ID of the card token for this authorization attempt (e.g., RRN or internal reference).
         attr_accessor :reference
-        # The wallet provider for the tokenized payment method.
+        # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
         attr_accessor :wallet
 
         def initialize(created_at: nil, reference: nil, wallet: nil)
@@ -145,7 +145,7 @@ module Stripe
       end
 
       class VerificationDetails < ::Stripe::RequestParams
-        # The result of 3D Secure verification.
+        # The outcome of the 3D Secure authentication request.
         attr_accessor :three_d_secure_result
 
         def initialize(three_d_secure_result: nil)
@@ -160,15 +160,15 @@ module Stripe
       attr_accessor :cardholder_details
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # Details about the merchant where the authorization occurred.
+      # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
       attr_accessor :merchant_details
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-      # Details about the card network processing.
+      # Details about the authorization, such as identifiers, set by the card network.
       attr_accessor :network_details
-      # Details about the token, if a tokenized payment method was used.
+      # Details about the token, if a tokenized payment method was used for the authorization.
       attr_accessor :token_details
-      # Details about verification checks performed.
+      # Details about verification data for the authorization.
       attr_accessor :verification_details
 
       def initialize(

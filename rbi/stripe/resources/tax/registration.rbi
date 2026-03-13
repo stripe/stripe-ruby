@@ -1594,6 +1594,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class HomeRuleTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=home_rule_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class HospitalityTax < ::Stripe::StripeObject
             # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=hospitality_tax#registration-types) representing the local jurisdiction.
             sig { returns(String) }
@@ -1724,6 +1735,9 @@ module Stripe
           # Type of registration in the US.
           sig { returns(String) }
           def type; end
+          # Attribute for field home_rule_tax
+          sig { returns(T.nilable(HomeRuleTax)) }
+          def home_rule_tax; end
           def self.inner_class_types
             @inner_class_types = {
               admissions_tax: AdmissionsTax,
@@ -1737,6 +1751,7 @@ module Stripe
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
+              home_rule_tax: HomeRuleTax,
             }
           end
           def self.field_remappings

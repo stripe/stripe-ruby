@@ -22,14 +22,10 @@ module Stripe
     end
 
     class Parent < ::Stripe::StripeObject
-      class LicenseFeeSubscriptionDetails < ::Stripe::StripeObject
-        # The license fee subscription that generated this invoice item
-        attr_reader :license_fee_subscription
-        # The license fee version that generated this invoice item
-        attr_reader :license_fee_version
-        # The pricing plan subscription that manages the license fee subscription
+      class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+        # The pricing plan subscription that manages this charge
         attr_reader :pricing_plan_subscription
-        # The pricing plan version at the time this invoice item was generated
+        # The pricing plan version at the time this charge was generated
         attr_reader :pricing_plan_version
 
         def self.inner_class_types
@@ -42,10 +38,6 @@ module Stripe
       end
 
       class RateCardSubscriptionDetails < ::Stripe::StripeObject
-        # The pricing plan subscription that manages the rate card subscription
-        attr_reader :pricing_plan_subscription
-        # The pricing plan version at the time this invoice item was generated
-        attr_reader :pricing_plan_version
         # The rate card subscription that generated this invoice item
         attr_reader :rate_card_subscription
         # The rate card version that generated this invoice item
@@ -87,8 +79,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Details about the license fee subscription that generated this invoice item
-      attr_reader :license_fee_subscription_details
       # Details about the rate card subscription that generated this invoice item
       attr_reader :rate_card_subscription_details
       # Details about the subscription schedule that generated this invoice item
@@ -97,13 +87,15 @@ module Stripe
       attr_reader :subscription_details
       # The type of parent that generated this invoice item
       attr_reader :type
+      # Details about the pricing plan subscription that generated this invoice item
+      attr_reader :pricing_plan_subscription_details
 
       def self.inner_class_types
         @inner_class_types = {
-          license_fee_subscription_details: LicenseFeeSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
         }
       end
 

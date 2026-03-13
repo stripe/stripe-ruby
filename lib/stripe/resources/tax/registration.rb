@@ -1798,6 +1798,19 @@ module Stripe
             end
           end
 
+          class HomeRuleTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=home_rule_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class HospitalityTax < ::Stripe::StripeObject
             # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=hospitality_tax#registration-types) representing the local jurisdiction.
             attr_reader :jurisdiction
@@ -1928,6 +1941,8 @@ module Stripe
           attr_reader :tourism_tax
           # Type of registration in the US.
           attr_reader :type
+          # Attribute for field home_rule_tax
+          attr_reader :home_rule_tax
 
           def self.inner_class_types
             @inner_class_types = {
@@ -1942,6 +1957,7 @@ module Stripe
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
+              home_rule_tax: HomeRuleTax,
             }
           end
 

@@ -2327,5 +2327,77 @@ module Stripe
       params(params: T.any(::Stripe::PaymentAttemptRecordListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was authenticated.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportAuthenticatedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_authenticated(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was authenticated.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportAuthenticatedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_authenticated(payment_attempt_record, params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was canceled.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportCanceledParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_canceled(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was canceled.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportCanceledParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_canceled(payment_attempt_record, params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record failed.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportFailedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_failed(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record failed.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportFailedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_failed(payment_attempt_record, params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was guaranteed.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportGuaranteedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_guaranteed(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was guaranteed.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportGuaranteedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_guaranteed(payment_attempt_record, params = {}, opts = {}); end
+
+    # Report informational updates on the specified Payment Attempt Record.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportInformationalParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_informational(params = {}, opts = {}); end
+
+    # Report informational updates on the specified Payment Attempt Record.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportInformationalParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_informational(payment_attempt_record, params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was refunded.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_refund(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was refunded.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_refund(payment_attempt_record, params = {}, opts = {}); end
   end
 end

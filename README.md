@@ -3,6 +3,9 @@
 [![Gem Version](https://badge.fury.io/rb/stripe.svg)](https://badge.fury.io/rb/stripe)
 [![Build Status](https://github.com/stripe/stripe-ruby/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/stripe/stripe-ruby/actions?query=branch%3Amaster)
 
+> [!TIP]
+> Want to chat live with Stripe engineers? Join us on our [Discord server](https://stripe.com/go/discord/ruby).
+
 The Stripe Ruby library provides convenient access to the Stripe API from
 applications written in the Ruby language. It includes a pre-defined set of
 classes for API resources that initialize themselves dynamically from API
@@ -268,7 +271,7 @@ end
 ### How to use undocumented parameters and properties
 
 In some cases, you might encounter parameters on an API request or fields on an API response that aren’t available in the SDKs.
-This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK. 
+This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK.
 See [undocumented params and properties](https://docs.stripe.com/sdks/server-side?lang=ruby#undocumented-params-and-fields) to send those parameters or access those fields.
 
 ### Writing a Plugin

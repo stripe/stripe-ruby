@@ -11,6 +11,10 @@ This release changes the pinned API version to `2026-02-25.preview`.
   * Add support for `branch_number` and `swift_code` on `V2::MoneyManagement::PayoutMethod::BankAccount`
   * Change `V2::MoneyManagement::Transaction.flow` and `V2::MoneyManagement::TransactionEntry::TransactionDetail.flow` to be optional
 
+## 18.4.2 - 2026-03-10
+* [#1811](https://github.com/stripe/stripe-ruby/pull/1811) Retry on Net::HTTPFatalError
+  - Fixes a bug where `Net::HTTPFatalError` errors were being thrown and not retried (unlike other 5xx responses from the Stripe API)
+
 ## 18.4.1 - 2026-03-06
 * [#1805](https://github.com/stripe/stripe-ruby/pull/1805) Add Stripe-Request-Trigger header
 * [#1803](https://github.com/stripe/stripe-ruby/pull/1803) Add agent information to UserAgent

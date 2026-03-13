@@ -317,6 +317,14 @@ module Stripe
                                           num_retries: 0)
       end
 
+      should "retry on Net::HTTPFatalError" do
+        response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+        error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+        assert APIRequestor.should_retry?(error,
+                                          num_retries: 0)
+      end
+
       should "retry on SocketError" do
         assert APIRequestor.should_retry?(SocketError.new,
                                           num_retries: 0)
@@ -1178,6 +1186,23 @@ module Stripe
             assert_match(/Request was retried 2 times/, err.message)
           end
 
+          should "retry Net::HTTPFatalError failures and raise APIConnectionError if error persists" do
+            APIRequestor.expects(:sleep_time).at_least_once.returns(0)
+
+            response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+            error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+              .to_raise(error)
+
+            client = APIRequestor.new("sk_test_123")
+            err = assert_raises Stripe::APIConnectionError do
+              client.send(request_method, :post, "/v1/charges", :api,
+                          &@read_body_chunk_block)
+            end
+            assert_match(/Request was retried 2 times/, err.message)
+          end
+
           should "retry failed requests and return successful response" do
             APIRequestor.expects(:sleep_time).at_least_once.returns(0)
 
@@ -1735,26 +1760,21 @@ module Stripe
   end
 
   class SystemProfilerTest < Test::Unit::TestCase
-    context "#uname" do
-      should "run without failure" do
-        # Don't actually check the result because we try a variety of different
-        # strategies that will have different results depending on where this
-        # test and running. We're mostly making sure that no exception is thrown.
-        _ = APIRequestor::SystemProfiler.uname
+    context ".user_agent" do
+      should "omit platform when telemetry is disabled" do
+        Stripe.enable_telemetry = false
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_nil ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
       end
-    end
 
-    context "#uname_from_system" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system
-      end
-    end
-
-    context "#uname_from_system_ver" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system_ver
+      should "include platform when telemetry is enabled" do
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal RUBY_PLATFORM, ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
       end
     end
 

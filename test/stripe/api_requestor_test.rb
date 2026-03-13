@@ -1760,26 +1760,21 @@ module Stripe
   end
 
   class SystemProfilerTest < Test::Unit::TestCase
-    context "#uname" do
-      should "run without failure" do
-        # Don't actually check the result because we try a variety of different
-        # strategies that will have different results depending on where this
-        # test and running. We're mostly making sure that no exception is thrown.
-        _ = APIRequestor::SystemProfiler.uname
+    context ".user_agent" do
+      should "omit platform when telemetry is disabled" do
+        Stripe.enable_telemetry = false
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_nil ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
       end
-    end
 
-    context "#uname_from_system" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system
-      end
-    end
-
-    context "#uname_from_system_ver" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system_ver
+      should "include platform when telemetry is enabled" do
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal RUBY_PLATFORM, ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
       end
     end
 

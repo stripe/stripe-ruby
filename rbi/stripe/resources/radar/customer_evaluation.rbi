@@ -6,6 +6,48 @@ module Stripe
   module Radar
     # Customer Evaluation resource returned by the Radar Customer Evaluations API.
     class CustomerEvaluation < APIResource
+      class Event < ::Stripe::StripeObject
+        class LoginFailed < ::Stripe::StripeObject
+          # The reason why this login failed.
+          sig { returns(String) }
+          def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class RegistrationFailed < ::Stripe::StripeObject
+          # The reason why this registration failed.
+          sig { returns(String) }
+          def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Data about a failed login event.
+        sig { returns(T.nilable(LoginFailed)) }
+        def login_failed; end
+        # Time at which the event occurred. Measured in seconds since the Unix epoch.
+        sig { returns(Integer) }
+        def occurred_at; end
+        # Data about a failed registration event.
+        sig { returns(T.nilable(RegistrationFailed)) }
+        def registration_failed; end
+        # The type of event that occurred.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {login_failed: LoginFailed, registration_failed: RegistrationFailed}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Signals < ::Stripe::StripeObject
         class AccountSharing < ::Stripe::StripeObject
           # Time at which the signal was evaluated. Measured in seconds since the Unix epoch.
@@ -63,6 +105,9 @@ module Stripe
       # The type of evaluation event.
       sig { returns(String) }
       def event_type; end
+      # A list of events that have been reported on this customer evaluation.
+      sig { returns(T.nilable(T::Array[Event])) }
+      def events; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
@@ -80,6 +125,12 @@ module Stripe
         params(params: T.any(::Stripe::Radar::CustomerEvaluationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::CustomerEvaluation)
        }
       def self.create(params = {}, opts = {}); end
+
+      # Reports an event on a CustomerEvaluation object.
+      sig {
+        params(customer_evaluation: String, params: T.any(::Stripe::Radar::CustomerEvaluationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::CustomerEvaluation)
+       }
+      def self.update(customer_evaluation, params = {}, opts = {}); end
     end
   end
 end

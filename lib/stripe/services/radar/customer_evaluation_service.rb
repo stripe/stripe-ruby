@@ -14,6 +14,17 @@ module Stripe
           base_address: :api
         )
       end
+
+      # Reports an event on a CustomerEvaluation object.
+      def update(customer_evaluation, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/radar/customer_evaluations/%<customer_evaluation>s/report", { customer_evaluation: CGI.escape(customer_evaluation) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
     end
   end
 end

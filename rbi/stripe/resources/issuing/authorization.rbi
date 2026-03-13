@@ -399,6 +399,131 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class TokenDetails < ::Stripe::StripeObject
+        class NetworkData < ::Stripe::StripeObject
+          class Device < ::Stripe::StripeObject
+            # The IP address of the device at provisioning time.
+            sig { returns(T.nilable(String)) }
+            def ip_address; end
+            # The ISO 639-1 language code of the device associated with the tokenization request.
+            sig { returns(T.nilable(String)) }
+            def language; end
+            # The phone number of the device used for tokenization.
+            sig { returns(T.nilable(String)) }
+            def phone_number; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Mastercard < ::Stripe::StripeObject
+            # A unique reference ID from the network to represent the card account number.
+            sig { returns(T.nilable(String)) }
+            def card_reference_id; end
+            # The network-unique identifier for the token.
+            sig { returns(String) }
+            def token_reference_id; end
+            # The ID of the entity requesting tokenization.
+            sig { returns(String) }
+            def token_requestor_id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Visa < ::Stripe::StripeObject
+            # A unique reference ID from the network to represent the card account number.
+            sig { returns(T.nilable(String)) }
+            def card_reference_id; end
+            # The network-unique identifier for the token.
+            sig { returns(String) }
+            def token_reference_id; end
+            # The ID of the entity requesting tokenization.
+            sig { returns(String) }
+            def token_requestor_id; end
+            # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
+            sig { returns(T.nilable(String)) }
+            def token_risk_score; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class WalletProvider < ::Stripe::StripeObject
+            # An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
+            sig { returns(T.nilable(Integer)) }
+            def account_trust_score; end
+            # The method used for tokenizing a card.
+            sig { returns(T.nilable(String)) }
+            def card_number_source; end
+            # An evaluation on the trustworthiness of the device. A higher score indicates more trustworthy.
+            sig { returns(T.nilable(Integer)) }
+            def device_trust_score; end
+            # The reasons for suggested tokenization given by the card network.
+            sig { returns(T.nilable(T::Array[String])) }
+            def reason_codes; end
+            # The recommendation on responding to the tokenization request.
+            sig { returns(T.nilable(String)) }
+            def suggested_decision; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field device
+          sig { returns(T.nilable(Device)) }
+          def device; end
+          # Attribute for field mastercard
+          sig { returns(T.nilable(Mastercard)) }
+          def mastercard; end
+          # The card network for this token.
+          sig { returns(String) }
+          def type; end
+          # Attribute for field visa
+          sig { returns(T.nilable(Visa)) }
+          def visa; end
+          # Attribute for field wallet_provider
+          sig { returns(T.nilable(WalletProvider)) }
+          def wallet_provider; end
+          def self.inner_class_types
+            @inner_class_types = {
+              device: Device,
+              mastercard: Mastercard,
+              visa: Visa,
+              wallet_provider: WalletProvider,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The card associated with this token.
+        sig { returns(String) }
+        def card; end
+        # Time at which the object was created. Measured in seconds since the Unix epoch.
+        sig { returns(Integer) }
+        def created; end
+        # The hashed ID derived from the device ID from the card network associated with the token.
+        sig { returns(T.nilable(String)) }
+        def device_fingerprint; end
+        # Attribute for field network_data
+        sig { returns(T.nilable(NetworkData)) }
+        def network_data; end
+        def self.inner_class_types
+          @inner_class_types = {network_data: NetworkData}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The total amount that was authorized or rejected. This amount is in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `amount` should be the same as `merchant_amount`, unless `currency` and `merchant_currency` are different.
       sig { returns(Integer) }
       def amount; end
@@ -486,6 +611,9 @@ module Stripe
       # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
       sig { returns(T.nilable(String)) }
       def wallet; end
+      # Attribute for field token_details
+      sig { returns(T.nilable(TokenDetails)) }
+      def token_details; end
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       sig {

@@ -381,6 +381,123 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class TokenDetails < ::Stripe::StripeObject
+        class NetworkData < ::Stripe::StripeObject
+          class Device < ::Stripe::StripeObject
+            # The IP address of the device at provisioning time.
+            attr_reader :ip_address
+            # The ISO 639-1 language code of the device associated with the tokenization request.
+            attr_reader :language
+            # The phone number of the device used for tokenization.
+            attr_reader :phone_number
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Mastercard < ::Stripe::StripeObject
+            # A unique reference ID from the network to represent the card account number.
+            attr_reader :card_reference_id
+            # The network-unique identifier for the token.
+            attr_reader :token_reference_id
+            # The ID of the entity requesting tokenization.
+            attr_reader :token_requestor_id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Visa < ::Stripe::StripeObject
+            # A unique reference ID from the network to represent the card account number.
+            attr_reader :card_reference_id
+            # The network-unique identifier for the token.
+            attr_reader :token_reference_id
+            # The ID of the entity requesting tokenization.
+            attr_reader :token_requestor_id
+            # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
+            attr_reader :token_risk_score
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class WalletProvider < ::Stripe::StripeObject
+            # An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
+            attr_reader :account_trust_score
+            # The method used for tokenizing a card.
+            attr_reader :card_number_source
+            # An evaluation on the trustworthiness of the device. A higher score indicates more trustworthy.
+            attr_reader :device_trust_score
+            # The reasons for suggested tokenization given by the card network.
+            attr_reader :reason_codes
+            # The recommendation on responding to the tokenization request.
+            attr_reader :suggested_decision
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field device
+          attr_reader :device
+          # Attribute for field mastercard
+          attr_reader :mastercard
+          # The card network for this token.
+          attr_reader :type
+          # Attribute for field visa
+          attr_reader :visa
+          # Attribute for field wallet_provider
+          attr_reader :wallet_provider
+
+          def self.inner_class_types
+            @inner_class_types = {
+              device: Device,
+              mastercard: Mastercard,
+              visa: Visa,
+              wallet_provider: WalletProvider,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The card associated with this token.
+        attr_reader :card
+        # Time at which the object was created. Measured in seconds since the Unix epoch.
+        attr_reader :created
+        # The hashed ID derived from the device ID from the card network associated with the token.
+        attr_reader :device_fingerprint
+        # Attribute for field network_data
+        attr_reader :network_data
+
+        def self.inner_class_types
+          @inner_class_types = { network_data: NetworkData }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The total amount that was authorized or rejected. This amount is in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `amount` should be the same as `merchant_amount`, unless `currency` and `merchant_currency` are different.
       attr_reader :amount
       # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -439,6 +556,8 @@ module Stripe
       attr_reader :verified_by_fraud_challenge
       # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
       attr_reader :wallet
+      # Attribute for field token_details
+      attr_reader :token_details
 
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
@@ -669,6 +788,7 @@ module Stripe
           request_history: RequestHistory,
           treasury: Treasury,
           verification_data: VerificationData,
+          token_details: TokenDetails,
         }
       end
 

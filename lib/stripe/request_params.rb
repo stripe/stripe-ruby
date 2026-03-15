@@ -34,6 +34,7 @@ module Stripe
     end
 
     def to_h
+      encodings = self.class.field_encodings
       instance_variables.each_with_object({}) do |var, hash|
         # _explicitly_set_keys is set as an instance variable.
         # Ignore the var if it is _explicitly_set_keys itself.
@@ -53,6 +54,76 @@ module Stripe
                     else
                       value
                     end
+
+        # Coerce fields based on encoding schema (int64_string, nested objects, arrays)
+        encoding = encodings[key]
+        hash[key] = self.class.coerce_value(hash[key], encoding) if encoding
+      end
+    end
+
+    def self.field_encodings
+      @field_encodings ||= {}
+    end
+
+    # Recursively coerce a value based on its field encoding schema.
+    # Handles :int64_string leaves, { kind: :object, fields: ... } nesting,
+    # and { kind: :array, element: ... } for arrays.
+    def self.coerce_value(value, encoding)
+      return value if value.nil?
+
+      case encoding
+      when :int64_string
+        coerce_int64_string(value)
+      when Hash
+        coerce_composite(value, encoding)
+      else
+        value
+      end
+    end
+
+    private_class_method def self.coerce_int64_string(value)
+      case value
+      when Integer then value.to_s
+      when Array then value.map { |v| v.is_a?(Integer) ? v.to_s : v }
+      else value
+      end
+    end
+
+    private_class_method def self.coerce_composite(value, encoding)
+      case encoding[:kind]
+      when :object
+        coerce_object(value, encoding[:fields] || {})
+      when :array
+        return value unless value.is_a?(Array)
+
+        value.map { |v| coerce_value(v, encoding[:element]) }
+      else
+        value
+      end
+    end
+
+    private_class_method def self.coerce_object(value, fields_schema)
+      return value unless value.is_a?(Hash)
+
+      value.each_with_object({}) do |(k, v), result|
+        field_encoding = fields_schema[k]
+        result[k] = field_encoding ? coerce_value(v, field_encoding) : v
+      end
+    end
+
+    # Coerce a plain Hash using this class's field_encodings.
+    # Called from generated service methods when params is a Hash
+    # (not a RequestParams instance) to ensure int64_string fields
+    # are serialized as strings on the wire.
+    def self.coerce_params(params)
+      return params unless params.is_a?(Hash)
+
+      encodings = field_encodings
+      return params if encodings.empty?
+
+      params.each_with_object({}) do |(k, v), result|
+        encoding = encodings[k]
+        result[k] = encoding ? coerce_value(v, encoding) : v
       end
     end
   end

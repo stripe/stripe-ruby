@@ -48,6 +48,10 @@ module Stripe
               @divide_by = divide_by
               @round = round
             end
+
+            def self.field_encodings
+              @field_encodings = { divide_by: :int64_string }
+            end
           end
           # The custom pricing unit that this rate binds to. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           attr_accessor :custom_pricing_unit_amount
@@ -83,6 +87,12 @@ module Stripe
             @tiers = tiers
             @transform_quantity = transform_quantity
             @unit_amount = unit_amount
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
+            }
           end
         end
       end

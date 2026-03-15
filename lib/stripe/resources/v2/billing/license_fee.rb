@@ -47,6 +47,10 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = { divide_by: :int64_string }
+          end
         end
         # Whether this License Fee is active. Inactive License Fees cannot be used in new activations or be modified.
         attr_reader :active
@@ -100,6 +104,12 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
+          }
         end
       end
     end

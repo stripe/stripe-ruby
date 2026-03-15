@@ -52,6 +52,9 @@ module Stripe
           def round=(_round); end
           sig { params(divide_by: Integer, round: String).void }
           def initialize(divide_by: nil, round: nil); end
+          def self.field_encodings
+            @field_encodings = {divide_by: :int64_string}
+          end
         end
         # A customer-facing name for the License Fee.
         # This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
@@ -118,6 +121,11 @@ module Stripe
           transform_quantity: nil,
           unit_amount: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            transform_quantity: {kind: :object, fields: {divide_by: :int64_string}},
+          }
+        end
       end
     end
   end

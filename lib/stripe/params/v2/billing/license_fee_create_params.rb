@@ -35,6 +35,10 @@ module Stripe
             @divide_by = divide_by
             @round = round
           end
+
+          def self.field_encodings
+            @field_encodings = { divide_by: :int64_string }
+          end
         end
         # Three-letter ISO currency code, in lowercase. Must be a supported currency.
         attr_accessor :currency
@@ -96,6 +100,12 @@ module Stripe
           @tiers = tiers
           @transform_quantity = transform_quantity
           @unit_amount = unit_amount
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
+          }
         end
       end
     end

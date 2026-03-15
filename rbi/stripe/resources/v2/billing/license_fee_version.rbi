@@ -44,6 +44,9 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+          def self.field_encodings
+            @field_encodings = {divide_by: :int64_string}
+          end
         end
         # Timestamp of when the object was created.
         sig { returns(String) }

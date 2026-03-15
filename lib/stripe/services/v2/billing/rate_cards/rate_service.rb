@@ -9,6 +9,10 @@ module Stripe
           # Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
           # if the Metered Item already has a rate on the Rate Card.
           def create(rate_card_id, params = {}, opts = {})
+            unless params.is_a?(Stripe::RequestParams)
+              params = V2::Billing::RateCards::RateCreateParams.coerce_params(params)
+            end
+
             request(
               method: :post,
               path: format("/v2/billing/rate_cards/%<rate_card_id>s/rates", { rate_card_id: CGI.escape(rate_card_id) }),

@@ -192,7 +192,7 @@ module Stripe
         attr_reader :status_details
         # The time at which the ReceivedDebit transitioned to a particular status.
         attr_reader :status_transitions
-        # Open enum, the type of the received debit.
+        # Open Enum. The type of the ReceivedDebit.
         attr_reader :type
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode

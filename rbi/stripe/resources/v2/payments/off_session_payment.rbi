@@ -12,6 +12,34 @@ module Stripe
       # OffSessionPayment will transition through its lifecycle asynchronously.
       # Related guide: [Off-Session Payments API](https://docs.stripe.com/payments/off-session-payments).
       class OffSessionPayment < APIResource
+        class AmountCapturable < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(Integer) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class AmountRequested < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(Integer) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Capture < ::Stripe::StripeObject
           # The timestamp when this payment is no longer eligible to be captured.
           sig { returns(T.nilable(String)) }
@@ -76,10 +104,10 @@ module Stripe
           end
         end
         # The amount available to be captured.
-        sig { returns(T.nilable(::Stripe::V2::Amount)) }
+        sig { returns(T.nilable(AmountCapturable)) }
         def amount_capturable; end
         # The “presentment amount” to be collected from the customer.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(AmountRequested) }
         def amount_requested; end
         # The frequency of the underlying payment.
         sig { returns(String) }

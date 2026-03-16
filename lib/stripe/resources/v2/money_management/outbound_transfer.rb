@@ -11,6 +11,21 @@ module Stripe
           "v2.money_management.outbound_transfer"
         end
 
+        class Amount < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          attr_reader :value
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_reader :currency
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class DeliveryOptions < ::Stripe::StripeObject
           # Open Enum. Method for bank account.
           attr_reader :bank_account
@@ -25,13 +40,27 @@ module Stripe
         end
 
         class From < ::Stripe::StripeObject
+          class Debited < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            attr_reader :value
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount debited from the sender, only set on responses.
           attr_reader :debited
           # The FinancialAccount that funds were pulled from.
           attr_reader :financial_account
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { debited: Debited }
           end
 
           def self.field_remappings
@@ -103,13 +132,27 @@ module Stripe
         end
 
         class To < ::Stripe::StripeObject
+          class Credited < ::Stripe::StripeObject
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            attr_reader :value
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
           attr_reader :credited
           # The payout method which the OutboundTransfer uses to send payout.
           attr_reader :payout_method
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { credited: Credited }
           end
 
           def self.field_remappings
@@ -180,6 +223,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            amount: Amount,
             delivery_options: DeliveryOptions,
             from: From,
             status_details: StatusDetails,

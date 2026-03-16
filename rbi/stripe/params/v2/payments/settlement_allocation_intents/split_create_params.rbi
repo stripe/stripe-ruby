@@ -7,15 +7,33 @@ module Stripe
     module Payments
       module SettlementAllocationIntents
         class SplitCreateParams < ::Stripe::RequestParams
+          class Amount < ::Stripe::RequestParams
+            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            sig { returns(Integer) }
+            def value; end
+            sig { params(_value: Integer).returns(Integer) }
+            def value=(_value); end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
+            sig { params(value: Integer, currency: String).void }
+            def initialize(value: nil, currency: nil); end
+          end
           # The target account for settling the SettlementAllocationIntentSplit.
           sig { returns(String) }
           def account; end
           sig { params(_account: String).returns(String) }
           def account=(_account); end
           # The amount and currency of the SettlementAllocationIntentSplit.
-          sig { returns(::Stripe::V2::Amount) }
+          sig {
+            returns(::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount)
+           }
           def amount; end
-          sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+          sig {
+            params(_amount: ::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount).returns(::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount)
+           }
           def amount=(_amount); end
           # Metadata associated with the SettlementAllocationIntentSplit.
           sig { returns(T.nilable(T::Hash[String, String])) }
@@ -30,7 +48,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(account: String, amount: ::Stripe::V2::Amount, metadata: T.nilable(T::Hash[String, String]), type: String).void
+            params(account: String, amount: ::Stripe::V2::Payments::SettlementAllocationIntents::SplitCreateParams::Amount, metadata: T.nilable(T::Hash[String, String]), type: String).void
            }
           def initialize(account: nil, amount: nil, metadata: nil, type: nil); end
         end

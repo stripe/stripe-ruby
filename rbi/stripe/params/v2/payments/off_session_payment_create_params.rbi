@@ -6,6 +6,20 @@ module Stripe
   module V2
     module Payments
       class OffSessionPaymentCreateParams < ::Stripe::RequestParams
+        class Amount < ::Stripe::RequestParams
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(Integer) }
+          def value; end
+          sig { params(_value: Integer).returns(Integer) }
+          def value=(_value); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          sig { params(value: Integer, currency: String).void }
+          def initialize(value: nil, currency: nil); end
+        end
         class Capture < ::Stripe::RequestParams
           # The method to use to capture the payment.
           sig { returns(String) }
@@ -217,9 +231,11 @@ module Stripe
           def initialize(amount: nil, destination: nil); end
         end
         # The “presentment amount” to be collected from the customer.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount) }
         def amount; end
-        sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+        sig {
+          params(_amount: ::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount).returns(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount)
+         }
         def amount=(_amount); end
         # The frequency of the underlying payment.
         sig { returns(String) }
@@ -322,7 +338,7 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount: ::Stripe::V2::Amount, cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
+          params(amount: ::Stripe::V2::Payments::OffSessionPaymentCreateParams::Amount, cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
          }
         def initialize(
           amount: nil,

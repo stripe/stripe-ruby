@@ -5,6 +5,18 @@ module Stripe
   module V2
     module MoneyManagement
       class InboundTransferCreateParams < ::Stripe::RequestParams
+        class Amount < ::Stripe::RequestParams
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          attr_accessor :value
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_accessor :currency
+
+          def initialize(value: nil, currency: nil)
+            @value = value
+            @currency = currency
+          end
+        end
+
         class From < ::Stripe::RequestParams
           # An optional currency field used to specify which currency is debited from the Payment Method.
           # Since many Payment Methods support only one currency, this field is optional.

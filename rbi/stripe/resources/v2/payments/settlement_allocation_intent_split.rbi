@@ -7,6 +7,20 @@ module Stripe
     module Payments
       # SettlementAllocationIntentSplit resource.
       class SettlementAllocationIntentSplit < APIResource
+        class Amount < ::Stripe::StripeObject
+          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+          sig { returns(Integer) }
+          def value; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Flow < ::Stripe::StripeObject
           # Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
           sig { returns(String) }
@@ -31,7 +45,7 @@ module Stripe
         sig { returns(String) }
         def account; end
         # The amount and currency of the SettlementAllocationIntentSplit.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(Amount) }
         def amount; end
         # Timestamp at which SettlementAllocationIntentSplit was created.
         sig { returns(String) }

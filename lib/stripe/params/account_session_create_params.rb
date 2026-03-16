@@ -194,10 +194,17 @@ module Stripe
       end
 
       class CheckScanning < ::Stripe::RequestParams
-        class Features < ::Stripe::RequestParams; end
+        class Features < ::Stripe::RequestParams
+          # Attribute for param field create_us_paper_check_on_application
+          attr_accessor :create_us_paper_check_on_application
+
+          def initialize(create_us_paper_check_on_application: nil)
+            @create_us_paper_check_on_application = create_us_paper_check_on_application
+          end
+        end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
-        # An empty list, because this embedded component has no features.
+        # The list of features enabled in the embedded component.
         attr_accessor :features
 
         def initialize(enabled: nil, features: nil)

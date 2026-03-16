@@ -1953,6 +1953,15 @@ module Stripe
           def initialize(type: nil); end
         end
         class Us < ::Stripe::RequestParams
+          class HomeRuleTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=home_rule_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
           class LocalAmusementTax < ::Stripe::RequestParams
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `02154` (Arlington Heights), `05248` (Bensenville), `06613` (Bloomington), `10906` (Campton Hills), `14000` (Chicago), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), `64421` (Riverside), `65806` (Roselle), and `68081` (Schiller Park).
             sig { returns(String) }
@@ -2037,15 +2046,25 @@ module Stripe
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
+          # Options for the home rule tax registration.
           sig {
-            params(local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String).void
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax))
+           }
+          def home_rule_tax; end
+          sig {
+            params(_home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax))
+           }
+          def home_rule_tax=(_home_rule_tax); end
+          sig {
+            params(local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String, home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax)).void
            }
           def initialize(
             local_amusement_tax: nil,
             local_lease_tax: nil,
             state: nil,
             state_sales_tax: nil,
-            type: nil
+            type: nil,
+            home_rule_tax: nil
           ); end
         end
         class Uy < ::Stripe::RequestParams

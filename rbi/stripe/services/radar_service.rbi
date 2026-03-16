@@ -5,6 +5,7 @@
 module Stripe
   class RadarService < StripeService
     attr_reader :account_evaluations
+    attr_reader :customer_evaluations
     attr_reader :early_fraud_warnings
     attr_reader :issuing_authorization_evaluations
     attr_reader :payment_evaluations

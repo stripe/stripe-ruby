@@ -253,7 +253,7 @@ module Stripe
         # The time at which the ReceivedDebit transitioned to a particular status.
         sig { returns(T.nilable(StatusTransitions)) }
         def status_transitions; end
-        # Open enum, the type of the received debit.
+        # Open Enum. The type of the ReceivedDebit.
         sig { returns(String) }
         def type; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

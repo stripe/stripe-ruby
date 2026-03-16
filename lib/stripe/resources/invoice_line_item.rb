@@ -89,16 +89,12 @@ module Stripe
         end
       end
 
-      class LicenseFeeSubscriptionDetails < ::Stripe::StripeObject
+      class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
         # The invoice item that generated this line item
         attr_reader :invoice_item
-        # The license fee subscription that generated this line item
-        attr_reader :license_fee_subscription
-        # The license fee version at the time this line item was generated
-        attr_reader :license_fee_version
-        # The pricing plan subscription that manages the license fee subscription
+        # The pricing plan subscription that manages this charge
         attr_reader :pricing_plan_subscription
-        # The pricing plan version at the time this line item was generated
+        # The pricing plan version at the time this charge was generated
         attr_reader :pricing_plan_version
 
         def self.inner_class_types
@@ -113,10 +109,6 @@ module Stripe
       class RateCardSubscriptionDetails < ::Stripe::StripeObject
         # The invoice item that generated this line item
         attr_reader :invoice_item
-        # The pricing plan subscription that manages the rate card subscription
-        attr_reader :pricing_plan_subscription
-        # The pricing plan version at the time this line item was generated
-        attr_reader :pricing_plan_version
         # The rate card subscription that generated this line item
         attr_reader :rate_card_subscription
         # The rate card version at the time this line item was generated
@@ -226,8 +218,6 @@ module Stripe
       end
       # Details about the invoice item that generated this line item
       attr_reader :invoice_item_details
-      # Details about the license fee subscription that generated this line item
-      attr_reader :license_fee_subscription_details
       # Details about the rate card subscription that generated this line item
       attr_reader :rate_card_subscription_details
       # Details about the subscription schedule that generated this line item
@@ -236,14 +226,16 @@ module Stripe
       attr_reader :subscription_item_details
       # The type of parent that generated this line item
       attr_reader :type
+      # Details about the pricing plan subscription that generated this line item
+      attr_reader :pricing_plan_subscription_details
 
       def self.inner_class_types
         @inner_class_types = {
           invoice_item_details: InvoiceItemDetails,
-          license_fee_subscription_details: LicenseFeeSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           schedule_details: ScheduleDetails,
           subscription_item_details: SubscriptionItemDetails,
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
         }
       end
 

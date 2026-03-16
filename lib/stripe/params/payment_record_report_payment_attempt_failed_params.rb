@@ -9,11 +9,14 @@ module Stripe
     attr_accessor :failed_at
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
+    # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+    attr_accessor :failure_code
 
-    def initialize(expand: nil, failed_at: nil, metadata: nil)
+    def initialize(expand: nil, failed_at: nil, metadata: nil, failure_code: nil)
       @expand = expand
       @failed_at = failed_at
       @metadata = metadata
+      @failure_code = failure_code
     end
   end
 end

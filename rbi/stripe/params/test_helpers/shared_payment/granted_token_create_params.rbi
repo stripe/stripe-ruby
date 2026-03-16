@@ -13,17 +13,29 @@ module Stripe
           sig { params(_currency: String).returns(String) }
           def currency=(_currency); end
           # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def expires_at; end
-          sig { params(_expires_at: Integer).returns(Integer) }
+          sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def expires_at=(_expires_at); end
           # Max amount that can be captured using this SharedPaymentToken
           sig { returns(Integer) }
           def max_amount; end
           sig { params(_max_amount: Integer).returns(Integer) }
           def max_amount=(_max_amount); end
-          sig { params(currency: String, expires_at: Integer, max_amount: Integer).void }
-          def initialize(currency: nil, expires_at: nil, max_amount: nil); end
+          # The recurring interval at which the shared payment token's amount usage restrictions reset.
+          sig { returns(T.nilable(String)) }
+          def recurring_interval; end
+          sig { params(_recurring_interval: T.nilable(String)).returns(T.nilable(String)) }
+          def recurring_interval=(_recurring_interval); end
+          sig {
+            params(currency: String, expires_at: T.nilable(Integer), max_amount: Integer, recurring_interval: T.nilable(String)).void
+           }
+          def initialize(
+            currency: nil,
+            expires_at: nil,
+            max_amount: nil,
+            recurring_interval: nil
+          ); end
         end
         # The Customer that the SharedPaymentGrantedToken belongs to. Should match the Customer that the PaymentMethod is attached to if any.
         sig { returns(T.nilable(String)) }

@@ -5,9 +5,9 @@
 module Stripe
   class PaymentRecordReportPaymentAttemptCanceledParams < ::Stripe::RequestParams
     # When the reported payment was canceled. Measured in seconds since the Unix epoch.
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def canceled_at; end
-    sig { params(_canceled_at: Integer).returns(Integer) }
+    sig { params(_canceled_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def canceled_at=(_canceled_at); end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
@@ -22,7 +22,7 @@ module Stripe
      }
     def metadata=(_metadata); end
     sig {
-      params(canceled_at: Integer, expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
+      params(canceled_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
      }
     def initialize(canceled_at: nil, expand: nil, metadata: nil); end
   end

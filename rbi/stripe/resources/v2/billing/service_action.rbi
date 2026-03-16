@@ -26,20 +26,6 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Monetary < ::Stripe::StripeObject
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             sig { returns(String) }
             def type; end
@@ -47,10 +33,10 @@ module Stripe
             sig { returns(T.nilable(CustomPricingUnit)) }
             def custom_pricing_unit; end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig { returns(T.nilable(Monetary)) }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             def self.inner_class_types
-              @inner_class_types = {custom_pricing_unit: CustomPricingUnit, monetary: Monetary}
+              @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -140,20 +126,6 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Monetary < ::Stripe::StripeObject
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             sig { returns(String) }
             def type; end
@@ -161,10 +133,10 @@ module Stripe
             sig { returns(T.nilable(CustomPricingUnit)) }
             def custom_pricing_unit; end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig { returns(T.nilable(Monetary)) }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             def self.inner_class_types
-              @inner_class_types = {custom_pricing_unit: CustomPricingUnit, monetary: Monetary}
+              @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
             end
             def self.field_remappings
               @field_remappings = {}

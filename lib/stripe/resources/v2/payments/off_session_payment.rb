@@ -16,36 +16,6 @@ module Stripe
           "v2.payments.off_session_payment"
         end
 
-        class AmountCapturable < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          attr_reader :value
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
-        class AmountRequested < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          attr_reader :value
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class Capture < ::Stripe::StripeObject
           # The timestamp when this payment is no longer eligible to be captured.
           attr_reader :capture_before
@@ -173,8 +143,6 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
-            amount_capturable: AmountCapturable,
-            amount_requested: AmountRequested,
             capture: Capture,
             payments_orchestration: PaymentsOrchestration,
             retry_details: RetryDetails,

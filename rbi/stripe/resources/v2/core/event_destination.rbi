@@ -72,7 +72,11 @@ module Stripe
         # Payload type of events being subscribed to.
         sig { returns(String) }
         def event_payload; end
-        # Where events should be routed from.
+        # Specifies which accounts' events route to this destination.
+        # `@self`: Receive events from the account that owns the event destination.
+        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@organization_members`: Receive events from accounts directly linked to the organization.
+        # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         sig { returns(T.nilable(T::Array[String])) }
         def events_from; end
         # Unique identifier for the object.

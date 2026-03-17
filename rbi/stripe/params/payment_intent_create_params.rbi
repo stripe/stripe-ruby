@@ -4872,6 +4872,15 @@ module Stripe
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
       class Crypto < ::Stripe::RequestParams
+        class DepositOptions < ::Stripe::RequestParams
+          # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+          sig { returns(T::Array[String]) }
+          def networks; end
+          sig { params(_networks: T::Array[String]).returns(T::Array[String]) }
+          def networks=(_networks); end
+          sig { params(networks: T::Array[String]).void }
+          def initialize(networks: nil); end
+        end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -4885,8 +4894,24 @@ module Stripe
         def setup_future_usage; end
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
-        sig { params(setup_future_usage: T.nilable(String)).void }
-        def initialize(setup_future_usage: nil); end
+        # Specific configuration for this PaymentIntent when the mode is `deposit`.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Crypto::DepositOptions))
+         }
+        def deposit_options; end
+        sig {
+          params(_deposit_options: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Crypto::DepositOptions)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Crypto::DepositOptions))
+         }
+        def deposit_options=(_deposit_options); end
+        # The mode of the crypto payment.
+        sig { returns(T.nilable(String)) }
+        def mode; end
+        sig { params(_mode: T.nilable(String)).returns(T.nilable(String)) }
+        def mode=(_mode); end
+        sig {
+          params(setup_future_usage: T.nilable(String), deposit_options: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Crypto::DepositOptions), mode: T.nilable(String)).void
+         }
+        def initialize(setup_future_usage: nil, deposit_options: nil, mode: nil); end
       end
       class CustomerBalance < ::Stripe::RequestParams
         class BankTransfer < ::Stripe::RequestParams

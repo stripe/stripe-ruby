@@ -383,6 +383,118 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class CryptoDisplayDetails < ::Stripe::StripeObject
+        class DepositAddresses < ::Stripe::StripeObject
+          class Base < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              sig { returns(String) }
+              def token_contract_address; end
+              # The supported token currency. Supported token currencies include: `usdc`.
+              sig { returns(String) }
+              def token_currency; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            sig { returns(String) }
+            def address; end
+            # The token currencies supported on this network.
+            sig { returns(T::Array[SupportedToken]) }
+            def supported_tokens; end
+            def self.inner_class_types
+              @inner_class_types = {supported_tokens: SupportedToken}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Solana < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              sig { returns(String) }
+              def token_contract_address; end
+              # The supported token currency. Supported token currencies include: `usdc`.
+              sig { returns(String) }
+              def token_currency; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            sig { returns(String) }
+            def address; end
+            # The token currencies supported on this network.
+            sig { returns(T::Array[SupportedToken]) }
+            def supported_tokens; end
+            def self.inner_class_types
+              @inner_class_types = {supported_tokens: SupportedToken}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Tempo < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              sig { returns(String) }
+              def token_contract_address; end
+              # The supported token currency. Supported token currencies include: `usdc`.
+              sig { returns(String) }
+              def token_currency; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            sig { returns(String) }
+            def address; end
+            # The token currencies supported on this network.
+            sig { returns(T::Array[SupportedToken]) }
+            def supported_tokens; end
+            def self.inner_class_types
+              @inner_class_types = {supported_tokens: SupportedToken}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field base
+          sig { returns(T.nilable(Base)) }
+          def base; end
+          # Attribute for field solana
+          sig { returns(T.nilable(Solana)) }
+          def solana; end
+          # Attribute for field tempo
+          sig { returns(T.nilable(Tempo)) }
+          def tempo; end
+          def self.inner_class_types
+            @inner_class_types = {base: Base, solana: Solana, tempo: Tempo}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field deposit_addresses
+        sig { returns(DepositAddresses) }
+        def deposit_addresses; end
+        def self.inner_class_types
+          @inner_class_types = {deposit_addresses: DepositAddresses}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class DisplayBankTransferInstructions < ::Stripe::StripeObject
         class FinancialAddress < ::Stripe::StripeObject
           class Aba < ::Stripe::StripeObject
@@ -1329,6 +1441,9 @@ module Stripe
       # Attribute for field wechat_pay_redirect_to_ios_app
       sig { returns(T.nilable(WechatPayRedirectToIosApp)) }
       def wechat_pay_redirect_to_ios_app; end
+      # Attribute for field crypto_display_details
+      sig { returns(T.nilable(CryptoDisplayDetails)) }
+      def crypto_display_details; end
       def self.inner_class_types
         @inner_class_types = {
           alipay_handle_redirect: AlipayHandleRedirect,
@@ -1348,6 +1463,7 @@ module Stripe
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
+          crypto_display_details: CryptoDisplayDetails,
         }
       end
       def self.field_remappings
@@ -3211,6 +3327,17 @@ module Stripe
         end
       end
       class Crypto < ::Stripe::StripeObject
+        class DepositOptions < ::Stripe::StripeObject
+          # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+          sig { returns(T.nilable(T::Array[String])) }
+          def networks; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3220,8 +3347,14 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end
+        # Attribute for field deposit_options
+        sig { returns(T.nilable(DepositOptions)) }
+        def deposit_options; end
+        # The mode of the crypto payment.
+        sig { returns(T.nilable(String)) }
+        def mode; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {deposit_options: DepositOptions}
         end
         def self.field_remappings
           @field_remappings = {}

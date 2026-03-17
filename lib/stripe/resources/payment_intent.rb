@@ -392,6 +392,121 @@ module Stripe
         end
       end
 
+      class CryptoDisplayDetails < ::Stripe::StripeObject
+        class DepositAddresses < ::Stripe::StripeObject
+          class Base < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency. Supported token currencies include: `usdc`.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Solana < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency. Supported token currencies include: `usdc`.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tempo < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency. Supported token currencies include: `usdc`.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field base
+          attr_reader :base
+          # Attribute for field solana
+          attr_reader :solana
+          # Attribute for field tempo
+          attr_reader :tempo
+
+          def self.inner_class_types
+            @inner_class_types = { base: Base, solana: Solana, tempo: Tempo }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field deposit_addresses
+        attr_reader :deposit_addresses
+
+        def self.inner_class_types
+          @inner_class_types = { deposit_addresses: DepositAddresses }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class DisplayBankTransferInstructions < ::Stripe::StripeObject
         class FinancialAddress < ::Stripe::StripeObject
           class Aba < ::Stripe::StripeObject
@@ -1236,6 +1351,8 @@ module Stripe
       attr_reader :wechat_pay_redirect_to_android_app
       # Attribute for field wechat_pay_redirect_to_ios_app
       attr_reader :wechat_pay_redirect_to_ios_app
+      # Attribute for field crypto_display_details
+      attr_reader :crypto_display_details
 
       def self.inner_class_types
         @inner_class_types = {
@@ -1256,6 +1373,7 @@ module Stripe
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
+          crypto_display_details: CryptoDisplayDetails,
         }
       end
 
@@ -2993,6 +3111,18 @@ module Stripe
       end
 
       class Crypto < ::Stripe::StripeObject
+        class DepositOptions < ::Stripe::StripeObject
+          # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+          attr_reader :networks
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3001,9 +3131,13 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # Attribute for field deposit_options
+        attr_reader :deposit_options
+        # The mode of the crypto payment.
+        attr_reader :mode
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { deposit_options: DepositOptions }
         end
 
         def self.field_remappings
@@ -4880,6 +5014,37 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def test_helpers
+      TestHelpers.new(self)
+    end
+
+    class TestHelpers < APIResourceTestHelpers
+      RESOURCE_CLASS = PaymentIntent
+      def self.resource_class
+        "PaymentIntent"
+      end
+
+      # Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+      def self.simulate_crypto_deposit(intent, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/payment_intents/%<intent>s/simulate_crypto_deposit", { intent: CGI.escape(intent) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+      def simulate_crypto_deposit(params = {}, opts = {})
+        @resource.request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/payment_intents/%<intent>s/simulate_crypto_deposit", { intent: CGI.escape(@resource["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
     end
 
     def self.inner_class_types

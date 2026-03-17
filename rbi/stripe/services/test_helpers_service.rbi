@@ -8,6 +8,7 @@ module Stripe
     attr_reader :confirmation_tokens
     attr_reader :customers
     attr_reader :issuing
+    attr_reader :payment_intents
     attr_reader :refunds
     attr_reader :shared_payment
     attr_reader :terminal

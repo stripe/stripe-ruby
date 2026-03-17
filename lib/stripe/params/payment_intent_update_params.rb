@@ -3182,6 +3182,14 @@ module Stripe
       end
 
       class Crypto < ::Stripe::RequestParams
+        class DepositOptions < ::Stripe::RequestParams
+          # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+          attr_accessor :networks
+
+          def initialize(networks: nil)
+            @networks = networks
+          end
+        end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3192,9 +3200,15 @@ module Stripe
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
+        # Specific configuration for this PaymentIntent when the mode is `deposit`.
+        attr_accessor :deposit_options
+        # The mode of the crypto payment.
+        attr_accessor :mode
 
-        def initialize(setup_future_usage: nil)
+        def initialize(setup_future_usage: nil, deposit_options: nil, mode: nil)
           @setup_future_usage = setup_future_usage
+          @deposit_options = deposit_options
+          @mode = mode
         end
       end
 

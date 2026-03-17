@@ -55,7 +55,7 @@ module Stripe
         end
         class Visa < ::Stripe::StripeObject
           # A unique reference ID from Visa to represent the card account number.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def card_reference_id; end
           # The network-unique identifier for the token.
           sig { returns(String) }
@@ -167,7 +167,7 @@ module Stripe
       # The last four digits of the token.
       sig { returns(T.nilable(String)) }
       def last4; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # The token service provider / card network associated with the token.

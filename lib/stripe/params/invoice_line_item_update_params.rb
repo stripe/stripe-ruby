@@ -171,7 +171,7 @@ module Stripe
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](/api/invoices/line_item) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](/api/invoices/line_item) line items, where any existing metadata on the invoice line is merged with the incoming data.
     attr_accessor :metadata
     # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
     attr_accessor :period
@@ -179,8 +179,10 @@ module Stripe
     attr_accessor :price_data
     # The pricing information for the invoice item.
     attr_accessor :pricing
-    # Non-negative integer. The quantity of units for the line item.
+    # Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
     attr_accessor :quantity
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+    attr_accessor :quantity_decimal
     # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
     attr_accessor :tax_amounts
     # The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
@@ -197,6 +199,7 @@ module Stripe
       price_data: nil,
       pricing: nil,
       quantity: nil,
+      quantity_decimal: nil,
       tax_amounts: nil,
       tax_rates: nil
     )
@@ -210,6 +213,7 @@ module Stripe
       @price_data = price_data
       @pricing = pricing
       @quantity = quantity
+      @quantity_decimal = quantity_decimal
       @tax_amounts = tax_amounts
       @tax_rates = tax_rates
     end

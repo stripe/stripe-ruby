@@ -196,16 +196,16 @@ module Stripe
             # The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
             attr_accessor :invalid_credentials_decline_rate_past_hour
             # The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
-            attr_accessor :risk_level
+            attr_accessor :level
 
             def initialize(
               invalid_account_number_decline_rate_past_hour: nil,
               invalid_credentials_decline_rate_past_hour: nil,
-              risk_level: nil
+              level: nil
             )
               @invalid_account_number_decline_rate_past_hour = invalid_account_number_decline_rate_past_hour
               @invalid_credentials_decline_rate_past_hour = invalid_credentials_decline_rate_past_hour
-              @risk_level = risk_level
+              @level = level
             end
           end
 
@@ -225,11 +225,11 @@ module Stripe
             # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
             attr_accessor :dispute_rate
             # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
-            attr_accessor :risk_level
+            attr_accessor :level
 
-            def initialize(dispute_rate: nil, risk_level: nil)
+            def initialize(dispute_rate: nil, level: nil)
               @dispute_rate = dispute_rate
-              @risk_level = risk_level
+              @level = level
             end
           end
           # Stripe's assessment of this authorization's likelihood of being card testing activity.

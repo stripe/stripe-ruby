@@ -263,7 +263,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](/api/invoices/line_item) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](/api/invoices/line_item) line items, where any existing metadata on the invoice line is merged with the incoming data.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -291,11 +291,16 @@ module Stripe
       params(_pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing)).returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing))
      }
     def pricing=(_pricing); end
-    # Non-negative integer. The quantity of units for the line item.
+    # Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
     sig { returns(T.nilable(Integer)) }
     def quantity; end
     sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def quantity=(_quantity); end
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+    sig { returns(T.nilable(String)) }
+    def quantity_decimal; end
+    sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
+    def quantity_decimal=(_quantity_decimal); end
     # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])))
@@ -313,7 +318,7 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(String), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       amount: nil,
@@ -326,6 +331,7 @@ module Stripe
       price_data: nil,
       pricing: nil,
       quantity: nil,
+      quantity_decimal: nil,
       tax_amounts: nil,
       tax_rates: nil
     ); end

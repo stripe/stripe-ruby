@@ -1923,6 +1923,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Upi < ::Stripe::StripeObject
+        # Customer's unique Virtual Payment Address.
+        sig { returns(T.nilable(String)) }
+        def vpa; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class UsBankAccount < ::Stripe::StripeObject
         # Account holder type: individual or company.
         sig { returns(T.nilable(String)) }
@@ -2158,6 +2169,9 @@ module Stripe
       # It contains information specific to the payment method.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -2225,6 +2239,7 @@ module Stripe
           stripe_account: StripeAccount,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat: Wechat,
           wechat_pay: WechatPay,
@@ -2389,7 +2404,7 @@ module Stripe
     # Attribute for field level3
     sig { returns(T.nilable(Level3)) }
     def level3; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

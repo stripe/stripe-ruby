@@ -316,7 +316,7 @@ module Stripe
     end
 
     class PauseCollection < ::Stripe::RequestParams
-      # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+      # The payment collection behavior for this subscription while paused.
       attr_accessor :behavior
       # The time after which the subscription will resume collecting payments.
       attr_accessor :resumes_at
@@ -360,7 +360,7 @@ module Stripe
 
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
-            # Amount to be charged for future payments.
+            # Amount to be charged for future payments, specified in the presentment currency.
             attr_accessor :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
             attr_accessor :amount_type
@@ -624,7 +624,7 @@ module Stripe
     attr_accessor :payment_behavior
     # Payment settings to pass to invoices created by the subscription.
     attr_accessor :payment_settings
-    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](/api/invoices/create) for the given subscription at the specified interval.
     attr_accessor :pending_invoice_item_interval
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
     attr_accessor :proration_behavior

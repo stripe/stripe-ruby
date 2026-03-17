@@ -176,6 +176,37 @@ module Stripe
         end
       end
 
+      class UpiHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
+          # The date (unix timestamp) when the QR code expires.
+          attr_reader :expires_at
+          # The image_url_png string used to render QR code
+          attr_reader :image_url_png
+          # The image_url_svg string used to render QR code
+          attr_reader :image_url_svg
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The URL to the hosted UPI instructions page, which allows customers to view the QR code.
+        attr_reader :hosted_instructions_url
+        # Attribute for field qr_code
+        attr_reader :qr_code
+
+        def self.inner_class_types
+          @inner_class_types = { qr_code: QrCode }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
         attr_reader :arrival_date
@@ -198,6 +229,8 @@ module Stripe
       attr_reader :redirect_to_url
       # Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
       attr_reader :type
+      # Attribute for field upi_handle_redirect_or_display_qr_code
+      attr_reader :upi_handle_redirect_or_display_qr_code
       # When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
       attr_reader :use_stripe_sdk
       # Attribute for field verify_with_microdeposits
@@ -207,6 +240,7 @@ module Stripe
         @inner_class_types = {
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           redirect_to_url: RedirectToUrl,
+          upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
         }
       end
@@ -257,7 +291,7 @@ module Stripe
         attr_reader :currency
         # Attribute for field mandate_options
         attr_reader :mandate_options
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_reader :verification_method
 
         def self.inner_class_types
@@ -306,7 +340,7 @@ module Stripe
 
       class Card < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
-          # Amount to be charged for future payments.
+          # Amount to be charged for future payments, specified in the presentment currency.
           attr_reader :amount
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
           attr_reader :amount_type
@@ -464,6 +498,37 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Amount to be charged for future payments.
+          attr_reader :amount
+          # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+          attr_reader :amount_type
+          # A description of the mandate or subscription that is meant to be displayed to the customer.
+          attr_reader :description
+          # End date of the mandate or subscription.
+          attr_reader :end_date
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class UsBankAccount < ::Stripe::StripeObject
         class FinancialConnections < ::Stripe::StripeObject
           class Filters < ::Stripe::StripeObject
@@ -512,7 +577,7 @@ module Stripe
         attr_reader :financial_connections
         # Attribute for field mandate_options
         attr_reader :mandate_options
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_reader :verification_method
 
         def self.inner_class_types
@@ -546,6 +611,8 @@ module Stripe
       attr_reader :payto
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
 
@@ -561,6 +628,7 @@ module Stripe
           paypal: Paypal,
           payto: Payto,
           sepa_debit: SepaDebit,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -607,7 +675,7 @@ module Stripe
     attr_reader :last_setup_error
     # The most recent SetupAttempt for this SetupIntent.
     attr_reader :latest_attempt
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # ID of the multi use Mandate generated by the SetupIntent.
     attr_reader :mandate

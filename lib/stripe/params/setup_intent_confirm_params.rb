@@ -331,6 +331,32 @@ module Stripe
       class Swish < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
+      class Upi < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments.
+          attr_accessor :amount
+          # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+          attr_accessor :amount_type
+          # A description of the mandate or subscription that is meant to be displayed to the customer.
+          attr_accessor :description
+          # End date of the mandate or subscription.
+          attr_accessor :end_date
+
+          def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+            @amount = amount
+            @amount_type = amount_type
+            @description = description
+            @end_date = end_date
+          end
+        end
+        # Configuration options for setting up an eMandate
+        attr_accessor :mandate_options
+
+        def initialize(mandate_options: nil)
+          @mandate_options = mandate_options
+        end
+      end
+
       class UsBankAccount < ::Stripe::RequestParams
         # Account holder type: individual or company.
         attr_accessor :account_holder_type
@@ -464,6 +490,8 @@ module Stripe
       attr_accessor :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
       attr_accessor :type
+      # If this is a `upi` PaymentMethod, this hash contains details about the UPI payment method.
+      attr_accessor :upi
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
       attr_accessor :us_bank_account
       # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
@@ -524,6 +552,7 @@ module Stripe
         swish: nil,
         twint: nil,
         type: nil,
+        upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
         zip: nil
@@ -580,6 +609,7 @@ module Stripe
         @swish = swish
         @twint = twint
         @type = type
+        @upi = upi
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
         @zip = zip
@@ -620,7 +650,7 @@ module Stripe
         attr_accessor :currency
         # Additional fields for Mandate creation
         attr_accessor :mandate_options
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_accessor :verification_method
 
         def initialize(currency: nil, mandate_options: nil, verification_method: nil)
@@ -651,7 +681,7 @@ module Stripe
 
       class Card < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
-          # Amount to be charged for future payments.
+          # Amount to be charged for future payments, specified in the presentment currency.
           attr_accessor :amount
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
           attr_accessor :amount_type
@@ -958,6 +988,35 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments.
+          attr_accessor :amount
+          # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+          attr_accessor :amount_type
+          # A description of the mandate or subscription that is meant to be displayed to the customer.
+          attr_accessor :description
+          # End date of the mandate or subscription.
+          attr_accessor :end_date
+
+          def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+            @amount = amount
+            @amount_type = amount_type
+            @description = description
+            @end_date = end_date
+          end
+        end
+        # Configuration options for setting up an eMandate
+        attr_accessor :mandate_options
+        # Attribute for param field setup_future_usage
+        attr_accessor :setup_future_usage
+
+        def initialize(mandate_options: nil, setup_future_usage: nil)
+          @mandate_options = mandate_options
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class UsBankAccount < ::Stripe::RequestParams
         class FinancialConnections < ::Stripe::RequestParams
           class Filters < ::Stripe::RequestParams
@@ -1008,7 +1067,7 @@ module Stripe
         attr_accessor :mandate_options
         # Additional fields for network related functions
         attr_accessor :networks
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_accessor :verification_method
 
         def initialize(
@@ -1043,6 +1102,8 @@ module Stripe
       attr_accessor :payto
       # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
+      # If this is a `upi` SetupIntent, this sub-hash contains details about the UPI payment method options.
+      attr_accessor :upi
       # If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
       attr_accessor :us_bank_account
 
@@ -1057,6 +1118,7 @@ module Stripe
         paypal: nil,
         payto: nil,
         sepa_debit: nil,
+        upi: nil,
         us_bank_account: nil
       )
         @acss_debit = acss_debit
@@ -1069,6 +1131,7 @@ module Stripe
         @paypal = paypal
         @payto = payto
         @sepa_debit = sepa_debit
+        @upi = upi
         @us_bank_account = us_bank_account
       end
     end

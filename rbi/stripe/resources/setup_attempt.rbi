@@ -395,6 +395,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Upi < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class UsBankAccount < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -469,6 +477,9 @@ module Stripe
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -495,6 +506,7 @@ module Stripe
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -619,7 +631,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # String representing the object's type. Objects of the same type share the same value.

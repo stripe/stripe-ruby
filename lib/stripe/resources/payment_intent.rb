@@ -1060,6 +1060,37 @@ module Stripe
         end
       end
 
+      class UpiHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
+          # The date (unix timestamp) when the QR code expires.
+          attr_reader :expires_at
+          # The image_url_png string used to render QR code
+          attr_reader :image_url_png
+          # The image_url_svg string used to render QR code
+          attr_reader :image_url_svg
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The URL to the hosted UPI instructions page, which allows customers to view the QR code.
+        attr_reader :hosted_instructions_url
+        # Attribute for field qr_code
+        attr_reader :qr_code
+
+        def self.inner_class_types
+          @inner_class_types = { qr_code: QrCode }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
         attr_reader :arrival_date
@@ -1163,6 +1194,8 @@ module Stripe
       attr_reader :swish_handle_redirect_or_display_qr_code
       # Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
       attr_reader :type
+      # Attribute for field upi_handle_redirect_or_display_qr_code
+      attr_reader :upi_handle_redirect_or_display_qr_code
       # When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
       attr_reader :use_stripe_sdk
       # Attribute for field verify_with_microdeposits
@@ -1189,6 +1222,7 @@ module Stripe
           promptpay_display_qr_code: PromptpayDisplayQrCode,
           redirect_to_url: RedirectToUrl,
           swish_handle_redirect_or_display_qr_code: SwishHandleRedirectOrDisplayQrCode,
+          upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
@@ -1269,7 +1303,7 @@ module Stripe
         attr_reader :setup_future_usage
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         attr_reader :target_date
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_reader :verification_method
 
         def self.inner_class_types
@@ -1565,7 +1599,7 @@ module Stripe
         end
 
         class MandateOptions < ::Stripe::StripeObject
-          # Amount to be charged for future payments.
+          # Amount to be charged for future payments, specified in the presentment currency.
           attr_reader :amount
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
           attr_reader :amount_type
@@ -2418,6 +2452,25 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class UsBankAccount < ::Stripe::StripeObject
         class FinancialConnections < ::Stripe::StripeObject
           class Filters < ::Stripe::StripeObject
@@ -2478,10 +2531,8 @@ module Stripe
         attr_reader :target_date
         # The purpose of the transaction.
         attr_reader :transaction_purpose
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_reader :verification_method
-        # Preferred transaction settlement speed
-        attr_reader :preferred_settlement_speed
 
         def self.inner_class_types
           @inner_class_types = {
@@ -2634,6 +2685,8 @@ module Stripe
       attr_reader :swish
       # Attribute for field twint
       attr_reader :twint
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
       # Attribute for field wechat_pay
@@ -2692,6 +2745,7 @@ module Stripe
           sofort: Sofort,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat_pay: WechatPay,
           zip: Zip,
@@ -2874,7 +2928,7 @@ module Stripe
     attr_reader :last_payment_error
     # ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     attr_reader :latest_charge
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     attr_reader :metadata
@@ -2952,7 +3006,7 @@ module Stripe
     #
     # After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
     #
-    # You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+    # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -2966,7 +3020,7 @@ module Stripe
     #
     # After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
     #
-    # You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+    # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
     def self.cancel(intent, params = {}, opts = {})
       request_stripe_object(
         method: :post,

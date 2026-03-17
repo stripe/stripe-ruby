@@ -1607,6 +1607,37 @@ module Stripe
       end
     end
 
+    class Upi < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class UsBankAccount < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1767,7 +1798,7 @@ module Stripe
     attr_reader :kr_card
     # Attribute for field link
     attr_reader :link
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Attribute for field mb_way
     attr_reader :mb_way
@@ -1817,6 +1848,8 @@ module Stripe
     attr_reader :swish
     # Attribute for field twint
     attr_reader :twint
+    # Attribute for field upi
+    attr_reader :upi
     # Attribute for field us_bank_account
     attr_reader :us_bank_account
     # Attribute for field wechat_pay
@@ -1907,6 +1940,7 @@ module Stripe
         sofort: Sofort,
         swish: Swish,
         twint: Twint,
+        upi: Upi,
         us_bank_account: UsBankAccount,
         wechat_pay: WechatPay,
         zip: Zip,

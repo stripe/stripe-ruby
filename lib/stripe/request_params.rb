@@ -6,19 +6,16 @@ module Stripe
   # with future non-major changes.
   class RequestParams
     class << self
-      # Override the object instantiation flow in Ruby in order to track explicitly set keys
-      # V2 APIs accept null values on the backend. However, we do not want to set a key to nil
-      # if the user has not explicitly set them to nil
-      # TODO(major): https://go/j/DEVSDK-2990
+      # Override the object instantiation flow in Ruby in order to track explicitly set keys.
+      # We do not want to set a key to nil if the user has not explicitly set it to nil.
       def new(**kwargs)
         instance = allocate
-        # Track explicitly set keys for V2 classes only
-        instance.instance_variable_set(:@_explicitly_set_keys, kwargs.keys.to_set) if name&.start_with?("Stripe::V2::")
+        instance.instance_variable_set(:@_explicitly_set_keys, kwargs.keys.to_set)
         instance.send(:initialize, **kwargs)
         instance
       end
 
-      # Override attr_accessor to create setters that track explicitly set keys for V2 classes
+      # Override attr_accessor to create setters that track explicitly set keys
       def attr_accessor(*names)
         names.each do |name|
           # Define getter
@@ -42,7 +39,7 @@ module Stripe
         key = var.to_s.delete("@").to_sym
         value = instance_variable_get(var)
 
-        # For V2 classes, only include keys that were explicitly set
+        # Only include keys that were explicitly set
         next if @_explicitly_set_keys && !@_explicitly_set_keys.include?(key)
 
         hash[key] = if value.is_a?(RequestParams)

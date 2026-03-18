@@ -21,6 +21,47 @@ module Stripe
       end
     end
 
+    # Used in ".coerce_params" context
+    class Int64Params < Stripe::RequestParams
+      attr_accessor :amount, :name, :items
+
+      def initialize(amount: nil, name: nil, items: nil)
+        @amount = amount
+        @name = name
+        @items = items
+      end
+
+      def self.field_encodings
+        {
+          amount: :int64_string,
+          items: { kind: :array, element: { kind: :object, fields: { qty: :int64_string } } },
+        }
+      end
+    end
+
+    # Used in ".coerce_params" context
+    class PlainParams < Stripe::RequestParams
+      attr_accessor :foo
+
+      def initialize(foo: nil)
+        @foo = foo
+      end
+    end
+
+    # Used in "#to_h with field_encodings" context
+    class AmountParams < Stripe::RequestParams
+      attr_accessor :amount, :label
+
+      def initialize(amount: nil, label: nil)
+        @amount = amount
+        @label = label
+      end
+
+      def self.field_encodings
+        { amount: :int64_string }
+      end
+    end
+
     context "#to_h" do
       should "convert to hash" do
         params = FooCreateParams.new(
@@ -261,7 +302,152 @@ module Stripe
       end
     end
 
-    context "RequestParams explicit key tracking" do
+    context ".coerce_value" do
+      should "return nil as-is" do
+        assert_nil Stripe::RequestParams.coerce_value(nil, :int64_string)
+        assert_nil Stripe::RequestParams.coerce_value(nil, { kind: :object, fields: {} })
+      end
+
+      should "convert Integer to String for int64_string encoding" do
+        assert_equal "42", Stripe::RequestParams.coerce_value(42, :int64_string)
+        assert_equal "0", Stripe::RequestParams.coerce_value(0, :int64_string)
+        assert_equal "-7", Stripe::RequestParams.coerce_value(-7, :int64_string)
+      end
+
+      should "pass through String for int64_string encoding" do
+        assert_equal "42", Stripe::RequestParams.coerce_value("42", :int64_string)
+        assert_equal "hello", Stripe::RequestParams.coerce_value("hello", :int64_string)
+      end
+
+      should "convert Array of Integers for int64_string encoding" do
+        assert_equal %w[1 2 3], Stripe::RequestParams.coerce_value([1, 2, 3], :int64_string)
+      end
+
+      should "handle mixed Array for int64_string encoding" do
+        assert_equal %w[1 already 3], Stripe::RequestParams.coerce_value([1, "already", 3], :int64_string)
+      end
+
+      should "return value as-is for unknown encoding symbol" do
+        assert_equal 42, Stripe::RequestParams.coerce_value(42, :unknown_encoding)
+        assert_equal "hello", Stripe::RequestParams.coerce_value("hello", :something_else)
+      end
+
+      should "coerce object fields recursively" do
+        encoding = {
+          kind: :object,
+          fields: { amount: :int64_string, name: nil },
+        }
+        input = { amount: 100, name: "test", extra: "untouched" }
+        expected = { amount: "100", name: "test", extra: "untouched" }
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "return non-Hash as-is for object encoding" do
+        encoding = { kind: :object, fields: { amount: :int64_string } }
+        assert_equal "not a hash", Stripe::RequestParams.coerce_value("not a hash", encoding)
+        assert_equal 42, Stripe::RequestParams.coerce_value(42, encoding)
+      end
+
+      should "coerce array elements" do
+        encoding = { kind: :array, element: :int64_string }
+        assert_equal %w[1 2 3], Stripe::RequestParams.coerce_value([1, 2, 3], encoding)
+      end
+
+      should "return non-Array as-is for array encoding" do
+        encoding = { kind: :array, element: :int64_string }
+        assert_equal "not an array", Stripe::RequestParams.coerce_value("not an array", encoding)
+      end
+
+      should "coerce array of objects" do
+        encoding = {
+          kind: :array,
+          element: { kind: :object, fields: { id: :int64_string } },
+        }
+        input = [{ id: 1, name: "a" }, { id: 2, name: "b" }]
+        expected = [{ id: "1", name: "a" }, { id: "2", name: "b" }]
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "coerce deeply nested object-in-object" do
+        encoding = {
+          kind: :object,
+          fields: {
+            inner: { kind: :object, fields: { val: :int64_string } },
+          },
+        }
+        input = { inner: { val: 99, other: "keep" }, top: "also keep" }
+        expected = { inner: { val: "99", other: "keep" }, top: "also keep" }
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "handle object encoding with missing fields key" do
+        encoding = { kind: :object }
+        input = { amount: 100 }
+        assert_equal({ amount: 100 }, Stripe::RequestParams.coerce_value(input, encoding))
+      end
+
+      should "return value as-is for unknown composite kind" do
+        encoding = { kind: :unknown }
+        assert_equal 42, Stripe::RequestParams.coerce_value(42, encoding)
+      end
+    end
+
+    context ".coerce_params" do
+      should "return non-Hash input as-is" do
+        assert_nil Int64Params.coerce_params(nil)
+        assert_equal "string", Int64Params.coerce_params("string")
+        assert_equal 42, Int64Params.coerce_params(42)
+      end
+
+      should "return Hash as-is when no encodings are defined" do
+        input = { foo: 123, bar: "hello" }
+        assert_equal input, PlainParams.coerce_params(input)
+      end
+
+      should "coerce fields with encodings and pass through others" do
+        input = { amount: 500, name: "test" }
+        expected = { amount: "500", name: "test" }
+        assert_equal expected, Int64Params.coerce_params(input)
+      end
+
+      should "coerce nested array-of-objects encoding" do
+        input = {
+          amount: 42,
+          name: "order",
+          items: [{ qty: 10, label: "a" }, { qty: 20, label: "b" }],
+        }
+        expected = {
+          amount: "42",
+          name: "order",
+          items: [{ qty: "10", label: "a" }, { qty: "20", label: "b" }],
+        }
+        assert_equal expected, Int64Params.coerce_params(input)
+      end
+
+      should "handle nil values in encoded fields" do
+        input = { amount: nil, name: "test" }
+        expected = { amount: nil, name: "test" }
+        assert_equal expected, Int64Params.coerce_params(input)
+      end
+    end
+
+    context "#to_h with field_encodings" do
+      should "coerce int64_string fields when serializing via to_h" do
+        params = AmountParams.new(amount: 9_999_999_999, label: "big")
+        result = params.to_h
+        assert_equal "9999999999", result[:amount]
+        assert_equal "big", result[:label]
+      end
+
+      should "leave non-integer amount alone in to_h" do
+        params = AmountParams.new(amount: "already_string", label: "ok")
+        result = params.to_h
+        assert_equal "already_string", result[:amount]
+        assert_equal "ok", result[:label]
+      end
+    end
+
+    context "V2 RequestParams explicit key tracking" do
       should "only serialize explicitly set fields for V2 classes" do
         params = Stripe::V2::Billing::MeterEventCreateParams.new(
           event_name: "my_event",

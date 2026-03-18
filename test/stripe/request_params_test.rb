@@ -342,6 +342,38 @@ module Stripe
         assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
       end
 
+      should "coerce object fields with string keys" do
+        encoding = {
+          kind: :object,
+          fields: { amount: :int64_string, name: nil },
+        }
+        input = { "amount" => 100, "name" => "test", "extra" => "untouched" }
+        expected = { "amount" => "100", "name" => "test", "extra" => "untouched" }
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "coerce deeply nested objects with string keys" do
+        encoding = {
+          kind: :object,
+          fields: {
+            inner: { kind: :object, fields: { val: :int64_string } },
+          },
+        }
+        input = { "inner" => { "val" => 99, "other" => "keep" }, "top" => "also keep" }
+        expected = { "inner" => { "val" => "99", "other" => "keep" }, "top" => "also keep" }
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "coerce array of objects with string keys" do
+        encoding = {
+          kind: :array,
+          element: { kind: :object, fields: { id: :int64_string } },
+        }
+        input = [{ "id" => 1, "name" => "a" }, { "id" => 2, "name" => "b" }]
+        expected = [{ "id" => "1", "name" => "a" }, { "id" => "2", "name" => "b" }]
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
       should "return non-Hash as-is for object encoding" do
         encoding = { kind: :object, fields: { amount: :int64_string } }
         assert_equal "not a hash", Stripe::RequestParams.coerce_value("not a hash", encoding)
@@ -427,6 +459,26 @@ module Stripe
       should "handle nil values in encoded fields" do
         input = { amount: nil, name: "test" }
         expected = { amount: nil, name: "test" }
+        assert_equal expected, Int64Params.coerce_params(input)
+      end
+
+      should "coerce fields with string keys" do
+        input = { "amount" => 500, "name" => "test" }
+        expected = { "amount" => "500", "name" => "test" }
+        assert_equal expected, Int64Params.coerce_params(input)
+      end
+
+      should "coerce nested array-of-objects with string keys" do
+        input = {
+          "amount" => 42,
+          "name" => "order",
+          "items" => [{ "qty" => 10, "label" => "a" }, { "qty" => 20, "label" => "b" }],
+        }
+        expected = {
+          "amount" => "42",
+          "name" => "order",
+          "items" => [{ "qty" => "10", "label" => "a" }, { "qty" => "20", "label" => "b" }],
+        }
         assert_equal expected, Int64Params.coerce_params(input)
       end
     end

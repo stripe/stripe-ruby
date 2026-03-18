@@ -103,7 +103,7 @@ module Stripe
       return value unless value.is_a?(Hash)
 
       value.each_with_object({}) do |(k, v), result|
-        field_encoding = fields_schema[k]
+        field_encoding = fields_schema[k.to_sym]
         result[k] = field_encoding ? coerce_value(v, field_encoding) : v
       end
     end
@@ -119,7 +119,7 @@ module Stripe
       return params if encodings.empty?
 
       params.each_with_object({}) do |(k, v), result|
-        encoding = encodings[k]
+        encoding = encodings[k.to_sym]
         result[k] = encoding ? coerce_value(v, encoding) : v
       end
     end

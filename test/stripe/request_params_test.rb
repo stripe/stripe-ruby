@@ -239,38 +239,29 @@ module Stripe
         )
         expected = {
           currency: "usd",
-          customer: nil,
           customer_details: {
             address: {
               city: "Test City",
               country: "US",
               line1: "123 Test Street",
-              line2: nil,
               postal_code: "12345",
-              state: nil,
             },
-            address_source: nil,
-            ip_address: nil,
             tax_ids: [
               { type: "us_ein", value: "12-3456789" },
               { type: "eu_vat", value: "DE123456789" },
             ],
-            taxability_override: nil,
           },
           expand: %i[customer_details line_items],
           line_items: [
-            { amount: 2000, metadata: nil, performance_location: nil, product: nil, quantity: 2, reference: "item_1", tax_behavior: "exclusive", tax_code: nil },
-            { amount: 1500, metadata: nil, performance_location: nil, product: nil, quantity: 1, reference: "item_2", tax_behavior: "inclusive", tax_code: nil },
+            { amount: 2000, quantity: 2, reference: "item_1", tax_behavior: "exclusive" },
+            { amount: 1500, quantity: 1, reference: "item_2", tax_behavior: "inclusive" },
           ],
-          ship_from_details: nil,
-          shipping_cost: nil,
-          tax_date: nil,
         }
         assert_equal expected, params.to_h
       end
     end
 
-    context "V2 RequestParams explicit key tracking" do
+    context "RequestParams explicit key tracking" do
       should "only serialize explicitly set fields for V2 classes" do
         params = Stripe::V2::Billing::MeterEventCreateParams.new(
           event_name: "my_event",
@@ -319,7 +310,7 @@ module Stripe
         assert_nil result[:timestamp]
       end
 
-      should "serialize all fields even if some fields are set after initialization for V1 classes" do
+      should "only serialize explicitly set fields for V1 classes set after initialization" do
         params = FooCreateParams.new
 
         params.fun = "games"
@@ -327,17 +318,25 @@ module Stripe
         result = params.to_h
 
         assert_equal "games", result[:fun]
-        assert result.key?(:team), "V1 classes should include all fields even if not explicitly set"
-        assert_nil result[:team]
+        refute result.key?(:team), "team was not set and should not be in the hash"
       end
 
-      should "serialize all fields including nil defaults for V1 classes" do
+      should "only serialize explicitly set fields for V1 classes" do
         params = FooCreateParams.new(fun: "games")
 
         result = params.to_h
 
         assert_equal "games", result[:fun]
-        assert result.key?(:team), "V1 classes should include all fields even if not explicitly set"
+        refute result.key?(:team), "team was not set and should not be in the hash"
+      end
+
+      should "serialize fields explicitly set to nil for V1 classes" do
+        params = FooCreateParams.new(fun: "games", team: nil)
+
+        result = params.to_h
+
+        assert_equal "games", result[:fun]
+        assert result.key?(:team), "team was explicitly set to nil and should be in the hash"
         assert_nil result[:team]
       end
     end

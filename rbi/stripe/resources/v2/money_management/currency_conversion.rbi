@@ -8,50 +8,22 @@ module Stripe
       # The CurrencyConversion object. Contains details such as the amount debited and credited and the FinancialAccount the CurrencyConversion was performed on.
       class CurrencyConversion < APIResource
         class From < ::Stripe::StripeObject
-          class Amount < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # Amount object.
-          sig { returns(Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def amount; end
           def self.inner_class_types
-            @inner_class_types = {amount: Amount}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class To < ::Stripe::StripeObject
-          class Amount < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # Amount object.
-          sig { returns(Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def amount; end
           def self.inner_class_types
-            @inner_class_types = {amount: Amount}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}

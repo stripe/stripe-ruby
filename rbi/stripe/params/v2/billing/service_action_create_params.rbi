@@ -22,20 +22,6 @@ module Stripe
               sig { params(id: String, value: String).void }
               def initialize(id: nil, value: nil); end
             end
-            class Monetary < ::Stripe::RequestParams
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              sig { params(_value: Integer).returns(Integer) }
-              def value=(_value); end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              sig { params(_currency: String).returns(String) }
-              def currency=(_currency); end
-              sig { params(value: Integer, currency: String).void }
-              def initialize(value: nil, currency: nil); end
-            end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             sig { returns(String) }
             def type; end
@@ -51,16 +37,14 @@ module Stripe
              }
             def custom_pricing_unit=(_custom_pricing_unit); end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
-             }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             sig {
-              params(_monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
+              params(_monetary: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
              }
             def monetary=(_monetary); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).void
+              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount)).void
              }
             def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
           end
@@ -174,20 +158,6 @@ module Stripe
               sig { params(id: String, value: String).void }
               def initialize(id: nil, value: nil); end
             end
-            class Monetary < ::Stripe::RequestParams
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              sig { params(_value: Integer).returns(Integer) }
-              def value=(_value); end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              sig { params(_currency: String).returns(String) }
-              def currency=(_currency); end
-              sig { params(value: Integer, currency: String).void }
-              def initialize(value: nil, currency: nil); end
-            end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             sig { returns(String) }
             def type; end
@@ -203,16 +173,14 @@ module Stripe
              }
             def custom_pricing_unit=(_custom_pricing_unit); end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
-             }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             sig {
-              params(_monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
+              params(_monetary: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
              }
             def monetary=(_monetary); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).void
+              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount)).void
              }
             def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
           end

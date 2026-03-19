@@ -4128,8 +4128,6 @@ module Stripe
         attr_reader :transaction_purpose
         # Bank account verification method.
         attr_reader :verification_method
-        # Preferred transaction settlement speed
-        attr_reader :preferred_settlement_speed
 
         def self.inner_class_types
           @inner_class_types = {

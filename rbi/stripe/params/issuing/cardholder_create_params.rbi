@@ -71,12 +71,12 @@ module Stripe
       class Individual < ::Stripe::RequestParams
         class CardIssuing < ::Stripe::RequestParams
           class UserTermsAcceptance < ::Stripe::RequestParams
-            # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+            # The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
             sig { returns(T.nilable(Integer)) }
             def date; end
             sig { params(_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def date=(_date); end
-            # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+            # The IP address from which the cardholder accepted the Authorized User Terms.
             sig { returns(T.nilable(String)) }
             def ip; end
             sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }

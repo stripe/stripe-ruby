@@ -29,6 +29,10 @@ module Stripe
           # against what was provided by the bank. Doing so is required for all bank accounts not owned
           # by you before making domestic UK OutboundPayments.
           attr_accessor :confirmation_of_payee
+          # The currency of the bank account.
+          attr_accessor :currency
+          # The IBAN of the bank account.
+          attr_accessor :iban
           # The Sort Code of the bank account.
           attr_accessor :sort_code
 
@@ -36,11 +40,15 @@ module Stripe
             account_number: nil,
             bank_account_type: nil,
             confirmation_of_payee: nil,
+            currency: nil,
+            iban: nil,
             sort_code: nil
           )
             @account_number = account_number
             @bank_account_type = bank_account_type
             @confirmation_of_payee = confirmation_of_payee
+            @currency = currency
+            @iban = iban
             @sort_code = sort_code
           end
         end

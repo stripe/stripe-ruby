@@ -55,9 +55,9 @@ module Stripe
       class Individual < ::Stripe::RequestParams
         class CardIssuing < ::Stripe::RequestParams
           class UserTermsAcceptance < ::Stripe::RequestParams
-            # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+            # The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
             attr_accessor :date
-            # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+            # The IP address from which the cardholder accepted the Authorized User Terms.
             attr_accessor :ip
             # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
             attr_accessor :user_agent

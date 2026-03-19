@@ -346,6 +346,18 @@ module Stripe
         end
       end
 
+      class CurrentTrial < ::Stripe::RequestParams
+        # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+        attr_accessor :trial_end
+        # The ID of the trial offer to apply to the subscription item.
+        attr_accessor :trial_offer
+
+        def initialize(trial_end: nil, trial_offer: nil)
+          @trial_end = trial_end
+          @trial_offer = trial_offer
+        end
+      end
+
       class Discount < ::Stripe::RequestParams
         class DiscountEnd < ::Stripe::RequestParams
           class Duration < ::Stripe::RequestParams
@@ -444,6 +456,8 @@ module Stripe
       end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
       attr_accessor :billing_thresholds
+      # The trial offer to apply to this subscription item.
+      attr_accessor :current_trial
       # The coupons to redeem into discounts for the subscription item.
       attr_accessor :discounts
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -463,6 +477,7 @@ module Stripe
 
       def initialize(
         billing_thresholds: nil,
+        current_trial: nil,
         discounts: nil,
         metadata: nil,
         plan: nil,
@@ -473,6 +488,7 @@ module Stripe
         trial: nil
       )
         @billing_thresholds = billing_thresholds
+        @current_trial = current_trial
         @discounts = discounts
         @metadata = metadata
         @plan = plan
@@ -517,7 +533,7 @@ module Stripe
 
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
-            # Amount to be charged for future payments.
+            # Amount to be charged for future payments, specified in the presentment currency.
             attr_accessor :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
             attr_accessor :amount_type
@@ -606,7 +622,7 @@ module Stripe
             attr_accessor :amount_includes_iof
             # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
             attr_accessor :end_date
-            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            # Schedule at which the future payments will be charged. Defaults to `monthly`.
             attr_accessor :payment_schedule
 
             def initialize(
@@ -621,10 +637,13 @@ module Stripe
               @payment_schedule = payment_schedule
             end
           end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          attr_accessor :expires_after_seconds
           # Configuration options for setting up a mandate
           attr_accessor :mandate_options
 
-          def initialize(mandate_options: nil)
+          def initialize(expires_after_seconds: nil, mandate_options: nil)
+            @expires_after_seconds = expires_after_seconds
             @mandate_options = mandate_options
           end
         end
@@ -798,10 +817,13 @@ module Stripe
 
     class TrialSettings < ::Stripe::RequestParams
       class EndBehavior < ::Stripe::RequestParams
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+        attr_accessor :billing_cycle_anchor
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_accessor :missing_payment_method
 
-        def initialize(missing_payment_method: nil)
+        def initialize(billing_cycle_anchor: nil, missing_payment_method: nil)
+          @billing_cycle_anchor = billing_cycle_anchor
           @missing_payment_method = missing_payment_method
         end
       end
@@ -880,7 +902,7 @@ module Stripe
     attr_accessor :payment_behavior
     # Payment settings to pass to invoices created by the subscription.
     attr_accessor :payment_settings
-    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](/api/invoices/create) for the given subscription at the specified interval.
     attr_accessor :pending_invoice_item_interval
     # If specified, the invoicing for the given billing cycle iterations will be processed now.
     attr_accessor :prebilling

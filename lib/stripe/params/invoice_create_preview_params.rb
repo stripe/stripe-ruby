@@ -288,8 +288,10 @@ module Stripe
       attr_accessor :price
       # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
       attr_accessor :price_data
-      # Non-negative integer. The quantity of units for the invoice item.
+      # Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
       attr_accessor :quantity
+      # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+      attr_accessor :quantity_decimal
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
       attr_accessor :tax_behavior
       # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
@@ -313,6 +315,7 @@ module Stripe
         price: nil,
         price_data: nil,
         quantity: nil,
+        quantity_decimal: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
@@ -330,6 +333,7 @@ module Stripe
         @price = price
         @price_data = price_data
         @quantity = quantity
+        @quantity_decimal = quantity_decimal
         @tax_behavior = tax_behavior
         @tax_code = tax_code
         @tax_rates = tax_rates
@@ -575,6 +579,8 @@ module Stripe
             attr_accessor :tax_rates
             # Options that configure the trial on the subscription item.
             attr_accessor :trial
+            # The ID of the trial offer to apply to the configuration item.
+            attr_accessor :trial_offer
 
             def initialize(
               discounts: nil,
@@ -582,7 +588,8 @@ module Stripe
               price: nil,
               quantity: nil,
               tax_rates: nil,
-              trial: nil
+              trial: nil,
+              trial_offer: nil
             )
               @discounts = discounts
               @metadata = metadata
@@ -590,6 +597,7 @@ module Stripe
               @quantity = quantity
               @tax_rates = tax_rates
               @trial = trial
+              @trial_offer = trial_offer
             end
           end
 
@@ -669,6 +677,8 @@ module Stripe
             attr_accessor :tax_rates
             # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
             attr_accessor :trial
+            # The ID of the trial offer to apply to the configuration item.
+            attr_accessor :trial_offer
 
             def initialize(
               discounts: nil,
@@ -676,7 +686,8 @@ module Stripe
               price: nil,
               quantity: nil,
               tax_rates: nil,
-              trial: nil
+              trial: nil,
+              trial_offer: nil
             )
               @discounts = discounts
               @metadata = metadata
@@ -684,6 +695,7 @@ module Stripe
               @quantity = quantity
               @tax_rates = tax_rates
               @trial = trial
+              @trial_offer = trial_offer
             end
           end
           # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
@@ -723,7 +735,7 @@ module Stripe
 
         class SetPauseCollection < ::Stripe::RequestParams
           class Set < ::Stripe::RequestParams
-            # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+            # The payment collection behavior for this subscription while paused.
             attr_accessor :behavior
 
             def initialize(behavior: nil)
@@ -1203,6 +1215,8 @@ module Stripe
           attr_accessor :tax_rates
           # Options that configure the trial on the subscription item.
           attr_accessor :trial
+          # The ID of the trial offer to apply to the configuration item.
+          attr_accessor :trial_offer
 
           def initialize(
             billing_thresholds: nil,
@@ -1213,7 +1227,8 @@ module Stripe
             price_data: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           )
             @billing_thresholds = billing_thresholds
             @discounts = discounts
@@ -1224,11 +1239,12 @@ module Stripe
             @quantity = quantity
             @tax_rates = tax_rates
             @trial = trial
+            @trial_offer = trial_offer
           end
         end
 
         class PauseCollection < ::Stripe::RequestParams
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           attr_accessor :behavior
 
           def initialize(behavior: nil)
@@ -1535,6 +1551,18 @@ module Stripe
           end
         end
 
+        class CurrentTrial < ::Stripe::RequestParams
+          # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+          attr_accessor :trial_end
+          # The ID of the trial offer to apply to the subscription item.
+          attr_accessor :trial_offer
+
+          def initialize(trial_end: nil, trial_offer: nil)
+            @trial_end = trial_end
+            @trial_offer = trial_offer
+          end
+        end
+
         class Discount < ::Stripe::RequestParams
           class DiscountEnd < ::Stripe::RequestParams
             class Duration < ::Stripe::RequestParams
@@ -1623,6 +1651,8 @@ module Stripe
         attr_accessor :billing_thresholds
         # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         attr_accessor :clear_usage
+        # The trial offer to apply to this subscription item.
+        attr_accessor :current_trial
         # A flag that, if set to `true`, will delete the specified item.
         attr_accessor :deleted
         # The coupons to redeem into discounts for the subscription item.
@@ -1645,6 +1675,7 @@ module Stripe
         def initialize(
           billing_thresholds: nil,
           clear_usage: nil,
+          current_trial: nil,
           deleted: nil,
           discounts: nil,
           id: nil,
@@ -1657,6 +1688,7 @@ module Stripe
         )
           @billing_thresholds = billing_thresholds
           @clear_usage = clear_usage
+          @current_trial = current_trial
           @deleted = deleted
           @discounts = discounts
           @id = id

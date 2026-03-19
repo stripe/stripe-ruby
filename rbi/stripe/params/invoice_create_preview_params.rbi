@@ -463,11 +463,16 @@ module Stripe
         params(_price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData))
        }
       def price_data=(_price_data); end
-      # Non-negative integer. The quantity of units for the invoice item.
+      # Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
       sig { returns(T.nilable(Integer)) }
       def quantity; end
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
+      # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+      sig { returns(T.nilable(String)) }
+      def quantity_decimal; end
+      sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      def quantity_decimal=(_quantity_decimal); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
       sig { returns(T.nilable(String)) }
       def tax_behavior; end
@@ -496,7 +501,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount])), invoiceitem: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount])), invoiceitem: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData), quantity: T.nilable(Integer), quantity_decimal: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -510,6 +515,7 @@ module Stripe
         price: nil,
         price_data: nil,
         quantity: nil,
+        quantity_decimal: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
@@ -906,8 +912,13 @@ module Stripe
               params(_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial))
              }
             def trial=(_trial); end
+            # The ID of the trial offer to apply to the configuration item.
+            sig { returns(T.nilable(String)) }
+            def trial_offer; end
+            sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+            def trial_offer=(_trial_offer); end
             sig {
-              params(discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial)).void
+              params(discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial), trial_offer: T.nilable(String)).void
              }
             def initialize(
               discounts: nil,
@@ -915,7 +926,8 @@ module Stripe
               price: nil,
               quantity: nil,
               tax_rates: nil,
-              trial: nil
+              trial: nil,
+              trial_offer: nil
             ); end
           end
           class Remove < ::Stripe::RequestParams
@@ -1060,8 +1072,13 @@ module Stripe
               params(_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial))
              }
             def trial=(_trial); end
+            # The ID of the trial offer to apply to the configuration item.
+            sig { returns(T.nilable(String)) }
+            def trial_offer; end
+            sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+            def trial_offer=(_trial_offer); end
             sig {
-              params(discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial)).void
+              params(discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial), trial_offer: T.nilable(String)).void
              }
             def initialize(
               discounts: nil,
@@ -1069,7 +1086,8 @@ module Stripe
               price: nil,
               quantity: nil,
               tax_rates: nil,
-              trial: nil
+              trial: nil,
+              trial_offer: nil
             ); end
           end
           # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
@@ -1141,7 +1159,7 @@ module Stripe
         end
         class SetPauseCollection < ::Stripe::RequestParams
           class Set < ::Stripe::RequestParams
-            # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+            # The payment collection behavior for this subscription while paused.
             sig { returns(String) }
             def behavior; end
             sig { params(_behavior: String).returns(String) }
@@ -1936,8 +1954,13 @@ module Stripe
             params(_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial))
            }
           def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
           sig {
-            params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial)).void
+            params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             billing_thresholds: nil,
@@ -1948,11 +1971,12 @@ module Stripe
             price_data: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           ); end
         end
         class PauseCollection < ::Stripe::RequestParams
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           sig { returns(String) }
           def behavior; end
           sig { params(_behavior: String).returns(String) }
@@ -2465,6 +2489,20 @@ module Stripe
           sig { params(usage_gte: Integer).void }
           def initialize(usage_gte: nil); end
         end
+        class CurrentTrial < ::Stripe::RequestParams
+          # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+          sig { returns(T.nilable(Integer)) }
+          def trial_end; end
+          sig { params(_trial_end: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def trial_end=(_trial_end); end
+          # The ID of the trial offer to apply to the subscription item.
+          sig { returns(String) }
+          def trial_offer; end
+          sig { params(_trial_offer: String).returns(String) }
+          def trial_offer=(_trial_offer); end
+          sig { params(trial_end: T.nilable(Integer), trial_offer: String).void }
+          def initialize(trial_end: nil, trial_offer: nil); end
+        end
         class Discount < ::Stripe::RequestParams
           class DiscountEnd < ::Stripe::RequestParams
             class Duration < ::Stripe::RequestParams
@@ -2609,6 +2647,15 @@ module Stripe
         def clear_usage; end
         sig { params(_clear_usage: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def clear_usage=(_clear_usage); end
+        # The trial offer to apply to this subscription item.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial))
+         }
+        def current_trial; end
+        sig {
+          params(_current_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial))
+         }
+        def current_trial=(_current_trial); end
         # A flag that, if set to `true`, will delete the specified item.
         sig { returns(T.nilable(T::Boolean)) }
         def deleted; end
@@ -2667,11 +2714,12 @@ module Stripe
          }
         def tax_rates=(_tax_rates); end
         sig {
-          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)), clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount])), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)), clear_usage: T.nilable(T::Boolean), current_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount])), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           billing_thresholds: nil,
           clear_usage: nil,
+          current_trial: nil,
           deleted: nil,
           discounts: nil,
           id: nil,

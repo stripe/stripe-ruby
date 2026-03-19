@@ -7,20 +7,6 @@ module Stripe
     module MoneyManagement
       # Use ReceivedCredits API to retrieve information on when, where, and how funds are sent into your FinancialAccount.
       class ReceivedCredit < APIResource
-        class Amount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          sig { returns(Integer) }
-          def value; end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class StatusDetails < ::Stripe::StripeObject
           class Failed < ::Stripe::StripeObject
             # Open Enum. The `failed` status reason.
@@ -203,7 +189,7 @@ module Stripe
           end
         end
         # The amount and currency of the ReceivedCredit.
-        sig { returns(Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Time at which the ReceivedCredit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

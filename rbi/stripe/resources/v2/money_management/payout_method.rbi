@@ -97,6 +97,9 @@ module Stripe
           # The last 4 digits of the card number.
           sig { returns(String) }
           def last4; end
+          # The list of currencies supported by this bank account.
+          sig { returns(T::Array[String]) }
+          def supported_currencies; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -122,6 +125,10 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
+        # Please reach out to Stripe Support for more information.
+        sig { returns(T::Boolean) }
+        def restricted; end
         # Closed Enum. The type of payout method.
         sig { returns(String) }
         def type; end

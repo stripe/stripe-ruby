@@ -11,11 +11,13 @@ module Stripe
           "v2.money_management.transaction"
         end
 
-        class Amount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          attr_reader :value
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
+        class BalanceImpact < ::Stripe::StripeObject
+          # Impact to the available balance.
+          attr_reader :available
+          # Impact to the inbound_pending balance.
+          attr_reader :inbound_pending
+          # Impact to the outbound_pending balance.
+          attr_reader :outbound_pending
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -26,64 +28,12 @@ module Stripe
           end
         end
 
-        class BalanceImpact < ::Stripe::StripeObject
-          class Available < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            attr_reader :value
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            attr_reader :currency
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class InboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            attr_reader :value
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            attr_reader :currency
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class OutboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            attr_reader :value
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            attr_reader :currency
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Impact to the available balance.
-          attr_reader :available
-          # Impact to the inbound_pending balance.
-          attr_reader :inbound_pending
-          # Impact to the outbound_pending balance.
-          attr_reader :outbound_pending
+        class Counterparty < ::Stripe::StripeObject
+          # Name of the counterparty.
+          attr_reader :name
 
           def self.inner_class_types
-            @inner_class_types = {
-              available: Available,
-              inbound_pending: InboundPending,
-              outbound_pending: OutboundPending,
-            }
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -141,8 +91,13 @@ module Stripe
         attr_reader :balance_impact
         # Open Enum. A descriptive category used to classify the Transaction.
         attr_reader :category
+        # Counterparty to this Transaction.
+        attr_reader :counterparty
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created
+        # Description of this Transaction. When applicable, the description is copied from the Flow object at the time
+        # of transaction creation.
+        attr_reader :description
         # Indicates the FinancialAccount affected by this Transaction.
         attr_reader :financial_account
         # Details about the Flow object that created the Transaction.
@@ -164,8 +119,8 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
-            amount: Amount,
             balance_impact: BalanceImpact,
+            counterparty: Counterparty,
             flow: Flow,
             status_transitions: StatusTransitions,
           }

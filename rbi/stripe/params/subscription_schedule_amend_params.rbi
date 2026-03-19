@@ -373,8 +373,13 @@ module Stripe
             params(_trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial))
            }
           def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial)).void
+            params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Add::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -382,7 +387,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           ); end
         end
         class Remove < ::Stripe::RequestParams
@@ -522,8 +528,13 @@ module Stripe
             params(_trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial))
            }
           def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial)).void
+            params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleAmendParams::Amendment::ItemAction::Set::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -531,7 +542,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           ); end
         end
         # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
@@ -603,7 +615,7 @@ module Stripe
       end
       class SetPauseCollection < ::Stripe::RequestParams
         class Set < ::Stripe::RequestParams
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           sig { returns(String) }
           def behavior; end
           sig { params(_behavior: String).returns(String) }

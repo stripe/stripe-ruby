@@ -161,6 +161,66 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobBatchFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_batch_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobCanceledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_canceled(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobCompletedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_completed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobReadyForUploadEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_ready_for_upload(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobTimeoutEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_timeout(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobUploadTimeoutEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_upload_timeout(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobValidatingEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_validating(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobValidationFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_batch_job_validation_failed(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreEventDestinationPingEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_event_destination_ping(&blk);

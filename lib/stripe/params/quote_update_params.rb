@@ -196,6 +196,8 @@ module Stripe
           attr_accessor :tax_rates
           # Options that configure the trial on the subscription item.
           attr_accessor :trial
+          # The ID of the trial offer to apply to the configuration item.
+          attr_accessor :trial_offer
 
           def initialize(
             discounts: nil,
@@ -203,7 +205,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           )
             @discounts = discounts
             @metadata = metadata
@@ -211,6 +214,7 @@ module Stripe
             @quantity = quantity
             @tax_rates = tax_rates
             @trial = trial
+            @trial_offer = trial_offer
           end
         end
 
@@ -320,6 +324,8 @@ module Stripe
           attr_accessor :tax_rates
           # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
           attr_accessor :trial
+          # The ID of the trial offer to apply to the configuration item.
+          attr_accessor :trial_offer
 
           def initialize(
             discounts: nil,
@@ -327,7 +333,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           )
             @discounts = discounts
             @metadata = metadata
@@ -335,6 +342,7 @@ module Stripe
             @quantity = quantity
             @tax_rates = tax_rates
             @trial = trial
+            @trial_offer = trial_offer
           end
         end
         # Details for the `add_discount` type.
@@ -453,7 +461,7 @@ module Stripe
 
       class SetPauseCollection < ::Stripe::RequestParams
         class Set < ::Stripe::RequestParams
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           attr_accessor :behavior
 
           def initialize(behavior: nil)

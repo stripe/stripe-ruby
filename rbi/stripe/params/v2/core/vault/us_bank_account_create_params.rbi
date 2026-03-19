@@ -17,6 +17,11 @@ module Stripe
           def bank_account_type; end
           sig { params(_bank_account_type: T.nilable(String)).returns(T.nilable(String)) }
           def bank_account_type=(_bank_account_type); end
+          # The currency of the bank account.
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
           # The fedwire routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
           sig { returns(T.nilable(String)) }
           def fedwire_routing_number; end
@@ -28,11 +33,12 @@ module Stripe
           sig { params(_routing_number: T.nilable(String)).returns(T.nilable(String)) }
           def routing_number=(_routing_number); end
           sig {
-            params(account_number: String, bank_account_type: T.nilable(String), fedwire_routing_number: T.nilable(String), routing_number: T.nilable(String)).void
+            params(account_number: String, bank_account_type: T.nilable(String), currency: String, fedwire_routing_number: T.nilable(String), routing_number: T.nilable(String)).void
            }
           def initialize(
             account_number: nil,
             bank_account_type: nil,
+            currency: nil,
             fedwire_routing_number: nil,
             routing_number: nil
           ); end

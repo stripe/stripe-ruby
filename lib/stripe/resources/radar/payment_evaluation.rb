@@ -167,35 +167,6 @@ module Stripe
         end
       end
 
-      class Insights < ::Stripe::StripeObject
-        class FraudulentDispute < ::Stripe::StripeObject
-          # Recommended action based on the risk score. Possible values are `block` and `continue`.
-          attr_reader :recommended_action
-          # Stripe Radar’s evaluation of the risk level of the payment. Possible values for evaluated payments are between 0 and 100, with higher scores indicating higher risk.
-          attr_reader :risk_score
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The timestamp when the evaluation was performed.
-        attr_reader :evaluated_at
-        # Scores, insights and recommended action for one scorer for this PaymentEvaluation.
-        attr_reader :fraudulent_dispute
-
-        def self.inner_class_types
-          @inner_class_types = { fraudulent_dispute: FraudulentDispute }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class Outcome < ::Stripe::StripeObject
         class MerchantBlocked < ::Stripe::StripeObject
           # The reason the payment was blocked by the merchant.
@@ -443,6 +414,35 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class Signals < ::Stripe::StripeObject
+        class FraudulentPayment < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          attr_reader :evaluated_at
+          # Risk level of this signal, based on the score.
+          attr_reader :risk_level
+          # Score for this insight. Possible values for evaluated payments are -1 and any value between 0 and 100. The value is returned with two decimal places. A score of -1 indicates a test integration and higher scores indicate a higher likelihood of the signal being true.
+          attr_reader :score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # A payment evaluation signal with evaluated_at, risk_level, and score fields.
+        attr_reader :fraudulent_payment
+
+        def self.inner_class_types
+          @inner_class_types = { fraudulent_payment: FraudulentPayment }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Client device metadata attached to this payment evaluation.
       attr_reader :client_device_metadata_details
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -453,9 +453,7 @@ module Stripe
       attr_reader :events
       # Unique identifier for the object.
       attr_reader :id
-      # Collection of scores and insights for this payment evaluation.
-      attr_reader :insights
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
@@ -465,6 +463,10 @@ module Stripe
       attr_reader :outcome
       # Payment details attached to this payment evaluation.
       attr_reader :payment_details
+      # Recommended action based on the score of the fraudulent_payment signal. Possible values are `block` and `continue`.
+      attr_reader :recommended_action
+      # Collection of signals for this payment evaluation.
+      attr_reader :signals
 
       # Request a Radar API fraud risk score from Stripe for a payment before sending it for external processor authorization.
       def self.create(params = {}, opts = {})
@@ -481,9 +483,9 @@ module Stripe
           client_device_metadata_details: ClientDeviceMetadataDetails,
           customer_details: CustomerDetails,
           events: Event,
-          insights: Insights,
           outcome: Outcome,
           payment_details: PaymentDetails,
+          signals: Signals,
         }
       end
 

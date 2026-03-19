@@ -267,7 +267,7 @@ module Stripe
     end
 
     class PauseCollection < ::Stripe::StripeObject
-      # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+      # The payment collection behavior for this subscription while paused.
       attr_reader :behavior
       # The time after which the subscription will resume collecting payments.
       attr_reader :resumes_at
@@ -298,7 +298,7 @@ module Stripe
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           attr_reader :verification_method
 
           def self.inner_class_types
@@ -325,7 +325,7 @@ module Stripe
 
         class Card < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
-            # Amount to be charged for future payments.
+            # Amount to be charged for future payments, specified in the presentment currency.
             attr_reader :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
             attr_reader :amount_type
@@ -465,6 +465,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          attr_reader :expires_after_seconds
           # Attribute for field mandate_options
           attr_reader :mandate_options
 
@@ -551,7 +553,7 @@ module Stripe
           end
           # Attribute for field financial_connections
           attr_reader :financial_connections
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           attr_reader :verification_method
 
           def self.inner_class_types
@@ -695,6 +697,8 @@ module Stripe
 
     class TrialSettings < ::Stripe::StripeObject
       class EndBehavior < ::Stripe::StripeObject
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+        attr_reader :billing_cycle_anchor
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_reader :missing_payment_method
 
@@ -775,7 +779,7 @@ module Stripe
     attr_reader :last_price_migration_error
     # The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     attr_reader :latest_invoice
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Settings for Managed Payments for this Subscription and resulting [Invoices](/api/invoices/object) and [PaymentIntents](/api/payment_intents/object).
     attr_reader :managed_payments
@@ -791,7 +795,7 @@ module Stripe
     attr_reader :pause_collection
     # Payment settings passed on to invoices created by the subscription.
     attr_reader :payment_settings
-    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](/api/invoices/create) for the given subscription at the specified interval.
     attr_reader :pending_invoice_item_interval
     # You can use this [SetupIntent](https://docs.stripe.com/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://docs.stripe.com/billing/migration/strong-customer-authentication#scenario-2).
     attr_reader :pending_setup_intent
@@ -828,7 +832,7 @@ module Stripe
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
     #
-    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
+    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
     def cancel(params = {}, opts = {})
@@ -842,7 +846,7 @@ module Stripe
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
     #
-    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
+    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
     def self.cancel(subscription_exposed_id, params = {}, opts = {})

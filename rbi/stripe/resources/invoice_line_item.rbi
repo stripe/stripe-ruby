@@ -291,7 +291,7 @@ module Stripe
     # The ID of the invoice that contains this line item.
     sig { returns(T.nilable(String)) }
     def invoice; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # The amount of margin calculated per margin for this line item.
@@ -318,9 +318,12 @@ module Stripe
     # The pricing information of the line item.
     sig { returns(T.nilable(Pricing)) }
     def pricing; end
-    # The quantity of the subscription, if the line item is a subscription or a proration.
+    # Quantity of units for the invoice line item in integer format, with any decimal precision truncated. For the line item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the line item is a proration or subscription, the quantity of the subscription that the proration was computed for.
     sig { returns(T.nilable(Integer)) }
     def quantity; end
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+    sig { returns(T.nilable(String)) }
+    def quantity_decimal; end
     # Attribute for field subscription
     sig { returns(T.nilable(T.any(String, ::Stripe::Subscription))) }
     def subscription; end

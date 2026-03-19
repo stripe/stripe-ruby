@@ -28,6 +28,11 @@ module Stripe
             def country; end
             sig { params(_country: String).returns(String) }
             def country=(_country); end
+            # The currency of the bank account.
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
             # The routing number of the bank account, if present.
             sig { returns(T.nilable(String)) }
             def routing_number; end
@@ -39,18 +44,24 @@ module Stripe
             sig { params(_swift_code: T.nilable(String)).returns(T.nilable(String)) }
             def swift_code=(_swift_code); end
             sig {
-              params(account_number: String, bank_account_type: T.nilable(String), branch_number: T.nilable(String), country: String, routing_number: T.nilable(String), swift_code: T.nilable(String)).void
+              params(account_number: String, bank_account_type: T.nilable(String), branch_number: T.nilable(String), country: String, currency: String, routing_number: T.nilable(String), swift_code: T.nilable(String)).void
              }
             def initialize(
               account_number: nil,
               bank_account_type: nil,
               branch_number: nil,
               country: nil,
+              currency: nil,
               routing_number: nil,
               swift_code: nil
             ); end
           end
           class Card < ::Stripe::RequestParams
+            # The currency of the card.
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
             # The expiration month of the card.
             sig { returns(String) }
             def exp_month; end
@@ -66,8 +77,10 @@ module Stripe
             def number; end
             sig { params(_number: String).returns(String) }
             def number=(_number); end
-            sig { params(exp_month: String, exp_year: String, number: String).void }
-            def initialize(exp_month: nil, exp_year: nil, number: nil); end
+            sig {
+              params(currency: String, exp_month: String, exp_year: String, number: String).void
+             }
+            def initialize(currency: nil, exp_month: nil, exp_year: nil, number: nil); end
           end
           # Closed Enum. The type of payout method to be created.
           sig { returns(String) }

@@ -153,7 +153,7 @@ module Stripe
       attr_reader :id
       # The last four digits of the token.
       attr_reader :last4
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The token service provider / card network associated with the token.
       attr_reader :network

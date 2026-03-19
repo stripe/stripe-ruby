@@ -218,6 +218,26 @@ module Stripe
          }
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
       end
+      class Surcharge < ::Stripe::RequestParams
+        # Portion of the amount that corresponds to a surcharge.
+        sig { returns(T.nilable(T.any(String, Integer))) }
+        def amount; end
+        sig {
+          params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+         }
+        def amount=(_amount); end
+        # Indicate whether to enforce validations on the surcharge amount.
+        sig { returns(T.nilable(T.any(String, String))) }
+        def enforce_validation; end
+        sig {
+          params(_enforce_validation: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+         }
+        def enforce_validation=(_enforce_validation); end
+        sig {
+          params(amount: T.nilable(T.any(String, Integer)), enforce_validation: T.nilable(T.any(String, String))).void
+         }
+        def initialize(amount: nil, enforce_validation: nil); end
+      end
       class Tax < ::Stripe::RequestParams
         # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
         #
@@ -267,6 +287,15 @@ module Stripe
         params(_shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Shipping))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Shipping)))
        }
       def shipping=(_shipping); end
+      # Contains information about the surcharge portion of the amount.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Surcharge)))
+       }
+      def surcharge; end
+      sig {
+        params(_surcharge: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Surcharge))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Surcharge)))
+       }
+      def surcharge=(_surcharge); end
       # Contains information about the tax portion of the amount.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Tax)))
@@ -277,13 +306,14 @@ module Stripe
        }
       def tax=(_tax); end
       sig {
-        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Tax))).void
+        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Shipping)), surcharge: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Surcharge)), tax: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::AmountDetails::Tax))).void
        }
       def initialize(
         discount_amount: nil,
         enforce_arithmetic_validation: nil,
         line_items: nil,
         shipping: nil,
+        surcharge: nil,
         tax: nil
       ); end
     end

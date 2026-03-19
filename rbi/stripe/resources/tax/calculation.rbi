@@ -147,7 +147,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+          # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           sig { returns(Integer) }
           def amount; end
           # Attribute for field jurisdiction
@@ -162,7 +162,7 @@ module Stripe
           # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
           sig { returns(String) }
           def taxability_reason; end
-          # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+          # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           sig { returns(Integer) }
           def taxable_amount; end
           def self.inner_class_types
@@ -172,10 +172,10 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        # The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         sig { returns(Integer) }
         def amount; end
-        # The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         sig { returns(Integer) }
         def amount_tax; end
         # The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
@@ -238,7 +238,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         sig { returns(Integer) }
         def amount; end
         # Specifies whether the tax amount is included in the line item amount.
@@ -250,7 +250,7 @@ module Stripe
         # The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules.
         sig { returns(String) }
         def taxability_reason; end
-        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         sig { returns(Integer) }
         def taxable_amount; end
         def self.inner_class_types
@@ -260,7 +260,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Total amount after taxes in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+      # Total amount after taxes in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
       sig { returns(Integer) }
       def amount_total; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -281,7 +281,7 @@ module Stripe
       # The list of items the customer is purchasing.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # String representing the object's type. Objects of the same type share the same value.

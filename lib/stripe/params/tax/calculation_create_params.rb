@@ -74,11 +74,13 @@ module Stripe
       end
 
       class LineItem < ::Stripe::RequestParams
-        # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         attr_accessor :amount
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        attr_accessor :performance_location
         # If provided, the product's `tax_code` will be used as the line item's `tax_code`.
         attr_accessor :product
         # The number of units of the item being purchased. Used to calculate the per-unit price from the total `amount` for the line. For example, if `amount=100` and `quantity=4`, the calculated unit price is 25.
@@ -93,6 +95,7 @@ module Stripe
         def initialize(
           amount: nil,
           metadata: nil,
+          performance_location: nil,
           product: nil,
           quantity: nil,
           reference: nil,
@@ -101,6 +104,7 @@ module Stripe
         )
           @amount = amount
           @metadata = metadata
+          @performance_location = performance_location
           @product = product
           @quantity = quantity
           @reference = reference
@@ -149,7 +153,7 @@ module Stripe
       end
 
       class ShippingCost < ::Stripe::RequestParams
-        # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         attr_accessor :amount
         # If provided, the [shipping rate](https://docs.stripe.com/api/shipping_rates/object)'s `amount`, `tax_code` and `tax_behavior` are used. If you provide a shipping rate, then you cannot pass the `amount`, `tax_code`, or `tax_behavior` parameters.
         attr_accessor :shipping_rate

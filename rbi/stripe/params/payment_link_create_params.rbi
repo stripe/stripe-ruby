@@ -506,6 +506,20 @@ module Stripe
       end
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+            sig { returns(T.nilable(String)) }
+            def performance_location; end
+            sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+            def performance_location=(_performance_location); end
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            sig { returns(String) }
+            def tax_code; end
+            sig { params(_tax_code: String).returns(String) }
+            def tax_code=(_tax_code); end
+            sig { params(performance_location: T.nilable(String), tax_code: String).void }
+            def initialize(performance_location: nil, tax_code: nil); end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           sig { returns(T.nilable(String)) }
           def description; end
@@ -533,13 +547,22 @@ module Stripe
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
           def tax_code=(_tax_code); end
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+          sig {
+            returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+           }
+          def tax_details; end
+          sig {
+            params(_tax_details: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+           }
+          def tax_details=(_tax_details); end
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
           sig { returns(T.nilable(String)) }
           def unit_label; end
           sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
           def unit_label=(_unit_label); end
           sig {
-            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
            }
           def initialize(
             description: nil,
@@ -547,6 +570,7 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
+            tax_details: nil,
             unit_label: nil
           ); end
         end
@@ -648,6 +672,15 @@ module Stripe
         params(adjustable_quantity: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::AdjustableQuantity), price: T.nilable(String), price_data: T.nilable(::Stripe::PaymentLinkCreateParams::LineItem::PriceData), quantity: Integer).void
        }
       def initialize(adjustable_quantity: nil, price: nil, price_data: nil, quantity: nil); end
+    end
+    class ManagedPayments < ::Stripe::RequestParams
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
+      sig { params(enabled: T.nilable(T::Boolean)).void }
+      def initialize(enabled: nil); end
     end
     class NameCollection < ::Stripe::RequestParams
       class Business < ::Stripe::RequestParams
@@ -1074,6 +1107,13 @@ module Stripe
       params(_line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem]).returns(T::Array[::Stripe::PaymentLinkCreateParams::LineItem])
      }
     def line_items=(_line_items); end
+    # Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](/api/checkout/sessions/object), [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments)) }
+    def managed_payments; end
+    sig {
+      params(_managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments))
+     }
+    def managed_payments=(_managed_payments); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
@@ -1182,7 +1222,7 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
+      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
      }
     def initialize(
       after_completion: nil,
@@ -1200,6 +1240,7 @@ module Stripe
       inactive_message: nil,
       invoice_creation: nil,
       line_items: nil,
+      managed_payments: nil,
       metadata: nil,
       name_collection: nil,
       on_behalf_of: nil,

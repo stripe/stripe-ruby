@@ -106,7 +106,7 @@ module Stripe
         ); end
       end
       class LineItem < ::Stripe::RequestParams
-        # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         sig { returns(Integer) }
         def amount; end
@@ -119,6 +119,11 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        sig { returns(T.nilable(String)) }
+        def performance_location; end
+        sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+        def performance_location=(_performance_location); end
         # If provided, the product's `tax_code` will be used as the line item's `tax_code`.
         sig { returns(T.nilable(String)) }
         def product; end
@@ -145,11 +150,12 @@ module Stripe
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
         def tax_code=(_tax_code); end
         sig {
-          params(amount: Integer, metadata: T.nilable(T::Hash[String, String]), product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void
+          params(amount: Integer, metadata: T.nilable(T::Hash[String, String]), performance_location: T.nilable(String), product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
           metadata: nil,
+          performance_location: nil,
           product: nil,
           quantity: nil,
           reference: nil,
@@ -214,7 +220,7 @@ module Stripe
         def initialize(address: nil); end
       end
       class ShippingCost < ::Stripe::RequestParams
-        # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         sig { returns(T.nilable(Integer)) }
         def amount; end
         sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }

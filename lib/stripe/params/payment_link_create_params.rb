@@ -343,6 +343,17 @@ module Stripe
 
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+            attr_accessor :performance_location
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            attr_accessor :tax_code
+
+            def initialize(performance_location: nil, tax_code: nil)
+              @performance_location = performance_location
+              @tax_code = tax_code
+            end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -353,6 +364,8 @@ module Stripe
           attr_accessor :name
           # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           attr_accessor :tax_code
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+          attr_accessor :tax_details
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
           attr_accessor :unit_label
 
@@ -362,6 +375,7 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
+            tax_details: nil,
             unit_label: nil
           )
             @description = description
@@ -369,6 +383,7 @@ module Stripe
             @metadata = metadata
             @name = name
             @tax_code = tax_code
+            @tax_details = tax_details
             @unit_label = unit_label
           end
         end
@@ -431,6 +446,15 @@ module Stripe
         @price = price
         @price_data = price_data
         @quantity = quantity
+      end
+    end
+
+    class ManagedPayments < ::Stripe::RequestParams
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
       end
     end
 
@@ -709,6 +733,8 @@ module Stripe
     attr_accessor :invoice_creation
     # The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
     attr_accessor :line_items
+    # Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](/api/checkout/sessions/object), [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+    attr_accessor :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     attr_accessor :metadata
     # Controls settings applied for collecting the customer's name.
@@ -764,6 +790,7 @@ module Stripe
       inactive_message: nil,
       invoice_creation: nil,
       line_items: nil,
+      managed_payments: nil,
       metadata: nil,
       name_collection: nil,
       on_behalf_of: nil,
@@ -795,6 +822,7 @@ module Stripe
       @inactive_message = inactive_message
       @invoice_creation = invoice_creation
       @line_items = line_items
+      @managed_payments = managed_payments
       @metadata = metadata
       @name_collection = name_collection
       @on_behalf_of = on_behalf_of

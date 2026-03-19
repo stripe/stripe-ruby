@@ -840,8 +840,13 @@ module Stripe
           params(_trial: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial))
          }
         def trial=(_trial); end
+        # The ID of the trial offer to apply to the configuration item.
+        sig { returns(T.nilable(String)) }
+        def trial_offer; end
+        sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+        def trial_offer=(_trial_offer); end
         sig {
-          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial)).void
+          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleCreateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::Item::Trial), trial_offer: T.nilable(String)).void
          }
         def initialize(
           billing_thresholds: nil,
@@ -852,11 +857,12 @@ module Stripe
           price_data: nil,
           quantity: nil,
           tax_rates: nil,
-          trial: nil
+          trial: nil,
+          trial_offer: nil
         ); end
       end
       class PauseCollection < ::Stripe::RequestParams
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        # The payment collection behavior for this subscription while paused.
         sig { returns(String) }
         def behavior; end
         sig { params(_behavior: String).returns(String) }

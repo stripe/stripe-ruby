@@ -28,6 +28,23 @@ module Stripe
       end
     end
 
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      attr_reader :end_date
+      # Attribute for field start_date
+      attr_reader :start_date
+      # Attribute for field trial_offer
+      attr_reader :trial_offer
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Trial < ::Stripe::StripeObject
       # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
       attr_reader :converts_to
@@ -52,6 +69,8 @@ module Stripe
     attr_reader :current_period_end
     # The start time of this subscription item's current billing period.
     attr_reader :current_period_start
+    # The current trial that is applied to this subscription item.
+    attr_reader :current_trial
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # Unique identifier for the object.
@@ -138,7 +157,11 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { billing_thresholds: BillingThresholds, trial: Trial }
+      @inner_class_types = {
+        billing_thresholds: BillingThresholds,
+        current_trial: CurrentTrial,
+        trial: Trial,
+      }
     end
 
     def self.field_remappings

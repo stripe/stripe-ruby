@@ -17,6 +17,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      sig { returns(Integer) }
+      def end_date; end
+      # Attribute for field start_date
+      sig { returns(Integer) }
+      def start_date; end
+      # Attribute for field trial_offer
+      sig { returns(String) }
+      def trial_offer; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Trial < ::Stripe::StripeObject
       # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
       sig { returns(T.nilable(T::Array[String])) }
@@ -46,6 +63,9 @@ module Stripe
     # The start time of this subscription item's current billing period.
     sig { returns(Integer) }
     def current_period_start; end
+    # The current trial that is applied to this subscription item.
+    sig { returns(T.nilable(CurrentTrial)) }
+    def current_trial; end
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T::Array[T.any(String, ::Stripe::Discount)]) }
     def discounts; end

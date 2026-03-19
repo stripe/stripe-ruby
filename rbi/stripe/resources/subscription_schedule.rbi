@@ -510,6 +510,9 @@ module Stripe
         # Options that configure the trial on the subscription item.
         sig { returns(T.nilable(Trial)) }
         def trial; end
+        # The ID of the trial offer to apply to the configuration item.
+        sig { returns(T.nilable(String)) }
+        def trial_offer; end
         def self.inner_class_types
           @inner_class_types = {
             billing_thresholds: BillingThresholds,
@@ -522,7 +525,7 @@ module Stripe
         end
       end
       class PauseCollection < ::Stripe::StripeObject
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        # The payment collection behavior for this subscription while paused.
         sig { returns(String) }
         def behavior; end
         def self.inner_class_types
@@ -713,7 +716,7 @@ module Stripe
     # Details of the most recent price migration that failed for the subscription schedule.
     sig { returns(T.nilable(LastPriceMigrationError)) }
     def last_price_migration_error; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

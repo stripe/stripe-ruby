@@ -47,6 +47,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Surcharge < ::Stripe::StripeObject
+        # Portion of the amount that corresponds to a surcharge.
+        sig { returns(T.nilable(Integer)) }
+        def amount; end
+        # Indicate whether to enforce validations on the surcharge amount.
+        sig { returns(T.nilable(String)) }
+        def enforce_validation; end
+        # The maximum amount allowed for the surcharge.
+        sig { returns(T.nilable(Integer)) }
+        def maximum_amount; end
+        # The status of the surcharge.
+        sig { returns(T.nilable(String)) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Tax < ::Stripe::StripeObject
         # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
         #
@@ -85,6 +105,9 @@ module Stripe
       # Attribute for field shipping
       sig { returns(T.nilable(Shipping)) }
       def shipping; end
+      # Attribute for field surcharge
+      sig { returns(T.nilable(Surcharge)) }
+      def surcharge; end
       # Attribute for field tax
       sig { returns(T.nilable(Tax)) }
       def tax; end
@@ -92,7 +115,13 @@ module Stripe
       sig { returns(T.nilable(Tip)) }
       def tip; end
       def self.inner_class_types
-        @inner_class_types = {error: Error, shipping: Shipping, tax: Tax, tip: Tip}
+        @inner_class_types = {
+          error: Error,
+          shipping: Shipping,
+          surcharge: Surcharge,
+          tax: Tax,
+          tip: Tip,
+        }
       end
       def self.field_remappings
         @field_remappings = {}
@@ -1181,6 +1210,37 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class UpiHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
+          # The date (unix timestamp) when the QR code expires.
+          sig { returns(Integer) }
+          def expires_at; end
+          # The image_url_png string used to render QR code
+          sig { returns(String) }
+          def image_url_png; end
+          # The image_url_svg string used to render QR code
+          sig { returns(String) }
+          def image_url_svg; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The URL to the hosted UPI instructions page, which allows customers to view the QR code.
+        sig { returns(String) }
+        def hosted_instructions_url; end
+        # Attribute for field qr_code
+        sig { returns(QrCode) }
+        def qr_code; end
+        def self.inner_class_types
+          @inner_class_types = {qr_code: QrCode}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
         sig { returns(Integer) }
@@ -1303,6 +1363,9 @@ module Stripe
       # Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi_handle_redirect_or_display_qr_code
+      sig { returns(T.nilable(UpiHandleRedirectOrDisplayQrCode)) }
+      def upi_handle_redirect_or_display_qr_code; end
       # When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
       sig { returns(T.nilable(T::Hash[String, T.untyped])) }
       def use_stripe_sdk; end
@@ -1333,6 +1396,7 @@ module Stripe
           promptpay_display_qr_code: PromptpayDisplayQrCode,
           redirect_to_url: RedirectToUrl,
           swish_handle_redirect_or_display_qr_code: SwishHandleRedirectOrDisplayQrCode,
+          upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
@@ -2693,7 +2757,7 @@ module Stripe
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
         def target_date; end
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         sig { returns(T.nilable(String)) }
         def verification_method; end
         def self.inner_class_types
@@ -2975,7 +3039,7 @@ module Stripe
           end
         end
         class MandateOptions < ::Stripe::StripeObject
-          # Amount to be charged for future payments.
+          # Amount to be charged for future payments, specified in the presentment currency.
           sig { returns(Integer) }
           def amount; end
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -4057,6 +4121,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Upi < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class UsBankAccount < ::Stripe::StripeObject
         class FinancialConnections < ::Stripe::StripeObject
           class Filters < ::Stripe::StripeObject
@@ -4138,12 +4219,9 @@ module Stripe
         # The purpose of the transaction.
         sig { returns(T.nilable(String)) }
         def transaction_purpose; end
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         sig { returns(T.nilable(String)) }
         def verification_method; end
-        # Preferred transaction settlement speed
-        sig { returns(T.nilable(String)) }
-        def preferred_settlement_speed; end
         def self.inner_class_types
           @inner_class_types = {
             financial_connections: FinancialConnections,
@@ -4362,6 +4440,9 @@ module Stripe
       # Attribute for field twint
       sig { returns(T.nilable(Twint)) }
       def twint; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -4429,6 +4510,7 @@ module Stripe
           stripe_balance: StripeBalance,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat_pay: WechatPay,
           zip: Zip,
@@ -4640,7 +4722,7 @@ module Stripe
     # ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def latest_charge; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Settings for Managed Payments.
@@ -4739,7 +4821,7 @@ module Stripe
     #
     # After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
     #
-    # You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+    # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
     sig {
       params(params: T.any(::Stripe::PaymentIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
@@ -4749,7 +4831,7 @@ module Stripe
     #
     # After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
     #
-    # You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+    # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
     sig {
       params(intent: String, params: T.any(::Stripe::PaymentIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }

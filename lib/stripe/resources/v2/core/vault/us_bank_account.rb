@@ -81,6 +81,8 @@ module Stripe
           attr_reader :object
           # The ACH routing number of the bank account.
           attr_reader :routing_number
+          # The list of currencies supported by this bank account.
+          attr_reader :supported_currencies
           # The bank account verification details.
           attr_reader :verification
           # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

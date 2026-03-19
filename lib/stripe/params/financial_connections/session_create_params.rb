@@ -37,6 +37,15 @@ module Stripe
         end
       end
 
+      class Hosted < ::Stripe::RequestParams
+        # How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
+        attr_accessor :delivery_method
+
+        def initialize(delivery_method: nil)
+          @delivery_method = delivery_method
+        end
+      end
+
       class Limits < ::Stripe::RequestParams
         # The number of accounts that can be linked in this Session.
         attr_accessor :accounts
@@ -72,6 +81,8 @@ module Stripe
       attr_accessor :expand
       # Filters to restrict the kinds of accounts to collect.
       attr_accessor :filters
+      # Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+      attr_accessor :hosted
       # Settings for configuring Session-specific limits.
       attr_accessor :limits
       # Customize manual entry behavior
@@ -86,27 +97,33 @@ module Stripe
       attr_accessor :relink_options
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
       attr_accessor :return_url
+      # The UI mode of the Session. Defaults to `modal`.
+      attr_accessor :ui_mode
 
       def initialize(
         account_holder: nil,
         expand: nil,
         filters: nil,
+        hosted: nil,
         limits: nil,
         manual_entry: nil,
         permissions: nil,
         prefetch: nil,
         relink_options: nil,
-        return_url: nil
+        return_url: nil,
+        ui_mode: nil
       )
         @account_holder = account_holder
         @expand = expand
         @filters = filters
+        @hosted = hosted
         @limits = limits
         @manual_entry = manual_entry
         @permissions = permissions
         @prefetch = prefetch
         @relink_options = relink_options
         @return_url = return_url
+        @ui_mode = ui_mode
       end
     end
   end

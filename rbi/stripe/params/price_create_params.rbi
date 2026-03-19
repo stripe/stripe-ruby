@@ -135,6 +135,20 @@ module Stripe
       def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil); end
     end
     class ProductData < ::Stripe::RequestParams
+      class TaxDetails < ::Stripe::RequestParams
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        sig { returns(T.nilable(String)) }
+        def performance_location; end
+        sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+        def performance_location=(_performance_location); end
+        # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+        sig { returns(String) }
+        def tax_code; end
+        sig { params(_tax_code: String).returns(String) }
+        def tax_code=(_tax_code); end
+        sig { params(performance_location: T.nilable(String), tax_code: String).void }
+        def initialize(performance_location: nil, tax_code: nil); end
+      end
       # Whether the product is currently available for purchase. Defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def active; end
@@ -169,13 +183,20 @@ module Stripe
       def tax_code; end
       sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
       def tax_code=(_tax_code); end
+      # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+      sig { returns(T.nilable(::Stripe::PriceCreateParams::ProductData::TaxDetails)) }
+      def tax_details; end
+      sig {
+        params(_tax_details: T.nilable(::Stripe::PriceCreateParams::ProductData::TaxDetails)).returns(T.nilable(::Stripe::PriceCreateParams::ProductData::TaxDetails))
+       }
+      def tax_details=(_tax_details); end
       # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
       sig { returns(T.nilable(String)) }
       def unit_label; end
       sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
       def unit_label=(_unit_label); end
       sig {
-        params(active: T.nilable(T::Boolean), id: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: String, statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+        params(active: T.nilable(T::Boolean), id: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: String, statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::PriceCreateParams::ProductData::TaxDetails), unit_label: T.nilable(String)).void
        }
       def initialize(
         active: nil,
@@ -184,6 +205,7 @@ module Stripe
         name: nil,
         statement_descriptor: nil,
         tax_code: nil,
+        tax_details: nil,
         unit_label: nil
       ); end
     end

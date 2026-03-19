@@ -2,7 +2,7 @@
 
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
-require "cgi"
+require "cgi/escape"
 require "json"
 require "logger"
 require "net/http"

@@ -95,6 +95,9 @@ module Stripe
                 params(amount: T.nilable(Integer), amount_type: T.nilable(String), description: T.nilable(String)).void
                }
               def initialize(amount: nil, amount_type: nil, description: nil); end
+              def self.field_encodings
+                @field_encodings = {amount: :int64_string}
+              end
             end
             # Configuration options for setting up an eMandate for cards issued in India.
             sig {
@@ -122,6 +125,9 @@ module Stripe
               params(mandate_options: T.nilable(::Stripe::V2::Billing::CollectionSettingUpdateParams::PaymentMethodOptions::Card::MandateOptions), network: T.nilable(String), request_three_d_secure: T.nilable(String)).void
              }
             def initialize(mandate_options: nil, network: nil, request_three_d_secure: nil); end
+            def self.field_encodings
+              @field_encodings = {mandate_options: {kind: :object, fields: {amount: :int64_string}}}
+            end
           end
           class CustomerBalance < ::Stripe::RequestParams
             class BankTransfer < ::Stripe::RequestParams
@@ -303,6 +309,14 @@ module Stripe
             sepa_debit: nil,
             us_bank_account: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              card: {
+                kind: :object,
+                fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+              },
+            }
+          end
         end
         # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
         # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
@@ -366,6 +380,19 @@ module Stripe
           payment_method_configuration: nil,
           payment_method_options: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            payment_method_options: {
+              kind: :object,
+              fields: {
+                card: {
+                  kind: :object,
+                  fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+                },
+              },
+            },
+          }
+        end
       end
     end
   end

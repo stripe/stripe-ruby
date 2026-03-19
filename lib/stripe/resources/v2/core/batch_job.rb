@@ -55,6 +55,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { size: :int64_string }
+              end
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
@@ -69,6 +73,14 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                failure_count: :int64_string,
+                output_file: { kind: :object, fields: { size: :int64_string } },
+                success_count: :int64_string,
+              }
             end
           end
 
@@ -102,6 +114,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { size: :int64_string }
+              end
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
@@ -117,6 +133,14 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                failure_count: :int64_string,
+                output_file: { kind: :object, fields: { size: :int64_string } },
+                success_count: :int64_string,
+              }
+            end
           end
 
           class InProgress < ::Stripe::StripeObject
@@ -131,6 +155,10 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { failure_count: :int64_string, success_count: :int64_string }
             end
           end
 
@@ -191,6 +219,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { size: :int64_string }
+              end
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
@@ -206,6 +238,14 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                failure_count: :int64_string,
+                output_file: { kind: :object, fields: { size: :int64_string } },
+                success_count: :int64_string,
+              }
+            end
           end
 
           class Validating < ::Stripe::StripeObject
@@ -219,6 +259,10 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { validated_count: :int64_string }
             end
           end
 
@@ -252,6 +296,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { size: :int64_string }
+              end
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
@@ -266,6 +314,14 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                failure_count: :int64_string,
+                output_file: { kind: :object, fields: { size: :int64_string } },
+                success_count: :int64_string,
+              }
             end
           end
           # Additional details for the `BATCH_FAILED` status of the `BatchJob`.
@@ -301,6 +357,48 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              canceled: {
+                kind: :object,
+                fields: {
+                  failure_count: :int64_string,
+                  output_file: { kind: :object, fields: { size: :int64_string } },
+                  success_count: :int64_string,
+                },
+              },
+              complete: {
+                kind: :object,
+                fields: {
+                  failure_count: :int64_string,
+                  output_file: { kind: :object, fields: { size: :int64_string } },
+                  success_count: :int64_string,
+                },
+              },
+              in_progress: {
+                kind: :object,
+                fields: { failure_count: :int64_string, success_count: :int64_string },
+              },
+              timeout: {
+                kind: :object,
+                fields: {
+                  failure_count: :int64_string,
+                  output_file: { kind: :object, fields: { size: :int64_string } },
+                  success_count: :int64_string,
+                },
+              },
+              validating: { kind: :object, fields: { validated_count: :int64_string } },
+              validation_failed: {
+                kind: :object,
+                fields: {
+                  failure_count: :int64_string,
+                  output_file: { kind: :object, fields: { size: :int64_string } },
+                  success_count: :int64_string,
+                },
+              },
+            }
+          end
         end
         # Timestamp at which BatchJob was created.
         attr_reader :created
@@ -327,6 +425,53 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            status_details: {
+              kind: :object,
+              fields: {
+                canceled: {
+                  kind: :object,
+                  fields: {
+                    failure_count: :int64_string,
+                    output_file: { kind: :object, fields: { size: :int64_string } },
+                    success_count: :int64_string,
+                  },
+                },
+                complete: {
+                  kind: :object,
+                  fields: {
+                    failure_count: :int64_string,
+                    output_file: { kind: :object, fields: { size: :int64_string } },
+                    success_count: :int64_string,
+                  },
+                },
+                in_progress: {
+                  kind: :object,
+                  fields: { failure_count: :int64_string, success_count: :int64_string },
+                },
+                timeout: {
+                  kind: :object,
+                  fields: {
+                    failure_count: :int64_string,
+                    output_file: { kind: :object, fields: { size: :int64_string } },
+                    success_count: :int64_string,
+                  },
+                },
+                validating: { kind: :object, fields: { validated_count: :int64_string } },
+                validation_failed: {
+                  kind: :object,
+                  fields: {
+                    failure_count: :int64_string,
+                    output_file: { kind: :object, fields: { size: :int64_string } },
+                    success_count: :int64_string,
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

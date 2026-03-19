@@ -1371,6 +1371,19 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::StripeObject
+        # Customer's unique Virtual Payment Address
+        attr_reader :vpa
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class UsBankAccount < ::Stripe::StripeObject
         class Networks < ::Stripe::StripeObject
           # The preferred network.
@@ -1568,6 +1581,8 @@ module Stripe
       attr_reader :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
       # Attribute for field wechat_pay
@@ -1627,6 +1642,7 @@ module Stripe
           sofort: Sofort,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat_pay: WechatPay,
           zip: Zip,
@@ -1682,7 +1698,7 @@ module Stripe
     attr_reader :expires_at
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Data used for generating a Mandate.
     attr_reader :mandate_data

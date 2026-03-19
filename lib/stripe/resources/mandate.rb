@@ -273,6 +273,25 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::StripeObject
+        # Amount to be charged for future payments.
+        attr_reader :amount
+        # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        attr_reader :amount_type
+        # A description of the mandate or subscription that is meant to be displayed to the customer.
+        attr_reader :description
+        # End date of the mandate or subscription.
+        attr_reader :end_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class UsBankAccount < ::Stripe::StripeObject
         # Mandate collection method
         attr_reader :collection_method
@@ -319,6 +338,8 @@ module Stripe
       attr_reader :sepa_debit
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
 
@@ -340,6 +361,7 @@ module Stripe
           payto: Payto,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -367,7 +389,7 @@ module Stripe
     attr_reader :customer_acceptance
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Attribute for field multi_use
     attr_reader :multi_use

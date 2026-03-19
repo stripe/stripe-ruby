@@ -182,6 +182,37 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class UpiHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
+          # The date (unix timestamp) when the QR code expires.
+          sig { returns(Integer) }
+          def expires_at; end
+          # The image_url_png string used to render QR code
+          sig { returns(String) }
+          def image_url_png; end
+          # The image_url_svg string used to render QR code
+          sig { returns(String) }
+          def image_url_svg; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The URL to the hosted UPI instructions page, which allows customers to view the QR code.
+        sig { returns(String) }
+        def hosted_instructions_url; end
+        # Attribute for field qr_code
+        sig { returns(QrCode) }
+        def qr_code; end
+        def self.inner_class_types
+          @inner_class_types = {qr_code: QrCode}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
         sig { returns(Integer) }
@@ -208,6 +239,9 @@ module Stripe
       # Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi_handle_redirect_or_display_qr_code
+      sig { returns(T.nilable(UpiHandleRedirectOrDisplayQrCode)) }
+      def upi_handle_redirect_or_display_qr_code; end
       # When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
       sig { returns(T.nilable(T::Hash[String, T.untyped])) }
       def use_stripe_sdk; end
@@ -218,6 +252,7 @@ module Stripe
         @inner_class_types = {
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           redirect_to_url: RedirectToUrl,
+          upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
         }
       end
@@ -270,7 +305,7 @@ module Stripe
         # Attribute for field mandate_options
         sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         sig { returns(T.nilable(String)) }
         def verification_method; end
         def self.inner_class_types
@@ -312,7 +347,7 @@ module Stripe
       end
       class Card < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
-          # Amount to be charged for future payments.
+          # Amount to be charged for future payments, specified in the presentment currency.
           sig { returns(Integer) }
           def amount; end
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -471,6 +506,37 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Upi < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Amount to be charged for future payments.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+          sig { returns(T.nilable(String)) }
+          def amount_type; end
+          # A description of the mandate or subscription that is meant to be displayed to the customer.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # End date of the mandate or subscription.
+          sig { returns(T.nilable(Integer)) }
+          def end_date; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        sig { returns(T.nilable(MandateOptions)) }
+        def mandate_options; end
+        def self.inner_class_types
+          @inner_class_types = {mandate_options: MandateOptions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class UsBankAccount < ::Stripe::StripeObject
         class FinancialConnections < ::Stripe::StripeObject
           class Filters < ::Stripe::StripeObject
@@ -520,7 +586,7 @@ module Stripe
         # Attribute for field mandate_options
         sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         sig { returns(T.nilable(String)) }
         def verification_method; end
         def self.inner_class_types
@@ -563,6 +629,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -578,6 +647,7 @@ module Stripe
           paypal: Paypal,
           payto: Payto,
           sepa_debit: SepaDebit,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -637,7 +707,7 @@ module Stripe
     # The most recent SetupAttempt for this SetupIntent.
     sig { returns(T.nilable(T.any(String, ::Stripe::SetupAttempt))) }
     def latest_attempt; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # ID of the multi use Mandate generated by the SetupIntent.

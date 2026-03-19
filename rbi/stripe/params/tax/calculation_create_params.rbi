@@ -106,7 +106,7 @@ module Stripe
         ); end
       end
       class LineItem < ::Stripe::RequestParams
-        # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         sig { returns(Integer) }
         def amount; end
@@ -214,7 +214,7 @@ module Stripe
         def initialize(address: nil); end
       end
       class ShippingCost < ::Stripe::RequestParams
-        # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        # A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         sig { returns(T.nilable(Integer)) }
         def amount; end
         sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }

@@ -292,11 +292,16 @@ module Stripe
         params(_pricing: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing)).returns(T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing))
        }
       def pricing=(_pricing); end
-      # Non-negative integer. The quantity of units for the line item.
+      # Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
       sig { returns(T.nilable(Integer)) }
       def quantity; end
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
+      # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+      sig { returns(T.nilable(String)) }
+      def quantity_decimal; end
+      sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      def quantity_decimal=(_quantity_decimal); end
       # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
       sig {
         returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount])))
@@ -314,7 +319,7 @@ module Stripe
        }
       def tax_rates=(_tax_rates); end
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::Discount])), id: String, metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::Discount])), id: String, metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceUpdateLinesParams::Line::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(String), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
        }
       def initialize(
         amount: nil,
@@ -327,6 +332,7 @@ module Stripe
         price_data: nil,
         pricing: nil,
         quantity: nil,
+        quantity_decimal: nil,
         tax_amounts: nil,
         tax_rates: nil
       ); end

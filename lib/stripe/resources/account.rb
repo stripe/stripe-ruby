@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
+  # For new integrations, we recommend using the [Accounts v2 API](https://docs.stripe.com/api/v2/core/accounts), in place of /v1/accounts and /v1/customers to represent a user.
+  #
   # This is an object representing a Stripe account. You can retrieve it to see
   # properties on the account like its current requirements or if the account is
   # enabled to make live charges or receive payouts.
@@ -244,6 +246,8 @@ module Stripe
       attr_reader :treasury
       # The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
       attr_reader :twint_payments
+      # The status of the upi payments capability of the account, or whether the account can directly process upi charges.
+      attr_reader :upi_payments
       # The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
       attr_reader :us_bank_account_ach_payments
       # The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.

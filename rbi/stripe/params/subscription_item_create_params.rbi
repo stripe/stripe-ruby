@@ -156,7 +156,7 @@ module Stripe
     def proration_behavior; end
     sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def proration_behavior=(_proration_behavior); end
-    # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://api.stripe.com#retrieve_customer_invoice) endpoint.
+    # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](/api/invoices/create_preview) endpoint.
     sig { returns(T.nilable(Integer)) }
     def proration_date; end
     sig { params(_proration_date: T.nilable(Integer)).returns(T.nilable(Integer)) }

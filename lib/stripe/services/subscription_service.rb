@@ -104,6 +104,36 @@ module Stripe
       )
     end
 
+    # Serializes a Subscription migrate request into a batch job JSONL line.
+    def serialize_batch_migrate(subscription, params = {}, opts = {})
+      item_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      item = {
+        id: item_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      item[:path_params] = { subscription: subscription }
+      item[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(item)
+    end
+
+    # Serializes a Subscription update request into a batch job JSONL line.
+    def serialize_batch_update(subscription_exposed_id, params = {}, opts = {})
+      item_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      item = {
+        id: item_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      item[:path_params] = { subscription_exposed_id: subscription_exposed_id }
+      item[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(item)
+    end
+
     # Updates an existing subscription to match the specified parameters.
     # When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
     # To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.

@@ -111,6 +111,14 @@ module Stripe
      }
     def send_invoice(invoice, params = {}, opts = {}); end
 
+    # Serializes a Invoice pay request into a batch job JSONL line.
+    sig { params(invoice: String, params: InvoicePayParams, opts: T.untyped).returns(String) }
+    def serialize_batch_pay(invoice, params = {}, opts = {}); end
+
+    # Serializes a Invoice update request into a batch job JSONL line.
+    sig { params(invoice: String, params: InvoiceUpdateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_update(invoice, params = {}, opts = {}); end
+
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
     # monetary values, as well as collection_method, become uneditable.
     #

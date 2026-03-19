@@ -5,10 +5,10 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  gem "cgi"
   gem "mocha", "~> 1.16.0"
   gem "rack", ">= 2.0.6"
   gem "rake"
-  gem "cgi"
 
   gem "shoulda-context", "2.0.0"
 

@@ -7854,7 +7854,7 @@ module Stripe
                 type: "percent_off",
                 percent_off: {
                   maximum_applications: { type: "indefinite" },
-                  percent_off: "percent_off",
+                  percent_off: "991934883.3333334",
                 },
               },
               spend_modifier_rule: {
@@ -10416,7 +10416,7 @@ module Stripe
     end
     should "Test v2 tax manual rule get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules").to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"614555204"}]}],"status":"active","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10426,7 +10426,7 @@ module Stripe
     end
     should "Test v2 tax manual rule post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"614555204"}]}],"status":"active","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10440,7 +10440,7 @@ module Stripe
                 description: "description",
                 display_name: "display_name",
                 jurisdiction: "jurisdiction",
-                percentage: "percentage",
+                percentage: "614555204",
                 state: "state",
               },
             ],
@@ -10452,7 +10452,7 @@ module Stripe
     end
     should "Test v2 tax manual rule get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"614555204"}]}],"status":"active","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10462,7 +10462,7 @@ module Stripe
     end
     should "Test v2 tax manual rule post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"614555204"}]}],"status":"active","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10478,7 +10478,7 @@ module Stripe
                   description: "description",
                   display_name: "display_name",
                   jurisdiction: "jurisdiction",
-                  percentage: "percentage",
+                  percentage: "614555204",
                   state: "state",
                 },
               ],
@@ -10494,7 +10494,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules/id_123/deactivate"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"percentage"}]}],"status":"active","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.manual_rule","products":[{"type":"licensed_item"}],"scheduled_tax_rates":[{"rates":[{"display_name":"display_name","percentage":"614555204"}]}],"status":"active","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

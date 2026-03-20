@@ -41,4 +41,8 @@ Gem::Specification.new do |s|
   s.bindir = "exe"
   s.executables   = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  # bigdecimal was a default gem through Ruby 3.3 but must be explicitly declared
+  # starting from Ruby 3.4.0. Required for decimal_string field coercion.
+  s.add_dependency "bigdecimal"
 end

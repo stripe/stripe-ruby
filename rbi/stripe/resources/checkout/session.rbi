@@ -272,7 +272,7 @@ module Stripe
         sig { returns(Integer) }
         def amount_total; end
         # Exchange rate used to convert source currency amounts to customer currency amounts
-        sig { returns(String) }
+        sig { returns(BigDecimal) }
         def fx_rate; end
         # Creation currency of the CheckoutSession before localization
         sig { returns(String) }
@@ -282,6 +282,9 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {fx_rate: :decimal_string}
         end
       end
       class CustomField < ::Stripe::StripeObject

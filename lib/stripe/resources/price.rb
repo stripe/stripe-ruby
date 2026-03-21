@@ -56,6 +56,13 @@ module Stripe
         def self.field_remappings
           @field_remappings = {}
         end
+
+        def self.field_encodings
+          @field_encodings = {
+            flat_amount_decimal: :decimal_string,
+            unit_amount_decimal: :decimal_string,
+          }
+        end
       end
       # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
       attr_reader :custom_unit_amount
@@ -74,6 +81,19 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          tiers: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: { flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string },
+            },
+          },
+          unit_amount_decimal: :decimal_string,
+        }
       end
     end
 
@@ -133,6 +153,13 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          flat_amount_decimal: :decimal_string,
+          unit_amount_decimal: :decimal_string,
+        }
       end
     end
 
@@ -235,6 +262,19 @@ module Stripe
 
     def self.field_remappings
       @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        tiers: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string },
+          },
+        },
+        unit_amount_decimal: :decimal_string,
+      }
     end
   end
 end

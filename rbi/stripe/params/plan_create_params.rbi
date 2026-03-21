@@ -64,9 +64,9 @@ module Stripe
       sig { params(_flat_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def flat_amount=(_flat_amount); end
       # Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def flat_amount_decimal; end
-      sig { params(_flat_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      sig { params(_flat_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def flat_amount_decimal=(_flat_amount_decimal); end
       # The per unit billing amount for each individual unit for which this tier applies.
       sig { returns(T.nilable(Integer)) }
@@ -74,9 +74,9 @@ module Stripe
       sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def unit_amount=(_unit_amount); end
       # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
-      sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       # Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
       sig { returns(T.any(String, Integer)) }
@@ -84,7 +84,7 @@ module Stripe
       sig { params(_up_to: T.any(String, Integer)).returns(T.any(String, Integer)) }
       def up_to=(_up_to); end
       sig {
-        params(flat_amount: T.nilable(Integer), flat_amount_decimal: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String), up_to: T.any(String, Integer)).void
+        params(flat_amount: T.nilable(Integer), flat_amount_decimal: T.nilable(BigDecimal), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal), up_to: T.any(String, Integer)).void
        }
       def initialize(
         flat_amount: nil,
@@ -93,6 +93,12 @@ module Stripe
         unit_amount_decimal: nil,
         up_to: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          flat_amount_decimal: :decimal_string,
+          unit_amount_decimal: :decimal_string,
+        }
+      end
     end
     class TransformUsage < ::Stripe::RequestParams
       # Divide usage by this number.
@@ -119,9 +125,9 @@ module Stripe
     sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def amount=(_amount); end
     # Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set.
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(BigDecimal)) }
     def amount_decimal; end
-    sig { params(_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+    sig { params(_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
     def amount_decimal=(_amount_decimal); end
     # Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
     sig { returns(T.nilable(String)) }
@@ -207,7 +213,7 @@ module Stripe
     sig { params(_usage_type: T.nilable(String)).returns(T.nilable(String)) }
     def usage_type=(_usage_type); end
     sig {
-      params(active: T.nilable(T::Boolean), amount: T.nilable(Integer), amount_decimal: T.nilable(String), billing_scheme: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), id: T.nilable(String), interval: String, interval_count: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), meter: T.nilable(String), nickname: T.nilable(String), product: T.nilable(T.any(::Stripe::PlanCreateParams::Product, String)), tiers: T.nilable(T::Array[::Stripe::PlanCreateParams::Tier]), tiers_mode: T.nilable(String), transform_usage: T.nilable(::Stripe::PlanCreateParams::TransformUsage), trial_period_days: T.nilable(Integer), usage_type: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), amount: T.nilable(Integer), amount_decimal: T.nilable(BigDecimal), billing_scheme: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), id: T.nilable(String), interval: String, interval_count: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), meter: T.nilable(String), nickname: T.nilable(String), product: T.nilable(T.any(::Stripe::PlanCreateParams::Product, String)), tiers: T.nilable(T::Array[::Stripe::PlanCreateParams::Tier]), tiers_mode: T.nilable(String), transform_usage: T.nilable(::Stripe::PlanCreateParams::TransformUsage), trial_period_days: T.nilable(Integer), usage_type: T.nilable(String)).void
      }
     def initialize(
       active: nil,
@@ -229,5 +235,17 @@ module Stripe
       trial_period_days: nil,
       usage_type: nil
     ); end
+    def self.field_encodings
+      @field_encodings = {
+        amount_decimal: :decimal_string,
+        tiers: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: {flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string},
+          },
+        },
+      }
+    end
   end
 end

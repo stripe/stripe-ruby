@@ -250,6 +250,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Upi < ::Stripe::StripeObject
+        # Amount to be charged for future payments.
+        sig { returns(T.nilable(Integer)) }
+        def amount; end
+        # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        sig { returns(T.nilable(String)) }
+        def amount_type; end
+        # A description of the mandate or subscription that is meant to be displayed to the customer.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # End date of the mandate or subscription.
+        sig { returns(T.nilable(Integer)) }
+        def end_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class UsBankAccount < ::Stripe::StripeObject
         # Mandate collection method
         sig { returns(T.nilable(String)) }
@@ -312,6 +332,9 @@ module Stripe
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -333,6 +356,7 @@ module Stripe
           payto: Payto,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -360,7 +384,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Attribute for field multi_use

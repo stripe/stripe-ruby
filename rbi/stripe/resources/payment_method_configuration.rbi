@@ -1599,6 +1599,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Upi < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        sig { returns(T.nilable(T::Boolean)) }
+        def overridable; end
+        # The account's display preference.
+        sig { returns(String) }
+        def preference; end
+        # The effective display preference value.
+        sig { returns(String) }
+        def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      sig { returns(T::Boolean) }
+      def available; end
+      # Attribute for field display_preference
+      sig { returns(DisplayPreference) }
+      def display_preference; end
+      def self.inner_class_types
+        @inner_class_types = {display_preference: DisplayPreference}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class UsBankAccount < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1794,7 +1825,7 @@ module Stripe
     # Attribute for field link
     sig { returns(T.nilable(Link)) }
     def link; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Attribute for field mb_way
@@ -1869,6 +1900,9 @@ module Stripe
     # Attribute for field twint
     sig { returns(T.nilable(Twint)) }
     def twint; end
+    # Attribute for field upi
+    sig { returns(T.nilable(Upi)) }
+    def upi; end
     # Attribute for field us_bank_account
     sig { returns(T.nilable(UsBankAccount)) }
     def us_bank_account; end

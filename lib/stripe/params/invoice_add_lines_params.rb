@@ -180,8 +180,10 @@ module Stripe
       attr_accessor :price_data
       # The pricing information for the invoice item.
       attr_accessor :pricing
-      # Non-negative integer. The quantity of units for the line item.
+      # Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
       attr_accessor :quantity
+      # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+      attr_accessor :quantity_decimal
       # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
       attr_accessor :tax_amounts
       # The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
@@ -198,6 +200,7 @@ module Stripe
         price_data: nil,
         pricing: nil,
         quantity: nil,
+        quantity_decimal: nil,
         tax_amounts: nil,
         tax_rates: nil
       )
@@ -211,6 +214,7 @@ module Stripe
         @price_data = price_data
         @pricing = pricing
         @quantity = quantity
+        @quantity_decimal = quantity_decimal
         @tax_amounts = tax_amounts
         @tax_rates = tax_rates
       end

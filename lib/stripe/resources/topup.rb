@@ -29,13 +29,13 @@ module Stripe
     attr_reader :description
     # Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays like weekends or bank holidays. May not be specified depending on status of top-up.
     attr_reader :expected_availability_date
-    # Error code explaining reason for top-up failure if available (see [the errors section](https://docs.stripe.com/api#errors) for a list of codes).
+    # Error code explaining reason for top-up failure if available (see [the errors section](/api/errors) for a list of codes).
     attr_reader :failure_code
     # Message to user further explaining reason for top-up failure if available.
     attr_reader :failure_message
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata

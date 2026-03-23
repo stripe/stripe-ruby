@@ -673,6 +673,15 @@ module Stripe
         end
       end
 
+      class UpiPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class UsBankAccountAchPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -815,6 +824,8 @@ module Stripe
       attr_accessor :treasury
       # The twint_payments capability.
       attr_accessor :twint_payments
+      # The upi_payments capability.
+      attr_accessor :upi_payments
       # The us_bank_account_ach_payments capability.
       attr_accessor :us_bank_account_ach_payments
       # The us_bank_transfer_payments capability.
@@ -881,6 +892,7 @@ module Stripe
         transfers: nil,
         treasury: nil,
         twint_payments: nil,
+        upi_payments: nil,
         us_bank_account_ach_payments: nil,
         us_bank_transfer_payments: nil,
         zip_payments: nil
@@ -943,6 +955,7 @@ module Stripe
         @transfers = transfers
         @treasury = treasury
         @twint_payments = twint_payments
+        @upi_payments = upi_payments
         @us_bank_account_ach_payments = us_bank_account_ach_payments
         @us_bank_transfer_payments = us_bank_transfer_payments
         @zip_payments = zip_payments

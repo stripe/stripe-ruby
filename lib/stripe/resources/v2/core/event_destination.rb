@@ -75,7 +75,11 @@ module Stripe
         attr_reader :enabled_events
         # Payload type of events being subscribed to.
         attr_reader :event_payload
-        # Where events should be routed from.
+        # Specifies which accounts' events route to this destination.
+        # `@self`: Receive events from the account that owns the event destination.
+        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@organization_members`: Receive events from accounts directly linked to the organization.
+        # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         attr_reader :events_from
         # Unique identifier for the object.
         attr_reader :id

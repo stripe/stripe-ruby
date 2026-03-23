@@ -144,7 +144,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+          # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           attr_reader :amount
           # Attribute for field jurisdiction
           attr_reader :jurisdiction
@@ -154,7 +154,7 @@ module Stripe
           attr_reader :tax_rate_details
           # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
           attr_reader :taxability_reason
-          # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+          # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           attr_reader :taxable_amount
 
           def self.inner_class_types
@@ -165,9 +165,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        # The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         attr_reader :amount
-        # The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         attr_reader :amount_tax
         # The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
         attr_reader :shipping_rate
@@ -224,7 +224,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         attr_reader :amount
         # Specifies whether the tax amount is included in the line item amount.
         attr_reader :inclusive
@@ -232,7 +232,7 @@ module Stripe
         attr_reader :tax_rate_details
         # The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules.
         attr_reader :taxability_reason
-        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         attr_reader :taxable_amount
 
         def self.inner_class_types
@@ -243,7 +243,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Total amount after taxes in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+      # Total amount after taxes in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
       attr_reader :amount_total
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
@@ -257,7 +257,7 @@ module Stripe
       attr_reader :id
       # The list of items the customer is purchasing.
       attr_reader :line_items
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object

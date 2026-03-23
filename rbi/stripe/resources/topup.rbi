@@ -27,7 +27,7 @@ module Stripe
     # Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays like weekends or bank holidays. May not be specified depending on status of top-up.
     sig { returns(T.nilable(Integer)) }
     def expected_availability_date; end
-    # Error code explaining reason for top-up failure if available (see [the errors section](https://docs.stripe.com/api#errors) for a list of codes).
+    # Error code explaining reason for top-up failure if available (see [the errors section](/api/errors) for a list of codes).
     sig { returns(T.nilable(String)) }
     def failure_code; end
     # Message to user further explaining reason for top-up failure if available.
@@ -36,7 +36,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

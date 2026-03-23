@@ -61,7 +61,7 @@ module Stripe
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     sig { returns(T::Array[String]) }
     def images; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).

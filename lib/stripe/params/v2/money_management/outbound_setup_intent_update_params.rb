@@ -15,6 +15,8 @@ module Stripe
             attr_accessor :branch_number
             # The country code of the bank account.
             attr_accessor :country
+            # The currency of the bank account.
+            attr_accessor :currency
             # The routing number of the bank account, if present.
             attr_accessor :routing_number
             # The swift code of the bank account, if present.
@@ -25,6 +27,7 @@ module Stripe
               bank_account_type: nil,
               branch_number: nil,
               country: nil,
+              currency: nil,
               routing_number: nil,
               swift_code: nil
             )
@@ -32,12 +35,15 @@ module Stripe
               @bank_account_type = bank_account_type
               @branch_number = branch_number
               @country = country
+              @currency = currency
               @routing_number = routing_number
               @swift_code = swift_code
             end
           end
 
           class Card < ::Stripe::RequestParams
+            # The currency of the card.
+            attr_accessor :currency
             # The expiration month of the card.
             attr_accessor :exp_month
             # The expiration year of the card.
@@ -45,7 +51,8 @@ module Stripe
             # The card number. This can only be passed when creating a new credential on an outbound setup intent in the requires_payout_method state.
             attr_accessor :number
 
-            def initialize(exp_month: nil, exp_year: nil, number: nil)
+            def initialize(currency: nil, exp_month: nil, exp_year: nil, number: nil)
+              @currency = currency
               @exp_month = exp_month
               @exp_year = exp_year
               @number = number

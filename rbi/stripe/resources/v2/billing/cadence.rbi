@@ -387,6 +387,9 @@ module Stripe
                   def self.field_remappings
                     @field_remappings = {}
                   end
+                  def self.field_encodings
+                    @field_encodings = {amount: :int64_string}
+                  end
                 end
                 # Configuration options for setting up an eMandate for cards issued in India.
                 sig { returns(T.nilable(MandateOptions)) }
@@ -405,6 +408,11 @@ module Stripe
                 end
                 def self.field_remappings
                   @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    mandate_options: {kind: :object, fields: {amount: :int64_string}},
+                  }
                 end
               end
               class CustomerBalance < ::Stripe::StripeObject
@@ -521,6 +529,14 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+              def self.field_encodings
+                @field_encodings = {
+                  card: {
+                    kind: :object,
+                    fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+                  },
+                }
+              end
             end
             # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
             # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
@@ -546,6 +562,19 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+            def self.field_encodings
+              @field_encodings = {
+                payment_method_options: {
+                  kind: :object,
+                  fields: {
+                    card: {
+                      kind: :object,
+                      fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+                    },
+                  },
+                },
+              }
+            end
           end
           # Expanded bill settings data with actual configuration values.
           sig { returns(Bill) }
@@ -558,6 +587,24 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              collection: {
+                kind: :object,
+                fields: {
+                  payment_method_options: {
+                    kind: :object,
+                    fields: {
+                      card: {
+                        kind: :object,
+                        fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+                      },
+                    },
+                  },
+                },
+              },
+            }
           end
         end
         # The billing cycle is the object that defines future billing cycle dates.

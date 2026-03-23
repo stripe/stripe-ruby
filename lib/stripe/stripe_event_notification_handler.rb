@@ -199,6 +199,66 @@ module Stripe
       register("v2.core.account_person.updated", &handler)
     end
 
+    def on_v2_core_batch_job_batch_failed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.batch_failed", &handler)
+    end
+
+    def on_v2_core_batch_job_canceled(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.canceled", &handler)
+    end
+
+    def on_v2_core_batch_job_completed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.completed", &handler)
+    end
+
+    def on_v2_core_batch_job_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.created", &handler)
+    end
+
+    def on_v2_core_batch_job_ready_for_upload(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.ready_for_upload", &handler)
+    end
+
+    def on_v2_core_batch_job_timeout(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.timeout", &handler)
+    end
+
+    def on_v2_core_batch_job_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.updated", &handler)
+    end
+
+    def on_v2_core_batch_job_upload_timeout(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.upload_timeout", &handler)
+    end
+
+    def on_v2_core_batch_job_validating(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.validating", &handler)
+    end
+
+    def on_v2_core_batch_job_validation_failed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.batch_job.validation_failed", &handler)
+    end
+
     def on_v2_core_event_destination_ping(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 

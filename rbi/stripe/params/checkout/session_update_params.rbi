@@ -241,6 +241,22 @@ module Stripe
         end
         class PriceData < ::Stripe::RequestParams
           class ProductData < ::Stripe::RequestParams
+            class TaxDetails < ::Stripe::RequestParams
+              # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+              sig { returns(T.nilable(String)) }
+              def performance_location; end
+              sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+              def performance_location=(_performance_location); end
+              # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+              sig { returns(T.nilable(String)) }
+              def tax_code; end
+              sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+              def tax_code=(_tax_code); end
+              sig {
+                params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void
+               }
+              def initialize(performance_location: nil, tax_code: nil); end
+            end
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             sig { returns(T.nilable(String)) }
             def description; end
@@ -270,13 +286,22 @@ module Stripe
             def tax_code; end
             sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
             def tax_code=(_tax_code); end
+            # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData::TaxDetails))
+             }
+            def tax_details; end
+            sig {
+              params(_tax_details: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData::TaxDetails))
+             }
+            def tax_details=(_tax_details); end
             # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
             sig { returns(T.nilable(String)) }
             def unit_label; end
             sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
             def unit_label=(_unit_label); end
             sig {
-              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
              }
             def initialize(
               description: nil,
@@ -284,6 +309,7 @@ module Stripe
               metadata: nil,
               name: nil,
               tax_code: nil,
+              tax_details: nil,
               unit_label: nil
             ); end
           end
@@ -615,6 +641,20 @@ module Stripe
            }
           def initialize(issuer: nil); end
         end
+        class PendingInvoiceItemInterval < ::Stripe::RequestParams
+          # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+          sig { returns(String) }
+          def interval; end
+          sig { params(_interval: String).returns(String) }
+          def interval=(_interval); end
+          # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+          sig { returns(T.nilable(Integer)) }
+          def interval_count; end
+          sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def interval_count=(_interval_count); end
+          sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+          def initialize(interval: nil, interval_count: nil); end
+        end
         # All invoices will be billed using the specified settings.
         sig {
           returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings))
@@ -624,6 +664,15 @@ module Stripe
           params(_invoice_settings: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings))
          }
         def invoice_settings=(_invoice_settings); end
+        # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::Checkout::SessionUpdateParams::SubscriptionData::PendingInvoiceItemInterval)))
+         }
+        def pending_invoice_item_interval; end
+        sig {
+          params(_pending_invoice_item_interval: T.nilable(T.any(String, ::Stripe::Checkout::SessionUpdateParams::SubscriptionData::PendingInvoiceItemInterval))).returns(T.nilable(T.any(String, ::Stripe::Checkout::SessionUpdateParams::SubscriptionData::PendingInvoiceItemInterval)))
+         }
+        def pending_invoice_item_interval=(_pending_invoice_item_interval); end
         # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
         sig { returns(T.nilable(Integer)) }
         def trial_end; end
@@ -637,9 +686,14 @@ module Stripe
          }
         def trial_period_days=(_trial_period_days); end
         sig {
-          params(invoice_settings: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings), trial_end: T.nilable(Integer), trial_period_days: T.nilable(T.any(String, Integer))).void
+          params(invoice_settings: T.nilable(::Stripe::Checkout::SessionUpdateParams::SubscriptionData::InvoiceSettings), pending_invoice_item_interval: T.nilable(T.any(String, ::Stripe::Checkout::SessionUpdateParams::SubscriptionData::PendingInvoiceItemInterval)), trial_end: T.nilable(Integer), trial_period_days: T.nilable(T.any(String, Integer))).void
          }
-        def initialize(invoice_settings: nil, trial_end: nil, trial_period_days: nil); end
+        def initialize(
+          invoice_settings: nil,
+          pending_invoice_item_interval: nil,
+          trial_end: nil,
+          trial_period_days: nil
+        ); end
       end
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax)) }

@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
+  # For new integrations, we recommend using the [Accounts v2 API](https://docs.stripe.com/api/v2/core/accounts), in place of /v1/accounts and /v1/customers to represent a user.
+  #
   # This is an object representing a Stripe account. You can retrieve it to see
   # properties on the account like its current requirements or if the account is
   # enabled to make live charges or receive payouts.
@@ -272,6 +274,8 @@ module Stripe
       attr_reader :treasury_goldman_sachs
       # The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
       attr_reader :twint_payments
+      # The status of the upi payments capability of the account, or whether the account can directly process upi charges.
+      attr_reader :upi_payments
       # The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
       attr_reader :us_bank_account_ach_payments
       # The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
@@ -1061,7 +1065,7 @@ module Stripe
         end
         # Additional files that are required to support the onboarding process of your business.
         attr_reader :additional_files
-        # Whether your business sells digital content or not.
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
         attr_reader :goods_type
         # Attribute for field site
         attr_reader :site

@@ -48,6 +48,21 @@ module Stripe
         end
       end
 
+      class Hosted < ::Stripe::StripeObject
+        # How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
+        attr_reader :delivery_method
+        # The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
+        attr_reader :return_url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Limits < ::Stripe::StripeObject
         # The number of accounts that can be linked in this Session.
         attr_reader :accounts
@@ -135,11 +150,13 @@ module Stripe
       attr_reader :client_secret
       # Attribute for field filters
       attr_reader :filters
+      # Settings for the Hosted UI mode.
+      attr_reader :hosted
       # Unique identifier for the object.
       attr_reader :id
       # Attribute for field limits
       attr_reader :limits
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # Attribute for field manual_entry
       attr_reader :manual_entry
@@ -159,6 +176,10 @@ module Stripe
       attr_reader :status
       # Attribute for field status_details
       attr_reader :status_details
+      # The UI mode for this session.
+      attr_reader :ui_mode
+      # The hosted URL for this Session. Redirect customers to this URL to take them to the hosted authentication flow. This value is only present when the Session is active and the `ui_mode` is `hosted`.
+      attr_reader :url
 
       # To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
       def self.create(params = {}, opts = {})
@@ -174,6 +195,7 @@ module Stripe
         @inner_class_types = {
           account_holder: AccountHolder,
           filters: Filters,
+          hosted: Hosted,
           limits: Limits,
           manual_entry: ManualEntry,
           relink_options: RelinkOptions,

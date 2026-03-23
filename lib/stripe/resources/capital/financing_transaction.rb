@@ -67,7 +67,7 @@ module Stripe
       # corresponds with the balance transaction that was created as a result of this
       # financing transaction.
       attr_reader :legacy_balance_transaction_source
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The object type: financing_transaction
       attr_reader :object

@@ -193,11 +193,16 @@ module Stripe
       params(_pricing: T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing)).returns(T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing))
      }
     def pricing=(_pricing); end
-    # Non-negative integer. The quantity of units for the invoice item.
+    # Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
     sig { returns(T.nilable(Integer)) }
     def quantity; end
     sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def quantity=(_quantity); end
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+    sig { returns(T.nilable(String)) }
+    def quantity_decimal; end
+    sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
+    def quantity_decimal=(_quantity_decimal); end
     # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     sig { returns(T.nilable(String)) }
     def tax_behavior; end
@@ -221,7 +226,7 @@ module Stripe
     sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
     def unit_amount_decimal=(_unit_amount_decimal); end
     sig {
-      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount_decimal: T.nilable(String)).void
+      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount_decimal: T.nilable(String)).void
      }
     def initialize(
       amount: nil,
@@ -235,6 +240,7 @@ module Stripe
       price_data: nil,
       pricing: nil,
       quantity: nil,
+      quantity_decimal: nil,
       tax_behavior: nil,
       tax_code: nil,
       tax_rates: nil,

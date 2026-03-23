@@ -402,7 +402,7 @@ module Stripe
             def target_date; end
             sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
             def target_date=(_target_date); end
-            # Bank account verification method.
+            # Bank account verification method. The default value is `automatic`.
             sig { returns(T.nilable(String)) }
             def verification_method; end
             sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }

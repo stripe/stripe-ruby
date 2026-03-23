@@ -1977,8 +1977,6 @@ module Stripe
       class StripeBalance < ::Stripe::StripeObject
         # The connected account ID whose Stripe balance to use as the source of payment
         attr_reader :account
-        # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
-        attr_reader :source_type
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -2007,6 +2005,19 @@ module Stripe
       end
 
       class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Upi < ::Stripe::StripeObject
+        # Customer's unique Virtual Payment Address.
+        attr_reader :vpa
+
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -2207,6 +2218,8 @@ module Stripe
       # An additional hash is included on `payment_method_details` with a name matching this value.
       # It contains information specific to the payment method.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
       # Attribute for field wechat
@@ -2278,6 +2291,7 @@ module Stripe
           stripe_balance: StripeBalance,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat: Wechat,
           wechat_pay: WechatPay,
@@ -2419,7 +2433,7 @@ module Stripe
     attr_reader :id
     # Attribute for field level3
     attr_reader :level3
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata

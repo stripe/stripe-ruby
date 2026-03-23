@@ -518,6 +518,20 @@ module Stripe
         sig { params(usage_gte: Integer).void }
         def initialize(usage_gte: nil); end
       end
+      class CurrentTrial < ::Stripe::RequestParams
+        # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+        sig { returns(T.nilable(Integer)) }
+        def trial_end; end
+        sig { params(_trial_end: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def trial_end=(_trial_end); end
+        # The ID of the trial offer to apply to the subscription item.
+        sig { returns(String) }
+        def trial_offer; end
+        sig { params(_trial_offer: String).returns(String) }
+        def trial_offer=(_trial_offer); end
+        sig { params(trial_end: T.nilable(Integer), trial_offer: String).void }
+        def initialize(trial_end: nil, trial_offer: nil); end
+      end
       class Discount < ::Stripe::RequestParams
         class DiscountEnd < ::Stripe::RequestParams
           class Duration < ::Stripe::RequestParams
@@ -669,6 +683,13 @@ module Stripe
         params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds)))
        }
       def billing_thresholds=(_billing_thresholds); end
+      # The trial offer to apply to this subscription item.
+      sig { returns(T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial)) }
+      def current_trial; end
+      sig {
+        params(_current_trial: T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial)).returns(T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial))
+       }
+      def current_trial=(_current_trial); end
       # The coupons to redeem into discounts for the subscription item.
       sig {
         returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::Item::Discount])))
@@ -722,10 +743,11 @@ module Stripe
        }
       def trial=(_trial); end
       sig {
-        params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionCreateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::SubscriptionCreateParams::Item::Trial)).void
+        params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds)), current_trial: T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionCreateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::SubscriptionCreateParams::Item::Trial)).void
        }
       def initialize(
         billing_thresholds: nil,
+        current_trial: nil,
         discounts: nil,
         metadata: nil,
         plan: nil,
@@ -778,7 +800,7 @@ module Stripe
         end
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
-            # Amount to be charged for future payments.
+            # Amount to be charged for future payments, specified in the presentment currency.
             sig { returns(T.nilable(Integer)) }
             def amount; end
             sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -919,7 +941,7 @@ module Stripe
             def end_date; end
             sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
             def end_date=(_end_date); end
-            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            # Schedule at which the future payments will be charged. Defaults to `monthly`.
             sig { returns(T.nilable(String)) }
             def payment_schedule; end
             sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
@@ -934,6 +956,11 @@ module Stripe
               payment_schedule: nil
             ); end
           end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          sig { returns(T.nilable(Integer)) }
+          def expires_after_seconds; end
+          sig { params(_expires_after_seconds: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def expires_after_seconds=(_expires_after_seconds); end
           # Configuration options for setting up a mandate
           sig {
             returns(T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions))
@@ -944,9 +971,9 @@ module Stripe
            }
           def mandate_options=(_mandate_options); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).void
+            params(expires_after_seconds: T.nilable(Integer), mandate_options: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).void
            }
-          def initialize(mandate_options: nil); end
+          def initialize(expires_after_seconds: nil, mandate_options: nil); end
         end
         class SepaDebit < ::Stripe::RequestParams; end
         class Upi < ::Stripe::RequestParams
@@ -1247,13 +1274,18 @@ module Stripe
     end
     class TrialSettings < ::Stripe::RequestParams
       class EndBehavior < ::Stripe::RequestParams
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+        sig { returns(T.nilable(String)) }
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         sig { returns(String) }
         def missing_payment_method; end
         sig { params(_missing_payment_method: String).returns(String) }
         def missing_payment_method=(_missing_payment_method); end
-        sig { params(missing_payment_method: String).void }
-        def initialize(missing_payment_method: nil); end
+        sig { params(billing_cycle_anchor: T.nilable(String), missing_payment_method: String).void }
+        def initialize(billing_cycle_anchor: nil, missing_payment_method: nil); end
       end
       # Defines how the subscription should behave when the user's free trial ends.
       sig { returns(::Stripe::SubscriptionCreateParams::TrialSettings::EndBehavior) }
@@ -1452,7 +1484,7 @@ module Stripe
       params(_payment_settings: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings)).returns(T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings))
      }
     def payment_settings=(_payment_settings); end
-    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](/api/invoices/create) for the given subscription at the specified interval.
     sig {
       returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PendingInvoiceItemInterval)))
      }

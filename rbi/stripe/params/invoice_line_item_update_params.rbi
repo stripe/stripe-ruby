@@ -87,6 +87,20 @@ module Stripe
     end
     class PriceData < ::Stripe::RequestParams
       class ProductData < ::Stripe::RequestParams
+        class TaxDetails < ::Stripe::RequestParams
+          # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+          sig { returns(T.nilable(String)) }
+          def performance_location; end
+          sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+          def performance_location=(_performance_location); end
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+          sig { returns(T.nilable(String)) }
+          def tax_code; end
+          sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+          def tax_code=(_tax_code); end
+          sig { params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void }
+          def initialize(performance_location: nil, tax_code: nil); end
+        end
         # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
         sig { returns(T.nilable(String)) }
         def description; end
@@ -114,13 +128,22 @@ module Stripe
         def tax_code; end
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
         def tax_code=(_tax_code); end
+        # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails))
+         }
+        def tax_details; end
+        sig {
+          params(_tax_details: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails))
+         }
+        def tax_details=(_tax_details); end
         # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         sig { returns(T.nilable(String)) }
         def unit_label; end
         sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
         def unit_label=(_unit_label); end
         sig {
-          params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+          params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
          }
         def initialize(
           description: nil,
@@ -128,6 +151,7 @@ module Stripe
           metadata: nil,
           name: nil,
           tax_code: nil,
+          tax_details: nil,
           unit_label: nil
         ); end
       end
@@ -316,7 +340,7 @@ module Stripe
       params(_margins: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
      }
     def margins=(_margins); end
-    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](/api/invoices/line_item) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](/api/invoices/line_item) line items, where any existing metadata on the invoice line is merged with the incoming data.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
     sig {
@@ -344,11 +368,16 @@ module Stripe
       params(_pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing)).returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing))
      }
     def pricing=(_pricing); end
-    # Non-negative integer. The quantity of units for the line item.
+    # Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
     sig { returns(T.nilable(Integer)) }
     def quantity; end
     sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def quantity=(_quantity); end
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+    sig { returns(T.nilable(String)) }
+    def quantity_decimal; end
+    sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
+    def quantity_decimal=(_quantity_decimal); end
     # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])))
@@ -366,7 +395,7 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(String), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       amount: nil,
@@ -380,6 +409,7 @@ module Stripe
       price_data: nil,
       pricing: nil,
       quantity: nil,
+      quantity_decimal: nil,
       tax_amounts: nil,
       tax_rates: nil
     ); end

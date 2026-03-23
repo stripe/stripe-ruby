@@ -46,6 +46,29 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class AzureEventGrid < ::Stripe::StripeObject
+          # The name of the Azure partner topic.
+          sig { returns(String) }
+          def azure_partner_topic_name; end
+          # The status of the Azure partner topic.
+          sig { returns(String) }
+          def azure_partner_topic_status; end
+          # The Azure region.
+          sig { returns(String) }
+          def azure_region; end
+          # The name of the Azure resource group.
+          sig { returns(String) }
+          def azure_resource_group_name; end
+          # The Azure subscription ID.
+          sig { returns(String) }
+          def azure_subscription_id; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class WebhookEndpoint < ::Stripe::StripeObject
           # The signing secret of the webhook endpoint, only includable on creation.
           sig { returns(T.nilable(String)) }
@@ -72,7 +95,11 @@ module Stripe
         # Payload type of events being subscribed to.
         sig { returns(String) }
         def event_payload; end
-        # Where events should be routed from.
+        # Specifies which accounts' events route to this destination.
+        # `@self`: Receive events from the account that owns the event destination.
+        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@organization_members`: Receive events from accounts directly linked to the organization.
+        # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         sig { returns(T.nilable(T::Array[String])) }
         def events_from; end
         # Unique identifier for the object.
@@ -108,6 +135,9 @@ module Stripe
         # Amazon EventBridge configuration.
         sig { returns(T.nilable(AmazonEventbridge)) }
         def amazon_eventbridge; end
+        # Azure Event Grid configuration.
+        sig { returns(T.nilable(AzureEventGrid)) }
+        def azure_event_grid; end
         # Webhook endpoint configuration.
         sig { returns(T.nilable(WebhookEndpoint)) }
         def webhook_endpoint; end

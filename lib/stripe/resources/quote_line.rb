@@ -103,6 +103,8 @@ module Stripe
         attr_reader :tax_rates
         # Options that configure the trial on the subscription item.
         attr_reader :trial
+        # The ID of the trial offer to apply to the configuration item.
+        attr_reader :trial_offer
 
         def self.inner_class_types
           @inner_class_types = { discounts: Discount, trial: Trial }
@@ -252,6 +254,8 @@ module Stripe
         attr_reader :tax_rates
         # Options that configure the trial on the subscription item.
         attr_reader :trial
+        # The ID of the trial offer to apply to the configuration item.
+        attr_reader :trial_offer
 
         def self.inner_class_types
           @inner_class_types = { discounts: Discount, trial: Trial }
@@ -382,7 +386,7 @@ module Stripe
 
     class SetPauseCollection < ::Stripe::StripeObject
       class Set < ::Stripe::StripeObject
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        # The payment collection behavior for this subscription while paused.
         attr_reader :behavior
 
         def self.inner_class_types

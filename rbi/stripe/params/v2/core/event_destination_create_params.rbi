@@ -20,6 +20,31 @@ module Stripe
           sig { params(aws_account_id: String, aws_region: String).void }
           def initialize(aws_account_id: nil, aws_region: nil); end
         end
+        class AzureEventGrid < ::Stripe::RequestParams
+          # The Azure region.
+          sig { returns(String) }
+          def azure_region; end
+          sig { params(_azure_region: String).returns(String) }
+          def azure_region=(_azure_region); end
+          # The name of the Azure resource group.
+          sig { returns(String) }
+          def azure_resource_group_name; end
+          sig { params(_azure_resource_group_name: String).returns(String) }
+          def azure_resource_group_name=(_azure_resource_group_name); end
+          # The Azure subscription ID.
+          sig { returns(String) }
+          def azure_subscription_id; end
+          sig { params(_azure_subscription_id: String).returns(String) }
+          def azure_subscription_id=(_azure_subscription_id); end
+          sig {
+            params(azure_region: String, azure_resource_group_name: String, azure_subscription_id: String).void
+           }
+          def initialize(
+            azure_region: nil,
+            azure_resource_group_name: nil,
+            azure_subscription_id: nil
+          ); end
+        end
         class WebhookEndpoint < ::Stripe::RequestParams
           # The URL of the webhook endpoint.
           sig { returns(String) }
@@ -44,7 +69,11 @@ module Stripe
         def event_payload; end
         sig { params(_event_payload: String).returns(String) }
         def event_payload=(_event_payload); end
-        # Where events should be routed from.
+        # Specifies which accounts' events route to this destination.
+        # `@self`: Receive events from the account that owns the event destination.
+        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@organization_members`: Receive events from accounts directly linked to the organization.
+        # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         sig { returns(T.nilable(T::Array[String])) }
         def events_from; end
         sig {
@@ -87,6 +116,13 @@ module Stripe
           params(_amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
          }
         def amazon_eventbridge=(_amazon_eventbridge); end
+        # Azure Event Grid configuration.
+        sig { returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)) }
+        def azure_event_grid; end
+        sig {
+          params(_azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid))
+         }
+        def azure_event_grid=(_azure_event_grid); end
         # Webhook endpoint configuration.
         sig {
           returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint))
@@ -97,7 +133,7 @@ module Stripe
          }
         def webhook_endpoint=(_webhook_endpoint); end
         sig {
-          params(description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
+          params(description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid), webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
          }
         def initialize(
           description: nil,
@@ -110,6 +146,7 @@ module Stripe
           snapshot_api_version: nil,
           type: nil,
           amazon_eventbridge: nil,
+          azure_event_grid: nil,
           webhook_endpoint: nil
         ); end
       end

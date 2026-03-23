@@ -12,6 +12,18 @@ module Stripe
       end
     end
 
+    class CurrentTrial < ::Stripe::RequestParams
+      # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+      attr_accessor :trial_end
+      # The ID of the trial offer to apply to the subscription item.
+      attr_accessor :trial_offer
+
+      def initialize(trial_end: nil, trial_offer: nil)
+        @trial_end = trial_end
+        @trial_offer = trial_offer
+      end
+    end
+
     class Discount < ::Stripe::RequestParams
       class DiscountEnd < ::Stripe::RequestParams
         class Duration < ::Stripe::RequestParams
@@ -110,6 +122,8 @@ module Stripe
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds
+    # The trial offer to apply to this subscription item.
+    attr_accessor :current_trial
     # The coupons to redeem into discounts for the subscription item.
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
@@ -132,7 +146,7 @@ module Stripe
     attr_accessor :price_data
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
     attr_accessor :proration_behavior
-    # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://api.stripe.com#retrieve_customer_invoice) endpoint.
+    # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](/api/invoices/create_preview) endpoint.
     attr_accessor :proration_date
     # The quantity you'd like to apply to the subscription item you're creating.
     attr_accessor :quantity
@@ -145,6 +159,7 @@ module Stripe
 
     def initialize(
       billing_thresholds: nil,
+      current_trial: nil,
       discounts: nil,
       expand: nil,
       metadata: nil,
@@ -160,6 +175,7 @@ module Stripe
       trial: nil
     )
       @billing_thresholds = billing_thresholds
+      @current_trial = current_trial
       @discounts = discounts
       @expand = expand
       @metadata = metadata

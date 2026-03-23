@@ -24,6 +24,8 @@ module Stripe
       attr_accessor :description
       # The invoice line item to credit. Only valid when the `type` is `invoice_line_item`.
       attr_accessor :invoice_line_item
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      attr_accessor :metadata
       # The line item quantity to credit.
       attr_accessor :quantity
       # A list of up to 10 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
@@ -41,6 +43,7 @@ module Stripe
         amount: nil,
         description: nil,
         invoice_line_item: nil,
+        metadata: nil,
         quantity: nil,
         tax_amounts: nil,
         tax_rates: nil,
@@ -51,6 +54,7 @@ module Stripe
         @amount = amount
         @description = description
         @invoice_line_item = invoice_line_item
+        @metadata = metadata
         @quantity = quantity
         @tax_amounts = tax_amounts
         @tax_rates = tax_rates

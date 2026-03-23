@@ -810,7 +810,7 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           sig { returns(T.nilable(String)) }
           def verification_method; end
           def self.inner_class_types
@@ -1719,6 +1719,46 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Upi < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            # End date of the mandate or subscription.
+            sig { returns(T.nilable(Integer)) }
+            def end_date; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UsBankAccount < ::Stripe::StripeObject
           class FinancialConnections < ::Stripe::StripeObject
             class Filters < ::Stripe::StripeObject
@@ -1783,7 +1823,7 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           sig { returns(T.nilable(String)) }
           def verification_method; end
           def self.inner_class_types
@@ -1916,6 +1956,9 @@ module Stripe
         # Attribute for field twint
         sig { returns(T.nilable(Twint)) }
         def twint; end
+        # Attribute for field upi
+        sig { returns(T.nilable(Upi)) }
+        def upi; end
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
@@ -1962,6 +2005,7 @@ module Stripe
             sofort: Sofort,
             swish: Swish,
             twint: Twint,
+            upi: Upi,
             us_bank_account: UsBankAccount,
           }
         end
@@ -2333,6 +2377,9 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
+      # The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
+      sig { returns(T.nilable(String)) }
+      def integration_identifier; end
       # ID of the invoice created by the Checkout Session, if it exists.
       sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
       def invoice; end
@@ -2342,7 +2389,7 @@ module Stripe
       # The line items purchased by the customer.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
@@ -2448,7 +2495,7 @@ module Stripe
       # Tax and discount details for the computed total amount.
       sig { returns(T.nilable(TotalDetails)) }
       def total_details; end
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       sig { returns(T.nilable(String)) }
       def ui_mode; end
       # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`

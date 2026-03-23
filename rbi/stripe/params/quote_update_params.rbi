@@ -311,8 +311,13 @@ module Stripe
             params(_trial: T.nilable(::Stripe::QuoteUpdateParams::Line::Action::AddItem::Trial)).returns(T.nilable(::Stripe::QuoteUpdateParams::Line::Action::AddItem::Trial))
            }
           def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[::Stripe::QuoteUpdateParams::Line::Action::AddItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::QuoteUpdateParams::Line::Action::AddItem::Trial)).void
+            params(discounts: T.nilable(T::Array[::Stripe::QuoteUpdateParams::Line::Action::AddItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::QuoteUpdateParams::Line::Action::AddItem::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -320,7 +325,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           ); end
         end
         class RemoveDiscount < ::Stripe::RequestParams
@@ -500,8 +506,13 @@ module Stripe
             params(_trial: T.nilable(::Stripe::QuoteUpdateParams::Line::Action::SetItem::Trial)).returns(T.nilable(::Stripe::QuoteUpdateParams::Line::Action::SetItem::Trial))
            }
           def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
           sig {
-            params(discounts: T.nilable(T::Array[::Stripe::QuoteUpdateParams::Line::Action::SetItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::QuoteUpdateParams::Line::Action::SetItem::Trial)).void
+            params(discounts: T.nilable(T::Array[::Stripe::QuoteUpdateParams::Line::Action::SetItem::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::QuoteUpdateParams::Line::Action::SetItem::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             discounts: nil,
@@ -509,7 +520,8 @@ module Stripe
             price: nil,
             quantity: nil,
             tax_rates: nil,
-            trial: nil
+            trial: nil,
+            trial_offer: nil
           ); end
         end
         # Details for the `add_discount` type.
@@ -693,7 +705,7 @@ module Stripe
       end
       class SetPauseCollection < ::Stripe::RequestParams
         class Set < ::Stripe::RequestParams
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           sig { returns(String) }
           def behavior; end
           sig { params(_behavior: String).returns(String) }

@@ -18,6 +18,13 @@ module Stripe
       # doesn't GC symbols. It also decreases the likelihood that we receive a
       # bad payload that fails to parse and throws an exception.
       data = JSON.parse(payload, symbolize_names: true)
+
+      if data[:object] == "v2.core.event"
+        raise ArgumentError,
+              "You passed an event notification to Webhook.construct_event, which expects " \
+              "a webhook payload. Use StripeClient#parse_event_notification instead."
+      end
+
       Event.construct_from(data, {}, nil, :v1, APIRequestor.active_requestor)
     end
 

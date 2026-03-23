@@ -162,6 +162,17 @@ module Stripe
 
         class PriceData < ::Stripe::RequestParams
           class ProductData < ::Stripe::RequestParams
+            class TaxDetails < ::Stripe::RequestParams
+              # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+              attr_accessor :performance_location
+              # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+              attr_accessor :tax_code
+
+              def initialize(performance_location: nil, tax_code: nil)
+                @performance_location = performance_location
+                @tax_code = tax_code
+              end
+            end
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             attr_accessor :description
             # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -172,6 +183,8 @@ module Stripe
             attr_accessor :name
             # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             attr_accessor :tax_code
+            # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+            attr_accessor :tax_details
             # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
             attr_accessor :unit_label
 
@@ -181,6 +194,7 @@ module Stripe
               metadata: nil,
               name: nil,
               tax_code: nil,
+              tax_details: nil,
               unit_label: nil
             )
               @description = description
@@ -188,6 +202,7 @@ module Stripe
               @metadata = metadata
               @name = name
               @tax_code = tax_code
+              @tax_details = tax_details
               @unit_label = unit_label
             end
           end
@@ -396,15 +411,35 @@ module Stripe
             @issuer = issuer
           end
         end
+
+        class PendingInvoiceItemInterval < ::Stripe::RequestParams
+          # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
         # All invoices will be billed using the specified settings.
         attr_accessor :invoice_settings
+        # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+        attr_accessor :pending_invoice_item_interval
         # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
         attr_accessor :trial_end
         # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         attr_accessor :trial_period_days
 
-        def initialize(invoice_settings: nil, trial_end: nil, trial_period_days: nil)
+        def initialize(
+          invoice_settings: nil,
+          pending_invoice_item_interval: nil,
+          trial_end: nil,
+          trial_period_days: nil
+        )
           @invoice_settings = invoice_settings
+          @pending_invoice_item_interval = pending_invoice_item_interval
           @trial_end = trial_end
           @trial_period_days = trial_period_days
         end

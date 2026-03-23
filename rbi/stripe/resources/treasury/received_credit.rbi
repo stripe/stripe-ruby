@@ -243,7 +243,7 @@ module Stripe
       # Attribute for field linked_flows
       sig { returns(LinkedFlows) }
       def linked_flows; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # The rails used to send the funds.

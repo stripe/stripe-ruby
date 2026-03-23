@@ -39,6 +39,17 @@ module Stripe
         Events::V2CoreAccountPersonDeletedEvent.lookup_type => Events::V2CoreAccountPersonDeletedEvent,
         Events::V2CoreAccountPersonUpdatedEvent.lookup_type => Events::V2CoreAccountPersonUpdatedEvent,
         Events::V2CoreAccountUpdatedEvent.lookup_type => Events::V2CoreAccountUpdatedEvent,
+        Events::V2CoreBatchJobBatchFailedEvent.lookup_type => Events::V2CoreBatchJobBatchFailedEvent,
+        Events::V2CoreBatchJobCanceledEvent.lookup_type => Events::V2CoreBatchJobCanceledEvent,
+        Events::V2CoreBatchJobCompletedEvent.lookup_type => Events::V2CoreBatchJobCompletedEvent,
+        Events::V2CoreBatchJobCreatedEvent.lookup_type => Events::V2CoreBatchJobCreatedEvent,
+        Events::V2CoreBatchJobReadyForUploadEvent.lookup_type => Events::V2CoreBatchJobReadyForUploadEvent,
+        Events::V2CoreBatchJobTimeoutEvent.lookup_type => Events::V2CoreBatchJobTimeoutEvent,
+        Events::V2CoreBatchJobUpdatedEvent.lookup_type => Events::V2CoreBatchJobUpdatedEvent,
+        Events::V2CoreBatchJobUploadTimeoutEvent.lookup_type => Events::V2CoreBatchJobUploadTimeoutEvent,
+        Events::V2CoreBatchJobValidatingEvent.lookup_type => Events::V2CoreBatchJobValidatingEvent,
+        Events::V2CoreBatchJobValidationFailedEvent.lookup_type =>
+        Events::V2CoreBatchJobValidationFailedEvent,
         Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
         Events::V2CoreHealthEventGenerationFailureResolvedEvent.lookup_type =>
         Events::V2CoreHealthEventGenerationFailureResolvedEvent,
@@ -163,6 +174,26 @@ module Stripe
         Events::V2CoreAccountPersonUpdatedEventNotification,
         Events::V2CoreAccountUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountUpdatedEventNotification,
+        Events::V2CoreBatchJobBatchFailedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobBatchFailedEventNotification,
+        Events::V2CoreBatchJobCanceledEventNotification.lookup_type =>
+        Events::V2CoreBatchJobCanceledEventNotification,
+        Events::V2CoreBatchJobCompletedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobCompletedEventNotification,
+        Events::V2CoreBatchJobCreatedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobCreatedEventNotification,
+        Events::V2CoreBatchJobReadyForUploadEventNotification.lookup_type =>
+        Events::V2CoreBatchJobReadyForUploadEventNotification,
+        Events::V2CoreBatchJobTimeoutEventNotification.lookup_type =>
+        Events::V2CoreBatchJobTimeoutEventNotification,
+        Events::V2CoreBatchJobUpdatedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobUpdatedEventNotification,
+        Events::V2CoreBatchJobUploadTimeoutEventNotification.lookup_type =>
+        Events::V2CoreBatchJobUploadTimeoutEventNotification,
+        Events::V2CoreBatchJobValidatingEventNotification.lookup_type =>
+        Events::V2CoreBatchJobValidatingEventNotification,
+        Events::V2CoreBatchJobValidationFailedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobValidationFailedEventNotification,
         Events::V2CoreEventDestinationPingEventNotification.lookup_type =>
         Events::V2CoreEventDestinationPingEventNotification,
         Events::V2CoreHealthEventGenerationFailureResolvedEventNotification.lookup_type =>

@@ -7,20 +7,6 @@ module Stripe
     module MoneyManagement
       # OutboundPaymentQuote represents a quote that provides fee and amount estimates for OutboundPayment.
       class OutboundPaymentQuote < APIResource
-        class Amount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          sig { returns(Integer) }
-          def value; end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class DeliveryOptions < ::Stripe::StripeObject
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
@@ -33,56 +19,28 @@ module Stripe
           end
         end
         class EstimatedFee < ::Stripe::StripeObject
-          class Amount < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # The fee amount for corresponding fee type.
-          sig { returns(Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def amount; end
           # The fee type.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {amount: Amount}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class From < ::Stripe::StripeObject
-          class Debited < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # The monetary amount debited from the sender, only set on responses.
-          sig { returns(Debited) }
+          sig { returns(::Stripe::V2::Amount) }
           def debited; end
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
           def financial_account; end
           def self.inner_class_types
-            @inner_class_types = {debited: Debited}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -123,22 +81,8 @@ module Stripe
           end
         end
         class To < ::Stripe::StripeObject
-          class Credited < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # The monetary amount being credited to the destination.
-          sig { returns(Credited) }
+          sig { returns(::Stripe::V2::Amount) }
           def credited; end
           # The payout method which the OutboundPayment uses to send payout.
           sig { returns(String) }
@@ -147,14 +91,14 @@ module Stripe
           sig { returns(String) }
           def recipient; end
           def self.inner_class_types
-            @inner_class_types = {credited: Credited}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         # The "presentment amount" for the OutboundPaymentQuote.
-        sig { returns(Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Time at which the OutboundPaymentQuote was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

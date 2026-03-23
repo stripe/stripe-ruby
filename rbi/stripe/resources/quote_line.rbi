@@ -107,6 +107,9 @@ module Stripe
         # Options that configure the trial on the subscription item.
         sig { returns(T.nilable(Trial)) }
         def trial; end
+        # The ID of the trial offer to apply to the configuration item.
+        sig { returns(T.nilable(String)) }
+        def trial_offer; end
         def self.inner_class_types
           @inner_class_types = {discounts: Discount, trial: Trial}
         end
@@ -260,6 +263,9 @@ module Stripe
         # Options that configure the trial on the subscription item.
         sig { returns(T.nilable(Trial)) }
         def trial; end
+        # The ID of the trial offer to apply to the configuration item.
+        sig { returns(T.nilable(String)) }
+        def trial_offer; end
         def self.inner_class_types
           @inner_class_types = {discounts: Discount, trial: Trial}
         end
@@ -395,7 +401,7 @@ module Stripe
     end
     class SetPauseCollection < ::Stripe::StripeObject
       class Set < ::Stripe::StripeObject
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        # The payment collection behavior for this subscription while paused.
         sig { returns(String) }
         def behavior; end
         def self.inner_class_types

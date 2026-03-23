@@ -120,7 +120,7 @@ module Stripe
             attr_reader :setup_future_usage
             # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             attr_reader :target_date
-            # Bank account verification method.
+            # Bank account verification method. The default value is `automatic`.
             attr_reader :verification_method
 
             def self.inner_class_types
@@ -849,7 +849,7 @@ module Stripe
     attr_reader :ip_address
     # A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost. There is a maximum of 100 line items.
     attr_reader :line_items
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata

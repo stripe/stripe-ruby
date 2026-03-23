@@ -655,7 +655,7 @@ module Stripe
       # Whether this Configuration is the default for your account
       sig { returns(T.nilable(T::Boolean)) }
       def is_account_default; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # String indicating the name of the Configuration object, set by the user

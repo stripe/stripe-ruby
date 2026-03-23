@@ -64,6 +64,15 @@ module Stripe
         end
       end
 
+      should "raise an ArgumentError when given a v2 payload" do
+        v2_payload = { "id" => "evt_234", "object" => "v2.core.event", "type" => "some.event" }.to_json
+        header = Test::WebhookHelpers.generate_header(payload: v2_payload)
+        e = assert_raises(ArgumentError) do
+          Stripe::Webhook.construct_event(v2_payload, header, Test::WebhookHelpers::SECRET)
+        end
+        assert_match(/StripeClient#parse_event_notification/, e.message)
+      end
+
       should "can call refresh on Event data object" do
         payload = {
           id: "evt_123",

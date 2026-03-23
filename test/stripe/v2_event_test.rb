@@ -93,6 +93,15 @@ module Stripe
       end
 
       context ".event_signing" do
+        should "raise an ArgumentError when given a v1 payload" do
+          v1_payload = { "id" => "evt_123", "object" => "event", "type" => "charge.succeeded" }.to_json
+          header = Test::WebhookHelpers.generate_header(payload: v1_payload)
+          e = assert_raises(ArgumentError) do
+            @client.parse_event_notification(v1_payload, header, Test::WebhookHelpers::SECRET)
+          end
+          assert_match(/Webhook\.construct_event/, e.message)
+        end
+
         should "parse v2 events" do
           event = parse_signed_event(@v2_push_payload)
           assert event.is_a?(Stripe::V2::Core::EventNotification)

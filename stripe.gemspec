@@ -41,4 +41,6 @@ Gem::Specification.new do |s|
   s.bindir = "exe"
   s.executables   = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_dependency "logger"
 end

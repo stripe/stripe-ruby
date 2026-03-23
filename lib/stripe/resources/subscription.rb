@@ -466,6 +466,19 @@ module Stripe
       end
     end
 
+    class PresentmentDetails < ::Stripe::StripeObject
+      # Currency used for customer payments.
+      attr_reader :presentment_currency
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class TransferData < ::Stripe::StripeObject
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_reader :amount_percent
@@ -579,6 +592,8 @@ module Stripe
     attr_reader :pending_setup_intent
     # If specified, [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
     attr_reader :pending_update
+    # Attribute for field presentment_details
+    attr_reader :presentment_details
     # The schedule attached to the subscription
     attr_reader :schedule
     # Date when the subscription was first created. The date might differ from the `created` date due to backdating.
@@ -767,6 +782,7 @@ module Stripe
         payment_settings: PaymentSettings,
         pending_invoice_item_interval: PendingInvoiceItemInterval,
         pending_update: PendingUpdate,
+        presentment_details: PresentmentDetails,
         transfer_data: TransferData,
         trial_settings: TrialSettings,
       }

@@ -257,11 +257,11 @@ module Stripe
       sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
       def performance_location=(_performance_location); end
       # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def tax_code; end
-      sig { params(_tax_code: String).returns(String) }
+      sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
       def tax_code=(_tax_code); end
-      sig { params(performance_location: T.nilable(String), tax_code: String).void }
+      sig { params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void }
       def initialize(performance_location: nil, tax_code: nil); end
     end
     # Whether the product is currently available for purchase. Defaults to `true`.

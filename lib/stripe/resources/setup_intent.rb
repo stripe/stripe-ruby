@@ -578,6 +578,31 @@ module Stripe
         end
       end
 
+      class StripeBalance < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # The ID of the Stripe Balance Debit Agreement used for this mandate.
+          attr_reader :stripe_balance_debit_agreement
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Upi < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
           # Amount to be charged for future payments.
@@ -710,6 +735,8 @@ module Stripe
       attr_reader :pix
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # Attribute for field upi
       attr_reader :upi
       # Attribute for field us_bank_account
@@ -728,6 +755,7 @@ module Stripe
           payto: Payto,
           pix: Pix,
           sepa_debit: SepaDebit,
+          stripe_balance: StripeBalance,
           upi: Upi,
           us_bank_account: UsBankAccount,
         }

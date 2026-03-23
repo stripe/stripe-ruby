@@ -670,6 +670,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class PresentmentDetails < ::Stripe::StripeObject
+      # Currency used for customer payments.
+      sig { returns(String) }
+      def presentment_currency; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class TransferData < ::Stripe::StripeObject
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       sig { returns(T.nilable(Float)) }
@@ -834,6 +845,9 @@ module Stripe
     # Time period and invoice for a Subscription billed in advance.
     sig { returns(T.nilable(Prebilling)) }
     def prebilling; end
+    # Attribute for field presentment_details
+    sig { returns(T.nilable(PresentmentDetails)) }
+    def presentment_details; end
     # The schedule attached to the subscription
     sig { returns(T.nilable(T.any(String, ::Stripe::SubscriptionSchedule))) }
     def schedule; end

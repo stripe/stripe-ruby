@@ -14,6 +14,8 @@ module Stripe
 
         # Create a License Fee object.
         def create(params = {}, opts = {})
+          params = V2::Billing::LicenseFeeCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
           request(
             method: :post,
             path: "/v2/billing/license_fees",
@@ -47,6 +49,8 @@ module Stripe
 
         # Update a License Fee object.
         def update(id, params = {}, opts = {})
+          params = V2::Billing::LicenseFeeUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
           request(
             method: :post,
             path: format("/v2/billing/license_fees/%<id>s", { id: CGI.escape(id) }),

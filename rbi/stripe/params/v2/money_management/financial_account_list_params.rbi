@@ -6,6 +6,11 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountListParams < ::Stripe::RequestParams
+        # Additional fields to include in the response.
+        sig { returns(T.nilable(T::Array[String])) }
+        def include; end
+        sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def include=(_include); end
         # The page limit.
         sig { returns(T.nilable(Integer)) }
         def limit; end
@@ -22,9 +27,9 @@ module Stripe
         sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def types=(_types); end
         sig {
-          params(limit: T.nilable(Integer), status: T.nilable(String), types: T.nilable(T::Array[String])).void
+          params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), status: T.nilable(String), types: T.nilable(T::Array[String])).void
          }
-        def initialize(limit: nil, status: nil, types: nil); end
+        def initialize(include: nil, limit: nil, status: nil, types: nil); end
       end
     end
   end

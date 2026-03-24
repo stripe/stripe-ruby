@@ -24,6 +24,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Counterparty < ::Stripe::StripeObject
+          # Name of the counterparty.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Flow < ::Stripe::StripeObject
           # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
           sig { returns(String) }
@@ -85,6 +96,30 @@ module Stripe
           # If applicable, the ID of the Transfer Reversal that created this Transaction.
           sig { returns(T.nilable(String)) }
           def transfer_reversal; end
+          # If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_credit_reversal; end
+          # If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_debit_reversal; end
+          # If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_inbound_transfer; end
+          # If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_issuing_authorization; end
+          # If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_outbound_payment; end
+          # If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_outbound_transfer; end
+          # If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_received_credit; end
+          # If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def treasury_received_debit; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -116,9 +151,16 @@ module Stripe
         # Open Enum. A descriptive category used to classify the Transaction.
         sig { returns(String) }
         def category; end
+        # Counterparty to this Transaction.
+        sig { returns(T.nilable(Counterparty)) }
+        def counterparty; end
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
         def created; end
+        # Description of this Transaction. When applicable, the description is copied from the Flow object at the time
+        # of transaction creation.
+        sig { returns(T.nilable(String)) }
+        def description; end
         # Indicates the FinancialAccount affected by this Transaction.
         sig { returns(String) }
         def financial_account; end
@@ -141,6 +183,9 @@ module Stripe
         # Timestamps for when the Transaction transitioned to a particular status.
         sig { returns(StatusTransitions) }
         def status_transitions; end
+        # The v1 Treasury transaction associated with this transaction.
+        sig { returns(T.nilable(String)) }
+        def treasury_transaction; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end

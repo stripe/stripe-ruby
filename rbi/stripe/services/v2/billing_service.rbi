@@ -11,7 +11,6 @@ module Stripe
       attr_reader :custom_pricing_units
       attr_reader :intents
       attr_reader :license_fees
-      attr_reader :license_fee_subscriptions
       attr_reader :licensed_items
       attr_reader :meter_events
       attr_reader :meter_event_adjustments

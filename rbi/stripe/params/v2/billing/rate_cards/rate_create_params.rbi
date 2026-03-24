@@ -67,6 +67,9 @@ module Stripe
             def round=(_round); end
             sig { params(divide_by: Integer, round: String).void }
             def initialize(divide_by: nil, round: nil); end
+            def self.field_encodings
+              @field_encodings = {divide_by: :int64_string}
+            end
           end
           # The custom pricing unit that this rate binds to. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
           sig {
@@ -132,6 +135,11 @@ module Stripe
             transform_quantity: nil,
             unit_amount: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              transform_quantity: {kind: :object, fields: {divide_by: :int64_string}},
+            }
+          end
         end
       end
     end

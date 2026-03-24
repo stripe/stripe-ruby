@@ -13,6 +13,22 @@ module Stripe
           "v2.billing.license_fee"
         end
 
+        class ServiceCycle < ::Stripe::StripeObject
+          # The interval for assessing service.
+          attr_reader :interval
+          # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
+          # order to specify quarterly service.
+          attr_reader :interval_count
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Tier < ::Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
           attr_reader :flat_amount
@@ -47,6 +63,10 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = { divide_by: :int64_string }
+          end
         end
         # Whether this License Fee is active. Inactive License Fees cannot be used in new activations or be modified.
         attr_reader :active
@@ -60,8 +80,6 @@ module Stripe
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
-        # The ID of the license fee's most recently created version.
-        attr_reader :latest_version
         # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
         # to specify the pricing and create subscriptions to these items.
         attr_reader :licensed_item
@@ -73,11 +91,8 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The interval for assessing service.
-        attr_reader :service_interval
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-        # order to specify quarterly service.
-        attr_reader :service_interval_count
+        # The service cycle configuration for this License Fee.
+        attr_reader :service_cycle
         # The Stripe Tax tax behavior - whether the license fee is inclusive or exclusive of tax.
         attr_reader :tax_behavior
         # Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum
@@ -95,11 +110,21 @@ module Stripe
         attr_reader :livemode
 
         def self.inner_class_types
-          @inner_class_types = { tiers: Tier, transform_quantity: TransformQuantity }
+          @inner_class_types = {
+            service_cycle: ServiceCycle,
+            tiers: Tier,
+            transform_quantity: TransformQuantity,
+          }
         end
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
+          }
         end
       end
     end

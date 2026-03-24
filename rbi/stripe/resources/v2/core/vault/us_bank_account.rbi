@@ -88,6 +88,9 @@ module Stripe
           # The ACH routing number of the bank account.
           sig { returns(T.nilable(String)) }
           def routing_number; end
+          # The list of currencies supported by this bank account.
+          sig { returns(T::Array[String]) }
+          def supported_currencies; end
           # The bank account verification details.
           sig { returns(Verification) }
           def verification; end

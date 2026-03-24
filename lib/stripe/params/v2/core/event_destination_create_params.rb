@@ -17,6 +17,25 @@ module Stripe
           end
         end
 
+        class AzureEventGrid < ::Stripe::RequestParams
+          # The Azure region.
+          attr_accessor :azure_region
+          # The name of the Azure resource group.
+          attr_accessor :azure_resource_group_name
+          # The Azure subscription ID.
+          attr_accessor :azure_subscription_id
+
+          def initialize(
+            azure_region: nil,
+            azure_resource_group_name: nil,
+            azure_subscription_id: nil
+          )
+            @azure_region = azure_region
+            @azure_resource_group_name = azure_resource_group_name
+            @azure_subscription_id = azure_subscription_id
+          end
+        end
+
         class WebhookEndpoint < ::Stripe::RequestParams
           # The URL of the webhook endpoint.
           attr_accessor :url
@@ -31,7 +50,11 @@ module Stripe
         attr_accessor :enabled_events
         # Payload type of events being subscribed to.
         attr_accessor :event_payload
-        # Where events should be routed from.
+        # Specifies which accounts' events route to this destination.
+        # `@self`: Receive events from the account that owns the event destination.
+        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@organization_members`: Receive events from accounts directly linked to the organization.
+        # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         attr_accessor :events_from
         # Additional fields to include in the response.
         attr_accessor :include
@@ -45,6 +68,8 @@ module Stripe
         attr_accessor :type
         # Amazon EventBridge configuration.
         attr_accessor :amazon_eventbridge
+        # Azure Event Grid configuration.
+        attr_accessor :azure_event_grid
         # Webhook endpoint configuration.
         attr_accessor :webhook_endpoint
 
@@ -59,6 +84,7 @@ module Stripe
           snapshot_api_version: nil,
           type: nil,
           amazon_eventbridge: nil,
+          azure_event_grid: nil,
           webhook_endpoint: nil
         )
           @description = description
@@ -71,6 +97,7 @@ module Stripe
           @snapshot_api_version = snapshot_api_version
           @type = type
           @amazon_eventbridge = amazon_eventbridge
+          @azure_event_grid = azure_event_grid
           @webhook_endpoint = webhook_endpoint
         end
       end

@@ -30,8 +30,8 @@ module Stripe
         attr_accessor :display_name
         # Optional array of Meter dimensions to group event dimension keys for invoice line items.
         attr_accessor :invoice_presentation_dimensions
-        # An internal key you can use to search for a particular billable item.
-        # Must be unique among billable items.
+        # An internal key you can use to search for a particular metered item.
+        # Must be unique among metered items.
         # Maximum length of 200 characters.
         attr_accessor :lookup_key
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

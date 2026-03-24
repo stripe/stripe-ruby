@@ -42,8 +42,8 @@ module Stripe
           params(_invoice_presentation_dimensions: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def invoice_presentation_dimensions=(_invoice_presentation_dimensions); end
-        # An internal key you can use to search for a particular billable item.
-        # Must be unique among billable items.
+        # An internal key you can use to search for a particular metered item.
+        # Must be unique among metered items.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end

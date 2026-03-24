@@ -18,19 +18,22 @@ module Stripe
         end
         # Filter by Billing Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
         attr_accessor :billing_cadence
+        # Expand to include additional data such as discount_details, billing_cadence_details, or pricing_plan_component_details.
+        attr_accessor :include
         # Optionally set the maximum number of results per page. Defaults to 20.
         attr_accessor :limit
         # Filter by payer. Mutually exclusive with `billing_cadence`, `pricing_plan`, and `pricing_plan_version`.
         attr_accessor :payer
-        # Filter by PricingPlan ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
+        # Filter by PricingPlan ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
         attr_accessor :pricing_plan
-        # Filter by Pricing Plan Version ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
+        # Filter by Pricing Plan Version ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan`.
         attr_accessor :pricing_plan_version
         # Filter by servicing status.
         attr_accessor :servicing_status
 
         def initialize(
           billing_cadence: nil,
+          include: nil,
           limit: nil,
           payer: nil,
           pricing_plan: nil,
@@ -38,6 +41,7 @@ module Stripe
           servicing_status: nil
         )
           @billing_cadence = billing_cadence
+          @include = include
           @limit = limit
           @payer = payer
           @pricing_plan = pricing_plan

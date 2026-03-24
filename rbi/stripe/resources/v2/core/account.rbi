@@ -3491,6 +3491,9 @@ module Stripe
           # Default responsibilities held by either Stripe or the platform.
           sig { returns(Responsibilities) }
           def responsibilities; end
+          # The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+          sig { returns(T.nilable(String)) }
+          def timezone; end
           def self.inner_class_types
             @inner_class_types = {profile: Profile, responsibilities: Responsibilities}
           end

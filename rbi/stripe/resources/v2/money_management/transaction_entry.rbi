@@ -86,6 +86,30 @@ module Stripe
             # If applicable, the ID of the Transfer Reversal that created this Transaction.
             sig { returns(T.nilable(String)) }
             def transfer_reversal; end
+            # If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_credit_reversal; end
+            # If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_debit_reversal; end
+            # If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_inbound_transfer; end
+            # If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_issuing_authorization; end
+            # If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_outbound_payment; end
+            # If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_outbound_transfer; end
+            # If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_received_credit; end
+            # If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_received_debit; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -130,6 +154,9 @@ module Stripe
         # Details copied from the transaction that this TransactionEntry belongs to.
         sig { returns(TransactionDetails) }
         def transaction_details; end
+        # The v1 Treasury transaction entry associated with this transaction entry.
+        sig { returns(T.nilable(String)) }
+        def treasury_transaction_entry; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end

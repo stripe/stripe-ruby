@@ -7,11 +7,29 @@ module Stripe
       class IntentCreateParams < ::Stripe::RequestParams
         class Action < ::Stripe::RequestParams
           class Apply < ::Stripe::RequestParams
+            class Discount < ::Stripe::RequestParams
+              # The ID of the Coupon to apply.
+              attr_accessor :coupon
+              # The ID of the PromotionCode to apply.
+              attr_accessor :promotion_code
+              # Type of the discount.
+              attr_accessor :type
+
+              def initialize(coupon: nil, promotion_code: nil, type: nil)
+                @coupon = coupon
+                @promotion_code = promotion_code
+                @type = type
+              end
+            end
+
             class EffectiveAt < ::Stripe::RequestParams
+              # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+              attr_accessor :timestamp
               # When the apply action will take effect.
               attr_accessor :type
 
-              def initialize(type: nil)
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
                 @type = type
               end
             end
@@ -82,7 +100,7 @@ module Stripe
                 end
                 # The maximum amount allowed for the billing period.
                 attr_accessor :amount
-                # The configration for the overage rate for the custom pricing unit.
+                # The configuration for the overage rate for the custom pricing unit.
                 attr_accessor :custom_pricing_unit_overage_rate
 
                 def initialize(amount: nil, custom_pricing_unit_overage_rate: nil)
@@ -103,10 +121,12 @@ module Stripe
                 @max_billing_period_spend = max_billing_period_spend
               end
             end
-            # When the apply action will take effect. Defaults to on_reserve if not specified.
+            # When the apply action will take effect. If not specified, defaults to on_reserve.
             attr_accessor :effective_at
             # Type of the apply action details.
             attr_accessor :type
+            # Details for applying a discount.
+            attr_accessor :discount
             # Details for applying a discount rule to future invoices.
             attr_accessor :invoice_discount_rule
             # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
@@ -115,11 +135,13 @@ module Stripe
             def initialize(
               effective_at: nil,
               type: nil,
+              discount: nil,
               invoice_discount_rule: nil,
               spend_modifier_rule: nil
             )
               @effective_at = effective_at
               @type = type
+              @discount = discount
               @invoice_discount_rule = invoice_discount_rule
               @spend_modifier_rule = spend_modifier_rule
             end
@@ -329,7 +351,7 @@ module Stripe
                 @type = type
               end
             end
-            # When the remove action will take effect. Defaults to on_reserve if not specified.
+            # When the remove action will take effect. If not specified, defaults to on_reserve.
             attr_accessor :effective_at
             # Type of the remove action.
             attr_accessor :type
@@ -439,7 +461,7 @@ module Stripe
                 attr_accessor :metadata
                 # The ID of the price object.
                 attr_accessor :price
-                # Quantity for this item. If not provided, will default to 1.
+                # Quantity for this item. If not provided, defaults to 1.
                 attr_accessor :quantity
 
                 def initialize(metadata: nil, price: nil, quantity: nil)
@@ -776,14 +798,17 @@ module Stripe
         attr_accessor :actions
         # Three-letter ISO currency code, in lowercase. Must be a supported currency.
         attr_accessor :currency
+        # Select additional fields to include in the response.
+        attr_accessor :include
         # ID of an existing Cadence to use.
         attr_accessor :cadence
         # Data for creating a new Cadence.
         attr_accessor :cadence_data
 
-        def initialize(actions: nil, currency: nil, cadence: nil, cadence_data: nil)
+        def initialize(actions: nil, currency: nil, include: nil, cadence: nil, cadence_data: nil)
           @actions = actions
           @currency = currency
+          @include = include
           @cadence = cadence
           @cadence_data = cadence_data
         end

@@ -2698,10 +2698,21 @@ module Stripe
             params(_responsibilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities))
            }
           def responsibilities=(_responsibilities); end
+          # The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+          sig { returns(T.nilable(String)) }
+          def timezone; end
+          sig { params(_timezone: T.nilable(String)).returns(T.nilable(String)) }
+          def timezone=(_timezone); end
           sig {
-            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities)).void
+            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Defaults::Responsibilities), timezone: T.nilable(String)).void
            }
-          def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil); end
+          def initialize(
+            currency: nil,
+            locales: nil,
+            profile: nil,
+            responsibilities: nil,
+            timezone: nil
+          ); end
         end
         class Identity < ::Stripe::RequestParams
           class Attestations < ::Stripe::RequestParams

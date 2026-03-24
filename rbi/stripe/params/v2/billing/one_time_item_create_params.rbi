@@ -22,7 +22,7 @@ module Stripe
         sig { params(_display_name: String).returns(String) }
         def display_name=(_display_name); end
         # An internal key you can use to search for a particular one-time item.
-        # Must be unique among billable items.
+        # Must be unique among one-time items.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end

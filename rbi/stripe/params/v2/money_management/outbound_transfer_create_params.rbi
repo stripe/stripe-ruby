@@ -87,6 +87,11 @@ module Stripe
         def recipient_verification; end
         sig { params(_recipient_verification: T.nilable(String)).returns(T.nilable(String)) }
         def recipient_verification=(_recipient_verification); end
+        # The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long, and not contain profanity.
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor; end
+        sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+        def statement_descriptor=(_statement_descriptor); end
         # To which payout method to send the OutboundTransfer.
         sig { returns(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To) }
         def to; end
@@ -95,7 +100,7 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::From, metadata: T.nilable(T::Hash[String, String]), recipient_verification: T.nilable(String), to: ::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To).void
+          params(amount: ::Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::From, metadata: T.nilable(T::Hash[String, String]), recipient_verification: T.nilable(String), statement_descriptor: T.nilable(String), to: ::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To).void
          }
         def initialize(
           amount: nil,
@@ -104,6 +109,7 @@ module Stripe
           from: nil,
           metadata: nil,
           recipient_verification: nil,
+          statement_descriptor: nil,
           to: nil
         ); end
       end

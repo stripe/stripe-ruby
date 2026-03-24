@@ -70,6 +70,22 @@ module Stripe
             attr_reader :transfer
             # If applicable, the ID of the Transfer Reversal that created this Transaction.
             attr_reader :transfer_reversal
+            # If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+            attr_reader :treasury_credit_reversal
+            # If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+            attr_reader :treasury_debit_reversal
+            # If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+            attr_reader :treasury_inbound_transfer
+            # If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+            attr_reader :treasury_issuing_authorization
+            # If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+            attr_reader :treasury_outbound_payment
+            # If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+            attr_reader :treasury_outbound_transfer
+            # If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+            attr_reader :treasury_received_credit
+            # If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+            attr_reader :treasury_received_debit
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -108,6 +124,8 @@ module Stripe
         attr_reader :transaction
         # Details copied from the transaction that this TransactionEntry belongs to.
         attr_reader :transaction_details
+        # The v1 Treasury transaction entry associated with this transaction entry.
+        attr_reader :treasury_transaction_entry
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
 

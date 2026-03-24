@@ -25,7 +25,7 @@ module Stripe
         def billing_cadence; end
         sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
         def billing_cadence=(_billing_cadence); end
-        # The page size limit, if not provided the default is 20.
+        # The page size limit. Defaults to 20.
         sig { returns(T.nilable(Integer)) }
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }

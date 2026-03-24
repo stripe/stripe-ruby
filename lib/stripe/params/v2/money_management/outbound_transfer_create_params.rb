@@ -55,6 +55,8 @@ module Stripe
         attr_accessor :metadata
         # The recipient verification id for this OutboundTransfer. Only required for countries with regulatory mandates to verify recipient names before OutboundTransfer creation.
         attr_accessor :recipient_verification
+        # The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long, and not contain profanity.
+        attr_accessor :statement_descriptor
         # To which payout method to send the OutboundTransfer.
         attr_accessor :to
 
@@ -65,6 +67,7 @@ module Stripe
           from: nil,
           metadata: nil,
           recipient_verification: nil,
+          statement_descriptor: nil,
           to: nil
         )
           @amount = amount
@@ -73,6 +76,7 @@ module Stripe
           @from = from
           @metadata = metadata
           @recipient_verification = recipient_verification
+          @statement_descriptor = statement_descriptor
           @to = to
         end
       end

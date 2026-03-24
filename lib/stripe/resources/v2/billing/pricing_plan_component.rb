@@ -16,7 +16,7 @@ module Stripe
         class LicenseFee < ::Stripe::StripeObject
           # The ID of the License Fee.
           attr_reader :id
-          # The version of the LicenseFee. Defaults to 'latest', if not specified.
+          # The ID of the License Fee Version. If not specified, defaults to 'latest'.
           attr_reader :version
 
           def self.inner_class_types
@@ -31,7 +31,7 @@ module Stripe
         class RateCard < ::Stripe::StripeObject
           # The ID of the Rate Card.
           attr_reader :id
-          # The version of the RateCard. Defaults to 'latest', if not specified.
+          # The ID of the Rate Card Version. If not specified, defaults to 'latest'.
           attr_reader :version
 
           def self.inner_class_types

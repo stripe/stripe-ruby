@@ -23,6 +23,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The currencies supported by the corresponding credentials for bank accounts in the specified country.
+            sig { returns(T.nilable(T::Array[String])) }
+            def currencies; end
             # The local name of the field.
             sig { returns(String) }
             def local_name; end

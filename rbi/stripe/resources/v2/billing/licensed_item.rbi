@@ -29,7 +29,7 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
-        # An internal key you can use to search for a particular billable item.
+        # An internal key you can use to search for a particular licensed item.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end

@@ -21,8 +21,8 @@ module Stripe
         def display_name; end
         sig { params(_display_name: String).returns(String) }
         def display_name=(_display_name); end
-        # An internal key you can use to search for a particular billable item.
-        # Must be unique among billable items.
+        # An internal key you can use to search for a particular licensed item.
+        # Must be unique among licensed items.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end

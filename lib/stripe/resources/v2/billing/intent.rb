@@ -14,8 +14,12 @@ module Stripe
         end
 
         class AmountDetails < ::Stripe::StripeObject
+          # The outstanding amount after discount, tax, and customer balance application.
+          attr_reader :amount_due
           # Three-letter ISO currency code, in lowercase. Must be a supported currency.
           attr_reader :currency
+          # The customer's account balance applied to the amount.
+          attr_reader :customer_balance_applied
           # Amount of discount applied.
           attr_reader :discount
           # Amount of shipping charges.
@@ -36,6 +40,19 @@ module Stripe
           end
         end
 
+        class InvoiceResources < ::Stripe::StripeObject
+          # ID of a preview invoice showing the breakdown of line items. Null if the billing intent will not create an invoice. Only present when "invoice_resources.preview_invoice" is included.
+          attr_reader :preview_invoice
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StatusTransitions < ::Stripe::StripeObject
           # Time at which the Billing Intent was canceled.
           attr_reader :canceled_at
@@ -43,6 +60,8 @@ module Stripe
           attr_reader :committed_at
           # Time at which the Billing Intent was drafted.
           attr_reader :drafted_at
+          # Time at which the Billing Intent will expire.
+          attr_reader :expires_at
           # Time at which the Billing Intent was reserved.
           attr_reader :reserved_at
 
@@ -322,6 +341,8 @@ module Stripe
         attr_reader :currency
         # Unique identifier for the object.
         attr_reader :id
+        # Invoice resources associated with this Billing Intent. Populated when include parameters are specified.
+        attr_reader :invoice_resources
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Current status of the Billing Intent.
@@ -338,6 +359,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             amount_details: AmountDetails,
+            invoice_resources: InvoiceResources,
             status_transitions: StatusTransitions,
             cadence_data: CadenceData,
           }

@@ -14,6 +14,10 @@ module Stripe
 
         # Create a CollectionSetting object.
         def create(params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = V2::Billing::CollectionSettingCreateParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: "/v2/billing/collection_settings",
@@ -47,6 +51,10 @@ module Stripe
 
         # Update fields on an existing CollectionSetting.
         def update(id, params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = V2::Billing::CollectionSettingUpdateParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: format("/v2/billing/collection_settings/%<id>s", { id: CGI.escape(id) }),

@@ -94,6 +94,8 @@ module Stripe
         attr_accessor :recipient_notification
         # The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
         attr_accessor :recipient_verification
+        # The description that appears on the receiving end for an OutboundPayment (for example, on a bank statement). Must be between 3 and 22 characters long, and not contain profanity.
+        attr_accessor :statement_descriptor
         # To which payout method to send the OutboundPayment.
         attr_accessor :to
 
@@ -107,6 +109,7 @@ module Stripe
           purpose: nil,
           recipient_notification: nil,
           recipient_verification: nil,
+          statement_descriptor: nil,
           to: nil
         )
           @amount = amount
@@ -118,6 +121,7 @@ module Stripe
           @purpose = purpose
           @recipient_notification = recipient_notification
           @recipient_verification = recipient_verification
+          @statement_descriptor = statement_descriptor
           @to = to
         end
       end

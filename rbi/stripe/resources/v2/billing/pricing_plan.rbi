@@ -28,9 +28,6 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
-        # The ID of the latest version of the PricingPlan.
-        sig { returns(String) }
-        def latest_version; end
         # The ID of the live version of the PricingPlan.
         sig { returns(T.nilable(String)) }
         def live_version; end

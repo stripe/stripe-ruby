@@ -37,6 +37,21 @@ module Stripe
           )
         end
 
+        # Creates, updates, and/or deletes multiple Rates on a Rate Card atomically.
+        def modify_rates(id, params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = V2::Billing::RateCardModifyRatesParams.coerce_params(params)
+          end
+
+          request(
+            method: :post,
+            path: format("/v2/billing/rate_cards/%<id>s/modify_rates", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Retrieve the latest version of a Rate Card object.
         def retrieve(id, params = {}, opts = {})
           request(

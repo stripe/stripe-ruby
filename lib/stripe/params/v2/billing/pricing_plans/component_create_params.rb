@@ -9,7 +9,7 @@ module Stripe
           class LicenseFee < ::Stripe::RequestParams
             # The ID of the License Fee.
             attr_accessor :id
-            # The version of the LicenseFee. Defaults to 'latest', if not specified.
+            # The ID of the License Fee Version. If not specified, defaults to 'latest'.
             attr_accessor :version
 
             def initialize(id: nil, version: nil)
@@ -21,7 +21,7 @@ module Stripe
           class RateCard < ::Stripe::RequestParams
             # The ID of the Rate Card.
             attr_accessor :id
-            # The version of the RateCard. Defaults to 'latest', if not specified.
+            # The ID of the Rate Card Version. If not specified, defaults to 'latest'.
             attr_accessor :version
 
             def initialize(id: nil, version: nil)

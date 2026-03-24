@@ -1723,12 +1723,21 @@ module Stripe
           attr_accessor :profile
           # Default responsibilities held by either Stripe or the platform.
           attr_accessor :responsibilities
+          # The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+          attr_accessor :timezone
 
-          def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil)
+          def initialize(
+            currency: nil,
+            locales: nil,
+            profile: nil,
+            responsibilities: nil,
+            timezone: nil
+          )
             @currency = currency
             @locales = locales
             @profile = profile
             @responsibilities = responsibilities
+            @timezone = timezone
           end
         end
 

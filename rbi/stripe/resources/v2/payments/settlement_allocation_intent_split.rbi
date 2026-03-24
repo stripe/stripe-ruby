@@ -42,10 +42,13 @@ module Stripe
         # Unique identifier for the SettlementAllocationIntentSplit.
         sig { returns(String) }
         def id; end
+        # Metadata associated with the SettlementAllocationIntentSplit.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The ID of the SettlementAllocationIntent that this split belongs too.
+        # The ID of the SettlementAllocationIntent that this split belongs to.
         sig { returns(String) }
         def settlement_allocation_intent; end
         # The status of the SettlementAllocationIntentSplit.

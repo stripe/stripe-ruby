@@ -4,7 +4,14 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountRetrieveParams < ::Stripe::RequestParams; end
+      class FinancialAccountRetrieveParams < ::Stripe::RequestParams
+        # Additional fields to include in the response.
+        attr_accessor :include
+
+        def initialize(include: nil)
+          @include = include
+        end
+      end
     end
   end
 end

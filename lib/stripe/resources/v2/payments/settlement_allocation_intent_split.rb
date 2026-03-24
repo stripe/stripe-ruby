@@ -39,9 +39,11 @@ module Stripe
         attr_reader :flow
         # Unique identifier for the SettlementAllocationIntentSplit.
         attr_reader :id
+        # Metadata associated with the SettlementAllocationIntentSplit.
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The ID of the SettlementAllocationIntent that this split belongs too.
+        # The ID of the SettlementAllocationIntent that this split belongs to.
         attr_reader :settlement_allocation_intent
         # The status of the SettlementAllocationIntentSplit.
         attr_reader :status

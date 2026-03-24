@@ -119,8 +119,11 @@ module Stripe
           sig { returns(String) }
           def object; end
           # The Sort Code of the bank account.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def sort_code; end
+          # The list of currencies supported by this bank account.
+          sig { returns(T::Array[String]) }
+          def supported_currencies; end
           # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
           sig { returns(T::Boolean) }
           def livemode; end

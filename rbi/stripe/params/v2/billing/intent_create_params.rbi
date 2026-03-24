@@ -8,14 +8,40 @@ module Stripe
       class IntentCreateParams < ::Stripe::RequestParams
         class Action < ::Stripe::RequestParams
           class Apply < ::Stripe::RequestParams
+            class Discount < ::Stripe::RequestParams
+              # The ID of the Coupon to apply.
+              sig { returns(T.nilable(String)) }
+              def coupon; end
+              sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+              def coupon=(_coupon); end
+              # The ID of the PromotionCode to apply.
+              sig { returns(T.nilable(String)) }
+              def promotion_code; end
+              sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+              def promotion_code=(_promotion_code); end
+              # Type of the discount.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig {
+                params(coupon: T.nilable(String), promotion_code: T.nilable(String), type: String).void
+               }
+              def initialize(coupon: nil, promotion_code: nil, type: nil); end
+            end
             class EffectiveAt < ::Stripe::RequestParams
+              # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+              sig { returns(T.nilable(String)) }
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+              def timestamp=(_timestamp); end
               # When the apply action will take effect.
               sig { returns(String) }
               def type; end
               sig { params(_type: String).returns(String) }
               def type=(_type); end
-              sig { params(type: String).void }
-              def initialize(type: nil); end
+              sig { params(timestamp: T.nilable(String), type: String).void }
+              def initialize(timestamp: nil, type: nil); end
             end
             class InvoiceDiscountRule < ::Stripe::RequestParams
               class PercentOff < ::Stripe::RequestParams
@@ -38,14 +64,17 @@ module Stripe
                  }
                 def maximum_applications=(_maximum_applications); end
                 # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
-                sig { returns(String) }
+                sig { returns(BigDecimal) }
                 def percent_off; end
-                sig { params(_percent_off: String).returns(String) }
+                sig { params(_percent_off: BigDecimal).returns(BigDecimal) }
                 def percent_off=(_percent_off); end
                 sig {
-                  params(maximum_applications: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff::MaximumApplications, percent_off: String).void
+                  params(maximum_applications: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff::MaximumApplications, percent_off: BigDecimal).void
                  }
                 def initialize(maximum_applications: nil, percent_off: nil); end
+                def self.field_encodings
+                  @field_encodings = {percent_off: :decimal_string}
+                end
               end
               # The entity that the discount rule applies to, for example, the cadence.
               sig { returns(String) }
@@ -70,6 +99,11 @@ module Stripe
                 params(applies_to: String, type: String, percent_off: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff)).void
                }
               def initialize(applies_to: nil, type: nil, percent_off: nil); end
+              def self.field_encodings
+                @field_encodings = {
+                  percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+                }
+              end
             end
             class SpendModifierRule < ::Stripe::RequestParams
               class MaxBillingPeriodSpend < ::Stripe::RequestParams
@@ -120,7 +154,7 @@ module Stripe
                   params(_amount: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount).returns(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount)
                  }
                 def amount=(_amount); end
-                # The configration for the overage rate for the custom pricing unit.
+                # The configuration for the overage rate for the custom pricing unit.
                 sig {
                   returns(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::CustomPricingUnitOverageRate)
                  }
@@ -158,7 +192,7 @@ module Stripe
                }
               def initialize(applies_to: nil, type: nil, max_billing_period_spend: nil); end
             end
-            # When the apply action will take effect. Defaults to on_reserve if not specified.
+            # When the apply action will take effect. If not specified, defaults to on_reserve.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
              }
@@ -172,6 +206,15 @@ module Stripe
             def type; end
             sig { params(_type: String).returns(String) }
             def type=(_type); end
+            # Details for applying a discount.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount))
+             }
+            def discount; end
+            sig {
+              params(_discount: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount))
+             }
+            def discount=(_discount); end
             # Details for applying a discount rule to future invoices.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule))
@@ -191,14 +234,23 @@ module Stripe
              }
             def spend_modifier_rule=(_spend_modifier_rule); end
             sig {
-              params(effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt), type: String, invoice_discount_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule), spend_modifier_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule)).void
+              params(effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt), type: String, discount: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount), invoice_discount_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule), spend_modifier_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule)).void
              }
             def initialize(
               effective_at: nil,
               type: nil,
+              discount: nil,
               invoice_discount_rule: nil,
               spend_modifier_rule: nil
             ); end
+            def self.field_encodings
+              @field_encodings = {
+                invoice_discount_rule: {
+                  kind: :object,
+                  fields: {percent_off: {kind: :object, fields: {percent_off: :decimal_string}}},
+                },
+              }
+            end
           end
           class Deactivate < ::Stripe::RequestParams
             class CancellationDetails < ::Stripe::RequestParams
@@ -528,7 +580,7 @@ module Stripe
               sig { params(type: String).void }
               def initialize(type: nil); end
             end
-            # When the remove action will take effect. Defaults to on_reserve if not specified.
+            # When the remove action will take effect. If not specified, defaults to on_reserve.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt))
              }
@@ -705,7 +757,7 @@ module Stripe
                 def price; end
                 sig { params(_price: String).returns(String) }
                 def price=(_price); end
-                # Quantity for this item. If not provided, will default to 1.
+                # Quantity for this item. If not provided, defaults to 1.
                 sig { returns(T.nilable(Integer)) }
                 def quantity; end
                 sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -841,6 +893,19 @@ module Stripe
             remove: nil,
             subscribe: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              apply: {
+                kind: :object,
+                fields: {
+                  invoice_discount_rule: {
+                    kind: :object,
+                    fields: {percent_off: {kind: :object, fields: {percent_off: :decimal_string}}},
+                  },
+                },
+              },
+            }
+          end
         end
         class CadenceData < ::Stripe::RequestParams
           class BillingCycle < ::Stripe::RequestParams
@@ -1236,6 +1301,11 @@ module Stripe
         def currency; end
         sig { params(_currency: String).returns(String) }
         def currency=(_currency); end
+        # Select additional fields to include in the response.
+        sig { returns(T.nilable(T::Array[String])) }
+        def include; end
+        sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def include=(_include); end
         # ID of an existing Cadence to use.
         sig { returns(T.nilable(String)) }
         def cadence; end
@@ -1249,9 +1319,38 @@ module Stripe
          }
         def cadence_data=(_cadence_data); end
         sig {
-          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], currency: String, cadence: T.nilable(String), cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).void
+          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], currency: String, include: T.nilable(T::Array[String]), cadence: T.nilable(String), cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).void
          }
-        def initialize(actions: nil, currency: nil, cadence: nil, cadence_data: nil); end
+        def initialize(
+          actions: nil,
+          currency: nil,
+          include: nil,
+          cadence: nil,
+          cadence_data: nil
+        ); end
+        def self.field_encodings
+          @field_encodings = {
+            actions: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  apply: {
+                    kind: :object,
+                    fields: {
+                      invoice_discount_rule: {
+                        kind: :object,
+                        fields: {
+                          percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
       end
     end
   end

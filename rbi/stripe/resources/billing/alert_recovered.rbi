@@ -30,7 +30,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The value at which the alert recovered
-      sig { returns(String) }
+      sig { returns(BigDecimal) }
       def value; end
     end
   end

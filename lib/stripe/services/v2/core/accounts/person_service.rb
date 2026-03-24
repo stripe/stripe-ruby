@@ -10,6 +10,10 @@ module Stripe
           #
           # ** raises RateLimitError
           def create(account_id, params = {}, opts = {})
+            unless params.is_a?(Stripe::RequestParams)
+              params = V2::Core::Accounts::PersonCreateParams.coerce_params(params)
+            end
+
             request(
               method: :post,
               path: format("/v2/core/accounts/%<account_id>s/persons", { account_id: CGI.escape(account_id) }),
@@ -62,6 +66,10 @@ module Stripe
           #
           # ** raises RateLimitError
           def update(account_id, id, params = {}, opts = {})
+            unless params.is_a?(Stripe::RequestParams)
+              params = V2::Core::Accounts::PersonUpdateParams.coerce_params(params)
+            end
+
             request(
               method: :post,
               path: format("/v2/core/accounts/%<account_id>s/persons/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),

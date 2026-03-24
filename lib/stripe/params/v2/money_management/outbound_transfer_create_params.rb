@@ -5,18 +5,6 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundTransferCreateParams < ::Stripe::RequestParams
-        class Amount < ::Stripe::RequestParams
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          attr_accessor :value
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_accessor :currency
-
-          def initialize(value: nil, currency: nil)
-            @value = value
-            @currency = currency
-          end
-        end
-
         class DeliveryOptions < ::Stripe::RequestParams
           # Open Enum. Method for bank account.
           attr_accessor :bank_account
@@ -67,6 +55,8 @@ module Stripe
         attr_accessor :metadata
         # The recipient verification id for this OutboundTransfer. Only required for countries with regulatory mandates to verify recipient names before OutboundTransfer creation.
         attr_accessor :recipient_verification
+        # The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long, and not contain profanity.
+        attr_accessor :statement_descriptor
         # To which payout method to send the OutboundTransfer.
         attr_accessor :to
 
@@ -77,6 +67,7 @@ module Stripe
           from: nil,
           metadata: nil,
           recipient_verification: nil,
+          statement_descriptor: nil,
           to: nil
         )
           @amount = amount
@@ -85,6 +76,7 @@ module Stripe
           @from = from
           @metadata = metadata
           @recipient_verification = recipient_verification
+          @statement_descriptor = statement_descriptor
           @to = to
         end
       end

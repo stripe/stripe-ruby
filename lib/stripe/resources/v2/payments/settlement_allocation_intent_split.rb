@@ -11,21 +11,6 @@ module Stripe
           "v2.payments.settlement_allocation_intent_split"
         end
 
-        class Amount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          attr_reader :value
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class Flow < ::Stripe::StripeObject
           # Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
           attr_reader :type
@@ -54,9 +39,11 @@ module Stripe
         attr_reader :flow
         # Unique identifier for the SettlementAllocationIntentSplit.
         attr_reader :id
+        # Metadata associated with the SettlementAllocationIntentSplit.
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The ID of the SettlementAllocationIntent that this split belongs too.
+        # The ID of the SettlementAllocationIntent that this split belongs to.
         attr_reader :settlement_allocation_intent
         # The status of the SettlementAllocationIntentSplit.
         attr_reader :status
@@ -66,7 +53,7 @@ module Stripe
         attr_reader :livemode
 
         def self.inner_class_types
-          @inner_class_types = { amount: Amount, flow: Flow }
+          @inner_class_types = { flow: Flow }
         end
 
         def self.field_remappings

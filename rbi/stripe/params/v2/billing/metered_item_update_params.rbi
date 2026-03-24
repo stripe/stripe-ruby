@@ -21,7 +21,7 @@ module Stripe
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
-        # An internal key you can use to search for a particular billable item.
+        # An internal key you can use to search for a particular metered item.
         # Maximum length of 200 characters.
         # To remove the lookup_key from the object, set it to null in the request.
         sig { returns(T.nilable(String)) }

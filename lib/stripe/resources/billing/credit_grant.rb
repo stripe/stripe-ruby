@@ -54,6 +54,10 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = { value: :decimal_string }
+          end
         end
 
         class Monetary < ::Stripe::StripeObject
@@ -83,6 +87,12 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+          }
         end
       end
 
@@ -250,6 +260,15 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          amount: {
+            kind: :object,
+            fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+          },
+        }
       end
     end
   end

@@ -13,12 +13,15 @@ module Stripe
           sig { params(_id: String).returns(String) }
           def id=(_id); end
           # A positive integer representing the amount of the credit grant.
-          sig { returns(String) }
+          sig { returns(BigDecimal) }
           def value; end
-          sig { params(_value: String).returns(String) }
+          sig { params(_value: BigDecimal).returns(BigDecimal) }
           def value=(_value); end
-          sig { params(id: String, value: String).void }
+          sig { params(id: String, value: BigDecimal).void }
           def initialize(id: nil, value: nil); end
+          def self.field_encodings
+            @field_encodings = {value: :decimal_string}
+          end
         end
         class Monetary < ::Stripe::RequestParams
           # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
@@ -59,6 +62,11 @@ module Stripe
           params(custom_pricing_unit: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary), type: String).void
          }
         def initialize(custom_pricing_unit: nil, monetary: nil, type: nil); end
+        def self.field_encodings
+          @field_encodings = {
+            custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+          }
+        end
       end
       class ApplicabilityConfig < ::Stripe::RequestParams
         class Scope < ::Stripe::RequestParams
@@ -197,6 +205,14 @@ module Stripe
         name: nil,
         priority: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          amount: {
+            kind: :object,
+            fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+          },
+        }
+      end
     end
   end
 end

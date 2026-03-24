@@ -26,6 +26,10 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = { impacted_requests_percentage: :decimal_string }
+            end
           end
           # The canonical path.
           attr_reader :canonical_path
@@ -49,6 +53,16 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              impacted_requests_percentage: :decimal_string,
+              top_impacted_accounts: {
+                kind: :array,
+                element: { kind: :object, fields: { impacted_requests_percentage: :decimal_string } },
+              },
+            }
+          end
         end
         # A short description of the alert.
         attr_reader :summary
@@ -67,6 +81,21 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            impact: {
+              kind: :object,
+              fields: {
+                impacted_requests_percentage: :decimal_string,
+                top_impacted_accounts: {
+                  kind: :array,
+                  element: { kind: :object, fields: { impacted_requests_percentage: :decimal_string } },
+                },
+              },
+            },
+          }
         end
       end
 

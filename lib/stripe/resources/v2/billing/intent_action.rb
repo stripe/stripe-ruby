@@ -14,7 +14,28 @@ module Stripe
         end
 
         class Apply < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
+            # The ID of the Coupon applied.
+            attr_reader :coupon
+            # The ID of the created Discount.
+            attr_reader :discount
+            # The ID of the PromotionCode applied.
+            attr_reader :promotion_code
+            # Type of the discount.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class EffectiveAt < ::Stripe::StripeObject
+            # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+            attr_reader :timestamp
             # When the apply action will take effect.
             attr_reader :type
 
@@ -53,6 +74,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_off: :decimal_string }
+              end
             end
             # The entity that the discount rule applies to, for example, the Billing Cadence.
             attr_reader :applies_to
@@ -69,6 +94,12 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                percent_off: { kind: :object, fields: { percent_off: :decimal_string } },
+              }
             end
           end
 
@@ -115,7 +146,7 @@ module Stripe
               end
               # The maximum amount allowed for the billing period.
               attr_reader :amount
-              # The configration for the overage rate for the custom pricing unit.
+              # The configuration for the overage rate for the custom pricing unit.
               attr_reader :custom_pricing_unit_overage_rate
 
               def self.inner_class_types
@@ -146,10 +177,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the apply action will take effect. Defaults to on_reserve if not specified.
+          # When the apply action will take effect. If not specified, defaults to on_reserve.
           attr_reader :effective_at
           # Type of the apply action details.
           attr_reader :type
+          # Details for applying a discount.
+          attr_reader :discount
           # Details for applying a discount rule to future invoices.
           attr_reader :invoice_discount_rule
           # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
@@ -158,6 +191,7 @@ module Stripe
           def self.inner_class_types
             @inner_class_types = {
               effective_at: EffectiveAt,
+              discount: Discount,
               invoice_discount_rule: InvoiceDiscountRule,
               spend_modifier_rule: SpendModifierRule,
             }
@@ -165,6 +199,15 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              invoice_discount_rule: {
+                kind: :object,
+                fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+              },
+            }
           end
         end
 
@@ -405,7 +448,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the remove action will take effect. Defaults to on_reserve if not specified.
+          # When the remove action will take effect. If not specified, defaults to on_reserve.
           attr_reader :effective_at
           # Type of the remove action.
           attr_reader :type
@@ -526,7 +569,7 @@ module Stripe
               attr_reader :metadata
               # The ID of the price object.
               attr_reader :price
-              # Quantity for this item. If not provided, will default to 1.
+              # Quantity for this item. If not provided, defaults to 1.
               attr_reader :quantity
 
               def self.inner_class_types
@@ -609,6 +652,20 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            apply: {
+              kind: :object,
+              fields: {
+                invoice_discount_rule: {
+                  kind: :object,
+                  fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+                },
+              },
+            },
+          }
         end
       end
     end

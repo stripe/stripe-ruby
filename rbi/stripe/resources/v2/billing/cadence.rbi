@@ -199,13 +199,16 @@ module Stripe
             sig { returns(MaximumApplications) }
             def maximum_applications; end
             # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def percent_off; end
             def self.inner_class_types
               @inner_class_types = {maximum_applications: MaximumApplications}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {percent_off: :decimal_string}
             end
           end
           # Unique identifier for the object.
@@ -222,6 +225,11 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+            }
           end
         end
         class Payer < ::Stripe::StripeObject
@@ -429,6 +437,9 @@ module Stripe
                   def self.field_remappings
                     @field_remappings = {}
                   end
+                  def self.field_encodings
+                    @field_encodings = {amount: :int64_string}
+                  end
                 end
                 # Configuration options for setting up an eMandate for cards issued in India.
                 sig { returns(T.nilable(MandateOptions)) }
@@ -447,6 +458,11 @@ module Stripe
                 end
                 def self.field_remappings
                   @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    mandate_options: {kind: :object, fields: {amount: :int64_string}},
+                  }
                 end
               end
               class CustomerBalance < ::Stripe::StripeObject
@@ -563,6 +579,14 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+              def self.field_encodings
+                @field_encodings = {
+                  card: {
+                    kind: :object,
+                    fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+                  },
+                }
+              end
             end
             # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
             # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
@@ -588,6 +612,19 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+            def self.field_encodings
+              @field_encodings = {
+                payment_method_options: {
+                  kind: :object,
+                  fields: {
+                    card: {
+                      kind: :object,
+                      fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+                    },
+                  },
+                },
+              }
+            end
           end
           # Expanded bill settings data with actual configuration values.
           sig { returns(Bill) }
@@ -600,6 +637,24 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              collection: {
+                kind: :object,
+                fields: {
+                  payment_method_options: {
+                    kind: :object,
+                    fields: {
+                      card: {
+                        kind: :object,
+                        fields: {mandate_options: {kind: :object, fields: {amount: :int64_string}}},
+                      },
+                    },
+                  },
+                },
+              },
+            }
           end
         end
         # The billing cycle is the object that defines future billing cycle dates.

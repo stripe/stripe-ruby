@@ -27,50 +27,6 @@ module Stripe
         end
 
         class Balance < ::Stripe::StripeObject
-          class Available < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            attr_reader :value
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            attr_reader :currency
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class InboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            attr_reader :value
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            attr_reader :currency
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class OutboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            attr_reader :value
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            attr_reader :currency
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # Balance that can be used for money movement.
           attr_reader :available
           # Balance of inbound funds that will later transition to the `available` balance.
@@ -79,11 +35,7 @@ module Stripe
           attr_reader :outbound_pending
 
           def self.inner_class_types
-            @inner_class_types = {
-              available: Available,
-              inbound_pending: InboundPending,
-              outbound_pending: OutboundPending,
-            }
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -118,12 +70,14 @@ module Stripe
         end
 
         class Payments < ::Stripe::StripeObject
-          class StartingBalance < ::Stripe::StripeObject
-            class Available < ::Stripe::StripeObject
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              attr_reader :value
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              attr_reader :currency
+          class BalanceByFundsType < ::Stripe::StripeObject
+            class PaymentProcessing < ::Stripe::StripeObject
+              # Balance that can be used for money movement.
+              attr_reader :available
+              # Balance of inbound funds that will later transition to the `available` balance.
+              attr_reader :inbound_pending
+              # Balance of funds that are being used for a pending outbound money movement.
+              attr_reader :outbound_pending
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -133,19 +87,57 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # When the balance was projected.
-            attr_reader :at
-            # The available balance at the time when the balance was projected.
-            attr_reader :available
+
+            class StoredValue < ::Stripe::StripeObject
+              # Balance that can be used for money movement.
+              attr_reader :available
+              # Balance of inbound funds that will later transition to the `available` balance.
+              attr_reader :inbound_pending
+              # Balance of funds that are being used for a pending outbound money movement.
+              attr_reader :outbound_pending
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Payment processing funds are those that are received for goods or services and may only be used for payouts to self. These funds may be converted to stored value funds.
+            attr_reader :payment_processing
+            # Stored value funds may be used for either payouts to self or payments to others.
+            attr_reader :stored_value
 
             def self.inner_class_types
-              @inner_class_types = { available: Available }
+              @inner_class_types = {
+                payment_processing: PaymentProcessing,
+                stored_value: StoredValue,
+              }
             end
 
             def self.field_remappings
               @field_remappings = {}
             end
           end
+
+          class StartingBalance < ::Stripe::StripeObject
+            # When the balance was projected.
+            attr_reader :at
+            # The available balance at the time when the balance was projected.
+            attr_reader :available
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The balance of the `payments` FinancialAccount is a mix of payment processing and stored value funds, and this field
+          # describes the breakdown between the two. The sum will match the balance of the FinancialAccount.
+          attr_reader :balance_by_funds_type
           # The currency that non-settlement currency payments will be converted to.
           attr_reader :default_currency
           # Settlement currencies enabled for this FinancialAccount. Payments in other currencies will be automatically converted to `default_currency`.
@@ -154,7 +146,10 @@ module Stripe
           attr_reader :starting_balance
 
           def self.inner_class_types
-            @inner_class_types = { starting_balance: StartingBalance }
+            @inner_class_types = {
+              balance_by_funds_type: BalanceByFundsType,
+              starting_balance: StartingBalance,
+            }
           end
 
           def self.field_remappings
@@ -178,9 +173,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Attribute for field forwarding_settings
+            # The forwarding settings for the closed FinancialAccount.
             attr_reader :forwarding_settings
-            # Attribute for field reason
+            # The reason the FinancialAccount was closed.
             attr_reader :reason
 
             def self.inner_class_types
@@ -191,7 +186,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field closed
+          # Details related to the closed state of the FinancialAccount.
           attr_reader :closed
 
           def self.inner_class_types
@@ -242,7 +237,7 @@ module Stripe
         attr_reader :payments
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         attr_reader :status
-        # Attribute for field status_details
+        # Additional details related to the status of the FinancialAccount.
         attr_reader :status_details
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
         attr_reader :storage

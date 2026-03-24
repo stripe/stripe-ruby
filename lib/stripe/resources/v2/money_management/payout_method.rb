@@ -90,6 +90,8 @@ module Stripe
           attr_reader :fingerprint
           # The last 4 digits of the card number.
           attr_reader :last4
+          # The list of currencies supported by this bank account.
+          attr_reader :supported_currencies
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -132,6 +134,9 @@ module Stripe
         attr_reader :latest_outbound_setup_intent
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
+        # Please reach out to Stripe Support for more information.
+        attr_reader :restricted
         # Closed Enum. The type of payout method.
         attr_reader :type
         # Indicates whether the payout method has met the necessary requirements for outbound money movement.

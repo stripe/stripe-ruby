@@ -133,6 +133,10 @@ module Stripe
           @unit_amount = unit_amount
           @unit_amount_decimal = unit_amount_decimal
         end
+
+        def self.field_encodings
+          @field_encodings = { unit_amount_decimal: :decimal_string }
+        end
       end
 
       class Pricing < ::Stripe::RequestParams
@@ -261,6 +265,12 @@ module Stripe
         @tax_amounts = tax_amounts
         @tax_rates = tax_rates
       end
+
+      def self.field_encodings
+        @field_encodings = {
+          price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        }
+      end
     end
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
@@ -273,6 +283,18 @@ module Stripe
       @expand = expand
       @invoice_metadata = invoice_metadata
       @lines = lines
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        lines: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+          },
+        },
+      }
     end
   end
 end

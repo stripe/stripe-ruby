@@ -15,26 +15,15 @@ module Stripe
               sig { params(_id: String).returns(String) }
               def id=(_id); end
               # The value of the credit grant, decimal value represented as a string.
-              sig { returns(String) }
+              sig { returns(BigDecimal) }
               def value; end
-              sig { params(_value: String).returns(String) }
+              sig { params(_value: BigDecimal).returns(BigDecimal) }
               def value=(_value); end
-              sig { params(id: String, value: String).void }
+              sig { params(id: String, value: BigDecimal).void }
               def initialize(id: nil, value: nil); end
-            end
-            class Monetary < ::Stripe::RequestParams
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              sig { params(_value: Integer).returns(Integer) }
-              def value=(_value); end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              sig { params(_currency: String).returns(String) }
-              def currency=(_currency); end
-              sig { params(value: Integer, currency: String).void }
-              def initialize(value: nil, currency: nil); end
+              def self.field_encodings
+                @field_encodings = {value: :decimal_string}
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             sig { returns(String) }
@@ -51,18 +40,21 @@ module Stripe
              }
             def custom_pricing_unit=(_custom_pricing_unit); end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
-             }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             sig {
-              params(_monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary))
+              params(_monetary: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
              }
             def monetary=(_monetary); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::Monetary)).void
+              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount)).void
              }
             def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+              }
+            end
           end
           class ApplicabilityConfig < ::Stripe::RequestParams
             class Scope < ::Stripe::RequestParams
@@ -157,6 +149,14 @@ module Stripe
             name: nil,
             priority: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+              },
+            }
+          end
         end
         class CreditGrantPerTenant < ::Stripe::RequestParams
           class Amount < ::Stripe::RequestParams
@@ -167,26 +167,15 @@ module Stripe
               sig { params(_id: String).returns(String) }
               def id=(_id); end
               # The value of the credit grant, decimal value represented as a string.
-              sig { returns(String) }
+              sig { returns(BigDecimal) }
               def value; end
-              sig { params(_value: String).returns(String) }
+              sig { params(_value: BigDecimal).returns(BigDecimal) }
               def value=(_value); end
-              sig { params(id: String, value: String).void }
+              sig { params(id: String, value: BigDecimal).void }
               def initialize(id: nil, value: nil); end
-            end
-            class Monetary < ::Stripe::RequestParams
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              sig { params(_value: Integer).returns(Integer) }
-              def value=(_value); end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              sig { params(_currency: String).returns(String) }
-              def currency=(_currency); end
-              sig { params(value: Integer, currency: String).void }
-              def initialize(value: nil, currency: nil); end
+              def self.field_encodings
+                @field_encodings = {value: :decimal_string}
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             sig { returns(String) }
@@ -203,18 +192,21 @@ module Stripe
              }
             def custom_pricing_unit=(_custom_pricing_unit); end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
-             }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             sig {
-              params(_monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary))
+              params(_monetary: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
              }
             def monetary=(_monetary); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::Monetary)).void
+              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount)).void
              }
             def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+              }
+            end
           end
           class ApplicabilityConfig < ::Stripe::RequestParams
             class Scope < ::Stripe::RequestParams
@@ -390,6 +382,14 @@ module Stripe
             name: nil,
             priority: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+              },
+            }
+          end
         end
         # An internal key you can use to search for this service action. Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
@@ -438,6 +438,28 @@ module Stripe
           credit_grant: nil,
           credit_grant_per_tenant: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            credit_grant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+                },
+              },
+            },
+            credit_grant_per_tenant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+                },
+              },
+            },
+          }
+        end
       end
     end
   end

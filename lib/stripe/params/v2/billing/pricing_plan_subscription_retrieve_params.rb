@@ -4,7 +4,14 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanSubscriptionRetrieveParams < ::Stripe::RequestParams; end
+      class PricingPlanSubscriptionRetrieveParams < ::Stripe::RequestParams
+        # Expand to include additional data such as discount_details.
+        attr_accessor :include
+
+        def initialize(include: nil)
+          @include = include
+        end
+      end
     end
   end
 end

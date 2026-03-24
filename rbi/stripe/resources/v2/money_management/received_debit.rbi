@@ -7,34 +7,6 @@ module Stripe
     module MoneyManagement
       # ReceivedDebit resource
       class ReceivedDebit < APIResource
-        class Amount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          sig { returns(Integer) }
-          def value; end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class ExternalAmount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          sig { returns(Integer) }
-          def value; end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class StatusDetails < ::Stripe::StripeObject
           class Failed < ::Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
@@ -134,56 +106,28 @@ module Stripe
         end
         class CardSpend < ::Stripe::StripeObject
           class Authorization < ::Stripe::StripeObject
-            class Amount < ::Stripe::StripeObject
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
             # Amount associated with this issuing authorization.
-            sig { returns(Amount) }
+            sig { returns(::Stripe::V2::Amount) }
             def amount; end
             # The reference to the v1 issuing authorization ID.
             sig { returns(String) }
             def issuing_authorization_v1; end
             def self.inner_class_types
-              @inner_class_types = {amount: Amount}
+              @inner_class_types = {}
             end
             def self.field_remappings
               @field_remappings = {}
             end
           end
           class CardTransaction < ::Stripe::StripeObject
-            class Amount < ::Stripe::StripeObject
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
             # Amount associated with this issuing transaction.
-            sig { returns(Amount) }
+            sig { returns(::Stripe::V2::Amount) }
             def amount; end
             # The reference to the v1 issuing transaction ID.
             sig { returns(String) }
             def issuing_transaction_v1; end
             def self.inner_class_types
-              @inner_class_types = {amount: Amount}
+              @inner_class_types = {}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -220,7 +164,7 @@ module Stripe
           end
         end
         # Amount and currency of the ReceivedDebit.
-        sig { returns(Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # The time at which the ReceivedDebit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
@@ -230,7 +174,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def description; end
         # The amount and currency of the original/external debit request.
-        sig { returns(T.nilable(ExternalAmount)) }
+        sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def external_amount; end
         # Financial Account on which funds for ReceivedDebit were debited.
         sig { returns(String) }

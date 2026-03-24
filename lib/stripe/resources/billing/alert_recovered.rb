@@ -35,6 +35,10 @@ module Stripe
       def self.field_remappings
         @field_remappings = {}
       end
+
+      def self.field_encodings
+        @field_encodings = { value: :decimal_string }
+      end
     end
   end
 end

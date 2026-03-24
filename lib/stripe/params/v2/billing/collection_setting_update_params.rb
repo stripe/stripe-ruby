@@ -69,6 +69,10 @@ module Stripe
                 @amount_type = amount_type
                 @description = description
               end
+
+              def self.field_encodings
+                @field_encodings = { amount: :int64_string }
+              end
             end
             # Configuration options for setting up an eMandate for cards issued in India.
             attr_accessor :mandate_options
@@ -84,6 +88,10 @@ module Stripe
               @mandate_options = mandate_options
               @network = network
               @request_three_d_secure = request_three_d_secure
+            end
+
+            def self.field_encodings
+              @field_encodings = { mandate_options: { kind: :object, fields: { amount: :int64_string } } }
             end
           end
 
@@ -183,6 +191,15 @@ module Stripe
             @sepa_debit = sepa_debit
             @us_bank_account = us_bank_account
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              card: {
+                kind: :object,
+                fields: { mandate_options: { kind: :object, fields: { amount: :int64_string } } },
+              },
+            }
+          end
         end
         # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
         # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
@@ -222,6 +239,20 @@ module Stripe
           @lookup_key = lookup_key
           @payment_method_configuration = payment_method_configuration
           @payment_method_options = payment_method_options
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            payment_method_options: {
+              kind: :object,
+              fields: {
+                card: {
+                  kind: :object,
+                  fields: { mandate_options: { kind: :object, fields: { amount: :int64_string } } },
+                },
+              },
+            },
+          }
         end
       end
     end

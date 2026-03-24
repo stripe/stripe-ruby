@@ -380,17 +380,6 @@ module Stripe
             end
 
             class AnnualRevenue < ::Stripe::RequestParams
-              class Amount < ::Stripe::RequestParams
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_accessor :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_accessor :currency
-
-                def initialize(value: nil, currency: nil)
-                  @value = value
-                  @currency = currency
-                end
-              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -595,17 +584,6 @@ module Stripe
             end
 
             class MonthlyEstimatedRevenue < ::Stripe::RequestParams
-              class Amount < ::Stripe::RequestParams
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_accessor :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_accessor :currency
-
-                def initialize(value: nil, currency: nil)
-                  @value = value
-                  @currency = currency
-                end
-              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
 
@@ -1049,6 +1027,10 @@ module Stripe
                 @percent_ownership = percent_ownership
                 @title = title
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_ownership: :decimal_string }
+              end
             end
 
             class ScriptAddresses < ::Stripe::RequestParams
@@ -1238,6 +1220,12 @@ module Stripe
               @script_names = script_names
               @surname = surname
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_accessor :attestations
@@ -1259,6 +1247,17 @@ module Stripe
             @entity_type = entity_type
             @individual = individual
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                },
+              },
+            }
+          end
         end
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         attr_accessor :contact_email
@@ -1274,6 +1273,22 @@ module Stripe
           @contact_phone = contact_phone
           @display_name = display_name
           @identity = identity
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

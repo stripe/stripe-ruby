@@ -13,7 +13,7 @@ module Stripe
             def id; end
             sig { params(_id: String).returns(String) }
             def id=(_id); end
-            # The version of the LicenseFee. Defaults to 'latest', if not specified.
+            # The ID of the License Fee Version. If not specified, defaults to 'latest'.
             sig { returns(T.nilable(String)) }
             def version; end
             sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
@@ -27,7 +27,7 @@ module Stripe
             def id; end
             sig { params(_id: String).returns(String) }
             def id=(_id); end
-            # The version of the RateCard. Defaults to 'latest', if not specified.
+            # The ID of the Rate Card Version. If not specified, defaults to 'latest'.
             sig { returns(T.nilable(String)) }
             def version; end
             sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }

@@ -136,7 +136,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def unit_amount; end
     # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(BigDecimal)) }
     def unit_amount_decimal; end
   end
 end

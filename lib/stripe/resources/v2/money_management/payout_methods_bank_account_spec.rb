@@ -27,6 +27,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The currencies supported by the corresponding credentials for bank accounts in the specified country.
+            attr_reader :currencies
             # The local name of the field.
             attr_reader :local_name
             # The human readable local name of the field.

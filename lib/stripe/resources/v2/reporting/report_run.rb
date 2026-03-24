@@ -43,6 +43,10 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = { size: :int64_string }
+            end
           end
           # Contains metadata about the file produced by the `ReportRun`, including
           # its content type, size, and a URL to download its contents.
@@ -56,6 +60,10 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = { file: { kind: :object, fields: { size: :int64_string } } }
           end
         end
 
@@ -121,6 +129,12 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            result: { kind: :object, fields: { file: { kind: :object, fields: { size: :int64_string } } } },
+          }
         end
       end
     end

@@ -7,6 +7,10 @@ module Stripe
       class ServiceActionService < StripeService
         # Create a Service Action object.
         def create(params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = V2::Billing::ServiceActionCreateParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: "/v2/billing/service_actions",

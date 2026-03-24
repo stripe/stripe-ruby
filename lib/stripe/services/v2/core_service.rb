@@ -4,13 +4,15 @@
 module Stripe
   module V2
     class CoreService < StripeService
-      attr_reader :accounts, :account_links, :account_tokens, :claimable_sandboxes, :connection_sessions, :events, :event_destinations, :vault
+      attr_reader :accounts, :account_evaluations, :account_links, :account_tokens, :batch_jobs, :claimable_sandboxes, :connection_sessions, :events, :event_destinations, :vault
 
       def initialize(requestor)
         super
         @accounts = Stripe::V2::Core::AccountService.new(@requestor)
+        @account_evaluations = Stripe::V2::Core::AccountEvaluationService.new(@requestor)
         @account_links = Stripe::V2::Core::AccountLinkService.new(@requestor)
         @account_tokens = Stripe::V2::Core::AccountTokenService.new(@requestor)
+        @batch_jobs = Stripe::V2::Core::BatchJobService.new(@requestor)
         @claimable_sandboxes = Stripe::V2::Core::ClaimableSandboxService.new(@requestor)
         @connection_sessions = Stripe::V2::Core::ConnectionSessionService.new(@requestor)
         @events = Stripe::V2::Core::EventService.new(@requestor)

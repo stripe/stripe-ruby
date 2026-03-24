@@ -33,13 +33,13 @@ module Stripe
         sig { returns(T.nilable(Integer)) }
         def flat_amount; end
         # Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def flat_amount_decimal; end
         # Per unit price for units relevant to the tier.
         sig { returns(T.nilable(Integer)) }
         def unit_amount; end
         # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def unit_amount_decimal; end
         # Up to and including to this quantity will be contained in the tier.
         sig { returns(T.nilable(Integer)) }
@@ -49,6 +49,12 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            flat_amount_decimal: :decimal_string,
+            unit_amount_decimal: :decimal_string,
+          }
         end
       end
       # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
@@ -64,13 +70,25 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def unit_amount; end
       # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
       def self.inner_class_types
         @inner_class_types = {custom_unit_amount: CustomUnitAmount, tiers: Tier}
       end
       def self.field_remappings
         @field_remappings = {}
+      end
+      def self.field_encodings
+        @field_encodings = {
+          tiers: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: {flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string},
+            },
+          },
+          unit_amount_decimal: :decimal_string,
+        }
       end
     end
     class CustomUnitAmount < ::Stripe::StripeObject
@@ -135,13 +153,13 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
       # Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def flat_amount_decimal; end
       # Per unit price for units relevant to the tier.
       sig { returns(T.nilable(Integer)) }
       def unit_amount; end
       # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
       # Up to and including to this quantity will be contained in the tier.
       sig { returns(T.nilable(Integer)) }
@@ -151,6 +169,12 @@ module Stripe
       end
       def self.field_remappings
         @field_remappings = {}
+      end
+      def self.field_encodings
+        @field_encodings = {
+          flat_amount_decimal: :decimal_string,
+          unit_amount_decimal: :decimal_string,
+        }
       end
     end
     class TransformQuantity < ::Stripe::StripeObject
@@ -234,7 +258,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def unit_amount; end
     # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(BigDecimal)) }
     def unit_amount_decimal; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }

@@ -18,7 +18,7 @@ module Stripe
         end
         # Optionally filter by a BillingCadence. Mutually exclusive with `payers`, `rate_card`, and `rate_card_version`.
         attr_accessor :billing_cadence
-        # The page size limit, if not provided the default is 20.
+        # The page size limit. Defaults to 20.
         attr_accessor :limit
         # Optionally filter by the payer associated with Billing Cadences which the Rate Card Subscriptions are subscribed to.
         # Mutually exclusive with `billing_cadence`, `rate_card`, and `rate_card_version`.

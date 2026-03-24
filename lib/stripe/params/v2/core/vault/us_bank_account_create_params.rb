@@ -10,6 +10,8 @@ module Stripe
           attr_accessor :account_number
           # Closed Enum. The type of the bank account (checking or savings).
           attr_accessor :bank_account_type
+          # The currency of the bank account.
+          attr_accessor :currency
           # The fedwire routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
           attr_accessor :fedwire_routing_number
           # The ACH routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
@@ -18,11 +20,13 @@ module Stripe
           def initialize(
             account_number: nil,
             bank_account_type: nil,
+            currency: nil,
             fedwire_routing_number: nil,
             routing_number: nil
           )
             @account_number = account_number
             @bank_account_type = bank_account_type
+            @currency = currency
             @fedwire_routing_number = fedwire_routing_number
             @routing_number = routing_number
           end

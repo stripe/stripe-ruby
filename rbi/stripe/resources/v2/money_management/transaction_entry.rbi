@@ -8,63 +8,17 @@ module Stripe
       # TransactionEntries represent individual money movements across different states within a Transaction.
       class TransactionEntry < APIResource
         class BalanceImpact < ::Stripe::StripeObject
-          class Available < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class InboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class OutboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # Impact to the available balance.
-          sig { returns(Available) }
+          sig { returns(::Stripe::V2::Amount) }
           def available; end
           # Impact to the inbound_pending balance.
-          sig { returns(InboundPending) }
+          sig { returns(::Stripe::V2::Amount) }
           def inbound_pending; end
           # Impact to the outbound_pending balance.
-          sig { returns(OutboundPending) }
+          sig { returns(::Stripe::V2::Amount) }
           def outbound_pending; end
           def self.inner_class_types
-            @inner_class_types = {
-              available: Available,
-              inbound_pending: InboundPending,
-              outbound_pending: OutboundPending,
-            }
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -132,6 +86,30 @@ module Stripe
             # If applicable, the ID of the Transfer Reversal that created this Transaction.
             sig { returns(T.nilable(String)) }
             def transfer_reversal; end
+            # If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_credit_reversal; end
+            # If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_debit_reversal; end
+            # If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_inbound_transfer; end
+            # If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_issuing_authorization; end
+            # If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_outbound_payment; end
+            # If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_outbound_transfer; end
+            # If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_received_credit; end
+            # If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def treasury_received_debit; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -176,6 +154,9 @@ module Stripe
         # Details copied from the transaction that this TransactionEntry belongs to.
         sig { returns(TransactionDetails) }
         def transaction_details; end
+        # The v1 Treasury transaction entry associated with this transaction entry.
+        sig { returns(T.nilable(String)) }
+        def treasury_transaction_entry; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end

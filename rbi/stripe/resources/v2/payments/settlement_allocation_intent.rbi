@@ -7,20 +7,6 @@ module Stripe
     module Payments
       # SettlementAllocationIntent resource.
       class SettlementAllocationIntent < APIResource
-        class Amount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          sig { returns(Integer) }
-          def value; end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class StatusDetails < ::Stripe::StripeObject
           class Errored < ::Stripe::StripeObject
             # Stripe doc link to debug the issue.
@@ -50,7 +36,7 @@ module Stripe
           end
         end
         # The amount and currency of the SettlementAllocationIntent.
-        sig { returns(Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Timestamp at which SettlementAllocationIntent was created .
         sig { returns(String) }

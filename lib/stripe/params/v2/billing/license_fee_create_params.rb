@@ -23,6 +23,10 @@ module Stripe
             @up_to_decimal = up_to_decimal
             @up_to_inf = up_to_inf
           end
+
+          def self.field_encodings
+            @field_encodings = { up_to_decimal: :decimal_string }
+          end
         end
 
         class TransformQuantity < ::Stripe::RequestParams
@@ -34,6 +38,10 @@ module Stripe
           def initialize(divide_by: nil, round: nil)
             @divide_by = divide_by
             @round = round
+          end
+
+          def self.field_encodings
+            @field_encodings = { divide_by: :int64_string }
           end
         end
         # Three-letter ISO currency code, in lowercase. Must be a supported currency.
@@ -96,6 +104,16 @@ module Stripe
           @tiers = tiers
           @transform_quantity = transform_quantity
           @unit_amount = unit_amount
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            tiers: {
+              kind: :array,
+              element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+            },
+            transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
+          }
         end
       end
     end

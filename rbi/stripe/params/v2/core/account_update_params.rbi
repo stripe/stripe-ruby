@@ -2748,10 +2748,21 @@ module Stripe
             params(_responsibilities: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Responsibilities)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Responsibilities))
            }
           def responsibilities=(_responsibilities); end
+          # The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+          sig { returns(T.nilable(String)) }
+          def timezone; end
+          sig { params(_timezone: T.nilable(String)).returns(T.nilable(String)) }
+          def timezone=(_timezone); end
           sig {
-            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Responsibilities)).void
+            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Responsibilities), timezone: T.nilable(String)).void
            }
-          def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil); end
+          def initialize(
+            currency: nil,
+            locales: nil,
+            profile: nil,
+            responsibilities: nil,
+            timezone: nil
+          ); end
         end
         class Identity < ::Stripe::RequestParams
           class Attestations < ::Stripe::RequestParams
@@ -4442,27 +4453,11 @@ module Stripe
               ); end
             end
             class AnnualRevenue < ::Stripe::RequestParams
-              class Amount < ::Stripe::RequestParams
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                sig { returns(Integer) }
-                def value; end
-                sig { params(_value: Integer).returns(Integer) }
-                def value=(_value); end
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                sig { returns(String) }
-                def currency; end
-                sig { params(_currency: String).returns(String) }
-                def currency=(_currency); end
-                sig { params(value: Integer, currency: String).void }
-                def initialize(value: nil, currency: nil); end
-              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig {
-                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
-               }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               sig {
-                params(_amount: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount))
+                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
                }
               def amount=(_amount); end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -4471,7 +4466,7 @@ module Stripe
               sig { params(_fiscal_year_end: T.nilable(String)).returns(T.nilable(String)) }
               def fiscal_year_end=(_fiscal_year_end); end
               sig {
-                params(amount: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue::Amount), fiscal_year_end: T.nilable(String)).void
+                params(amount: T.nilable(::Stripe::V2::Amount), fiscal_year_end: T.nilable(String)).void
                }
               def initialize(amount: nil, fiscal_year_end: nil); end
             end
@@ -4764,32 +4759,14 @@ module Stripe
               def initialize(registrar: nil, type: nil, value: nil); end
             end
             class MonthlyEstimatedRevenue < ::Stripe::RequestParams
-              class Amount < ::Stripe::RequestParams
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                sig { returns(Integer) }
-                def value; end
-                sig { params(_value: Integer).returns(Integer) }
-                def value=(_value); end
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                sig { returns(String) }
-                def currency; end
-                sig { params(_currency: String).returns(String) }
-                def currency=(_currency); end
-                sig { params(value: Integer, currency: String).void }
-                def initialize(value: nil, currency: nil); end
-              end
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig {
-                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
-               }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               sig {
-                params(_amount: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount))
+                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
                }
               def amount=(_amount); end
-              sig {
-                params(amount: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue::Amount)).void
-               }
+              sig { params(amount: T.nilable(::Stripe::V2::Amount)).void }
               def initialize(amount: nil); end
             end
             class RegistrationDate < ::Stripe::RequestParams
@@ -5441,9 +5418,11 @@ module Stripe
               sig { params(_owner: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
               def owner=(_owner); end
               # The percent owned by the person of the account's legal entity.
-              sig { returns(T.nilable(String)) }
+              sig { returns(T.nilable(BigDecimal)) }
               def percent_ownership; end
-              sig { params(_percent_ownership: T.nilable(String)).returns(T.nilable(String)) }
+              sig {
+                params(_percent_ownership: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+               }
               def percent_ownership=(_percent_ownership); end
               # The person's title (e.g., CEO, Support Engineer).
               sig { returns(T.nilable(String)) }
@@ -5451,7 +5430,7 @@ module Stripe
               sig { params(_title: T.nilable(String)).returns(T.nilable(String)) }
               def title=(_title); end
               sig {
-                params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(String), title: T.nilable(String)).void
+                params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(BigDecimal), title: T.nilable(String)).void
                }
               def initialize(
                 director: nil,
@@ -5460,6 +5439,9 @@ module Stripe
                 percent_ownership: nil,
                 title: nil
               ); end
+              def self.field_encodings
+                @field_encodings = {percent_ownership: :decimal_string}
+              end
             end
             class ScriptAddresses < ::Stripe::RequestParams
               class Kana < ::Stripe::RequestParams
@@ -5782,6 +5764,11 @@ module Stripe
               script_names: nil,
               surname: nil
             ); end
+            def self.field_encodings
+              @field_encodings = {
+                relationship: {kind: :object, fields: {percent_ownership: :decimal_string}},
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           sig {
@@ -5828,6 +5815,16 @@ module Stripe
             entity_type: nil,
             individual: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: {kind: :object, fields: {percent_ownership: :decimal_string}},
+                },
+              },
+            }
+          end
         end
         # The account token generated by the account token api.
         sig { returns(T.nilable(String)) }
@@ -5902,6 +5899,21 @@ module Stripe
           include: nil,
           metadata: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: {kind: :object, fields: {percent_ownership: :decimal_string}},
+                  },
+                },
+              },
+            },
+          }
+        end
       end
     end
   end

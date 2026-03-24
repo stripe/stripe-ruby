@@ -5,6 +5,8 @@ module Stripe
   class OrderService < StripeService
     # Creates a new open order object.
     def create(params = {}, opts = {})
+      params = OrderCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(method: :post, path: "/v1/orders", params: params, opts: opts, base_address: :api)
     end
 
@@ -37,6 +39,8 @@ module Stripe
 
     # Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     def update(id, params = {}, opts = {})
+      params = OrderUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/orders/%<id>s", { id: CGI.escape(id) }),

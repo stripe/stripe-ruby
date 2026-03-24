@@ -3490,6 +3490,8 @@ module Stripe
           attr_reader :profile
           # Default responsibilities held by either Stripe or the platform.
           attr_reader :responsibilities
+          # The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+          attr_reader :timezone
 
           def self.inner_class_types
             @inner_class_types = { profile: Profile, responsibilities: Responsibilities }
@@ -4859,27 +4861,13 @@ module Stripe
             end
 
             class AnnualRevenue < ::Stripe::StripeObject
-              class Amount < ::Stripe::StripeObject
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_reader :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_reader :currency
-
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
               # Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
               attr_reader :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               attr_reader :fiscal_year_end
 
               def self.inner_class_types
-                @inner_class_types = { amount: Amount }
+                @inner_class_types = {}
               end
 
               def self.field_remappings
@@ -5108,25 +5096,11 @@ module Stripe
             end
 
             class MonthlyEstimatedRevenue < ::Stripe::StripeObject
-              class Amount < ::Stripe::StripeObject
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_reader :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_reader :currency
-
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
               # Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
               attr_reader :amount
 
               def self.inner_class_types
-                @inner_class_types = { amount: Amount }
+                @inner_class_types = {}
               end
 
               def self.field_remappings
@@ -5584,6 +5558,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_ownership: :decimal_string }
+              end
             end
 
             class ScriptAddresses < ::Stripe::StripeObject
@@ -5758,6 +5736,12 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_reader :attestations
@@ -5780,6 +5764,17 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                },
+              },
+            }
           end
         end
 
@@ -5998,6 +5993,22 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

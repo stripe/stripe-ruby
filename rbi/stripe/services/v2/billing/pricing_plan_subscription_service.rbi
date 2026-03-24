@@ -6,12 +6,17 @@ module Stripe
   module V2
     module Billing
       class PricingPlanSubscriptionService < StripeService
-        attr_reader :components
         # List all Pricing Plan Subscription objects.
         sig {
           params(params: T.any(::Stripe::V2::Billing::PricingPlanSubscriptionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
+
+        # Remove Discounts from a Pricing Plan Subscription.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Billing::PricingPlanSubscriptionRemoveDiscountsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::PricingPlanSubscription)
+         }
+        def remove_discounts(id, params = {}, opts = {}); end
 
         # Retrieve a Pricing Plan Subscription object.
         sig {

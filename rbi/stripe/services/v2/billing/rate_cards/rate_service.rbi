@@ -20,7 +20,7 @@ module Stripe
            }
           def delete(rate_card_id, id, params = {}, opts = {}); end
 
-          # List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
+          # List all Rates associated with a Rate Card for a specific version. Defaults to latest. Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
           sig {
             params(rate_card_id: String, params: T.any(::Stripe::V2::Billing::RateCards::RateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
            }

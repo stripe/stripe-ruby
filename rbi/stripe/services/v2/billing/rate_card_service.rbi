@@ -21,6 +21,12 @@ module Stripe
          }
         def list(params = {}, opts = {}); end
 
+        # Creates, updates, and/or deletes multiple Rates on a Rate Card atomically.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Billing::RateCardModifyRatesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::RateCardVersion)
+         }
+        def modify_rates(id, params = {}, opts = {}); end
+
         # Retrieve the latest version of a Rate Card object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::RateCardRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::RateCard)

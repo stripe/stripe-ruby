@@ -5,19 +5,22 @@ module Stripe
   module V2
     module Billing
       class PricingPlanSubscriptionService < StripeService
-        attr_reader :components
-
-        def initialize(requestor)
-          super
-          @components = Stripe::V2::Billing::PricingPlanSubscriptions::ComponentService
-                        .new(@requestor)
-        end
-
         # List all Pricing Plan Subscription objects.
         def list(params = {}, opts = {})
           request(
             method: :get,
             path: "/v2/billing/pricing_plan_subscriptions",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Remove Discounts from a Pricing Plan Subscription.
+        def remove_discounts(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/billing/pricing_plan_subscriptions/%<id>s/remove_discounts", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

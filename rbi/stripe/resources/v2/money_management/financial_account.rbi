@@ -22,63 +22,17 @@ module Stripe
           end
         end
         class Balance < ::Stripe::StripeObject
-          class Available < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class InboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class OutboundPending < ::Stripe::StripeObject
-            # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            sig { returns(Integer) }
-            def value; end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # Balance that can be used for money movement.
-          sig { returns(T::Hash[String, Available]) }
+          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def available; end
           # Balance of inbound funds that will later transition to the `available` balance.
-          sig { returns(T::Hash[String, InboundPending]) }
+          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def inbound_pending; end
           # Balance of funds that are being used for a pending outbound money movement.
-          sig { returns(T::Hash[String, OutboundPending]) }
+          sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def outbound_pending; end
           def self.inner_class_types
-            @inner_class_types = {
-              available: Available,
-              inbound_pending: InboundPending,
-              outbound_pending: OutboundPending,
-            }
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -107,14 +61,17 @@ module Stripe
           end
         end
         class Payments < ::Stripe::StripeObject
-          class StartingBalance < ::Stripe::StripeObject
-            class Available < ::Stripe::StripeObject
-              # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-              sig { returns(Integer) }
-              def value; end
-              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-              sig { returns(String) }
-              def currency; end
+          class BalanceByFundsType < ::Stripe::StripeObject
+            class PaymentProcessing < ::Stripe::StripeObject
+              # Balance that can be used for money movement.
+              sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+              def available; end
+              # Balance of inbound funds that will later transition to the `available` balance.
+              sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+              def inbound_pending; end
+              # Balance of funds that are being used for a pending outbound money movement.
+              sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+              def outbound_pending; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -122,19 +79,57 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # When the balance was projected.
-            sig { returns(String) }
-            def at; end
-            # The available balance at the time when the balance was projected.
-            sig { returns(T::Hash[String, Available]) }
-            def available; end
+            class StoredValue < ::Stripe::StripeObject
+              # Balance that can be used for money movement.
+              sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+              def available; end
+              # Balance of inbound funds that will later transition to the `available` balance.
+              sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+              def inbound_pending; end
+              # Balance of funds that are being used for a pending outbound money movement.
+              sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+              def outbound_pending; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Payment processing funds are those that are received for goods or services and may only be used for payouts to self. These funds may be converted to stored value funds.
+            sig { returns(PaymentProcessing) }
+            def payment_processing; end
+            # Stored value funds may be used for either payouts to self or payments to others.
+            sig { returns(StoredValue) }
+            def stored_value; end
             def self.inner_class_types
-              @inner_class_types = {available: Available}
+              @inner_class_types = {
+                payment_processing: PaymentProcessing,
+                stored_value: StoredValue,
+              }
             end
             def self.field_remappings
               @field_remappings = {}
             end
           end
+          class StartingBalance < ::Stripe::StripeObject
+            # When the balance was projected.
+            sig { returns(String) }
+            def at; end
+            # The available balance at the time when the balance was projected.
+            sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
+            def available; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The balance of the `payments` FinancialAccount is a mix of payment processing and stored value funds, and this field
+          # describes the breakdown between the two. The sum will match the balance of the FinancialAccount.
+          sig { returns(T.nilable(BalanceByFundsType)) }
+          def balance_by_funds_type; end
           # The currency that non-settlement currency payments will be converted to.
           sig { returns(String) }
           def default_currency; end
@@ -145,7 +140,10 @@ module Stripe
           sig { returns(T.nilable(StartingBalance)) }
           def starting_balance; end
           def self.inner_class_types
-            @inner_class_types = {starting_balance: StartingBalance}
+            @inner_class_types = {
+              balance_by_funds_type: BalanceByFundsType,
+              starting_balance: StartingBalance,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
@@ -167,10 +165,10 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Attribute for field forwarding_settings
+            # The forwarding settings for the closed FinancialAccount.
             sig { returns(T.nilable(ForwardingSettings)) }
             def forwarding_settings; end
-            # Attribute for field reason
+            # The reason the FinancialAccount was closed.
             sig { returns(String) }
             def reason; end
             def self.inner_class_types
@@ -180,7 +178,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field closed
+          # Details related to the closed state of the FinancialAccount.
           sig { returns(T.nilable(Closed)) }
           def closed; end
           def self.inner_class_types
@@ -241,7 +239,7 @@ module Stripe
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         sig { returns(String) }
         def status; end
-        # Attribute for field status_details
+        # Additional details related to the status of the FinancialAccount.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.

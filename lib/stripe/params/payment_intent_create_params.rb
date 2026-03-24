@@ -5251,8 +5251,6 @@ module Stripe
         attr_accessor :transaction_purpose
         # Bank account verification method.
         attr_accessor :verification_method
-        # Preferred transaction settlement speed
-        attr_accessor :preferred_settlement_speed
 
         def initialize(
           financial_connections: nil,
@@ -5261,8 +5259,7 @@ module Stripe
           setup_future_usage: nil,
           target_date: nil,
           transaction_purpose: nil,
-          verification_method: nil,
-          preferred_settlement_speed: nil
+          verification_method: nil
         )
           @financial_connections = financial_connections
           @mandate_options = mandate_options
@@ -5271,7 +5268,6 @@ module Stripe
           @target_date = target_date
           @transaction_purpose = transaction_purpose
           @verification_method = verification_method
-          @preferred_settlement_speed = preferred_settlement_speed
         end
       end
 

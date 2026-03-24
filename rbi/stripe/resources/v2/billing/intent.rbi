@@ -10,9 +10,15 @@ module Stripe
       # previewed before committing, allowing you to see the billing impact before changes take effect.
       class Intent < APIResource
         class AmountDetails < ::Stripe::StripeObject
+          # The outstanding amount after discount, tax, and customer balance application.
+          sig { returns(String) }
+          def amount_due; end
           # Three-letter ISO currency code, in lowercase. Must be a supported currency.
           sig { returns(String) }
           def currency; end
+          # The customer's account balance applied to the amount.
+          sig { returns(String) }
+          def customer_balance_applied; end
           # Amount of discount applied.
           sig { returns(String) }
           def discount; end
@@ -35,6 +41,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class InvoiceResources < ::Stripe::StripeObject
+          # ID of a preview invoice showing the breakdown of line items. Null if the billing intent will not create an invoice. Only present when "invoice_resources.preview_invoice" is included.
+          sig { returns(T.nilable(String)) }
+          def preview_invoice; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class StatusTransitions < ::Stripe::StripeObject
           # Time at which the Billing Intent was canceled.
           sig { returns(T.nilable(String)) }
@@ -45,6 +62,9 @@ module Stripe
           # Time at which the Billing Intent was drafted.
           sig { returns(T.nilable(String)) }
           def drafted_at; end
+          # Time at which the Billing Intent will expire.
+          sig { returns(String) }
+          def expires_at; end
           # Time at which the Billing Intent was reserved.
           sig { returns(T.nilable(String)) }
           def reserved_at; end
@@ -330,6 +350,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Invoice resources associated with this Billing Intent. Populated when include parameters are specified.
+        sig { returns(T.nilable(InvoiceResources)) }
+        def invoice_resources; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end

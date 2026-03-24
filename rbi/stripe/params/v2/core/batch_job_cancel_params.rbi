@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module V2
-    module Billing
-      class LicenseFeeSubscriptionRetrieveParams < ::Stripe::RequestParams; end
+    module Core
+      class BatchJobCancelParams < ::Stripe::RequestParams; end
     end
   end
 end

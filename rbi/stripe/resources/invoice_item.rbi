@@ -192,7 +192,7 @@ module Stripe
       sig { returns(String) }
       def type; end
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
       def self.inner_class_types
         @inner_class_types = {
@@ -204,6 +204,9 @@ module Stripe
       end
       def self.field_remappings
         @field_remappings = {}
+      end
+      def self.field_encodings
+        @field_encodings = {unit_amount_decimal: :decimal_string}
       end
     end
     class ProrationDetails < ::Stripe::StripeObject

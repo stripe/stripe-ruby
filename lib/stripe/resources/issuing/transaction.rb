@@ -117,6 +117,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { gross_amount_decimal: :decimal_string }
+              end
             end
 
             class NonFuel < ::Stripe::StripeObject
@@ -129,6 +133,10 @@ module Stripe
 
               def self.field_remappings
                 @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { gross_amount_decimal: :decimal_string }
               end
             end
 
@@ -145,6 +153,13 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = {
+                  local_amount_decimal: :decimal_string,
+                  national_amount_decimal: :decimal_string,
+                }
+              end
             end
             # Breakdown of fuel portion of the purchase.
             attr_reader :fuel
@@ -159,6 +174,20 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                tax: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: :decimal_string,
+                    national_amount_decimal: :decimal_string,
+                  },
+                },
+              }
             end
           end
           # Answers to prompts presented to cardholder at point of sale.
@@ -179,6 +208,25 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              reported_breakdown: {
+                kind: :object,
+                fields: {
+                  fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  tax: {
+                    kind: :object,
+                    fields: {
+                      local_amount_decimal: :decimal_string,
+                      national_amount_decimal: :decimal_string,
+                    },
+                  },
+                },
+              },
+            }
           end
         end
 
@@ -244,6 +292,13 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              quantity_decimal: :decimal_string,
+              unit_cost_decimal: :decimal_string,
+            }
+          end
         end
 
         class Lodging < ::Stripe::StripeObject
@@ -304,6 +359,34 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            fleet: {
+              kind: :object,
+              fields: {
+                reported_breakdown: {
+                  kind: :object,
+                  fields: {
+                    fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                    non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                    tax: {
+                      kind: :object,
+                      fields: {
+                        local_amount_decimal: :decimal_string,
+                        national_amount_decimal: :decimal_string,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            fuel: {
+              kind: :object,
+              fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+            },
+          }
         end
       end
 
@@ -451,6 +534,39 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          purchase_details: {
+            kind: :object,
+            fields: {
+              fleet: {
+                kind: :object,
+                fields: {
+                  reported_breakdown: {
+                    kind: :object,
+                    fields: {
+                      fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                      non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                      tax: {
+                        kind: :object,
+                        fields: {
+                          local_amount_decimal: :decimal_string,
+                          national_amount_decimal: :decimal_string,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              fuel: {
+                kind: :object,
+                fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+              },
+            },
+          },
+        }
       end
     end
   end

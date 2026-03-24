@@ -5,6 +5,8 @@ module Stripe
     def self.v2_event_types_to_classes
       {
         # v2 event types: The beginning of the section generated from our OpenAPI spec
+        Events::V1AccountSignalsIncludingDelinquencyCreatedEvent.lookup_type =>
+        Events::V1AccountSignalsIncludingDelinquencyCreatedEvent,
         Events::V1BillingMeterErrorReportTriggeredEvent.lookup_type =>
         Events::V1BillingMeterErrorReportTriggeredEvent,
         Events::V1BillingMeterNoMeterFoundEvent.lookup_type => Events::V1BillingMeterNoMeterFoundEvent,
@@ -104,7 +106,20 @@ module Stripe
         Events::V2CoreAccountPersonCreatedEvent.lookup_type => Events::V2CoreAccountPersonCreatedEvent,
         Events::V2CoreAccountPersonDeletedEvent.lookup_type => Events::V2CoreAccountPersonDeletedEvent,
         Events::V2CoreAccountPersonUpdatedEvent.lookup_type => Events::V2CoreAccountPersonUpdatedEvent,
+        Events::V2CoreAccountSignalsFraudulentWebsiteReadyEvent.lookup_type =>
+        Events::V2CoreAccountSignalsFraudulentWebsiteReadyEvent,
         Events::V2CoreAccountUpdatedEvent.lookup_type => Events::V2CoreAccountUpdatedEvent,
+        Events::V2CoreBatchJobBatchFailedEvent.lookup_type => Events::V2CoreBatchJobBatchFailedEvent,
+        Events::V2CoreBatchJobCanceledEvent.lookup_type => Events::V2CoreBatchJobCanceledEvent,
+        Events::V2CoreBatchJobCompletedEvent.lookup_type => Events::V2CoreBatchJobCompletedEvent,
+        Events::V2CoreBatchJobCreatedEvent.lookup_type => Events::V2CoreBatchJobCreatedEvent,
+        Events::V2CoreBatchJobReadyForUploadEvent.lookup_type => Events::V2CoreBatchJobReadyForUploadEvent,
+        Events::V2CoreBatchJobTimeoutEvent.lookup_type => Events::V2CoreBatchJobTimeoutEvent,
+        Events::V2CoreBatchJobUpdatedEvent.lookup_type => Events::V2CoreBatchJobUpdatedEvent,
+        Events::V2CoreBatchJobUploadTimeoutEvent.lookup_type => Events::V2CoreBatchJobUploadTimeoutEvent,
+        Events::V2CoreBatchJobValidatingEvent.lookup_type => Events::V2CoreBatchJobValidatingEvent,
+        Events::V2CoreBatchJobValidationFailedEvent.lookup_type =>
+        Events::V2CoreBatchJobValidationFailedEvent,
         Events::V2CoreClaimableSandboxClaimedEvent.lookup_type =>
         Events::V2CoreClaimableSandboxClaimedEvent,
         Events::V2CoreClaimableSandboxCreatedEvent.lookup_type =>
@@ -293,6 +308,8 @@ module Stripe
         Events::V2ReportingReportRunSucceededEvent.lookup_type =>
         Events::V2ReportingReportRunSucceededEvent,
         Events::V2ReportingReportRunUpdatedEvent.lookup_type => Events::V2ReportingReportRunUpdatedEvent,
+        Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent.lookup_type =>
+        Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -300,6 +317,8 @@ module Stripe
     def self.event_notification_types_to_classes
       {
         # event notification types: The beginning of the section generated from our OpenAPI spec
+        Events::V1AccountSignalsIncludingDelinquencyCreatedEventNotification.lookup_type =>
+        Events::V1AccountSignalsIncludingDelinquencyCreatedEventNotification,
         Events::V1BillingMeterErrorReportTriggeredEventNotification.lookup_type =>
         Events::V1BillingMeterErrorReportTriggeredEventNotification,
         Events::V1BillingMeterNoMeterFoundEventNotification.lookup_type =>
@@ -420,8 +439,30 @@ module Stripe
         Events::V2CoreAccountPersonDeletedEventNotification,
         Events::V2CoreAccountPersonUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountPersonUpdatedEventNotification,
+        Events::V2CoreAccountSignalsFraudulentWebsiteReadyEventNotification.lookup_type =>
+        Events::V2CoreAccountSignalsFraudulentWebsiteReadyEventNotification,
         Events::V2CoreAccountUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountUpdatedEventNotification,
+        Events::V2CoreBatchJobBatchFailedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobBatchFailedEventNotification,
+        Events::V2CoreBatchJobCanceledEventNotification.lookup_type =>
+        Events::V2CoreBatchJobCanceledEventNotification,
+        Events::V2CoreBatchJobCompletedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobCompletedEventNotification,
+        Events::V2CoreBatchJobCreatedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobCreatedEventNotification,
+        Events::V2CoreBatchJobReadyForUploadEventNotification.lookup_type =>
+        Events::V2CoreBatchJobReadyForUploadEventNotification,
+        Events::V2CoreBatchJobTimeoutEventNotification.lookup_type =>
+        Events::V2CoreBatchJobTimeoutEventNotification,
+        Events::V2CoreBatchJobUpdatedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobUpdatedEventNotification,
+        Events::V2CoreBatchJobUploadTimeoutEventNotification.lookup_type =>
+        Events::V2CoreBatchJobUploadTimeoutEventNotification,
+        Events::V2CoreBatchJobValidatingEventNotification.lookup_type =>
+        Events::V2CoreBatchJobValidatingEventNotification,
+        Events::V2CoreBatchJobValidationFailedEventNotification.lookup_type =>
+        Events::V2CoreBatchJobValidationFailedEventNotification,
         Events::V2CoreClaimableSandboxClaimedEventNotification.lookup_type =>
         Events::V2CoreClaimableSandboxClaimedEventNotification,
         Events::V2CoreClaimableSandboxCreatedEventNotification.lookup_type =>
@@ -622,6 +663,8 @@ module Stripe
         Events::V2ReportingReportRunSucceededEventNotification,
         Events::V2ReportingReportRunUpdatedEventNotification.lookup_type =>
         Events::V2ReportingReportRunUpdatedEventNotification,
+        Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification.lookup_type =>
+        Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

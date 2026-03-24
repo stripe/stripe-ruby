@@ -13,7 +13,7 @@ module Stripe
           # The ID of the License Fee.
           sig { returns(String) }
           def id; end
-          # The version of the LicenseFee. Defaults to 'latest', if not specified.
+          # The ID of the License Fee Version. If not specified, defaults to 'latest'.
           sig { returns(T.nilable(String)) }
           def version; end
           def self.inner_class_types
@@ -27,7 +27,7 @@ module Stripe
           # The ID of the Rate Card.
           sig { returns(String) }
           def id; end
-          # The version of the RateCard. Defaults to 'latest', if not specified.
+          # The ID of the Rate Card Version. If not specified, defaults to 'latest'.
           sig { returns(T.nilable(String)) }
           def version; end
           def self.inner_class_types

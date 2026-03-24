@@ -9,6 +9,21 @@ module Stripe
       # pricing. Each License Fee defines the pricing structure (flat unit amount or tiered pricing) and service interval. After
       # creating a License Fee, you can subscribe customers to it by creating a License Fee Subscription.
       class LicenseFee < APIResource
+        class ServiceCycle < ::Stripe::StripeObject
+          # The interval for assessing service.
+          sig { returns(String) }
+          def interval; end
+          # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
+          # order to specify quarterly service.
+          sig { returns(Integer) }
+          def interval_count; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Tier < ::Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
           sig { returns(T.nilable(String)) }
@@ -19,7 +34,7 @@ module Stripe
           def unit_amount; end
           # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(BigDecimal)) }
           def up_to_decimal; end
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
           sig { returns(T.nilable(String)) }
@@ -29,6 +44,9 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {up_to_decimal: :decimal_string}
           end
         end
         class TransformQuantity < ::Stripe::StripeObject
@@ -43,6 +61,9 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {divide_by: :int64_string}
           end
         end
         # Whether this License Fee is active. Inactive License Fees cannot be used in new activations or be modified.
@@ -62,9 +83,6 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
-        # The ID of the license fee's most recently created version.
-        sig { returns(String) }
-        def latest_version; end
         # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
         # to specify the pricing and create subscriptions to these items.
         sig { returns(::Stripe::V2::Billing::LicensedItem) }
@@ -81,13 +99,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The interval for assessing service.
-        sig { returns(String) }
-        def service_interval; end
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-        # order to specify quarterly service.
-        sig { returns(Integer) }
-        def service_interval_count; end
+        # The service cycle configuration for this License Fee.
+        sig { returns(ServiceCycle) }
+        def service_cycle; end
         # The Stripe Tax tax behavior - whether the license fee is inclusive or exclusive of tax.
         sig { returns(String) }
         def tax_behavior; end

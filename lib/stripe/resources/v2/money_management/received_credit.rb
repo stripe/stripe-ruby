@@ -11,36 +11,6 @@ module Stripe
           "v2.money_management.received_credit"
         end
 
-        class Amount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          attr_reader :value
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
-        class ExternalAmount < ::Stripe::StripeObject
-          # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-          attr_reader :value
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class StatusDetails < ::Stripe::StripeObject
           class Failed < ::Stripe::StripeObject
             # Open Enum. The `failed` status reason.
@@ -305,8 +275,6 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
-            amount: Amount,
-            external_amount: ExternalAmount,
             status_details: StatusDetails,
             status_transitions: StatusTransitions,
             balance_transfer: BalanceTransfer,

@@ -10,7 +10,30 @@ module Stripe
       # define what change will be made when the Intent is committed.
       class IntentAction < APIResource
         class Apply < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
+            # The ID of the Coupon applied.
+            sig { returns(T.nilable(String)) }
+            def coupon; end
+            # The ID of the created Discount.
+            sig { returns(T.nilable(String)) }
+            def discount; end
+            # The ID of the PromotionCode applied.
+            sig { returns(T.nilable(String)) }
+            def promotion_code; end
+            # Type of the discount.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class EffectiveAt < ::Stripe::StripeObject
+            # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+            sig { returns(T.nilable(String)) }
+            def timestamp; end
             # When the apply action will take effect.
             sig { returns(String) }
             def type; end
@@ -38,13 +61,16 @@ module Stripe
               sig { returns(MaximumApplications) }
               def maximum_applications; end
               # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
-              sig { returns(String) }
+              sig { returns(BigDecimal) }
               def percent_off; end
               def self.inner_class_types
                 @inner_class_types = {maximum_applications: MaximumApplications}
               end
               def self.field_remappings
                 @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {percent_off: :decimal_string}
               end
             end
             # The entity that the discount rule applies to, for example, the Billing Cadence.
@@ -64,6 +90,11 @@ module Stripe
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+              }
             end
           end
           class SpendModifierRule < ::Stripe::StripeObject
@@ -107,7 +138,7 @@ module Stripe
               # The maximum amount allowed for the billing period.
               sig { returns(Amount) }
               def amount; end
-              # The configration for the overage rate for the custom pricing unit.
+              # The configuration for the overage rate for the custom pricing unit.
               sig { returns(CustomPricingUnitOverageRate) }
               def custom_pricing_unit_overage_rate; end
               def self.inner_class_types
@@ -139,12 +170,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the apply action will take effect. Defaults to on_reserve if not specified.
+          # When the apply action will take effect. If not specified, defaults to on_reserve.
           sig { returns(T.nilable(EffectiveAt)) }
           def effective_at; end
           # Type of the apply action details.
           sig { returns(String) }
           def type; end
+          # Details for applying a discount.
+          sig { returns(T.nilable(Discount)) }
+          def discount; end
           # Details for applying a discount rule to future invoices.
           sig { returns(T.nilable(InvoiceDiscountRule)) }
           def invoice_discount_rule; end
@@ -154,12 +188,21 @@ module Stripe
           def self.inner_class_types
             @inner_class_types = {
               effective_at: EffectiveAt,
+              discount: Discount,
               invoice_discount_rule: InvoiceDiscountRule,
               spend_modifier_rule: SpendModifierRule,
             }
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              invoice_discount_rule: {
+                kind: :object,
+                fields: {percent_off: {kind: :object, fields: {percent_off: :decimal_string}}},
+              },
+            }
           end
         end
         class Deactivate < ::Stripe::StripeObject
@@ -398,7 +441,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the remove action will take effect. Defaults to on_reserve if not specified.
+          # When the remove action will take effect. If not specified, defaults to on_reserve.
           sig { returns(T.nilable(EffectiveAt)) }
           def effective_at; end
           # Type of the remove action.
@@ -522,7 +565,7 @@ module Stripe
               # The ID of the price object.
               sig { returns(String) }
               def price; end
-              # Quantity for this item. If not provided, will default to 1.
+              # Quantity for this item. If not provided, defaults to 1.
               sig { returns(T.nilable(Integer)) }
               def quantity; end
               def self.inner_class_types

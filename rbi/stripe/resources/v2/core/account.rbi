@@ -3491,6 +3491,9 @@ module Stripe
           # Default responsibilities held by either Stripe or the platform.
           sig { returns(Responsibilities) }
           def responsibilities; end
+          # The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+          sig { returns(T.nilable(String)) }
+          def timezone; end
           def self.inner_class_types
             @inner_class_types = {profile: Profile, responsibilities: Responsibilities}
           end
@@ -4912,28 +4915,14 @@ module Stripe
               end
             end
             class AnnualRevenue < ::Stripe::StripeObject
-              class Amount < ::Stripe::StripeObject
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                sig { returns(Integer) }
-                def value; end
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                sig { returns(String) }
-                def currency; end
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
               # Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
-              sig { returns(T.nilable(Amount)) }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               sig { returns(T.nilable(String)) }
               def fiscal_year_end; end
               def self.inner_class_types
-                @inner_class_types = {amount: Amount}
+                @inner_class_types = {}
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -5157,25 +5146,11 @@ module Stripe
               end
             end
             class MonthlyEstimatedRevenue < ::Stripe::StripeObject
-              class Amount < ::Stripe::StripeObject
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                sig { returns(Integer) }
-                def value; end
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                sig { returns(String) }
-                def currency; end
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
               # Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
-              sig { returns(T.nilable(Amount)) }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               def self.inner_class_types
-                @inner_class_types = {amount: Amount}
+                @inner_class_types = {}
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -5643,7 +5618,7 @@ module Stripe
               sig { returns(T.nilable(T::Boolean)) }
               def owner; end
               # The percentage of the Account's identity that the individual owns.
-              sig { returns(T.nilable(String)) }
+              sig { returns(T.nilable(BigDecimal)) }
               def percent_ownership; end
               # Whether the individual is authorized as the primary representative of the Account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
               sig { returns(T.nilable(T::Boolean)) }
@@ -5656,6 +5631,9 @@ module Stripe
               end
               def self.field_remappings
                 @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {percent_ownership: :decimal_string}
               end
             end
             class ScriptAddresses < ::Stripe::StripeObject
@@ -5858,6 +5836,11 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+            def self.field_encodings
+              @field_encodings = {
+                relationship: {kind: :object, fields: {percent_ownership: :decimal_string}},
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           sig { returns(T.nilable(Attestations)) }
@@ -5883,6 +5866,16 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: {kind: :object, fields: {percent_ownership: :decimal_string}},
+                },
+              },
+            }
           end
         end
         class Requirements < ::Stripe::StripeObject

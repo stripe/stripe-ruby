@@ -144,12 +144,12 @@ module Stripe
         sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def unit_amount=(_unit_amount); end
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def unit_amount_decimal; end
-        sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+        sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
         def unit_amount_decimal=(_unit_amount_decimal); end
         sig {
-          params(currency: T.nilable(String), product: T.nilable(String), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(currency: T.nilable(String), product: T.nilable(String), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
          }
         def initialize(
           currency: nil,
@@ -158,6 +158,9 @@ module Stripe
           unit_amount: nil,
           unit_amount_decimal: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {unit_amount_decimal: :decimal_string}
+        end
       end
       class ProductData < ::Stripe::RequestParams
         class PackageDimensions < ::Stripe::RequestParams
@@ -335,6 +338,11 @@ module Stripe
         quantity: nil,
         tax_rates: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+        }
+      end
     end
     class Payment < ::Stripe::RequestParams
       class Settings < ::Stripe::RequestParams
@@ -3189,5 +3197,16 @@ module Stripe
       shipping_details: nil,
       tax_details: nil
     ); end
+    def self.field_encodings
+      @field_encodings = {
+        line_items: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: {price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}}},
+          },
+        },
+      }
+    end
   end
 end

@@ -667,6 +667,10 @@ module Stripe
           @unit_amount = unit_amount
           @unit_amount_decimal = unit_amount_decimal
         end
+
+        def self.field_encodings
+          @field_encodings = { unit_amount_decimal: :decimal_string }
+        end
       end
       # The discounts applied to this line item.
       attr_accessor :discounts
@@ -695,6 +699,12 @@ module Stripe
         @price_data = price_data
         @quantity = quantity
         @tax_rates = tax_rates
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        }
       end
     end
 
@@ -1075,6 +1085,18 @@ module Stripe
       @subscription_data = subscription_data
       @subscription_data_overrides = subscription_data_overrides
       @transfer_data = transfer_data
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        line_items: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+          },
+        },
+      }
     end
   end
 end

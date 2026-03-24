@@ -52,6 +52,10 @@ module Stripe
             def initialize(gross_amount_decimal: nil)
               @gross_amount_decimal = gross_amount_decimal
             end
+
+            def self.field_encodings
+              @field_encodings = { gross_amount_decimal: :decimal_string }
+            end
           end
 
           class NonFuel < ::Stripe::RequestParams
@@ -60,6 +64,10 @@ module Stripe
 
             def initialize(gross_amount_decimal: nil)
               @gross_amount_decimal = gross_amount_decimal
+            end
+
+            def self.field_encodings
+              @field_encodings = { gross_amount_decimal: :decimal_string }
             end
           end
 
@@ -73,6 +81,13 @@ module Stripe
               @local_amount_decimal = local_amount_decimal
               @national_amount_decimal = national_amount_decimal
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                local_amount_decimal: :decimal_string,
+                national_amount_decimal: :decimal_string,
+              }
+            end
           end
           # Breakdown of fuel portion of the purchase.
           attr_accessor :fuel
@@ -85,6 +100,20 @@ module Stripe
             @fuel = fuel
             @non_fuel = non_fuel
             @tax = tax
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+              non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+              tax: {
+                kind: :object,
+                fields: {
+                  local_amount_decimal: :decimal_string,
+                  national_amount_decimal: :decimal_string,
+                },
+              },
+            }
           end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
@@ -106,6 +135,25 @@ module Stripe
           @purchase_type = purchase_type
           @reported_breakdown = reported_breakdown
           @service_type = service_type
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            reported_breakdown: {
+              kind: :object,
+              fields: {
+                fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                tax: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: :decimal_string,
+                    national_amount_decimal: :decimal_string,
+                  },
+                },
+              },
+            },
+          }
         end
       end
 
@@ -133,6 +181,10 @@ module Stripe
           @type = type
           @unit = unit
           @unit_cost_decimal = unit_cost_decimal
+        end
+
+        def self.field_encodings
+          @field_encodings = { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string }
         end
       end
 
@@ -366,6 +418,34 @@ module Stripe
         @risk_assessment = risk_assessment
         @verification_data = verification_data
         @wallet = wallet
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          fleet: {
+            kind: :object,
+            fields: {
+              reported_breakdown: {
+                kind: :object,
+                fields: {
+                  fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  tax: {
+                    kind: :object,
+                    fields: {
+                      local_amount_decimal: :decimal_string,
+                      national_amount_decimal: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          fuel: {
+            kind: :object,
+            fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+          },
+        }
       end
     end
   end

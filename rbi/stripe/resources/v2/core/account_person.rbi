@@ -288,7 +288,7 @@ module Stripe
           sig { returns(T.nilable(T::Boolean)) }
           def owner; end
           # The percentage of the Account's identity that the individual owns.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(BigDecimal)) }
           def percent_ownership; end
           # Whether the individual is authorized as the primary representative of the Account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
           sig { returns(T.nilable(T::Boolean)) }
@@ -301,6 +301,9 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {percent_ownership: :decimal_string}
           end
         end
         class ScriptAddresses < ::Stripe::StripeObject

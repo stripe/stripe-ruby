@@ -791,6 +791,10 @@ module Stripe
                 @percent_ownership = percent_ownership
                 @title = title
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_ownership: :decimal_string }
+              end
             end
 
             class ScriptAddresses < ::Stripe::RequestParams
@@ -980,6 +984,12 @@ module Stripe
               @script_names = script_names
               @surname = surname
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_accessor :attestations
@@ -1001,6 +1011,17 @@ module Stripe
             @entity_type = entity_type
             @individual = individual
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                },
+              },
+            }
+          end
         end
         # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         attr_accessor :contact_email
@@ -1016,6 +1037,22 @@ module Stripe
           @contact_phone = contact_phone
           @display_name = display_name
           @identity = identity
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

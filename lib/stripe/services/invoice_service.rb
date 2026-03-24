@@ -12,6 +12,8 @@ module Stripe
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
     def add_lines(invoice, params = {}, opts = {})
+      params = InvoiceAddLinesParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/add_lines", { invoice: CGI.escape(invoice) }),
@@ -56,6 +58,8 @@ module Stripe
     #
     # Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
     def create_preview(params = {}, opts = {})
+      params = InvoiceCreatePreviewParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: "/v1/invoices/create_preview",
@@ -192,6 +196,8 @@ module Stripe
 
     # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
     def update_lines(invoice, params = {}, opts = {})
+      params = InvoiceUpdateLinesParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/update_lines", { invoice: CGI.escape(invoice) }),

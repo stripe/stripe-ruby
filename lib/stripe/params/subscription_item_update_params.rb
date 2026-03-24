@@ -107,6 +107,10 @@ module Stripe
         @unit_amount = unit_amount
         @unit_amount_decimal = unit_amount_decimal
       end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds
@@ -173,6 +177,12 @@ module Stripe
       @proration_date = proration_date
       @quantity = quantity
       @tax_rates = tax_rates
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+      }
     end
   end
 end

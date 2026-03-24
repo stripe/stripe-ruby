@@ -7,6 +7,10 @@ module Stripe
       class AuthorizationService < StripeService
         # Capture a test-mode authorization.
         def capture(authorization, params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = TestHelpers::Issuing::AuthorizationCaptureParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(authorization) }),
@@ -18,6 +22,10 @@ module Stripe
 
         # Create a test-mode authorization.
         def create(params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = TestHelpers::Issuing::AuthorizationCreateParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: "/v1/test_helpers/issuing/authorizations",
@@ -40,6 +48,10 @@ module Stripe
 
         # Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
         def finalize_amount(authorization, params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = TestHelpers::Issuing::AuthorizationFinalizeAmountParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/finalize_amount", { authorization: CGI.escape(authorization) }),

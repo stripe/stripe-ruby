@@ -25,6 +25,8 @@ module Stripe
     # You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
     # post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
     def create(params = {}, opts = {})
+      params = CreditNoteCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: "/v1/credit_notes",
@@ -47,6 +49,8 @@ module Stripe
 
     # Get a preview of a credit note without creating it.
     def preview(params = {}, opts = {})
+      params = CreditNotePreviewParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :get,
         path: "/v1/credit_notes/preview",

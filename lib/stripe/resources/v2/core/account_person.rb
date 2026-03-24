@@ -295,6 +295,10 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = { percent_ownership: :decimal_string }
+          end
         end
 
         class ScriptAddresses < ::Stripe::StripeObject
@@ -470,6 +474,12 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+          }
         end
       end
     end

@@ -186,12 +186,12 @@ module Stripe
         sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def unit_amount=(_unit_amount); end
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def unit_amount_decimal; end
-        sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+        sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
         def unit_amount_decimal=(_unit_amount_decimal); end
         sig {
-          params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::InvoiceAddLinesParams::Line::PriceData::ProductData), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::InvoiceAddLinesParams::Line::PriceData::ProductData), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
          }
         def initialize(
           currency: nil,
@@ -201,6 +201,9 @@ module Stripe
           unit_amount: nil,
           unit_amount_decimal: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {unit_amount_decimal: :decimal_string}
+        end
       end
       class Pricing < ::Stripe::RequestParams
         # The ID of the price object.
@@ -377,9 +380,9 @@ module Stripe
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
       # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def quantity_decimal; end
-      sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      sig { params(_quantity_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def quantity_decimal=(_quantity_decimal); end
       # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
       sig {
@@ -398,7 +401,7 @@ module Stripe
        }
       def tax_rates=(_tax_rates); end
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceAddLinesParams::Line::Discount])), invoice_item: T.nilable(String), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceAddLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceAddLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceAddLinesParams::Line::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(String), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceAddLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceAddLinesParams::Line::Discount])), invoice_item: T.nilable(String), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceAddLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceAddLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceAddLinesParams::Line::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceAddLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
        }
       def initialize(
         amount: nil,
@@ -416,6 +419,12 @@ module Stripe
         tax_amounts: nil,
         tax_rates: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+          quantity_decimal: :decimal_string,
+        }
+      end
     end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
@@ -440,5 +449,19 @@ module Stripe
       params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[::Stripe::InvoiceAddLinesParams::Line]).void
      }
     def initialize(expand: nil, invoice_metadata: nil, lines: nil); end
+    def self.field_encodings
+      @field_encodings = {
+        lines: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: {
+              price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+              quantity_decimal: :decimal_string,
+            },
+          },
+        },
+      }
+    end
   end
 end

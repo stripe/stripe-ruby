@@ -83,6 +83,10 @@ module Stripe
         @unit_amount = unit_amount
         @unit_amount_decimal = unit_amount_decimal
       end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
     end
 
     class Pricing < ::Stripe::RequestParams
@@ -160,6 +164,14 @@ module Stripe
       @tax_code = tax_code
       @tax_rates = tax_rates
       @unit_amount_decimal = unit_amount_decimal
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        quantity_decimal: :decimal_string,
+        unit_amount_decimal: :decimal_string,
+      }
     end
   end
 end

@@ -819,12 +819,12 @@ module Stripe
           sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def unit_amount=(_unit_amount); end
           # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(BigDecimal)) }
           def unit_amount_decimal; end
-          sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+          sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
           def unit_amount_decimal=(_unit_amount_decimal); end
           sig {
-            params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::ProductData), recurring: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+            params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::ProductData), recurring: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
            }
           def initialize(
             currency: nil,
@@ -835,6 +835,9 @@ module Stripe
             unit_amount: nil,
             unit_amount_decimal: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {unit_amount_decimal: :decimal_string}
+          end
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
         sig {
@@ -893,6 +896,11 @@ module Stripe
           quantity: nil,
           tax_rates: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+          }
+        end
       end
       class ManagedPayments < ::Stripe::RequestParams
         # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
@@ -4118,6 +4126,17 @@ module Stripe
         ui_mode: nil,
         wallet_options: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          line_items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: {price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}}},
+            },
+          },
+        }
+      end
     end
   end
 end

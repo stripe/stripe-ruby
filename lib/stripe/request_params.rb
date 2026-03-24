@@ -93,7 +93,6 @@ module Stripe
     private_class_method def self.coerce_decimal_string(value)
       case value
       when BigDecimal then value.to_s("F")
-      when String then value
       when Integer, Float then value.to_s
       when Array then value.map { |v| coerce_decimal_string(v) }
       else value

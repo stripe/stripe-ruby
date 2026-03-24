@@ -304,6 +304,10 @@ module Stripe
         def self.field_remappings
           @field_remappings = {}
         end
+
+        def self.field_encodings
+          @field_encodings = { fx_rate: :decimal_string }
+        end
       end
 
       class CustomField < ::Stripe::StripeObject
@@ -2531,6 +2535,12 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          currency_conversion: { kind: :object, fields: { fx_rate: :decimal_string } },
+        }
       end
     end
   end

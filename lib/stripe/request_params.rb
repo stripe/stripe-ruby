@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # typed: true
 
+require "bigdecimal"
+
 module Stripe
   # For internal use only. Does not provide a stable API and may be broken
   # with future non-major changes.
@@ -71,6 +73,8 @@ module Stripe
       case encoding
       when :int64_string
         coerce_int64_string(value)
+      when :decimal_string
+        coerce_decimal_string(value)
       when Hash
         coerce_composite(value, encoding)
       else
@@ -82,6 +86,15 @@ module Stripe
       case value
       when Integer then value.to_s
       when Array then value.map { |v| v.is_a?(Integer) ? v.to_s : v }
+      else value
+      end
+    end
+
+    private_class_method def self.coerce_decimal_string(value)
+      case value
+      when BigDecimal then value.to_s("F")
+      when Integer, Float then value.to_s
+      when Array then value.map { |v| coerce_decimal_string(v) }
       else value
       end
     end

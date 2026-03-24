@@ -207,13 +207,16 @@ module Stripe
       sig { returns(String) }
       def type; end
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
       def self.inner_class_types
         @inner_class_types = {price_details: PriceDetails}
       end
       def self.field_remappings
         @field_remappings = {}
+      end
+      def self.field_encodings
+        @field_encodings = {unit_amount_decimal: :decimal_string}
       end
     end
     class TaxCalculationReference < ::Stripe::StripeObject
@@ -322,7 +325,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def quantity; end
     # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(BigDecimal)) }
     def quantity_decimal; end
     # Attribute for field subscription
     sig { returns(T.nilable(T.any(String, ::Stripe::Subscription))) }

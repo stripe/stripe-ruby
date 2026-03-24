@@ -67,6 +67,10 @@ module Stripe
       def self.field_remappings
         @field_remappings = {}
       end
+
+      def self.field_encodings
+        @field_encodings = { metric_tons_available: :decimal_string }
+      end
     end
   end
 end

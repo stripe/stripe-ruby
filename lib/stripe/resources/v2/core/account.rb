@@ -3722,6 +3722,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_ownership: :decimal_string }
+              end
             end
 
             class ScriptAddresses < ::Stripe::StripeObject
@@ -3896,6 +3900,12 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_reader :attestations
@@ -3918,6 +3928,17 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                },
+              },
+            }
           end
         end
 
@@ -4136,6 +4157,22 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

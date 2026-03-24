@@ -21,7 +21,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The value triggering the alert
-      sig { returns(String) }
+      sig { returns(BigDecimal) }
       def value; end
     end
   end

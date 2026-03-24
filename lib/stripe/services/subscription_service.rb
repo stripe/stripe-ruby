@@ -26,6 +26,8 @@ module Stripe
     # To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://docs.stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
     # Schedules provide the flexibility to model more complex billing configurations that change over time.
     def create(params = {}, opts = {})
+      params = SubscriptionCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: "/v1/subscriptions",
@@ -126,6 +128,8 @@ module Stripe
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
     def update(subscription_exposed_id, params = {}, opts = {})
+      params = SubscriptionUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),

@@ -431,6 +431,10 @@ module Stripe
           @unit_amount = unit_amount
           @unit_amount_decimal = unit_amount_decimal
         end
+
+        def self.field_encodings
+          @field_encodings = { unit_amount_decimal: :decimal_string }
+        end
       end
       # When set, provides configuration for this item’s quantity to be adjusted by the customer during checkout.
       attr_accessor :adjustable_quantity
@@ -446,6 +450,12 @@ module Stripe
         @price = price
         @price_data = price_data
         @quantity = quantity
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        }
       end
     end
 
@@ -838,6 +848,18 @@ module Stripe
       @subscription_data = subscription_data
       @tax_id_collection = tax_id_collection
       @transfer_data = transfer_data
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        line_items: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+          },
+        },
+      }
     end
   end
 end

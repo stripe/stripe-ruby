@@ -73,6 +73,7 @@ Metrics/MethodLength:
   AllowedMethods:
     - initialize
     - inner_class_types
+    - field_encodings
 
 Metrics/ModuleLength:
   Enabled: false

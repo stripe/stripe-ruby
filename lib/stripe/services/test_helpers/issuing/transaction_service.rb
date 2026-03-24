@@ -7,6 +7,10 @@ module Stripe
       class TransactionService < StripeService
         # Allows the user to capture an arbitrary amount, also known as a forced capture.
         def create_force_capture(params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = TestHelpers::Issuing::TransactionCreateForceCaptureParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: "/v1/test_helpers/issuing/transactions/create_force_capture",
@@ -18,6 +22,10 @@ module Stripe
 
         # Allows the user to refund an arbitrary amount, also known as a unlinked refund.
         def create_unlinked_refund(params = {}, opts = {})
+          unless params.is_a?(Stripe::RequestParams)
+            params = TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams.coerce_params(params)
+          end
+
           request(
             method: :post,
             path: "/v1/test_helpers/issuing/transactions/create_unlinked_refund",

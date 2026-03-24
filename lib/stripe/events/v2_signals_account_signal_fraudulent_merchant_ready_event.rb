@@ -41,6 +41,10 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = { probability: :decimal_string }
+          end
         end
         # Fraudulent merchant signal data. Present when type is fraudulent_merchant.
         attr_reader :fraudulent_merchant
@@ -59,6 +63,12 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            fraudulent_merchant: { kind: :object, fields: { probability: :decimal_string } },
+          }
         end
       end
 

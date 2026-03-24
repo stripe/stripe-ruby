@@ -61,13 +61,16 @@ module Stripe
               sig { returns(MaximumApplications) }
               def maximum_applications; end
               # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
-              sig { returns(String) }
+              sig { returns(BigDecimal) }
               def percent_off; end
               def self.inner_class_types
                 @inner_class_types = {maximum_applications: MaximumApplications}
               end
               def self.field_remappings
                 @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {percent_off: :decimal_string}
               end
             end
             # The entity that the discount rule applies to, for example, the Billing Cadence.
@@ -87,6 +90,11 @@ module Stripe
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+              }
             end
           end
           class SpendModifierRule < ::Stripe::StripeObject
@@ -187,6 +195,14 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              invoice_discount_rule: {
+                kind: :object,
+                fields: {percent_off: {kind: :object, fields: {percent_off: :decimal_string}}},
+              },
+            }
           end
         end
         class Deactivate < ::Stripe::StripeObject

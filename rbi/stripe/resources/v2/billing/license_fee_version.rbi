@@ -19,7 +19,7 @@ module Stripe
           def unit_amount; end
           # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(BigDecimal)) }
           def up_to_decimal; end
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
           sig { returns(T.nilable(String)) }
@@ -29,6 +29,9 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {up_to_decimal: :decimal_string}
           end
         end
         class TransformQuantity < ::Stripe::StripeObject

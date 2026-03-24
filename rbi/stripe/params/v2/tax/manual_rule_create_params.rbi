@@ -69,9 +69,9 @@ module Stripe
             sig { params(_jurisdiction: T.nilable(String)).returns(T.nilable(String)) }
             def jurisdiction=(_jurisdiction); end
             # Percentage of the tax rate. Must be positive and maximum of 4 decimal points.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def percentage; end
-            sig { params(_percentage: String).returns(String) }
+            sig { params(_percentage: BigDecimal).returns(BigDecimal) }
             def percentage=(_percentage); end
             # State of the tax rate.
             sig { returns(T.nilable(String)) }
@@ -79,7 +79,7 @@ module Stripe
             sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
             def state=(_state); end
             sig {
-              params(country: T.nilable(String), description: T.nilable(String), display_name: String, jurisdiction: T.nilable(String), percentage: String, state: T.nilable(String)).void
+              params(country: T.nilable(String), description: T.nilable(String), display_name: String, jurisdiction: T.nilable(String), percentage: BigDecimal, state: T.nilable(String)).void
              }
             def initialize(
               country: nil,
@@ -89,6 +89,9 @@ module Stripe
               percentage: nil,
               state: nil
             ); end
+            def self.field_encodings
+              @field_encodings = {percentage: :decimal_string}
+            end
           end
           # The tax rates to be applied.
           sig {
@@ -108,6 +111,14 @@ module Stripe
             params(rates: T::Array[::Stripe::V2::Tax::ManualRuleCreateParams::ScheduledTaxRate::Rate], starts_at: T.nilable(String)).void
            }
           def initialize(rates: nil, starts_at: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              rates: {
+                kind: :array,
+                element: {kind: :object, fields: {percentage: :decimal_string}},
+              },
+            }
+          end
         end
         # Location where the rule applies.
         sig { returns(T.nilable(::Stripe::V2::Tax::ManualRuleCreateParams::Location)) }
@@ -134,6 +145,22 @@ module Stripe
           params(location: T.nilable(::Stripe::V2::Tax::ManualRuleCreateParams::Location), products: T.nilable(T::Array[::Stripe::V2::Tax::ManualRuleCreateParams::Product]), scheduled_tax_rates: T::Array[::Stripe::V2::Tax::ManualRuleCreateParams::ScheduledTaxRate]).void
          }
         def initialize(location: nil, products: nil, scheduled_tax_rates: nil); end
+        def self.field_encodings
+          @field_encodings = {
+            scheduled_tax_rates: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  rates: {
+                    kind: :array,
+                    element: {kind: :object, fields: {percentage: :decimal_string}},
+                  },
+                },
+              },
+            },
+          }
+        end
       end
     end
   end

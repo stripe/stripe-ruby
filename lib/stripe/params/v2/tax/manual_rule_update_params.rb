@@ -65,6 +65,10 @@ module Stripe
               @percentage = percentage
               @state = state
             end
+
+            def self.field_encodings
+              @field_encodings = { percentage: :decimal_string }
+            end
           end
           # The tax rates to be applied.
           attr_accessor :rates
@@ -74,6 +78,15 @@ module Stripe
           def initialize(rates: nil, starts_at: nil)
             @rates = rates
             @starts_at = starts_at
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              rates: {
+                kind: :array,
+                element: { kind: :object, fields: { percentage: :decimal_string } },
+              },
+            }
           end
         end
         # Location where the rule applies.
@@ -87,6 +100,23 @@ module Stripe
           @location = location
           @products = products
           @scheduled_tax_rates = scheduled_tax_rates
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            scheduled_tax_rates: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  rates: {
+                    kind: :array,
+                    element: { kind: :object, fields: { percentage: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

@@ -78,6 +78,10 @@ module Stripe
               @id = id
               @value = value
             end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
           end
 
           class Monetary < ::Stripe::RequestParams
@@ -103,6 +107,12 @@ module Stripe
             @custom_pricing_unit = custom_pricing_unit
             @monetary = monetary
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
+          end
         end
         # The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
         attr_accessor :filters
@@ -112,6 +122,15 @@ module Stripe
         def initialize(filters: nil, lte: nil)
           @filters = filters
           @lte = lte
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            lte: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+          }
         end
       end
 
@@ -162,6 +181,10 @@ module Stripe
               @id = id
               @value = value
             end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
           end
           # The monetary amount. Required when type is `amount`. The threshold is the total_before_tax, the amount consumed after all credits and discounts are applied, but before tax is applied.
           attr_accessor :amount
@@ -174,6 +197,12 @@ module Stripe
             @amount = amount
             @custom_pricing_unit = custom_pricing_unit
             @type = type
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
           end
         end
         # Defines the period over which spend is aggregated.
@@ -190,6 +219,15 @@ module Stripe
           @filters = filters
           @group_by = group_by
           @gte = gte
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            gte: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+          }
         end
       end
 
@@ -248,6 +286,29 @@ module Stripe
         @spend_threshold = spend_threshold
         @title = title
         @usage_threshold = usage_threshold
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          credit_balance_threshold: {
+            kind: :object,
+            fields: {
+              lte: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            },
+          },
+          spend_threshold: {
+            kind: :object,
+            fields: {
+              gte: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            },
+          },
+        }
       end
     end
   end

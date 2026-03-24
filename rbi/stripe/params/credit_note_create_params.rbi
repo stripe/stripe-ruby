@@ -71,12 +71,12 @@ module Stripe
       sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def unit_amount=(_unit_amount); end
       # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
-      sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::CreditNoteCreateParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String])), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::CreditNoteCreateParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String])), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
        }
       def initialize(
         amount: nil,
@@ -89,6 +89,9 @@ module Stripe
         unit_amount: nil,
         unit_amount_decimal: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {unit_amount_decimal: :decimal_string}
+      end
     end
     class Refund < ::Stripe::RequestParams
       class PaymentRecordRefund < ::Stripe::RequestParams
@@ -238,5 +241,13 @@ module Stripe
       refunds: nil,
       shipping_cost: nil
     ); end
+    def self.field_encodings
+      @field_encodings = {
+        lines: {
+          kind: :array,
+          element: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+        },
+      }
+    end
   end
 end

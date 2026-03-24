@@ -56,13 +56,16 @@ module Stripe
             sig { returns(String) }
             def id; end
             # A positive decimal string representing the amount.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def value; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {value: :decimal_string}
             end
           end
           class Monetary < ::Stripe::StripeObject
@@ -94,6 +97,11 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+            }
+          end
         end
         # The filters allow limiting the scope of this credit balance alert. You must specify only a customer filter at this time.
         sig { returns(T.nilable(T::Array[Filter])) }
@@ -106,6 +114,14 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            lte: {
+              kind: :object,
+              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+            },
+          }
         end
       end
       class SpendThreshold < ::Stripe::StripeObject
@@ -178,13 +194,16 @@ module Stripe
             sig { returns(String) }
             def id; end
             # A positive decimal string representing the amount.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def value; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {value: :decimal_string}
             end
           end
           # The monetary amount. Present when type is `amount`.
@@ -201,6 +220,11 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+            }
           end
         end
         # Defines the period over which spend is aggregated.
@@ -220,6 +244,14 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            gte: {
+              kind: :object,
+              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+            },
+          }
         end
       end
       class UsageThreshold < ::Stripe::StripeObject

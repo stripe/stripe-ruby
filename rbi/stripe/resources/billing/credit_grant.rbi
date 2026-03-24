@@ -43,13 +43,16 @@ module Stripe
           sig { returns(String) }
           def id; end
           # A positive integer representing the amount.
-          sig { returns(String) }
+          sig { returns(BigDecimal) }
           def value; end
           def self.inner_class_types
             @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {value: :decimal_string}
           end
         end
         class Monetary < ::Stripe::StripeObject
@@ -80,6 +83,11 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+          }
         end
       end
       class ApplicabilityConfig < ::Stripe::StripeObject

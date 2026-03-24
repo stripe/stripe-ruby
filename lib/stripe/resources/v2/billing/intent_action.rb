@@ -74,6 +74,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_off: :decimal_string }
+              end
             end
             # The entity that the discount rule applies to, for example, the Billing Cadence.
             attr_reader :applies_to
@@ -90,6 +94,12 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                percent_off: { kind: :object, fields: { percent_off: :decimal_string } },
+              }
             end
           end
 
@@ -189,6 +199,15 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              invoice_discount_rule: {
+                kind: :object,
+                fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+              },
+            }
           end
         end
 
@@ -633,6 +652,20 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            apply: {
+              kind: :object,
+              fields: {
+                invoice_discount_rule: {
+                  kind: :object,
+                  fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+                },
+              },
+            },
+          }
         end
       end
     end

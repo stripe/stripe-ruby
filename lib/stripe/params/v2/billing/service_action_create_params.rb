@@ -17,6 +17,10 @@ module Stripe
                 @id = id
                 @value = value
               end
+
+              def self.field_encodings
+                @field_encodings = { value: :decimal_string }
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             attr_accessor :type
@@ -29,6 +33,12 @@ module Stripe
               @type = type
               @custom_pricing_unit = custom_pricing_unit
               @monetary = monetary
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              }
             end
           end
 
@@ -88,6 +98,15 @@ module Stripe
             @name = name
             @priority = priority
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            }
+          end
         end
 
         class CreditGrantPerTenant < ::Stripe::RequestParams
@@ -102,6 +121,10 @@ module Stripe
                 @id = id
                 @value = value
               end
+
+              def self.field_encodings
+                @field_encodings = { value: :decimal_string }
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             attr_accessor :type
@@ -114,6 +137,12 @@ module Stripe
               @type = type
               @custom_pricing_unit = custom_pricing_unit
               @monetary = monetary
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              }
             end
           end
 
@@ -219,6 +248,15 @@ module Stripe
             @name = name
             @priority = priority
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            }
+          end
         end
         # An internal key you can use to search for this service action. Maximum length of 200 characters.
         attr_accessor :lookup_key
@@ -247,6 +285,29 @@ module Stripe
           @type = type
           @credit_grant = credit_grant
           @credit_grant_per_tenant = credit_grant_per_tenant
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            credit_grant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+              },
+            },
+            credit_grant_per_tenant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+              },
+            },
+          }
         end
       end
     end

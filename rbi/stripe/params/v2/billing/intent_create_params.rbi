@@ -64,14 +64,17 @@ module Stripe
                  }
                 def maximum_applications=(_maximum_applications); end
                 # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
-                sig { returns(String) }
+                sig { returns(BigDecimal) }
                 def percent_off; end
-                sig { params(_percent_off: String).returns(String) }
+                sig { params(_percent_off: BigDecimal).returns(BigDecimal) }
                 def percent_off=(_percent_off); end
                 sig {
-                  params(maximum_applications: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff::MaximumApplications, percent_off: String).void
+                  params(maximum_applications: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff::MaximumApplications, percent_off: BigDecimal).void
                  }
                 def initialize(maximum_applications: nil, percent_off: nil); end
+                def self.field_encodings
+                  @field_encodings = {percent_off: :decimal_string}
+                end
               end
               # The entity that the discount rule applies to, for example, the cadence.
               sig { returns(String) }
@@ -96,6 +99,11 @@ module Stripe
                 params(applies_to: String, type: String, percent_off: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff)).void
                }
               def initialize(applies_to: nil, type: nil, percent_off: nil); end
+              def self.field_encodings
+                @field_encodings = {
+                  percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+                }
+              end
             end
             class SpendModifierRule < ::Stripe::RequestParams
               class MaxBillingPeriodSpend < ::Stripe::RequestParams
@@ -235,6 +243,14 @@ module Stripe
               invoice_discount_rule: nil,
               spend_modifier_rule: nil
             ); end
+            def self.field_encodings
+              @field_encodings = {
+                invoice_discount_rule: {
+                  kind: :object,
+                  fields: {percent_off: {kind: :object, fields: {percent_off: :decimal_string}}},
+                },
+              }
+            end
           end
           class Deactivate < ::Stripe::RequestParams
             class CancellationDetails < ::Stripe::RequestParams
@@ -877,6 +893,19 @@ module Stripe
             remove: nil,
             subscribe: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              apply: {
+                kind: :object,
+                fields: {
+                  invoice_discount_rule: {
+                    kind: :object,
+                    fields: {percent_off: {kind: :object, fields: {percent_off: :decimal_string}}},
+                  },
+                },
+              },
+            }
+          end
         end
         class CadenceData < ::Stripe::RequestParams
           class BillingCycle < ::Stripe::RequestParams
@@ -1299,6 +1328,29 @@ module Stripe
           cadence: nil,
           cadence_data: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            actions: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  apply: {
+                    kind: :object,
+                    fields: {
+                      invoice_discount_rule: {
+                        kind: :object,
+                        fields: {
+                          percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
       end
     end
   end

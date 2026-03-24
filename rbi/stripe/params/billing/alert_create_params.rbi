@@ -116,12 +116,15 @@ module Stripe
             sig { params(_id: String).returns(String) }
             def id=(_id); end
             # A positive decimal string representing the amount of the custom pricing unit threshold.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def value; end
-            sig { params(_value: String).returns(String) }
+            sig { params(_value: BigDecimal).returns(BigDecimal) }
             def value=(_value); end
-            sig { params(id: String, value: String).void }
+            sig { params(id: String, value: BigDecimal).void }
             def initialize(id: nil, value: nil); end
+            def self.field_encodings
+              @field_encodings = {value: :decimal_string}
+            end
           end
           class Monetary < ::Stripe::RequestParams
             # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
@@ -164,6 +167,11 @@ module Stripe
             params(balance_type: String, custom_pricing_unit: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit), monetary: T.nilable(::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte::Monetary)).void
            }
           def initialize(balance_type: nil, custom_pricing_unit: nil, monetary: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+            }
+          end
         end
         # The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
         sig {
@@ -185,6 +193,14 @@ module Stripe
           params(filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::AlertCreateParams::CreditBalanceThreshold::Lte).void
          }
         def initialize(filters: nil, lte: nil); end
+        def self.field_encodings
+          @field_encodings = {
+            lte: {
+              kind: :object,
+              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+            },
+          }
+        end
       end
       class SpendThreshold < ::Stripe::RequestParams
         class Filters < ::Stripe::RequestParams
@@ -242,12 +258,15 @@ module Stripe
             sig { params(_id: String).returns(String) }
             def id=(_id); end
             # A positive decimal string representing the amount of the custom pricing unit threshold.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def value; end
-            sig { params(_value: String).returns(String) }
+            sig { params(_value: BigDecimal).returns(BigDecimal) }
             def value=(_value); end
-            sig { params(id: String, value: String).void }
+            sig { params(id: String, value: BigDecimal).void }
             def initialize(id: nil, value: nil); end
+            def self.field_encodings
+              @field_encodings = {value: :decimal_string}
+            end
           end
           # The monetary amount. Required when type is `amount`. The threshold is the total_before_tax, the amount consumed after all credits and discounts are applied, but before tax is applied.
           sig {
@@ -276,6 +295,11 @@ module Stripe
             params(amount: T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold::Gte::Amount), custom_pricing_unit: T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold::Gte::CustomPricingUnit), type: String).void
            }
           def initialize(amount: nil, custom_pricing_unit: nil, type: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+            }
+          end
         end
         # Defines the period over which spend is aggregated.
         sig { returns(String) }
@@ -305,6 +329,14 @@ module Stripe
           params(aggregation_period: String, filters: T.nilable(::Stripe::Billing::AlertCreateParams::SpendThreshold::Filters), group_by: T.nilable(String), gte: ::Stripe::Billing::AlertCreateParams::SpendThreshold::Gte).void
          }
         def initialize(aggregation_period: nil, filters: nil, group_by: nil, gte: nil); end
+        def self.field_encodings
+          @field_encodings = {
+            gte: {
+              kind: :object,
+              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+            },
+          }
+        end
       end
       class UsageThreshold < ::Stripe::RequestParams
         class Filter < ::Stripe::RequestParams
@@ -397,6 +429,28 @@ module Stripe
         title: nil,
         usage_threshold: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          credit_balance_threshold: {
+            kind: :object,
+            fields: {
+              lte: {
+                kind: :object,
+                fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+              },
+            },
+          },
+          spend_threshold: {
+            kind: :object,
+            fields: {
+              gte: {
+                kind: :object,
+                fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+              },
+            },
+          },
+        }
+      end
     end
   end
 end

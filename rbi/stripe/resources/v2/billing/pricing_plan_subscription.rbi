@@ -113,7 +113,7 @@ module Stripe
               def unit_amount; end
               # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
               # be set.
-              sig { returns(T.nilable(String)) }
+              sig { returns(T.nilable(BigDecimal)) }
               def up_to_decimal; end
               # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
               sig { returns(T.nilable(String)) }
@@ -123,6 +123,9 @@ module Stripe
               end
               def self.field_remappings
                 @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {up_to_decimal: :decimal_string}
               end
             end
             class TransformQuantity < ::Stripe::StripeObject
@@ -187,6 +190,10 @@ module Stripe
             end
             def self.field_encodings
               @field_encodings = {
+                tiers: {
+                  kind: :array,
+                  element: {kind: :object, fields: {up_to_decimal: :decimal_string}},
+                },
                 transform_quantity: {kind: :object, fields: {divide_by: :int64_string}},
               }
             end
@@ -243,13 +250,16 @@ module Stripe
                   sig { returns(String) }
                   def id; end
                   # The value of the credit grant, decimal value represented as a string.
-                  sig { returns(String) }
+                  sig { returns(BigDecimal) }
                   def value; end
                   def self.inner_class_types
                     @inner_class_types = {}
                   end
                   def self.field_remappings
                     @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {value: :decimal_string}
                   end
                 end
                 # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
@@ -266,6 +276,11 @@ module Stripe
                 end
                 def self.field_remappings
                   @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                  }
                 end
               end
               class ApplicabilityConfig < ::Stripe::StripeObject
@@ -322,6 +337,16 @@ module Stripe
               end
               def self.field_remappings
                 @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {
+                  amount: {
+                    kind: :object,
+                    fields: {
+                      custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                    },
+                  },
+                }
               end
             end
             class CreditGrantPerTenantDetails < ::Stripe::StripeObject
@@ -334,13 +359,16 @@ module Stripe
                   sig { returns(String) }
                   def id; end
                   # The value of the credit grant, decimal value represented as a string.
-                  sig { returns(String) }
+                  sig { returns(BigDecimal) }
                   def value; end
                   def self.inner_class_types
                     @inner_class_types = {}
                   end
                   def self.field_remappings
                     @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {value: :decimal_string}
                   end
                 end
                 # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
@@ -357,6 +385,11 @@ module Stripe
                 end
                 def self.field_remappings
                   @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                  }
                 end
               end
               class ApplicabilityConfig < ::Stripe::StripeObject
@@ -413,6 +446,16 @@ module Stripe
               end
               def self.field_remappings
                 @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {
+                  amount: {
+                    kind: :object,
+                    fields: {
+                      custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                    },
+                  },
+                }
               end
             end
             class ServiceCycle < ::Stripe::StripeObject
@@ -455,6 +498,32 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+            def self.field_encodings
+              @field_encodings = {
+                credit_grant_details: {
+                  kind: :object,
+                  fields: {
+                    amount: {
+                      kind: :object,
+                      fields: {
+                        custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                      },
+                    },
+                  },
+                },
+                credit_grant_per_tenant_details: {
+                  kind: :object,
+                  fields: {
+                    amount: {
+                      kind: :object,
+                      fields: {
+                        custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                      },
+                    },
+                  },
+                },
+              }
+            end
           end
           # License fee details, present when type is license_fee_details.
           sig { returns(T.nilable(LicenseFeeDetails)) }
@@ -485,7 +554,40 @@ module Stripe
             @field_encodings = {
               license_fee_details: {
                 kind: :object,
-                fields: {transform_quantity: {kind: :object, fields: {divide_by: :int64_string}}},
+                fields: {
+                  tiers: {
+                    kind: :array,
+                    element: {kind: :object, fields: {up_to_decimal: :decimal_string}},
+                  },
+                  transform_quantity: {kind: :object, fields: {divide_by: :int64_string}},
+                },
+              },
+              recurring_credit_grant_details: {
+                kind: :object,
+                fields: {
+                  credit_grant_details: {
+                    kind: :object,
+                    fields: {
+                      amount: {
+                        kind: :object,
+                        fields: {
+                          custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                        },
+                      },
+                    },
+                  },
+                  credit_grant_per_tenant_details: {
+                    kind: :object,
+                    fields: {
+                      amount: {
+                        kind: :object,
+                        fields: {
+                          custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+                        },
+                      },
+                    },
+                  },
+                },
               },
             }
           end

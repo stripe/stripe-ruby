@@ -400,9 +400,9 @@ module Stripe
             sig { params(_owner: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
             def owner=(_owner); end
             # The percentage of ownership the person has in the associated legal entity.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def percent_ownership; end
-            sig { params(_percent_ownership: T.nilable(String)).returns(T.nilable(String)) }
+            sig { params(_percent_ownership: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
             def percent_ownership=(_percent_ownership); end
             # Indicates whether the person is a representative of the associated legal entity.
             sig { returns(T.nilable(T::Boolean)) }
@@ -415,7 +415,7 @@ module Stripe
             sig { params(_title: T.nilable(String)).returns(T.nilable(String)) }
             def title=(_title); end
             sig {
-              params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(String), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
+              params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(BigDecimal), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
              }
             def initialize(
               authorizer: nil,
@@ -427,6 +427,9 @@ module Stripe
               representative: nil,
               title: nil
             ); end
+            def self.field_encodings
+              @field_encodings = {percent_ownership: :decimal_string}
+            end
           end
           class ScriptAddresses < ::Stripe::RequestParams
             class Kana < ::Stripe::RequestParams
@@ -755,6 +758,11 @@ module Stripe
             script_names: nil,
             surname: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              relationship: {kind: :object, fields: {percent_ownership: :decimal_string}},
+            }
+          end
         end
       end
     end

@@ -373,6 +373,10 @@ module Stripe
       def self.field_remappings
         @field_remappings = {}
       end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
     end
 
     class TaxCalculationReference < ::Stripe::StripeObject
@@ -497,6 +501,10 @@ module Stripe
 
     def self.field_remappings
       @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = { pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } }
     end
   end
 end

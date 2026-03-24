@@ -23,6 +23,10 @@ module Stripe
             @up_to_decimal = up_to_decimal
             @up_to_inf = up_to_inf
           end
+
+          def self.field_encodings
+            @field_encodings = { up_to_decimal: :decimal_string }
+          end
         end
 
         class TransformQuantity < ::Stripe::RequestParams
@@ -104,6 +108,10 @@ module Stripe
 
         def self.field_encodings
           @field_encodings = {
+            tiers: {
+              kind: :array,
+              element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+            },
             transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
           }
         end

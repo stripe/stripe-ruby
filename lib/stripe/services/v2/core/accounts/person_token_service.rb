@@ -10,6 +10,10 @@ module Stripe
           #
           # ** raises RateLimitError
           def create(account_id, params = {}, opts = {})
+            unless params.is_a?(Stripe::RequestParams)
+              params = V2::Core::Accounts::PersonTokenCreateParams.coerce_params(params)
+            end
+
             request(
               method: :post,
               path: format("/v2/core/accounts/%<account_id>s/person_tokens", { account_id: CGI.escape(account_id) }),

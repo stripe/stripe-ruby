@@ -15,6 +15,10 @@ module Stripe
             @id = id
             @value = value
           end
+
+          def self.field_encodings
+            @field_encodings = { value: :decimal_string }
+          end
         end
 
         class Monetary < ::Stripe::RequestParams
@@ -39,6 +43,12 @@ module Stripe
           @custom_pricing_unit = custom_pricing_unit
           @monetary = monetary
           @type = type
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+          }
         end
       end
 
@@ -128,6 +138,15 @@ module Stripe
         @metadata = metadata
         @name = name
         @priority = priority
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          amount: {
+            kind: :object,
+            fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+          },
+        }
       end
     end
   end

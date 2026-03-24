@@ -67,6 +67,10 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = { percentage: :decimal_string }
+            end
           end
           # The tax rates to be applied.
           attr_reader :rates
@@ -79,6 +83,15 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              rates: {
+                kind: :array,
+                element: { kind: :object, fields: { percentage: :decimal_string } },
+              },
+            }
           end
         end
         # The time at which the ManualRule object was created.
@@ -108,6 +121,23 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            scheduled_tax_rates: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  rates: {
+                    kind: :array,
+                    element: { kind: :object, fields: { percentage: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

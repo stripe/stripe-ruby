@@ -23,6 +23,10 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = { impacted_payments_percentage: :decimal_string }
+          end
         end
         # A short description of the alert.
         attr_reader :summary
@@ -39,6 +43,12 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            impact: { kind: :object, fields: { impacted_payments_percentage: :decimal_string } },
+          }
         end
       end
 

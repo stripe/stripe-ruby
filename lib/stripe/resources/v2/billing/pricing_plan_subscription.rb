@@ -123,6 +123,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { up_to_decimal: :decimal_string }
+              end
             end
 
             class TransformQuantity < ::Stripe::StripeObject
@@ -180,6 +184,10 @@ module Stripe
 
             def self.field_encodings
               @field_encodings = {
+                tiers: {
+                  kind: :array,
+                  element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                },
                 transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
               }
             end
@@ -241,6 +249,10 @@ module Stripe
                   def self.field_remappings
                     @field_remappings = {}
                   end
+
+                  def self.field_encodings
+                    @field_encodings = { value: :decimal_string }
+                  end
                 end
                 # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
                 attr_reader :type
@@ -255,6 +267,12 @@ module Stripe
 
                 def self.field_remappings
                   @field_remappings = {}
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                  }
                 end
               end
 
@@ -314,6 +332,17 @@ module Stripe
 
               def self.field_remappings
                 @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  amount: {
+                    kind: :object,
+                    fields: {
+                      custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                    },
+                  },
+                }
               end
             end
 
@@ -334,6 +363,10 @@ module Stripe
                   def self.field_remappings
                     @field_remappings = {}
                   end
+
+                  def self.field_encodings
+                    @field_encodings = { value: :decimal_string }
+                  end
                 end
                 # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
                 attr_reader :type
@@ -348,6 +381,12 @@ module Stripe
 
                 def self.field_remappings
                   @field_remappings = {}
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                  }
                 end
               end
 
@@ -407,6 +446,17 @@ module Stripe
 
               def self.field_remappings
                 @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  amount: {
+                    kind: :object,
+                    fields: {
+                      custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                    },
+                  },
+                }
               end
             end
 
@@ -447,6 +497,33 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                credit_grant_details: {
+                  kind: :object,
+                  fields: {
+                    amount: {
+                      kind: :object,
+                      fields: {
+                        custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                      },
+                    },
+                  },
+                },
+                credit_grant_per_tenant_details: {
+                  kind: :object,
+                  fields: {
+                    amount: {
+                      kind: :object,
+                      fields: {
+                        custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                      },
+                    },
+                  },
+                },
+              }
+            end
           end
           # License fee details, present when type is license_fee_details.
           attr_reader :license_fee_details
@@ -475,7 +552,40 @@ module Stripe
             @field_encodings = {
               license_fee_details: {
                 kind: :object,
-                fields: { transform_quantity: { kind: :object, fields: { divide_by: :int64_string } } },
+                fields: {
+                  tiers: {
+                    kind: :array,
+                    element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                  },
+                  transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
+                },
+              },
+              recurring_credit_grant_details: {
+                kind: :object,
+                fields: {
+                  credit_grant_details: {
+                    kind: :object,
+                    fields: {
+                      amount: {
+                        kind: :object,
+                        fields: {
+                          custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                        },
+                      },
+                    },
+                  },
+                  credit_grant_per_tenant_details: {
+                    kind: :object,
+                    fields: {
+                      amount: {
+                        kind: :object,
+                        fields: {
+                          custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+                        },
+                      },
+                    },
+                  },
+                },
               },
             }
           end
@@ -558,7 +668,44 @@ module Stripe
                   license_fee_details: {
                     kind: :object,
                     fields: {
+                      tiers: {
+                        kind: :array,
+                        element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                      },
                       transform_quantity: { kind: :object, fields: { divide_by: :int64_string } },
+                    },
+                  },
+                  recurring_credit_grant_details: {
+                    kind: :object,
+                    fields: {
+                      credit_grant_details: {
+                        kind: :object,
+                        fields: {
+                          amount: {
+                            kind: :object,
+                            fields: {
+                              custom_pricing_unit: {
+                                kind: :object,
+                                fields: { value: :decimal_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      credit_grant_per_tenant_details: {
+                        kind: :object,
+                        fields: {
+                          amount: {
+                            kind: :object,
+                            fields: {
+                              custom_pricing_unit: {
+                                kind: :object,
+                                fields: { value: :decimal_string },
+                              },
+                            },
+                          },
+                        },
+                      },
                     },
                   },
                 },

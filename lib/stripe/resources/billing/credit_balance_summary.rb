@@ -49,6 +49,10 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
           end
 
           class Monetary < ::Stripe::StripeObject
@@ -78,6 +82,12 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
           end
         end
 
@@ -146,6 +156,10 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
           end
 
           class Monetary < ::Stripe::StripeObject
@@ -176,6 +190,12 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
+          end
         end
         # Attribute for field available_balance
         attr_reader :available_balance
@@ -195,6 +215,19 @@ module Stripe
         def self.field_remappings
           @field_remappings = {}
         end
+
+        def self.field_encodings
+          @field_encodings = {
+            available_balance: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+            ledger_balance: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+          }
+        end
       end
       # The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
       attr_reader :balances
@@ -213,6 +246,27 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          balances: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: {
+                available_balance: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+                ledger_balance: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+              },
+            },
+          },
+        }
       end
     end
   end

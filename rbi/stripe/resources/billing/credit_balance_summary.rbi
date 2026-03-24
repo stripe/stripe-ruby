@@ -42,13 +42,16 @@ module Stripe
             sig { returns(String) }
             def id; end
             # A positive integer representing the amount.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def value; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {value: :decimal_string}
             end
           end
           class Monetary < ::Stripe::StripeObject
@@ -79,6 +82,11 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+            }
           end
         end
         class BalanceUpdateDetails < ::Stripe::StripeObject
@@ -141,13 +149,16 @@ module Stripe
             sig { returns(String) }
             def id; end
             # A positive integer representing the amount.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def value; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {value: :decimal_string}
             end
           end
           class Monetary < ::Stripe::StripeObject
@@ -179,6 +190,11 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+            }
+          end
         end
         # Attribute for field available_balance
         sig { returns(AvailableBalance) }
@@ -198,6 +214,18 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            available_balance: {
+              kind: :object,
+              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+            },
+            ledger_balance: {
+              kind: :object,
+              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+            },
+          }
         end
       end
       # The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.

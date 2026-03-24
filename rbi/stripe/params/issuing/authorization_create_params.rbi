@@ -60,37 +60,57 @@ module Stripe
         class ReportedBreakdown < ::Stripe::RequestParams
           class Fuel < ::Stripe::RequestParams
             # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def gross_amount_decimal; end
-            sig { params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            sig {
+              params(_gross_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+             }
             def gross_amount_decimal=(_gross_amount_decimal); end
-            sig { params(gross_amount_decimal: T.nilable(String)).void }
+            sig { params(gross_amount_decimal: T.nilable(BigDecimal)).void }
             def initialize(gross_amount_decimal: nil); end
+            def self.field_encodings
+              @field_encodings = {gross_amount_decimal: :decimal_string}
+            end
           end
           class NonFuel < ::Stripe::RequestParams
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def gross_amount_decimal; end
-            sig { params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            sig {
+              params(_gross_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+             }
             def gross_amount_decimal=(_gross_amount_decimal); end
-            sig { params(gross_amount_decimal: T.nilable(String)).void }
+            sig { params(gross_amount_decimal: T.nilable(BigDecimal)).void }
             def initialize(gross_amount_decimal: nil); end
+            def self.field_encodings
+              @field_encodings = {gross_amount_decimal: :decimal_string}
+            end
           end
           class Tax < ::Stripe::RequestParams
             # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def local_amount_decimal; end
-            sig { params(_local_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            sig {
+              params(_local_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+             }
             def local_amount_decimal=(_local_amount_decimal); end
             # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def national_amount_decimal; end
-            sig { params(_national_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            sig {
+              params(_national_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+             }
             def national_amount_decimal=(_national_amount_decimal); end
             sig {
-              params(local_amount_decimal: T.nilable(String), national_amount_decimal: T.nilable(String)).void
+              params(local_amount_decimal: T.nilable(BigDecimal), national_amount_decimal: T.nilable(BigDecimal)).void
              }
             def initialize(local_amount_decimal: nil, national_amount_decimal: nil); end
+            def self.field_encodings
+              @field_encodings = {
+                local_amount_decimal: :decimal_string,
+                national_amount_decimal: :decimal_string,
+              }
+            end
           end
           # Breakdown of fuel portion of the purchase.
           sig {
@@ -123,6 +143,19 @@ module Stripe
             params(fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet::ReportedBreakdown::Tax)).void
            }
           def initialize(fuel: nil, non_fuel: nil, tax: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+              non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+              tax: {
+                kind: :object,
+                fields: {
+                  local_amount_decimal: :decimal_string,
+                  national_amount_decimal: :decimal_string,
+                },
+              },
+            }
+          end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
         sig {
@@ -161,6 +194,24 @@ module Stripe
           reported_breakdown: nil,
           service_type: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            reported_breakdown: {
+              kind: :object,
+              fields: {
+                fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+                non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+                tax: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: :decimal_string,
+                    national_amount_decimal: :decimal_string,
+                  },
+                },
+              },
+            },
+          }
+        end
       end
       class Fuel < ::Stripe::RequestParams
         # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
@@ -169,9 +220,9 @@ module Stripe
         sig { params(_industry_product_code: T.nilable(String)).returns(T.nilable(String)) }
         def industry_product_code=(_industry_product_code); end
         # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def quantity_decimal; end
-        sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
+        sig { params(_quantity_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
         def quantity_decimal=(_quantity_decimal); end
         # The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
         sig { returns(T.nilable(String)) }
@@ -184,12 +235,12 @@ module Stripe
         sig { params(_unit: T.nilable(String)).returns(T.nilable(String)) }
         def unit=(_unit); end
         # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def unit_cost_decimal; end
-        sig { params(_unit_cost_decimal: T.nilable(String)).returns(T.nilable(String)) }
+        sig { params(_unit_cost_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
         def unit_cost_decimal=(_unit_cost_decimal); end
         sig {
-          params(industry_product_code: T.nilable(String), quantity_decimal: T.nilable(String), type: T.nilable(String), unit: T.nilable(String), unit_cost_decimal: T.nilable(String)).void
+          params(industry_product_code: T.nilable(String), quantity_decimal: T.nilable(BigDecimal), type: T.nilable(String), unit: T.nilable(String), unit_cost_decimal: T.nilable(BigDecimal)).void
          }
         def initialize(
           industry_product_code: nil,
@@ -198,6 +249,9 @@ module Stripe
           unit: nil,
           unit_cost_decimal: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string}
+        end
       end
       class MerchantData < ::Stripe::RequestParams
         # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
@@ -558,6 +612,33 @@ module Stripe
         verification_data: nil,
         wallet: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          fleet: {
+            kind: :object,
+            fields: {
+              reported_breakdown: {
+                kind: :object,
+                fields: {
+                  fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+                  non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+                  tax: {
+                    kind: :object,
+                    fields: {
+                      local_amount_decimal: :decimal_string,
+                      national_amount_decimal: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          fuel: {
+            kind: :object,
+            fields: {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string},
+          },
+        }
+      end
     end
   end
 end

@@ -40,6 +40,13 @@ module Stripe
       def self.field_remappings
         @field_remappings = {}
       end
+
+      def self.field_encodings
+        @field_encodings = {
+          flat_amount_decimal: :decimal_string,
+          unit_amount_decimal: :decimal_string,
+        }
+      end
     end
 
     class TransformUsage < ::Stripe::StripeObject
@@ -147,6 +154,19 @@ module Stripe
 
     def self.field_remappings
       @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        amount_decimal: :decimal_string,
+        tiers: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string },
+          },
+        },
+      }
     end
   end
 end

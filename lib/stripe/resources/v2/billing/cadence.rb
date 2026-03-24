@@ -207,6 +207,10 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = { percent_off: :decimal_string }
+            end
           end
           # Unique identifier for the object.
           attr_reader :id
@@ -221,6 +225,12 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              percent_off: { kind: :object, fields: { percent_off: :decimal_string } },
+            }
           end
         end
 
@@ -705,6 +715,13 @@ module Stripe
 
         def self.field_encodings
           @field_encodings = {
+            invoice_discount_rules: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+              },
+            },
             settings_data: {
               kind: :object,
               fields: {

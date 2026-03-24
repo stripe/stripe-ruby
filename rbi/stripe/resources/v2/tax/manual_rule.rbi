@@ -56,7 +56,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def jurisdiction; end
             # Percentage of the tax rate. Must be positive and maximum of 4 decimal points.
-            sig { returns(String) }
+            sig { returns(BigDecimal) }
             def percentage; end
             # State of the tax rate.
             sig { returns(T.nilable(String)) }
@@ -66,6 +66,9 @@ module Stripe
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {percentage: :decimal_string}
             end
           end
           # The tax rates to be applied.
@@ -79,6 +82,14 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              rates: {
+                kind: :array,
+                element: {kind: :object, fields: {percentage: :decimal_string}},
+              },
+            }
           end
         end
         # The time at which the ManualRule object was created.

@@ -70,7 +70,7 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def triggered_at; end
       # The value triggering the alert
-      sig { returns(String) }
+      sig { returns(BigDecimal) }
       def value; end
     end
   end

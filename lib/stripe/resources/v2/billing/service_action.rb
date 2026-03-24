@@ -28,6 +28,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { value: :decimal_string }
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             attr_reader :type
@@ -42,6 +46,12 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              }
             end
           end
 
@@ -108,6 +118,15 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            }
+          end
         end
 
         class CreditGrantPerTenant < ::Stripe::StripeObject
@@ -127,6 +146,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { value: :decimal_string }
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             attr_reader :type
@@ -141,6 +164,12 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              }
             end
           end
 
@@ -207,6 +236,15 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            }
+          end
         end
         # Timestamp of when the object was created.
         attr_reader :created
@@ -238,6 +276,29 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            credit_grant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+              },
+            },
+            credit_grant_per_tenant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+              },
+            },
+          }
         end
       end
     end

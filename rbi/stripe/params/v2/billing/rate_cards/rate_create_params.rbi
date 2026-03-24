@@ -35,9 +35,9 @@ module Stripe
             def unit_amount=(_unit_amount); end
             # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
             # be set.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def up_to_decimal; end
-            sig { params(_up_to_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            sig { params(_up_to_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
             def up_to_decimal=(_up_to_decimal); end
             # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
             sig { returns(T.nilable(String)) }
@@ -45,7 +45,7 @@ module Stripe
             sig { params(_up_to_inf: T.nilable(String)).returns(T.nilable(String)) }
             def up_to_inf=(_up_to_inf); end
             sig {
-              params(flat_amount: T.nilable(String), unit_amount: T.nilable(String), up_to_decimal: T.nilable(String), up_to_inf: T.nilable(String)).void
+              params(flat_amount: T.nilable(String), unit_amount: T.nilable(String), up_to_decimal: T.nilable(BigDecimal), up_to_inf: T.nilable(String)).void
              }
             def initialize(
               flat_amount: nil,
@@ -53,6 +53,9 @@ module Stripe
               up_to_decimal: nil,
               up_to_inf: nil
             ); end
+            def self.field_encodings
+              @field_encodings = {up_to_decimal: :decimal_string}
+            end
           end
           class TransformQuantity < ::Stripe::RequestParams
             # Divide usage by this number.
@@ -137,6 +140,10 @@ module Stripe
           ); end
           def self.field_encodings
             @field_encodings = {
+              tiers: {
+                kind: :array,
+                element: {kind: :object, fields: {up_to_decimal: :decimal_string}},
+              },
               transform_quantity: {kind: :object, fields: {divide_by: :int64_string}},
             }
           end

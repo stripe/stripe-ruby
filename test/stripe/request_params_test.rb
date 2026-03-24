@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
+require "bigdecimal"
 
 module Stripe
   class RequestParamsTest < Test::Unit::TestCase
@@ -330,6 +331,47 @@ module Stripe
       should "return value as-is for unknown encoding symbol" do
         assert_equal 42, Stripe::RequestParams.coerce_value(42, :unknown_encoding)
         assert_equal "hello", Stripe::RequestParams.coerce_value("hello", :something_else)
+      end
+
+      should "return nil as-is for decimal_string encoding" do
+        assert_nil Stripe::RequestParams.coerce_value(nil, :decimal_string)
+      end
+
+      should "convert BigDecimal to plain decimal String for decimal_string encoding" do
+        assert_equal "99.999", Stripe::RequestParams.coerce_value(BigDecimal("99.999"), :decimal_string)
+        assert_equal "0.1", Stripe::RequestParams.coerce_value(BigDecimal("0.1"), :decimal_string)
+        assert_equal "0.0", Stripe::RequestParams.coerce_value(BigDecimal("0"), :decimal_string)
+        assert_equal "-1.5", Stripe::RequestParams.coerce_value(BigDecimal("-1.5"), :decimal_string)
+      end
+
+      should "pass through String for decimal_string encoding" do
+        assert_equal "99.999", Stripe::RequestParams.coerce_value("99.999", :decimal_string)
+        assert_equal "0.1", Stripe::RequestParams.coerce_value("0.1", :decimal_string)
+      end
+
+      should "convert Integer to String for decimal_string encoding" do
+        assert_equal "42", Stripe::RequestParams.coerce_value(42, :decimal_string)
+        assert_equal "0", Stripe::RequestParams.coerce_value(0, :decimal_string)
+      end
+
+      should "convert Float to String for decimal_string encoding" do
+        assert_equal "3.14", Stripe::RequestParams.coerce_value(3.14, :decimal_string)
+      end
+
+      should "convert Array of BigDecimal for decimal_string encoding" do
+        result = Stripe::RequestParams.coerce_value(
+          [BigDecimal("1.1"), BigDecimal("2.2"), BigDecimal("3.3")],
+          :decimal_string
+        )
+        assert_equal %w[1.1 2.2 3.3], result
+      end
+
+      should "convert mixed Array for decimal_string encoding" do
+        result = Stripe::RequestParams.coerce_value(
+          [BigDecimal("1.5"), "already", 3],
+          :decimal_string
+        )
+        assert_equal ["1.5", "already", "3"], result
       end
 
       should "coerce object fields recursively" do

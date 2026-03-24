@@ -303,6 +303,10 @@ module Stripe
             @unit_amount = unit_amount
             @unit_amount_decimal = unit_amount_decimal
           end
+
+          def self.field_encodings
+            @field_encodings = { unit_amount_decimal: :decimal_string }
+          end
         end
         # The coupons to redeem into discounts for the item.
         attr_accessor :discounts
@@ -335,6 +339,12 @@ module Stripe
           @price_data = price_data
           @quantity = quantity
           @tax_rates = tax_rates
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+          }
         end
       end
 
@@ -651,6 +661,10 @@ module Stripe
             @unit_amount = unit_amount
             @unit_amount_decimal = unit_amount_decimal
           end
+
+          def self.field_encodings
+            @field_encodings = { unit_amount_decimal: :decimal_string }
+          end
         end
 
         class Trial < ::Stripe::RequestParams
@@ -707,6 +721,12 @@ module Stripe
           @tax_rates = tax_rates
           @trial = trial
           @trial_offer = trial_offer
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+          }
         end
       end
 
@@ -851,6 +871,25 @@ module Stripe
         @trial_end = trial_end
         @trial_settings = trial_settings
       end
+
+      def self.field_encodings
+        @field_encodings = {
+          add_invoice_items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+            },
+          },
+          items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+            },
+          },
+        }
+      end
     end
 
     class Prebilling < ::Stripe::RequestParams
@@ -919,6 +958,37 @@ module Stripe
       @phases = phases
       @prebilling = prebilling
       @start_date = start_date
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        phases: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: {
+              add_invoice_items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                  },
+                },
+              },
+              items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
     end
   end
 end

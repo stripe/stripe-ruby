@@ -53,6 +53,10 @@ module Stripe
                   @maximum_applications = maximum_applications
                   @percent_off = percent_off
                 end
+
+                def self.field_encodings
+                  @field_encodings = { percent_off: :decimal_string }
+                end
               end
               # The entity that the discount rule applies to, for example, the cadence.
               attr_accessor :applies_to
@@ -65,6 +69,12 @@ module Stripe
                 @applies_to = applies_to
                 @type = type
                 @percent_off = percent_off
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  percent_off: { kind: :object, fields: { percent_off: :decimal_string } },
+                }
               end
             end
 
@@ -144,6 +154,15 @@ module Stripe
               @discount = discount
               @invoice_discount_rule = invoice_discount_rule
               @spend_modifier_rule = spend_modifier_rule
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                invoice_discount_rule: {
+                  kind: :object,
+                  fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+                },
+              }
             end
           end
 
@@ -537,6 +556,20 @@ module Stripe
             @remove = remove
             @subscribe = subscribe
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              apply: {
+                kind: :object,
+                fields: {
+                  invoice_discount_rule: {
+                    kind: :object,
+                    fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+                  },
+                },
+              },
+            }
+          end
         end
 
         class CadenceData < ::Stripe::RequestParams
@@ -811,6 +844,30 @@ module Stripe
           @include = include
           @cadence = cadence
           @cadence_data = cadence_data
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            actions: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  apply: {
+                    kind: :object,
+                    fields: {
+                      invoice_discount_rule: {
+                        kind: :object,
+                        fields: {
+                          percent_off: { kind: :object, fields: { percent_off: :decimal_string } },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

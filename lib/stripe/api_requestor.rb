@@ -1074,6 +1074,7 @@ module Stripe
         %w[CODEX_CI codex_cli],
         %w[CURSOR_AGENT cursor],
         %w[GEMINI_CLI gemini_cli],
+        %w[OPENCLAW_SHELL openclaw],
         %w[OPENCODE open_code],
         # aiAgents: The end of the section generated from our OpenAPI spec
       ].freeze

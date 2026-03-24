@@ -9,6 +9,8 @@ module Stripe
         #
         # ** raises RateLimitError
         def create(params = {}, opts = {})
+          params = V2::Core::AccountTokenCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
           request(
             method: :post,
             path: "/v2/core/account_tokens",

@@ -65,6 +65,13 @@ module Stripe
         @unit_amount_decimal = unit_amount_decimal
         @up_to = up_to
       end
+
+      def self.field_encodings
+        @field_encodings = {
+          flat_amount_decimal: :decimal_string,
+          unit_amount_decimal: :decimal_string,
+        }
+      end
     end
 
     class TransformUsage < ::Stripe::RequestParams
@@ -153,6 +160,19 @@ module Stripe
       @transform_usage = transform_usage
       @trial_period_days = trial_period_days
       @usage_type = usage_type
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        amount_decimal: :decimal_string,
+        tiers: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string },
+          },
+        },
+      }
     end
   end
 end

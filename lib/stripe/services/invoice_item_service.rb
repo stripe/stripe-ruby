@@ -5,6 +5,8 @@ module Stripe
   class InvoiceItemService < StripeService
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     def create(params = {}, opts = {})
+      params = InvoiceItemCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: "/v1/invoiceitems",
@@ -49,6 +51,8 @@ module Stripe
 
     # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
     def update(invoiceitem, params = {}, opts = {})
+      params = InvoiceItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/invoiceitems/%<invoiceitem>s", { invoiceitem: CGI.escape(invoiceitem) }),

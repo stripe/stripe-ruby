@@ -62,6 +62,10 @@ module Stripe
         @unit_amount = unit_amount
         @unit_amount_decimal = unit_amount_decimal
       end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
     end
 
     class Refund < ::Stripe::RequestParams
@@ -160,6 +164,15 @@ module Stripe
       @refund_amount = refund_amount
       @refunds = refunds
       @shipping_cost = shipping_cost
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        lines: {
+          kind: :array,
+          element: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        },
+      }
     end
   end
 end

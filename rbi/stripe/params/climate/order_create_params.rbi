@@ -44,9 +44,9 @@ module Stripe
        }
       def metadata=(_metadata); end
       # Requested number of tons for the order. Either this or `amount` must be specified.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def metric_tons; end
-      sig { params(_metric_tons: T.nilable(String)).returns(T.nilable(String)) }
+      sig { params(_metric_tons: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def metric_tons=(_metric_tons); end
       # Unique identifier of the Climate product.
       sig { returns(String) }
@@ -54,7 +54,7 @@ module Stripe
       sig { params(_product: String).returns(String) }
       def product=(_product); end
       sig {
-        params(amount: T.nilable(Integer), beneficiary: T.nilable(::Stripe::Climate::OrderCreateParams::Beneficiary), currency: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), metric_tons: T.nilable(String), product: String).void
+        params(amount: T.nilable(Integer), beneficiary: T.nilable(::Stripe::Climate::OrderCreateParams::Beneficiary), currency: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), metric_tons: T.nilable(BigDecimal), product: String).void
        }
       def initialize(
         amount: nil,
@@ -65,6 +65,9 @@ module Stripe
         metric_tons: nil,
         product: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {metric_tons: :decimal_string}
+      end
     end
   end
 end

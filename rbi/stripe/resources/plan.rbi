@@ -17,13 +17,13 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
       # Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def flat_amount_decimal; end
       # Per unit price for units relevant to the tier.
       sig { returns(T.nilable(Integer)) }
       def unit_amount; end
       # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
       # Up to and including to this quantity will be contained in the tier.
       sig { returns(T.nilable(Integer)) }
@@ -33,6 +33,12 @@ module Stripe
       end
       def self.field_remappings
         @field_remappings = {}
+      end
+      def self.field_encodings
+        @field_encodings = {
+          flat_amount_decimal: :decimal_string,
+          unit_amount_decimal: :decimal_string,
+        }
       end
     end
     class TransformUsage < ::Stripe::StripeObject
@@ -56,7 +62,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def amount; end
     # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(BigDecimal)) }
     def amount_decimal; end
     # Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
     sig { returns(String) }

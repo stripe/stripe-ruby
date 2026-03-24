@@ -48,6 +48,13 @@ module Stripe
             @unit_amount_decimal = unit_amount_decimal
             @up_to = up_to
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              flat_amount_decimal: :decimal_string,
+              unit_amount_decimal: :decimal_string,
+            }
+          end
         end
         # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
         attr_accessor :custom_unit_amount
@@ -72,6 +79,22 @@ module Stripe
           @tiers = tiers
           @unit_amount = unit_amount
           @unit_amount_decimal = unit_amount_decimal
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            tiers: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  flat_amount_decimal: :decimal_string,
+                  unit_amount_decimal: :decimal_string,
+                },
+              },
+            },
+            unit_amount_decimal: :decimal_string,
+          }
         end
       end
 
@@ -139,6 +162,10 @@ module Stripe
         @tax_behavior = tax_behavior
         @unit_amount = unit_amount
         @unit_amount_decimal = unit_amount_decimal
+      end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
       end
     end
 
@@ -238,6 +265,12 @@ module Stripe
       @type = type
       @unit_label = unit_label
       @url = url
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        default_price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+      }
     end
   end
 end

@@ -12,6 +12,8 @@ module Stripe
 
     # Creates a payment link.
     def create(params = {}, opts = {})
+      params = PaymentLinkCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: "/v1/payment_links",

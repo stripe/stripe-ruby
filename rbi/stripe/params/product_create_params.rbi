@@ -39,9 +39,9 @@ module Stripe
           sig { params(_flat_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def flat_amount=(_flat_amount); end
           # Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(BigDecimal)) }
           def flat_amount_decimal; end
-          sig { params(_flat_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+          sig { params(_flat_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
           def flat_amount_decimal=(_flat_amount_decimal); end
           # The per unit billing amount for each individual unit for which this tier applies.
           sig { returns(T.nilable(Integer)) }
@@ -49,9 +49,9 @@ module Stripe
           sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def unit_amount=(_unit_amount); end
           # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(BigDecimal)) }
           def unit_amount_decimal; end
-          sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+          sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
           def unit_amount_decimal=(_unit_amount_decimal); end
           # Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
           sig { returns(T.any(String, Integer)) }
@@ -59,7 +59,7 @@ module Stripe
           sig { params(_up_to: T.any(String, Integer)).returns(T.any(String, Integer)) }
           def up_to=(_up_to); end
           sig {
-            params(flat_amount: T.nilable(Integer), flat_amount_decimal: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String), up_to: T.any(String, Integer)).void
+            params(flat_amount: T.nilable(Integer), flat_amount_decimal: T.nilable(BigDecimal), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal), up_to: T.any(String, Integer)).void
            }
           def initialize(
             flat_amount: nil,
@@ -68,6 +68,12 @@ module Stripe
             unit_amount_decimal: nil,
             up_to: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              flat_amount_decimal: :decimal_string,
+              unit_amount_decimal: :decimal_string,
+            }
+          end
         end
         # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
         sig {
@@ -98,12 +104,12 @@ module Stripe
         sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def unit_amount=(_unit_amount); end
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def unit_amount_decimal; end
-        sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+        sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
         def unit_amount_decimal=(_unit_amount_decimal); end
         sig {
-          params(custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::CustomUnitAmount), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions::Tier]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
          }
         def initialize(
           custom_unit_amount: nil,
@@ -112,6 +118,21 @@ module Stripe
           unit_amount: nil,
           unit_amount_decimal: nil
         ); end
+        def self.field_encodings
+          @field_encodings = {
+            tiers: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  flat_amount_decimal: :decimal_string,
+                  unit_amount_decimal: :decimal_string,
+                },
+              },
+            },
+            unit_amount_decimal: :decimal_string,
+          }
+        end
       end
       class CustomUnitAmount < ::Stripe::RequestParams
         # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
@@ -199,12 +220,12 @@ module Stripe
       sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def unit_amount=(_unit_amount); end
       # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
-      sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions]), custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CustomUnitAmount), metadata: T.nilable(T::Hash[String, String]), recurring: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::ProductCreateParams::DefaultPriceData::CurrencyOptions]), custom_unit_amount: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::CustomUnitAmount), metadata: T.nilable(T::Hash[String, String]), recurring: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
        }
       def initialize(
         currency: nil,
@@ -216,6 +237,9 @@ module Stripe
         unit_amount: nil,
         unit_amount_decimal: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {unit_amount_decimal: :decimal_string}
+      end
     end
     class MarketingFeature < ::Stripe::RequestParams
       # The marketing feature name. Up to 80 characters long.
@@ -362,5 +386,10 @@ module Stripe
       unit_label: nil,
       url: nil
     ); end
+    def self.field_encodings
+      @field_encodings = {
+        default_price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+      }
+    end
   end
 end

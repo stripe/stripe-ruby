@@ -68,6 +68,12 @@ module Stripe
 
       parsed = JSON.parse(payload, symbolize_names: true)
 
+      if parsed[:object] == "event"
+        raise ArgumentError,
+              "You passed a webhook payload to StripeClient#parse_event_notification, which " \
+              "expects an event notification. Use Webhook.construct_event instead."
+      end
+
       cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
 
       cls.new(parsed, self)

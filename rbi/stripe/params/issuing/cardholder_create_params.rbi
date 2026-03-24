@@ -325,7 +325,7 @@ module Stripe
       def phone_number; end
       sig { params(_phone_number: T.nilable(String)).returns(T.nilable(String)) }
       def phone_number=(_phone_number); end
-      # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+      # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
       #  This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
       sig { returns(T.nilable(T::Array[String])) }
       def preferred_locales; end

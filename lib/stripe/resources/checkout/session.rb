@@ -2301,7 +2301,7 @@ module Stripe
       attr_reader :tax_id_collection
       # Tax and discount details for the computed total amount.
       attr_reader :total_details
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       attr_reader :ui_mode
       # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.

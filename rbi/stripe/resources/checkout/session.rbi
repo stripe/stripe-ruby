@@ -2371,7 +2371,7 @@ module Stripe
       # Tax and discount details for the computed total amount.
       sig { returns(T.nilable(TotalDetails)) }
       def total_details; end
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       sig { returns(T.nilable(String)) }
       def ui_mode; end
       # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`

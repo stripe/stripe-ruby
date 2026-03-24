@@ -45,4 +45,5 @@ Gem::Specification.new do |s|
   # bigdecimal was a default gem through Ruby 3.3 but must be explicitly declared
   # starting from Ruby 3.4.0. Required for decimal_string field coercion.
   s.add_dependency "bigdecimal"
+  s.add_dependency "logger"
 end

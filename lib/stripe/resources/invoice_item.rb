@@ -79,6 +79,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Details about the pricing plan subscription that generated this invoice item
+      attr_reader :pricing_plan_subscription_details
       # Details about the rate card subscription that generated this invoice item
       attr_reader :rate_card_subscription_details
       # Details about the subscription schedule that generated this invoice item
@@ -87,15 +89,13 @@ module Stripe
       attr_reader :subscription_details
       # The type of parent that generated this invoice item
       attr_reader :type
-      # Details about the pricing plan subscription that generated this invoice item
-      attr_reader :pricing_plan_subscription_details
 
       def self.inner_class_types
         @inner_class_types = {
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
-          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
         }
       end
 
@@ -260,11 +260,13 @@ module Stripe
     attr_reader :discountable
     # The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    attr_reader :frozen_fields
     # Unique identifier for the object.
     attr_reader :id
     # The ID of the invoice this invoice item belongs to.
     attr_reader :invoice
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     attr_reader :margins
@@ -284,14 +286,14 @@ module Stripe
     attr_reader :proration
     # Attribute for field proration_details
     attr_reader :proration_details
-    # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+    # Quantity of units for the invoice item in integer format, with any decimal precision truncated. For the item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     attr_reader :quantity
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+    attr_reader :quantity_decimal
     # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
     attr_reader :tax_rates
     # ID of the test clock this invoice item belongs to.
     attr_reader :test_clock
-    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
-    attr_reader :frozen_fields
     # Always true for a deleted object
     attr_reader :deleted
 
@@ -349,7 +351,10 @@ module Stripe
     end
 
     def self.field_encodings
-      @field_encodings = { pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } }
+      @field_encodings = {
+        pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        quantity_decimal: :decimal_string,
+      }
     end
   end
 end

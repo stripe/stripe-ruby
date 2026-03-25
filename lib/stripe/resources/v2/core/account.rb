@@ -4753,6 +4753,40 @@ module Stripe
                 end
               end
 
+              class ConsumerPrivacyDisclosures < ::Stripe::StripeObject
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_reader :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_reader :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_reader :user_agent
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class ConsumerStorer < ::Stripe::StripeObject
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_reader :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_reader :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_reader :user_agent
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class CryptoStorer < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_reader :date
@@ -4790,6 +4824,10 @@ module Stripe
               attr_reader :account
               # Details on the Account's acceptance of Issuing-specific terms of service.
               attr_reader :card_creator
+              # Details on the Account's acceptance of Consumer-privacy-disclosures-specific terms of service.
+              attr_reader :consumer_privacy_disclosures
+              # Details on the Account's acceptance of Consumer-storer-specific terms of service.
+              attr_reader :consumer_storer
               # Details on the Account's acceptance of Crypto-storer-specific terms of service.
               attr_reader :crypto_storer
               # Details on the Account's acceptance of Treasury-specific terms of service.
@@ -4799,6 +4837,8 @@ module Stripe
                 @inner_class_types = {
                   account: Account,
                   card_creator: CardCreator,
+                  consumer_privacy_disclosures: ConsumerPrivacyDisclosures,
+                  consumer_storer: ConsumerStorer,
                   crypto_storer: CryptoStorer,
                   storer: Storer,
                 }

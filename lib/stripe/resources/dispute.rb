@@ -390,6 +390,8 @@ module Stripe
     end
     # Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).
     attr_reader :amount
+    # The amount you want to contest, in the dispute's currency. Setting this to less than the full dispute amount means accepting the loss on the remaining amount. If not specified, the entire disputed amount is contested.
+    attr_reader :amount_to_counter
     # List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
     attr_reader :balance_transactions
     # ID of the charge that's disputed.
@@ -410,7 +412,7 @@ module Stripe
     attr_reader :intended_submission_method
     # If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
     attr_reader :is_charge_refundable
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
@@ -428,8 +430,6 @@ module Stripe
     attr_reader :smart_disputes
     # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     attr_reader :status
-    # The amount you want to contest, in the dispute's currency. Setting this to less than the full dispute amount means accepting the loss on the remaining amount. If not specified, the entire disputed amount is contested.
-    attr_reader :amount_to_counter
 
     # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
     #

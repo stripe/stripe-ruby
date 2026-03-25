@@ -731,7 +731,7 @@ module Stripe
       end
 
       class PauseCollection < ::Stripe::RequestParams
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        # The payment collection behavior for this subscription while paused.
         attr_accessor :behavior
 
         def initialize(behavior: nil)

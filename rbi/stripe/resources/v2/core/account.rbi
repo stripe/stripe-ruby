@@ -4798,6 +4798,40 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class ConsumerPrivacyDisclosures < ::Stripe::StripeObject
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                sig { returns(T.nilable(String)) }
+                def date; end
+                # The IP address from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def ip; end
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def user_agent; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class ConsumerStorer < ::Stripe::StripeObject
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                sig { returns(T.nilable(String)) }
+                def date; end
+                # The IP address from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def ip; end
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def user_agent; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class CryptoStorer < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
@@ -4838,6 +4872,12 @@ module Stripe
               # Details on the Account's acceptance of Issuing-specific terms of service.
               sig { returns(T.nilable(CardCreator)) }
               def card_creator; end
+              # Details on the Account's acceptance of Consumer-privacy-disclosures-specific terms of service.
+              sig { returns(T.nilable(ConsumerPrivacyDisclosures)) }
+              def consumer_privacy_disclosures; end
+              # Details on the Account's acceptance of Consumer-storer-specific terms of service.
+              sig { returns(T.nilable(ConsumerStorer)) }
+              def consumer_storer; end
               # Details on the Account's acceptance of Crypto-storer-specific terms of service.
               sig { returns(T.nilable(CryptoStorer)) }
               def crypto_storer; end
@@ -4848,6 +4888,8 @@ module Stripe
                 @inner_class_types = {
                   account: Account,
                   card_creator: CardCreator,
+                  consumer_privacy_disclosures: ConsumerPrivacyDisclosures,
+                  consumer_storer: ConsumerStorer,
                   crypto_storer: CryptoStorer,
                   storer: Storer,
                 }

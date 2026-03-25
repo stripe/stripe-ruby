@@ -284,7 +284,7 @@ module Stripe
             attr_accessor :setup_future_usage
             # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             attr_accessor :target_date
-            # Bank account verification method.
+            # Bank account verification method. The default value is `automatic`.
             attr_accessor :verification_method
 
             def initialize(

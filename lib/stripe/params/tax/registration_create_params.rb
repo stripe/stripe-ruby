@@ -1503,6 +1503,8 @@ module Stripe
               @elections = elections
             end
           end
+          # Options for the home rule tax registration.
+          attr_accessor :home_rule_tax
           # Options for the local amusement tax registration.
           attr_accessor :local_amusement_tax
           # Options for the local lease tax registration.
@@ -1513,23 +1515,21 @@ module Stripe
           attr_accessor :state_sales_tax
           # Type of registration to be created in the US.
           attr_accessor :type
-          # Options for the home rule tax registration.
-          attr_accessor :home_rule_tax
 
           def initialize(
+            home_rule_tax: nil,
             local_amusement_tax: nil,
             local_lease_tax: nil,
             state: nil,
             state_sales_tax: nil,
-            type: nil,
-            home_rule_tax: nil
+            type: nil
           )
+            @home_rule_tax = home_rule_tax
             @local_amusement_tax = local_amusement_tax
             @local_lease_tax = local_lease_tax
             @state = state
             @state_sales_tax = state_sales_tax
             @type = type
-            @home_rule_tax = home_rule_tax
           end
         end
 

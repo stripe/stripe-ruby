@@ -66,6 +66,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Details about the pricing plan subscription that generated this invoice item
+      sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
+      def pricing_plan_subscription_details; end
       # Details about the rate card subscription that generated this invoice item
       sig { returns(T.nilable(RateCardSubscriptionDetails)) }
       def rate_card_subscription_details; end
@@ -78,15 +81,12 @@ module Stripe
       # The type of parent that generated this invoice item
       sig { returns(String) }
       def type; end
-      # Details about the pricing plan subscription that generated this invoice item
-      sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
-      def pricing_plan_subscription_details; end
       def self.inner_class_types
         @inner_class_types = {
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
-          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
         }
       end
       def self.field_remappings
@@ -258,13 +258,16 @@ module Stripe
     # The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Discount)])) }
     def discounts; end
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    sig { returns(T.nilable(T::Array[String])) }
+    def frozen_fields; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
     # The ID of the invoice this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def invoice; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
@@ -294,18 +297,18 @@ module Stripe
     # Attribute for field proration_details
     sig { returns(T.nilable(ProrationDetails)) }
     def proration_details; end
-    # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+    # Quantity of units for the invoice item in integer format, with any decimal precision truncated. For the item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     sig { returns(Integer) }
     def quantity; end
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+    sig { returns(BigDecimal) }
+    def quantity_decimal; end
     # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
     sig { returns(T.nilable(T::Array[::Stripe::TaxRate])) }
     def tax_rates; end
     # ID of the test clock this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
-    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
-    sig { returns(T.nilable(T::Array[String])) }
-    def frozen_fields; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

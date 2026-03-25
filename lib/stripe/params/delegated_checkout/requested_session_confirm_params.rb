@@ -183,6 +183,8 @@ module Stripe
           @client_device_metadata_details = client_device_metadata_details
         end
       end
+      # Affiliate attribution data associated with this requested session.
+      attr_accessor :affiliate_attribution
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The PaymentMethod to use with the requested session.
@@ -191,21 +193,19 @@ module Stripe
       attr_accessor :payment_method_data
       # Risk details/signals associated with the requested session
       attr_accessor :risk_details
-      # Affiliate attribution data associated with this requested session.
-      attr_accessor :affiliate_attribution
 
       def initialize(
+        affiliate_attribution: nil,
         expand: nil,
         payment_method: nil,
         payment_method_data: nil,
-        risk_details: nil,
-        affiliate_attribution: nil
+        risk_details: nil
       )
+        @affiliate_attribution = affiliate_attribution
         @expand = expand
         @payment_method = payment_method
         @payment_method_data = payment_method_data
         @risk_details = risk_details
-        @affiliate_attribution = affiliate_attribution
       end
     end
   end

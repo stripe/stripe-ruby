@@ -448,6 +448,11 @@ module Stripe
         uncategorized_text: nil
       ); end
     end
+    # If not countering the full disputed amount, specify an alternate amount, less than or equal to the disputed amount.
+    sig { returns(T.nilable(Integer)) }
+    def amount_to_counter; end
+    sig { params(_amount_to_counter: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def amount_to_counter=(_amount_to_counter); end
     # Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
     sig { returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence)) }
     def evidence; end
@@ -477,21 +482,16 @@ module Stripe
     def submit; end
     sig { params(_submit: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def submit=(_submit); end
-    # If not countering the full disputed amount, specify an alternate amount, less than or equal to the disputed amount.
-    sig { returns(T.nilable(Integer)) }
-    def amount_to_counter; end
-    sig { params(_amount_to_counter: T.nilable(Integer)).returns(T.nilable(Integer)) }
-    def amount_to_counter=(_amount_to_counter); end
     sig {
-      params(evidence: T.nilable(::Stripe::DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), intended_submission_method: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean), amount_to_counter: T.nilable(Integer)).void
+      params(amount_to_counter: T.nilable(Integer), evidence: T.nilable(::Stripe::DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), intended_submission_method: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
      }
     def initialize(
+      amount_to_counter: nil,
       evidence: nil,
       expand: nil,
       intended_submission_method: nil,
       metadata: nil,
-      submit: nil,
-      amount_to_counter: nil
+      submit: nil
     ); end
   end
 end

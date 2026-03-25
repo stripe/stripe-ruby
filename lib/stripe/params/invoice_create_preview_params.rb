@@ -344,8 +344,10 @@ module Stripe
       attr_accessor :price
       # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
       attr_accessor :price_data
-      # Non-negative integer. The quantity of units for the invoice item.
+      # Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
       attr_accessor :quantity
+      # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+      attr_accessor :quantity_decimal
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
       attr_accessor :tax_behavior
       # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
@@ -369,6 +371,7 @@ module Stripe
         price: nil,
         price_data: nil,
         quantity: nil,
+        quantity_decimal: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
@@ -386,6 +389,7 @@ module Stripe
         @price = price
         @price_data = price_data
         @quantity = quantity
+        @quantity_decimal = quantity_decimal
         @tax_behavior = tax_behavior
         @tax_code = tax_code
         @tax_rates = tax_rates
@@ -396,6 +400,7 @@ module Stripe
       def self.field_encodings
         @field_encodings = {
           price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+          quantity_decimal: :decimal_string,
           unit_amount_decimal: :decimal_string,
         }
       end
@@ -1025,7 +1030,7 @@ module Stripe
 
         class SetPauseCollection < ::Stripe::RequestParams
           class Set < ::Stripe::RequestParams
-            # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+            # The payment collection behavior for this subscription while paused.
             attr_accessor :behavior
 
             def initialize(behavior: nil)
@@ -1727,7 +1732,7 @@ module Stripe
         end
 
         class PauseCollection < ::Stripe::RequestParams
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           attr_accessor :behavior
 
           def initialize(behavior: nil)
@@ -2470,6 +2475,7 @@ module Stripe
             kind: :object,
             fields: {
               price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+              quantity_decimal: :decimal_string,
               unit_amount_decimal: :decimal_string,
             },
           },

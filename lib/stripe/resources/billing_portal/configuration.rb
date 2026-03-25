@@ -247,7 +247,7 @@ module Stripe
       attr_reader :id
       # Whether the configuration is the default. If `true`, this configuration can be managed in the Dashboard and portal sessions will use this configuration unless it is overriden when creating the session.
       attr_reader :is_default
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # Attribute for field login_page
       attr_reader :login_page

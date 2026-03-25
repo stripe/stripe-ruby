@@ -133,8 +133,6 @@ module Stripe
 
       class SpendThreshold < ::Stripe::StripeObject
         class Filters < ::Stripe::StripeObject
-          # Filter by billable item IDs.
-          attr_reader :billable_items
           # Filter by billing cadence ID.
           attr_reader :billing_cadence
           # Filter by pricing plan ID.
@@ -295,7 +293,7 @@ module Stripe
       attr_reader :credit_balance_threshold
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object

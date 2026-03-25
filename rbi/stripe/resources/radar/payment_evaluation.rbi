@@ -162,34 +162,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Insights < ::Stripe::StripeObject
-        class FraudulentDispute < ::Stripe::StripeObject
-          # Recommended action based on the risk score. Possible values are `block` and `continue`.
-          sig { returns(String) }
-          def recommended_action; end
-          # Stripe Radar’s evaluation of the risk level of the payment. Possible values for evaluated payments are between 0 and 100, with higher scores indicating higher risk.
-          sig { returns(Integer) }
-          def risk_score; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The timestamp when the evaluation was performed.
-        sig { returns(Integer) }
-        def evaluated_at; end
-        # Scores, insights and recommended action for one scorer for this PaymentEvaluation.
-        sig { returns(FraudulentDispute) }
-        def fraudulent_dispute; end
-        def self.inner_class_types
-          @inner_class_types = {fraudulent_dispute: FraudulentDispute}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class Outcome < ::Stripe::StripeObject
         class MerchantBlocked < ::Stripe::StripeObject
           # The reason the payment was blocked by the merchant.
@@ -451,6 +423,34 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Signals < ::Stripe::StripeObject
+        class FraudulentPayment < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          sig { returns(Integer) }
+          def evaluated_at; end
+          # Risk level of this signal, based on the score.
+          sig { returns(String) }
+          def risk_level; end
+          # Score for this insight. Possible values for evaluated payments are -1 and any value between 0 and 100. The value is returned with two decimal places. A score of -1 indicates a test integration and higher scores indicate a higher likelihood of the signal being true.
+          sig { returns(Float) }
+          def score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # A payment evaluation signal with evaluated_at, risk_level, and score fields.
+        sig { returns(FraudulentPayment) }
+        def fraudulent_payment; end
+        def self.inner_class_types
+          @inner_class_types = {fraudulent_payment: FraudulentPayment}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Client device metadata attached to this payment evaluation.
       sig { returns(T.nilable(ClientDeviceMetadataDetails)) }
       def client_device_metadata_details; end
@@ -466,10 +466,7 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
-      # Collection of scores and insights for this payment evaluation.
-      sig { returns(Insights) }
-      def insights; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -484,6 +481,12 @@ module Stripe
       # Payment details attached to this payment evaluation.
       sig { returns(T.nilable(PaymentDetails)) }
       def payment_details; end
+      # Recommended action based on the score of the fraudulent_payment signal. Possible values are `block` and `continue`.
+      sig { returns(String) }
+      def recommended_action; end
+      # Collection of signals for this payment evaluation.
+      sig { returns(Signals) }
+      def signals; end
       # Request a Radar API fraud risk score from Stripe for a payment before sending it for external processor authorization.
       sig {
         params(params: T.any(::Stripe::Radar::PaymentEvaluationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::PaymentEvaluation)

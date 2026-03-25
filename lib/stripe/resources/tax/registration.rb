@@ -1923,6 +1923,8 @@ module Stripe
           attr_reader :entertainment_tax
           # Attribute for field gross_receipts_tax
           attr_reader :gross_receipts_tax
+          # Attribute for field home_rule_tax
+          attr_reader :home_rule_tax
           # Attribute for field hospitality_tax
           attr_reader :hospitality_tax
           # Attribute for field local_amusement_tax
@@ -1941,8 +1943,6 @@ module Stripe
           attr_reader :tourism_tax
           # Type of registration in the US.
           attr_reader :type
-          # Attribute for field home_rule_tax
-          attr_reader :home_rule_tax
 
           def self.inner_class_types
             @inner_class_types = {
@@ -1950,6 +1950,7 @@ module Stripe
               attendance_tax: AttendanceTax,
               entertainment_tax: EntertainmentTax,
               gross_receipts_tax: GrossReceiptsTax,
+              home_rule_tax: HomeRuleTax,
               hospitality_tax: HospitalityTax,
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
@@ -1957,7 +1958,6 @@ module Stripe
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
-              home_rule_tax: HomeRuleTax,
             }
           end
 
@@ -2368,7 +2368,7 @@ module Stripe
       attr_reader :expires_at
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object

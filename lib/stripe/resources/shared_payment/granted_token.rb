@@ -45,6 +45,8 @@ module Stripe
         attr_reader :expires_at
         # Max amount that can be captured using this SharedPaymentToken.
         attr_reader :max_amount
+        # The recurring interval at which the shared payment token's amount usage restrictions reset.
+        attr_reader :recurring_interval
 
         def self.inner_class_types
           @inner_class_types = {}

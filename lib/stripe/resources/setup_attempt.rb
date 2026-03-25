@@ -448,6 +448,16 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class UsBankAccount < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -507,6 +517,8 @@ module Stripe
       attr_reader :stripe_balance
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
 
@@ -536,6 +548,7 @@ module Stripe
           sepa_debit: SepaDebit,
           sofort: Sofort,
           stripe_balance: StripeBalance,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -639,7 +652,7 @@ module Stripe
     attr_reader :flow_directions
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

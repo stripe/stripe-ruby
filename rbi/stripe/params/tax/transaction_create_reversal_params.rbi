@@ -6,12 +6,12 @@ module Stripe
   module Tax
     class TransactionCreateReversalParams < ::Stripe::RequestParams
       class LineItem < ::Stripe::RequestParams
-        # The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+        # The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
         sig { returns(Integer) }
         def amount; end
         sig { params(_amount: Integer).returns(Integer) }
         def amount=(_amount); end
-        # The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+        # The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
         sig { returns(Integer) }
         def amount_tax; end
         sig { params(_amount_tax: Integer).returns(Integer) }
@@ -51,12 +51,12 @@ module Stripe
         ); end
       end
       class ShippingCost < ::Stripe::RequestParams
-        # The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+        # The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
         sig { returns(Integer) }
         def amount; end
         sig { params(_amount: Integer).returns(Integer) }
         def amount=(_amount); end
-        # The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+        # The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
         sig { returns(Integer) }
         def amount_tax; end
         sig { params(_amount_tax: Integer).returns(Integer) }
@@ -69,7 +69,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
+      # A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative. This value represents the total amount to refund from the transaction, including taxes.
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
       sig { params(_flat_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }

@@ -989,6 +989,23 @@ module Stripe
       end
     end
 
+    class Upi < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class UsBankAccount < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -1161,6 +1178,8 @@ module Stripe
     attr_accessor :swish
     # Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
     attr_accessor :twint
+    # Unified Payment Interface (UPI) is India's leading payment method with exponential growth since it launched in 2016.
+    attr_accessor :upi
     # Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://docs.stripe.com/payments/ach-direct-debit) for more details.
     attr_accessor :us_bank_account
     # WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://docs.stripe.com/payments/wechat-pay) for more details.
@@ -1230,6 +1249,7 @@ module Stripe
       sofort: nil,
       swish: nil,
       twint: nil,
+      upi: nil,
       us_bank_account: nil,
       wechat_pay: nil,
       zip: nil
@@ -1295,6 +1315,7 @@ module Stripe
       @sofort = sofort
       @swish = swish
       @twint = twint
+      @upi = upi
       @us_bank_account = us_bank_account
       @wechat_pay = wechat_pay
       @zip = zip

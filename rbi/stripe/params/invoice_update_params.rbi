@@ -346,8 +346,15 @@ module Stripe
           def amount_includes_iof; end
           sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
           def amount_includes_iof=(_amount_includes_iof); end
-          sig { params(amount_includes_iof: T.nilable(String)).void }
-          def initialize(amount_includes_iof: nil); end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          sig { returns(T.nilable(Integer)) }
+          def expires_after_seconds; end
+          sig { params(_expires_after_seconds: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def expires_after_seconds=(_expires_after_seconds); end
+          sig {
+            params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer)).void
+           }
+          def initialize(amount_includes_iof: nil, expires_after_seconds: nil); end
         end
         class SepaDebit < ::Stripe::RequestParams; end
         class Upi < ::Stripe::RequestParams

@@ -617,7 +617,7 @@ module Stripe
     end
     class SetPauseCollection < ::Stripe::StripeObject
       class Set < ::Stripe::StripeObject
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        # The payment collection behavior for this subscription while paused.
         sig { returns(String) }
         def behavior; end
         def self.inner_class_types

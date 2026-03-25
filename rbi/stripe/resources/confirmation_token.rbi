@@ -472,24 +472,24 @@ module Stripe
               # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
               sig { returns(T.nilable(String)) }
               def reader; end
-              # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
-              sig { returns(T.nilable(Receipt)) }
-              def receipt; end
-              # Attribute for field wallet
-              sig { returns(T.nilable(Wallet)) }
-              def wallet; end
               # Whether the PaymentIntent can be reauthorized or not.
               sig { returns(T.nilable(Reauthorization)) }
               def reauthorization; end
               # The time at which the associated PaymentIntent will transition to a terminal state if it is not reauthorized.
               sig { returns(T.nilable(Integer)) }
               def reauthorize_before; end
+              # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
+              sig { returns(T.nilable(Receipt)) }
+              def receipt; end
+              # Attribute for field wallet
+              sig { returns(T.nilable(Wallet)) }
+              def wallet; end
               def self.inner_class_types
                 @inner_class_types = {
                   offline: Offline,
+                  reauthorization: Reauthorization,
                   receipt: Receipt,
                   wallet: Wallet,
-                  reauthorization: Reauthorization,
                 }
               end
               def self.field_remappings
@@ -1500,9 +1500,6 @@ module Stripe
         # The connected account ID whose Stripe balance to use as the source of payment
         sig { returns(T.nilable(String)) }
         def account; end
-        # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
-        sig { returns(T.nilable(String)) }
-        def source_type; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1519,6 +1516,17 @@ module Stripe
         end
       end
       class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Upi < ::Stripe::StripeObject
+        # Customer's unique Virtual Payment Address
+        sig { returns(T.nilable(String)) }
+        def vpa; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1802,6 +1810,9 @@ module Stripe
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -1870,6 +1881,7 @@ module Stripe
           stripe_balance: StripeBalance,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat_pay: WechatPay,
           zip: Zip,
@@ -1931,7 +1943,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Data used for generating a Mandate.

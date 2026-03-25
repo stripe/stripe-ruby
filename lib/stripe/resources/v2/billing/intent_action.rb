@@ -368,13 +368,31 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+
+                class RecurringCreditGrant < ::Stripe::StripeObject
+                  # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                  attr_reader :create_behavior
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # The type of behavior to override.
                 attr_reader :type
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
+                # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                attr_reader :recurring_credit_grant
 
                 def self.inner_class_types
-                  @inner_class_types = { license_fee: LicenseFee }
+                  @inner_class_types = {
+                    license_fee: LicenseFee,
+                    recurring_credit_grant: RecurringCreditGrant,
+                  }
                 end
 
                 def self.field_remappings
@@ -514,13 +532,31 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+
+                class RecurringCreditGrant < ::Stripe::StripeObject
+                  # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                  attr_reader :create_behavior
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # The type of behavior to override.
                 attr_reader :type
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
+                # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                attr_reader :recurring_credit_grant
 
                 def self.inner_class_types
-                  @inner_class_types = { license_fee: LicenseFee }
+                  @inner_class_types = {
+                    license_fee: LicenseFee,
+                    recurring_credit_grant: RecurringCreditGrant,
+                  }
                 end
 
                 def self.field_remappings

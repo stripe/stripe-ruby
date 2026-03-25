@@ -362,78 +362,6 @@ module Stripe
         end
       end
 
-      class Treasury < ::Stripe::StripeObject
-        # The array of [ReceivedCredits](https://docs.stripe.com/api/treasury/received_credits) associated with this authorization
-        attr_reader :received_credits
-        # The array of [ReceivedDebits](https://docs.stripe.com/api/treasury/received_debits) associated with this authorization
-        attr_reader :received_debits
-        # The Treasury [Transaction](https://docs.stripe.com/api/treasury/transactions) associated with this authorization
-        attr_reader :transaction
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class VerificationData < ::Stripe::StripeObject
-        class AuthenticationExemption < ::Stripe::StripeObject
-          # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
-          attr_reader :claimed_by
-          # The specific exemption claimed for this authorization.
-          attr_reader :type
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
-        class ThreeDSecure < ::Stripe::StripeObject
-          # The outcome of the 3D Secure authentication request.
-          attr_reader :result
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
-        attr_reader :address_line1_check
-        # Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
-        attr_reader :address_postal_code_check
-        # The exemption applied to this authorization.
-        attr_reader :authentication_exemption
-        # Whether the cardholder provided a CVC and if it matched Stripe’s record.
-        attr_reader :cvc_check
-        # Whether the cardholder provided an expiry date and if it matched Stripe’s record.
-        attr_reader :expiry_check
-        # The postal code submitted as part of the authorization used for postal code verification.
-        attr_reader :postal_code
-        # 3D Secure details.
-        attr_reader :three_d_secure
-
-        def self.inner_class_types
-          @inner_class_types = {
-            authentication_exemption: AuthenticationExemption,
-            three_d_secure: ThreeDSecure,
-          }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class TokenDetails < ::Stripe::StripeObject
         class NetworkData < ::Stripe::StripeObject
           class Device < ::Stripe::StripeObject
@@ -550,6 +478,78 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class Treasury < ::Stripe::StripeObject
+        # The array of [ReceivedCredits](https://docs.stripe.com/api/treasury/received_credits) associated with this authorization
+        attr_reader :received_credits
+        # The array of [ReceivedDebits](https://docs.stripe.com/api/treasury/received_debits) associated with this authorization
+        attr_reader :received_debits
+        # The Treasury [Transaction](https://docs.stripe.com/api/treasury/transactions) associated with this authorization
+        attr_reader :transaction
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class VerificationData < ::Stripe::StripeObject
+        class AuthenticationExemption < ::Stripe::StripeObject
+          # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
+          attr_reader :claimed_by
+          # The specific exemption claimed for this authorization.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ThreeDSecure < ::Stripe::StripeObject
+          # The outcome of the 3D Secure authentication request.
+          attr_reader :result
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
+        attr_reader :address_line1_check
+        # Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
+        attr_reader :address_postal_code_check
+        # The exemption applied to this authorization.
+        attr_reader :authentication_exemption
+        # Whether the cardholder provided a CVC and if it matched Stripe’s record.
+        attr_reader :cvc_check
+        # Whether the cardholder provided an expiry date and if it matched Stripe’s record.
+        attr_reader :expiry_check
+        # The postal code submitted as part of the authorization used for postal code verification.
+        attr_reader :postal_code
+        # 3D Secure details.
+        attr_reader :three_d_secure
+
+        def self.inner_class_types
+          @inner_class_types = {
+            authentication_exemption: AuthenticationExemption,
+            three_d_secure: ThreeDSecure,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The total amount that was authorized or rejected. This amount is in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `amount` should be the same as `merchant_amount`, unless `currency` and `merchant_currency` are different.
       attr_reader :amount
       # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -576,7 +576,7 @@ module Stripe
       attr_reader :fuel
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.
       attr_reader :merchant_amount
@@ -598,6 +598,8 @@ module Stripe
       attr_reader :status
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
       attr_reader :token
+      # Attribute for field token_details
+      attr_reader :token_details
       # List of [transactions](https://docs.stripe.com/api/issuing/transactions) associated with this authorization.
       attr_reader :transactions
       # [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
@@ -608,8 +610,6 @@ module Stripe
       attr_reader :verified_by_fraud_challenge
       # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
       attr_reader :wallet
-      # Attribute for field token_details
-      attr_reader :token_details
 
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
@@ -838,9 +838,9 @@ module Stripe
           network_data: NetworkData,
           pending_request: PendingRequest,
           request_history: RequestHistory,
+          token_details: TokenDetails,
           treasury: Treasury,
           verification_data: VerificationData,
-          token_details: TokenDetails,
         }
       end
 

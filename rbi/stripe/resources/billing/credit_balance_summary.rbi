@@ -199,17 +199,17 @@ module Stripe
         # Attribute for field available_balance
         sig { returns(AvailableBalance) }
         def available_balance; end
-        # Attribute for field ledger_balance
-        sig { returns(LedgerBalance) }
-        def ledger_balance; end
         # Attribute for field balance_update_details
         sig { returns(T.nilable(BalanceUpdateDetails)) }
         def balance_update_details; end
+        # Attribute for field ledger_balance
+        sig { returns(LedgerBalance) }
+        def ledger_balance; end
         def self.inner_class_types
           @inner_class_types = {
             available_balance: AvailableBalance,
-            ledger_balance: LedgerBalance,
             balance_update_details: BalanceUpdateDetails,
+            ledger_balance: LedgerBalance,
           }
         end
         def self.field_remappings
@@ -237,7 +237,7 @@ module Stripe
       # The account the balance is for.
       sig { returns(T.nilable(String)) }
       def customer_account; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # String representing the object's type. Objects of the same type share the same value.

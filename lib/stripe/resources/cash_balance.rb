@@ -29,7 +29,7 @@ module Stripe
     attr_reader :customer
     # The ID of an Account representing a customer whose cash balance this object represents.
     attr_reader :customer_account
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

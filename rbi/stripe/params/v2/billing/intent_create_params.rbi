@@ -453,6 +453,15 @@ module Stripe
                       debit_proration_behavior: nil
                     ); end
                   end
+                  class RecurringCreditGrant < ::Stripe::RequestParams
+                    # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                    sig { returns(String) }
+                    def create_behavior; end
+                    sig { params(_create_behavior: String).returns(String) }
+                    def create_behavior=(_create_behavior); end
+                    sig { params(create_behavior: String).void }
+                    def initialize(create_behavior: nil); end
+                  end
                   # The type of behavior to override.
                   sig { returns(String) }
                   def type; end
@@ -467,10 +476,19 @@ module Stripe
                     params(_license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
                    }
                   def license_fee=(_license_fee); end
+                  # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                   sig {
-                    params(type: String, license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee)).void
+                    returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant))
                    }
-                  def initialize(type: nil, license_fee: nil); end
+                  def recurring_credit_grant; end
+                  sig {
+                    params(_recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant))
+                   }
+                  def recurring_credit_grant=(_recurring_credit_grant); end
+                  sig {
+                    params(type: String, license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee), recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).void
+                   }
+                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil); end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
                 sig {
@@ -664,6 +682,15 @@ module Stripe
                     sig { params(debit_proration_behavior: String).void }
                     def initialize(debit_proration_behavior: nil); end
                   end
+                  class RecurringCreditGrant < ::Stripe::RequestParams
+                    # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                    sig { returns(String) }
+                    def create_behavior; end
+                    sig { params(_create_behavior: String).returns(String) }
+                    def create_behavior=(_create_behavior); end
+                    sig { params(create_behavior: String).void }
+                    def initialize(create_behavior: nil); end
+                  end
                   # The type of behavior to override.
                   sig { returns(String) }
                   def type; end
@@ -678,10 +705,19 @@ module Stripe
                     params(_license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
                    }
                   def license_fee=(_license_fee); end
+                  # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                   sig {
-                    params(type: String, license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee)).void
+                    returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant))
                    }
-                  def initialize(type: nil, license_fee: nil); end
+                  def recurring_credit_grant; end
+                  sig {
+                    params(_recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant))
+                   }
+                  def recurring_credit_grant=(_recurring_credit_grant); end
+                  sig {
+                    params(type: String, license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee), recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).void
+                   }
+                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil); end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
                 sig {
@@ -1301,11 +1337,6 @@ module Stripe
         def currency; end
         sig { params(_currency: String).returns(String) }
         def currency=(_currency); end
-        # Select additional fields to include in the response.
-        sig { returns(T.nilable(T::Array[String])) }
-        def include; end
-        sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def include=(_include); end
         # ID of an existing Cadence to use.
         sig { returns(T.nilable(String)) }
         def cadence; end
@@ -1319,15 +1350,9 @@ module Stripe
          }
         def cadence_data=(_cadence_data); end
         sig {
-          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], currency: String, include: T.nilable(T::Array[String]), cadence: T.nilable(String), cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).void
+          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], currency: String, cadence: T.nilable(String), cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).void
          }
-        def initialize(
-          actions: nil,
-          currency: nil,
-          include: nil,
-          cadence: nil,
-          cadence_data: nil
-        ); end
+        def initialize(actions: nil, currency: nil, cadence: nil, cadence_data: nil); end
         def self.field_encodings
           @field_encodings = {
             actions: {

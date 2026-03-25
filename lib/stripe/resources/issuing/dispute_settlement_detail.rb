@@ -38,7 +38,7 @@ module Stripe
       attr_reader :event_type
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The card network for this dispute settlement detail. One of ["visa", "mastercard", "maestro"]
       attr_reader :network

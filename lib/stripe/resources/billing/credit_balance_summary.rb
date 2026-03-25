@@ -199,16 +199,16 @@ module Stripe
         end
         # Attribute for field available_balance
         attr_reader :available_balance
-        # Attribute for field ledger_balance
-        attr_reader :ledger_balance
         # Attribute for field balance_update_details
         attr_reader :balance_update_details
+        # Attribute for field ledger_balance
+        attr_reader :ledger_balance
 
         def self.inner_class_types
           @inner_class_types = {
             available_balance: AvailableBalance,
-            ledger_balance: LedgerBalance,
             balance_update_details: BalanceUpdateDetails,
+            ledger_balance: LedgerBalance,
           }
         end
 
@@ -235,7 +235,7 @@ module Stripe
       attr_reader :customer
       # The account the balance is for.
       attr_reader :customer_account
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object

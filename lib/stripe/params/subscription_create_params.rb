@@ -657,7 +657,7 @@ module Stripe
 
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
-            # Amount to be charged for future payments.
+            # Amount to be charged for future payments, specified in the presentment currency.
             attr_accessor :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
             attr_accessor :amount_type
@@ -746,7 +746,7 @@ module Stripe
             attr_accessor :amount_includes_iof
             # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
             attr_accessor :end_date
-            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            # Schedule at which the future payments will be charged. Defaults to `monthly`.
             attr_accessor :payment_schedule
 
             def initialize(
@@ -761,10 +761,13 @@ module Stripe
               @payment_schedule = payment_schedule
             end
           end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          attr_accessor :expires_after_seconds
           # Configuration options for setting up a mandate
           attr_accessor :mandate_options
 
-          def initialize(mandate_options: nil)
+          def initialize(expires_after_seconds: nil, mandate_options: nil)
+            @expires_after_seconds = expires_after_seconds
             @mandate_options = mandate_options
           end
         end
@@ -1025,7 +1028,7 @@ module Stripe
     attr_accessor :payment_behavior
     # Payment settings to pass to invoices created by the subscription.
     attr_accessor :payment_settings
-    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](/api/invoices/create) for the given subscription at the specified interval.
     attr_accessor :pending_invoice_item_interval
     # If specified, the invoicing for the given billing cycle iterations will be processed now.
     attr_accessor :prebilling

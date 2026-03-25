@@ -901,7 +901,7 @@ module Stripe
       end
     end
     class PauseCollection < ::Stripe::RequestParams
-      # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+      # The payment collection behavior for this subscription while paused.
       sig { returns(String) }
       def behavior; end
       sig { params(_behavior: String).returns(String) }
@@ -956,7 +956,7 @@ module Stripe
         end
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
-            # Amount to be charged for future payments.
+            # Amount to be charged for future payments, specified in the presentment currency.
             sig { returns(T.nilable(Integer)) }
             def amount; end
             sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -1097,7 +1097,7 @@ module Stripe
             def end_date; end
             sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
             def end_date=(_end_date); end
-            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            # Schedule at which the future payments will be charged. Defaults to `monthly`.
             sig { returns(T.nilable(String)) }
             def payment_schedule; end
             sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
@@ -1112,6 +1112,11 @@ module Stripe
               payment_schedule: nil
             ); end
           end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          sig { returns(T.nilable(Integer)) }
+          def expires_after_seconds; end
+          sig { params(_expires_after_seconds: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def expires_after_seconds=(_expires_after_seconds); end
           # Configuration options for setting up a mandate
           sig {
             returns(T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions))
@@ -1122,9 +1127,9 @@ module Stripe
            }
           def mandate_options=(_mandate_options); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).void
+            params(expires_after_seconds: T.nilable(Integer), mandate_options: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).void
            }
-          def initialize(mandate_options: nil); end
+          def initialize(expires_after_seconds: nil, mandate_options: nil); end
         end
         class SepaDebit < ::Stripe::RequestParams; end
         class Upi < ::Stripe::RequestParams
@@ -1618,7 +1623,7 @@ module Stripe
       params(_payment_settings: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings)).returns(T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings))
      }
     def payment_settings=(_payment_settings); end
-    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](/api/invoices/create) for the given subscription at the specified interval.
     sig {
       returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PendingInvoiceItemInterval)))
      }

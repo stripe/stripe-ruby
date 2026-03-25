@@ -6,6 +6,64 @@ module Stripe
   module DelegatedCheckout
     # A requested session is a session that has been requested by a customer.
     class RequestedSession < APIResource
+      class AffiliateAttribution < ::Stripe::StripeObject
+        class Source < ::Stripe::StripeObject
+          # The platform of the attribution source.
+          sig { returns(T.nilable(String)) }
+          def platform; end
+          # The type of the attribution source.
+          sig { returns(String) }
+          def type; end
+          # The URL of the attribution source.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Agent-scoped campaign identifier.
+        sig { returns(T.nilable(String)) }
+        def campaign_id; end
+        # Agent-scoped creative identifier.
+        sig { returns(T.nilable(String)) }
+        def creative_id; end
+        # Timestamp when the attribution token expires.
+        sig { returns(Integer) }
+        def expires_at; end
+        # Agent-issued secret to validate the legitimacy of the source of this data.
+        sig { returns(String) }
+        def identification_token; end
+        # Timestamp for when the attribution token was issued.
+        sig { returns(Integer) }
+        def issued_at; end
+        # Identifier for the attribution agent / affiliate network namespace.
+        sig { returns(String) }
+        def provider; end
+        # Agent-scoped affiliate/publisher identifier.
+        sig { returns(T.nilable(String)) }
+        def publisher_id; end
+        # Freeform key/value pairs for additional non-sensitive per-agent data.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def shared_metadata; end
+        # Context about where the attribution originated.
+        sig { returns(T.nilable(Source)) }
+        def source; end
+        # Agent-scoped sub-tracking identifier.
+        sig { returns(T.nilable(String)) }
+        def sub_id; end
+        # Whether this is the first or last touchpoint.
+        sig { returns(String) }
+        def touchpoint; end
+        def self.inner_class_types
+          @inner_class_types = {source: Source}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class FulfillmentDetails < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -48,6 +106,9 @@ module Stripe
               # The key of the digital fulfillment option.
               sig { returns(String) }
               def key; end
+              # The line item keys associated with this digital fulfillment option.
+              sig { returns(T.nilable(T::Array[String])) }
+              def line_item_keys; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -82,6 +143,9 @@ module Stripe
               # The latest delivery time of the shipping option.
               sig { returns(T.nilable(Integer)) }
               def latest_delivery_time; end
+              # The line item keys associated with this shipping option.
+              sig { returns(T.nilable(T::Array[String])) }
+              def line_item_keys; end
               # The shipping amount of the shipping option.
               sig { returns(Integer) }
               def shipping_amount; end
@@ -102,17 +166,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The digital fulfillment option.
+          sig { returns(T.nilable(Digital)) }
+          def digital; end
           # The shipping option.
           sig { returns(T.nilable(Shipping)) }
           def shipping; end
           # The type of the fulfillment option.
           sig { returns(String) }
           def type; end
-          # The digital fulfillment option.
-          sig { returns(T.nilable(Digital)) }
-          def digital; end
           def self.inner_class_types
-            @inner_class_types = {shipping: Shipping, digital: Digital}
+            @inner_class_types = {digital: Digital, shipping: Shipping}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -141,17 +205,59 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The digital fulfillment option.
+          sig { returns(T.nilable(Digital)) }
+          def digital; end
           # The shipping option.
           sig { returns(T.nilable(Shipping)) }
           def shipping; end
           # The type of the selected fulfillment option.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {digital: Digital, shipping: Shipping}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class SelectedFulfillmentOptionOverride < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            # The digital option.
+            sig { returns(T.nilable(String)) }
+            def digital_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Shipping < ::Stripe::StripeObject
+            # The shipping option.
+            sig { returns(T.nilable(String)) }
+            def shipping_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The digital fulfillment option.
           sig { returns(T.nilable(Digital)) }
           def digital; end
+          # The line items this fulfillment option applies to.
+          sig { returns(T.nilable(T::Array[String])) }
+          def line_item_keys; end
+          # The shipping option.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # The type of the selected fulfillment option.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
-            @inner_class_types = {shipping: Shipping, digital: Digital}
+            @inner_class_types = {digital: Digital, shipping: Shipping}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -172,14 +278,18 @@ module Stripe
         # The phone number for the fulfillment details.
         sig { returns(T.nilable(String)) }
         def phone; end
-        # The fulfillment option.
+        # The selected fulfillment option.
         sig { returns(T.nilable(SelectedFulfillmentOption)) }
         def selected_fulfillment_option; end
+        # Per-item fulfillment option overrides.
+        sig { returns(T.nilable(T::Array[SelectedFulfillmentOptionOverride])) }
+        def selected_fulfillment_option_overrides; end
         def self.inner_class_types
           @inner_class_types = {
             address: Address,
             fulfillment_options: FulfillmentOption,
             selected_fulfillment_option: SelectedFulfillmentOption,
+            selected_fulfillment_option_overrides: SelectedFulfillmentOptionOverride,
           }
         end
         def self.field_remappings
@@ -247,6 +357,9 @@ module Stripe
         # The total before any discounts or taxes are applied.
         sig { returns(Integer) }
         def amount_subtotal; end
+        # The fulfillment type of the line item.
+        sig { returns(String) }
+        def fulfillment_type; end
         # The key of the line item.
         sig { returns(String) }
         def key; end
@@ -262,9 +375,6 @@ module Stripe
         # The per-unit amount of the item before any discounts or taxes are applied.
         sig { returns(Integer) }
         def unit_amount; end
-        # The fulfillment type of the line item.
-        sig { returns(String) }
-        def fulfillment_type; end
         def self.inner_class_types
           @inner_class_types = {product_details: ProductDetails}
         end
@@ -474,64 +584,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AffiliateAttribution < ::Stripe::StripeObject
-        class Source < ::Stripe::StripeObject
-          # The platform of the attribution source.
-          sig { returns(T.nilable(String)) }
-          def platform; end
-          # The type of the attribution source.
-          sig { returns(String) }
-          def type; end
-          # The URL of the attribution source.
-          sig { returns(T.nilable(String)) }
-          def url; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Agent-scoped campaign identifier.
-        sig { returns(T.nilable(String)) }
-        def campaign_id; end
-        # Agent-scoped creative identifier.
-        sig { returns(T.nilable(String)) }
-        def creative_id; end
-        # Timestamp when the attribution token expires.
-        sig { returns(Integer) }
-        def expires_at; end
-        # Agent-issued secret to validate the legitimacy of the source of this data.
-        sig { returns(String) }
-        def identification_token; end
-        # Timestamp for when the attribution token was issued.
-        sig { returns(Integer) }
-        def issued_at; end
-        # Identifier for the attribution agent / affiliate network namespace.
-        sig { returns(String) }
-        def provider; end
-        # Agent-scoped affiliate/publisher identifier.
-        sig { returns(T.nilable(String)) }
-        def publisher_id; end
-        # Freeform key/value pairs for additional non-sensitive per-agent data.
-        sig { returns(T.nilable(T::Hash[String, String])) }
-        def shared_metadata; end
-        # Context about where the attribution originated.
-        sig { returns(T.nilable(Source)) }
-        def source; end
-        # Agent-scoped sub-tracking identifier.
-        sig { returns(T.nilable(String)) }
-        def sub_id; end
-        # Whether this is the first or last touchpoint.
-        sig { returns(String) }
-        def touchpoint; end
-        def self.inner_class_types
-          @inner_class_types = {source: Source}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      # Affiliate attribution data associated with this requested session.
+      sig { returns(T.nilable(T::Array[AffiliateAttribution])) }
+      def affiliate_attributions; end
       # The subtotal amount of the requested session.
       sig { returns(T.nilable(Integer)) }
       def amount_subtotal; end
@@ -601,9 +656,6 @@ module Stripe
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def updated_at; end
-      # Affiliate attribution data associated with this requested session.
-      sig { returns(T.nilable(T::Array[AffiliateAttribution])) }
-      def affiliate_attributions; end
       # Confirms a requested session
       sig {
         params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

@@ -7828,7 +7828,7 @@ module Stripe
     end
     should "Test v2 billing intent get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents").to_return(
-        body: '{"data":[{"amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7838,7 +7838,7 @@ module Stripe
     end
     should "Test v2 billing intent post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents").to_return(
-        body: '{"amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
+        body: '{"amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7925,6 +7925,7 @@ module Stripe
                         credit_proration_behavior: "prorated",
                         debit_proration_behavior: "none",
                       },
+                      recurring_credit_grant: { create_behavior: "none" },
                     },
                   ],
                 },
@@ -7959,6 +7960,7 @@ module Stripe
                     {
                       type: "license_fee",
                       license_fee: { debit_proration_behavior: "none" },
+                      recurring_credit_grant: { create_behavior: "none" },
                     },
                   ],
                 },
@@ -7985,7 +7987,7 @@ module Stripe
     end
     should "Test v2 billing intent get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123").to_return(
-        body: '{"amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
+        body: '{"amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7995,7 +7997,7 @@ module Stripe
     end
     should "Test v2 billing intent post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/cancel").to_return(
-        body: '{"amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
+        body: '{"amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8005,7 +8007,7 @@ module Stripe
     end
     should "Test v2 billing intent post 3 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/commit").to_return(
-        body: '{"amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
+        body: '{"amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8018,7 +8020,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/release_reservation"
       ).to_return(
-        body: '{"amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
+        body: '{"amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8031,7 +8033,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/reserve"
       ).to_return(
-        body: '{"amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
+        body: '{"amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","object":"v2.billing.intent","status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

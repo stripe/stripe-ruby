@@ -54,17 +54,17 @@ module Stripe
               @shipping_option = shipping_option
             end
           end
+          # The digital fulfillment option.
+          attr_accessor :digital
           # The shipping fulfillment option.
           attr_accessor :shipping
           # The type of fulfillment option.
           attr_accessor :type
-          # The digital fulfillment option.
-          attr_accessor :digital
 
-          def initialize(shipping: nil, type: nil, digital: nil)
+          def initialize(digital: nil, shipping: nil, type: nil)
+            @digital = digital
             @shipping = shipping
             @type = type
-            @digital = digital
           end
         end
 

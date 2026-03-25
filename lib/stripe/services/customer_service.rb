@@ -73,6 +73,21 @@ module Stripe
       )
     end
 
+    # Serializes a Customer update request into a batch job JSONL line.
+    def serialize_batch_update(customer, params = {}, opts = {})
+      item_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      item = {
+        id: item_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      item[:path_params] = { customer: customer }
+      item[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(item)
+    end
+
     # Updates the specified customer by setting the values of the parameters passed. Any parameters not provided are left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (such as a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled is retried. This retry doesn't count as an automatic retry, and doesn't affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer doesn't trigger this behavior.
     #
     # This request accepts mostly the same arguments as the customer creation call.

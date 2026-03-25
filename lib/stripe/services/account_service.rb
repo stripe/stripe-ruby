@@ -74,6 +74,21 @@ module Stripe
       request(method: :get, path: "/v1/account", params: params, opts: opts, base_address: :api)
     end
 
+    # Serializes an Account update request into a batch job JSONL line.
+    def serialize_batch_update(account, params = {}, opts = {})
+      item_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      item = {
+        id: item_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      item[:path_params] = { account: account }
+      item[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(item)
+    end
+
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
     #

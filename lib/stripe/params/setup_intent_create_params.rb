@@ -1129,8 +1129,6 @@ module Stripe
         end
       end
 
-      class StripeBalance < ::Stripe::RequestParams; end
-
       class Upi < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Amount to be charged for future payments.
@@ -1268,8 +1266,6 @@ module Stripe
       attr_accessor :pix
       # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
-      # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
-      attr_accessor :stripe_balance
       # If this is a `upi` SetupIntent, this sub-hash contains details about the UPI payment method options.
       attr_accessor :upi
       # If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
@@ -1287,7 +1283,6 @@ module Stripe
         payto: nil,
         pix: nil,
         sepa_debit: nil,
-        stripe_balance: nil,
         upi: nil,
         us_bank_account: nil
       )
@@ -1302,7 +1297,6 @@ module Stripe
         @payto = payto
         @pix = pix
         @sepa_debit = sepa_debit
-        @stripe_balance = stripe_balance
         @upi = upi
         @us_bank_account = us_bank_account
       end

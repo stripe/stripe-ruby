@@ -593,28 +593,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StripeBalance < ::Stripe::StripeObject
-        class MandateOptions < ::Stripe::StripeObject
-          # The ID of the Stripe Balance Debit Agreement used for this mandate.
-          sig { returns(T.nilable(String)) }
-          def stripe_balance_debit_agreement; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Attribute for field mandate_options
-        sig { returns(T.nilable(MandateOptions)) }
-        def mandate_options; end
-        def self.inner_class_types
-          @inner_class_types = {mandate_options: MandateOptions}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class Upi < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
           # Amount to be charged for future payments.
@@ -758,9 +736,6 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
-      # Attribute for field stripe_balance
-      sig { returns(T.nilable(StripeBalance)) }
-      def stripe_balance; end
       # Attribute for field upi
       sig { returns(T.nilable(Upi)) }
       def upi; end
@@ -780,7 +755,6 @@ module Stripe
           payto: Payto,
           pix: Pix,
           sepa_debit: SepaDebit,
-          stripe_balance: StripeBalance,
           upi: Upi,
           us_bank_account: UsBankAccount,
         }

@@ -359,14 +359,31 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                class RecurringCreditGrant < ::Stripe::StripeObject
+                  # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                  sig { returns(String) }
+                  def create_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # The type of behavior to override.
                 sig { returns(String) }
                 def type; end
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
+                # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                sig { returns(T.nilable(RecurringCreditGrant)) }
+                def recurring_credit_grant; end
                 def self.inner_class_types
-                  @inner_class_types = {license_fee: LicenseFee}
+                  @inner_class_types = {
+                    license_fee: LicenseFee,
+                    recurring_credit_grant: RecurringCreditGrant,
+                  }
                 end
                 def self.field_remappings
                   @field_remappings = {}
@@ -506,14 +523,31 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                class RecurringCreditGrant < ::Stripe::StripeObject
+                  # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                  sig { returns(String) }
+                  def create_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # The type of behavior to override.
                 sig { returns(String) }
                 def type; end
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
+                # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                sig { returns(T.nilable(RecurringCreditGrant)) }
+                def recurring_credit_grant; end
                 def self.inner_class_types
-                  @inner_class_types = {license_fee: LicenseFee}
+                  @inner_class_types = {
+                    license_fee: LicenseFee,
+                    recurring_credit_grant: RecurringCreditGrant,
+                  }
                 end
                 def self.field_remappings
                   @field_remappings = {}

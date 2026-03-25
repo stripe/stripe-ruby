@@ -297,14 +297,26 @@ module Stripe
                       @debit_proration_behavior = debit_proration_behavior
                     end
                   end
+
+                  class RecurringCreditGrant < ::Stripe::RequestParams
+                    # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                    attr_accessor :create_behavior
+
+                    def initialize(create_behavior: nil)
+                      @create_behavior = create_behavior
+                    end
+                  end
                   # The type of behavior to override.
                   attr_accessor :type
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
+                  # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                  attr_accessor :recurring_credit_grant
 
-                  def initialize(type: nil, license_fee: nil)
+                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil)
                     @type = type
                     @license_fee = license_fee
+                    @recurring_credit_grant = recurring_credit_grant
                   end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
@@ -431,14 +443,26 @@ module Stripe
                       @debit_proration_behavior = debit_proration_behavior
                     end
                   end
+
+                  class RecurringCreditGrant < ::Stripe::RequestParams
+                    # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                    attr_accessor :create_behavior
+
+                    def initialize(create_behavior: nil)
+                      @create_behavior = create_behavior
+                    end
+                  end
                   # The type of behavior to override.
                   attr_accessor :type
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
+                  # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                  attr_accessor :recurring_credit_grant
 
-                  def initialize(type: nil, license_fee: nil)
+                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil)
                     @type = type
                     @license_fee = license_fee
+                    @recurring_credit_grant = recurring_credit_grant
                   end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
@@ -831,17 +855,14 @@ module Stripe
         attr_accessor :actions
         # Three-letter ISO currency code, in lowercase. Must be a supported currency.
         attr_accessor :currency
-        # Select additional fields to include in the response.
-        attr_accessor :include
         # ID of an existing Cadence to use.
         attr_accessor :cadence
         # Data for creating a new Cadence.
         attr_accessor :cadence_data
 
-        def initialize(actions: nil, currency: nil, include: nil, cadence: nil, cadence_data: nil)
+        def initialize(actions: nil, currency: nil, cadence: nil, cadence_data: nil)
           @actions = actions
           @currency = currency
-          @include = include
           @cadence = cadence
           @cadence_data = cadence_data
         end

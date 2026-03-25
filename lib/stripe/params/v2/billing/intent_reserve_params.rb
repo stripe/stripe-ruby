@@ -4,14 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class IntentReserveParams < ::Stripe::RequestParams
-        # Select additional fields to include in the response.
-        attr_accessor :include
-
-        def initialize(include: nil)
-          @include = include
-        end
-      end
+      class IntentReserveParams < ::Stripe::RequestParams; end
     end
   end
 end

@@ -218,6 +218,8 @@ module Stripe
       end
       # Details about the invoice item that generated this line item
       attr_reader :invoice_item_details
+      # Details about the pricing plan subscription that generated this line item
+      attr_reader :pricing_plan_subscription_details
       # Details about the rate card subscription that generated this line item
       attr_reader :rate_card_subscription_details
       # Details about the subscription schedule that generated this line item
@@ -226,16 +228,14 @@ module Stripe
       attr_reader :subscription_item_details
       # The type of parent that generated this line item
       attr_reader :type
-      # Details about the pricing plan subscription that generated this line item
-      attr_reader :pricing_plan_subscription_details
 
       def self.inner_class_types
         @inner_class_types = {
           invoice_item_details: InvoiceItemDetails,
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
           rate_card_subscription_details: RateCardSubscriptionDetails,
           schedule_details: ScheduleDetails,
           subscription_item_details: SubscriptionItemDetails,
-          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
         }
       end
 
@@ -444,7 +444,7 @@ module Stripe
     attr_reader :id
     # The ID of the invoice that contains this line item.
     attr_reader :invoice
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # The amount of margin calculated per margin for this line item.
     attr_reader :margin_amounts
@@ -462,8 +462,10 @@ module Stripe
     attr_reader :pretax_credit_amounts
     # The pricing information of the line item.
     attr_reader :pricing
-    # The quantity of the subscription, if the line item is a subscription or a proration.
+    # Quantity of units for the invoice line item in integer format, with any decimal precision truncated. For the line item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the line item is a proration or subscription, the quantity of the subscription that the proration was computed for.
     attr_reader :quantity
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+    attr_reader :quantity_decimal
     # Attribute for field subscription
     attr_reader :subscription
     # The subtotal of the line item, in cents (or local equivalent), before any discounts or taxes.
@@ -504,7 +506,10 @@ module Stripe
     end
 
     def self.field_encodings
-      @field_encodings = { pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } }
+      @field_encodings = {
+        pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        quantity_decimal: :decimal_string,
+      }
     end
   end
 end

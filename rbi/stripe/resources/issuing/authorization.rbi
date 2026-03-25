@@ -371,80 +371,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Treasury < ::Stripe::StripeObject
-        # The array of [ReceivedCredits](https://docs.stripe.com/api/treasury/received_credits) associated with this authorization
-        sig { returns(T::Array[String]) }
-        def received_credits; end
-        # The array of [ReceivedDebits](https://docs.stripe.com/api/treasury/received_debits) associated with this authorization
-        sig { returns(T::Array[String]) }
-        def received_debits; end
-        # The Treasury [Transaction](https://docs.stripe.com/api/treasury/transactions) associated with this authorization
-        sig { returns(T.nilable(String)) }
-        def transaction; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class VerificationData < ::Stripe::StripeObject
-        class AuthenticationExemption < ::Stripe::StripeObject
-          # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
-          sig { returns(String) }
-          def claimed_by; end
-          # The specific exemption claimed for this authorization.
-          sig { returns(String) }
-          def type; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class ThreeDSecure < ::Stripe::StripeObject
-          # The outcome of the 3D Secure authentication request.
-          sig { returns(String) }
-          def result; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
-        sig { returns(String) }
-        def address_line1_check; end
-        # Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
-        sig { returns(String) }
-        def address_postal_code_check; end
-        # The exemption applied to this authorization.
-        sig { returns(T.nilable(AuthenticationExemption)) }
-        def authentication_exemption; end
-        # Whether the cardholder provided a CVC and if it matched Stripe’s record.
-        sig { returns(String) }
-        def cvc_check; end
-        # Whether the cardholder provided an expiry date and if it matched Stripe’s record.
-        sig { returns(String) }
-        def expiry_check; end
-        # The postal code submitted as part of the authorization used for postal code verification.
-        sig { returns(T.nilable(String)) }
-        def postal_code; end
-        # 3D Secure details.
-        sig { returns(T.nilable(ThreeDSecure)) }
-        def three_d_secure; end
-        def self.inner_class_types
-          @inner_class_types = {
-            authentication_exemption: AuthenticationExemption,
-            three_d_secure: ThreeDSecure,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class TokenDetails < ::Stripe::StripeObject
         class NetworkData < ::Stripe::StripeObject
           class Device < ::Stripe::StripeObject
@@ -570,6 +496,80 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Treasury < ::Stripe::StripeObject
+        # The array of [ReceivedCredits](https://docs.stripe.com/api/treasury/received_credits) associated with this authorization
+        sig { returns(T::Array[String]) }
+        def received_credits; end
+        # The array of [ReceivedDebits](https://docs.stripe.com/api/treasury/received_debits) associated with this authorization
+        sig { returns(T::Array[String]) }
+        def received_debits; end
+        # The Treasury [Transaction](https://docs.stripe.com/api/treasury/transactions) associated with this authorization
+        sig { returns(T.nilable(String)) }
+        def transaction; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class VerificationData < ::Stripe::StripeObject
+        class AuthenticationExemption < ::Stripe::StripeObject
+          # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
+          sig { returns(String) }
+          def claimed_by; end
+          # The specific exemption claimed for this authorization.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class ThreeDSecure < ::Stripe::StripeObject
+          # The outcome of the 3D Secure authentication request.
+          sig { returns(String) }
+          def result; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
+        sig { returns(String) }
+        def address_line1_check; end
+        # Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
+        sig { returns(String) }
+        def address_postal_code_check; end
+        # The exemption applied to this authorization.
+        sig { returns(T.nilable(AuthenticationExemption)) }
+        def authentication_exemption; end
+        # Whether the cardholder provided a CVC and if it matched Stripe’s record.
+        sig { returns(String) }
+        def cvc_check; end
+        # Whether the cardholder provided an expiry date and if it matched Stripe’s record.
+        sig { returns(String) }
+        def expiry_check; end
+        # The postal code submitted as part of the authorization used for postal code verification.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        # 3D Secure details.
+        sig { returns(T.nilable(ThreeDSecure)) }
+        def three_d_secure; end
+        def self.inner_class_types
+          @inner_class_types = {
+            authentication_exemption: AuthenticationExemption,
+            three_d_secure: ThreeDSecure,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The total amount that was authorized or rejected. This amount is in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `amount` should be the same as `merchant_amount`, unless `currency` and `merchant_currency` are different.
       sig { returns(Integer) }
       def amount; end
@@ -609,7 +609,7 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.
@@ -642,6 +642,9 @@ module Stripe
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Token))) }
       def token; end
+      # Attribute for field token_details
+      sig { returns(T.nilable(TokenDetails)) }
+      def token_details; end
       # List of [transactions](https://docs.stripe.com/api/issuing/transactions) associated with this authorization.
       sig { returns(T::Array[::Stripe::Issuing::Transaction]) }
       def transactions; end
@@ -657,9 +660,6 @@ module Stripe
       # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
       sig { returns(T.nilable(String)) }
       def wallet; end
-      # Attribute for field token_details
-      sig { returns(T.nilable(TokenDetails)) }
-      def token_details; end
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       sig {

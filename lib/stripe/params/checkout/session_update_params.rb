@@ -421,15 +421,35 @@ module Stripe
             @issuer = issuer
           end
         end
+
+        class PendingInvoiceItemInterval < ::Stripe::RequestParams
+          # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
         # All invoices will be billed using the specified settings.
         attr_accessor :invoice_settings
+        # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+        attr_accessor :pending_invoice_item_interval
         # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
         attr_accessor :trial_end
         # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         attr_accessor :trial_period_days
 
-        def initialize(invoice_settings: nil, trial_end: nil, trial_period_days: nil)
+        def initialize(
+          invoice_settings: nil,
+          pending_invoice_item_interval: nil,
+          trial_end: nil,
+          trial_period_days: nil
+        )
           @invoice_settings = invoice_settings
+          @pending_invoice_item_interval = pending_invoice_item_interval
           @trial_end = trial_end
           @trial_period_days = trial_period_days
         end

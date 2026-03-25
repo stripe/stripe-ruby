@@ -383,6 +383,19 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class NameCollection < ::Stripe::StripeObject
       class Business < ::Stripe::StripeObject
         # Indicates whether business name collection is enabled for the payment link.
@@ -688,8 +701,10 @@ module Stripe
     attr_reader :invoice_creation
     # The line items representing what is being sold.
     attr_reader :line_items
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](/api/checkout/sessions/object), [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+    attr_reader :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Attribute for field name_collection
@@ -773,6 +788,7 @@ module Stripe
         custom_fields: CustomField,
         custom_text: CustomText,
         invoice_creation: InvoiceCreation,
+        managed_payments: ManagedPayments,
         name_collection: NameCollection,
         optional_items: OptionalItem,
         payment_intent_data: PaymentIntentData,

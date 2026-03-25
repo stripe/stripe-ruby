@@ -2009,6 +2009,15 @@ module Stripe
              }
             def initialize(elections: nil); end
           end
+          # Options for the home rule tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax))
+           }
+          def home_rule_tax; end
+          sig {
+            params(_home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax))
+           }
+          def home_rule_tax=(_home_rule_tax); end
           # Options for the local amusement tax registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax))
@@ -2046,25 +2055,16 @@ module Stripe
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          # Options for the home rule tax registration.
           sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax))
-           }
-          def home_rule_tax; end
-          sig {
-            params(_home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax))
-           }
-          def home_rule_tax=(_home_rule_tax); end
-          sig {
-            params(local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String, home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax)).void
+            params(home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax), local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String).void
            }
           def initialize(
+            home_rule_tax: nil,
             local_amusement_tax: nil,
             local_lease_tax: nil,
             state: nil,
             state_sales_tax: nil,
-            type: nil,
-            home_rule_tax: nil
+            type: nil
           ); end
         end
         class Uy < ::Stripe::RequestParams

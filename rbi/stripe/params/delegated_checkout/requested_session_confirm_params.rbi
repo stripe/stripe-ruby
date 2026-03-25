@@ -283,6 +283,15 @@ module Stripe
          }
         def initialize(client_device_metadata_details: nil); end
       end
+      # Affiliate attribution data associated with this requested session.
+      sig {
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution))
+       }
+      def affiliate_attribution; end
+      sig {
+        params(_affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution))
+       }
+      def affiliate_attribution=(_affiliate_attribution); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -311,24 +320,15 @@ module Stripe
         params(_risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
        }
       def risk_details=(_risk_details); end
-      # Affiliate attribution data associated with this requested session.
       sig {
-        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution))
-       }
-      def affiliate_attribution; end
-      sig {
-        params(_affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution))
-       }
-      def affiliate_attribution=(_affiliate_attribution); end
-      sig {
-        params(expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails), affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution)).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::PaymentMethodData), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
        }
       def initialize(
+        affiliate_attribution: nil,
         expand: nil,
         payment_method: nil,
         payment_method_data: nil,
-        risk_details: nil,
-        affiliate_attribution: nil
+        risk_details: nil
       ); end
     end
   end

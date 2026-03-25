@@ -125,8 +125,10 @@ module Stripe
     attr_accessor :price_data
     # The pricing information for the invoice item.
     attr_accessor :pricing
-    # Non-negative integer. The quantity of units for the invoice item.
+    # Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
     attr_accessor :quantity
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+    attr_accessor :quantity_decimal
     # The ID of a subscription to add this invoice item to. When left blank, the invoice item is added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription.
     attr_accessor :subscription
     # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -154,6 +156,7 @@ module Stripe
       price_data: nil,
       pricing: nil,
       quantity: nil,
+      quantity_decimal: nil,
       subscription: nil,
       tax_behavior: nil,
       tax_code: nil,
@@ -175,6 +178,7 @@ module Stripe
       @price_data = price_data
       @pricing = pricing
       @quantity = quantity
+      @quantity_decimal = quantity_decimal
       @subscription = subscription
       @tax_behavior = tax_behavior
       @tax_code = tax_code
@@ -185,6 +189,7 @@ module Stripe
     def self.field_encodings
       @field_encodings = {
         price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        quantity_decimal: :decimal_string,
         unit_amount_decimal: :decimal_string,
       }
     end

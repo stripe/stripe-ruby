@@ -718,7 +718,7 @@ module Stripe
       end
 
       class PauseCollection < ::Stripe::StripeObject
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        # The payment collection behavior for this subscription while paused.
         attr_reader :behavior
 
         def self.inner_class_types
@@ -887,7 +887,7 @@ module Stripe
     attr_reader :last_price_migration_error
     # The most recent invoice this subscription schedule has generated.
     attr_reader :latest_invoice
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata

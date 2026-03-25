@@ -349,16 +349,16 @@ module Stripe
             ); end
             # The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
             sig { returns(String) }
-            def risk_level; end
-            sig { params(_risk_level: String).returns(String) }
-            def risk_level=(_risk_level); end
+            def level; end
+            sig { params(_level: String).returns(String) }
+            def level=(_level); end
             sig {
-              params(invalid_account_number_decline_rate_past_hour: T.nilable(Integer), invalid_credentials_decline_rate_past_hour: T.nilable(Integer), risk_level: String).void
+              params(invalid_account_number_decline_rate_past_hour: T.nilable(Integer), invalid_credentials_decline_rate_past_hour: T.nilable(Integer), level: String).void
              }
             def initialize(
               invalid_account_number_decline_rate_past_hour: nil,
               invalid_credentials_decline_rate_past_hour: nil,
-              risk_level: nil
+              level: nil
             ); end
           end
           class FraudRisk < ::Stripe::RequestParams
@@ -383,11 +383,11 @@ module Stripe
             def dispute_rate=(_dispute_rate); end
             # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
             sig { returns(String) }
-            def risk_level; end
-            sig { params(_risk_level: String).returns(String) }
-            def risk_level=(_risk_level); end
-            sig { params(dispute_rate: T.nilable(Integer), risk_level: String).void }
-            def initialize(dispute_rate: nil, risk_level: nil); end
+            def level; end
+            sig { params(_level: String).returns(String) }
+            def level=(_level); end
+            sig { params(dispute_rate: T.nilable(Integer), level: String).void }
+            def initialize(dispute_rate: nil, level: nil); end
           end
           # Stripe's assessment of this authorization's likelihood of being card testing activity.
           sig {

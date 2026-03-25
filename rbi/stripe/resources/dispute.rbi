@@ -426,6 +426,9 @@ module Stripe
     # Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).
     sig { returns(Integer) }
     def amount; end
+    # The amount you want to contest, in the dispute's currency. Setting this to less than the full dispute amount means accepting the loss on the remaining amount. If not specified, the entire disputed amount is contested.
+    sig { returns(T.nilable(Integer)) }
+    def amount_to_counter; end
     # List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
     sig { returns(T::Array[::Stripe::BalanceTransaction]) }
     def balance_transactions; end
@@ -456,7 +459,7 @@ module Stripe
     # If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
     sig { returns(T::Boolean) }
     def is_charge_refundable; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -483,9 +486,6 @@ module Stripe
     # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     sig { returns(String) }
     def status; end
-    # The amount you want to contest, in the dispute's currency. Setting this to less than the full dispute amount means accepting the loss on the remaining amount. If not specified, the entire disputed amount is contested.
-    sig { returns(T.nilable(Integer)) }
-    def amount_to_counter; end
     # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.

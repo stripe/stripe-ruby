@@ -305,6 +305,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class FinancialAccountRewards < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class FinancialAccountTransactions < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether to allow card spend dispute management features.
@@ -412,6 +434,28 @@ module Stripe
           # Whether to allow spend control management features.
           sig { returns(T::Boolean) }
           def spend_control_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class NestingDemo < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -783,6 +827,9 @@ module Stripe
       # Attribute for field financial_account
       sig { returns(FinancialAccount) }
       def financial_account; end
+      # Configuration for the [financial account rewards](/connect/supported-embedded-components/financial-account-rewards/) embedded component.
+      sig { returns(T.nilable(FinancialAccountRewards)) }
+      def financial_account_rewards; end
       # Attribute for field financial_account_transactions
       sig { returns(FinancialAccountTransactions) }
       def financial_account_transactions; end
@@ -795,6 +842,9 @@ module Stripe
       # Attribute for field issuing_cards_list
       sig { returns(IssuingCardsList) }
       def issuing_cards_list; end
+      # Configuration for the [Nestingdemo](/connect/supported-embedded-components/nesting-demo/) embedded component.
+      sig { returns(T.nilable(NestingDemo)) }
+      def nesting_demo; end
       # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
       sig { returns(T.nilable(NetworkCostPassthroughReport)) }
       def network_cost_passthrough_report; end
@@ -844,10 +894,12 @@ module Stripe
           disputes_list: DisputesList,
           documents: Documents,
           financial_account: FinancialAccount,
+          financial_account_rewards: FinancialAccountRewards,
           financial_account_transactions: FinancialAccountTransactions,
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
+          nesting_demo: NestingDemo,
           network_cost_passthrough_report: NetworkCostPassthroughReport,
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
@@ -882,7 +934,7 @@ module Stripe
     # The timestamp at which this AccountSession will expire.
     sig { returns(Integer) }
     def expires_at; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # String representing the object's type. Objects of the same type share the same value.

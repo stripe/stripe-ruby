@@ -321,6 +321,30 @@ module Stripe
         end
       end
 
+      class FinancialAccountRewards < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class FinancialAccountTransactions < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether to allow card spend dispute management features.
@@ -425,6 +449,30 @@ module Stripe
           # Whether to allow spend control management features.
           attr_reader :spend_control_management
 
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NestingDemo < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -797,6 +845,8 @@ module Stripe
       attr_reader :documents
       # Attribute for field financial_account
       attr_reader :financial_account
+      # Configuration for the [financial account rewards](/connect/supported-embedded-components/financial-account-rewards/) embedded component.
+      attr_reader :financial_account_rewards
       # Attribute for field financial_account_transactions
       attr_reader :financial_account_transactions
       # Attribute for field instant_payouts_promotion
@@ -805,6 +855,8 @@ module Stripe
       attr_reader :issuing_card
       # Attribute for field issuing_cards_list
       attr_reader :issuing_cards_list
+      # Configuration for the [Nestingdemo](/connect/supported-embedded-components/nesting-demo/) embedded component.
+      attr_reader :nesting_demo
       # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
       attr_reader :network_cost_passthrough_report
       # Attribute for field notification_banner
@@ -843,10 +895,12 @@ module Stripe
           disputes_list: DisputesList,
           documents: Documents,
           financial_account: FinancialAccount,
+          financial_account_rewards: FinancialAccountRewards,
           financial_account_transactions: FinancialAccountTransactions,
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
+          nesting_demo: NestingDemo,
           network_cost_passthrough_report: NetworkCostPassthroughReport,
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
@@ -878,7 +932,7 @@ module Stripe
     attr_reader :components
     # The timestamp at which this AccountSession will expire.
     attr_reader :expires_at
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

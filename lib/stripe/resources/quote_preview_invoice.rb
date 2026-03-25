@@ -381,7 +381,7 @@ module Stripe
 
       class SubscriptionDetails < ::Stripe::StripeObject
         class PauseCollection < ::Stripe::StripeObject
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           attr_reader :behavior
           # The time after which the subscription will resume collecting payments.
           attr_reader :resumes_at
@@ -454,7 +454,7 @@ module Stripe
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           attr_reader :verification_method
 
           def self.inner_class_types
@@ -599,6 +599,8 @@ module Stripe
         class Pix < ::Stripe::StripeObject
           # Determines if the amount includes the IOF tax.
           attr_reader :amount_includes_iof
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          attr_reader :expires_after_seconds
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -683,7 +685,7 @@ module Stripe
           end
           # Attribute for field financial_connections
           attr_reader :financial_connections
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           attr_reader :verification_method
 
           def self.inner_class_types
@@ -1099,7 +1101,7 @@ module Stripe
     attr_reader :latest_revision
     # The individual line items that make up the invoice. `lines` is sorted as follows: (1) pending invoice items (including prorations) in reverse chronological order, (2) subscription items in reverse chronological order, and (3) invoice items added after invoice creation in chronological order.
     attr_reader :lines
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata

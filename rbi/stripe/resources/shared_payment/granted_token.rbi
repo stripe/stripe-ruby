@@ -37,11 +37,14 @@ module Stripe
         sig { returns(String) }
         def currency; end
         # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def expires_at; end
         # Max amount that can be captured using this SharedPaymentToken.
         sig { returns(Integer) }
         def max_amount; end
+        # The recurring interval at which the shared payment token's amount usage restrictions reset.
+        sig { returns(T.nilable(String)) }
+        def recurring_interval; end
         def self.inner_class_types
           @inner_class_types = {}
         end

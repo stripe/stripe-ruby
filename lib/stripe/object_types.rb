@@ -153,6 +153,7 @@ module Stripe
         ReserveTransaction.object_name => ReserveTransaction,
         Reversal.object_name => Reversal,
         Review.object_name => Review,
+        RiskSignals.object_name => RiskSignals,
         SetupAttempt.object_name => SetupAttempt,
         SetupIntent.object_name => SetupIntent,
         SharedPayment::GrantedToken.object_name => SharedPayment::GrantedToken,

@@ -1708,6 +1708,9 @@ module Stripe
           # Attribute for field gross_receipts_tax
           sig { returns(T.nilable(GrossReceiptsTax)) }
           def gross_receipts_tax; end
+          # Attribute for field home_rule_tax
+          sig { returns(T.nilable(HomeRuleTax)) }
+          def home_rule_tax; end
           # Attribute for field hospitality_tax
           sig { returns(T.nilable(HospitalityTax)) }
           def hospitality_tax; end
@@ -1735,15 +1738,13 @@ module Stripe
           # Type of registration in the US.
           sig { returns(String) }
           def type; end
-          # Attribute for field home_rule_tax
-          sig { returns(T.nilable(HomeRuleTax)) }
-          def home_rule_tax; end
           def self.inner_class_types
             @inner_class_types = {
               admissions_tax: AdmissionsTax,
               attendance_tax: AttendanceTax,
               entertainment_tax: EntertainmentTax,
               gross_receipts_tax: GrossReceiptsTax,
+              home_rule_tax: HomeRuleTax,
               hospitality_tax: HospitalityTax,
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
@@ -1751,7 +1752,6 @@ module Stripe
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
-              home_rule_tax: HomeRuleTax,
             }
           end
           def self.field_remappings
@@ -2254,7 +2254,7 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # String representing the object's type. Objects of the same type share the same value.

@@ -8,7 +8,7 @@ module Stripe
     #
     # If the card's owner has no default card, then the new card will become the default.
     # However, if the owner already has a default, then it will not change.
-    # To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
+    # To change the default, you should [update the customer](https://docs.stripe.com/api/customers/update) to have a new default_source.
     sig {
       params(customer: String, params: T.any(::Stripe::CustomerPaymentSourceCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source))
      }

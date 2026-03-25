@@ -1229,6 +1229,21 @@ module Stripe
           end
         end
 
+        class Crypto < ::Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
@@ -1714,7 +1729,7 @@ module Stripe
             attr_accessor :currency
             # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
             attr_accessor :end_date
-            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            # Schedule at which the future payments will be charged. Defaults to `monthly`.
             attr_accessor :payment_schedule
             # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
             attr_accessor :reference
@@ -1873,6 +1888,35 @@ module Stripe
           end
         end
 
+        class Upi < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Amount to be charged for future payments.
+            attr_accessor :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_accessor :amount_type
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_accessor :description
+            # End date of the mandate or subscription.
+            attr_accessor :end_date
+
+            def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+              @amount = amount
+              @amount_type = amount_type
+              @description = description
+              @end_date = end_date
+            end
+          end
+          # Additional fields for Mandate creation
+          attr_accessor :mandate_options
+          # Attribute for param field setup_future_usage
+          attr_accessor :setup_future_usage
+
+          def initialize(mandate_options: nil, setup_future_usage: nil)
+            @mandate_options = mandate_options
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class UsBankAccount < ::Stripe::RequestParams
           class FinancialConnections < ::Stripe::RequestParams
             # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
@@ -1959,6 +2003,8 @@ module Stripe
         attr_accessor :card
         # contains details about the Cashapp Pay payment method options.
         attr_accessor :cashapp
+        # contains details about the Crypto payment method options.
+        attr_accessor :crypto
         # contains details about the Customer Balance payment method options.
         attr_accessor :customer_balance
         # contains details about the DemoPay payment method options.
@@ -2019,6 +2065,8 @@ module Stripe
         attr_accessor :swish
         # contains details about the TWINT payment method options.
         attr_accessor :twint
+        # contains details about the UPI payment method options.
+        attr_accessor :upi
         # contains details about the Us Bank Account payment method options.
         attr_accessor :us_bank_account
         # contains details about the WeChat Pay payment method options.
@@ -2038,6 +2086,7 @@ module Stripe
           boleto: nil,
           card: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           demo_pay: nil,
           eps: nil,
@@ -2068,6 +2117,7 @@ module Stripe
           sofort: nil,
           swish: nil,
           twint: nil,
+          upi: nil,
           us_bank_account: nil,
           wechat_pay: nil
         )
@@ -2084,6 +2134,7 @@ module Stripe
           @boleto = boleto
           @card = card
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @demo_pay = demo_pay
           @eps = eps
@@ -2114,6 +2165,7 @@ module Stripe
           @sofort = sofort
           @swish = swish
           @twint = twint
+          @upi = upi
           @us_bank_account = us_bank_account
           @wechat_pay = wechat_pay
         end
@@ -2373,6 +2425,18 @@ module Stripe
           end
         end
 
+        class PendingInvoiceItemInterval < ::Stripe::RequestParams
+          # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+
         class TransferData < ::Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           attr_accessor :amount_percent
@@ -2421,6 +2485,8 @@ module Stripe
         attr_accessor :metadata
         # The account on behalf of which to charge, for each of the subscription's invoices.
         attr_accessor :on_behalf_of
+        # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+        attr_accessor :pending_invoice_item_interval
         # Determines how to handle prorations resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
         attr_accessor :proration_behavior
         # If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
@@ -2441,6 +2507,7 @@ module Stripe
           invoice_settings: nil,
           metadata: nil,
           on_behalf_of: nil,
+          pending_invoice_item_interval: nil,
           proration_behavior: nil,
           transfer_data: nil,
           trial_end: nil,
@@ -2455,6 +2522,7 @@ module Stripe
           @invoice_settings = invoice_settings
           @metadata = metadata
           @on_behalf_of = on_behalf_of
+          @pending_invoice_item_interval = pending_invoice_item_interval
           @proration_behavior = proration_behavior
           @transfer_data = transfer_data
           @trial_end = trial_end
@@ -2497,6 +2565,12 @@ module Stripe
       attr_accessor :after_expiration
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      attr_accessor :approval_method
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       attr_accessor :automatic_tax
       # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
@@ -2557,6 +2631,8 @@ module Stripe
       attr_accessor :expand
       # The Epoch time in seconds at which the Checkout Session will expire. It can be anywhere from 30 minutes to 24 hours after Checkout Session creation. By default, this value is 24 hours from creation.
       attr_accessor :expires_at
+      # The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
+      attr_accessor :integration_identifier
       # Generate a post-purchase Invoice for one-time payments.
       attr_accessor :invoice_creation
       # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
@@ -2663,12 +2739,6 @@ module Stripe
       attr_accessor :ui_mode
       # Wallet-specific configuration.
       attr_accessor :wallet_options
-      # Determines whether the customer's attempt to pay must be manually approved.
-      #
-      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
-      #
-      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
-      attr_accessor :approval_method
       # Attribute for param field checkout_items
       attr_accessor :checkout_items
 
@@ -2676,6 +2746,7 @@ module Stripe
         adaptive_pricing: nil,
         after_expiration: nil,
         allow_promotion_codes: nil,
+        approval_method: nil,
         automatic_tax: nil,
         billing_address_collection: nil,
         branding_settings: nil,
@@ -2694,6 +2765,7 @@ module Stripe
         excluded_payment_method_types: nil,
         expand: nil,
         expires_at: nil,
+        integration_identifier: nil,
         invoice_creation: nil,
         line_items: nil,
         locale: nil,
@@ -2723,12 +2795,12 @@ module Stripe
         tax_id_collection: nil,
         ui_mode: nil,
         wallet_options: nil,
-        approval_method: nil,
         checkout_items: nil
       )
         @adaptive_pricing = adaptive_pricing
         @after_expiration = after_expiration
         @allow_promotion_codes = allow_promotion_codes
+        @approval_method = approval_method
         @automatic_tax = automatic_tax
         @billing_address_collection = billing_address_collection
         @branding_settings = branding_settings
@@ -2747,6 +2819,7 @@ module Stripe
         @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @expires_at = expires_at
+        @integration_identifier = integration_identifier
         @invoice_creation = invoice_creation
         @line_items = line_items
         @locale = locale
@@ -2776,7 +2849,6 @@ module Stripe
         @tax_id_collection = tax_id_collection
         @ui_mode = ui_mode
         @wallet_options = wallet_options
-        @approval_method = approval_method
         @checkout_items = checkout_items
       end
 

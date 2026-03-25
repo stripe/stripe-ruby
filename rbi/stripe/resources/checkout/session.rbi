@@ -310,6 +310,273 @@ module Stripe
           @field_encodings = {fx_rate: :decimal_string}
         end
       end
+      class CurrentAttempt < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(Address) }
+          def address; end
+          # Customer name.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PaymentMethodDetails < ::Stripe::StripeObject
+          class AuBecsDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class BacsDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Boleto < ::Stripe::StripeObject
+            # Uniquely identifies this particular boleto payment method. You can use this attribute to check whether two boleto payment methods are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Card < ::Stripe::StripeObject
+            class Wallet < ::Stripe::StripeObject
+              # The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The brand of the card, accounting for customer's brand choice on dual-branded cards.
+            sig { returns(String) }
+            def brand; end
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Two-digit number representing the card's expiration month.
+            sig { returns(Integer) }
+            def exp_month; end
+            # Four-digit number representing the card's expiration year.
+            sig { returns(Integer) }
+            def exp_year; end
+            # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            #
+            # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            sig { returns(String) }
+            def funding; end
+            # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            sig { returns(T.nilable(String)) }
+            def iin; end
+            # The last four digits of the card.
+            sig { returns(String) }
+            def last4; end
+            # If this Card is part of a card wallet, this contains the details of the card wallet.
+            sig { returns(T.nilable(Wallet)) }
+            def wallet; end
+            def self.inner_class_types
+              @inner_class_types = {wallet: Wallet}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Link < ::Stripe::StripeObject
+            # Unique, encrypted bank account identifier.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class SepaDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class UsBankAccount < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Indicates whether this payment method can be shown again to its customer in a checkout flow.
+          sig { returns(String) }
+          def allow_redisplay; end
+          # Attribute for field au_becs_debit
+          sig { returns(T.nilable(AuBecsDebit)) }
+          def au_becs_debit; end
+          # Attribute for field bacs_debit
+          sig { returns(T.nilable(BacsDebit)) }
+          def bacs_debit; end
+          # Attribute for field boleto
+          sig { returns(T.nilable(Boleto)) }
+          def boleto; end
+          # Attribute for field card
+          sig { returns(T.nilable(Card)) }
+          def card; end
+          # Attribute for field link
+          sig { returns(T.nilable(Link)) }
+          def link; end
+          # Attribute for field sepa_debit
+          sig { returns(T.nilable(SepaDebit)) }
+          def sepa_debit; end
+          # The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
+          sig { returns(String) }
+          def type; end
+          # Attribute for field us_bank_account
+          sig { returns(T.nilable(UsBankAccount)) }
+          def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {
+              au_becs_debit: AuBecsDebit,
+              bacs_debit: BacsDebit,
+              boleto: Boleto,
+              card: Card,
+              link: Link,
+              sepa_debit: SepaDebit,
+              us_bank_account: UsBankAccount,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class ShippingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(Address) }
+          def address; end
+          # Customer name.
+          sig { returns(String) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The customer's billing information, if provided.
+        sig { returns(T.nilable(BillingDetails)) }
+        def billing_details; end
+        # The customer's email.
+        sig { returns(T.nilable(String)) }
+        def email; end
+        # The attempt ID you will pass to the [Checkout Session approve](api/checkout/sessions/approve) endpoint to approve the attempt.
+        sig { returns(String) }
+        def id; end
+        # Information about the payment method the customer is attempting to pay with. Relevant payment method information is provided when available. Some payment details are only available after the payment has completed and can't be returned in the manual approval flow.
+        sig { returns(T.nilable(PaymentMethodDetails)) }
+        def payment_method_details; end
+        # The customer's phone number.
+        sig { returns(T.nilable(String)) }
+        def phone; end
+        # The customer's shipping information, if provided.
+        sig { returns(T.nilable(ShippingDetails)) }
+        def shipping_details; end
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            payment_method_details: PaymentMethodDetails,
+            shipping_details: ShippingDetails,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CustomField < ::Stripe::StripeObject
         class Dropdown < ::Stripe::StripeObject
           class Option < ::Stripe::StripeObject
@@ -813,7 +1080,7 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           sig { returns(T.nilable(String)) }
           def verification_method; end
           def self.inner_class_types
@@ -1722,6 +1989,46 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Upi < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            # End date of the mandate or subscription.
+            sig { returns(T.nilable(Integer)) }
+            def end_date; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UsBankAccount < ::Stripe::StripeObject
           class FinancialConnections < ::Stripe::StripeObject
             class Filters < ::Stripe::StripeObject
@@ -1786,7 +2093,7 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           sig { returns(T.nilable(String)) }
           def verification_method; end
           def self.inner_class_types
@@ -1919,6 +2226,9 @@ module Stripe
         # Attribute for field twint
         sig { returns(T.nilable(Twint)) }
         def twint; end
+        # Attribute for field upi
+        sig { returns(T.nilable(Upi)) }
+        def upi; end
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
@@ -1965,6 +2275,7 @@ module Stripe
             sofort: Sofort,
             swish: Swish,
             twint: Twint,
+            upi: Upi,
             us_bank_account: UsBankAccount,
           }
         end
@@ -2241,181 +2552,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CurrentAttempt < ::Stripe::StripeObject
-        class BillingDetails < ::Stripe::StripeObject
-          class Address < ::Stripe::StripeObject
-            # City, district, suburb, town, or village.
-            sig { returns(T.nilable(String)) }
-            def city; end
-            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(T.nilable(String)) }
-            def country; end
-            # Address line 1, such as the street, PO Box, or company name.
-            sig { returns(T.nilable(String)) }
-            def line1; end
-            # Address line 2, such as the apartment, suite, unit, or building.
-            sig { returns(T.nilable(String)) }
-            def line2; end
-            # ZIP or postal code.
-            sig { returns(T.nilable(String)) }
-            def postal_code; end
-            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-            sig { returns(T.nilable(String)) }
-            def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Attribute for field address
-          sig { returns(Address) }
-          def address; end
-          # Customer name.
-          sig { returns(T.nilable(String)) }
-          def name; end
-          def self.inner_class_types
-            @inner_class_types = {address: Address}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class PaymentMethodDetails < ::Stripe::StripeObject
-          class Card < ::Stripe::StripeObject
-            class Wallet < ::Stripe::StripeObject
-              # The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
-              sig { returns(String) }
-              def type; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # The brand of the card, accounting for customer's brand choice on dual-branded cards.
-            sig { returns(String) }
-            def brand; end
-            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
-            sig { returns(T.nilable(String)) }
-            def country; end
-            # Two-digit number representing the card's expiration month.
-            sig { returns(Integer) }
-            def exp_month; end
-            # Four-digit number representing the card's expiration year.
-            sig { returns(Integer) }
-            def exp_year; end
-            # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-            #
-            # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
-            sig { returns(T.nilable(String)) }
-            def fingerprint; end
-            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-            sig { returns(String) }
-            def funding; end
-            # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
-            sig { returns(T.nilable(String)) }
-            def iin; end
-            # The last four digits of the card.
-            sig { returns(String) }
-            def last4; end
-            # If this Card is part of a card wallet, this contains the details of the card wallet.
-            sig { returns(T.nilable(Wallet)) }
-            def wallet; end
-            def self.inner_class_types
-              @inner_class_types = {wallet: Wallet}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Indicates whether this payment method can be shown again to its customer in a checkout flow.
-          sig { returns(String) }
-          def allow_redisplay; end
-          # Attribute for field card
-          sig { returns(T.nilable(Card)) }
-          def card; end
-          # The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
-          sig { returns(String) }
-          def type; end
-          def self.inner_class_types
-            @inner_class_types = {card: Card}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class ShippingDetails < ::Stripe::StripeObject
-          class Address < ::Stripe::StripeObject
-            # City, district, suburb, town, or village.
-            sig { returns(T.nilable(String)) }
-            def city; end
-            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(T.nilable(String)) }
-            def country; end
-            # Address line 1, such as the street, PO Box, or company name.
-            sig { returns(T.nilable(String)) }
-            def line1; end
-            # Address line 2, such as the apartment, suite, unit, or building.
-            sig { returns(T.nilable(String)) }
-            def line2; end
-            # ZIP or postal code.
-            sig { returns(T.nilable(String)) }
-            def postal_code; end
-            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-            sig { returns(T.nilable(String)) }
-            def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Attribute for field address
-          sig { returns(Address) }
-          def address; end
-          # Customer name.
-          sig { returns(String) }
-          def name; end
-          def self.inner_class_types
-            @inner_class_types = {address: Address}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The customer's billing information, if provided.
-        sig { returns(T.nilable(BillingDetails)) }
-        def billing_details; end
-        # The customer's email.
-        sig { returns(T.nilable(String)) }
-        def email; end
-        # The attempt ID you will pass to the [Checkout Session approve](api/checkout/sessions/approve) endpoint to approve the attempt.
-        sig { returns(String) }
-        def id; end
-        # Information about the payment method the customer is attempting to pay with.
-        sig { returns(T.nilable(PaymentMethodDetails)) }
-        def payment_method_details; end
-        # The customer's phone number.
-        sig { returns(T.nilable(String)) }
-        def phone; end
-        # The customer's shipping information, if provided.
-        sig { returns(T.nilable(ShippingDetails)) }
-        def shipping_details; end
-        def self.inner_class_types
-          @inner_class_types = {
-            billing_details: BillingDetails,
-            payment_method_details: PaymentMethodDetails,
-            shipping_details: ShippingDetails,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class CheckoutItem < ::Stripe::StripeObject
         class PricingPlanSubscriptionItem < ::Stripe::StripeObject
           class ComponentConfigurations < ::Stripe::StripeObject
@@ -2525,6 +2661,13 @@ module Stripe
       # Total of all items after discounts and taxes are applied.
       sig { returns(T.nilable(Integer)) }
       def amount_total; end
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      sig { returns(T.nilable(String)) }
+      def approval_method; end
       # Attribute for field automatic_tax
       sig { returns(AutomaticTax) }
       def automatic_tax; end
@@ -2564,6 +2707,9 @@ module Stripe
       # Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions created before 2025-03-31.
       sig { returns(T.nilable(CurrencyConversion)) }
       def currency_conversion; end
+      # The customer's pending attempt to pay that requires your approval. Contains information about the customer and their payment details.
+      sig { returns(T.nilable(CurrentAttempt)) }
+      def current_attempt; end
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T::Array[CustomField]) }
       def custom_fields; end
@@ -2605,6 +2751,9 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
+      # The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
+      sig { returns(T.nilable(String)) }
+      def integration_identifier; end
       # ID of the invoice created by the Checkout Session, if it exists.
       sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
       def invoice; end
@@ -2614,7 +2763,7 @@ module Stripe
       # The line items purchased by the customer.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
@@ -2720,7 +2869,7 @@ module Stripe
       # Tax and discount details for the computed total amount.
       sig { returns(T.nilable(TotalDetails)) }
       def total_details; end
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       sig { returns(T.nilable(String)) }
       def ui_mode; end
       # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
@@ -2730,16 +2879,6 @@ module Stripe
       # Wallet-specific configuration for this Checkout Session.
       sig { returns(T.nilable(WalletOptions)) }
       def wallet_options; end
-      # Determines whether the customer's attempt to pay must be manually approved.
-      #
-      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
-      #
-      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
-      sig { returns(T.nilable(String)) }
-      def approval_method; end
-      # The customer's pending attempt to pay that requires your approval. Contains information about the customer and their payment details.
-      sig { returns(T.nilable(CurrentAttempt)) }
-      def current_attempt; end
       # Attribute for field checkout_items
       sig { returns(T.nilable(T::Array[CheckoutItem])) }
       def checkout_items; end

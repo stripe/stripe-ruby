@@ -60,7 +60,7 @@ module Stripe
       # The name of the institution that this authorization belongs to.
       sig { returns(String) }
       def institution_name; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # String representing the object's type. Objects of the same type share the same value.

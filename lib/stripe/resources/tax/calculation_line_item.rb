@@ -45,7 +45,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         attr_reader :amount
         # Attribute for field jurisdiction
         attr_reader :jurisdiction
@@ -55,7 +55,7 @@ module Stripe
         attr_reader :tax_rate_details
         # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
         attr_reader :taxability_reason
-        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         attr_reader :taxable_amount
 
         def self.inner_class_types
@@ -66,13 +66,13 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # The line item amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+      # The line item amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
       attr_reader :amount
-      # The amount of tax calculated for this line item, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+      # The amount of tax calculated for this line item, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
       attr_reader :amount_tax
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata

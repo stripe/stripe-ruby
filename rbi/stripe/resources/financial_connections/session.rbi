@@ -150,7 +150,7 @@ module Stripe
       # Attribute for field limits
       sig { returns(T.nilable(Limits)) }
       def limits; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # Attribute for field manual_entry

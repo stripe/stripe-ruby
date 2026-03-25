@@ -217,6 +217,8 @@ module Stripe
           @network_profile = network_profile
         end
       end
+      # Affiliate attribution data associated with this requested session.
+      attr_accessor :affiliate_attribution
       # The currency for this requested session.
       attr_accessor :currency
       # The customer for this requested session.
@@ -239,10 +241,9 @@ module Stripe
       attr_accessor :setup_future_usage
       # The shared metadata for this requested session.
       attr_accessor :shared_metadata
-      # Affiliate attribution data associated with this requested session.
-      attr_accessor :affiliate_attribution
 
       def initialize(
+        affiliate_attribution: nil,
         currency: nil,
         customer: nil,
         expand: nil,
@@ -253,9 +254,9 @@ module Stripe
         payment_method_data: nil,
         seller_details: nil,
         setup_future_usage: nil,
-        shared_metadata: nil,
-        affiliate_attribution: nil
+        shared_metadata: nil
       )
+        @affiliate_attribution = affiliate_attribution
         @currency = currency
         @customer = customer
         @expand = expand
@@ -267,7 +268,6 @@ module Stripe
         @seller_details = seller_details
         @setup_future_usage = setup_future_usage
         @shared_metadata = shared_metadata
-        @affiliate_attribution = affiliate_attribution
       end
     end
   end

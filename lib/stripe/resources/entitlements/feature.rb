@@ -19,7 +19,7 @@ module Stripe
       attr_reader :active
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # A unique key you provide as your own system identifier. This may be up to 80 characters.
       attr_reader :lookup_key

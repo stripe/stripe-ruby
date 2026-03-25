@@ -68,6 +68,15 @@ module Stripe
             sig { params(shipping_option: String).void }
             def initialize(shipping_option: nil); end
           end
+          # The digital fulfillment option.
+          sig {
+            returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital))
+           }
+          def digital; end
+          sig {
+            params(_digital: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital))
+           }
+          def digital=(_digital); end
           # The shipping fulfillment option.
           sig {
             returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Shipping))
@@ -82,19 +91,10 @@ module Stripe
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          # The digital fulfillment option.
           sig {
-            returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital))
+            params(digital: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital), shipping: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Shipping), type: String).void
            }
-          def digital; end
-          sig {
-            params(_digital: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital))
-           }
-          def digital=(_digital); end
-          sig {
-            params(shipping: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Shipping), type: String, digital: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails::SelectedFulfillmentOption::Digital)).void
-           }
-          def initialize(shipping: nil, type: nil, digital: nil); end
+          def initialize(digital: nil, shipping: nil, type: nil); end
         end
         class SelectedFulfillmentOptionOverride < ::Stripe::RequestParams
           class Digital < ::Stripe::RequestParams

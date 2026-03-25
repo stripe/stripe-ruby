@@ -195,7 +195,7 @@ module Stripe
       attr_reader :initiating_payment_method_details
       # Attribute for field linked_flows
       attr_reader :linked_flows
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The network used for the ReceivedDebit.
       attr_reader :network

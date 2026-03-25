@@ -550,11 +550,16 @@ module Stripe
         params(_price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData))
        }
       def price_data=(_price_data); end
-      # Non-negative integer. The quantity of units for the invoice item.
+      # Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
       sig { returns(T.nilable(Integer)) }
       def quantity; end
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
+      # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+      sig { returns(T.nilable(BigDecimal)) }
+      def quantity_decimal; end
+      sig { params(_quantity_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+      def quantity_decimal=(_quantity_decimal); end
       # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
       sig { returns(T.nilable(String)) }
       def tax_behavior; end
@@ -583,7 +588,7 @@ module Stripe
       sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount])), invoiceitem: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
+        params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount])), invoiceitem: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
        }
       def initialize(
         amount: nil,
@@ -597,6 +602,7 @@ module Stripe
         price: nil,
         price_data: nil,
         quantity: nil,
+        quantity_decimal: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
@@ -606,6 +612,7 @@ module Stripe
       def self.field_encodings
         @field_encodings = {
           price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+          quantity_decimal: :decimal_string,
           unit_amount_decimal: :decimal_string,
         }
       end
@@ -1627,7 +1634,7 @@ module Stripe
         end
         class SetPauseCollection < ::Stripe::RequestParams
           class Set < ::Stripe::RequestParams
-            # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+            # The payment collection behavior for this subscription while paused.
             sig { returns(String) }
             def behavior; end
             sig { params(_behavior: String).returns(String) }
@@ -2755,7 +2762,7 @@ module Stripe
           end
         end
         class PauseCollection < ::Stripe::RequestParams
-          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          # The payment collection behavior for this subscription while paused.
           sig { returns(String) }
           def behavior; end
           sig { params(_behavior: String).returns(String) }
@@ -3947,6 +3954,7 @@ module Stripe
             kind: :object,
             fields: {
               price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+              quantity_decimal: :decimal_string,
               unit_amount_decimal: :decimal_string,
             },
           },

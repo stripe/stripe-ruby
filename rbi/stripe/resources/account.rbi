@@ -3,6 +3,8 @@
 
 # typed: true
 module Stripe
+  # For new integrations, we recommend using the [Accounts v2 API](https://docs.stripe.com/api/v2/core/accounts), in place of /v1/accounts and /v1/customers to represent a user.
+  #
   # This is an object representing a Stripe account. You can retrieve it to see
   # properties on the account like its current requirements or if the account is
   # enabled to make live charges or receive payouts.
@@ -338,6 +340,9 @@ module Stripe
       # The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
       sig { returns(T.nilable(String)) }
       def twint_payments; end
+      # The status of the upi payments capability of the account, or whether the account can directly process upi charges.
+      sig { returns(T.nilable(String)) }
+      def upi_payments; end
       # The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
       sig { returns(T.nilable(String)) }
       def us_bank_account_ach_payments; end
@@ -1164,7 +1169,7 @@ module Stripe
         # Additional files that are required to support the onboarding process of your business.
         sig { returns(T.nilable(T::Array[String])) }
         def additional_files; end
-        # Whether your business sells digital content or not.
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
         sig { returns(T.nilable(String)) }
         def goods_type; end
         # Attribute for field site
@@ -1403,6 +1408,9 @@ module Stripe
     # Attribute for field risk_controls
     sig { returns(T.nilable(RiskControls)) }
     def risk_controls; end
+    # A hash containing information about risk signal collection
+    sig { returns(T.nilable(::Stripe::RiskSignals)) }
+    def risk_signals; end
     # Options for customizing how the account functions within Stripe.
     sig { returns(T.nilable(Settings)) }
     def settings; end

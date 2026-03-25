@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
+require "bigdecimal"
 module Stripe
   class CodegennedExampleTest < Test::Unit::TestCase
     should "Test account links post" do
@@ -5712,8 +5713,8 @@ module Stripe
             fuel: {
               type: "diesel",
               unit: "liter",
-              unit_cost_decimal: "3.5",
-              quantity_decimal: "10",
+              unit_cost_decimal: BigDecimal("3.5"),
+              quantity_decimal: BigDecimal("10"),
             },
             lodging: {
               check_in_at: 1_633_651_200,
@@ -5722,7 +5723,7 @@ module Stripe
             receipt: [
               {
                 description: "Room charge",
-                quantity: "1",
+                quantity: BigDecimal("1"),
                 total: 200,
                 unit_cost: 200,
               },
@@ -6055,8 +6056,8 @@ module Stripe
           fuel: {
             type: "diesel",
             unit: "liter",
-            unit_cost_decimal: "3.5",
-            quantity_decimal: "10",
+            unit_cost_decimal: BigDecimal("3.5"),
+            quantity_decimal: BigDecimal("10"),
           },
           lodging: {
             check_in_at: 1_533_651_200,
@@ -6065,7 +6066,7 @@ module Stripe
           receipt: [
             {
               description: "Room charge",
-              quantity: "1",
+              quantity: BigDecimal("1"),
               total: 200,
               unit_cost: 200,
             },
@@ -6171,8 +6172,8 @@ module Stripe
           fuel: {
             type: "diesel",
             unit: "liter",
-            unit_cost_decimal: "3.5",
-            quantity_decimal: "10",
+            unit_cost_decimal: BigDecimal("3.5"),
+            quantity_decimal: BigDecimal("10"),
           },
           lodging: {
             check_in_at: 1_533_651_200,
@@ -6181,7 +6182,7 @@ module Stripe
           receipt: [
             {
               description: "Room charge",
-              quantity: "1",
+              quantity: BigDecimal("1"),
               total: 200,
               unit_cost: 200,
             },
@@ -9142,7 +9143,7 @@ module Stripe
       batch_job = client.v2.core.batch_jobs.create({
         endpoint: {
           http_method: "post",
-          path: "path",
+          path: "/v1/subscription_schedules",
         },
         metadata: { key: "metadata" },
         skip_validation: true,

@@ -25,7 +25,7 @@ module Stripe
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
-      # Attribute for param field status
+      # If provided, only RedactionJob objects with the given status will be returned.
       sig { returns(T.nilable(String)) }
       def status; end
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }

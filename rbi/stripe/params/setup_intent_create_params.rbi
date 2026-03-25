@@ -1731,7 +1731,6 @@ module Stripe
          }
         def initialize(mandate_options: nil); end
       end
-      class StripeBalance < ::Stripe::RequestParams; end
       class Upi < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Amount to be charged for future payments.
@@ -1998,15 +1997,6 @@ module Stripe
         params(_sepa_debit: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::SepaDebit)).returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::SepaDebit))
        }
       def sepa_debit=(_sepa_debit); end
-      # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
-      sig {
-        returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::StripeBalance))
-       }
-      def stripe_balance; end
-      sig {
-        params(_stripe_balance: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::StripeBalance)).returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::StripeBalance))
-       }
-      def stripe_balance=(_stripe_balance); end
       # If this is a `upi` SetupIntent, this sub-hash contains details about the UPI payment method options.
       sig { returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Upi)) }
       def upi; end
@@ -2024,7 +2014,7 @@ module Stripe
        }
       def us_bank_account=(_us_bank_account); end
       sig {
-        params(acss_debit: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Pix), sepa_debit: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::SepaDebit), stripe_balance: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::StripeBalance), upi: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Upi), us_bank_account: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::UsBankAccount)).void
+        params(acss_debit: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Pix), sepa_debit: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::SepaDebit), upi: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Upi), us_bank_account: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::UsBankAccount)).void
        }
       def initialize(
         acss_debit: nil,
@@ -2038,7 +2028,6 @@ module Stripe
         payto: nil,
         pix: nil,
         sepa_debit: nil,
-        stripe_balance: nil,
         upi: nil,
         us_bank_account: nil
       ); end

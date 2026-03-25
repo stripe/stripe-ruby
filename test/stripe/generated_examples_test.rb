@@ -9143,7 +9143,7 @@ module Stripe
       batch_job = client.v2.core.batch_jobs.create({
         endpoint: {
           http_method: "post",
-          path: "path",
+          path: "/v1/subscription_schedules",
         },
         metadata: { key: "metadata" },
         skip_validation: true,

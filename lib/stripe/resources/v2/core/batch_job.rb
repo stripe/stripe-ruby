@@ -419,6 +419,19 @@ module Stripe
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
 
+        ENDPOINT_PATH_V1_ACCOUNT_UPDATE = "/v1/accounts/:account"
+        ENDPOINT_PATH_V1_CREDIT_NOTE_CREATE = "/v1/credit_notes"
+        ENDPOINT_PATH_V1_CUSTOMER_UPDATE = "/v1/customers/:customer"
+        ENDPOINT_PATH_V1_INVOICE_UPDATE = "/v1/invoices/:invoice"
+        ENDPOINT_PATH_V1_INVOICE_PAY = "/v1/invoices/:invoice/pay"
+        ENDPOINT_PATH_V1_PROMOTION_CODE_CREATE = "/v1/promotion_codes"
+        ENDPOINT_PATH_V1_PROMOTION_CODE_UPDATE = "/v1/promotion_codes/:promotion_code"
+        ENDPOINT_PATH_V1_SUBSCRIPTION_UPDATE = "/v1/subscriptions/:subscription_exposed_id"
+        ENDPOINT_PATH_V1_SUBSCRIPTION_MIGRATE = "/v1/subscriptions/:subscription/migrate"
+        ENDPOINT_PATH_V1_SUBSCRIPTION_SCHEDULE_CREATE = "/v1/subscription_schedules"
+        ENDPOINT_PATH_V1_SUBSCRIPTION_SCHEDULE_UPDATE = "/v1/subscription_schedules/:schedule"
+        ENDPOINT_PATH_V1_SUBSCRIPTION_SCHEDULE_CANCEL = "/v1/subscription_schedules/:schedule/cancel"
+
         def self.inner_class_types
           @inner_class_types = { status_details: StatusDetails }
         end

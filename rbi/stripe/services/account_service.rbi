@@ -58,6 +58,10 @@ module Stripe
      }
     def retrieve_current(params = {}, opts = {}); end
 
+    # Serializes an Account update request into a batch job JSONL line.
+    sig { params(account: String, params: AccountUpdateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_update(account, params = {}, opts = {}); end
+
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
     #

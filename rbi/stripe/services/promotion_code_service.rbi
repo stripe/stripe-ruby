@@ -22,6 +22,16 @@ module Stripe
      }
     def retrieve(promotion_code, params = {}, opts = {}); end
 
+    # Serializes a PromotionCode create request into a batch job JSONL line.
+    sig { params(params: PromotionCodeCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a PromotionCode update request into a batch job JSONL line.
+    sig {
+      params(promotion_code: String, params: PromotionCodeUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(promotion_code, params = {}, opts = {}); end
+
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
     sig {
       params(promotion_code: String, params: T.any(::Stripe::PromotionCodeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PromotionCode)

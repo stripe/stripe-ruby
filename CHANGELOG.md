@@ -45,6 +45,58 @@ This release changes the pinned API version to `2026-03-25.preview`. It is built
 * [#1826](https://github.com/stripe/stripe-ruby/pull/1826) Merge to beta
 * [#1809](https://github.com/stripe/stripe-ruby/pull/1809) Merge to beta
 
+## 19.0.0 - 2026-03-25
+
+This release changes the pinned API version to `2026-03-25.dahlia` and contains breaking changes (prefixed with ⚠️ below). There's also a [detailed migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v19) to simplify your upgrade process.
+
+Please review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/dahlia) before upgrading.
+
+* ⚠️ **Breaking change:** [#1829](https://github.com/stripe/stripe-ruby/pull/1829) Add decimal_string coercion for v1 and v2 API fields
+  - All `decimal_string` fields changed type from `String` to `BigDecimal` in both request params and response objects. Code that reads or writes these fields as `String` will need to use `BigDecimal` instead. Affected fields across v1 and v2 APIs:
+    - **Checkout::Session**: `fx_rate`
+    - **Climate::Order**: `metric_tons`; **Climate::Product**: `metric_tons_available`
+    - **CreditNoteLineItem**: `unit_amount_decimal`
+    - **InvoiceItem**: `quantity_decimal`, `unit_amount_decimal`
+    - **InvoiceLineItem**: `quantity_decimal`, `unit_amount_decimal`
+    - **Issuing::Authorization** / **Issuing::Transaction** (and TestHelpers): `quantity_decimal`, `unit_cost_decimal`, `gross_amount_decimal`, `local_amount_decimal`, `national_amount_decimal`
+    - **Plan**: `amount_decimal`, `flat_amount_decimal`, `unit_amount_decimal`
+    - **Price**: `unit_amount_decimal`, `flat_amount_decimal` (including `currency_options` and `tiers`)
+    - **V2::Core::Account** / **V2::Core::AccountPerson**: `percent_ownership`
+    - Request params on **Invoice**, **Product**, **Quote**, **Subscription**, **SubscriptionItem**, **SubscriptionSchedule**, **PaymentLink**: `unit_amount_decimal`, `flat_amount_decimal`, `quantity_decimal` (where applicable)
+* ⚠️ **Breaking change:** [#1828](https://github.com/stripe/stripe-ruby/pull/1828) ⚠️ Throw an error when using the wrong webhook parsing method
+* ⚠️ **Breaking change:** [#1823](https://github.com/stripe/stripe-ruby/pull/1823) ⚠️ Drop support for Ruby 2.6
+* [#1825](https://github.com/stripe/stripe-ruby/pull/1825) Require cgi/escape instead of cgi
+* [#1814](https://github.com/stripe/stripe-ruby/pull/1814) Add runtime support for V2 int64 string-encoded fields
+* [#1817](https://github.com/stripe/stripe-ruby/pull/1817) Remove AlipayAccount and RecipientTransfer resource files
+  - ⚠️ Removes `Stripe::AlipayAccount` and `Stripe::RecipientTransfer` resource classes (dead code since v7.0.0)
+* [#1816](https://github.com/stripe/stripe-ruby/pull/1816) remove v2-specific guards for removing nils from request params
+* [#1824](https://github.com/stripe/stripe-ruby/pull/1824) Add gem dependency on logger
+
+### ⚠️ Breaking changes due to changes in the Stripe API
+
+* Generated changes from [#1804](https://github.com/stripe/stripe-ruby/pull/1804), [#1834](https://github.com/stripe/stripe-ruby/pull/1834), [#1831](https://github.com/stripe/stripe-ruby/pull/1831), [#1830](https://github.com/stripe/stripe-ruby/pull/1830)
+  * Add support for `upi_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `upi` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `Mandate::PaymentMethodDetail`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodOption`
+  * Add support for `integration_identifier` on `Checkout::SessionCreateParams` and `Checkout::Session`
+  * Add support for `crypto` on `Checkout::SessionCreateParams::PaymentMethodOption`
+  * Add support for `pending_invoice_item_interval` on `Checkout::SessionCreateParams::SubscriptionDatum`
+  * Add support for `metadata` on `CreditNoteCreateParams::Line`, `CreditNoteLineItem`, `CreditNoteListPreviewLineItemsParams::Line`, and `CreditNotePreviewParams::Line`
+  * Add support for `quantity_decimal` on `InvoiceAddLinesParams::Line`, `InvoiceCreatePreviewParams::InvoiceItem`, `InvoiceItemCreateParams`, `InvoiceItemUpdateParams`, `InvoiceItem`, `InvoiceLineItemUpdateParams`, `InvoiceLineItem`, and `InvoiceUpdateLinesParams::Line`
+  * ⚠️ Add support for `level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
+  * ⚠️ Remove support for `risk_level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
+  * Add support for `lifecycle_controls` on `Issuing::CardCreateParams` and `Issuing::Card`
+  * ⚠️ Change type of `Issuing::Token::NetworkDatum::Visa.card_reference_id` from `string` to `nullable(string)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.brand` and `PaymentRecord::PaymentMethodDetail::Card.brand` from `enum` to `nullable(enum)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_month` and `PaymentRecord::PaymentMethodDetail::Card.exp_month` from `longInteger` to `nullable(longInteger)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_year` and `PaymentRecord::PaymentMethodDetail::Card.exp_year` from `longInteger` to `nullable(longInteger)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.funding` and `PaymentRecord::PaymentMethodDetail::Card.funding` from `enum('credit'|'debit'|'prepaid'|'unknown')` to `nullable(enum('credit'|'debit'|'prepaid'|'unknown'))`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.last4` and `PaymentRecord::PaymentMethodDetail::Card.last4` from `string` to `nullable(string)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.moto` and `PaymentRecord::PaymentMethodDetail::Card.moto` from `boolean` to `nullable(boolean)`
+  * Add support for `cryptogram`, `electronic_commerce_indicator`, `exemption_indicator_applied`, and `exemption_indicator` on `PaymentAttemptRecord::PaymentMethodDetail::Card::ThreeDSecure` and `PaymentRecord::PaymentMethodDetail::Card::ThreeDSecure`
+  * Add support for `upi_handle_redirect_or_display_qr_code` on `PaymentIntent::NextAction` and `SetupIntent::NextAction`
+  * Add support for `recommended_action` and `signals` on `Radar::PaymentEvaluation`
+  * ⚠️ Remove support for `insights` on `Radar::PaymentEvaluation`
+
 ## 18.5.0-beta.1 - 2026-02-25
 This release changes the pinned API version to `2026-02-25.preview`.
 

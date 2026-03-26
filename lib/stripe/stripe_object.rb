@@ -147,7 +147,10 @@ module Stripe
     #   StripeObject. Defaults to true.
     def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
-        add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
+        ## ChartMogul change: we don't want to add accessors for every key
+        ## Before:
+        # add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
+        # After ChartMogul change we simple removed that line
         @values[k] = Util.convert_to_stripe_object(v, opts)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
@@ -393,7 +396,16 @@ module Stripe
         return mth.call(args[0])
       elsif @values.key?(name)
         return @values[name]
+      ## ChartMogul change: we didn't define all methods, so additionally we handle some cases here:
+      ## Before:
+      # end
+      # After ChartMogul change:
+      elsif name.to_s.end_with?("?") && @values.key?(name.to_s[0...-1]&.to_sym)
+        return @values[name.to_s[0...-1]&.to_sym]
+      elsif name.to_s.end_with?("?") && @values.key?(name.to_s[0...-1])
+        return @values[name.to_s[0...-1]]
       end
+      ## End ChartMogul change
 
       begin
         super
@@ -414,7 +426,13 @@ module Stripe
     # rubocop:enable Style/MissingRespondToMissing
 
     protected def respond_to_missing?(symbol, include_private = false)
-      @values && @values.key?(symbol) || super
+      ## ChartMogul change: we want to handle boolean methods like .paid? here
+      ## Before:
+      # @values && @values.key?(symbol) || super
+      # After ChartMogul change:
+      return true if @values&.key?(symbol) || (@values&.key?(symbol.to_s[0...-1].to_sym) && symbol.to_s.end_with?("?"))
+      super
+      ## End ChartMogul change
     end
 
     # Re-initializes the object based on a hash of values (usually one that's
@@ -431,9 +449,13 @@ module Stripe
     #   remove accessors.
     protected def initialize_from(values, opts, partial = false)
       @opts = Util.normalize_opts(opts)
-
-      # the `#send` is here so that we can keep this method private
-      @original_values = self.class.send(:deep_copy, values)
+      ## ChartMogul change: we don't want to deep copy the values t osave memory
+      ## Before:
+      # # the `#send` is here so that we can keep this method private
+      # @original_values = self.class.send(:deep_copy, values)
+      # After ChartMogul change:
+      @original_values = values
+      ## End ChartMogul change
 
       removed = partial ? Set.new : Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)
@@ -443,7 +465,12 @@ module Stripe
       # values which don't persist as transient
 
       remove_accessors(removed)
-      add_accessors(added, values)
+      ## ChartMogul change: we don't want to add accessors for new objects
+      ## Before:
+      # add_accessors(added, values)
+      ## After ChartMogul change:
+      # line removed
+      ## End ChartMogul change
 
       removed.each do |k|
         @values.delete(k)
@@ -536,28 +563,33 @@ module Stripe
       end
     end
 
-    # Produces a deep copy of the given object including support for arrays,
-    # hashes, and StripeObjects.
-    private_class_method def self.deep_copy(obj)
-      case obj
-      when Array
-        obj.map { |e| deep_copy(e) }
-      when Hash
-        obj.each_with_object({}) do |(k, v), copy|
-          copy[k] = deep_copy(v)
-          copy
-        end
-      when StripeObject
-        obj.class.construct_from(
-          deep_copy(obj.instance_variable_get(:@values)),
-          obj.instance_variable_get(:@opts).select do |k, _v|
-            Util::OPTS_COPYABLE.include?(k)
-          end
-        )
-      else
-        obj
-      end
-    end
+    ## ChartMogul change: we don't want to deep copy the values so the method is not used
+    ## Before:
+
+    # private_class_method def self.deep_copy(obj)
+    #   case obj
+    #   when Array
+    #     obj.map { |e| deep_copy(e) }
+    #   when Hash
+    #     obj.each_with_object({}) do |(k, v), copy|
+    #       copy[k] = deep_copy(v)
+    #       copy
+    #     end
+    #   when StripeObject
+    #     obj.class.construct_from(
+    #       deep_copy(obj.instance_variable_get(:@values)),
+    #       obj.instance_variable_get(:@opts).select do |k, _v|
+    #         Util::OPTS_COPYABLE.include?(k)
+    #       end
+    #     )
+    #   else
+    #     obj
+    #   end
+    # end
+
+    # After ChartMogul change:
+    # method removed
+    # End ChartMogul change
 
     private def dirty_value!(value)
       case value

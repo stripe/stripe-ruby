@@ -171,7 +171,7 @@ module Stripe
         object
       end
     end
-
+    
     # Encodes a hash of parameters in a way that's suitable for use as query
     # parameters in a URI or as form parameters in a request body. This mainly
     # involves escaping special characters from parameter keys and values (e.g.

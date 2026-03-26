@@ -1,5 +1,88 @@
 # Changelog
 
+## 19.1.0-alpha.1 - 2026-03-25
+
+This release changes the pinned API version to 2026-03-25.preview and contains additional breaking changes. See the [GA changelog](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1900---2026-03-25) for more information.
+
+* [#1836](https://github.com/stripe/stripe-ruby/pull/1836) Update generated code for private-preview
+  * Add support for new resource `RiskSignals`
+  * Add support for `financial_account_rewards` and `nesting_demo` on `AccountSession::Component`
+  * Add support for `upi_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `risk_signals` on `Account`
+  * Add support for `fraud_intent` on `AccountSignals`
+  * Add support for `risk_reserved` on `Balance`
+  * ⚠️ Remove support for `billable_items` on `Billing::Alert::SpendThreshold::Filter`
+  * Add support for `upi` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `Mandate::PaymentMethodDetail`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodOption`
+  * ⚠️ Remove support for `source_type` on `Charge::PaymentMethodDetail::StripeBalance`, `ConfirmationToken::PaymentMethodPreview::StripeBalance`, `ConfirmationTokenCreateParams::PaymentMethodDatum::StripeBalance`, `PaymentAttemptRecord::PaymentMethodDetail::StripeBalance`, `PaymentIntentConfirmParams::PaymentMethodDatum::StripeBalance`, `PaymentIntentCreateParams::PaymentMethodDatum::StripeBalance`, `PaymentIntentUpdateParams::PaymentMethodDatum::StripeBalance`, `PaymentMethod::StripeBalance`, `PaymentMethodCreateParams::StripeBalance`, `PaymentRecord::PaymentMethodDetail::StripeBalance`, `SetupIntentConfirmParams::PaymentMethodDatum::StripeBalance`, `SetupIntentCreateParams::PaymentMethodDatum::StripeBalance`, and `SetupIntentUpdateParams::PaymentMethodDatum::StripeBalance`
+  * Add support for `integration_identifier` on `Checkout::SessionCreateParams` and `Checkout::Session`
+  * Change type of `Checkout::SessionCreateParams::LineItem::PriceDatum::ProductDatum::TaxDetail.tax_code`, `Checkout::SessionUpdateParams::LineItem::PriceDatum::ProductDatum::TaxDetail.tax_code`, `InvoiceAddLinesParams::Line::PriceDatum::ProductDatum::TaxDetail.tax_code`, `InvoiceLineItemUpdateParams::PriceDatum::ProductDatum::TaxDetail.tax_code`, `InvoiceUpdateLinesParams::Line::PriceDatum::ProductDatum::TaxDetail.tax_code`, `PaymentLinkCreateParams::LineItem::PriceDatum::ProductDatum::TaxDetail.tax_code`, `PlanCreateParams::Product::TaxDetail.tax_code`, `PriceCreateParams::ProductDatum::TaxDetail.tax_code`, `ProductCreateParams::TaxDetail.tax_code`, and `ProductUpdateParams::TaxDetail.tax_code` from `string` to `emptyable(string)`
+  * Add support for `crypto` on `Checkout::SessionCreateParams::PaymentMethodOption`
+  * Add support for `pending_invoice_item_interval` on `Checkout::SessionCreateParams::SubscriptionDatum` and `Checkout::SessionUpdateParams::SubscriptionDatum`
+  * Change `Checkout::SessionCreateParams::LineItem::PriceDatum::ProductDatum::TaxDetail.tax_code`, `Checkout::SessionUpdateParams::LineItem::PriceDatum::ProductDatum::TaxDetail.tax_code`, `InvoiceAddLinesParams::Line::PriceDatum::ProductDatum::TaxDetail.tax_code`, `InvoiceLineItemUpdateParams::PriceDatum::ProductDatum::TaxDetail.tax_code`, `InvoiceUpdateLinesParams::Line::PriceDatum::ProductDatum::TaxDetail.tax_code`, `PaymentLinkCreateParams::LineItem::PriceDatum::ProductDatum::TaxDetail.tax_code`, `PlanCreateParams::Product::TaxDetail.tax_code`, `PriceCreateParams::ProductDatum::TaxDetail.tax_code`, `ProductCreateParams::TaxDetail.tax_code`, and `ProductUpdateParams::TaxDetail.tax_code` to be optional
+  * Add support for `au_becs_debit`, `bacs_debit`, `boleto`, `link`, `sepa_debit`, and `us_bank_account` on `Checkout::Session::CurrentAttempt::PaymentMethodDetail`
+  * Add support for `metadata` on `CreditNoteCreateParams::Line`, `CreditNoteLineItem`, `CreditNoteListPreviewLineItemsParams::Line`, and `CreditNotePreviewParams::Line`
+  * Add support for `selected_fulfillment_option_overrides` on `DelegatedCheckout::RequestedSession::FulfillmentDetail`
+  * Add support for `line_item_keys` on `DelegatedCheckout::RequestedSession::FulfillmentDetail::FulfillmentOption::Digital::DigitalOption` and `DelegatedCheckout::RequestedSession::FulfillmentDetail::FulfillmentOption::Shipping::ShippingOption`
+  * Add support for `quantity_decimal` on `InvoiceAddLinesParams::Line`, `InvoiceCreatePreviewParams::InvoiceItem`, `InvoiceItemCreateParams`, `InvoiceItemUpdateParams`, `InvoiceItem`, `InvoiceLineItemUpdateParams`, `InvoiceLineItem`, and `InvoiceUpdateLinesParams::Line`
+  * Add support for `expires_after_seconds` on `Invoice::PaymentSetting::PaymentMethodOption::Pix`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption::Pix`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption::Pix`, `QuotePreviewInvoice::PaymentSetting::PaymentMethodOption::Pix`, `Subscription::PaymentSetting::PaymentMethodOption::Pix`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption::Pix`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption::Pix`
+  * ⚠️ Add support for `level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
+  * ⚠️ Remove support for `risk_level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
+  * Add support for `lifecycle_controls` on `Issuing::CardCreateParams` and `Issuing::Card`
+  * ⚠️ Change type of `Issuing::Token::NetworkDatum::Visa.card_reference_id` from `string` to `nullable(string)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.brand` and `PaymentRecord::PaymentMethodDetail::Card.brand` from `enum` to `nullable(enum)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_month` and `PaymentRecord::PaymentMethodDetail::Card.exp_month` from `longInteger` to `nullable(longInteger)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_year` and `PaymentRecord::PaymentMethodDetail::Card.exp_year` from `longInteger` to `nullable(longInteger)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.funding` and `PaymentRecord::PaymentMethodDetail::Card.funding` from `enum('credit'|'debit'|'prepaid'|'unknown')` to `nullable(enum('credit'|'debit'|'prepaid'|'unknown'))`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.last4` and `PaymentRecord::PaymentMethodDetail::Card.last4` from `string` to `nullable(string)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.moto` and `PaymentRecord::PaymentMethodDetail::Card.moto` from `boolean` to `nullable(boolean)`
+  * Add support for `cryptogram`, `electronic_commerce_indicator`, `exemption_indicator_applied`, and `exemption_indicator` on `PaymentAttemptRecord::PaymentMethodDetail::Card::ThreeDSecure` and `PaymentRecord::PaymentMethodDetail::Card::ThreeDSecure`
+  * Add support for `surcharge` on `PaymentIntent::AmountDetail`, `PaymentIntentCaptureParams::AmountDetail`, `PaymentIntentConfirmParams::AmountDetail`, `PaymentIntentCreateParams::AmountDetail`, `PaymentIntentIncrementAuthorizationParams::AmountDetail`, and `PaymentIntentUpdateParams::AmountDetail`
+  * Add support for `mandate_options` on `PaymentIntent::PaymentMethodOption::StripeBalance`, `PaymentIntentConfirmParams::PaymentMethodOption::StripeBalance`, `PaymentIntentCreateParams::PaymentMethodOption::StripeBalance`, and `PaymentIntentUpdateParams::PaymentMethodOption::StripeBalance`
+  * Add support for `amount_details` and `payment_details` on `PaymentIntentDecrementAuthorizationParams`
+  * Add support for `upi_handle_redirect_or_display_qr_code` on `PaymentIntent::NextAction` and `SetupIntent::NextAction`
+  * Add support for `managed_payments` on `PaymentLinkCreateParams` and `PaymentLink`
+  * Add support for `recommended_action` and `signals` on `Radar::PaymentEvaluation`
+  * ⚠️ Remove support for `insights` on `Radar::PaymentEvaluation`
+  * Add support for `stripe_balance` on `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodOption`, and `SetupIntentUpdateParams::PaymentMethodOption`
+  * Add support for `recurring_interval` on `SharedPayment::GrantedToken::UsageLimit`
+  * ⚠️ Change type of `SharedPayment::GrantedToken::UsageLimit.expires_at` from `DateTime` to `nullable(DateTime)`
+  * Add support for `presentment_details` on `Subscription`
+  * ⚠️ Remove support for `invoice_resources` on `V2::Billing::Intent`
+  * ⚠️ Remove support for `amount_due` and `customer_balance_applied` on `V2::Billing::Intent::AmountDetail`
+  * Add support for `recurring_credit_grant` on `V2::Billing::IntentAction::Modify::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior`, `V2::Billing::IntentAction::Subscribe::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior`, `V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior`, and `V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior`
+  * Add support for `consumer_privacy_disclosures` and `consumer_storer` on `V2::Core::Account::Identity::Attestation::TermsOfService`, `V2::Core::AccountCreateParams::Identity::Attestation::TermsOfService`, and `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
+  * ⚠️ Remove support for `include` on `V2::Billing::IntentCreateParams` and `V2::Billing::IntentReserveParams`
+* [#1835](https://github.com/stripe/stripe-ruby/pull/1835) Update generated code for private-preview
+  * Release specs are identical.
+* [#1822](https://github.com/stripe/stripe-ruby/pull/1822) Update generated code for private-preview
+  * Add support for new resource `V2::Core::AccountEvaluation`
+  * ⚠️ Remove support for resources `V2::Billing::LicenseFeeSubscription` and `V2::Billing::PricingPlanSubscriptionComponents`
+  * Add support for `create` method on resource `V2::Core::AccountEvaluation`
+  * ⚠️ Remove support for `retrieve` method on resources `V2::Billing::LicenseFeeSubscription` and `V2::Billing::PricingPlanSubscriptionComponents`
+  * Add support for `modify_rates` method on resource `V2::Billing::RateCard`
+  * Add support for `remove_discounts` method on resource `V2::Billing::PricingPlanSubscription`
+  * Add support for `invoice_resources` on `V2::Billing::Intent`
+  * Add support for `amount_due` and `customer_balance_applied` on `V2::Billing::Intent::AmountDetail`
+  * Add support for `expires_at` on `V2::Billing::Intent::StatusTransition`
+  * Add support for `discount` on `V2::Billing::IntentAction::Apply` and `V2::Billing::IntentCreateParams::Action::Apply`
+  * Add support for `timestamp` on `V2::Billing::IntentAction::Apply::EffectiveAt` and `V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt`
+  * ⚠️ Change type of `V2::Billing::IntentAction::Deactivate::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior.type`, `V2::Billing::IntentAction::Modify::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior.type`, `V2::Billing::IntentAction::Subscribe::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior.type`, `V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior.type`, `V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior.type`, and `V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetail::Override::PartialPeriodBehavior.type` from `literal('license_fee')` to `enum('license_fee'|'recurring_credit_grant')`
+  * Add support for `service_cycle` on `V2::Billing::LicenseFee` and `V2::Billing::RateCard`
+  * ⚠️ Remove support for `latest_version` on `V2::Billing::LicenseFee`, `V2::Billing::PricingPlan`, and `V2::Billing::RateCard`
+  * ⚠️ Remove support for `service_interval_count` and `service_interval` on `V2::Billing::LicenseFee` and `V2::Billing::RateCard`
+  * ⚠️ Change type of `V2::Billing::LicenseFee::TransformQuantity.divide_by`, `V2::Billing::LicenseFeeCreateParams::TransformQuantity.divide_by`, `V2::Billing::LicenseFeeUpdateParams::TransformQuantity.divide_by`, `V2::Billing::LicenseFeeVersion::TransformQuantity.divide_by`, `V2::Billing::RateCardRate::TransformQuantity.divide_by`, and `V2::Billing::RateCardRateCreateParams::TransformQuantity.divide_by` from `longInteger` to `int64_string`
+  * Add support for `discount_details` and `pricing_plan_component_details` on `V2::Billing::PricingPlanSubscription`
+  * Add support for `balance_by_funds_type` on `V2::MoneyManagement::FinancialAccount::Payment`
+  * Add support for `treasury_transaction_entry` on `V2::MoneyManagement::TransactionEntry`
+  * Add support for `treasury_credit_reversal`, `treasury_debit_reversal`, `treasury_inbound_transfer`, `treasury_issuing_authorization`, `treasury_outbound_payment`, `treasury_outbound_transfer`, `treasury_received_credit`, and `treasury_received_debit` on `V2::MoneyManagement::Transaction::Flow` and `V2::MoneyManagement::TransactionEntry::TransactionDetail::Flow`
+  * Add support for `treasury_transaction` on `V2::MoneyManagement::Transaction`
+  * Add support for `metadata` on `V2::Payments::SettlementAllocationIntentSplit`
+  * ⚠️ Change type of `V2::Reporting::ReportRun::Result::File.size` from `longInteger` to `int64_string`
+  * Add support for `statement_descriptor` on `V2::MoneyManagement::OutboundPaymentCreateParams` and `V2::MoneyManagement::OutboundTransferCreateParams`
+  * Add support for `include` on `V2::Billing::IntentCreateParams`, `V2::Billing::IntentReserveParams`, `V2::Billing::PricingPlanSubscriptionListParams`, `V2::Billing::PricingPlanSubscriptionRetrieveParams`, `V2::MoneyManagement::FinancialAccountListParams`, and `V2::MoneyManagement::FinancialAccountRetrieveParams`
+  * Add support for event notifications `V1AccountSignalsIncludingDelinquencyCreatedEvent`, `V2CoreAccountSignalsFraudulentWebsiteReadyEvent`, and `V2SignalsAccountSignalFraudulentMerchantReadyEvent`
+* [#1827](https://github.com/stripe/stripe-ruby/pull/1827) Merge to private-preview
+
 ## 18.5.0-alpha.4 - 2026-03-18
 * [#1818](https://github.com/stripe/stripe-ruby/pull/1818) Update generated code for private-preview
   * Add support for `simulate_crypto_deposit` test helper method on resource `PaymentIntent`

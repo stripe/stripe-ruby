@@ -35,6 +35,91 @@ module Stripe
           assert_equal client, APIRequestor.active_requestor
         end
       end
+
+      should "be set to self during execute_request" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        observed_requestor = nil
+        custom_class = Class.new(APIRequestor) do
+          define_method(:send_request) do |method, url, headers, body, query, &block|
+            observed_requestor = self.class.active_requestor
+            super(method, url, headers, body, query, &block)
+          end
+        end
+
+        requestor = custom_class.new("sk_test_123")
+        requestor.execute_request(:post, "/v1/path", :api)
+
+        assert_equal requestor, observed_requestor
+      end
+
+      should "be restored after execute_request completes" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        before = APIRequestor.active_requestor
+        requestor = APIRequestor.new("sk_test_123")
+        requestor.execute_request(:post, "/v1/path", :api)
+        assert_equal before, APIRequestor.active_requestor
+      end
+
+      should "be restored after execute_request raises" do
+        before = APIRequestor.active_requestor
+        requestor = APIRequestor.new("sk_test_123")
+
+        assert_raises(Stripe::APIConnectionError) do
+          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/path")
+            .to_raise(Errno::ECONNREFUSED)
+          requestor.execute_request(:post, "/v1/path", :api)
+        end
+
+        assert_equal before, APIRequestor.active_requestor
+      end
+    end
+
+    context "#send_request" do
+      should "be called during normal request flow" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        called = false
+        custom_class = Class.new(APIRequestor) do
+          define_method(:send_request) do |method, url, headers, body, query, &block|
+            called = true
+            super(method, url, headers, body, query, &block)
+          end
+        end
+
+        requestor = custom_class.new("sk_test_123")
+        requestor.execute_request(:post, "/v1/path", :api)
+
+        assert called
+      end
+
+      should "allow subclass to override transport" do
+        mock_response = Struct.new(:code, :body, keyword_init: true) do
+          def to_hash
+            { "content-type" => ["application/json"] }
+          end
+
+          def [](name)
+            to_hash[name.downcase]&.first
+          end
+        end
+
+        response = mock_response.new(code: "200", body: JSON.generate(object: "account", id: "acct_mock"))
+        custom_class = Class.new(APIRequestor) do
+          define_method(:send_request) do |_method, _url, _headers, _body, _query, &_block|
+            response
+          end
+        end
+
+        requestor = custom_class.new("sk_test_123")
+        result = requestor.execute_request(:get, "/v1/accounts/acct_mock", :api)
+
+        assert_equal "acct_mock", result.id
+      end
     end
 
     context ".maybe_gc_connection_managers" do

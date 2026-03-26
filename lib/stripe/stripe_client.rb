@@ -24,7 +24,8 @@ module Stripe
                    uploads_base: nil,
                    connect_base: nil,
                    meter_events_base: nil,
-                   client_id: nil)
+                   client_id: nil,
+                   requestor: nil)
       unless api_key
         raise AuthenticationError, "No API key provided. " \
                                    'Set your API key using "client = Stripe::StripeClient.new(<API-KEY>)". ' \
@@ -46,7 +47,17 @@ module Stripe
       }.compact
 
       config = StripeConfiguration.client_init(config_opts)
-      @requestor = APIRequestor.new(config)
+      @requestor = if requestor
+                     instance = requestor.call(config)
+                     unless instance.is_a?(APIRequestor)
+                       raise ArgumentError,
+                             "requestor callable must return an APIRequestor instance, " \
+                             "got #{instance.class}"
+                     end
+                     instance
+                   else
+                     APIRequestor.new(config)
+                   end
 
       # top-level services: The beginning of the section generated from our OpenAPI spec
       @v1 = Stripe::V1Services.new(@requestor)

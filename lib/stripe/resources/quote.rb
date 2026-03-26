@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
+  # A Quote is a way to model prices that you'd like to provide to a customer.
+  # Once accepted, it will automatically create an invoice, subscription or subscription schedule.
   class Quote < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -9,16 +11,10 @@ module Stripe
 
     OBJECT_NAME = "quote"
 
-    custom_method :accept, http_verb: :post
-    custom_method :cancel, http_verb: :post
-    custom_method :finalize_quote, http_verb: :post, http_path: "finalize"
-    custom_method :list_computed_upfront_line_items, http_verb: :get, http_path: "computed_upfront_line_items"
-    custom_method :list_line_items, http_verb: :get, http_path: "line_items"
-
     def accept(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/accept",
+        path: format("/v1/quotes/%<quote>s/accept", { quote: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -27,7 +23,7 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: format("/v1/quotes/%<quote>s/cancel", { quote: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -36,7 +32,7 @@ module Stripe
     def finalize_quote(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/finalize",
+        path: format("/v1/quotes/%<quote>s/finalize", { quote: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -45,7 +41,7 @@ module Stripe
     def list_computed_upfront_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: resource_url + "/computed_upfront_line_items",
+        path: format("/v1/quotes/%<quote>s/computed_upfront_line_items", { quote: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -54,7 +50,52 @@ module Stripe
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: resource_url + "/line_items",
+        path: format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.accept(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/accept", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.cancel(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/cancel", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.finalize_quote(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/finalize", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.list_computed_upfront_line_items(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/computed_upfront_line_items", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.list_line_items(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(quote) }),
         params: params,
         opts: opts
       )

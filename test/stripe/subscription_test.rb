@@ -44,7 +44,7 @@ module Stripe
     context "#delete" do
       should "be deletable" do
         subscription = Stripe::Subscription.retrieve("sub_123")
-        subscription = subscription.delete
+        subscription = subscription.cancel
         assert_requested :delete,
                          "#{Stripe.api_base}/v1/subscriptions/#{subscription.id}"
         assert subscription.is_a?(Stripe::Subscription)
@@ -53,7 +53,7 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        subscription = Stripe::Subscription.delete("sub_123")
+        subscription = Stripe::Subscription.cancel("sub_123")
         assert_requested :delete,
                          "#{Stripe.api_base}/v1/subscriptions/sub_123"
         assert subscription.is_a?(Stripe::Subscription)

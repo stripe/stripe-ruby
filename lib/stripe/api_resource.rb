@@ -97,7 +97,7 @@ module Stripe
       if Util.object_name_matches_class?(resp.data[:object], self.class)
         initialize_from(resp.data, opts)
       else
-        Util.convert_to_stripe_object(resp.data, opts)
+        Util.convert_to_stripe_object_with_params(resp.data, params, opts)
       end
     end
 

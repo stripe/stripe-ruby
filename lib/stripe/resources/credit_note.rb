@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
+  # Issue a credit note to adjust an invoice's amount after the invoice is finalized.
+  #
+  # Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
   class CreditNote < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -9,25 +12,40 @@ module Stripe
 
     OBJECT_NAME = "credit_note"
 
-    custom_method :void_credit_note, http_verb: :post, http_path: "void"
-
     def void_credit_note(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/void",
+        path: format("/v1/credit_notes/%<id>s/void", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
-    def self.preview(params, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/preview", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+    def self.list_preview_line_items(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/credit_notes/preview/lines",
+        params: params,
+        opts: opts
+      )
     end
 
-    def self.list_preview_line_items(params, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/preview/lines", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+    def self.preview(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/credit_notes/preview",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.void_credit_note(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/credit_notes/%<id>s/void", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
     end
   end
 end

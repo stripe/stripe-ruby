@@ -2,6 +2,14 @@
 # frozen_string_literal: true
 
 module Stripe
+  # This is an object representing a Stripe account. You can retrieve it to see
+  # properties on the account like its current requirements or if the account is
+  # enabled to make live charges or receive payouts.
+  #
+  # For Custom accounts, the properties below are always returned. For other accounts, some properties are returned until that
+  # account has started to go through Connect Onboarding. Once you create an [Account Link](https://stripe.com/docs/api/account_links)
+  # for a Standard or Express account, some parameters are no longer returned. These are marked as **Custom Only** or **Custom and Express**
+  # below. Learn about the differences [between accounts](https://stripe.com/docs/connect/accounts).
   class Account < APIResource
     extend Gem::Deprecate
     extend Stripe::APIOperations::Create
@@ -12,18 +20,43 @@ module Stripe
 
     OBJECT_NAME = "account"
 
-    custom_method :reject, http_verb: :post
-
     nested_resource_class_methods :capability,
                                   operations: %i[retrieve update list],
                                   resource_plural: "capabilities"
     nested_resource_class_methods :person,
                                   operations: %i[create retrieve update delete list]
 
+    def persons(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/reject",
+        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.persons(account, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(account) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.reject(account, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(account) }),
         params: params,
         opts: opts
       )
@@ -33,7 +66,6 @@ module Stripe
 
     nested_resource_class_methods :external_account,
                                   operations: %i[create retrieve update delete list]
-
     nested_resource_class_methods :login_link, operations: %i[create]
 
     def resource_url
@@ -58,11 +90,6 @@ module Stripe
         id = nil
       end
       super(id, opts)
-    end
-
-    def persons(params = {}, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/persons", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     # We are not adding a helper for capabilities here as the Account object

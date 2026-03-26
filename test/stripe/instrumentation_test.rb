@@ -58,13 +58,29 @@ module Stripe
 
     context "RequestEventEnd" do
       should "return a frozen object" do
-        event = Stripe::Instrumentation::RequestEndEvent.new(
+        mock_context = stub(
           duration: 0.1,
-          http_status: 200,
           method: :get,
-          num_retries: 0,
           path: "/v1/test",
           request_id: "req_123",
+          body: ""
+        )
+
+        request_context = Stripe::Instrumentation::RequestContext.new(
+          duration: 0.1,
+          context: mock_context,
+          header: nil
+        )
+
+        response_context = Stripe::Instrumentation::ResponseContext.new(
+          http_status: 200,
+          response: nil
+        )
+
+        event = Stripe::Instrumentation::RequestEndEvent.new(
+          num_retries: 0,
+          request_context: request_context,
+          response_context: response_context,
           user_data: nil
         )
 

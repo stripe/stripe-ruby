@@ -447,7 +447,7 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    protected def initialize_from(values, opts, partial = false)
+    protected def initialize_from(values, opts)
       @opts = Util.normalize_opts(opts)
       ## ChartMogul change: we don't want to deep copy the values t osave memory
       ## Before:

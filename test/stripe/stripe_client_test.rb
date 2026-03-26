@@ -1443,19 +1443,25 @@ module Stripe
       should "notify a subscriber of a successful HTTP request" do
         events = []
         Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
+        stub_response_body = JSON.generate(object: "charge")
 
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
-          .to_return(body: JSON.generate(object: "charge"), headers: { "Request-ID": "req_123" })
-        Stripe::Charge.list
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .with(body: { "amount" => "50", "currency" => "usd", "card" => "sc_token" })
+          .to_return(body: stub_response_body, headers: { "Request-ID": "req_123" })
+
+        Stripe::Charge.create(amount: 50, currency: "usd", card: "sc_token")
 
         assert_equal(1, events.size)
         event = events.first
-        assert_equal(:get, event.method)
+        assert_equal(:post, event.method)
         assert_equal("/v1/charges", event.path)
         assert_equal(200, event.http_status)
         assert(event.duration.positive?)
         assert_equal(0, event.num_retries)
         assert_equal("req_123", event.request_id)
+        assert_equal(stub_response_body, event.response_body)
+        assert_equal("amount=50&currency=usd&card=sc_token", event.request_body)
+        assert(event.request_header)
       end
 
       should "notify a subscriber of a StripeError" do
@@ -1484,6 +1490,7 @@ module Stripe
         assert_equal(500, event.http_status)
         assert(event.duration.positive?)
         assert_equal(0, event.num_retries)
+        assert_equal(JSON.generate(error: error), event.response_body)
       end
 
       should "notify a subscriber of a network error" do
@@ -1526,8 +1533,9 @@ module Stripe
         events = []
         Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
 
+        stub_response_body = JSON.generate(object: "charge")
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
-          .to_return(body: JSON.generate(object: "charge"))
+          .to_return(body: stub_response_body)
         Stripe::Charge.list
 
         assert_equal(1, events.size)
@@ -1537,6 +1545,8 @@ module Stripe
         assert_equal(200, event.http_status)
         assert(event.duration.positive?)
         assert_equal(0, event.num_retries)
+        assert_equal(stub_response_body, event.response_body)
+        assert(event.request_header)
       end
     end
   end

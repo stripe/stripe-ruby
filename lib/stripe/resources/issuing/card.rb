@@ -3,6 +3,7 @@
 
 module Stripe
   module Issuing
+    # You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
     class Card < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -10,15 +11,84 @@ module Stripe
 
       OBJECT_NAME = "issuing.card"
 
-      custom_method :details, http_verb: :get
+      def test_helpers
+        TestHelpers.new(self)
+      end
 
-      def details(params = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: resource_url + "/details",
-          params: params,
-          opts: opts
-        )
+      class TestHelpers < APIResourceTestHelpers
+        RESOURCE_CLASS = Card
+
+        def self.deliver_card(card, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/deliver", { card: CGI.escape(card) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.fail_card(card, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/fail", { card: CGI.escape(card) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.return_card(card, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/return", { card: CGI.escape(card) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.ship_card(card, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/ship", { card: CGI.escape(card) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def deliver_card(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/deliver", { card: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def fail_card(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/fail", { card: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def return_card(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/return", { card: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def ship_card(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/ship", { card: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
       end
     end
   end

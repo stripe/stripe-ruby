@@ -122,6 +122,11 @@ module Stripe
       assert obj.is_a?(ListObject)
     end
 
+    should "#convert_to_stripe_object should marshal hashes with string keys" do
+      obj = Util.convert_to_stripe_object({ "object" => "account" }, {})
+      assert obj.is_a?(Account)
+    end
+
     should "#convert_to_stripe_object should marshal other classes" do
       obj = Util.convert_to_stripe_object({ object: "account" }, {})
       assert obj.is_a?(Account)
@@ -396,6 +401,13 @@ module Stripe
 
       should "not error if given a non-string" do
         assert_equal "true", Util.send(:wrap_logfmt_value, true)
+      end
+
+      should "handle UTF-8 characters encoded in ASCII-8BIT" do
+        expected_utf8_str = "\"é\"".dup.force_encoding(Encoding::UTF_8.name)
+        ascii_8bit_str = "é".dup.force_encoding(Encoding::ASCII_8BIT.name)
+
+        assert_equal expected_utf8_str, Util.send(:wrap_logfmt_value, ascii_8bit_str)
       end
     end
   end

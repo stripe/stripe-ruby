@@ -1,5 +1,127 @@
 # Changelog
 
+## 8.5.0 - 2023-03-30
+* [#1203](https://github.com/stripe/stripe-ruby/pull/1203) Update generated code
+  * Remove support for `create` method on resource `Tax.Transaction`
+    * This is not a breaking change, as this method was deprecated before the Tax Transactions API was released in favor of the `create_from_calculation` method.
+* [#1201](https://github.com/stripe/stripe-ruby/pull/1201) Update save deprecation message
+
+## 8.4.0 - 2023-03-23
+* [#1197](https://github.com/stripe/stripe-ruby/pull/1197) Update generated code (new)
+  * Add support for new resources `Tax.CalculationLineItem`, `Tax.Calculation`, `Tax.TransactionLineItem`, and `Tax.Transaction`
+  * Add support for `create` and `list_line_items` methods on resource `Calculation`
+  * Add support for `create_from_calculation`, `create_reversal`, `create`, `list_line_items`, and `retrieve` methods on resource `Transaction`
+* [#1152](https://github.com/stripe/stripe-ruby/pull/1152) Symbolize hash keys inside `convert_to_stripe_object_with_params`
+
+## 8.3.0 - 2023-02-16
+* [#1175](https://github.com/stripe/stripe-ruby/pull/1175) API Updates
+  * Add support for `refund_payment` method on resource `Terminal.Reader`
+
+## 8.2.0 - 2023-02-02
+* [#1173](https://github.com/stripe/stripe-ruby/pull/1173) API Updates
+  * Add support for `resume` method on resource `Subscription`
+* [#1171](https://github.com/stripe/stripe-ruby/pull/1171) Remove unused `partial` param from `initialize_from`
+
+## 8.1.0 - 2023-01-12
+* [#1162](https://github.com/stripe/stripe-ruby/pull/1162) Improve request events instrumentation
+
+## 8.0.0 - 2022-11-16
+* [#1144](https://github.com/stripe/stripe-ruby/pull/1144) Next major release changes
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+
+"⚠️" symbol highlights breaking changes.
+
+### Deprecated
+- The `save` method is deprecated. Prefer the static `update` method that doesn't require retrieval of the resource to update it.
+  ``` ruby
+  # before
+  refund = Stripe::Refund.retrieve("re_123")
+  refund.description = "Refund description"
+  refund.save
+  
+  # after
+  Stripe::Refund.update("re_123", description: "Refund description")
+  ```
+
+### ⚠️ Removed
+- Removed deprecated `Sku` resource.
+- Removed deprecated `Orders` resource.
+- Removed deprecated `delete` method on `Subscription` resource. Please use `cancel` method instead.
+  ```ruby
+  # before
+  Stripe::Subscription::delete("sub_12345")
+
+  # after
+  Stripe::Subscription::cancel("sub_12345")
+  ```
+
+
+## 7.1.0 - 2022-08-19
+* [#1116](https://github.com/stripe/stripe-ruby/pull/1116) API Updates
+  * Add support for new resource `CustomerCashBalanceTransaction`
+* [#1118](https://github.com/stripe/stripe-ruby/pull/1118) Update AllowedChars in rubocop config
+* [#1117](https://github.com/stripe/stripe-ruby/pull/1117) Refresh rubocop config.
+* [#1115](https://github.com/stripe/stripe-ruby/pull/1115) Add a support section to the readme
+
+## 7.0.0 - 2022-08-02
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v7. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.
+
+"⚠️" symbol highlights breaking changes.
+
+* [#1106](https://github.com/stripe/stripe-ruby/pull/1106) API Updates
+* [#1092](https://github.com/stripe/stripe-ruby/pull/1092) API Updates
+* [#1090](https://github.com/stripe/stripe-ruby/pull/1090) Use auto-generation for `Invoice` methods
+* [#1103](https://github.com/stripe/stripe-ruby/pull/1103) Next major release changes
+
+### ⚠️ Changed
+* `retrieve_cash_balance` and `update_cash_balance` methods on `Customer` resource no longer requires the second argument to always be `nil`. The methods now now take in `customer_id`, `params`, and `opts` parameters.
+* Update default bundle of CA certificates to April 26, 2022.
+
+### Deprecated
+* Deprecate `delete` method on `Subscription` resource. Please use `cancel` method instead.
+
+### ⚠️ Removed
+* Remove `details` method from `Issuing.Card` resource. The method was not supported.
+* Remove `Issuing.CardDetails` resource. Read more at https://stripe.com/docs/issuing/cards/virtual.
+* Remove `create` method from `ReportType` resource. The method was not supported.
+* Remove `usage_record_summaries` method from `SubscriptionItem` resource. Please use `list_usage_record_summaries` method instead.
+* Remove `AlipayAccount`, `BitcoinReceiver`, `BitcoinTransaction`, `Issuing::CardDetails`, `Recipient`, ` RecipientTransfer`, and `ThreeDSecure` resources. The resources were deprecated or no longer in use.
+* Remove ability to list `Card` resource for a `Recipient`.
+* Remove `cancel` method from `Transfer` resource. The method was deprecated.
+
+## 6.5.0 - 2022-06-29
+* [#1084](https://github.com/stripe/stripe-ruby/pull/1084) API Updates
+  * Add support for `deliver_card`, `fail_card`, `return_card`, and `ship_card` test helper methods on resource `Issuing.Card`
+* [#1076](https://github.com/stripe/stripe-ruby/pull/1076) fix: Update logging to coerce ASCII-8BIT into UTF-8.
+
+## 6.4.0 - 2022-06-17
+* [#1073](https://github.com/stripe/stripe-ruby/pull/1073) API Updates
+  * Add support for `fund_cash_balance` test helper method on resource `Customer`
+* [#1074](https://github.com/stripe/stripe-ruby/pull/1074) Support updating pre-release versions
+* [#1072](https://github.com/stripe/stripe-ruby/pull/1072) Trigger workflows on beta branches
+* [#1071](https://github.com/stripe/stripe-ruby/pull/1071) Use request_stripe_object for all requests
+* [#1070](https://github.com/stripe/stripe-ruby/pull/1070) API Updates
+  
+  Switch from using meta-programing to generating explicit methods for custom methods.
+* [#1069](https://github.com/stripe/stripe-ruby/pull/1069) chore: Stop special implementation of Account.persons method.
+
+## 6.3.0 - 2022-06-08
+* [#1063](https://github.com/stripe/stripe-ruby/pull/1063) fix: Update cash balance methods to no longer require nested ID.
+
+## 6.2.0 - 2022-05-23
+* [#1060](https://github.com/stripe/stripe-ruby/pull/1060) API Updates
+  * Add support for new resource `Apps.Secret`
+
+## 6.1.0 - 2022-05-19
+* [#1057](https://github.com/stripe/stripe-ruby/pull/1057) API Updates
+  * Add support for new resources `Treasury.CreditReversal`, `Treasury.DebitReversal`, `Treasury.FinancialAccountFeatures`, `Treasury.FinancialAccount`, `Treasury.FlowDetails`, `Treasury.InboundTransfer`, `Treasury.OutboundPayment`, `Treasury.OutboundTransfer`, `Treasury.ReceivedCredit`, `Treasury.ReceivedDebit`, `Treasury.TransactionEntry`, and `Treasury.Transaction`
+  * Add support for `retrieve_payment_method` method on resource `Customer`
+  * Add support for `list_owners` and `list` methods on resource `FinancialConnections.Account`
+  
+  
+
 ## 6.0.0 - 2022-05-09
 * [#1056](https://github.com/stripe/stripe-ruby/pull/1056) API Updates
   Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-Guide-for-v6) contains more information.

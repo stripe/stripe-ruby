@@ -36,7 +36,9 @@ module Stripe
 
         # Create a Billing Intent.
         def create(params = {}, opts = {})
-          params = V2::Billing::IntentCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+          unless params.is_a?(Stripe::RequestParams)
+            params = ::Stripe::V2::Billing::IntentCreateParams.coerce_params(params)
+          end
 
           request(
             method: :post,

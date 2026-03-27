@@ -5,7 +5,7 @@ module Stripe
   class SubscriptionItemService < StripeService
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     def create(params = {}, opts = {})
-      params = SubscriptionItemCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::SubscriptionItemCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,
@@ -51,7 +51,7 @@ module Stripe
 
     # Updates the plan or quantity of an item on a current subscription.
     def update(item, params = {}, opts = {})
-      params = SubscriptionItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::SubscriptionItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,

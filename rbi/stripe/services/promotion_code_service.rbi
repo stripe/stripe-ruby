@@ -23,12 +23,12 @@ module Stripe
     def retrieve(promotion_code, params = {}, opts = {}); end
 
     # Serializes a PromotionCode create request into a batch job JSONL line.
-    sig { params(params: PromotionCodeCreateParams, opts: T.untyped).returns(String) }
+    sig { params(params: ::Stripe::PromotionCodeCreateParams, opts: T.untyped).returns(String) }
     def serialize_batch_create(params = {}, opts = {}); end
 
     # Serializes a PromotionCode update request into a batch job JSONL line.
     sig {
-      params(promotion_code: String, params: PromotionCodeUpdateParams, opts: T.untyped).returns(String)
+      params(promotion_code: String, params: ::Stripe::PromotionCodeUpdateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_update(promotion_code, params = {}, opts = {}); end
 

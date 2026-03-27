@@ -42,17 +42,19 @@ module Stripe
 
     # Serializes a SubscriptionSchedule cancel request into a batch job JSONL line.
     sig {
-      params(schedule: String, params: SubscriptionScheduleCancelParams, opts: T.untyped).returns(String)
+      params(schedule: String, params: ::Stripe::SubscriptionScheduleCancelParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_cancel(schedule, params = {}, opts = {}); end
 
     # Serializes a SubscriptionSchedule create request into a batch job JSONL line.
-    sig { params(params: SubscriptionScheduleCreateParams, opts: T.untyped).returns(String) }
+    sig {
+      params(params: ::Stripe::SubscriptionScheduleCreateParams, opts: T.untyped).returns(String)
+     }
     def serialize_batch_create(params = {}, opts = {}); end
 
     # Serializes a SubscriptionSchedule update request into a batch job JSONL line.
     sig {
-      params(schedule: String, params: SubscriptionScheduleUpdateParams, opts: T.untyped).returns(String)
+      params(schedule: String, params: ::Stripe::SubscriptionScheduleUpdateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_update(schedule, params = {}, opts = {}); end
 

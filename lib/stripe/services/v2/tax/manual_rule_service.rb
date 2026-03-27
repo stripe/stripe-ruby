@@ -7,7 +7,9 @@ module Stripe
       class ManualRuleService < StripeService
         # Creates a ManualRule object.
         def create(params = {}, opts = {})
-          params = V2::Tax::ManualRuleCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+          unless params.is_a?(Stripe::RequestParams)
+            params = ::Stripe::V2::Tax::ManualRuleCreateParams.coerce_params(params)
+          end
 
           request(
             method: :post,
@@ -53,7 +55,9 @@ module Stripe
 
         # Updates the Tax configuration for a ManualRule object.
         def update(id, params = {}, opts = {})
-          params = V2::Tax::ManualRuleUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+          unless params.is_a?(Stripe::RequestParams)
+            params = ::Stripe::V2::Tax::ManualRuleUpdateParams.coerce_params(params)
+          end
 
           request(
             method: :post,

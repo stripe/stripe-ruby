@@ -79,13 +79,13 @@ module Stripe
 
     # Serializes a Subscription migrate request into a batch job JSONL line.
     sig {
-      params(subscription: String, params: SubscriptionMigrateParams, opts: T.untyped).returns(String)
+      params(subscription: String, params: ::Stripe::SubscriptionMigrateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_migrate(subscription, params = {}, opts = {}); end
 
     # Serializes a Subscription update request into a batch job JSONL line.
     sig {
-      params(subscription_exposed_id: String, params: SubscriptionUpdateParams, opts: T.untyped).returns(String)
+      params(subscription_exposed_id: String, params: ::Stripe::SubscriptionUpdateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_update(subscription_exposed_id, params = {}, opts = {}); end
 

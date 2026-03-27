@@ -112,11 +112,15 @@ module Stripe
     def send_invoice(invoice, params = {}, opts = {}); end
 
     # Serializes an Invoice pay request into a batch job JSONL line.
-    sig { params(invoice: String, params: InvoicePayParams, opts: T.untyped).returns(String) }
+    sig {
+      params(invoice: String, params: ::Stripe::InvoicePayParams, opts: T.untyped).returns(String)
+     }
     def serialize_batch_pay(invoice, params = {}, opts = {}); end
 
     # Serializes an Invoice update request into a batch job JSONL line.
-    sig { params(invoice: String, params: InvoiceUpdateParams, opts: T.untyped).returns(String) }
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceUpdateParams, opts: T.untyped).returns(String)
+     }
     def serialize_batch_update(invoice, params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),

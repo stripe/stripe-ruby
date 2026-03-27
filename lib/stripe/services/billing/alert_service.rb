@@ -28,7 +28,7 @@ module Stripe
 
       # Creates a billing alert
       def create(params = {}, opts = {})
-        params = Billing::AlertCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+        params = ::Stripe::Billing::AlertCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
         request(
           method: :post,

@@ -43,7 +43,7 @@ module Stripe
     def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a CreditNote create request into a batch job JSONL line.
-    sig { params(params: CreditNoteCreateParams, opts: T.untyped).returns(String) }
+    sig { params(params: ::Stripe::CreditNoteCreateParams, opts: T.untyped).returns(String) }
     def serialize_batch_create(params = {}, opts = {}); end
 
     # Updates an existing credit note.

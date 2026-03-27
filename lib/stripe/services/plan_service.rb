@@ -5,7 +5,7 @@ module Stripe
   class PlanService < StripeService
     # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     def create(params = {}, opts = {})
-      params = PlanCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::PlanCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(method: :post, path: "/v1/plans", params: params, opts: opts, base_address: :api)
     end

@@ -12,7 +12,7 @@ module Stripe
 
     # Creates a new product object.
     def create(params = {}, opts = {})
-      params = ProductCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::ProductCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(method: :post, path: "/v1/products", params: params, opts: opts, base_address: :api)
     end

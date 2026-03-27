@@ -30,7 +30,9 @@ module Stripe
         #
         # ** raises RateLimitError
         def create(params = {}, opts = {})
-          params = V2::Core::AccountCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+          unless params.is_a?(Stripe::RequestParams)
+            params = ::Stripe::V2::Core::AccountCreateParams.coerce_params(params)
+          end
 
           request(
             method: :post,
@@ -71,7 +73,9 @@ module Stripe
         #
         # ** raises RateLimitError
         def update(id, params = {}, opts = {})
-          params = V2::Core::AccountUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+          unless params.is_a?(Stripe::RequestParams)
+            params = ::Stripe::V2::Core::AccountUpdateParams.coerce_params(params)
+          end
 
           request(
             method: :post,

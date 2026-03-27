@@ -10,7 +10,7 @@ module Stripe
           # if the Metered Item already has a rate on the Rate Card.
           def create(rate_card_id, params = {}, opts = {})
             unless params.is_a?(Stripe::RequestParams)
-              params = V2::Billing::RateCards::RateCreateParams.coerce_params(params)
+              params = ::Stripe::V2::Billing::RateCards::RateCreateParams.coerce_params(params)
             end
 
             request(

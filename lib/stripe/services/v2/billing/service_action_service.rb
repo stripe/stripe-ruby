@@ -8,7 +8,7 @@ module Stripe
         # Create a Service Action object.
         def create(params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
-            params = V2::Billing::ServiceActionCreateParams.coerce_params(params)
+            params = ::Stripe::V2::Billing::ServiceActionCreateParams.coerce_params(params)
           end
 
           request(

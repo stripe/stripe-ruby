@@ -40,7 +40,7 @@ module Stripe
         # Creates, updates, and/or deletes multiple Rates on a Rate Card atomically.
         def modify_rates(id, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
-            params = V2::Billing::RateCardModifyRatesParams.coerce_params(params)
+            params = ::Stripe::V2::Billing::RateCardModifyRatesParams.coerce_params(params)
           end
 
           request(

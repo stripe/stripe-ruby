@@ -21,7 +21,7 @@ module Stripe
       # Creates a Climate order object for a given Climate product. The order will be processed immediately
       # after creation and payment will be deducted your Stripe balance.
       def create(params = {}, opts = {})
-        params = Climate::OrderCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+        params = ::Stripe::Climate::OrderCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
         request(
           method: :post,

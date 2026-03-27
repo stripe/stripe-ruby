@@ -13,7 +13,9 @@ module Stripe
 
       # Creates a Checkout Session object.
       def create(params = {}, opts = {})
-        params = Checkout::SessionCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+        unless params.is_a?(Stripe::RequestParams)
+          params = ::Stripe::Checkout::SessionCreateParams.coerce_params(params)
+        end
 
         request(
           method: :post,
@@ -63,7 +65,9 @@ module Stripe
       #
       # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
       def update(session, params = {}, opts = {})
-        params = Checkout::SessionUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+        unless params.is_a?(Stripe::RequestParams)
+          params = ::Stripe::Checkout::SessionUpdateParams.coerce_params(params)
+        end
 
         request(
           method: :post,

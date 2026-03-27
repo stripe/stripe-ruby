@@ -27,7 +27,9 @@ module Stripe
 
     # Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
     def create(params = {}, opts = {})
-      params = SubscriptionScheduleCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      unless params.is_a?(Stripe::RequestParams)
+        params = ::Stripe::SubscriptionScheduleCreateParams.coerce_params(params)
+      end
 
       request(
         method: :post,
@@ -117,7 +119,9 @@ module Stripe
 
     # Updates an existing subscription schedule.
     def update(schedule, params = {}, opts = {})
-      params = SubscriptionScheduleUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      unless params.is_a?(Stripe::RequestParams)
+        params = ::Stripe::SubscriptionScheduleUpdateParams.coerce_params(params)
+      end
 
       request(
         method: :post,

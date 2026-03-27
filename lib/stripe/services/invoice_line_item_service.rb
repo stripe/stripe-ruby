@@ -19,7 +19,7 @@ module Stripe
     # item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
     # Updating an invoice's line item is only possible before the invoice is finalized.
     def update(invoice, line_item_id, params = {}, opts = {})
-      params = InvoiceLineItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::InvoiceLineItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,

@@ -1,5 +1,9 @@
 # Changelog
 
+## 19.1.0-alpha.2 - 2026-03-27
+* [#1839](https://github.com/stripe/stripe-ruby/pull/1839) Update generated code for private-preview
+  * Fix "Unable to resolve constant" sorbet errors for Params classes
+
 ## 19.1.0-alpha.1 - 2026-03-25
 
 This release changes the pinned API version to 2026-03-25.preview and contains additional breaking changes. See the [GA changelog](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1900---2026-03-25) for more information.

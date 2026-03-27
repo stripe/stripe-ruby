@@ -8,7 +8,7 @@ module Stripe
         # Capture a test-mode authorization.
         def capture(authorization, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
-            params = TestHelpers::Issuing::AuthorizationCaptureParams.coerce_params(params)
+            params = ::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams.coerce_params(params)
           end
 
           request(
@@ -23,7 +23,7 @@ module Stripe
         # Create a test-mode authorization.
         def create(params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
-            params = TestHelpers::Issuing::AuthorizationCreateParams.coerce_params(params)
+            params = ::Stripe::TestHelpers::Issuing::AuthorizationCreateParams.coerce_params(params)
           end
 
           request(
@@ -49,7 +49,7 @@ module Stripe
         # Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
         def finalize_amount(authorization, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
-            params = TestHelpers::Issuing::AuthorizationFinalizeAmountParams.coerce_params(params)
+            params = ::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams.coerce_params(params)
           end
 
           request(

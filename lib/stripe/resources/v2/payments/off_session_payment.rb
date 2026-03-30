@@ -51,6 +51,8 @@ module Stripe
           attr_reader :retry_policy
           # Indicates the strategy for how you want Stripe to retry the payment.
           attr_reader :retry_strategy
+          # The timestamp when this payment is no longer eligible to be retried. When this timestamp is reached, the payment will be marked as failed.
+          attr_reader :retry_until
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -90,8 +92,6 @@ module Stripe
         attr_reader :cadence
         # Details about the capture configuration for the OffSessionPayment.
         attr_reader :capture
-        # ID of the owning compartment.
-        attr_reader :compartment_id
         # Creation time of the OffSessionPayment. Represented as a RFC 3339 date & time UTC
         # value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created

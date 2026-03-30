@@ -30,6 +30,18 @@ module Stripe
          }
         def list(params = {}, opts = {}); end
 
+        # Pauses an OffSessionPayment that has previously been created.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Payments::OffSessionPaymentPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::OffSessionPayment)
+         }
+        def pause(id, params = {}, opts = {}); end
+
+        # Resumes an OffSessionPayment that has previously been paused.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Payments::OffSessionPaymentResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::OffSessionPayment)
+         }
+        def resume(id, params = {}, opts = {}); end
+
         # Retrieves the details of an OffSessionPayment that has previously been created.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::OffSessionPaymentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::OffSessionPayment)

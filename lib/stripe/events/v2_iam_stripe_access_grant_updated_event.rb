@@ -8,6 +8,24 @@ module Stripe
       def self.lookup_type
         "v2.iam.stripe_access_grant.updated"
       end
+
+      class V2IamStripeAccessGrantUpdatedEventData < ::Stripe::StripeObject
+        # ID of updated Stripe Access Grant.
+        attr_reader :stripe_access_grant
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { data: V2IamStripeAccessGrantUpdatedEventData }
+      end
+      attr_reader :data
     end
 
     # Occurs when a Stripe Access Grant is updated.

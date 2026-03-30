@@ -50,23 +50,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BillFrom < ::Stripe::StripeObject
-        # The time the billing schedule applies from.
-        sig { returns(Integer) }
-        def computed_timestamp; end
-        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
-        sig { returns(T.nilable(Integer)) }
-        def timestamp; end
-        # Describes how the billing schedule determines the start date. Possible values are `timestamp`.
-        sig { returns(String) }
-        def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class BillUntil < ::Stripe::StripeObject
         class Duration < ::Stripe::StripeObject
           # Specifies billing duration. Either `day`, `week`, `month` or `year`.
@@ -104,9 +87,6 @@ module Stripe
       # Specifies which subscription items the billing schedule applies to.
       sig { returns(T.nilable(T::Array[AppliesTo])) }
       def applies_to; end
-      # Specifies the start of the billing period.
-      sig { returns(T.nilable(BillFrom)) }
-      def bill_from; end
       # Specifies the end of billing period.
       sig { returns(BillUntil) }
       def bill_until; end
@@ -114,7 +94,7 @@ module Stripe
       sig { returns(String) }
       def key; end
       def self.inner_class_types
-        @inner_class_types = {applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil}
+        @inner_class_types = {applies_to: AppliesTo, bill_until: BillUntil}
       end
       def self.field_remappings
         @field_remappings = {}

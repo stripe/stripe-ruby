@@ -49,6 +49,28 @@ module Stripe
           )
         end
 
+        # Pauses an OffSessionPayment that has previously been created.
+        def pause(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/payments/off_session_payments/%<id>s/pause", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Resumes an OffSessionPayment that has previously been paused.
+        def resume(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/payments/off_session_payments/%<id>s/resume", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Retrieves the details of an OffSessionPayment that has previously been created.
         def retrieve(id, params = {}, opts = {})
           request(

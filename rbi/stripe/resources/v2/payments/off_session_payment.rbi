@@ -47,6 +47,9 @@ module Stripe
           # Indicates the strategy for how you want Stripe to retry the payment.
           sig { returns(String) }
           def retry_strategy; end
+          # The timestamp when this payment is no longer eligible to be retried. When this timestamp is reached, the payment will be marked as failed.
+          sig { returns(T.nilable(String)) }
+          def retry_until; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -87,9 +90,6 @@ module Stripe
         # Details about the capture configuration for the OffSessionPayment.
         sig { returns(T.nilable(Capture)) }
         def capture; end
-        # ID of the owning compartment.
-        sig { returns(String) }
-        def compartment_id; end
         # Creation time of the OffSessionPayment. Represented as a RFC 3339 date & time UTC
         # value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }

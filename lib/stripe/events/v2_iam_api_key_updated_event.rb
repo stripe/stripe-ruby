@@ -8,6 +8,24 @@ module Stripe
       def self.lookup_type
         "v2.iam.api_key.updated"
       end
+
+      class V2IamApiKeyUpdatedEventData < ::Stripe::StripeObject
+        # ID of the updated key.
+        attr_reader :api_key
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { data: V2IamApiKeyUpdatedEventData }
+      end
+      attr_reader :data
     end
 
     # Occurs when an API Key is updated.

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      # BatchJob resource.
+      # A batch job allows you to perform an API operation on a large set of records asynchronously.
       class BatchJob < APIResource
         OBJECT_NAME = "v2.core.batch_job"
         def self.object_name
@@ -13,7 +13,7 @@ module Stripe
 
         class StatusDetails < ::Stripe::StripeObject
           class BatchFailed < ::Stripe::StripeObject
-            # Details about the `BatchJob` failure.
+            # Details about the `batch_job` failure.
             attr_reader :error
 
             def self.inner_class_types
@@ -62,7 +62,7 @@ module Stripe
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             attr_reader :output_file
             # The total number of records that were successfully processed.
             attr_reader :success_count
@@ -121,7 +121,7 @@ module Stripe
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             attr_reader :output_file
             # The total number of records that were successfully processed.
             attr_reader :success_count
@@ -226,7 +226,7 @@ module Stripe
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             attr_reader :output_file
             # The total number of records that were successfully processed.
             attr_reader :success_count
@@ -303,7 +303,7 @@ module Stripe
             end
             # The total number of records that failed processing.
             attr_reader :failure_count
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             attr_reader :output_file
             # The total number of records that were successfully processed.
             attr_reader :success_count
@@ -324,21 +324,21 @@ module Stripe
               }
             end
           end
-          # Additional details for the `BATCH_FAILED` status of the `BatchJob`.
+          # Additional details for the `BATCH_FAILED` status of the `batch_job`.
           attr_reader :batch_failed
-          # Additional details for the `CANCELED` status of the `BatchJob`.
+          # Additional details for the `CANCELED` status of the `batch_job`.
           attr_reader :canceled
-          # Additional details for the `COMPLETE` status of the `BatchJob`.
+          # Additional details for the `COMPLETE` status of the `batch_job`.
           attr_reader :complete
-          # Additional details for the `IN_PROGRESS` status of the `BatchJob`.
+          # Additional details for the `IN_PROGRESS` status of the `batch_job`.
           attr_reader :in_progress
-          # Additional details for the `READY_FOR_UPLOAD` status of the `BatchJob`.
+          # Additional details for the `READY_FOR_UPLOAD` status of the `batch_job`.
           attr_reader :ready_for_upload
-          # Additional details for the `TIMEOUT` status of the `BatchJob`.
+          # Additional details for the `TIMEOUT` status of the `batch_job`.
           attr_reader :timeout
-          # Additional details for the `VALIDATING` status of the `BatchJob`.
+          # Additional details for the `VALIDATING` status of the `batch_job`.
           attr_reader :validating
-          # Additional details for the `VALIDATION_FAILED` status of the `BatchJob`.
+          # Additional details for the `VALIDATION_FAILED` status of the `batch_job`.
           attr_reader :validation_failed
 
           def self.inner_class_types
@@ -400,21 +400,21 @@ module Stripe
             }
           end
         end
-        # Timestamp at which BatchJob was created.
+        # Timestamp at which the `batch_job` was created.
         attr_reader :created
-        # Unique identifier for the BatchJob.
+        # Unique identifier for the `batch_job`.
         attr_reader :id
-        # The maximum rps defined for the `BatchJob`.
+        # The maximum requests per second defined for the `batch_job`.
         attr_reader :maximum_rps
-        # The metadata of the `BatchJob` object.
+        # The metadata of the `batch_job`.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # If the validation will be run previous to the execution of the `BatchJob`.
+        # Whether validation runs before executing the `batch_job`.
         attr_reader :skip_validation
-        # The current status of the `BatchJob`.
+        # The current status of the `batch_job`.
         attr_reader :status
-        # Additional details about the current state of the `BatchJob`.
+        # Additional details about the current state of the `batch_job`.
         attr_reader :status_details
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode

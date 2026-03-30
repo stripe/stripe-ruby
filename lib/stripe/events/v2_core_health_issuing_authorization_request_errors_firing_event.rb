@@ -30,6 +30,8 @@ module Stripe
         end
         # A short description of the alert.
         attr_reader :summary
+        # The alert ID.
+        attr_reader :alert_id
         # The user impact.
         attr_reader :impact
         # The time when impact on the user experience was first detected.

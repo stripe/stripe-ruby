@@ -186,8 +186,6 @@ module Stripe
               attr_reader :postal_code
               # State, county, province, or region.
               attr_reader :state
-              # Town or district.
-              attr_reader :town
 
               def self.inner_class_types
                 @inner_class_types = {}

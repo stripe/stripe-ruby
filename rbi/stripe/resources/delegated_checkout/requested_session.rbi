@@ -645,7 +645,7 @@ module Stripe
       sig { returns(T.nilable(T::Hash[String, String])) }
       def shared_metadata; end
       # The SPT used for payment.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::SharedPayment::IssuedToken))) }
       def shared_payment_issued_token; end
       # The status of the requested session.
       sig { returns(String) }

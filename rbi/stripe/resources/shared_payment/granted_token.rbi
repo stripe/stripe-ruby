@@ -52,6 +52,127 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AgentDetails < ::Stripe::StripeObject
+        # The Stripe Profile ID of the agent that issued this SharedPaymentGrantedToken.
+        sig { returns(T.nilable(String)) }
+        def network_business_profile; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class RiskDetails < ::Stripe::StripeObject
+        class Insights < ::Stripe::StripeObject
+          class Bot < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            sig { returns(String) }
+            def recommended_action; end
+            # Risk score for this insight (float).
+            sig { returns(Float) }
+            def score; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class CardIssuerDecline < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            sig { returns(String) }
+            def recommended_action; end
+            # Risk score for this insight (float).
+            sig { returns(Float) }
+            def score; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class CardTesting < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            sig { returns(String) }
+            def recommended_action; end
+            # Risk score for this insight (float).
+            sig { returns(Float) }
+            def score; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class FraudulentDispute < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            sig { returns(String) }
+            def recommended_action; end
+            # Risk score for this insight (integer).
+            sig { returns(Integer) }
+            def score; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class StolenCard < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            sig { returns(String) }
+            def recommended_action; end
+            # Risk score for this insight (integer).
+            sig { returns(Integer) }
+            def score; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Bot risk insight (score: Float, recommended_action).
+          sig { returns(T.nilable(Bot)) }
+          def bot; end
+          # Card issuer decline risk insight (score: Float, recommended_action).
+          sig { returns(T.nilable(CardIssuerDecline)) }
+          def card_issuer_decline; end
+          # Card testing risk insight (score: Float, recommended_action).
+          sig { returns(T.nilable(CardTesting)) }
+          def card_testing; end
+          # Fraudulent dispute risk insight (score: Integer, recommended_action).
+          sig { returns(T.nilable(FraudulentDispute)) }
+          def fraudulent_dispute; end
+          # Stolen card risk insight (score: Integer, recommended_action).
+          sig { returns(T.nilable(StolenCard)) }
+          def stolen_card; end
+          def self.inner_class_types
+            @inner_class_types = {
+              bot: Bot,
+              card_issuer_decline: CardIssuerDecline,
+              card_testing: CardTesting,
+              fraudulent_dispute: FraudulentDispute,
+              stolen_card: StolenCard,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Risk insights for this token, including scores and recommended actions for each risk type.
+        sig { returns(Insights) }
+        def insights; end
+        def self.inner_class_types
+          @inner_class_types = {insights: Insights}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
@@ -79,6 +200,12 @@ module Stripe
       # Limits on how this SharedPaymentGrantedToken can be used.
       sig { returns(T.nilable(UsageLimits)) }
       def usage_limits; end
+      # Details about the agent that issued this SharedPaymentGrantedToken.
+      sig { returns(T.nilable(AgentDetails)) }
+      def agent_details; end
+      # Risk details of the SharedPaymentGrantedToken.
+      sig { returns(T.nilable(RiskDetails)) }
+      def risk_details; end
     end
   end
 end

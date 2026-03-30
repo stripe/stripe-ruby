@@ -10,6 +10,8 @@ module Stripe
       end
 
       class V2IamApiKeyRotatedEventData < ::Stripe::StripeObject
+        # ID of the old key that was rotated.
+        attr_reader :api_key
         # ID of the new key that was created due to rotation.
         attr_reader :new_api_key
 

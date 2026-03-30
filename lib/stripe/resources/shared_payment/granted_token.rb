@@ -56,6 +56,132 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class AgentDetails < ::Stripe::StripeObject
+        # The Stripe Profile ID of the agent that issued this SharedPaymentGrantedToken.
+        attr_reader :network_business_profile
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RiskDetails < ::Stripe::StripeObject
+        class Insights < ::Stripe::StripeObject
+          class Bot < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            attr_reader :recommended_action
+            # Risk score for this insight (float).
+            attr_reader :score
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class CardIssuerDecline < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            attr_reader :recommended_action
+            # Risk score for this insight (float).
+            attr_reader :score
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class CardTesting < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            attr_reader :recommended_action
+            # Risk score for this insight (float).
+            attr_reader :score
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class FraudulentDispute < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            attr_reader :recommended_action
+            # Risk score for this insight (integer).
+            attr_reader :score
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class StolenCard < ::Stripe::StripeObject
+            # Recommended action for this insight.
+            attr_reader :recommended_action
+            # Risk score for this insight (integer).
+            attr_reader :score
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Bot risk insight (score: Float, recommended_action).
+          attr_reader :bot
+          # Card issuer decline risk insight (score: Float, recommended_action).
+          attr_reader :card_issuer_decline
+          # Card testing risk insight (score: Float, recommended_action).
+          attr_reader :card_testing
+          # Fraudulent dispute risk insight (score: Integer, recommended_action).
+          attr_reader :fraudulent_dispute
+          # Stolen card risk insight (score: Integer, recommended_action).
+          attr_reader :stolen_card
+
+          def self.inner_class_types
+            @inner_class_types = {
+              bot: Bot,
+              card_issuer_decline: CardIssuerDecline,
+              card_testing: CardTesting,
+              fraudulent_dispute: FraudulentDispute,
+              stolen_card: StolenCard,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Risk insights for this token, including scores and recommended actions for each risk type.
+        attr_reader :insights
+
+        def self.inner_class_types
+          @inner_class_types = { insights: Insights }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
       # Time at which this SharedPaymentGrantedToken expires and can no longer be used to confirm a PaymentIntent.
@@ -74,6 +200,10 @@ module Stripe
       attr_reader :usage_details
       # Limits on how this SharedPaymentGrantedToken can be used.
       attr_reader :usage_limits
+      # Details about the agent that issued this SharedPaymentGrantedToken.
+      attr_reader :agent_details
+      # Risk details of the SharedPaymentGrantedToken.
+      attr_reader :risk_details
 
       def test_helpers
         TestHelpers.new(self)
@@ -117,7 +247,12 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { usage_details: UsageDetails, usage_limits: UsageLimits }
+        @inner_class_types = {
+          usage_details: UsageDetails,
+          usage_limits: UsageLimits,
+          agent_details: AgentDetails,
+          risk_details: RiskDetails,
+        }
       end
 
       def self.field_remappings

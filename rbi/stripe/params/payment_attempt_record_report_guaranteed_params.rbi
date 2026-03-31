@@ -4,6 +4,35 @@
 # typed: true
 module Stripe
   class PaymentAttemptRecordReportGuaranteedParams < ::Stripe::RequestParams
+    class ProcessorDetails < ::Stripe::RequestParams
+      class Custom < ::Stripe::RequestParams
+        # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        sig { returns(String) }
+        def payment_reference; end
+        sig { params(_payment_reference: String).returns(String) }
+        def payment_reference=(_payment_reference); end
+        sig { params(payment_reference: String).void }
+        def initialize(payment_reference: nil); end
+      end
+      # Information about the custom processor used to make this payment.
+      sig {
+        returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails::Custom))
+       }
+      def custom; end
+      sig {
+        params(_custom: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails::Custom)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails::Custom))
+       }
+      def custom=(_custom); end
+      # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+      sig { returns(String) }
+      def type; end
+      sig { params(_type: String).returns(String) }
+      def type=(_type); end
+      sig {
+        params(custom: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails::Custom), type: String).void
+       }
+      def initialize(custom: nil, type: nil); end
+    end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end
@@ -21,9 +50,18 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # Processor information for this payment.
     sig {
-      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
+      returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails))
      }
-    def initialize(expand: nil, guaranteed_at: nil, metadata: nil); end
+    def processor_details; end
+    sig {
+      params(_processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails))
+     }
+    def processor_details=(_processor_details); end
+    sig {
+      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).void
+     }
+    def initialize(expand: nil, guaranteed_at: nil, metadata: nil, processor_details: nil); end
   end
 end

@@ -34,23 +34,67 @@ module Stripe
     end
 
     class Failed < ::Stripe::RequestParams
+      class ProcessorDetails < ::Stripe::RequestParams
+        class Custom < ::Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          attr_accessor :payment_reference
+
+          def initialize(payment_reference: nil)
+            @payment_reference = payment_reference
+          end
+        end
+        # Information about the custom processor used to make this payment.
+        attr_accessor :custom
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        attr_accessor :type
+
+        def initialize(custom: nil, type: nil)
+          @custom = custom
+          @type = type
+        end
+      end
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       attr_accessor :failed_at
       # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
       attr_accessor :failure_code
+      # Processor information for this payment.
+      attr_accessor :processor_details
 
-      def initialize(failed_at: nil, failure_code: nil)
+      def initialize(failed_at: nil, failure_code: nil, processor_details: nil)
         @failed_at = failed_at
         @failure_code = failure_code
+        @processor_details = processor_details
       end
     end
 
     class Guaranteed < ::Stripe::RequestParams
+      class ProcessorDetails < ::Stripe::RequestParams
+        class Custom < ::Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          attr_accessor :payment_reference
+
+          def initialize(payment_reference: nil)
+            @payment_reference = payment_reference
+          end
+        end
+        # Information about the custom processor used to make this payment.
+        attr_accessor :custom
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        attr_accessor :type
+
+        def initialize(custom: nil, type: nil)
+          @custom = custom
+          @type = type
+        end
+      end
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       attr_accessor :guaranteed_at
+      # Processor information for this payment.
+      attr_accessor :processor_details
 
-      def initialize(guaranteed_at: nil)
+      def initialize(guaranteed_at: nil, processor_details: nil)
         @guaranteed_at = guaranteed_at
+        @processor_details = processor_details
       end
     end
 

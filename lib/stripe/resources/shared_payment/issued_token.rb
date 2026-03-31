@@ -193,8 +193,6 @@ module Stripe
       attr_reader :deactivated_at
       # The reason why the SharedPaymentIssuedToken has been deactivated.
       attr_reader :deactivated_reason
-      # Which requested uses have been enabled for this SharedPaymentIssuedToken.
-      attr_reader :enabled_uses
       # Unique identifier for the object.
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -203,8 +201,6 @@ module Stripe
       attr_reader :object
       # ID of an existing PaymentMethod.
       attr_reader :payment_method
-      # Requested uses for this SharedPaymentIssuedToken, which controls which Stripe APIs it can be used with.
-      attr_reader :requested_uses
       # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
       attr_reader :return_url
       # Risk details of the SharedPaymentIssuedToken.

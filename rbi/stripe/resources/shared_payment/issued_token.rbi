@@ -190,9 +190,6 @@ module Stripe
       # The reason why the SharedPaymentIssuedToken has been deactivated.
       sig { returns(T.nilable(String)) }
       def deactivated_reason; end
-      # Which requested uses have been enabled for this SharedPaymentIssuedToken.
-      sig { returns(T.nilable(T::Array[String])) }
-      def enabled_uses; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
@@ -205,9 +202,6 @@ module Stripe
       # ID of an existing PaymentMethod.
       sig { returns(T.nilable(String)) }
       def payment_method; end
-      # Requested uses for this SharedPaymentIssuedToken, which controls which Stripe APIs it can be used with.
-      sig { returns(T.nilable(T::Array[String])) }
-      def requested_uses; end
       # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
       sig { returns(T.nilable(String)) }
       def return_url; end

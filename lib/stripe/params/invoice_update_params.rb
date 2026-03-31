@@ -183,6 +183,45 @@ module Stripe
           end
         end
 
+        class CheckScan < ::Stripe::RequestParams
+          class CheckDepositAddress < ::Stripe::RequestParams
+            # Attribute for param field city
+            attr_accessor :city
+            # Attribute for param field country
+            attr_accessor :country
+            # Attribute for param field line1
+            attr_accessor :line1
+            # Attribute for param field line2
+            attr_accessor :line2
+            # Attribute for param field postal_code
+            attr_accessor :postal_code
+            # Attribute for param field state
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Attribute for param field check_deposit_address
+          attr_accessor :check_deposit_address
+
+          def initialize(check_deposit_address: nil)
+            @check_deposit_address = check_deposit_address
+          end
+        end
+
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
@@ -335,6 +374,8 @@ module Stripe
         attr_accessor :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :check_scan
 
         def initialize(
           acss_debit: nil,
@@ -347,7 +388,8 @@ module Stripe
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil
+          us_bank_account: nil,
+          check_scan: nil
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
@@ -360,6 +402,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
+          @check_scan = check_scan
         end
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.

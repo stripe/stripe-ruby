@@ -356,6 +356,41 @@ module Stripe
           end
         end
 
+        class CheckScan < ::Stripe::StripeObject
+          class CheckDepositAddress < ::Stripe::StripeObject
+            # Attribute for field city
+            attr_reader :city
+            # Attribute for field country
+            attr_reader :country
+            # Attribute for field line1
+            attr_reader :line1
+            # Attribute for field line2
+            attr_reader :line2
+            # Attribute for field postal_code
+            attr_reader :postal_code
+            # Attribute for field state
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field check_deposit_address
+          attr_reader :check_deposit_address
+
+          def self.inner_class_types
+            @inner_class_types = { check_deposit_address: CheckDepositAddress }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class CustomerBalance < ::Stripe::StripeObject
           class BankTransfer < ::Stripe::StripeObject
             class EuBankTransfer < ::Stripe::StripeObject
@@ -586,6 +621,8 @@ module Stripe
         attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
+        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+        attr_reader :check_scan
 
         def self.inner_class_types
           @inner_class_types = {
@@ -600,6 +637,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            check_scan: CheckScan,
           }
         end
 

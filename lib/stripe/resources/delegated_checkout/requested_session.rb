@@ -508,6 +508,10 @@ module Stripe
         attr_reader :store_policy_url
         # The URL to the seller's terms of service.
         attr_reader :terms_of_service_url
+        # The card brands supported by the seller.
+        attr_reader :card_brands
+        # The payment method types supported by the seller.
+        attr_reader :payment_method_types
 
         def self.inner_class_types
           @inner_class_types = { marketplace_seller_details: MarketplaceSellerDetails }
@@ -548,6 +552,37 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { applicable_fees: ApplicableFee }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PaymentMethodOptions < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The card brands blocked by the agent.
+          attr_reader :brands_blocked
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Card-specific payment method options.
+        attr_reader :card
+        # The computed displayable card brands.
+        attr_reader :displayable_card_brands
+        # The computed displayable payment method types.
+        attr_reader :displayable_payment_method_types
+        # The payment method types excluded by the agent.
+        attr_reader :excluded_payment_method_types
+
+        def self.inner_class_types
+          @inner_class_types = { card: Card }
         end
 
         def self.field_remappings
@@ -602,6 +637,8 @@ module Stripe
       attr_reader :total_details
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated_at
+      # The payment method options for this requested session.
+      attr_reader :payment_method_options
 
       # Confirms a requested session
       def confirm(params = {}, opts = {})
@@ -673,6 +710,7 @@ module Stripe
           risk_details: RiskDetails,
           seller_details: SellerDetails,
           total_details: TotalDetails,
+          payment_method_options: PaymentMethodOptions,
         }
       end
 

@@ -29,7 +29,15 @@ module Stripe
           a: [[foo: "bar", baz: "qux"]],
         }
         assert_equal(
-          "a[0][foo]=bar&a[0][baz]=qux",
+          "a[0][0][foo]=bar&a[0][0][baz]=qux",
+          Stripe::Util.encode_parameters(params, :v1)
+        )
+      end
+
+      should "correctly encode 2D arrays of scalars" do
+        params = { a: [[1, 2], [3, 4]] }
+        assert_equal(
+          "a[0][0]=1&a[0][1]=2&a[1][0]=3&a[1][1]=4",
           Stripe::Util.encode_parameters(params, :v1)
         )
       end
@@ -95,6 +103,14 @@ module Stripe
           [:e, [0, 1]],
         ]
         assert_equal([["d[a]", "a"], ["d[b]", "b"], ["e[0]", 0], ["e[1]", 1]], Stripe::Util.flatten_params(params, :v2))
+      end
+
+      should "flatten 2D arrays with correct indices" do
+        params = { a: [[1, 2], [3, 4]] }
+        assert_equal(
+          [["a[0][0]", 1], ["a[0][1]", 2], ["a[1][0]", 3], ["a[1][1]", 4]],
+          Stripe::Util.flatten_params(params, :v1)
+        )
       end
     end
 

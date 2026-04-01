@@ -216,6 +216,39 @@ module Stripe
         sig { params(key: String, quantity: Integer).void }
         def initialize(key: nil, quantity: nil); end
       end
+      class PaymentMethodOptions < ::Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          # The card brands to exclude from the session.
+          sig { returns(T.nilable(T::Array[String])) }
+          def brands_blocked; end
+          sig {
+            params(_brands_blocked: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def brands_blocked=(_brands_blocked); end
+          sig { params(brands_blocked: T.nilable(T::Array[String])).void }
+          def initialize(brands_blocked: nil); end
+        end
+        # Card-specific payment method options.
+        sig {
+          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions::Card))
+         }
+        def card; end
+        sig {
+          params(_card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions::Card))
+         }
+        def card=(_card); end
+        # The payment method types to exclude from the session.
+        sig { returns(T.nilable(T::Array[String])) }
+        def excluded_payment_method_types; end
+        sig {
+          params(_excluded_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def excluded_payment_method_types=(_excluded_payment_method_types); end
+        sig {
+          params(card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions::Card), excluded_payment_method_types: T.nilable(T::Array[String])).void
+         }
+        def initialize(card: nil, excluded_payment_method_types: nil); end
+      end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -258,8 +291,17 @@ module Stripe
         params(_shared_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def shared_metadata=(_shared_metadata); end
+      # The payment method options for this requested session.
       sig {
-        params(expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails), line_item_details: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::LineItemDetail]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), shared_metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions))
+       }
+      def payment_method_options; end
+      sig {
+        params(_payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions))
+       }
+      def payment_method_options=(_payment_method_options); end
+      sig {
+        params(expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails), line_item_details: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::LineItemDetail]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), shared_metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions)).void
        }
       def initialize(
         expand: nil,
@@ -267,7 +309,8 @@ module Stripe
         line_item_details: nil,
         metadata: nil,
         payment_method: nil,
-        shared_metadata: nil
+        shared_metadata: nil,
+        payment_method_options: nil
       ); end
     end
   end

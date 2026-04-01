@@ -129,6 +129,26 @@ module Stripe
         end
       end
 
+      class PaymentMethodOptions < ::Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          # The card brands to exclude from the session.
+          attr_accessor :brands_blocked
+
+          def initialize(brands_blocked: nil)
+            @brands_blocked = brands_blocked
+          end
+        end
+        # Card-specific payment method options.
+        attr_accessor :card
+        # The payment method types to exclude from the session.
+        attr_accessor :excluded_payment_method_types
+
+        def initialize(card: nil, excluded_payment_method_types: nil)
+          @card = card
+          @excluded_payment_method_types = excluded_payment_method_types
+        end
+      end
+
       class SellerDetails < ::Stripe::RequestParams
         # The network profile for the seller.
         attr_accessor :network_profile
@@ -159,6 +179,8 @@ module Stripe
       attr_accessor :setup_future_usage
       # The shared metadata for this requested session.
       attr_accessor :shared_metadata
+      # The payment method options for this requested session.
+      attr_accessor :payment_method_options
 
       def initialize(
         affiliate_attribution: nil,
@@ -171,7 +193,8 @@ module Stripe
         payment_method: nil,
         seller_details: nil,
         setup_future_usage: nil,
-        shared_metadata: nil
+        shared_metadata: nil,
+        payment_method_options: nil
       )
         @affiliate_attribution = affiliate_attribution
         @currency = currency
@@ -184,6 +207,7 @@ module Stripe
         @seller_details = seller_details
         @setup_future_usage = setup_future_usage
         @shared_metadata = shared_metadata
+        @payment_method_options = payment_method_options
       end
     end
   end

@@ -143,6 +143,26 @@ module Stripe
           @quantity = quantity
         end
       end
+
+      class PaymentMethodOptions < ::Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          # The card brands to exclude from the session.
+          attr_accessor :brands_blocked
+
+          def initialize(brands_blocked: nil)
+            @brands_blocked = brands_blocked
+          end
+        end
+        # Card-specific payment method options.
+        attr_accessor :card
+        # The payment method types to exclude from the session.
+        attr_accessor :excluded_payment_method_types
+
+        def initialize(card: nil, excluded_payment_method_types: nil)
+          @card = card
+          @excluded_payment_method_types = excluded_payment_method_types
+        end
+      end
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The details of the fulfillment.
@@ -155,6 +175,8 @@ module Stripe
       attr_accessor :payment_method
       # The shared metadata for this requested session.
       attr_accessor :shared_metadata
+      # The payment method options for this requested session.
+      attr_accessor :payment_method_options
 
       def initialize(
         expand: nil,
@@ -162,7 +184,8 @@ module Stripe
         line_item_details: nil,
         metadata: nil,
         payment_method: nil,
-        shared_metadata: nil
+        shared_metadata: nil,
+        payment_method_options: nil
       )
         @expand = expand
         @fulfillment_details = fulfillment_details
@@ -170,6 +193,7 @@ module Stripe
         @metadata = metadata
         @payment_method = payment_method
         @shared_metadata = shared_metadata
+        @payment_method_options = payment_method_options
       end
     end
   end

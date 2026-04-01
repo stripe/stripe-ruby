@@ -151,6 +151,22 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Konbini < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class SepaDebit < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UsBankAccount < ::Stripe::StripeObject
             class FinancialConnections < ::Stripe::StripeObject
               class Filters < ::Stripe::StripeObject
@@ -206,10 +222,10 @@ module Stripe
           sig { returns(T.nilable(CustomerBalance)) }
           def customer_balance; end
           # This sub-hash contains details about the Konbini payment method options.
-          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+          sig { returns(T.nilable(Konbini)) }
           def konbini; end
           # This sub-hash contains details about the SEPA Direct Debit payment method options.
-          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+          sig { returns(T.nilable(SepaDebit)) }
           def sepa_debit; end
           # This sub-hash contains details about the ACH direct debit payment method options.
           sig { returns(T.nilable(UsBankAccount)) }
@@ -220,6 +236,8 @@ module Stripe
               bancontact: Bancontact,
               card: Card,
               customer_balance: CustomerBalance,
+              konbini: Konbini,
+              sepa_debit: SepaDebit,
               us_bank_account: UsBankAccount,
             }
           end

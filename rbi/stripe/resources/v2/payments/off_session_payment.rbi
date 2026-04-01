@@ -84,6 +84,9 @@ module Stripe
         # The “presentment amount” to be collected from the customer.
         sig { returns(::Stripe::V2::Amount) }
         def amount_requested; end
+        # The amount of the application fee requested to be applied to the payment.
+        sig { returns(T.nilable(::Stripe::V2::Amount)) }
+        def application_fee_amount_requested; end
         # The frequency of the underlying payment.
         sig { returns(String) }
         def cadence; end

@@ -26,6 +26,13 @@ module Stripe
         def amount_to_capture; end
         sig { params(_amount_to_capture: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def amount_to_capture=(_amount_to_capture); end
+        # The amount of the application fee for this capture.
+        sig { returns(T.nilable(::Stripe::V2::Amount)) }
+        def application_fee_amount; end
+        sig {
+          params(_application_fee_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
+         }
+        def application_fee_amount=(_application_fee_amount); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
@@ -59,10 +66,11 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount_to_capture: T.nilable(Integer), metadata: T::Hash[String, String], statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
+          params(amount_to_capture: T.nilable(Integer), application_fee_amount: T.nilable(::Stripe::V2::Amount), metadata: T::Hash[String, String], statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
          }
         def initialize(
           amount_to_capture: nil,
+          application_fee_amount: nil,
           metadata: nil,
           statement_descriptor: nil,
           statement_descriptor_suffix: nil,

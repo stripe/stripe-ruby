@@ -157,6 +157,9 @@ module Stripe
         end
         # The “presentment amount” to be collected from the customer.
         attr_accessor :amount
+        # The amount of the application fee (if any) that will be requested to be applied to the
+        # payment and transferred to the application owner's Stripe account.
+        attr_accessor :application_fee_amount
         # The frequency of the underlying payment.
         attr_accessor :cadence
         # Details about the capture configuration for the OffSessionPayment.
@@ -196,6 +199,7 @@ module Stripe
 
         def initialize(
           amount: nil,
+          application_fee_amount: nil,
           cadence: nil,
           capture: nil,
           customer: nil,
@@ -212,6 +216,7 @@ module Stripe
           transfer_data: nil
         )
           @amount = amount
+          @application_fee_amount = application_fee_amount
           @cadence = cadence
           @capture = capture
           @customer = customer

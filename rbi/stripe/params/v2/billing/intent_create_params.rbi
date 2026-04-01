@@ -109,13 +109,18 @@ module Stripe
               class MaxBillingPeriodSpend < ::Stripe::RequestParams
                 class Amount < ::Stripe::RequestParams
                   class CustomPricingUnit < ::Stripe::RequestParams
+                    # The id of the custom pricing unit.
+                    sig { returns(T.nilable(String)) }
+                    def id; end
+                    sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+                    def id=(_id); end
                     # The value of the custom pricing unit.
                     sig { returns(String) }
                     def value; end
                     sig { params(_value: String).returns(String) }
                     def value=(_value); end
-                    sig { params(value: String).void }
-                    def initialize(value: nil); end
+                    sig { params(id: T.nilable(String), value: String).void }
+                    def initialize(id: nil, value: nil); end
                   end
                   # The type of the amount.
                   sig { returns(String) }

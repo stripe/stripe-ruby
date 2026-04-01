@@ -88,6 +88,8 @@ module Stripe
         attr_reader :amount_capturable
         # The “presentment amount” to be collected from the customer.
         attr_reader :amount_requested
+        # The amount of the application fee requested to be applied to the payment.
+        attr_reader :application_fee_amount_requested
         # The frequency of the underlying payment.
         attr_reader :cadence
         # Details about the capture configuration for the OffSessionPayment.

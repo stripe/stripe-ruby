@@ -38,6 +38,14 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class StripeAction < ::Stripe::StripeObject
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # The type of the client.
               sig { returns(String) }
               def type; end
@@ -48,10 +56,14 @@ module Stripe
               sig { returns(T.nilable(DashboardUser)) }
               def dashboard_user; end
               # Stripe action that triggered the event.
-              sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+              sig { returns(T.nilable(StripeAction)) }
               def stripe_action; end
               def self.inner_class_types
-                @inner_class_types = {api_key: ApiKey, dashboard_user: DashboardUser}
+                @inner_class_types = {
+                  api_key: ApiKey,
+                  dashboard_user: DashboardUser,
+                  stripe_action: StripeAction,
+                }
               end
               def self.field_remappings
                 @field_remappings = {}

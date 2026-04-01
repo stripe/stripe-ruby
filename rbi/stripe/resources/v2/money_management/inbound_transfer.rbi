@@ -62,10 +62,34 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class BankDebitProcessing < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class BankDebitQueued < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class BankDebitReturned < ::Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             sig { returns(String) }
             def return_reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class BankDebitSucceeded < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -92,21 +116,24 @@ module Stripe
           sig { returns(T.nilable(BankDebitFailed)) }
           def bank_debit_failed; end
           # The history entry for a processing InboundTransfer.
-          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+          sig { returns(T.nilable(BankDebitProcessing)) }
           def bank_debit_processing; end
           # The history entry for a queued InboundTransfer.
-          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+          sig { returns(T.nilable(BankDebitQueued)) }
           def bank_debit_queued; end
           # The history entry for a returned InboundTransfer.
           sig { returns(T.nilable(BankDebitReturned)) }
           def bank_debit_returned; end
           # The history entry for a succeeded InboundTransfer.
-          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+          sig { returns(T.nilable(BankDebitSucceeded)) }
           def bank_debit_succeeded; end
           def self.inner_class_types
             @inner_class_types = {
               bank_debit_failed: BankDebitFailed,
+              bank_debit_processing: BankDebitProcessing,
+              bank_debit_queued: BankDebitQueued,
               bank_debit_returned: BankDebitReturned,
+              bank_debit_succeeded: BankDebitSucceeded,
             }
           end
           def self.field_remappings

@@ -43,6 +43,16 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+
+              class StripeAction < ::Stripe::StripeObject
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               # The type of the client.
               attr_reader :type
               # API key that triggered the event.
@@ -53,7 +63,11 @@ module Stripe
               attr_reader :stripe_action
 
               def self.inner_class_types
-                @inner_class_types = { api_key: ApiKey, dashboard_user: DashboardUser }
+                @inner_class_types = {
+                  api_key: ApiKey,
+                  dashboard_user: DashboardUser,
+                  stripe_action: StripeAction,
+                }
               end
 
               def self.field_remappings

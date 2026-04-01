@@ -2003,6 +2003,15 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
+              class PaperChecks < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T.nilable(T::Boolean)) }
+                def requested; end
+                sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def requested=(_requested); end
+                sig { params(requested: T.nilable(T::Boolean)).void }
+                def initialize(requested: nil); end
+              end
               class StripeBalance < ::Stripe::RequestParams
                 class StripeTransfers < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -2054,6 +2063,15 @@ module Stripe
                 params(_crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::CryptoWallets)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::CryptoWallets))
                }
               def crypto_wallets=(_crypto_wallets); end
+              # Capabilities that enable OutboundPayments via paper check.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks))
+               }
+              def paper_checks; end
+              sig {
+                params(_paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks))
+               }
+              def paper_checks=(_paper_checks); end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance))
@@ -2064,12 +2082,13 @@ module Stripe
                }
               def stripe_balance=(_stripe_balance); end
               sig {
-                params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::CryptoWallets), stripe_balance: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
+                params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::CryptoWallets), paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks), stripe_balance: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
                }
               def initialize(
                 bank_accounts: nil,
                 cards: nil,
                 crypto_wallets: nil,
+                paper_checks: nil,
                 stripe_balance: nil
               ); end
             end
@@ -2321,6 +2340,15 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
+                class PaperChecks < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
                 # Can send funds from a FinancialAccount to a bank account owned by someone else.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
@@ -2357,14 +2385,24 @@ module Stripe
                   params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
                  }
                 def financial_accounts=(_financial_accounts); end
+                # Can send funds from a FinancialAccount to someone else via paper check.
                 sig {
-                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::CryptoWallets), financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::PaperChecks))
+                 }
+                def paper_checks; end
+                sig {
+                  params(_paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::PaperChecks)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::PaperChecks))
+                 }
+                def paper_checks=(_paper_checks); end
+                sig {
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::CryptoWallets), financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts), paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Storer::Capabilities::OutboundPayments::PaperChecks)).void
                  }
                 def initialize(
                   bank_accounts: nil,
                   cards: nil,
                   crypto_wallets: nil,
-                  financial_accounts: nil
+                  financial_accounts: nil,
+                  paper_checks: nil
                 ); end
               end
               class OutboundTransfers < ::Stripe::RequestParams

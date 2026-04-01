@@ -21,6 +21,8 @@ module Stripe
         end
         # The amount to capture.
         attr_accessor :amount_to_capture
+        # The amount of the application fee for this capture.
+        attr_accessor :application_fee_amount
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
@@ -40,12 +42,14 @@ module Stripe
 
         def initialize(
           amount_to_capture: nil,
+          application_fee_amount: nil,
           metadata: nil,
           statement_descriptor: nil,
           statement_descriptor_suffix: nil,
           transfer_data: nil
         )
           @amount_to_capture = amount_to_capture
+          @application_fee_amount = application_fee_amount
           @metadata = metadata
           @statement_descriptor = statement_descriptor
           @statement_descriptor_suffix = statement_descriptor_suffix

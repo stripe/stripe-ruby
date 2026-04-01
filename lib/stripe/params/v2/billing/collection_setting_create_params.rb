@@ -126,6 +126,9 @@ module Stripe
             end
           end
 
+          class Konbini < ::Stripe::RequestParams; end
+          class SepaDebit < ::Stripe::RequestParams; end
+
           class UsBankAccount < ::Stripe::RequestParams
             class FinancialConnections < ::Stripe::RequestParams
               class Filters < ::Stripe::RequestParams

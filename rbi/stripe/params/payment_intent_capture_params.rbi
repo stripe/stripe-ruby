@@ -2746,6 +2746,27 @@ module Stripe
           total: nil
         ); end
       end
+      class MoneyServices < ::Stripe::RequestParams
+        class AccountFunding < ::Stripe::RequestParams; end
+        # Account funding transaction details including sender and beneficiary information.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices::AccountFunding)))
+         }
+        def account_funding; end
+        sig {
+          params(_account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices::AccountFunding))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices::AccountFunding)))
+         }
+        def account_funding=(_account_funding); end
+        # The type of money services transaction.
+        sig { returns(T.nilable(String)) }
+        def transaction_type; end
+        sig { params(_transaction_type: T.nilable(String)).returns(T.nilable(String)) }
+        def transaction_type=(_transaction_type); end
+        sig {
+          params(account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices::AccountFunding)), transaction_type: T.nilable(String)).void
+         }
+        def initialize(account_funding: nil, transaction_type: nil); end
+      end
       class Subscription < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -2896,8 +2917,17 @@ module Stripe
         params(_subscription: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Subscription)).returns(T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Subscription))
        }
       def subscription=(_subscription); end
+      # Money services details for this PaymentIntent.
       sig {
-        params(car_rental: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Subscription)).void
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices)))
+       }
+      def money_services; end
+      sig {
+        params(_money_services: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices)))
+       }
+      def money_services=(_money_services); end
+      sig {
+        params(car_rental: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::PaymentIntentCaptureParams::PaymentDetails::Subscription), money_services: T.nilable(T.any(String, ::Stripe::PaymentIntentCaptureParams::PaymentDetails::MoneyServices))).void
        }
       def initialize(
         car_rental: nil,
@@ -2909,7 +2939,8 @@ module Stripe
         lodging: nil,
         lodging_data: nil,
         order_reference: nil,
-        subscription: nil
+        subscription: nil,
+        money_services: nil
       ); end
     end
     class TransferData < ::Stripe::RequestParams

@@ -1554,6 +1554,19 @@ module Stripe
         end
       end
 
+      class MoneyServices < ::Stripe::RequestParams
+        class AccountFunding < ::Stripe::RequestParams; end
+        # Account funding transaction details including sender and beneficiary information.
+        attr_accessor :account_funding
+        # The type of money services transaction.
+        attr_accessor :transaction_type
+
+        def initialize(account_funding: nil, transaction_type: nil)
+          @account_funding = account_funding
+          @transaction_type = transaction_type
+        end
+      end
+
       class Subscription < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -1628,6 +1641,8 @@ module Stripe
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
+      # Money services details for this PaymentIntent.
+      attr_accessor :money_services
 
       def initialize(
         car_rental: nil,
@@ -1639,7 +1654,8 @@ module Stripe
         lodging: nil,
         lodging_data: nil,
         order_reference: nil,
-        subscription: nil
+        subscription: nil,
+        money_services: nil
       )
         @car_rental = car_rental
         @car_rental_data = car_rental_data
@@ -1651,6 +1667,7 @@ module Stripe
         @lodging_data = lodging_data
         @order_reference = order_reference
         @subscription = subscription
+        @money_services = money_services
       end
     end
 

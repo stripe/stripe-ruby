@@ -10,6 +10,9 @@ module Stripe
         class MaxBillingPeriodSpend < ::Stripe::StripeObject
           class Amount < ::Stripe::StripeObject
             class CustomPricingUnit < ::Stripe::StripeObject
+              # The id of the custom pricing unit.
+              sig { returns(T.nilable(String)) }
+              def id; end
               # The decimal value of custom pricing units, represented as a string.
               sig { returns(String) }
               def value; end

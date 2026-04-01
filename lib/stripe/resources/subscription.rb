@@ -113,23 +113,6 @@ module Stripe
         end
       end
 
-      class BillFrom < ::Stripe::StripeObject
-        # The time the billing schedule applies from.
-        attr_reader :computed_timestamp
-        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
-        attr_reader :timestamp
-        # Describes how the billing schedule determines the start date. Possible values are `timestamp`.
-        attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class BillUntil < ::Stripe::StripeObject
         class Duration < ::Stripe::StripeObject
           # Specifies billing duration. Either `day`, `week`, `month` or `year`.
@@ -164,15 +147,13 @@ module Stripe
       end
       # Specifies which subscription items the billing schedule applies to.
       attr_reader :applies_to
-      # Specifies the start of the billing period.
-      attr_reader :bill_from
       # Specifies the end of billing period.
       attr_reader :bill_until
       # Unique identifier for the billing schedule.
       attr_reader :key
 
       def self.inner_class_types
-        @inner_class_types = { applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil }
+        @inner_class_types = { applies_to: AppliesTo, bill_until: BillUntil }
       end
 
       def self.field_remappings
@@ -368,6 +349,41 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CheckScan < ::Stripe::StripeObject
+          class CheckDepositAddress < ::Stripe::StripeObject
+            # Attribute for field city
+            attr_reader :city
+            # Attribute for field country
+            attr_reader :country
+            # Attribute for field line1
+            attr_reader :line1
+            # Attribute for field line2
+            attr_reader :line2
+            # Attribute for field postal_code
+            attr_reader :postal_code
+            # Attribute for field state
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field check_deposit_address
+          attr_reader :check_deposit_address
+
+          def self.inner_class_types
+            @inner_class_types = { check_deposit_address: CheckDepositAddress }
           end
 
           def self.field_remappings
@@ -605,6 +621,8 @@ module Stripe
         attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
+        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+        attr_reader :check_scan
 
         def self.inner_class_types
           @inner_class_types = {
@@ -619,6 +637,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            check_scan: CheckScan,
           }
         end
 

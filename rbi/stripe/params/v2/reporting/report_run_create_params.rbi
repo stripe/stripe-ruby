@@ -7,8 +7,8 @@ module Stripe
     module Reporting
       class ReportRunCreateParams < ::Stripe::RequestParams
         class ResultOptions < ::Stripe::RequestParams
-          # If set, the generated report file will be compressed into a ZIP folder.
-          # This is useful for reducing file size and download time for large reports.
+          # If set, the generated results file will be compressed into a ZIP folder.
+          # This is useful for reducing file size and download time for large results.
           sig { returns(T.nilable(T::Boolean)) }
           def compress_file; end
           sig { params(_compress_file: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }

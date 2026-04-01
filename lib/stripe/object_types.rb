@@ -157,6 +157,7 @@ module Stripe
         SetupAttempt.object_name => SetupAttempt,
         SetupIntent.object_name => SetupIntent,
         SharedPayment::GrantedToken.object_name => SharedPayment::GrantedToken,
+        SharedPayment::IssuedToken.object_name => SharedPayment::IssuedToken,
         ShippingRate.object_name => ShippingRate,
         Sigma::ScheduledQueryRun.object_name => Sigma::ScheduledQueryRun,
         Source.object_name => Source,
@@ -252,6 +253,7 @@ module Stripe
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
+        V2::Data::Reporting::QueryRun.object_name => V2::Data::Reporting::QueryRun,
         V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
         V2::FinancialAddressGeneratedMicrodeposits.object_name =>
         V2::FinancialAddressGeneratedMicrodeposits,

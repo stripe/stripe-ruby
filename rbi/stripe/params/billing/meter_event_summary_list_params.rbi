@@ -54,13 +54,30 @@ module Stripe
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
+      # List of tenant payload keys to filter on. Must be used together with tenant_operator and tenant_values. Cannot be used with tenant_filters.
+      sig { returns(T.nilable(T::Array[String])) }
+      def tenant_keys; end
+      sig { params(_tenant_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def tenant_keys=(_tenant_keys); end
+      # The operator to apply when filtering by tenant values. Must be used together with tenant_keys and tenant_values. Cannot be used with tenant_filters.
+      sig { returns(T.nilable(String)) }
+      def tenant_operator; end
+      sig { params(_tenant_operator: T.nilable(String)).returns(T.nilable(String)) }
+      def tenant_operator=(_tenant_operator); end
+      # List of value lists corresponding to each key in tenant_keys. Each element contains the values to filter on for the corresponding tenant key. Must be used together with tenant_operator and tenant_keys. Cannot be used with tenant_filters.
+      sig { returns(T.nilable(T::Array[T::Array[String]])) }
+      def tenant_values; end
+      sig {
+        params(_tenant_values: T.nilable(T::Array[T::Array[String]])).returns(T.nilable(T::Array[T::Array[String]]))
+       }
+      def tenant_values=(_tenant_values); end
       # Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range. For hourly granularity, start and end times must align with hour boundaries (e.g., 00:00, 01:00, ..., 23:00). For daily granularity, start and end times must align with UTC day boundaries (00:00 UTC).
       sig { returns(T.nilable(String)) }
       def value_grouping_window; end
       sig { params(_value_grouping_window: T.nilable(String)).returns(T.nilable(String)) }
       def value_grouping_window=(_value_grouping_window); end
       sig {
-        params(customer: String, dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), end_time: Integer, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), start_time: Integer, starting_after: T.nilable(String), value_grouping_window: T.nilable(String)).void
+        params(customer: String, dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), end_time: Integer, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), start_time: Integer, starting_after: T.nilable(String), tenant_keys: T.nilable(T::Array[String]), tenant_operator: T.nilable(String), tenant_values: T.nilable(T::Array[T::Array[String]]), value_grouping_window: T.nilable(String)).void
        }
       def initialize(
         customer: nil,
@@ -72,6 +89,9 @@ module Stripe
         limit: nil,
         start_time: nil,
         starting_after: nil,
+        tenant_keys: nil,
+        tenant_operator: nil,
+        tenant_values: nil,
         value_grouping_window: nil
       ); end
     end

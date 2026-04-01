@@ -8,6 +8,24 @@ module Stripe
       def self.lookup_type
         "v2.iam.stripe_access_grant.removed"
       end
+
+      class V2IamStripeAccessGrantRemovedEventData < ::Stripe::StripeObject
+        # ID of removed Stripe Access Grant.
+        attr_reader :stripe_access_grant
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { data: V2IamStripeAccessGrantRemovedEventData }
+      end
+      attr_reader :data
     end
 
     # Occurs when a Stripe Access Grant is removed (was approved, and then removed by the customer).

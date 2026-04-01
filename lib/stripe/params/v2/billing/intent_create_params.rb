@@ -82,10 +82,13 @@ module Stripe
               class MaxBillingPeriodSpend < ::Stripe::RequestParams
                 class Amount < ::Stripe::RequestParams
                   class CustomPricingUnit < ::Stripe::RequestParams
+                    # The id of the custom pricing unit.
+                    attr_accessor :id
                     # The value of the custom pricing unit.
                     attr_accessor :value
 
-                    def initialize(value: nil)
+                    def initialize(id: nil, value: nil)
+                      @id = id
                       @value = value
                     end
                   end

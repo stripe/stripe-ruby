@@ -8,6 +8,24 @@ module Stripe
       def self.lookup_type
         "v2.iam.api_key.created"
       end
+
+      class V2IamApiKeyCreatedEventData < ::Stripe::StripeObject
+        # ID of the created key.
+        attr_reader :api_key
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { data: V2IamApiKeyCreatedEventData }
+      end
+      attr_reader :data
     end
 
     # Occurs when an API Key is created.

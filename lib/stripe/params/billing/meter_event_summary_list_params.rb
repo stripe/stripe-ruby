@@ -22,6 +22,12 @@ module Stripe
       attr_accessor :start_time
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
+      # List of tenant payload keys to filter on. Must be used together with tenant_operator and tenant_values. Cannot be used with tenant_filters.
+      attr_accessor :tenant_keys
+      # The operator to apply when filtering by tenant values. Must be used together with tenant_keys and tenant_values. Cannot be used with tenant_filters.
+      attr_accessor :tenant_operator
+      # List of value lists corresponding to each key in tenant_keys. Each element contains the values to filter on for the corresponding tenant key. Must be used together with tenant_operator and tenant_keys. Cannot be used with tenant_filters.
+      attr_accessor :tenant_values
       # Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range. For hourly granularity, start and end times must align with hour boundaries (e.g., 00:00, 01:00, ..., 23:00). For daily granularity, start and end times must align with UTC day boundaries (00:00 UTC).
       attr_accessor :value_grouping_window
 
@@ -35,6 +41,9 @@ module Stripe
         limit: nil,
         start_time: nil,
         starting_after: nil,
+        tenant_keys: nil,
+        tenant_operator: nil,
+        tenant_values: nil,
         value_grouping_window: nil
       )
         @customer = customer
@@ -46,6 +55,9 @@ module Stripe
         @limit = limit
         @start_time = start_time
         @starting_after = starting_after
+        @tenant_keys = tenant_keys
+        @tenant_operator = tenant_operator
+        @tenant_values = tenant_values
         @value_grouping_window = value_grouping_window
       end
     end

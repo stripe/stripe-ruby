@@ -2656,6 +2656,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class PaperChecks < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class StripeBalance < ::Stripe::StripeObject
                 class Payouts < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
@@ -2735,6 +2763,9 @@ module Stripe
               # Enables this Account to receive OutboundPayments to a linked crypto wallet.
               sig { returns(T.nilable(CryptoWallets)) }
               def crypto_wallets; end
+              # Capabilities that enable OutboundPayments via paper check.
+              sig { returns(T.nilable(PaperChecks)) }
+              def paper_checks; end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               def stripe_balance; end
@@ -2743,6 +2774,7 @@ module Stripe
                   bank_accounts: BankAccounts,
                   cards: Cards,
                   crypto_wallets: CryptoWallets,
+                  paper_checks: PaperChecks,
                   stripe_balance: StripeBalance,
                 }
               end
@@ -3189,6 +3221,34 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+                class PaperChecks < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can send funds from a FinancialAccount to a bank account owned by a different entity.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
@@ -3201,12 +3261,16 @@ module Stripe
                 # Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
                 sig { returns(T.nilable(FinancialAccounts)) }
                 def financial_accounts; end
+                # Can send funds from a FinancialAccount to someone else via paper check.
+                sig { returns(T.nilable(PaperChecks)) }
+                def paper_checks; end
                 def self.inner_class_types
                   @inner_class_types = {
                     bank_accounts: BankAccounts,
                     cards: Cards,
                     crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
+                    paper_checks: PaperChecks,
                   }
                 end
                 def self.field_remappings

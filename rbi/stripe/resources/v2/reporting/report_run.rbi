@@ -44,13 +44,13 @@ module Stripe
               @field_encodings = {size: :int64_string}
             end
           end
-          # Contains metadata about the file produced by the `ReportRun`, including
-          # its content type, size, and a URL to download its contents.
-          sig { returns(File) }
-          def file; end
-          # The type of the `ReportRun` result.
+          # The type of the `ReportRun` or `QueryRun` result.
           sig { returns(String) }
           def type; end
+          # Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
+          # its content type, size, and a URL to download its contents.
+          sig { returns(T.nilable(File)) }
+          def file; end
           def self.inner_class_types
             @inner_class_types = {file: File}
           end
@@ -62,8 +62,8 @@ module Stripe
           end
         end
         class ResultOptions < ::Stripe::StripeObject
-          # If set, the generated report file will be compressed into a ZIP folder.
-          # This is useful for reducing file size and download time for large reports.
+          # If set, the generated results file will be compressed into a ZIP folder.
+          # This is useful for reducing file size and download time for large results.
           sig { returns(T.nilable(T::Boolean)) }
           def compress_file; end
           def self.inner_class_types

@@ -221,6 +221,14 @@ module Stripe
         def amount; end
         sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
         def amount=(_amount); end
+        # The amount of the application fee (if any) that will be requested to be applied to the
+        # payment and transferred to the application owner's Stripe account.
+        sig { returns(T.nilable(::Stripe::V2::Amount)) }
+        def application_fee_amount; end
+        sig {
+          params(_application_fee_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
+         }
+        def application_fee_amount=(_application_fee_amount); end
         # The frequency of the underlying payment.
         sig { returns(String) }
         def cadence; end
@@ -322,10 +330,11 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount: ::Stripe::V2::Amount, cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
+          params(amount: ::Stripe::V2::Amount, application_fee_amount: T.nilable(::Stripe::V2::Amount), cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
          }
         def initialize(
           amount: nil,
+          application_fee_amount: nil,
           cadence: nil,
           capture: nil,
           customer: nil,

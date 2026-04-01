@@ -168,6 +168,14 @@ module Stripe
         Events::V2CoreHealthWebhookLatencyFiringEvent,
         Events::V2CoreHealthWebhookLatencyResolvedEvent.lookup_type =>
         Events::V2CoreHealthWebhookLatencyResolvedEvent,
+        Events::V2DataReportingQueryRunCreatedEvent.lookup_type =>
+        Events::V2DataReportingQueryRunCreatedEvent,
+        Events::V2DataReportingQueryRunFailedEvent.lookup_type =>
+        Events::V2DataReportingQueryRunFailedEvent,
+        Events::V2DataReportingQueryRunSucceededEvent.lookup_type =>
+        Events::V2DataReportingQueryRunSucceededEvent,
+        Events::V2DataReportingQueryRunUpdatedEvent.lookup_type =>
+        Events::V2DataReportingQueryRunUpdatedEvent,
         Events::V2IamApiKeyCreatedEvent.lookup_type => Events::V2IamApiKeyCreatedEvent,
         Events::V2IamApiKeyDefaultSecretRevealedEvent.lookup_type =>
         Events::V2IamApiKeyDefaultSecretRevealedEvent,
@@ -277,8 +285,12 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentCreatedEvent,
         Events::V2PaymentsOffSessionPaymentFailedEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentFailedEvent,
+        Events::V2PaymentsOffSessionPaymentPausedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentPausedEvent,
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent,
+        Events::V2PaymentsOffSessionPaymentResumedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentResumedEvent,
         Events::V2PaymentsOffSessionPaymentSucceededEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentSucceededEvent,
         Events::V2PaymentsSettlementAllocationIntentCanceledEvent.lookup_type =>
@@ -515,6 +527,14 @@ module Stripe
         Events::V2CoreHealthWebhookLatencyFiringEventNotification,
         Events::V2CoreHealthWebhookLatencyResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthWebhookLatencyResolvedEventNotification,
+        Events::V2DataReportingQueryRunCreatedEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunCreatedEventNotification,
+        Events::V2DataReportingQueryRunFailedEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunFailedEventNotification,
+        Events::V2DataReportingQueryRunSucceededEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunSucceededEventNotification,
+        Events::V2DataReportingQueryRunUpdatedEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunUpdatedEventNotification,
         Events::V2IamApiKeyCreatedEventNotification.lookup_type =>
         Events::V2IamApiKeyCreatedEventNotification,
         Events::V2IamApiKeyDefaultSecretRevealedEventNotification.lookup_type =>
@@ -629,8 +649,12 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentCreatedEventNotification,
         Events::V2PaymentsOffSessionPaymentFailedEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentFailedEventNotification,
+        Events::V2PaymentsOffSessionPaymentPausedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentPausedEventNotification,
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
+        Events::V2PaymentsOffSessionPaymentResumedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentResumedEventNotification,
         Events::V2PaymentsOffSessionPaymentSucceededEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentSucceededEventNotification,
         Events::V2PaymentsSettlementAllocationIntentCanceledEventNotification.lookup_type =>

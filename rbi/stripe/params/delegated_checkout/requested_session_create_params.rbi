@@ -190,133 +190,38 @@ module Stripe
         sig { params(quantity: Integer, sku_id: String).void }
         def initialize(quantity: nil, sku_id: nil); end
       end
-      class PaymentMethodData < ::Stripe::RequestParams
-        class BillingDetails < ::Stripe::RequestParams
-          class Address < ::Stripe::RequestParams
-            # City, district, suburb, town, or village.
-            sig { returns(String) }
-            def city; end
-            sig { params(_city: String).returns(String) }
-            def city=(_city); end
-            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(String) }
-            def country; end
-            sig { params(_country: String).returns(String) }
-            def country=(_country); end
-            # Address line 1, such as the street, PO Box, or company name.
-            sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
-            # Address line 2, such as the apartment, suite, unit, or building.
-            sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
-            # ZIP or postal code.
-            sig { returns(String) }
-            def postal_code; end
-            sig { params(_postal_code: String).returns(String) }
-            def postal_code=(_postal_code); end
-            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-            sig { returns(String) }
-            def state; end
-            sig { params(_state: String).returns(String) }
-            def state=(_state); end
-            sig {
-              params(city: String, country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: String, state: String).void
-             }
-            def initialize(
-              city: nil,
-              country: nil,
-              line1: nil,
-              line2: nil,
-              postal_code: nil,
-              state: nil
-            ); end
-          end
-          # The address for the billing details.
-          sig {
-            returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails::Address))
-           }
-          def address; end
-          sig {
-            params(_address: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails::Address)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails::Address))
-           }
-          def address=(_address); end
-          # The email for the billing details.
-          sig { returns(T.nilable(String)) }
-          def email; end
-          sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
-          def email=(_email); end
-          # The name for the billing details.
-          sig { returns(T.nilable(String)) }
-          def name; end
-          sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-          def name=(_name); end
-          # The phone for the billing details.
-          sig { returns(T.nilable(String)) }
-          def phone; end
-          sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
-          def phone=(_phone); end
-          sig {
-            params(address: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
-           }
-          def initialize(address: nil, email: nil, name: nil, phone: nil); end
-        end
+      class PaymentMethodOptions < ::Stripe::RequestParams
         class Card < ::Stripe::RequestParams
-          # The CVC of the card.
-          sig { returns(T.nilable(String)) }
-          def cvc; end
-          sig { params(_cvc: T.nilable(String)).returns(T.nilable(String)) }
-          def cvc=(_cvc); end
-          # The expiration month of the card.
-          sig { returns(Integer) }
-          def exp_month; end
-          sig { params(_exp_month: Integer).returns(Integer) }
-          def exp_month=(_exp_month); end
-          # The expiration year of the card.
-          sig { returns(Integer) }
-          def exp_year; end
-          sig { params(_exp_year: Integer).returns(Integer) }
-          def exp_year=(_exp_year); end
-          # The number of the card.
-          sig { returns(String) }
-          def number; end
-          sig { params(_number: String).returns(String) }
-          def number=(_number); end
+          # The card brands to exclude from the session.
+          sig { returns(T.nilable(T::Array[String])) }
+          def brands_blocked; end
           sig {
-            params(cvc: T.nilable(String), exp_month: Integer, exp_year: Integer, number: String).void
+            params(_brands_blocked: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
            }
-          def initialize(cvc: nil, exp_month: nil, exp_year: nil, number: nil); end
+          def brands_blocked=(_brands_blocked); end
+          sig { params(brands_blocked: T.nilable(T::Array[String])).void }
+          def initialize(brands_blocked: nil); end
         end
-        # The billing details for the payment method data.
+        # Card-specific payment method options.
         sig {
-          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails))
-         }
-        def billing_details; end
-        sig {
-          params(_billing_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails))
-         }
-        def billing_details=(_billing_details); end
-        # The card for the payment method data.
-        sig {
-          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::Card))
+          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions::Card))
          }
         def card; end
         sig {
-          params(_card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::Card)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::Card))
+          params(_card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions::Card))
          }
         def card=(_card); end
-        # The type of the payment method data.
-        sig { returns(T.nilable(String)) }
-        def type; end
-        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-        def type=(_type); end
+        # The payment method types to exclude from the session.
+        sig { returns(T.nilable(T::Array[String])) }
+        def excluded_payment_method_types; end
         sig {
-          params(billing_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::BillingDetails), card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData::Card), type: T.nilable(String)).void
+          params(_excluded_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
-        def initialize(billing_details: nil, card: nil, type: nil); end
+        def excluded_payment_method_types=(_excluded_payment_method_types); end
+        sig {
+          params(card: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions::Card), excluded_payment_method_types: T.nilable(T::Array[String])).void
+         }
+        def initialize(card: nil, excluded_payment_method_types: nil); end
       end
       class SellerDetails < ::Stripe::RequestParams
         # The network profile for the seller.
@@ -381,15 +286,6 @@ module Stripe
       def payment_method; end
       sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
       def payment_method=(_payment_method); end
-      # The payment method data for this requested session.
-      sig {
-        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData))
-       }
-      def payment_method_data; end
-      sig {
-        params(_payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData))
-       }
-      def payment_method_data=(_payment_method_data); end
       # The details of the seller.
       sig { returns(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails) }
       def seller_details; end
@@ -409,8 +305,17 @@ module Stripe
         params(_shared_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def shared_metadata=(_shared_metadata); end
+      # The payment method options for this requested session.
       sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution), currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodData), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String])).void
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions))
+       }
+      def payment_method_options; end
+      sig {
+        params(_payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions))
+       }
+      def payment_method_options=(_payment_method_options); end
+      sig {
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution), currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions)).void
        }
       def initialize(
         affiliate_attribution: nil,
@@ -421,10 +326,10 @@ module Stripe
         line_item_details: nil,
         metadata: nil,
         payment_method: nil,
-        payment_method_data: nil,
         seller_details: nil,
         setup_future_usage: nil,
-        shared_metadata: nil
+        shared_metadata: nil,
+        payment_method_options: nil
       ); end
     end
   end

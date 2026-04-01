@@ -61,9 +61,9 @@ module Stripe
 
     class ServicePeriod < ::Stripe::StripeObject
       class Iterations < ::Stripe::StripeObject
-        # Attribute for field count
+        # The number of iterations the service period will repeat for. Only used when type is `count`.
         attr_reader :count
-        # Attribute for field type
+        # The type of iterations.
         attr_reader :type
 
         def self.inner_class_types
@@ -74,9 +74,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Attribute for field interval
+      # Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
       attr_reader :interval
-      # Attribute for field interval_count
+      # The number of intervals for which the coupon will be applied.
       attr_reader :interval_count
       # Attribute for field iterations
       attr_reader :iterations

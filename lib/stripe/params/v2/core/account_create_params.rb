@@ -1292,6 +1292,15 @@ module Stripe
                 end
               end
 
+              class PaperChecks < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class StripeBalance < ::Stripe::RequestParams
                 class StripeTransfers < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -1314,6 +1323,8 @@ module Stripe
               attr_accessor :cards
               # Capabilities that enable OutboundPayments to a crypto wallet linked to this Account.
               attr_accessor :crypto_wallets
+              # Capabilities that enable OutboundPayments via paper check.
+              attr_accessor :paper_checks
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               attr_accessor :stripe_balance
 
@@ -1321,11 +1332,13 @@ module Stripe
                 bank_accounts: nil,
                 cards: nil,
                 crypto_wallets: nil,
+                paper_checks: nil,
                 stripe_balance: nil
               )
                 @bank_accounts = bank_accounts
                 @cards = cards
                 @crypto_wallets = crypto_wallets
+                @paper_checks = paper_checks
                 @stripe_balance = stripe_balance
               end
             end
@@ -1499,6 +1512,15 @@ module Stripe
                     @requested = requested
                   end
                 end
+
+                class PaperChecks < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
                 # Can send funds from a FinancialAccount to a bank account owned by someone else.
                 attr_accessor :bank_accounts
                 # Can send funds from a FinancialAccount to a debit card owned by someone else.
@@ -1507,17 +1529,21 @@ module Stripe
                 attr_accessor :crypto_wallets
                 # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
                 attr_accessor :financial_accounts
+                # Can send funds from a FinancialAccount to someone else via paper check.
+                attr_accessor :paper_checks
 
                 def initialize(
                   bank_accounts: nil,
                   cards: nil,
                   crypto_wallets: nil,
-                  financial_accounts: nil
+                  financial_accounts: nil,
+                  paper_checks: nil
                 )
                   @bank_accounts = bank_accounts
                   @cards = cards
                   @crypto_wallets = crypto_wallets
                   @financial_accounts = financial_accounts
+                  @paper_checks = paper_checks
                 end
               end
 

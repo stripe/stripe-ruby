@@ -104,23 +104,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BillFrom < ::Stripe::StripeObject
-        # The time the billing schedule applies from.
-        sig { returns(Integer) }
-        def computed_timestamp; end
-        # Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
-        sig { returns(T.nilable(Integer)) }
-        def timestamp; end
-        # Describes how the billing schedule determines the start date. Possible values are `timestamp`.
-        sig { returns(String) }
-        def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class BillUntil < ::Stripe::StripeObject
         class Duration < ::Stripe::StripeObject
           # Specifies billing duration. Either `day`, `week`, `month` or `year`.
@@ -158,9 +141,6 @@ module Stripe
       # Specifies which subscription items the billing schedule applies to.
       sig { returns(T.nilable(T::Array[AppliesTo])) }
       def applies_to; end
-      # Specifies the start of the billing period.
-      sig { returns(T.nilable(BillFrom)) }
-      def bill_from; end
       # Specifies the end of billing period.
       sig { returns(BillUntil) }
       def bill_until; end
@@ -168,7 +148,7 @@ module Stripe
       sig { returns(String) }
       def key; end
       def self.inner_class_types
-        @inner_class_types = {applies_to: AppliesTo, bill_from: BillFrom, bill_until: BillUntil}
+        @inner_class_types = {applies_to: AppliesTo, bill_until: BillUntil}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -356,6 +336,43 @@ module Stripe
           def request_three_d_secure; end
           def self.inner_class_types
             @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CheckScan < ::Stripe::StripeObject
+          class CheckDepositAddress < ::Stripe::StripeObject
+            # Attribute for field city
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Attribute for field country
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Attribute for field line1
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Attribute for field line2
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # Attribute for field postal_code
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # Attribute for field state
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field check_deposit_address
+          sig { returns(T.nilable(CheckDepositAddress)) }
+          def check_deposit_address; end
+          def self.inner_class_types
+            @inner_class_types = {check_deposit_address: CheckDepositAddress}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -595,6 +612,9 @@ module Stripe
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(CheckScan)) }
+        def check_scan; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
@@ -608,6 +628,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            check_scan: CheckScan,
           }
         end
         def self.field_remappings

@@ -1835,6 +1835,19 @@ module Stripe
         end
       end
 
+      class MoneyServices < ::Stripe::RequestParams
+        class AccountFunding < ::Stripe::RequestParams; end
+        # Account funding transaction details including sender and beneficiary information.
+        attr_accessor :account_funding
+        # The type of money services transaction.
+        attr_accessor :transaction_type
+
+        def initialize(account_funding: nil, transaction_type: nil)
+          @account_funding = account_funding
+          @transaction_type = transaction_type
+        end
+      end
+
       class Subscription < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -1911,6 +1924,8 @@ module Stripe
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
+      # Money services details for this PaymentIntent.
+      attr_accessor :money_services
 
       def initialize(
         benefit: nil,
@@ -1923,7 +1938,8 @@ module Stripe
         lodging: nil,
         lodging_data: nil,
         order_reference: nil,
-        subscription: nil
+        subscription: nil,
+        money_services: nil
       )
         @benefit = benefit
         @car_rental = car_rental
@@ -1936,6 +1952,7 @@ module Stripe
         @lodging_data = lodging_data
         @order_reference = order_reference
         @subscription = subscription
+        @money_services = money_services
       end
     end
 
@@ -2948,6 +2965,24 @@ module Stripe
           end
         end
 
+        class PaymentDetails < ::Stripe::RequestParams
+          class MoneyServices < ::Stripe::RequestParams
+            class AccountFunding < ::Stripe::RequestParams; end
+            # Payment method specific account funding transaction details.
+            attr_accessor :account_funding
+
+            def initialize(account_funding: nil)
+              @account_funding = account_funding
+            end
+          end
+          # Money services details for payment method specific funding fields.
+          attr_accessor :money_services
+
+          def initialize(money_services: nil)
+            @money_services = money_services
+          end
+        end
+
         class StatementDetails < ::Stripe::RequestParams
           class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -3121,6 +3156,8 @@ module Stripe
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this payment.
         attr_accessor :three_d_secure
+        # Payment details for payment method specific funding fields.
+        attr_accessor :payment_details
 
         def initialize(
           capture_method: nil,
@@ -3142,7 +3179,8 @@ module Stripe
           statement_descriptor_suffix_kana: nil,
           statement_descriptor_suffix_kanji: nil,
           statement_details: nil,
-          three_d_secure: nil
+          three_d_secure: nil,
+          payment_details: nil
         )
           @capture_method = capture_method
           @cvc_token = cvc_token
@@ -3164,10 +3202,29 @@ module Stripe
           @statement_descriptor_suffix_kanji = statement_descriptor_suffix_kanji
           @statement_details = statement_details
           @three_d_secure = three_d_secure
+          @payment_details = payment_details
         end
       end
 
       class CardPresent < ::Stripe::RequestParams
+        class PaymentDetails < ::Stripe::RequestParams
+          class MoneyServices < ::Stripe::RequestParams
+            class AccountFunding < ::Stripe::RequestParams; end
+            # Payment method specific account funding transaction details.
+            attr_accessor :account_funding
+
+            def initialize(account_funding: nil)
+              @account_funding = account_funding
+            end
+          end
+          # Money services details for payment method specific funding fields.
+          attr_accessor :money_services
+
+          def initialize(money_services: nil)
+            @money_services = money_services
+          end
+        end
+
         class Routing < ::Stripe::RequestParams
           # Routing requested priority
           attr_accessor :requested_priority
@@ -3190,19 +3247,23 @@ module Stripe
         attr_accessor :request_reauthorization
         # Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
         attr_accessor :routing
+        # Payment details for payment method specific funding transaction fields.
+        attr_accessor :payment_details
 
         def initialize(
           capture_method: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
           request_reauthorization: nil,
-          routing: nil
+          routing: nil,
+          payment_details: nil
         )
           @capture_method = capture_method
           @request_extended_authorization = request_extended_authorization
           @request_incremental_authorization_support = request_incremental_authorization_support
           @request_reauthorization = request_reauthorization
           @routing = routing
+          @payment_details = payment_details
         end
       end
 
@@ -5146,6 +5207,8 @@ module Stripe
             @stripe_balance_debit_agreement = stripe_balance_debit_agreement
           end
         end
+        # Additional fields for mandate creation.
+        attr_accessor :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -5156,12 +5219,10 @@ module Stripe
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
-        # Additional fields for mandate creation.
-        attr_accessor :mandate_options
 
-        def initialize(setup_future_usage: nil, mandate_options: nil)
-          @setup_future_usage = setup_future_usage
+        def initialize(mandate_options: nil, setup_future_usage: nil)
           @mandate_options = mandate_options
+          @setup_future_usage = setup_future_usage
         end
       end
 

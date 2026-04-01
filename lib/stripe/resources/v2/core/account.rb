@@ -2665,6 +2665,35 @@ module Stripe
                 end
               end
 
+              class PaperChecks < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class StripeBalance < ::Stripe::StripeObject
                 class Payouts < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
@@ -2742,6 +2771,8 @@ module Stripe
               attr_reader :cards
               # Enables this Account to receive OutboundPayments to a linked crypto wallet.
               attr_reader :crypto_wallets
+              # Capabilities that enable OutboundPayments via paper check.
+              attr_reader :paper_checks
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               attr_reader :stripe_balance
 
@@ -2750,6 +2781,7 @@ module Stripe
                   bank_accounts: BankAccounts,
                   cards: Cards,
                   crypto_wallets: CryptoWallets,
+                  paper_checks: PaperChecks,
                   stripe_balance: StripeBalance,
                 }
               end
@@ -3210,6 +3242,35 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
+
+                class PaperChecks < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # Can send funds from a FinancialAccount to a bank account owned by a different entity.
                 attr_reader :bank_accounts
                 # Can send funds from a FinancialAccount to a debit card owned by a different entity.
@@ -3218,6 +3279,8 @@ module Stripe
                 attr_reader :crypto_wallets
                 # Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
                 attr_reader :financial_accounts
+                # Can send funds from a FinancialAccount to someone else via paper check.
+                attr_reader :paper_checks
 
                 def self.inner_class_types
                   @inner_class_types = {
@@ -3225,6 +3288,7 @@ module Stripe
                     cards: Cards,
                     crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
+                    paper_checks: PaperChecks,
                   }
                 end
 

@@ -70,10 +70,40 @@ module Stripe
             end
           end
 
+          class BankDebitProcessing < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class BankDebitQueued < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class BankDebitReturned < ::Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             attr_reader :return_reason
 
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class BankDebitSucceeded < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -106,7 +136,10 @@ module Stripe
           def self.inner_class_types
             @inner_class_types = {
               bank_debit_failed: BankDebitFailed,
+              bank_debit_processing: BankDebitProcessing,
+              bank_debit_queued: BankDebitQueued,
               bank_debit_returned: BankDebitReturned,
+              bank_debit_succeeded: BankDebitSucceeded,
             }
           end
 

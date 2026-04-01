@@ -10,7 +10,7 @@ module Stripe
         class DeliveryOptions < ::Stripe::StripeObject
           class PaperCheck < ::Stripe::StripeObject
             # Memo printed on the memo field of the check.
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def memo; end
             # Open Enum. Shipping speed of the paper check.
             sig { returns(String) }
@@ -182,9 +182,6 @@ module Stripe
               # State, county, province, or region.
               sig { returns(T.nilable(String)) }
               def state; end
-              # Town or district.
-              sig { returns(T.nilable(String)) }
-              def town; end
               def self.inner_class_types
                 @inner_class_types = {}
               end

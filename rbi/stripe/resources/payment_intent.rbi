@@ -2219,6 +2219,97 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class FleetDatum < ::Stripe::StripeObject
+        class PrimaryFuelFields < ::Stripe::StripeObject
+          # The fuel brand.
+          sig { returns(T.nilable(String)) }
+          def brand; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Station < ::Stripe::StripeObject
+          class ServiceLocation < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Additional contact information for the station.
+          sig { returns(T.nilable(String)) }
+          def additional_contact_info; end
+          # The customer service phone number of the station.
+          sig { returns(T.nilable(String)) }
+          def customer_service_phone_number; end
+          # The partner ID code of the station.
+          sig { returns(T.nilable(String)) }
+          def partner_id_code; end
+          # The phone number of the station.
+          sig { returns(T.nilable(String)) }
+          def phone_number; end
+          # Attribute for field service_location
+          sig { returns(T.nilable(ServiceLocation)) }
+          def service_location; end
+          # The URL of the station.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {service_location: ServiceLocation}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Vat < ::Stripe::StripeObject
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          sig { returns(T.nilable(String)) }
+          def iob_indicator; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field primary_fuel_fields
+        sig { returns(T.nilable(PrimaryFuelFields)) }
+        def primary_fuel_fields; end
+        # Attribute for field station
+        sig { returns(T.nilable(Station)) }
+        def station; end
+        # Attribute for field vat
+        sig { returns(T.nilable(Vat)) }
+        def vat; end
+        def self.inner_class_types
+          @inner_class_types = {primary_fuel_fields: PrimaryFuelFields, station: Station, vat: Vat}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class FlightDatum < ::Stripe::StripeObject
         class Affiliate < ::Stripe::StripeObject
           # Affiliate code.
@@ -2842,6 +2933,9 @@ module Stripe
       # Attribute for field subscription
       sig { returns(T.nilable(Subscription)) }
       def subscription; end
+      # Fleet data for this PaymentIntent.
+      sig { returns(T.nilable(T::Array[FleetDatum])) }
+      def fleet_data; end
       def self.inner_class_types
         @inner_class_types = {
           benefit: Benefit,
@@ -2851,6 +2945,7 @@ module Stripe
           flight_data: FlightDatum,
           lodging_data: LodgingDatum,
           subscription: Subscription,
+          fleet_data: FleetDatum,
         }
       end
       def self.field_remappings

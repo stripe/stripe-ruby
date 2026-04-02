@@ -8,13 +8,38 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              sig { returns(String) }
+              def product_type; end
+              sig { params(_product_type: String).returns(String) }
+              def product_type=(_product_type); end
+              # The type of service received at the acceptor location.
+              sig { returns(T.nilable(String)) }
+              def service_type; end
+              sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
+              def service_type=(_service_type); end
+              sig { params(product_type: String, service_type: T.nilable(String)).void }
+              def initialize(product_type: nil, service_type: nil); end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
             def commodity_code=(_commodity_code); end
-            sig { params(commodity_code: T.nilable(String)).void }
-            def initialize(commodity_code: nil); end
+            # Fleet data for this line item.
+            sig {
+              returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData))
+             }
+            def fleet_data; end
+            sig {
+              params(_fleet_data: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData))
+             }
+            def fleet_data=(_fleet_data); end
+            sig {
+              params(commodity_code: T.nilable(String), fleet_data: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).void
+             }
+            def initialize(commodity_code: nil, fleet_data: nil); end
           end
           class CardPresent < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.

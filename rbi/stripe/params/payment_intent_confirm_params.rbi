@@ -17,13 +17,38 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              sig { returns(String) }
+              def product_type; end
+              sig { params(_product_type: String).returns(String) }
+              def product_type=(_product_type); end
+              # The type of service received at the acceptor location.
+              sig { returns(T.nilable(String)) }
+              def service_type; end
+              sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
+              def service_type=(_service_type); end
+              sig { params(product_type: String, service_type: T.nilable(String)).void }
+              def initialize(product_type: nil, service_type: nil); end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
             def commodity_code=(_commodity_code); end
-            sig { params(commodity_code: T.nilable(String)).void }
-            def initialize(commodity_code: nil); end
+            # Fleet data for this line item.
+            sig {
+              returns(T.nilable(::Stripe::PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData))
+             }
+            def fleet_data; end
+            sig {
+              params(_fleet_data: T.nilable(::Stripe::PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData))
+             }
+            def fleet_data=(_fleet_data); end
+            sig {
+              params(commodity_code: T.nilable(String), fleet_data: T.nilable(::Stripe::PaymentIntentConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).void
+             }
+            def initialize(commodity_code: nil, fleet_data: nil); end
           end
           class CardPresent < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
@@ -1528,6 +1553,149 @@ module Stripe
           starts_at: nil
         ); end
       end
+      class FleetDatum < ::Stripe::RequestParams
+        class PrimaryFuelFields < ::Stripe::RequestParams
+          # The fuel brand.
+          sig { returns(T.nilable(String)) }
+          def brand; end
+          sig { params(_brand: T.nilable(String)).returns(T.nilable(String)) }
+          def brand=(_brand); end
+          sig { params(brand: T.nilable(String)).void }
+          def initialize(brand: nil); end
+        end
+        class Station < ::Stripe::RequestParams
+          class ServiceLocation < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+            def city=(_city); end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+            def country=(_country); end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(String) }
+            def line1; end
+            sig { params(_line1: String).returns(String) }
+            def line1=(_line1); end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+            def postal_code=(_postal_code); end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
+            sig {
+              params(city: T.nilable(String), country: T.nilable(String), line1: String, line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+             }
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            ); end
+          end
+          # Additional contact information for the station.
+          sig { returns(T.nilable(String)) }
+          def additional_contact_info; end
+          sig { params(_additional_contact_info: T.nilable(String)).returns(T.nilable(String)) }
+          def additional_contact_info=(_additional_contact_info); end
+          # The customer service phone number of the station.
+          sig { returns(T.nilable(String)) }
+          def customer_service_phone_number; end
+          sig {
+            params(_customer_service_phone_number: T.nilable(String)).returns(T.nilable(String))
+           }
+          def customer_service_phone_number=(_customer_service_phone_number); end
+          # The partner ID code of the station.
+          sig { returns(T.nilable(String)) }
+          def partner_id_code; end
+          sig { params(_partner_id_code: T.nilable(String)).returns(T.nilable(String)) }
+          def partner_id_code=(_partner_id_code); end
+          # The phone number of the station.
+          sig { returns(T.nilable(String)) }
+          def phone_number; end
+          sig { params(_phone_number: T.nilable(String)).returns(T.nilable(String)) }
+          def phone_number=(_phone_number); end
+          # The physical location of the station.
+          sig {
+            returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station::ServiceLocation))
+           }
+          def service_location; end
+          sig {
+            params(_service_location: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station::ServiceLocation)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station::ServiceLocation))
+           }
+          def service_location=(_service_location); end
+          # The URL of the station.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+          def url=(_url); end
+          sig {
+            params(additional_contact_info: T.nilable(String), customer_service_phone_number: T.nilable(String), partner_id_code: T.nilable(String), phone_number: T.nilable(String), service_location: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station::ServiceLocation), url: T.nilable(String)).void
+           }
+          def initialize(
+            additional_contact_info: nil,
+            customer_service_phone_number: nil,
+            partner_id_code: nil,
+            phone_number: nil,
+            service_location: nil,
+            url: nil
+          ); end
+        end
+        class Vat < ::Stripe::RequestParams
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          sig { returns(String) }
+          def iob_indicator; end
+          sig { params(_iob_indicator: String).returns(String) }
+          def iob_indicator=(_iob_indicator); end
+          sig { params(iob_indicator: String).void }
+          def initialize(iob_indicator: nil); end
+        end
+        # Primary fuel fields for the transaction.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::PrimaryFuelFields))
+         }
+        def primary_fuel_fields; end
+        sig {
+          params(_primary_fuel_fields: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::PrimaryFuelFields)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::PrimaryFuelFields))
+         }
+        def primary_fuel_fields=(_primary_fuel_fields); end
+        # Station and acceptor location details.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station))
+         }
+        def station; end
+        sig {
+          params(_station: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station))
+         }
+        def station=(_station); end
+        # VAT and Invoice on Behalf (IOB) details.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Vat))
+         }
+        def vat; end
+        sig {
+          params(_vat: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Vat)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Vat))
+         }
+        def vat=(_vat); end
+        sig {
+          params(primary_fuel_fields: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::PrimaryFuelFields), station: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Station), vat: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum::Vat)).void
+         }
+        def initialize(primary_fuel_fields: nil, station: nil, vat: nil); end
+      end
       class Flight < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -3021,6 +3189,15 @@ module Stripe
         params(_subscription: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Subscription)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Subscription))
        }
       def subscription=(_subscription); end
+      # Fleet data for this PaymentIntent.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum])))
+       }
+      def fleet_data; end
+      sig {
+        params(_fleet_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum])))
+       }
+      def fleet_data=(_fleet_data); end
       # Money services details for this PaymentIntent.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails::MoneyServices)))
@@ -3031,7 +3208,7 @@ module Stripe
        }
       def money_services=(_money_services); end
       sig {
-        params(benefit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Benefit), car_rental: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Subscription), money_services: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails::MoneyServices))).void
+        params(benefit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Benefit), car_rental: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentDetails::Subscription), fleet_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FleetDatum])), money_services: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails::MoneyServices))).void
        }
       def initialize(
         benefit: nil,
@@ -3045,6 +3222,7 @@ module Stripe
         lodging_data: nil,
         order_reference: nil,
         subscription: nil,
+        fleet_data: nil,
         money_services: nil
       ); end
     end

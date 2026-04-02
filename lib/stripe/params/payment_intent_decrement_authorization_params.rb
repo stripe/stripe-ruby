@@ -7,11 +7,25 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              attr_accessor :product_type
+              # The type of service received at the acceptor location.
+              attr_accessor :service_type
+
+              def initialize(product_type: nil, service_type: nil)
+                @product_type = product_type
+                @service_type = service_type
+              end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
+            # Fleet data for this line item.
+            attr_accessor :fleet_data
 
-            def initialize(commodity_code: nil)
+            def initialize(commodity_code: nil, fleet_data: nil)
               @commodity_code = commodity_code
+              @fleet_data = fleet_data
             end
           end
 

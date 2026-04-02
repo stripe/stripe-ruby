@@ -10,11 +10,27 @@ module Stripe
 
     class PaymentMethodOptions < ::Stripe::StripeObject
       class Card < ::Stripe::StripeObject
+        class FleetData < ::Stripe::StripeObject
+          # The type of product being purchased at this line item.
+          attr_reader :product_type
+          # The type of service received at the acceptor location.
+          attr_reader :service_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field commodity_code
         attr_reader :commodity_code
+        # Attribute for field fleet_data
+        attr_reader :fleet_data
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { fleet_data: FleetData }
         end
 
         def self.field_remappings

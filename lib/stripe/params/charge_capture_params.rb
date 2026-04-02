@@ -696,6 +696,99 @@ module Stripe
         end
       end
 
+      class FleetDatum < ::Stripe::RequestParams
+        class PrimaryFuelFields < ::Stripe::RequestParams
+          # The fuel brand.
+          attr_accessor :brand
+
+          def initialize(brand: nil)
+            @brand = brand
+          end
+        end
+
+        class Station < ::Stripe::RequestParams
+          class ServiceLocation < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Additional contact information for the station.
+          attr_accessor :additional_contact_info
+          # The customer service phone number of the station.
+          attr_accessor :customer_service_phone_number
+          # The partner ID code of the station.
+          attr_accessor :partner_id_code
+          # The phone number of the station.
+          attr_accessor :phone_number
+          # The physical location of the station.
+          attr_accessor :service_location
+          # The URL of the station.
+          attr_accessor :url
+
+          def initialize(
+            additional_contact_info: nil,
+            customer_service_phone_number: nil,
+            partner_id_code: nil,
+            phone_number: nil,
+            service_location: nil,
+            url: nil
+          )
+            @additional_contact_info = additional_contact_info
+            @customer_service_phone_number = customer_service_phone_number
+            @partner_id_code = partner_id_code
+            @phone_number = phone_number
+            @service_location = service_location
+            @url = url
+          end
+        end
+
+        class Vat < ::Stripe::RequestParams
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          attr_accessor :iob_indicator
+
+          def initialize(iob_indicator: nil)
+            @iob_indicator = iob_indicator
+          end
+        end
+        # Primary fuel fields for the transaction.
+        attr_accessor :primary_fuel_fields
+        # Station and acceptor location details.
+        attr_accessor :station
+        # VAT and Invoice on Behalf (IOB) details.
+        attr_accessor :vat
+
+        def initialize(primary_fuel_fields: nil, station: nil, vat: nil)
+          @primary_fuel_fields = primary_fuel_fields
+          @station = station
+          @vat = vat
+        end
+      end
+
       class Flight < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -1632,6 +1725,8 @@ module Stripe
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
+      # Fleet data for this PaymentIntent.
+      attr_accessor :fleet_data
       # Money services details for this PaymentIntent.
       attr_accessor :money_services
 
@@ -1646,6 +1741,7 @@ module Stripe
         lodging_data: nil,
         order_reference: nil,
         subscription: nil,
+        fleet_data: nil,
         money_services: nil
       )
         @car_rental = car_rental
@@ -1658,6 +1754,7 @@ module Stripe
         @lodging_data = lodging_data
         @order_reference = order_reference
         @subscription = subscription
+        @fleet_data = fleet_data
         @money_services = money_services
       end
     end

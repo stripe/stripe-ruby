@@ -5,11 +5,40 @@ module Stripe
   module Radar
     class PaymentEvaluationCreateParams < ::Stripe::RequestParams
       class ClientDeviceMetadataDetails < ::Stripe::RequestParams
+        class Data < ::Stripe::RequestParams
+          # The IP address of the client device.
+          attr_accessor :ip
+          # Pasted fields from the checkout flow.
+          attr_accessor :pasted_fields
+          # The referrer of the client device.
+          attr_accessor :referrer
+          # The time on page in milliseconds.
+          attr_accessor :time_on_page_ms
+          # The user agent of the client device.
+          attr_accessor :user_agent
+
+          def initialize(
+            ip: nil,
+            pasted_fields: nil,
+            referrer: nil,
+            time_on_page_ms: nil,
+            user_agent: nil
+          )
+            @ip = ip
+            @pasted_fields = pasted_fields
+            @referrer = referrer
+            @time_on_page_ms = time_on_page_ms
+            @user_agent = user_agent
+          end
+        end
         # ID for the Radar Session to associate with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         attr_accessor :radar_session
+        # Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
+        attr_accessor :data
 
-        def initialize(radar_session: nil)
+        def initialize(radar_session: nil, data: nil)
           @radar_session = radar_session
+          @data = data
         end
       end
 

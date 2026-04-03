@@ -1721,6 +1721,8 @@ module Stripe
     attr_reader :wechat_pay
     # Attribute for field zip
     attr_reader :zip
+    # ID of the shared payment granted token used in the creation of this PaymentMethod.
+    attr_reader :shared_payment_granted_token
 
     # Attaches a PaymentMethod object to a Customer.
     #

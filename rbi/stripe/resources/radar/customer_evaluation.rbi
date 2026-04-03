@@ -56,7 +56,7 @@ module Stripe
           # The risk level for this signal.
           sig { returns(T.nilable(String)) }
           def risk_level; end
-          # Score for this signal (float between 0.0-100.0).
+          # Score for this signal (between 0.0 and 100.0).
           sig { returns(Float) }
           def score; end
           def self.inner_class_types
@@ -73,7 +73,7 @@ module Stripe
           # The risk level for this signal.
           sig { returns(T.nilable(String)) }
           def risk_level; end
-          # Score for this signal (float between 0.0-100.0).
+          # Score for this signal (between 0.0 and 100.0).
           sig { returns(Float) }
           def score; end
           def self.inner_class_types
@@ -99,7 +99,7 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created_at; end
-      # The ID of the Stripe customer the customer evaluation is associated with.
+      # The ID of the Customer to associate with this CustomerEvaluation.
       sig { returns(T.nilable(String)) }
       def customer; end
       # The type of evaluation event.
@@ -117,7 +117,7 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
-      # A hash of signal objects providing Radar's evaluation for the lifecycle event.
+      # A hash of signal objects providing Radar's evaluation of the customer.
       sig { returns(T.nilable(Signals)) }
       def signals; end
       # Creates a new CustomerEvaluation object.

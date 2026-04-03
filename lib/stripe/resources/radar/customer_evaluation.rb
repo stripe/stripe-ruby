@@ -63,7 +63,7 @@ module Stripe
           attr_reader :evaluated_at
           # The risk level for this signal.
           attr_reader :risk_level
-          # Score for this signal (float between 0.0-100.0).
+          # Score for this signal (between 0.0 and 100.0).
           attr_reader :score
 
           def self.inner_class_types
@@ -80,7 +80,7 @@ module Stripe
           attr_reader :evaluated_at
           # The risk level for this signal.
           attr_reader :risk_level
-          # Score for this signal (float between 0.0-100.0).
+          # Score for this signal (between 0.0 and 100.0).
           attr_reader :score
 
           def self.inner_class_types
@@ -106,7 +106,7 @@ module Stripe
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created_at
-      # The ID of the Stripe customer the customer evaluation is associated with.
+      # The ID of the Customer to associate with this CustomerEvaluation.
       attr_reader :customer
       # The type of evaluation event.
       attr_reader :event_type
@@ -118,7 +118,7 @@ module Stripe
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-      # A hash of signal objects providing Radar's evaluation for the lifecycle event.
+      # A hash of signal objects providing Radar's evaluation of the customer.
       attr_reader :signals
 
       # Creates a new CustomerEvaluation object.

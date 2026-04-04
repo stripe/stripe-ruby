@@ -54,6 +54,7 @@ require "stripe/webhook"
 require "stripe/stripe_configuration"
 require "stripe/resources/v2/amount"
 require "stripe/resources/v2/deleted_object"
+require "stripe/resources/v2/ref"
 require "stripe/resources/v2/core/event_notification"
 
 # Named API resources

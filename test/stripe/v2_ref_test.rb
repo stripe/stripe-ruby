@@ -7,7 +7,7 @@ module Stripe
   class V2RefTest < Test::Unit::TestCase
     context "Stripe::V2::Ref" do
       setup do
-        @client = StripeClient.new("test_123")
+        @requestor = APIRequestor.new("test_123")
         @ref_data = { "type" => "billing.meter", "id" => "mtr_123", "url" => "/v1/billing/meters/mtr_123" }
         @v2_ref_data = { "type" => "v2.core.account", "id" => "acct_123", "url" => "/v2/core/accounts/acct_123" }
       end
@@ -27,19 +27,26 @@ module Stripe
           assert_equal "/v1/billing/meters/mtr_123", ref.url
         end
 
-        should "accept a client" do
-          ref = Stripe::V2::Ref.new(@ref_data, @client)
+        should "accept a requestor" do
+          ref = Stripe::V2::Ref.new(@ref_data, @requestor)
           assert_not_nil ref
         end
 
-        should "accept no client" do
+        should "accept no requestor" do
           ref = Stripe::V2::Ref.new(@ref_data)
           assert_not_nil ref
+        end
+
+        should "construct_from with requestor" do
+          ref = Stripe::V2::Ref.construct_from(@ref_data, {}, nil, :v2, @requestor)
+          assert_equal "billing.meter", ref.type
+          assert_equal "mtr_123", ref.id
+          assert_equal "/v1/billing/meters/mtr_123", ref.url
         end
       end
 
       context "#fetch" do
-        should "raise ArgumentError when no client is present" do
+        should "raise ArgumentError when no requestor is present" do
           ref = Stripe::V2::Ref.new(@ref_data)
           assert_raises ArgumentError do
             ref.fetch
@@ -50,7 +57,7 @@ module Stripe
           stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/billing/meters/mtr_123")
             .to_return(body: JSON.generate({ "id" => "mtr_123", "object" => "billing.meter" }))
 
-          ref = Stripe::V2::Ref.new(@ref_data, @client)
+          ref = Stripe::V2::Ref.new(@ref_data, @requestor)
           result = ref.fetch
 
           assert_not_nil result
@@ -63,7 +70,7 @@ module Stripe
           stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/acct_123")
             .to_return(body: JSON.generate({ "id" => "acct_123", "object" => "v2.core.account" }))
 
-          ref = Stripe::V2::Ref.new(@v2_ref_data, @client)
+          ref = Stripe::V2::Ref.new(@v2_ref_data, @requestor)
           result = ref.fetch
 
           assert_not_nil result

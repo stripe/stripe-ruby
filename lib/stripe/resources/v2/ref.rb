@@ -7,22 +7,25 @@ module Stripe
     class Ref
       attr_reader :type, :id, :url
 
-      def initialize(data, client = nil)
+      def initialize(data, requestor = nil)
         @type = data[:type] || data["type"]
         @id = data[:id] || data["id"]
         @url = data[:url] || data["url"]
-        @client = client
+        @requestor = requestor
+      end
+
+      def self.construct_from(data, opts = {}, last_response = nil, api_mode = :v2, requestor = nil)
+        new(Stripe::Util.symbolize_names(data), requestor)
       end
 
       # Fetches the referenced object from the API. Makes an API request on every call.
       def fetch
-        raise ArgumentError, "Cannot fetch a Ref without a client" if @client.nil?
+        raise ArgumentError, "Cannot fetch a Ref without a requestor" if @requestor.nil?
         unless url.is_a?(String) && url.start_with?("/")
           raise ArgumentError, "Cannot fetch a Ref with an invalid url; expected a String starting with '/'"
         end
 
-        resp = @client.raw_request(:get, url, usage: ["ref_fetch"])
-        @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(url))
+        @requestor.execute_request(:get, url, :api, usage: ["ref_fetch"])
       end
     end
   end

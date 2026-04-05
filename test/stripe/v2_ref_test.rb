@@ -54,6 +54,8 @@ module Stripe
           result = ref.fetch
 
           assert_not_nil result
+          assert_equal "mtr_123", result["id"]
+          assert_equal "billing.meter", result["object"]
           assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v1/billing/meters/mtr_123")
         end
 
@@ -65,6 +67,8 @@ module Stripe
           result = ref.fetch
 
           assert_not_nil result
+          assert_equal "acct_123", result["id"]
+          assert_equal "v2.core.account", result["object"]
           assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/acct_123")
         end
       end

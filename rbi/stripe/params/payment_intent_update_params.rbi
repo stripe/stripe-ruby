@@ -4684,7 +4684,116 @@ module Stripe
         end
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
-            class AccountFunding < ::Stripe::RequestParams; end
+            class AccountFunding < ::Stripe::RequestParams
+              class LiquidAsset < ::Stripe::RequestParams
+                class Crypto < ::Stripe::RequestParams
+                  # The cryptocurrency currency code (e.g. BTC, ETH).
+                  sig { returns(T.nilable(String)) }
+                  def currency_code; end
+                  sig { params(_currency_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def currency_code=(_currency_code); end
+                  sig { params(currency_code: T.nilable(String)).void }
+                  def initialize(currency_code: nil); end
+                end
+                class Security < ::Stripe::RequestParams
+                  # The security's ticker symbol (e.g. AAPL).
+                  sig { returns(T.nilable(String)) }
+                  def ticker_symbol; end
+                  sig { params(_ticker_symbol: T.nilable(String)).returns(T.nilable(String)) }
+                  def ticker_symbol=(_ticker_symbol); end
+                  sig { params(ticker_symbol: T.nilable(String)).void }
+                  def initialize(ticker_symbol: nil); end
+                end
+                # Details for a cryptocurrency liquid asset funding transaction.
+                sig {
+                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
+                 }
+                def crypto; end
+                sig {
+                  params(_crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
+                 }
+                def crypto=(_crypto); end
+                # Details for a security liquid asset funding transaction.
+                sig {
+                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
+                 }
+                def security; end
+                sig {
+                  params(_security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
+                 }
+                def security=(_security); end
+                sig {
+                  params(crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto), security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).void
+                 }
+                def initialize(crypto: nil, security: nil); end
+              end
+              class Wallet < ::Stripe::RequestParams
+                class StagedPurchase < ::Stripe::RequestParams
+                  class Merchant < ::Stripe::RequestParams
+                    # The merchant category code of the merchant.
+                    sig { returns(T.nilable(String)) }
+                    def mcc; end
+                    sig { params(_mcc: T.nilable(String)).returns(T.nilable(String)) }
+                    def mcc=(_mcc); end
+                    # The merchant's name.
+                    sig { returns(T.nilable(String)) }
+                    def name; end
+                    sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+                    def name=(_name); end
+                    sig { params(mcc: T.nilable(String), name: T.nilable(String)).void }
+                    def initialize(mcc: nil, name: nil); end
+                  end
+                  # The merchant where the staged wallet purchase is made.
+                  sig {
+                    returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant))
+                   }
+                  def merchant; end
+                  sig {
+                    params(_merchant: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant))
+                   }
+                  def merchant=(_merchant); end
+                  sig {
+                    params(merchant: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant)).void
+                   }
+                  def initialize(merchant: nil); end
+                end
+                # Details for a staged purchase.
+                sig {
+                  returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase)))
+                 }
+                def staged_purchase; end
+                sig {
+                  params(_staged_purchase: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase)))
+                 }
+                def staged_purchase=(_staged_purchase); end
+                sig {
+                  params(staged_purchase: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase))).void
+                 }
+                def initialize(staged_purchase: nil); end
+              end
+              # Details for a liquid asset (crypto or security) funding transaction.
+              sig {
+                returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
+               }
+              def liquid_asset; end
+              sig {
+                params(_liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
+               }
+              def liquid_asset=(_liquid_asset); end
+              # Details for a wallet funding transaction.
+              sig {
+                returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet))
+               }
+              def wallet; end
+              sig {
+                params(_wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet))
+               }
+              def wallet=(_wallet); end
+              sig {
+                params(liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+               }
+              def initialize(liquid_asset: nil, wallet: nil); end
+            end
             # Payment method specific account funding transaction details.
             sig {
               returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding))
@@ -5075,7 +5184,116 @@ module Stripe
       class CardPresent < ::Stripe::RequestParams
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
-            class AccountFunding < ::Stripe::RequestParams; end
+            class AccountFunding < ::Stripe::RequestParams
+              class LiquidAsset < ::Stripe::RequestParams
+                class Crypto < ::Stripe::RequestParams
+                  # The cryptocurrency currency code (e.g. BTC, ETH).
+                  sig { returns(T.nilable(String)) }
+                  def currency_code; end
+                  sig { params(_currency_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def currency_code=(_currency_code); end
+                  sig { params(currency_code: T.nilable(String)).void }
+                  def initialize(currency_code: nil); end
+                end
+                class Security < ::Stripe::RequestParams
+                  # The security's ticker symbol (e.g. AAPL).
+                  sig { returns(T.nilable(String)) }
+                  def ticker_symbol; end
+                  sig { params(_ticker_symbol: T.nilable(String)).returns(T.nilable(String)) }
+                  def ticker_symbol=(_ticker_symbol); end
+                  sig { params(ticker_symbol: T.nilable(String)).void }
+                  def initialize(ticker_symbol: nil); end
+                end
+                # Details for a cryptocurrency liquid asset funding transaction.
+                sig {
+                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
+                 }
+                def crypto; end
+                sig {
+                  params(_crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
+                 }
+                def crypto=(_crypto); end
+                # Details for a security liquid asset funding transaction.
+                sig {
+                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
+                 }
+                def security; end
+                sig {
+                  params(_security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
+                 }
+                def security=(_security); end
+                sig {
+                  params(crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto), security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).void
+                 }
+                def initialize(crypto: nil, security: nil); end
+              end
+              class Wallet < ::Stripe::RequestParams
+                class StagedPurchase < ::Stripe::RequestParams
+                  class Merchant < ::Stripe::RequestParams
+                    # The merchant category code of the merchant.
+                    sig { returns(T.nilable(String)) }
+                    def mcc; end
+                    sig { params(_mcc: T.nilable(String)).returns(T.nilable(String)) }
+                    def mcc=(_mcc); end
+                    # The merchant's name.
+                    sig { returns(T.nilable(String)) }
+                    def name; end
+                    sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+                    def name=(_name); end
+                    sig { params(mcc: T.nilable(String), name: T.nilable(String)).void }
+                    def initialize(mcc: nil, name: nil); end
+                  end
+                  # The merchant where the staged wallet purchase is made.
+                  sig {
+                    returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant))
+                   }
+                  def merchant; end
+                  sig {
+                    params(_merchant: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant))
+                   }
+                  def merchant=(_merchant); end
+                  sig {
+                    params(merchant: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase::Merchant)).void
+                   }
+                  def initialize(merchant: nil); end
+                end
+                # Details for a staged purchase.
+                sig {
+                  returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase)))
+                 }
+                def staged_purchase; end
+                sig {
+                  params(_staged_purchase: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase)))
+                 }
+                def staged_purchase=(_staged_purchase); end
+                sig {
+                  params(staged_purchase: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet::StagedPurchase))).void
+                 }
+                def initialize(staged_purchase: nil); end
+              end
+              # Details for a liquid asset (crypto or security) funding transaction.
+              sig {
+                returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
+               }
+              def liquid_asset; end
+              sig {
+                params(_liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
+               }
+              def liquid_asset=(_liquid_asset); end
+              # Details for a wallet funding transaction.
+              sig {
+                returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet))
+               }
+              def wallet; end
+              sig {
+                params(_wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet))
+               }
+              def wallet=(_wallet); end
+              sig {
+                params(liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+               }
+              def initialize(liquid_asset: nil, wallet: nil); end
+            end
             # Payment method specific account funding transaction details.
             sig {
               returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding))

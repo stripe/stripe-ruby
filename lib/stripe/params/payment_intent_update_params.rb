@@ -3070,7 +3070,73 @@ module Stripe
 
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
-            class AccountFunding < ::Stripe::RequestParams; end
+            class AccountFunding < ::Stripe::RequestParams
+              class LiquidAsset < ::Stripe::RequestParams
+                class Crypto < ::Stripe::RequestParams
+                  # The cryptocurrency currency code (e.g. BTC, ETH).
+                  attr_accessor :currency_code
+
+                  def initialize(currency_code: nil)
+                    @currency_code = currency_code
+                  end
+                end
+
+                class Security < ::Stripe::RequestParams
+                  # The security's ticker symbol (e.g. AAPL).
+                  attr_accessor :ticker_symbol
+
+                  def initialize(ticker_symbol: nil)
+                    @ticker_symbol = ticker_symbol
+                  end
+                end
+                # Details for a cryptocurrency liquid asset funding transaction.
+                attr_accessor :crypto
+                # Details for a security liquid asset funding transaction.
+                attr_accessor :security
+
+                def initialize(crypto: nil, security: nil)
+                  @crypto = crypto
+                  @security = security
+                end
+              end
+
+              class Wallet < ::Stripe::RequestParams
+                class StagedPurchase < ::Stripe::RequestParams
+                  class Merchant < ::Stripe::RequestParams
+                    # The merchant category code of the merchant.
+                    attr_accessor :mcc
+                    # The merchant's name.
+                    attr_accessor :name
+
+                    def initialize(mcc: nil, name: nil)
+                      @mcc = mcc
+                      @name = name
+                    end
+                  end
+                  # The merchant where the staged wallet purchase is made.
+                  attr_accessor :merchant
+
+                  def initialize(merchant: nil)
+                    @merchant = merchant
+                  end
+                end
+                # Details for a staged purchase.
+                attr_accessor :staged_purchase
+
+                def initialize(staged_purchase: nil)
+                  @staged_purchase = staged_purchase
+                end
+              end
+              # Details for a liquid asset (crypto or security) funding transaction.
+              attr_accessor :liquid_asset
+              # Details for a wallet funding transaction.
+              attr_accessor :wallet
+
+              def initialize(liquid_asset: nil, wallet: nil)
+                @liquid_asset = liquid_asset
+                @wallet = wallet
+              end
+            end
             # Payment method specific account funding transaction details.
             attr_accessor :account_funding
 
@@ -3312,7 +3378,73 @@ module Stripe
       class CardPresent < ::Stripe::RequestParams
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
-            class AccountFunding < ::Stripe::RequestParams; end
+            class AccountFunding < ::Stripe::RequestParams
+              class LiquidAsset < ::Stripe::RequestParams
+                class Crypto < ::Stripe::RequestParams
+                  # The cryptocurrency currency code (e.g. BTC, ETH).
+                  attr_accessor :currency_code
+
+                  def initialize(currency_code: nil)
+                    @currency_code = currency_code
+                  end
+                end
+
+                class Security < ::Stripe::RequestParams
+                  # The security's ticker symbol (e.g. AAPL).
+                  attr_accessor :ticker_symbol
+
+                  def initialize(ticker_symbol: nil)
+                    @ticker_symbol = ticker_symbol
+                  end
+                end
+                # Details for a cryptocurrency liquid asset funding transaction.
+                attr_accessor :crypto
+                # Details for a security liquid asset funding transaction.
+                attr_accessor :security
+
+                def initialize(crypto: nil, security: nil)
+                  @crypto = crypto
+                  @security = security
+                end
+              end
+
+              class Wallet < ::Stripe::RequestParams
+                class StagedPurchase < ::Stripe::RequestParams
+                  class Merchant < ::Stripe::RequestParams
+                    # The merchant category code of the merchant.
+                    attr_accessor :mcc
+                    # The merchant's name.
+                    attr_accessor :name
+
+                    def initialize(mcc: nil, name: nil)
+                      @mcc = mcc
+                      @name = name
+                    end
+                  end
+                  # The merchant where the staged wallet purchase is made.
+                  attr_accessor :merchant
+
+                  def initialize(merchant: nil)
+                    @merchant = merchant
+                  end
+                end
+                # Details for a staged purchase.
+                attr_accessor :staged_purchase
+
+                def initialize(staged_purchase: nil)
+                  @staged_purchase = staged_purchase
+                end
+              end
+              # Details for a liquid asset (crypto or security) funding transaction.
+              attr_accessor :liquid_asset
+              # Details for a wallet funding transaction.
+              attr_accessor :wallet
+
+              def initialize(liquid_asset: nil, wallet: nil)
+                @liquid_asset = liquid_asset
+                @wallet = wallet
+              end
+            end
             # Payment method specific account funding transaction details.
             attr_accessor :account_funding
 

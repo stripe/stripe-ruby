@@ -206,8 +206,13 @@ module Stripe
         def unit_of_measure; end
         sig { params(_unit_of_measure: T.nilable(String)).returns(T.nilable(String)) }
         def unit_of_measure=(_unit_of_measure); end
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        sig { returns(T.nilable(Integer)) }
+        def quantity_precision; end
+        sig { params(_quantity_precision: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def quantity_precision=(_quantity_precision); end
         sig {
-          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
+          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String), quantity_precision: T.nilable(Integer)).void
          }
         def initialize(
           discount_amount: nil,
@@ -217,7 +222,8 @@ module Stripe
           quantity: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil
+          unit_of_measure: nil,
+          quantity_precision: nil
         ); end
       end
       class Shipping < ::Stripe::RequestParams

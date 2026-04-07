@@ -142,6 +142,8 @@ module Stripe
     attr_reader :unit_cost
     # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     attr_reader :unit_of_measure
+    # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    attr_reader :quantity_precision
 
     def self.inner_class_types
       @inner_class_types = { payment_method_options: PaymentMethodOptions, tax: Tax }

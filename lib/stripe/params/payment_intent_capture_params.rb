@@ -122,6 +122,8 @@ module Stripe
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
 
         def initialize(
           discount_amount: nil,
@@ -131,7 +133,8 @@ module Stripe
           quantity: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil
+          unit_of_measure: nil,
+          quantity_precision: nil
         )
           @discount_amount = discount_amount
           @payment_method_options = payment_method_options
@@ -141,6 +144,7 @@ module Stripe
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
+          @quantity_precision = quantity_precision
         end
       end
 
@@ -1878,7 +1882,159 @@ module Stripe
       end
 
       class MoneyServices < ::Stripe::RequestParams
-        class AccountFunding < ::Stripe::RequestParams; end
+        class AccountFunding < ::Stripe::RequestParams
+          class BeneficiaryDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1, such as the street, PO Box, or company name.
+              attr_accessor :line1
+              # Address line 2, such as the apartment, suite, unit, or building.
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              attr_accessor :day
+              # Month of birth, between 1 and 12.
+              attr_accessor :month
+              # Four-digit year of birth.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+            # Address.
+            attr_accessor :address
+            # Date of birth.
+            attr_accessor :date_of_birth
+            # Email address.
+            attr_accessor :email
+            # Full name.
+            attr_accessor :name
+            # Phone number.
+            attr_accessor :phone
+
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
+              @address = address
+              @date_of_birth = date_of_birth
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+
+          class SenderDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1, such as the street, PO Box, or company name.
+              attr_accessor :line1
+              # Address line 2, such as the apartment, suite, unit, or building.
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              attr_accessor :day
+              # Month of birth, between 1 and 12.
+              attr_accessor :month
+              # Four-digit year of birth.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+            # Address.
+            attr_accessor :address
+            # Date of birth.
+            attr_accessor :date_of_birth
+            # Email address.
+            attr_accessor :email
+            # Full name.
+            attr_accessor :name
+            # Phone number.
+            attr_accessor :phone
+
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
+              @address = address
+              @date_of_birth = date_of_birth
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+          # ID of the Account representing the beneficiary in this account funding transaction.
+          attr_accessor :beneficiary_account
+          # Inline identity details for the beneficiary of this account funding transaction.
+          attr_accessor :beneficiary_details
+          # ID of the Account representing the sender in this account funding transaction.
+          attr_accessor :sender_account
+          # Inline identity details for the sender of this account funding transaction.
+          attr_accessor :sender_details
+
+          def initialize(
+            beneficiary_account: nil,
+            beneficiary_details: nil,
+            sender_account: nil,
+            sender_details: nil
+          )
+            @beneficiary_account = beneficiary_account
+            @beneficiary_details = beneficiary_details
+            @sender_account = sender_account
+            @sender_details = sender_details
+          end
+        end
         # Account funding transaction details including sender and beneficiary information.
         attr_accessor :account_funding
         # The type of money services transaction.

@@ -2528,7 +2528,247 @@ module Stripe
         ); end
       end
       class MoneyServices < ::Stripe::RequestParams
-        class AccountFunding < ::Stripe::RequestParams; end
+        class AccountFunding < ::Stripe::RequestParams
+          class BeneficiaryDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1, such as the street, PO Box, or company name.
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2, such as the apartment, suite, unit, or building.
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              sig { params(_day: Integer).returns(Integer) }
+              def day=(_day); end
+              # Month of birth, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              sig { params(_month: Integer).returns(Integer) }
+              def month=(_month); end
+              # Four-digit year of birth.
+              sig { returns(Integer) }
+              def year; end
+              sig { params(_year: Integer).returns(Integer) }
+              def year=(_year); end
+              sig { params(day: Integer, month: Integer, year: Integer).void }
+              def initialize(day: nil, month: nil, year: nil); end
+            end
+            # Address.
+            sig {
+              returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address))
+             }
+            def address; end
+            sig {
+              params(_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address))
+             }
+            def address=(_address); end
+            # Date of birth.
+            sig {
+              returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth))
+             }
+            def date_of_birth; end
+            sig {
+              params(_date_of_birth: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth))
+             }
+            def date_of_birth=(_date_of_birth); end
+            # Email address.
+            sig { returns(T.nilable(String)) }
+            def email; end
+            sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+            def email=(_email); end
+            # Full name.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+            def name=(_name); end
+            # Phone number.
+            sig { returns(T.nilable(String)) }
+            def phone; end
+            sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+            def phone=(_phone); end
+            sig {
+              params(address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address), date_of_birth: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+             }
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil); end
+          end
+          class SenderDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1, such as the street, PO Box, or company name.
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2, such as the apartment, suite, unit, or building.
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              sig { params(_day: Integer).returns(Integer) }
+              def day=(_day); end
+              # Month of birth, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              sig { params(_month: Integer).returns(Integer) }
+              def month=(_month); end
+              # Four-digit year of birth.
+              sig { returns(Integer) }
+              def year; end
+              sig { params(_year: Integer).returns(Integer) }
+              def year=(_year); end
+              sig { params(day: Integer, month: Integer, year: Integer).void }
+              def initialize(day: nil, month: nil, year: nil); end
+            end
+            # Address.
+            sig {
+              returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address))
+             }
+            def address; end
+            sig {
+              params(_address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address))
+             }
+            def address=(_address); end
+            # Date of birth.
+            sig {
+              returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth))
+             }
+            def date_of_birth; end
+            sig {
+              params(_date_of_birth: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth))
+             }
+            def date_of_birth=(_date_of_birth); end
+            # Email address.
+            sig { returns(T.nilable(String)) }
+            def email; end
+            sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+            def email=(_email); end
+            # Full name.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+            def name=(_name); end
+            # Phone number.
+            sig { returns(T.nilable(String)) }
+            def phone; end
+            sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+            def phone=(_phone); end
+            sig {
+              params(address: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address), date_of_birth: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+             }
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil); end
+          end
+          # ID of the Account representing the beneficiary in this account funding transaction.
+          sig { returns(T.nilable(String)) }
+          def beneficiary_account; end
+          sig { params(_beneficiary_account: T.nilable(String)).returns(T.nilable(String)) }
+          def beneficiary_account=(_beneficiary_account); end
+          # Inline identity details for the beneficiary of this account funding transaction.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails)))
+           }
+          def beneficiary_details; end
+          sig {
+            params(_beneficiary_details: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails))).returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails)))
+           }
+          def beneficiary_details=(_beneficiary_details); end
+          # ID of the Account representing the sender in this account funding transaction.
+          sig { returns(T.nilable(String)) }
+          def sender_account; end
+          sig { params(_sender_account: T.nilable(String)).returns(T.nilable(String)) }
+          def sender_account=(_sender_account); end
+          # Inline identity details for the sender of this account funding transaction.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails)))
+           }
+          def sender_details; end
+          sig {
+            params(_sender_details: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails))).returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails)))
+           }
+          def sender_details=(_sender_details); end
+          sig {
+            params(beneficiary_account: T.nilable(String), beneficiary_details: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails)), sender_account: T.nilable(String), sender_details: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails))).void
+           }
+          def initialize(
+            beneficiary_account: nil,
+            beneficiary_details: nil,
+            sender_account: nil,
+            sender_details: nil
+          ); end
+        end
         # Account funding transaction details including sender and beneficiary information.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices::AccountFunding)))

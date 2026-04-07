@@ -479,6 +479,16 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Card < ::Stripe::StripeObject
           class Installments < ::Stripe::StripeObject
             # Whether Installments are enabled for this Invoice.
@@ -753,6 +763,8 @@ module Stripe
         attr_reader :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :us_bank_account
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :bizum
         # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :check_scan
 
@@ -769,6 +781,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            bizum: Bizum,
             check_scan: CheckScan,
           }
         end

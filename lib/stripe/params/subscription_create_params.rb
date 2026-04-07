@@ -655,6 +655,26 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`.
+            attr_accessor :amount
+            # Indicates the mandate amount type.
+            attr_accessor :amount_type
+
+            def initialize(amount: nil, amount_type: nil)
+              @amount = amount
+              @amount_type = amount_type
+            end
+          end
+          # Configuration options for setting up a mandate
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
+
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -897,6 +917,8 @@ module Stripe
         attr_accessor :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
+        # This sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bizum
         # This sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :check_scan
 
@@ -912,6 +934,7 @@ module Stripe
           sepa_debit: nil,
           upi: nil,
           us_bank_account: nil,
+          bizum: nil,
           check_scan: nil
         )
           @acss_debit = acss_debit
@@ -925,6 +948,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
+          @bizum = bizum
           @check_scan = check_scan
         end
       end

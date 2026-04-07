@@ -142,6 +142,8 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::RequestParams; end
+
         class Card < ::Stripe::RequestParams
           class Installments < ::Stripe::RequestParams
             class Plan < ::Stripe::RequestParams
@@ -374,6 +376,8 @@ module Stripe
         attr_accessor :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bizum
         # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :check_scan
 
@@ -389,6 +393,7 @@ module Stripe
           sepa_debit: nil,
           upi: nil,
           us_bank_account: nil,
+          bizum: nil,
           check_scan: nil
         )
           @acss_debit = acss_debit
@@ -402,6 +407,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
+          @bizum = bizum
           @check_scan = check_scan
         end
       end

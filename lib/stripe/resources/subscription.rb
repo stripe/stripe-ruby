@@ -323,6 +323,33 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments. Required when `amount_type=fixed`.
+            attr_reader :amount
+            # Indicates the mandate amount type.
+            attr_reader :amount_type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Card < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -621,6 +648,8 @@ module Stripe
         attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
+        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
+        attr_reader :bizum
         # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
         attr_reader :check_scan
 
@@ -637,6 +666,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            bizum: Bizum,
             check_scan: CheckScan,
           }
         end

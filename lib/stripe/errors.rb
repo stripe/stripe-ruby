@@ -171,6 +171,30 @@ module Stripe
   class BlockedByStripeError < StripeError
   end
 
+  class CannotProceedError < StripeError
+    attr_reader :reason
+
+    def initialize(
+      message = nil,
+      http_body: nil,
+      http_status: nil,
+      json_body: nil,
+      http_headers: nil,
+      code: nil,
+      reason: nil
+    )
+      super(
+        message,
+        http_body: http_body,
+        http_status: http_status,
+        json_body: json_body,
+        http_headers: http_headers,
+        code: code,
+      )
+      @reason = reason
+    end
+  end
+
   class ControlledByAlternateResourceError < StripeError
   end
 

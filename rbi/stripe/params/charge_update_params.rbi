@@ -1090,6 +1090,147 @@ module Stripe
           starts_at: nil
         ); end
       end
+      class FleetDatum < ::Stripe::RequestParams
+        class PrimaryFuelFields < ::Stripe::RequestParams
+          # The fuel brand.
+          sig { returns(T.nilable(String)) }
+          def brand; end
+          sig { params(_brand: T.nilable(String)).returns(T.nilable(String)) }
+          def brand=(_brand); end
+          sig { params(brand: T.nilable(String)).void }
+          def initialize(brand: nil); end
+        end
+        class Station < ::Stripe::RequestParams
+          class ServiceLocation < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+            def city=(_city); end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+            def country=(_country); end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(String) }
+            def line1; end
+            sig { params(_line1: String).returns(String) }
+            def line1=(_line1); end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+            def postal_code=(_postal_code); end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
+            sig {
+              params(city: T.nilable(String), country: T.nilable(String), line1: String, line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+             }
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            ); end
+          end
+          # Additional contact information for the station.
+          sig { returns(T.nilable(String)) }
+          def additional_contact_info; end
+          sig { params(_additional_contact_info: T.nilable(String)).returns(T.nilable(String)) }
+          def additional_contact_info=(_additional_contact_info); end
+          # The customer service phone number of the station.
+          sig { returns(T.nilable(String)) }
+          def customer_service_phone_number; end
+          sig {
+            params(_customer_service_phone_number: T.nilable(String)).returns(T.nilable(String))
+           }
+          def customer_service_phone_number=(_customer_service_phone_number); end
+          # The partner ID code of the station.
+          sig { returns(T.nilable(String)) }
+          def partner_id_code; end
+          sig { params(_partner_id_code: T.nilable(String)).returns(T.nilable(String)) }
+          def partner_id_code=(_partner_id_code); end
+          # The phone number of the station.
+          sig { returns(T.nilable(String)) }
+          def phone_number; end
+          sig { params(_phone_number: T.nilable(String)).returns(T.nilable(String)) }
+          def phone_number=(_phone_number); end
+          # The physical location of the station.
+          sig {
+            returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station::ServiceLocation))
+           }
+          def service_location; end
+          sig {
+            params(_service_location: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station::ServiceLocation)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station::ServiceLocation))
+           }
+          def service_location=(_service_location); end
+          # The URL of the station.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+          def url=(_url); end
+          sig {
+            params(additional_contact_info: T.nilable(String), customer_service_phone_number: T.nilable(String), partner_id_code: T.nilable(String), phone_number: T.nilable(String), service_location: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station::ServiceLocation), url: T.nilable(String)).void
+           }
+          def initialize(
+            additional_contact_info: nil,
+            customer_service_phone_number: nil,
+            partner_id_code: nil,
+            phone_number: nil,
+            service_location: nil,
+            url: nil
+          ); end
+        end
+        class Vat < ::Stripe::RequestParams
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          sig { returns(String) }
+          def iob_indicator; end
+          sig { params(_iob_indicator: String).returns(String) }
+          def iob_indicator=(_iob_indicator); end
+          sig { params(iob_indicator: String).void }
+          def initialize(iob_indicator: nil); end
+        end
+        # Primary fuel fields for the transaction.
+        sig {
+          returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::PrimaryFuelFields))
+         }
+        def primary_fuel_fields; end
+        sig {
+          params(_primary_fuel_fields: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::PrimaryFuelFields)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::PrimaryFuelFields))
+         }
+        def primary_fuel_fields=(_primary_fuel_fields); end
+        # Station and acceptor location details.
+        sig {
+          returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station))
+         }
+        def station; end
+        sig {
+          params(_station: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station))
+         }
+        def station=(_station); end
+        # VAT and Invoice on Behalf (IOB) details.
+        sig { returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Vat)) }
+        def vat; end
+        sig {
+          params(_vat: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Vat)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Vat))
+         }
+        def vat=(_vat); end
+        sig {
+          params(primary_fuel_fields: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::PrimaryFuelFields), station: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Station), vat: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum::Vat)).void
+         }
+        def initialize(primary_fuel_fields: nil, station: nil, vat: nil); end
+      end
       class Flight < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -2392,7 +2533,247 @@ module Stripe
         ); end
       end
       class MoneyServices < ::Stripe::RequestParams
-        class AccountFunding < ::Stripe::RequestParams; end
+        class AccountFunding < ::Stripe::RequestParams
+          class BeneficiaryDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1, such as the street, PO Box, or company name.
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2, such as the apartment, suite, unit, or building.
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              sig { params(_day: Integer).returns(Integer) }
+              def day=(_day); end
+              # Month of birth, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              sig { params(_month: Integer).returns(Integer) }
+              def month=(_month); end
+              # Four-digit year of birth.
+              sig { returns(Integer) }
+              def year; end
+              sig { params(_year: Integer).returns(Integer) }
+              def year=(_year); end
+              sig { params(day: Integer, month: Integer, year: Integer).void }
+              def initialize(day: nil, month: nil, year: nil); end
+            end
+            # Address.
+            sig {
+              returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address))
+             }
+            def address; end
+            sig {
+              params(_address: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address))
+             }
+            def address=(_address); end
+            # Date of birth.
+            sig {
+              returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth))
+             }
+            def date_of_birth; end
+            sig {
+              params(_date_of_birth: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth))
+             }
+            def date_of_birth=(_date_of_birth); end
+            # Email address.
+            sig { returns(T.nilable(String)) }
+            def email; end
+            sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+            def email=(_email); end
+            # Full name.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+            def name=(_name); end
+            # Phone number.
+            sig { returns(T.nilable(String)) }
+            def phone; end
+            sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+            def phone=(_phone); end
+            sig {
+              params(address: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::Address), date_of_birth: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails::DateOfBirth), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+             }
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil); end
+          end
+          class SenderDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1, such as the street, PO Box, or company name.
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2, such as the apartment, suite, unit, or building.
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              sig { params(_day: Integer).returns(Integer) }
+              def day=(_day); end
+              # Month of birth, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              sig { params(_month: Integer).returns(Integer) }
+              def month=(_month); end
+              # Four-digit year of birth.
+              sig { returns(Integer) }
+              def year; end
+              sig { params(_year: Integer).returns(Integer) }
+              def year=(_year); end
+              sig { params(day: Integer, month: Integer, year: Integer).void }
+              def initialize(day: nil, month: nil, year: nil); end
+            end
+            # Address.
+            sig {
+              returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address))
+             }
+            def address; end
+            sig {
+              params(_address: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address))
+             }
+            def address=(_address); end
+            # Date of birth.
+            sig {
+              returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth))
+             }
+            def date_of_birth; end
+            sig {
+              params(_date_of_birth: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth))
+             }
+            def date_of_birth=(_date_of_birth); end
+            # Email address.
+            sig { returns(T.nilable(String)) }
+            def email; end
+            sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+            def email=(_email); end
+            # Full name.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+            def name=(_name); end
+            # Phone number.
+            sig { returns(T.nilable(String)) }
+            def phone; end
+            sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+            def phone=(_phone); end
+            sig {
+              params(address: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address), date_of_birth: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+             }
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil); end
+          end
+          # ID of the Account representing the beneficiary in this account funding transaction.
+          sig { returns(T.nilable(String)) }
+          def beneficiary_account; end
+          sig { params(_beneficiary_account: T.nilable(String)).returns(T.nilable(String)) }
+          def beneficiary_account=(_beneficiary_account); end
+          # Inline identity details for the beneficiary of this account funding transaction.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails)))
+           }
+          def beneficiary_details; end
+          sig {
+            params(_beneficiary_details: T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails))).returns(T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails)))
+           }
+          def beneficiary_details=(_beneficiary_details); end
+          # ID of the Account representing the sender in this account funding transaction.
+          sig { returns(T.nilable(String)) }
+          def sender_account; end
+          sig { params(_sender_account: T.nilable(String)).returns(T.nilable(String)) }
+          def sender_account=(_sender_account); end
+          # Inline identity details for the sender of this account funding transaction.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails)))
+           }
+          def sender_details; end
+          sig {
+            params(_sender_details: T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails))).returns(T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails)))
+           }
+          def sender_details=(_sender_details); end
+          sig {
+            params(beneficiary_account: T.nilable(String), beneficiary_details: T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::BeneficiaryDetails)), sender_account: T.nilable(String), sender_details: T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails))).void
+           }
+          def initialize(
+            beneficiary_account: nil,
+            beneficiary_details: nil,
+            sender_account: nil,
+            sender_details: nil
+          ); end
+        end
         # Account funding transaction details including sender and beneficiary information.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices::AccountFunding)))
@@ -2562,6 +2943,15 @@ module Stripe
         params(_subscription: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Subscription)).returns(T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Subscription))
        }
       def subscription=(_subscription); end
+      # Fleet data for this PaymentIntent.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum])))
+       }
+      def fleet_data; end
+      sig {
+        params(_fleet_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum])))
+       }
+      def fleet_data=(_fleet_data); end
       # Money services details for this PaymentIntent.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices)))
@@ -2572,7 +2962,7 @@ module Stripe
        }
       def money_services=(_money_services); end
       sig {
-        params(car_rental: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Subscription), money_services: T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices))).void
+        params(car_rental: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::ChargeUpdateParams::PaymentDetails::Subscription), fleet_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FleetDatum])), money_services: T.nilable(T.any(String, ::Stripe::ChargeUpdateParams::PaymentDetails::MoneyServices))).void
        }
       def initialize(
         car_rental: nil,
@@ -2585,6 +2975,7 @@ module Stripe
         lodging_data: nil,
         order_reference: nil,
         subscription: nil,
+        fleet_data: nil,
         money_services: nil
       ); end
     end

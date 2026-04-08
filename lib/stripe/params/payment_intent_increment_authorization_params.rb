@@ -7,11 +7,25 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              attr_accessor :product_type
+              # The type of service received at the acceptor location.
+              attr_accessor :service_type
+
+              def initialize(product_type: nil, service_type: nil)
+                @product_type = product_type
+                @service_type = service_type
+              end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
+            # Fleet data for this line item.
+            attr_accessor :fleet_data
 
-            def initialize(commodity_code: nil)
+            def initialize(commodity_code: nil, fleet_data: nil)
               @commodity_code = commodity_code
+              @fleet_data = fleet_data
             end
           end
 
@@ -108,6 +122,8 @@ module Stripe
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
 
         def initialize(
           discount_amount: nil,
@@ -117,7 +133,8 @@ module Stripe
           quantity: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil
+          unit_of_measure: nil,
+          quantity_precision: nil
         )
           @discount_amount = discount_amount
           @payment_method_options = payment_method_options
@@ -127,6 +144,7 @@ module Stripe
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
+          @quantity_precision = quantity_precision
         end
       end
 

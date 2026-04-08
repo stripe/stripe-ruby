@@ -10742,6 +10742,21 @@ module Stripe
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
     end
+    should "Test cannot proceed error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
+      ).to_return(
+        body: '{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::CannotProceedError do
+        payout_method = client.v2.money_management.payout_methods.archive("id_123")
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
+    end
     should "Test controlled by alternate resource error (service)" do
       stub_request(
         :post,

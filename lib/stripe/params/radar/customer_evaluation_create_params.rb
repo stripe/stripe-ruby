@@ -29,7 +29,7 @@ module Stripe
               @phone = phone
             end
           end
-          # Stripe customer ID
+          # The ID of an existing Customer.
           attr_accessor :customer
           # Customer data
           attr_accessor :customer_data

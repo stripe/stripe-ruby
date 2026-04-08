@@ -2070,6 +2070,93 @@ module Stripe
         end
       end
 
+      class FleetDatum < ::Stripe::StripeObject
+        class PrimaryFuelFields < ::Stripe::StripeObject
+          # The fuel brand.
+          attr_reader :brand
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Station < ::Stripe::StripeObject
+          class ServiceLocation < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Additional contact information for the station.
+          attr_reader :additional_contact_info
+          # The customer service phone number of the station.
+          attr_reader :customer_service_phone_number
+          # The partner ID code of the station.
+          attr_reader :partner_id_code
+          # The phone number of the station.
+          attr_reader :phone_number
+          # Attribute for field service_location
+          attr_reader :service_location
+          # The URL of the station.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = { service_location: ServiceLocation }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Vat < ::Stripe::StripeObject
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          attr_reader :iob_indicator
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field primary_fuel_fields
+        attr_reader :primary_fuel_fields
+        # Attribute for field station
+        attr_reader :station
+        # Attribute for field vat
+        attr_reader :vat
+
+        def self.inner_class_types
+          @inner_class_types = { primary_fuel_fields: PrimaryFuelFields, station: Station, vat: Vat }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class FlightDatum < ::Stripe::StripeObject
         class Affiliate < ::Stripe::StripeObject
           # Affiliate code.
@@ -2634,6 +2721,8 @@ module Stripe
       attr_reader :order_reference
       # Attribute for field subscription
       attr_reader :subscription
+      # Fleet data for this PaymentIntent.
+      attr_reader :fleet_data
 
       def self.inner_class_types
         @inner_class_types = {
@@ -2644,6 +2733,7 @@ module Stripe
           flight_data: FlightDatum,
           lodging_data: LodgingDatum,
           subscription: Subscription,
+          fleet_data: FleetDatum,
         }
       end
 

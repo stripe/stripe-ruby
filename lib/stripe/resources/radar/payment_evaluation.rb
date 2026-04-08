@@ -13,11 +13,33 @@ module Stripe
       end
 
       class ClientDeviceMetadataDetails < ::Stripe::StripeObject
+        class Data < ::Stripe::StripeObject
+          # The IP address of the client device.
+          attr_reader :ip
+          # Pasted fields from the checkout flow.
+          attr_reader :pasted_fields
+          # The referrer of the client device.
+          attr_reader :referrer
+          # The time on page in milliseconds.
+          attr_reader :time_on_page_ms
+          # The user agent of the client device.
+          attr_reader :user_agent
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # ID for the Radar Session associated with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         attr_reader :radar_session
+        # Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
+        attr_reader :data
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { data: Data }
         end
 
         def self.field_remappings

@@ -24,7 +24,7 @@ module Stripe
         def initialize(reason: nil); end
       end
       class RegistrationSuccess < ::Stripe::RequestParams
-        # Stripe customer ID to attach to an entity-less registration evaluation.
+        # The ID of a Customer to attach to an entity-less registration evaluation.
         sig { returns(T.nilable(String)) }
         def customer; end
         sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }

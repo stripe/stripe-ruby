@@ -37,7 +37,7 @@ module Stripe
              }
             def initialize(email: nil, name: nil, phone: nil); end
           end
-          # Stripe customer ID
+          # The ID of an existing Customer.
           sig { returns(T.nilable(String)) }
           def customer; end
           sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }

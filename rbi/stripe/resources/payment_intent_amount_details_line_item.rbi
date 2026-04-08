@@ -6,11 +6,28 @@ module Stripe
   class PaymentIntentAmountDetailsLineItem < APIResource
     class PaymentMethodOptions < ::Stripe::StripeObject
       class Card < ::Stripe::StripeObject
+        class FleetData < ::Stripe::StripeObject
+          # The type of product being purchased at this line item.
+          sig { returns(T.nilable(String)) }
+          def product_type; end
+          # The type of service received at the acceptor location.
+          sig { returns(T.nilable(String)) }
+          def service_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
         def commodity_code; end
+        # Attribute for field fleet_data
+        sig { returns(T.nilable(FleetData)) }
+        def fleet_data; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {fleet_data: FleetData}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -130,5 +147,8 @@ module Stripe
     # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     sig { returns(T.nilable(String)) }
     def unit_of_measure; end
+    # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    sig { returns(T.nilable(Integer)) }
+    def quantity_precision; end
   end
 end

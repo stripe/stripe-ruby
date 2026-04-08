@@ -6,13 +6,63 @@ module Stripe
   module Radar
     class PaymentEvaluationCreateParams < ::Stripe::RequestParams
       class ClientDeviceMetadataDetails < ::Stripe::RequestParams
+        class Data < ::Stripe::RequestParams
+          # The IP address of the client device.
+          sig { returns(String) }
+          def ip; end
+          sig { params(_ip: String).returns(String) }
+          def ip=(_ip); end
+          # Pasted fields from the checkout flow.
+          sig { returns(T.nilable(T::Array[String])) }
+          def pasted_fields; end
+          sig {
+            params(_pasted_fields: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def pasted_fields=(_pasted_fields); end
+          # The referrer of the client device.
+          sig { returns(T.nilable(String)) }
+          def referrer; end
+          sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+          def referrer=(_referrer); end
+          # The time on page in milliseconds.
+          sig { returns(T.nilable(Integer)) }
+          def time_on_page_ms; end
+          sig { params(_time_on_page_ms: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def time_on_page_ms=(_time_on_page_ms); end
+          # The user agent of the client device.
+          sig { returns(String) }
+          def user_agent; end
+          sig { params(_user_agent: String).returns(String) }
+          def user_agent=(_user_agent); end
+          sig {
+            params(ip: String, pasted_fields: T.nilable(T::Array[String]), referrer: T.nilable(String), time_on_page_ms: T.nilable(Integer), user_agent: String).void
+           }
+          def initialize(
+            ip: nil,
+            pasted_fields: nil,
+            referrer: nil,
+            time_on_page_ms: nil,
+            user_agent: nil
+          ); end
+        end
         # ID for the Radar Session to associate with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         sig { returns(String) }
         def radar_session; end
         sig { params(_radar_session: String).returns(String) }
         def radar_session=(_radar_session); end
-        sig { params(radar_session: String).void }
-        def initialize(radar_session: nil); end
+        # Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
+        sig {
+          returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data))
+         }
+        def data; end
+        sig {
+          params(_data: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data))
+         }
+        def data=(_data); end
+        sig {
+          params(radar_session: String, data: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data)).void
+         }
+        def initialize(radar_session: nil, data: nil); end
       end
       class CustomerDetails < ::Stripe::RequestParams
         # The ID of the customer associated with the payment evaluation.

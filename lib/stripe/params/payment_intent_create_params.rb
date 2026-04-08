@@ -16,11 +16,25 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              attr_accessor :product_type
+              # The type of service received at the acceptor location.
+              attr_accessor :service_type
+
+              def initialize(product_type: nil, service_type: nil)
+                @product_type = product_type
+                @service_type = service_type
+              end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
+            # Fleet data for this line item.
+            attr_accessor :fleet_data
 
-            def initialize(commodity_code: nil)
+            def initialize(commodity_code: nil, fleet_data: nil)
               @commodity_code = commodity_code
+              @fleet_data = fleet_data
             end
           end
 
@@ -117,6 +131,8 @@ module Stripe
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
 
         def initialize(
           discount_amount: nil,
@@ -126,7 +142,8 @@ module Stripe
           quantity: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil
+          unit_of_measure: nil,
+          quantity_precision: nil
         )
           @discount_amount = discount_amount
           @payment_method_options = payment_method_options
@@ -136,6 +153,7 @@ module Stripe
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
+          @quantity_precision = quantity_precision
         end
       end
 
@@ -1000,6 +1018,99 @@ module Stripe
         end
       end
 
+      class FleetDatum < ::Stripe::RequestParams
+        class PrimaryFuelFields < ::Stripe::RequestParams
+          # The fuel brand.
+          attr_accessor :brand
+
+          def initialize(brand: nil)
+            @brand = brand
+          end
+        end
+
+        class Station < ::Stripe::RequestParams
+          class ServiceLocation < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Additional contact information for the station.
+          attr_accessor :additional_contact_info
+          # The customer service phone number of the station.
+          attr_accessor :customer_service_phone_number
+          # The partner ID code of the station.
+          attr_accessor :partner_id_code
+          # The phone number of the station.
+          attr_accessor :phone_number
+          # The physical location of the station.
+          attr_accessor :service_location
+          # The URL of the station.
+          attr_accessor :url
+
+          def initialize(
+            additional_contact_info: nil,
+            customer_service_phone_number: nil,
+            partner_id_code: nil,
+            phone_number: nil,
+            service_location: nil,
+            url: nil
+          )
+            @additional_contact_info = additional_contact_info
+            @customer_service_phone_number = customer_service_phone_number
+            @partner_id_code = partner_id_code
+            @phone_number = phone_number
+            @service_location = service_location
+            @url = url
+          end
+        end
+
+        class Vat < ::Stripe::RequestParams
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          attr_accessor :iob_indicator
+
+          def initialize(iob_indicator: nil)
+            @iob_indicator = iob_indicator
+          end
+        end
+        # Primary fuel fields for the transaction.
+        attr_accessor :primary_fuel_fields
+        # Station and acceptor location details.
+        attr_accessor :station
+        # VAT and Invoice on Behalf (IOB) details.
+        attr_accessor :vat
+
+        def initialize(primary_fuel_fields: nil, station: nil, vat: nil)
+          @primary_fuel_fields = primary_fuel_fields
+          @station = station
+          @vat = vat
+        end
+      end
+
       class Flight < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -1850,7 +1961,159 @@ module Stripe
       end
 
       class MoneyServices < ::Stripe::RequestParams
-        class AccountFunding < ::Stripe::RequestParams; end
+        class AccountFunding < ::Stripe::RequestParams
+          class BeneficiaryDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1, such as the street, PO Box, or company name.
+              attr_accessor :line1
+              # Address line 2, such as the apartment, suite, unit, or building.
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              attr_accessor :day
+              # Month of birth, between 1 and 12.
+              attr_accessor :month
+              # Four-digit year of birth.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+            # Address.
+            attr_accessor :address
+            # Date of birth.
+            attr_accessor :date_of_birth
+            # Email address.
+            attr_accessor :email
+            # Full name.
+            attr_accessor :name
+            # Phone number.
+            attr_accessor :phone
+
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
+              @address = address
+              @date_of_birth = date_of_birth
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+
+          class SenderDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1, such as the street, PO Box, or company name.
+              attr_accessor :line1
+              # Address line 2, such as the apartment, suite, unit, or building.
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              attr_accessor :day
+              # Month of birth, between 1 and 12.
+              attr_accessor :month
+              # Four-digit year of birth.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+            # Address.
+            attr_accessor :address
+            # Date of birth.
+            attr_accessor :date_of_birth
+            # Email address.
+            attr_accessor :email
+            # Full name.
+            attr_accessor :name
+            # Phone number.
+            attr_accessor :phone
+
+            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
+              @address = address
+              @date_of_birth = date_of_birth
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+          # ID of the Account representing the beneficiary in this account funding transaction.
+          attr_accessor :beneficiary_account
+          # Inline identity details for the beneficiary of this account funding transaction.
+          attr_accessor :beneficiary_details
+          # ID of the Account representing the sender in this account funding transaction.
+          attr_accessor :sender_account
+          # Inline identity details for the sender of this account funding transaction.
+          attr_accessor :sender_details
+
+          def initialize(
+            beneficiary_account: nil,
+            beneficiary_details: nil,
+            sender_account: nil,
+            sender_details: nil
+          )
+            @beneficiary_account = beneficiary_account
+            @beneficiary_details = beneficiary_details
+            @sender_account = sender_account
+            @sender_details = sender_details
+          end
+        end
         # Account funding transaction details including sender and beneficiary information.
         attr_accessor :account_funding
         # The type of money services transaction.
@@ -1938,6 +2201,8 @@ module Stripe
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
+      # Fleet data for this PaymentIntent.
+      attr_accessor :fleet_data
       # Money services details for this PaymentIntent.
       attr_accessor :money_services
 
@@ -1953,6 +2218,7 @@ module Stripe
         lodging_data: nil,
         order_reference: nil,
         subscription: nil,
+        fleet_data: nil,
         money_services: nil
       )
         @benefit = benefit
@@ -1966,6 +2232,7 @@ module Stripe
         @lodging_data = lodging_data
         @order_reference = order_reference
         @subscription = subscription
+        @fleet_data = fleet_data
         @money_services = money_services
       end
     end
@@ -2981,7 +3248,73 @@ module Stripe
 
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
-            class AccountFunding < ::Stripe::RequestParams; end
+            class AccountFunding < ::Stripe::RequestParams
+              class LiquidAsset < ::Stripe::RequestParams
+                class Crypto < ::Stripe::RequestParams
+                  # The cryptocurrency currency code (e.g. BTC, ETH).
+                  attr_accessor :currency_code
+
+                  def initialize(currency_code: nil)
+                    @currency_code = currency_code
+                  end
+                end
+
+                class Security < ::Stripe::RequestParams
+                  # The security's ticker symbol (e.g. AAPL).
+                  attr_accessor :ticker_symbol
+
+                  def initialize(ticker_symbol: nil)
+                    @ticker_symbol = ticker_symbol
+                  end
+                end
+                # Details for a cryptocurrency liquid asset funding transaction.
+                attr_accessor :crypto
+                # Details for a security liquid asset funding transaction.
+                attr_accessor :security
+
+                def initialize(crypto: nil, security: nil)
+                  @crypto = crypto
+                  @security = security
+                end
+              end
+
+              class Wallet < ::Stripe::RequestParams
+                class StagedPurchase < ::Stripe::RequestParams
+                  class Merchant < ::Stripe::RequestParams
+                    # The merchant category code of the merchant.
+                    attr_accessor :mcc
+                    # The merchant's name.
+                    attr_accessor :name
+
+                    def initialize(mcc: nil, name: nil)
+                      @mcc = mcc
+                      @name = name
+                    end
+                  end
+                  # The merchant where the staged wallet purchase is made.
+                  attr_accessor :merchant
+
+                  def initialize(merchant: nil)
+                    @merchant = merchant
+                  end
+                end
+                # Details for a staged purchase.
+                attr_accessor :staged_purchase
+
+                def initialize(staged_purchase: nil)
+                  @staged_purchase = staged_purchase
+                end
+              end
+              # Details for a liquid asset (crypto or security) funding transaction.
+              attr_accessor :liquid_asset
+              # Details for a wallet funding transaction.
+              attr_accessor :wallet
+
+              def initialize(liquid_asset: nil, wallet: nil)
+                @liquid_asset = liquid_asset
+                @wallet = wallet
+              end
+            end
             # Payment method specific account funding transaction details.
             attr_accessor :account_funding
 
@@ -3223,7 +3556,73 @@ module Stripe
       class CardPresent < ::Stripe::RequestParams
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
-            class AccountFunding < ::Stripe::RequestParams; end
+            class AccountFunding < ::Stripe::RequestParams
+              class LiquidAsset < ::Stripe::RequestParams
+                class Crypto < ::Stripe::RequestParams
+                  # The cryptocurrency currency code (e.g. BTC, ETH).
+                  attr_accessor :currency_code
+
+                  def initialize(currency_code: nil)
+                    @currency_code = currency_code
+                  end
+                end
+
+                class Security < ::Stripe::RequestParams
+                  # The security's ticker symbol (e.g. AAPL).
+                  attr_accessor :ticker_symbol
+
+                  def initialize(ticker_symbol: nil)
+                    @ticker_symbol = ticker_symbol
+                  end
+                end
+                # Details for a cryptocurrency liquid asset funding transaction.
+                attr_accessor :crypto
+                # Details for a security liquid asset funding transaction.
+                attr_accessor :security
+
+                def initialize(crypto: nil, security: nil)
+                  @crypto = crypto
+                  @security = security
+                end
+              end
+
+              class Wallet < ::Stripe::RequestParams
+                class StagedPurchase < ::Stripe::RequestParams
+                  class Merchant < ::Stripe::RequestParams
+                    # The merchant category code of the merchant.
+                    attr_accessor :mcc
+                    # The merchant's name.
+                    attr_accessor :name
+
+                    def initialize(mcc: nil, name: nil)
+                      @mcc = mcc
+                      @name = name
+                    end
+                  end
+                  # The merchant where the staged wallet purchase is made.
+                  attr_accessor :merchant
+
+                  def initialize(merchant: nil)
+                    @merchant = merchant
+                  end
+                end
+                # Details for a staged purchase.
+                attr_accessor :staged_purchase
+
+                def initialize(staged_purchase: nil)
+                  @staged_purchase = staged_purchase
+                end
+              end
+              # Details for a liquid asset (crypto or security) funding transaction.
+              attr_accessor :liquid_asset
+              # Details for a wallet funding transaction.
+              attr_accessor :wallet
+
+              def initialize(liquid_asset: nil, wallet: nil)
+                @liquid_asset = liquid_asset
+                @wallet = wallet
+              end
+            end
             # Payment method specific account funding transaction details.
             attr_accessor :account_funding
 

@@ -307,6 +307,31 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments. Required when `amount_type=fixed`.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Indicates the mandate amount type.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Card < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -612,6 +637,9 @@ module Stripe
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
         # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(CheckScan)) }
         def check_scan; end
@@ -628,6 +656,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            bizum: Bizum,
             check_scan: CheckScan,
           }
         end

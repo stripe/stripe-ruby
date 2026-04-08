@@ -7,11 +7,37 @@ module Stripe
     # Payment Evaluations represent the risk lifecycle of an externally processed payment. It includes the Radar risk score from Stripe, payment outcome taken by the merchant or processor, and any post transaction events, such as refunds or disputes. See the [Radar API guide](https://docs.stripe.com/radar/multiprocessor) for integration steps.
     class PaymentEvaluation < APIResource
       class ClientDeviceMetadataDetails < ::Stripe::StripeObject
+        class Data < ::Stripe::StripeObject
+          # The IP address of the client device.
+          sig { returns(String) }
+          def ip; end
+          # Pasted fields from the checkout flow.
+          sig { returns(T.nilable(T::Array[String])) }
+          def pasted_fields; end
+          # The referrer of the client device.
+          sig { returns(T.nilable(String)) }
+          def referrer; end
+          # The time on page in milliseconds.
+          sig { returns(T.nilable(Integer)) }
+          def time_on_page_ms; end
+          # The user agent of the client device.
+          sig { returns(String) }
+          def user_agent; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # ID for the Radar Session associated with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         sig { returns(String) }
         def radar_session; end
+        # Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
+        sig { returns(T.nilable(Data)) }
+        def data; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {data: Data}
         end
         def self.field_remappings
           @field_remappings = {}

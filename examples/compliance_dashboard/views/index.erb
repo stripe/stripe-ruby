@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compliance Audit Dashboard</title>
+  <link rel="stylesheet" href="/css/app.css"/>
+</head>
+<body>
+
+<!-- ════════════════════════  SIDEBAR  ════════════════════════════ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <rect x="1" y="1" width="24" height="24" rx="6" stroke="#6366f1" stroke-width="1.8"/>
+      <path d="M7 13h5m2 0h5M13 7v5m0 2v5" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="13" cy="13" r="2.5" fill="#6366f1"/>
+    </svg>
+    <span class="logo-text">Comply<span class="logo-accent">IQ</span></span>
+  </div>
+
+  <div class="nav-section-label">Overview</div>
+  <nav-item class="nav-item active" data-view="dashboard">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Dashboard
+  </nav-item>
+  <nav-item class="nav-item" data-view="filings">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    Filings
+  </nav-item>
+  <nav-item class="nav-item" data-view="regulations">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Regulations
+  </nav-item>
+
+  <div class="nav-section-label">Analytics</div>
+  <nav-item class="nav-item" data-view="analytics">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Analytics & Trends
+  </nav-item>
+  <nav-item class="nav-item" data-view="audit">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Audit Log
+  </nav-item>
+
+  <div class="nav-section-label">Export</div>
+  <nav-item class="nav-item" data-view="export">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export Reports
+  </nav-item>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar">AH</div>
+      <div class="user-info">
+        <div class="user-name">Anne Hoffman</div>
+        <div class="user-role">Chief Compliance Officer</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════  MAIN  ═══════════════════════════════ -->
+<div class="main-wrapper">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title" id="page-title">Dashboard</h1>
+      <span class="page-subtitle" id="page-subtitle">Compliance overview — FY2025/2026</span>
+    </div>
+    <div class="topbar-right">
+      <div class="search-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="global-search" placeholder="Search filings, regulations…" autocomplete="off"/>
+        <div id="global-search-results" class="search-dropdown hidden"></div>
+      </div>
+      <button class="btn btn-outline" id="btn-quick-export">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+      <div class="refresh-info">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        <span id="last-refresh">–</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── VIEW: DASHBOARD ─── -->
+  <section class="view active" id="view-dashboard">
+    <div id="dashboard-loading" class="view-loading"><div class="spinner"></div></div>
+
+    <!-- KPI row -->
+    <div class="kpi-grid" id="kpi-grid"></div>
+
+    <!-- Middle row: alerts + calendar -->
+    <div class="section-row">
+      <div class="card flex-2" id="card-overdue">
+        <div class="card-header">
+          <h2 class="card-title">🚨 Overdue &amp; At-Risk Items</h2>
+          <span class="badge badge-danger" id="overdue-count">0</span>
+        </div>
+        <div id="alert-list" class="alert-list"></div>
+      </div>
+      <div class="card flex-1" id="card-upcoming">
+        <div class="card-header"><h2 class="card-title">📅 Due in Next 30 Days</h2></div>
+        <div id="upcoming-list" class="upcoming-list"></div>
+      </div>
+    </div>
+
+    <!-- Bottom row: trend chart + activity feed -->
+    <div class="section-row">
+      <div class="card flex-2">
+        <div class="card-header">
+          <h2 class="card-title">📈 Filing Compliance Trend (12 Months)</h2>
+        </div>
+        <canvas id="chart-trend" height="90"></canvas>
+      </div>
+      <div class="card flex-1">
+        <div class="card-header"><h2 class="card-title">🕐 Recent Activity</h2></div>
+        <div id="activity-feed" class="activity-feed"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VIEW: FILINGS ─── -->
+  <section class="view" id="view-filings">
+    <div class="table-toolbar">
+      <div class="filter-row">
+        <select id="filter-status" class="select-filter">
+          <option value="">All Statuses</option>
+          <option value="overdue">Overdue</option>
+          <option value="in_progress">In Progress</option>
+          <option value="not_started">Not Started</option>
+          <option value="submitted">Submitted</option>
+          <option value="approved">Approved</option>
+        </select>
+        <select id="filter-category" class="select-filter">
+          <option value="">All Categories</option>
+          <option value="data_privacy">Data Privacy</option>
+          <option value="financial_reporting">Financial Reporting</option>
+          <option value="financial_crime">Financial Crime</option>
+          <option value="data_security">Data Security</option>
+          <option value="operational_resilience">Operational Resilience</option>
+          <option value="tax_reporting">Tax Reporting</option>
+        </select>
+        <select id="filter-priority" class="select-filter">
+          <option value="">All Priorities</option>
+          <option value="critical">Critical</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <select id="filter-sort" class="select-filter">
+          <option value="due_date">Sort: Due Date</option>
+          <option value="priority">Sort: Priority</option>
+          <option value="status">Sort: Status</option>
+          <option value="completion">Sort: Completion</option>
+        </select>
+        <input type="text" id="filter-search" class="select-filter" placeholder="Search title…" style="flex:1;min-width:160px"/>
+      </div>
+      <div class="filter-row-right">
+        <span id="filings-count" class="count-badge">0 filings</span>
+        <button class="btn btn-outline btn-sm" onclick="window.location='/export/filings.csv'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table" id="filings-table">
+        <thead>
+          <tr>
+            <th>Filing / Regulation</th>
+            <th>Period</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Progress</th>
+            <th>Owner</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="filings-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── VIEW: REGULATIONS ─── -->
+  <section class="view" id="view-regulations">
+    <div class="reg-grid" id="reg-grid"></div>
+  </section>
+
+  <!-- ─── VIEW: ANALYTICS ─── -->
+  <section class="view" id="view-analytics">
+    <div class="analytics-grid">
+      <div class="card">
+        <div class="card-header"><h2 class="card-title">Filing Status Breakdown (2026)</h2></div>
+        <canvas id="chart-status" height="180"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2 class="card-title">Filings by Category</h2></div>
+        <canvas id="chart-category" height="180"></canvas>
+      </div>
+      <div class="card span-2">
+        <div class="card-header"><h2 class="card-title">On-Time Filing Trend — 12 Months</h2></div>
+        <canvas id="chart-trend-full" height="80"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2 class="card-title">Regulatory Category Health Scores</h2></div>
+        <canvas id="chart-category-scores" height="180"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2 class="card-title">Filings by Owner / Responsible Party</h2></div>
+        <canvas id="chart-owner" height="180"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VIEW: AUDIT LOG ─── -->
+  <section class="view" id="view-audit">
+    <div class="table-toolbar">
+      <div class="filter-row">
+        <select id="audit-filter-severity" class="select-filter">
+          <option value="">All Severities</option>
+          <option value="critical">Critical</option>
+          <option value="warning">Warning</option>
+          <option value="success">Success</option>
+          <option value="info">Info</option>
+        </select>
+        <select id="audit-filter-actor" class="select-filter">
+          <option value="">All Actors</option>
+          <option value="System">System</option>
+          <option value="Sarah Chen">Sarah Chen</option>
+          <option value="Michael Torres">Michael Torres</option>
+          <option value="Priya Patel">Priya Patel</option>
+          <option value="James Wright">James Wright</option>
+          <option value="Lisa Nakamura">Lisa Nakamura</option>
+          <option value="David Kim">David Kim</option>
+          <option value="Anne Hoffman">Anne Hoffman</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="window.location='/export/audit.csv'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export Audit Log
+        </button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table" id="audit-table">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Severity</th>
+            <th>Actor</th>
+            <th>Action</th>
+            <th>Resource</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="audit-tbody"></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="audit-pagination"></div>
+  </section>
+
+  <!-- ─── VIEW: EXPORT ─── -->
+  <section class="view" id="view-export">
+    <div class="export-grid">
+      <div class="export-card">
+        <div class="export-icon">📋</div>
+        <h3>All Filings (CSV)</h3>
+        <p>Complete list of all regulatory filings with status, deadlines, completion percentages, and ownership data. Suitable for board reporting and internal audit review.</p>
+        <div class="export-meta">Format: CSV · ~20 fields · All periods</div>
+        <a href="/export/filings.csv" class="btn btn-primary export-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CSV
+        </a>
+      </div>
+
+      <div class="export-card">
+        <div class="export-icon">🚨</div>
+        <h3>Overdue Filings (CSV)</h3>
+        <p>Filtered export showing only overdue and at-risk filings. Ideal for escalation reports and remediation tracking.</p>
+        <div class="export-meta">Format: CSV · Filtered: overdue status</div>
+        <a href="/export/filings.csv?status=overdue" class="btn btn-primary export-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CSV
+        </a>
+      </div>
+
+      <div class="export-card">
+        <div class="export-icon">🔍</div>
+        <h3>Audit Trail Log (CSV)</h3>
+        <p>Full chronological audit trail of all system and user actions. Includes actor, timestamps, IP addresses, and action descriptions. Required for SOX Section 404 audits.</p>
+        <div class="export-meta">Format: CSV · 9 fields · All events</div>
+        <a href="/export/audit.csv" class="btn btn-primary export-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CSV
+        </a>
+      </div>
+
+      <div class="export-card">
+        <div class="export-icon">📊</div>
+        <h3>Full Compliance Report (JSON)</h3>
+        <p>Machine-readable audit-ready JSON report containing KPIs, all regulations, all filings, full audit log, and trend data. Suitable for GRC platform import and external auditor handoff.</p>
+        <div class="export-meta">Format: JSON · All data included · Timestamped</div>
+        <a href="/export/report.json" class="btn btn-primary export-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download JSON
+        </a>
+      </div>
+
+      <div class="export-card wide">
+        <div class="export-icon">🖨️</div>
+        <h3>Print / PDF Report</h3>
+        <p>Opens a printer-friendly view of the full compliance summary — KPI cards, filing status table, and audit trail — suitable for generating a PDF via your browser's print function (Ctrl+P / ⌘+P). Formatted for A4/Letter paper.</p>
+        <div class="export-meta">Format: Browser Print → PDF · Full dashboard snapshot</div>
+        <button class="btn btn-primary export-btn" id="btn-print-report">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Open Print View
+        </button>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /main-wrapper -->
+
+<!-- ══════════════════  FILING DETAIL MODAL  ══════════════════════ -->
+<div id="filing-modal" class="modal hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h2 id="modal-title">Filing Detail</h2>
+      <button class="modal-close" id="close-filing-modal">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- Print view (hidden until triggered) -->
+<div id="print-view" class="print-only hidden"></div>
+
+<!-- Tooltip -->
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

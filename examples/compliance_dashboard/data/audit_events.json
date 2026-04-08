@@ -1,0 +1,191 @@
+{
+  "audit_events": [
+    {
+      "id": "EVT-001",
+      "timestamp": "2026-03-16T09:14:22Z",
+      "actor": "Sarah Chen",
+      "action": "document_uploaded",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-001",
+      "description": "Uploaded 'GDPR_Data_Mapping_v3.xlsx' to GDPR Annual Report",
+      "ip_address": "10.0.1.42",
+      "severity": "info"
+    },
+    {
+      "id": "EVT-002",
+      "timestamp": "2026-03-15T16:30:05Z",
+      "actor": "Priya Patel",
+      "action": "filing_submitted",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-005",
+      "description": "Submitted AML Q1 2026 SAR to FinCEN",
+      "ip_address": "10.0.1.88",
+      "severity": "success"
+    },
+    {
+      "id": "EVT-003",
+      "timestamp": "2026-03-14T11:05:33Z",
+      "actor": "System",
+      "action": "deadline_alert",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-004",
+      "description": "OVERDUE ALERT: PCI-DSS Annual Assessment is past due date (due 2026-06-01 — now 30% complete)",
+      "ip_address": null,
+      "severity": "critical"
+    },
+    {
+      "id": "EVT-004",
+      "timestamp": "2026-03-13T14:22:10Z",
+      "actor": "James Wright",
+      "action": "status_changed",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-004",
+      "description": "Status changed from 'not_started' to 'in_progress' for PCI-DSS Annual Assessment",
+      "ip_address": "10.0.2.11",
+      "severity": "info"
+    },
+    {
+      "id": "EVT-005",
+      "timestamp": "2026-03-12T08:45:00Z",
+      "actor": "Michael Torres",
+      "action": "filing_submitted",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-014",
+      "description": "Submitted CFTC Monthly Derivatives Report — March 2026",
+      "ip_address": "10.0.1.22",
+      "severity": "success"
+    },
+    {
+      "id": "EVT-006",
+      "timestamp": "2026-03-10T15:10:47Z",
+      "actor": "David Kim",
+      "action": "review_approved",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-006",
+      "description": "Approved AML Q4 2025 CTR — forwarded to regulatory body",
+      "ip_address": "10.0.3.5",
+      "severity": "success"
+    },
+    {
+      "id": "EVT-007",
+      "timestamp": "2026-03-09T10:33:21Z",
+      "actor": "Sarah Chen",
+      "action": "completion_updated",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-007",
+      "description": "Updated DORA ICT Risk Framework completion from 40% to 55%",
+      "ip_address": "10.0.1.42",
+      "severity": "info"
+    },
+    {
+      "id": "EVT-008",
+      "timestamp": "2026-03-08T09:00:00Z",
+      "actor": "System",
+      "action": "deadline_alert",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-016",
+      "description": "REMINDER: GDPR Art.30 Q1 ROPA Review due in 17 days",
+      "ip_address": null,
+      "severity": "warning"
+    },
+    {
+      "id": "EVT-009",
+      "timestamp": "2026-03-07T14:05:18Z",
+      "actor": "Michael Torres",
+      "action": "filing_submitted",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-015",
+      "description": "Submitted CFTC Monthly Derivatives Report — February 2026",
+      "ip_address": "10.0.1.22",
+      "severity": "success"
+    },
+    {
+      "id": "EVT-010",
+      "timestamp": "2026-03-05T11:22:44Z",
+      "actor": "Lisa Nakamura",
+      "action": "document_uploaded",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-011",
+      "description": "Uploaded 'HIPAA_Asset_Inventory_2025.xlsx'",
+      "ip_address": "10.0.4.99",
+      "severity": "info"
+    },
+    {
+      "id": "EVT-011",
+      "timestamp": "2026-03-03T09:15:00Z",
+      "actor": "Anne Hoffman",
+      "action": "review_approved",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-015",
+      "description": "Approved CFTC February 2026 Derivatives Report",
+      "ip_address": "10.0.5.14",
+      "severity": "success"
+    },
+    {
+      "id": "EVT-012",
+      "timestamp": "2026-02-28T16:00:00Z",
+      "actor": "System",
+      "action": "regulation_added",
+      "resource_type": "regulation",
+      "resource_id": "REG-012",
+      "description": "Added new regulatory obligation: GDPR Art.30 ROPA quarterly review",
+      "ip_address": null,
+      "severity": "info"
+    },
+    {
+      "id": "EVT-013",
+      "timestamp": "2026-02-15T13:40:22Z",
+      "actor": "David Kim",
+      "action": "review_approved",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-010",
+      "description": "Approved MiFID II Q4 2025 Transaction Report",
+      "ip_address": "10.0.3.5",
+      "severity": "success"
+    },
+    {
+      "id": "EVT-014",
+      "timestamp": "2026-02-10T10:05:00Z",
+      "actor": "James Wright",
+      "action": "comment_added",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-004",
+      "description": "Added note: QSA engagement delayed — escalating to CISO for expedited scheduling",
+      "ip_address": "10.0.2.11",
+      "severity": "warning"
+    },
+    {
+      "id": "EVT-015",
+      "timestamp": "2026-01-30T17:45:00Z",
+      "actor": "Anne Hoffman",
+      "action": "review_approved",
+      "resource_type": "filing",
+      "resource_id": "FIL-2026-006",
+      "description": "Approved AML Q4 2025 CTR filing",
+      "ip_address": "10.0.5.14",
+      "severity": "success"
+    }
+  ],
+  "monthly_trend": [
+    { "month": "Apr 2025", "on_time": 5, "late": 0, "overdue": 0, "total": 5 },
+    { "month": "May 2025", "on_time": 4, "late": 1, "overdue": 0, "total": 5 },
+    { "month": "Jun 2025", "on_time": 3, "late": 2, "overdue": 1, "total": 6 },
+    { "month": "Jul 2025", "on_time": 6, "late": 0, "overdue": 0, "total": 6 },
+    { "month": "Aug 2025", "on_time": 5, "late": 1, "overdue": 0, "total": 6 },
+    { "month": "Sep 2025", "on_time": 7, "late": 0, "overdue": 0, "total": 7 },
+    { "month": "Oct 2025", "on_time": 6, "late": 0, "overdue": 0, "total": 6 },
+    { "month": "Nov 2025", "on_time": 5, "late": 1, "overdue": 0, "total": 6 },
+    { "month": "Dec 2025", "on_time": 8, "late": 0, "overdue": 0, "total": 8 },
+    { "month": "Jan 2026", "on_time": 7, "late": 0, "overdue": 0, "total": 7 },
+    { "month": "Feb 2026", "on_time": 6, "late": 0, "overdue": 0, "total": 6 },
+    { "month": "Mar 2026", "on_time": 4, "late": 0, "overdue": 1, "total": 5 }
+  ],
+  "category_scores": [
+    { "category": "data_privacy",         "score": 78, "filings": 4 },
+    { "category": "financial_reporting",  "score": 91, "filings": 5 },
+    { "category": "financial_crime",      "score": 96, "filings": 4 },
+    { "category": "data_security",        "score": 62, "filings": 3 },
+    { "category": "operational_resilience","score": 70, "filings": 1 },
+    { "category": "tax_reporting",        "score": 88, "filings": 1 }
+  ]
+}

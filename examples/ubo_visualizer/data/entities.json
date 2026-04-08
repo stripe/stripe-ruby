@@ -1,0 +1,378 @@
+{
+  "entities": [
+    {
+      "id": "CORP-001",
+      "name": "Apex Holdings International",
+      "type": "corporation",
+      "jurisdiction": "Cayman Islands",
+      "incorporation_date": "2015-03-12",
+      "registration_number": "CI-2015-88421",
+      "industry": "Financial Services",
+      "risk_score": 85,
+      "sanctioned": false,
+      "notes": "Primary holding vehicle for Apex Group"
+    },
+    {
+      "id": "CORP-002",
+      "name": "BlueStar Ventures LLC",
+      "type": "llc",
+      "jurisdiction": "Delaware, USA",
+      "incorporation_date": "2017-06-01",
+      "registration_number": "DE-7234891",
+      "industry": "Venture Capital",
+      "risk_score": 30,
+      "sanctioned": false,
+      "notes": ""
+    },
+    {
+      "id": "CORP-003",
+      "name": "Meridian Asset Management SA",
+      "type": "corporation",
+      "jurisdiction": "Switzerland",
+      "incorporation_date": "2010-09-22",
+      "registration_number": "CH-660.1.234.567-4",
+      "industry": "Asset Management",
+      "risk_score": 40,
+      "sanctioned": false,
+      "notes": ""
+    },
+    {
+      "id": "CORP-004",
+      "name": "Falcon Bridge Trading FZE",
+      "type": "fze",
+      "jurisdiction": "UAE",
+      "incorporation_date": "2019-01-15",
+      "registration_number": "UAE-FZE-20190115",
+      "industry": "Commodity Trading",
+      "risk_score": 72,
+      "sanctioned": false,
+      "notes": "Flagged for trade-based money laundering indicators"
+    },
+    {
+      "id": "CORP-005",
+      "name": "Nortex Capital Ltd",
+      "type": "corporation",
+      "jurisdiction": "British Virgin Islands",
+      "incorporation_date": "2013-11-05",
+      "registration_number": "BVI-1423876",
+      "industry": "Investment Holding",
+      "risk_score": 78,
+      "sanctioned": false,
+      "notes": "Nominee directors on record"
+    },
+    {
+      "id": "CORP-006",
+      "name": "Solaris Energy Group GmbH",
+      "type": "gmbh",
+      "jurisdiction": "Germany",
+      "incorporation_date": "2008-04-30",
+      "registration_number": "DE-HRB-123456",
+      "industry": "Energy",
+      "risk_score": 25,
+      "sanctioned": false,
+      "notes": ""
+    },
+    {
+      "id": "CORP-007",
+      "name": "Irongate Resources Corp",
+      "type": "corporation",
+      "jurisdiction": "Russia",
+      "incorporation_date": "2012-07-18",
+      "registration_number": "RU-7701234567",
+      "industry": "Mining & Resources",
+      "risk_score": 95,
+      "sanctioned": true,
+      "notes": "OFAC SDN listed entity — designation date 2022-03-01"
+    },
+    {
+      "id": "CORP-008",
+      "name": "Pacific Rim Investments Pte Ltd",
+      "type": "pte_ltd",
+      "jurisdiction": "Singapore",
+      "incorporation_date": "2016-02-28",
+      "registration_number": "SG-201600001C",
+      "industry": "Investment Holding",
+      "risk_score": 45,
+      "sanctioned": false,
+      "notes": ""
+    },
+    {
+      "id": "CORP-009",
+      "name": "Delta Offshore Trust",
+      "type": "trust",
+      "jurisdiction": "Seychelles",
+      "incorporation_date": "2014-08-10",
+      "registration_number": "SC-TRUST-8832",
+      "industry": "Trust & Estate",
+      "risk_score": 80,
+      "sanctioned": false,
+      "notes": "Anonymous trust structure; beneficial owner disclosure refused"
+    },
+    {
+      "id": "CORP-010",
+      "name": "Crescent Moon Holdings SARL",
+      "type": "sarl",
+      "jurisdiction": "Luxembourg",
+      "incorporation_date": "2018-12-01",
+      "registration_number": "LU-B234567",
+      "industry": "Real Estate",
+      "risk_score": 50,
+      "sanctioned": false,
+      "notes": ""
+    },
+    {
+      "id": "PERSON-001",
+      "name": "Viktor Sorokin",
+      "type": "individual",
+      "jurisdiction": "Russia",
+      "nationality": "Russian",
+      "date_of_birth": "1968-05-14",
+      "risk_score": 95,
+      "sanctioned": true,
+      "pep": true,
+      "notes": "OFAC SDN — former Deputy Energy Minister; linked to state-controlled energy sector"
+    },
+    {
+      "id": "PERSON-002",
+      "name": "Elena Marchetti",
+      "type": "individual",
+      "jurisdiction": "Italy",
+      "nationality": "Italian",
+      "date_of_birth": "1975-11-22",
+      "risk_score": 20,
+      "sanctioned": false,
+      "pep": false,
+      "notes": "Founder of BlueStar Ventures"
+    },
+    {
+      "id": "PERSON-003",
+      "name": "Ahmed Al-Rashid",
+      "type": "individual",
+      "jurisdiction": "UAE",
+      "nationality": "Emirati",
+      "date_of_birth": "1971-03-08",
+      "risk_score": 60,
+      "sanctioned": false,
+      "pep": true,
+      "notes": "Politically Exposed Person — former government official; currently in private sector"
+    },
+    {
+      "id": "PERSON-004",
+      "name": "Marcus Webb",
+      "type": "individual",
+      "jurisdiction": "United Kingdom",
+      "nationality": "British",
+      "date_of_birth": "1980-07-30",
+      "risk_score": 15,
+      "sanctioned": false,
+      "pep": false,
+      "notes": "UBO of Crescent Moon Holdings and Meridian Asset Management"
+    },
+    {
+      "id": "PERSON-005",
+      "name": "Zhao Wei",
+      "type": "individual",
+      "jurisdiction": "China",
+      "nationality": "Chinese",
+      "date_of_birth": "1965-09-12",
+      "risk_score": 70,
+      "sanctioned": false,
+      "pep": true,
+      "notes": "PEP — member of CPPCC; beneficial owner of Pacific Rim Investments"
+    },
+    {
+      "id": "PERSON-006",
+      "name": "Natalia Volkov",
+      "type": "individual",
+      "jurisdiction": "Cyprus",
+      "nationality": "Russian",
+      "date_of_birth": "1979-01-25",
+      "risk_score": 88,
+      "sanctioned": false,
+      "pep": false,
+      "notes": "Known associate of Viktor Sorokin; nominee director on multiple BVI/Cayman structures"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "REL-001",
+      "source": "PERSON-001",
+      "target": "CORP-007",
+      "type": "owns",
+      "ownership_pct": 85,
+      "label": "85% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-002",
+      "source": "PERSON-001",
+      "target": "CORP-001",
+      "type": "controls",
+      "ownership_pct": null,
+      "label": "Indirect control via nominee",
+      "verified": false
+    },
+    {
+      "id": "REL-003",
+      "source": "CORP-007",
+      "target": "CORP-001",
+      "type": "owns",
+      "ownership_pct": 60,
+      "label": "60% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-004",
+      "source": "CORP-001",
+      "target": "CORP-005",
+      "type": "owns",
+      "ownership_pct": 100,
+      "label": "100% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-005",
+      "source": "CORP-001",
+      "target": "CORP-004",
+      "type": "owns",
+      "ownership_pct": 40,
+      "label": "40% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-006",
+      "source": "PERSON-006",
+      "target": "CORP-005",
+      "type": "director",
+      "ownership_pct": null,
+      "label": "Nominee Director",
+      "verified": true
+    },
+    {
+      "id": "REL-007",
+      "source": "PERSON-006",
+      "target": "CORP-009",
+      "type": "director",
+      "ownership_pct": null,
+      "label": "Nominee Director",
+      "verified": true
+    },
+    {
+      "id": "REL-008",
+      "source": "CORP-009",
+      "target": "CORP-001",
+      "type": "owns",
+      "ownership_pct": 40,
+      "label": "40% via trust",
+      "verified": false
+    },
+    {
+      "id": "REL-009",
+      "source": "PERSON-002",
+      "target": "CORP-002",
+      "type": "owns",
+      "ownership_pct": 75,
+      "label": "75% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-010",
+      "source": "CORP-002",
+      "target": "CORP-003",
+      "type": "owns",
+      "ownership_pct": 30,
+      "label": "30% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-011",
+      "source": "PERSON-004",
+      "target": "CORP-003",
+      "type": "owns",
+      "ownership_pct": 70,
+      "label": "70% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-012",
+      "source": "PERSON-004",
+      "target": "CORP-010",
+      "type": "owns",
+      "ownership_pct": 100,
+      "label": "100% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-013",
+      "source": "CORP-003",
+      "target": "CORP-006",
+      "type": "owns",
+      "ownership_pct": 55,
+      "label": "55% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-014",
+      "source": "PERSON-003",
+      "target": "CORP-004",
+      "type": "owns",
+      "ownership_pct": 60,
+      "label": "60% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-015",
+      "source": "PERSON-003",
+      "target": "CORP-008",
+      "type": "director",
+      "ownership_pct": null,
+      "label": "Director",
+      "verified": true
+    },
+    {
+      "id": "REL-016",
+      "source": "PERSON-005",
+      "target": "CORP-008",
+      "type": "owns",
+      "ownership_pct": 90,
+      "label": "90% ownership",
+      "verified": true
+    },
+    {
+      "id": "REL-017",
+      "source": "CORP-008",
+      "target": "CORP-004",
+      "type": "owns",
+      "ownership_pct": null,
+      "label": "Joint Venture Partner",
+      "verified": true
+    },
+    {
+      "id": "REL-018",
+      "source": "PERSON-001",
+      "target": "PERSON-006",
+      "type": "associate",
+      "ownership_pct": null,
+      "label": "Known associate",
+      "verified": false
+    },
+    {
+      "id": "REL-019",
+      "source": "CORP-005",
+      "target": "CORP-009",
+      "type": "contracts_with",
+      "ownership_pct": null,
+      "label": "Management contract",
+      "verified": true
+    },
+    {
+      "id": "REL-020",
+      "source": "CORP-010",
+      "target": "CORP-006",
+      "type": "owns",
+      "ownership_pct": 45,
+      "label": "45% ownership",
+      "verified": true
+    }
+  ]
+}

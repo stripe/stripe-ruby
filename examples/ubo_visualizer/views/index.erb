@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UBO Network Visualizer — Beneficial Ownership Intelligence</title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════  HEADER  ═══════════════════════════ -->
+<header class="app-header">
+  <div class="header-left">
+    <div class="logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="13" stroke="#6366f1" stroke-width="2"/>
+        <circle cx="14" cy="14" r="4" fill="#6366f1"/>
+        <circle cx="5"  cy="9"  r="2.5" fill="#a5b4fc"/>
+        <circle cx="23" cy="9"  r="2.5" fill="#a5b4fc"/>
+        <circle cx="5"  cy="19" r="2.5" fill="#a5b4fc"/>
+        <circle cx="23" cy="19" r="2.5" fill="#a5b4fc"/>
+        <line x1="14" y1="14" x2="5"  y2="9"  stroke="#6366f1" stroke-width="1.2"/>
+        <line x1="14" y1="14" x2="23" y2="9"  stroke="#6366f1" stroke-width="1.2"/>
+        <line x1="14" y1="14" x2="5"  y2="19" stroke="#6366f1" stroke-width="1.2"/>
+        <line x1="14" y1="14" x2="23" y2="19" stroke="#6366f1" stroke-width="1.2"/>
+      </svg>
+      <span class="logo-text">UBO<span class="logo-accent">Graph</span></span>
+    </div>
+    <span class="header-subtitle">Beneficial Ownership Intelligence</span>
+  </div>
+  <div class="header-center">
+    <div class="search-bar">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Search entities by name…" autocomplete="off"/>
+      <div id="search-results" class="search-dropdown hidden"></div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-ghost" id="btn-path-finder">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+      Path Finder
+    </button>
+    <button class="btn btn-ghost" id="btn-jurisdictions">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      Jurisdictions
+    </button>
+    <button class="btn btn-ghost" id="btn-reset">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+      </svg>
+      Reset
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════  TOOLBAR  ══════════════════════════ -->
+<div class="toolbar">
+  <div class="filter-group">
+    <span class="filter-label">Filter by:</span>
+    <button class="filter-btn active" data-filter="all">All Entities</button>
+    <button class="filter-btn" data-filter="sanctioned">🚫 Sanctioned</button>
+    <button class="filter-btn" data-filter="pep">⚠️ PEPs</button>
+    <button class="filter-btn" data-filter="high-risk-jurisdiction">🌐 High-Risk Jurisdictions</button>
+    <button class="filter-btn" data-filter="exposed">🔗 Sanction Exposure</button>
+  </div>
+  <div class="layout-group">
+    <span class="filter-label">Layout:</span>
+    <button class="layout-btn active" data-layout="force">Force</button>
+    <button class="layout-btn" data-layout="radial">Radial</button>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot sanctioned"></span>Sanctioned</div>
+    <div class="legend-item"><span class="legend-dot pep"></span>PEP</div>
+    <div class="legend-item"><span class="legend-dot exposed"></span>Exposed</div>
+    <div class="legend-item"><span class="legend-dot high-risk"></span>High-Risk Jurisdiction</div>
+    <div class="legend-item"><span class="legend-dot normal"></span>Clean</div>
+    <div class="legend-separator"></div>
+    <div class="legend-item"><span class="legend-line solid"></span>Ownership</div>
+    <div class="legend-item"><span class="legend-line dashed"></span>Control/Associate</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════  MAIN  ═════════════════════════════ -->
+<main class="main-layout">
+
+  <!-- Graph canvas -->
+  <div class="graph-container" id="graph-container">
+    <div id="graph-loading" class="graph-loading">
+      <div class="spinner"></div>
+      <p>Loading ownership graph…</p>
+    </div>
+    <svg id="graph-svg"></svg>
+    <!-- Zoom controls -->
+    <div class="zoom-controls">
+      <button id="zoom-in"  title="Zoom in">+</button>
+      <button id="zoom-fit" title="Fit to screen">⊡</button>
+      <button id="zoom-out" title="Zoom out">−</button>
+    </div>
+    <!-- Stats overlay -->
+    <div class="graph-stats" id="graph-stats"></div>
+  </div>
+
+  <!-- Side panel -->
+  <aside class="side-panel" id="side-panel">
+    <div class="panel-placeholder">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="#334155" stroke-width="2"/>
+        <circle cx="24" cy="24" r="8"  fill="#334155"/>
+        <circle cx="8"  cy="16" r="4"  fill="#1e293b"/>
+        <circle cx="40" cy="16" r="4"  fill="#1e293b"/>
+        <circle cx="8"  cy="32" r="4"  fill="#1e293b"/>
+        <circle cx="40" cy="32" r="4"  fill="#1e293b"/>
+        <line x1="24" y1="24" x2="8"  y2="16" stroke="#334155" stroke-width="1.5"/>
+        <line x1="24" y1="24" x2="40" y2="16" stroke="#334155" stroke-width="1.5"/>
+        <line x1="24" y1="24" x2="8"  y2="32" stroke="#334155" stroke-width="1.5"/>
+        <line x1="24" y1="24" x2="40" y2="32" stroke="#334155" stroke-width="1.5"/>
+      </svg>
+      <h3>Entity Inspector</h3>
+      <p>Click any node in the graph to view detailed information about that entity, its relationships, and associated risk factors.</p>
+    </div>
+    <div id="entity-detail" class="entity-detail hidden"></div>
+  </aside>
+</main>
+
+<!-- ═══════════════════  PATH FINDER MODAL  ════════════════════════ -->
+<div id="modal-path" class="modal hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Connection Path Finder</h2>
+      <button class="modal-close" id="close-path-modal">✕</button>
+    </div>
+    <p class="modal-desc">Discover the shortest chain of relationships between any two entities in the ownership network.</p>
+    <div class="path-inputs">
+      <div class="path-input-group">
+        <label>From Entity</label>
+        <input type="text" id="path-from-input" placeholder="Search entity…" autocomplete="off"/>
+        <div id="path-from-results" class="search-dropdown hidden"></div>
+        <input type="hidden" id="path-from-id"/>
+      </div>
+      <div class="path-arrow">→</div>
+      <div class="path-input-group">
+        <label>To Entity</label>
+        <input type="text" id="path-to-input" placeholder="Search entity…" autocomplete="off"/>
+        <div id="path-to-results" class="search-dropdown hidden"></div>
+        <input type="hidden" id="path-to-id"/>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="btn-find-path">Find Path</button>
+    <div id="path-result" class="path-result hidden"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════  JURISDICTIONS MODAL  ══════════════════════ -->
+<div id="modal-jurisdictions" class="modal hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box modal-wide">
+    <div class="modal-header">
+      <h2>High-Risk Jurisdiction Reference</h2>
+      <button class="modal-close" id="close-jurisdictions-modal">✕</button>
+    </div>
+    <div id="jurisdictions-content"></div>
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

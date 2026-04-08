@@ -1,0 +1,135 @@
+{
+  "high_risk_jurisdictions": [
+    {
+      "name": "Russia",
+      "iso2": "RU",
+      "risk_level": "critical",
+      "lists": ["OFAC", "EU", "UK-HMT"],
+      "reason": "Comprehensive sanctions regime; FATF increased monitoring"
+    },
+    {
+      "name": "Iran",
+      "iso2": "IR",
+      "risk_level": "critical",
+      "lists": ["OFAC", "EU", "UN"],
+      "reason": "Comprehensive US/EU/UN sanctions; nuclear proliferation concerns"
+    },
+    {
+      "name": "North Korea",
+      "iso2": "KP",
+      "risk_level": "critical",
+      "lists": ["OFAC", "EU", "UN"],
+      "reason": "Comprehensive UN sanctions; WMD proliferation"
+    },
+    {
+      "name": "Syria",
+      "iso2": "SY",
+      "risk_level": "critical",
+      "lists": ["OFAC", "EU", "UN"],
+      "reason": "Comprehensive sanctions; ongoing conflict"
+    },
+    {
+      "name": "Belarus",
+      "iso2": "BY",
+      "risk_level": "high",
+      "lists": ["OFAC", "EU", "UK-HMT"],
+      "reason": "Targeted sanctions; human rights violations"
+    },
+    {
+      "name": "Myanmar",
+      "iso2": "MM",
+      "risk_level": "high",
+      "lists": ["OFAC", "EU"],
+      "reason": "Military junta; FATF increased monitoring"
+    },
+    {
+      "name": "Venezuela",
+      "iso2": "VE",
+      "risk_level": "high",
+      "lists": ["OFAC"],
+      "reason": "Targeted sanctions; corruption and narco-trafficking"
+    },
+    {
+      "name": "Cuba",
+      "iso2": "CU",
+      "risk_level": "high",
+      "lists": ["OFAC"],
+      "reason": "Comprehensive US embargo"
+    },
+    {
+      "name": "Cayman Islands",
+      "iso2": "KY",
+      "risk_level": "medium",
+      "lists": ["FATF-grey"],
+      "reason": "High-secrecy offshore jurisdiction; significant shell company risk"
+    },
+    {
+      "name": "British Virgin Islands",
+      "iso2": "VG",
+      "risk_level": "medium",
+      "lists": ["FATF-grey"],
+      "reason": "High-secrecy offshore jurisdiction; frequent misuse for layering"
+    },
+    {
+      "name": "Seychelles",
+      "iso2": "SC",
+      "risk_level": "medium",
+      "lists": ["FATF-grey"],
+      "reason": "FATF grey list; weak AML controls"
+    },
+    {
+      "name": "UAE",
+      "iso2": "AE",
+      "risk_level": "medium",
+      "lists": ["FATF-grey"],
+      "reason": "FATF grey list (removed 2024); residual risk from trade-based ML"
+    },
+    {
+      "name": "Panama",
+      "iso2": "PA",
+      "risk_level": "medium",
+      "lists": ["FATF-grey"],
+      "reason": "FATF grey list; significant offshore activity"
+    },
+    {
+      "name": "Nigeria",
+      "iso2": "NG",
+      "risk_level": "medium",
+      "lists": ["FATF-grey"],
+      "reason": "FATF grey list; corruption and fraud risk"
+    },
+    {
+      "name": "South Africa",
+      "iso2": "ZA",
+      "risk_level": "medium",
+      "lists": ["FATF-grey"],
+      "reason": "FATF grey list; AML deficiencies"
+    }
+  ],
+  "sanctions_lists": [
+    {
+      "id": "OFAC-SDN",
+      "name": "OFAC Specially Designated Nationals",
+      "issuer": "US Treasury / OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov/"
+    },
+    {
+      "id": "EU-CONS",
+      "name": "EU Consolidated Sanctions List",
+      "issuer": "European Union",
+      "url": "https://eeas.europa.eu/topics/sanctions-policy_en"
+    },
+    {
+      "id": "UK-HMT",
+      "name": "UK HM Treasury Financial Sanctions",
+      "issuer": "HM Treasury",
+      "url": "https://www.gov.uk/government/publications/financial-sanctions-consolidated-list-of-targets"
+    },
+    {
+      "id": "UN-SC",
+      "name": "UN Security Council Sanctions",
+      "issuer": "United Nations",
+      "url": "https://www.un.org/securitycouncil/sanctions/information"
+    }
+  ]
+}

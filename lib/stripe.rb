@@ -60,6 +60,33 @@ require "stripe/resources/v2/core/event_notification"
 require "stripe/resources"
 require "stripe/services"
 require "stripe/params"
+require "stripe/treasury_bank_portal"
+require "stripe/regulatory_filing"
+require "stripe/treasury_reconciliation"
+require "stripe/treasury_analytics"
+require "stripe/executive_overview"
+require "stripe/hedging_analyzer"
+require "stripe/financial_report_service"
+
+# RBAC and Audit systems
+require "stripe/rbac"
+require "stripe/audit"
+require "stripe/risk"
+require "stripe/banking"
+require "stripe/crypto"
+require "stripe/audit_report_generator"
+
+# Cross-Chain Bridge optimization
+require "stripe/bridge"
+
+# DeFi Yield Optimization
+require "stripe/defi"
+
+# Tax Reporting
+require "stripe/tax"
+
+# Portfolio Manager & Insights
+require "stripe/portfolio"
 
 # OAuth
 require "stripe/oauth"

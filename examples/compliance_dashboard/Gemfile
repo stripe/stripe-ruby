@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+gem "csv"
+gem "json"
+gem "puma", "~> 6.0"
+gem "sinatra", "~> 4.0"
+gem "sinatra-contrib", "~> 4.0"

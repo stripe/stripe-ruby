@@ -66,6 +66,12 @@ module Stripe
       # Attribute for field settlement_timing
       sig { returns(SettlementTiming) }
       def settlement_timing; end
+      # The default settlement currency for the account.
+      sig { returns(T.nilable(String)) }
+      def default_settlement_currency; end
+      # A hash of settlement currencies and their states. Each key is an ISO 4217 currency code, and the value is one of `enabled`, `disabled`, or `restricted_by_application`.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def settlement_currencies; end
       def self.inner_class_types
         @inner_class_types = {payouts: Payouts, settlement_timing: SettlementTiming}
       end

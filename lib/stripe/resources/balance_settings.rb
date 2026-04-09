@@ -67,6 +67,10 @@ module Stripe
       attr_reader :payouts
       # Attribute for field settlement_timing
       attr_reader :settlement_timing
+      # The default settlement currency for the account.
+      attr_reader :default_settlement_currency
+      # A hash of settlement currencies and their states. Each key is an ISO 4217 currency code, and the value is one of `enabled`, `disabled`, or `restricted_by_application`.
+      attr_reader :settlement_currencies
 
       def self.inner_class_types
         @inner_class_types = { payouts: Payouts, settlement_timing: SettlementTiming }

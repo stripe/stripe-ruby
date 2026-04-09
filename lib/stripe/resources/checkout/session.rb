@@ -2529,7 +2529,7 @@ module Stripe
       end
 
       class AutomaticSurcharge < ::Stripe::StripeObject
-        # Determines which amount is used as the basis for calculating the surcharge.
+        # Determines which amount serves as the basis for calculating the surcharge.
         attr_reader :calculation_basis
         # Indicates whether automatic surcharge is enabled for the session.
         attr_reader :enabled

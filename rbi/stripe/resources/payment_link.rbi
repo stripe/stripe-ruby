@@ -644,6 +644,26 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class AutomaticSurcharge < ::Stripe::StripeObject
+      # Determines which amount serves as the basis for calculating the surcharge.
+      sig { returns(T.nilable(String)) }
+      def calculation_basis; end
+      # Indicates whether automatic surcharge is enabled for the payment link.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      # The surcharge provider used for this payment link.
+      sig { returns(T.nilable(String)) }
+      def provider; end
+      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+      sig { returns(T.nilable(String)) }
+      def tax_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
     sig { returns(T::Boolean) }
     def active; end
@@ -752,6 +772,9 @@ module Stripe
     # The public URL that can be shared with customers.
     sig { returns(String) }
     def url; end
+    # Attribute for field automatic_surcharge
+    sig { returns(T.nilable(AutomaticSurcharge)) }
+    def automatic_surcharge; end
     # Creates a payment link.
     sig {
       params(params: T.any(::Stripe::PaymentLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)

@@ -2556,7 +2556,7 @@ module Stripe
         end
       end
       class AutomaticSurcharge < ::Stripe::StripeObject
-        # Determines which amount is used as the basis for calculating the surcharge.
+        # Determines which amount serves as the basis for calculating the surcharge.
         sig { returns(T.nilable(String)) }
         def calculation_basis; end
         # Indicates whether automatic surcharge is enabled for the session.

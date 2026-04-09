@@ -36,7 +36,7 @@ module Stripe
     end
 
     class AutomaticSurcharge < ::Stripe::RequestParams
-      # Determines which amount is used as the basis for calculating the surcharge.
+      # Determines which amount serves as the basis for calculating the surcharge.
       attr_accessor :calculation_basis
       # Set to `true` to calculate surcharge automatically using the customer's card details and location.
       attr_accessor :enabled

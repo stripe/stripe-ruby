@@ -50,7 +50,7 @@ module Stripe
       def initialize(hosted_confirmation: nil, redirect: nil, type: nil); end
     end
     class AutomaticSurcharge < ::Stripe::RequestParams
-      # Determines which amount is used as the basis for calculating the surcharge.
+      # Determines which amount serves as the basis for calculating the surcharge.
       sig { returns(T.nilable(String)) }
       def calculation_basis; end
       sig { params(_calculation_basis: T.nilable(String)).returns(T.nilable(String)) }

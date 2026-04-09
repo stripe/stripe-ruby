@@ -2361,6 +2361,18 @@ module Stripe
      }
     def self.report_authenticated(payment_attempt_record, params = {}, opts = {}); end
 
+    # Report that the specified Payment Attempt Record was authorized.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportAuthorizedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_authorized(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record was authorized.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportAuthorizedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_authorized(payment_attempt_record, params = {}, opts = {}); end
+
     # Report that the specified Payment Attempt Record was canceled.
     sig {
       params(params: T.any(::Stripe::PaymentAttemptRecordReportCanceledParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)

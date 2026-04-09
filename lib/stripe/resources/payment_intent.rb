@@ -2650,6 +2650,161 @@ module Stripe
         end
       end
 
+      class MoneyServices < ::Stripe::StripeObject
+        class AccountFunding < ::Stripe::StripeObject
+          class BeneficiaryDetails < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class DateOfBirth < ::Stripe::StripeObject
+              # Day of birth, between 1 and 31.
+              attr_reader :day
+              # Month of birth, between 1 and 12.
+              attr_reader :month
+              # Four-digit year of birth.
+              attr_reader :year
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field address
+            attr_reader :address
+            # Attribute for field date_of_birth
+            attr_reader :date_of_birth
+            # Email address.
+            attr_reader :email
+            # Full name.
+            attr_reader :name
+            # Phone number.
+            attr_reader :phone
+
+            def self.inner_class_types
+              @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class SenderDetails < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class DateOfBirth < ::Stripe::StripeObject
+              # Day of birth, between 1 and 31.
+              attr_reader :day
+              # Month of birth, between 1 and 12.
+              attr_reader :month
+              # Four-digit year of birth.
+              attr_reader :year
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field address
+            attr_reader :address
+            # Attribute for field date_of_birth
+            attr_reader :date_of_birth
+            # Email address.
+            attr_reader :email
+            # Full name.
+            attr_reader :name
+            # Phone number.
+            attr_reader :phone
+
+            def self.inner_class_types
+              @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ID of the Account representing the beneficiary in this account funding transaction.
+          attr_reader :beneficiary_account
+          # Attribute for field beneficiary_details
+          attr_reader :beneficiary_details
+          # ID of the Account representing the sender in this account funding transaction.
+          attr_reader :sender_account
+          # Attribute for field sender_details
+          attr_reader :sender_details
+
+          def self.inner_class_types
+            @inner_class_types = {
+              beneficiary_details: BeneficiaryDetails,
+              sender_details: SenderDetails,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field account_funding
+        attr_reader :account_funding
+        # The type of money services transaction.
+        attr_reader :transaction_type
+
+        def self.inner_class_types
+          @inner_class_types = { account_funding: AccountFunding }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Subscription < ::Stripe::StripeObject
         class Affiliate < ::Stripe::StripeObject
           # The name of the affiliate that originated the purchase.
@@ -2723,6 +2878,8 @@ module Stripe
       attr_reader :subscription
       # Fleet data for this PaymentIntent.
       attr_reader :fleet_data
+      # Attribute for field money_services
+      attr_reader :money_services
 
       def self.inner_class_types
         @inner_class_types = {
@@ -2734,6 +2891,7 @@ module Stripe
           lodging_data: LodgingDatum,
           subscription: Subscription,
           fleet_data: FleetDatum,
+          money_services: MoneyServices,
         }
       end
 

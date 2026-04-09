@@ -170,6 +170,23 @@ module Stripe
         end
       end
       class Email < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # Number of days from the time when the email domain was first observed to the time of verification.
+          sig { returns(T.nilable(Float)) }
+          def days_since_domain_creation; end
+          # Number of days from the time when the email address was first observed to the time of verification.
+          sig { returns(T.nilable(Float)) }
+          def days_since_ownership_started; end
+          # Two-letter ISO 3166-1 alpha-2 country code of the email domain's country.
+          sig { returns(T.nilable(String)) }
+          def domain_country; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
@@ -193,8 +210,11 @@ module Stripe
         # Status of this `email` check.
         sig { returns(String) }
         def status; end
+        # Additional email verification details
+        sig { returns(T.nilable(Details)) }
+        def details; end
         def self.inner_class_types
-          @inner_class_types = {error: Error}
+          @inner_class_types = {error: Error, details: Details}
         end
         def self.field_remappings
           @field_remappings = {}

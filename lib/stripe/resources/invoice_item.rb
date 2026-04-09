@@ -55,6 +55,8 @@ module Stripe
       class ScheduleDetails < ::Stripe::StripeObject
         # The subscription schedule that generated this invoice item
         attr_reader :schedule
+        # The subscription associated with this schedule
+        attr_reader :subscription
 
         def self.inner_class_types
           @inner_class_types = {}

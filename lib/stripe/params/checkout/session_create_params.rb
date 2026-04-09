@@ -35,6 +35,21 @@ module Stripe
         end
       end
 
+      class AutomaticSurcharge < ::Stripe::RequestParams
+        # Determines which amount is used as the basis for calculating the surcharge.
+        attr_accessor :calculation_basis
+        # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+        attr_accessor :enabled
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        attr_accessor :tax_behavior
+
+        def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil)
+          @calculation_basis = calculation_basis
+          @enabled = enabled
+          @tax_behavior = tax_behavior
+        end
+      end
+
       class AutomaticTax < ::Stripe::RequestParams
         class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
@@ -2739,6 +2754,8 @@ module Stripe
       attr_accessor :ui_mode
       # Wallet-specific configuration.
       attr_accessor :wallet_options
+      # Settings for automatic surcharge calculation for this session.
+      attr_accessor :automatic_surcharge
       # Attribute for param field checkout_items
       attr_accessor :checkout_items
 
@@ -2795,6 +2812,7 @@ module Stripe
         tax_id_collection: nil,
         ui_mode: nil,
         wallet_options: nil,
+        automatic_surcharge: nil,
         checkout_items: nil
       )
         @adaptive_pricing = adaptive_pricing
@@ -2849,6 +2867,7 @@ module Stripe
         @tax_id_collection = tax_id_collection
         @ui_mode = ui_mode
         @wallet_options = wallet_options
+        @automatic_surcharge = automatic_surcharge
         @checkout_items = checkout_items
       end
 

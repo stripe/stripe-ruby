@@ -135,6 +135,30 @@ module Stripe
         end
       end
 
+      class Bills < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CapitalFinancing < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -881,6 +905,8 @@ module Stripe
       attr_reader :terminal_hardware_orders
       # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
       attr_reader :terminal_hardware_shop
+      # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
+      attr_reader :bills
 
       def self.inner_class_types
         @inner_class_types = {
@@ -913,6 +939,7 @@ module Stripe
           tax_settings: TaxSettings,
           terminal_hardware_orders: TerminalHardwareOrders,
           terminal_hardware_shop: TerminalHardwareShop,
+          bills: Bills,
         }
       end
 

@@ -2523,6 +2523,9 @@ module Stripe
         # Attribute for field breakdown
         sig { returns(T.nilable(Breakdown)) }
         def breakdown; end
+        # The surcharge amount that was applied to the Checkout Session.
+        sig { returns(T.nilable(Integer)) }
+        def amount_surcharge; end
         def self.inner_class_types
           @inner_class_types = {breakdown: Breakdown}
         end
@@ -2547,6 +2550,46 @@ module Stripe
         def link; end
         def self.inner_class_types
           @inner_class_types = {link: Link}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class AutomaticSurcharge < ::Stripe::StripeObject
+        # Determines which amount is used as the basis for calculating the surcharge.
+        sig { returns(T.nilable(String)) }
+        def calculation_basis; end
+        # Indicates whether automatic surcharge is enabled for the session.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # The surcharge provider used for this session.
+        sig { returns(T.nilable(String)) }
+        def provider; end
+        # The status of the most recent surcharge calculation for this session.
+        sig { returns(T.nilable(String)) }
+        def status; end
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        sig { returns(T.nilable(String)) }
+        def tax_behavior; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class SurchargeCost < ::Stripe::StripeObject
+        # Total surcharge cost before taxes are applied.
+        sig { returns(Integer) }
+        def amount_subtotal; end
+        # Total tax amount applied due to surcharging. If no tax was applied, defaults to 0.
+        sig { returns(Integer) }
+        def amount_tax; end
+        # Total surcharge cost after taxes are applied.
+        sig { returns(Integer) }
+        def amount_total; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2879,6 +2922,12 @@ module Stripe
       # Wallet-specific configuration for this Checkout Session.
       sig { returns(T.nilable(WalletOptions)) }
       def wallet_options; end
+      # Attribute for field automatic_surcharge
+      sig { returns(T.nilable(AutomaticSurcharge)) }
+      def automatic_surcharge; end
+      # Attribute for field surcharge_cost
+      sig { returns(T.nilable(SurchargeCost)) }
+      def surcharge_cost; end
       # Attribute for field checkout_items
       sig { returns(T.nilable(T::Array[CheckoutItem])) }
       def checkout_items; end

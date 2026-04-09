@@ -477,6 +477,19 @@ module Stripe
       end
 
       class Card < ::Stripe::StripeObject
+        class AccountFunding < ::Stripe::StripeObject
+          # The transaction type of the card transaction. One of `account_funding` or `purchase`.
+          attr_reader :processed_transaction_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Benefits < ::Stripe::StripeObject
           # Issuer of the benefit card utilized on this payment
           attr_reader :issuer
@@ -964,6 +977,8 @@ module Stripe
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         attr_reader :wallet
+        # Attribute for field account_funding
+        attr_reader :account_funding
 
         def self.inner_class_types
           @inner_class_types = {
@@ -980,6 +995,7 @@ module Stripe
             reauthorization: Reauthorization,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
+            account_funding: AccountFunding,
           }
         end
 

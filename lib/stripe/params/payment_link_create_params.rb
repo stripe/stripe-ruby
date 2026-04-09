@@ -35,6 +35,21 @@ module Stripe
       end
     end
 
+    class AutomaticSurcharge < ::Stripe::RequestParams
+      # Determines which amount is used as the basis for calculating the surcharge.
+      attr_accessor :calculation_basis
+      # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+      attr_accessor :enabled
+      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+      attr_accessor :tax_behavior
+
+      def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil)
+        @calculation_basis = calculation_basis
+        @enabled = enabled
+        @tax_behavior = tax_behavior
+      end
+    end
+
     class AutomaticTax < ::Stripe::RequestParams
       class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
@@ -783,6 +798,8 @@ module Stripe
     attr_accessor :tax_id_collection
     # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
     attr_accessor :transfer_data
+    # Configuration for automatic surcharge calculation.
+    attr_accessor :automatic_surcharge
 
     def initialize(
       after_completion: nil,
@@ -815,7 +832,8 @@ module Stripe
       submit_type: nil,
       subscription_data: nil,
       tax_id_collection: nil,
-      transfer_data: nil
+      transfer_data: nil,
+      automatic_surcharge: nil
     )
       @after_completion = after_completion
       @allow_promotion_codes = allow_promotion_codes
@@ -848,6 +866,7 @@ module Stripe
       @subscription_data = subscription_data
       @tax_id_collection = tax_id_collection
       @transfer_data = transfer_data
+      @automatic_surcharge = automatic_surcharge
     end
 
     def self.field_encodings

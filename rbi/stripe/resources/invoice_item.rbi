@@ -45,6 +45,9 @@ module Stripe
         # The subscription schedule that generated this invoice item
         sig { returns(String) }
         def schedule; end
+        # The subscription associated with this schedule
+        sig { returns(T.nilable(String)) }
+        def subscription; end
         def self.inner_class_types
           @inner_class_types = {}
         end

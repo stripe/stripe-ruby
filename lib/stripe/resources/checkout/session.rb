@@ -2491,6 +2491,8 @@ module Stripe
         attr_reader :amount_tax
         # Attribute for field breakdown
         attr_reader :breakdown
+        # The surcharge amount that was applied to the Checkout Session.
+        attr_reader :amount_surcharge
 
         def self.inner_class_types
           @inner_class_types = { breakdown: Breakdown }
@@ -2519,6 +2521,44 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { link: Link }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AutomaticSurcharge < ::Stripe::StripeObject
+        # Determines which amount is used as the basis for calculating the surcharge.
+        attr_reader :calculation_basis
+        # Indicates whether automatic surcharge is enabled for the session.
+        attr_reader :enabled
+        # The surcharge provider used for this session.
+        attr_reader :provider
+        # The status of the most recent surcharge calculation for this session.
+        attr_reader :status
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        attr_reader :tax_behavior
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class SurchargeCost < ::Stripe::StripeObject
+        # Total surcharge cost before taxes are applied.
+        attr_reader :amount_subtotal
+        # Total tax amount applied due to surcharging. If no tax was applied, defaults to 0.
+        attr_reader :amount_tax
+        # Total surcharge cost after taxes are applied.
+        attr_reader :amount_total
+
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -2777,6 +2817,10 @@ module Stripe
       attr_reader :url
       # Wallet-specific configuration for this Checkout Session.
       attr_reader :wallet_options
+      # Attribute for field automatic_surcharge
+      attr_reader :automatic_surcharge
+      # Attribute for field surcharge_cost
+      attr_reader :surcharge_cost
       # Attribute for field checkout_items
       attr_reader :checkout_items
 
@@ -2907,6 +2951,8 @@ module Stripe
           tax_id_collection: TaxIdCollection,
           total_details: TotalDetails,
           wallet_options: WalletOptions,
+          automatic_surcharge: AutomaticSurcharge,
+          surcharge_cost: SurchargeCost,
           checkout_items: CheckoutItem,
         }
       end

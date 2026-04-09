@@ -160,6 +160,23 @@ module Stripe
       end
 
       class Email < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # Number of days from the time when the email domain was first observed to the time of verification.
+          attr_reader :days_since_domain_creation
+          # Number of days from the time when the email address was first observed to the time of verification.
+          attr_reader :days_since_ownership_started
+          # Two-letter ISO 3166-1 alpha-2 country code of the email domain's country.
+          attr_reader :domain_country
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           attr_reader :code
@@ -180,9 +197,11 @@ module Stripe
         attr_reader :error
         # Status of this `email` check.
         attr_reader :status
+        # Additional email verification details
+        attr_reader :details
 
         def self.inner_class_types
-          @inner_class_types = { error: Error }
+          @inner_class_types = { error: Error, details: Details }
         end
 
         def self.field_remappings

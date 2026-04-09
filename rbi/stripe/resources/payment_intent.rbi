@@ -2851,6 +2851,175 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class MoneyServices < ::Stripe::StripeObject
+        class AccountFunding < ::Stripe::StripeObject
+          class BeneficiaryDetails < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class DateOfBirth < ::Stripe::StripeObject
+              # Day of birth, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              # Month of birth, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              # Four-digit year of birth.
+              sig { returns(Integer) }
+              def year; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field address
+            sig { returns(T.nilable(Address)) }
+            def address; end
+            # Attribute for field date_of_birth
+            sig { returns(T.nilable(DateOfBirth)) }
+            def date_of_birth; end
+            # Email address.
+            sig { returns(T.nilable(String)) }
+            def email; end
+            # Full name.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            # Phone number.
+            sig { returns(T.nilable(String)) }
+            def phone; end
+            def self.inner_class_types
+              @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class SenderDetails < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class DateOfBirth < ::Stripe::StripeObject
+              # Day of birth, between 1 and 31.
+              sig { returns(Integer) }
+              def day; end
+              # Month of birth, between 1 and 12.
+              sig { returns(Integer) }
+              def month; end
+              # Four-digit year of birth.
+              sig { returns(Integer) }
+              def year; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field address
+            sig { returns(T.nilable(Address)) }
+            def address; end
+            # Attribute for field date_of_birth
+            sig { returns(T.nilable(DateOfBirth)) }
+            def date_of_birth; end
+            # Email address.
+            sig { returns(T.nilable(String)) }
+            def email; end
+            # Full name.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            # Phone number.
+            sig { returns(T.nilable(String)) }
+            def phone; end
+            def self.inner_class_types
+              @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ID of the Account representing the beneficiary in this account funding transaction.
+          sig { returns(T.nilable(String)) }
+          def beneficiary_account; end
+          # Attribute for field beneficiary_details
+          sig { returns(T.nilable(BeneficiaryDetails)) }
+          def beneficiary_details; end
+          # ID of the Account representing the sender in this account funding transaction.
+          sig { returns(T.nilable(String)) }
+          def sender_account; end
+          # Attribute for field sender_details
+          sig { returns(T.nilable(SenderDetails)) }
+          def sender_details; end
+          def self.inner_class_types
+            @inner_class_types = {
+              beneficiary_details: BeneficiaryDetails,
+              sender_details: SenderDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field account_funding
+        sig { returns(T.nilable(AccountFunding)) }
+        def account_funding; end
+        # The type of money services transaction.
+        sig { returns(T.nilable(String)) }
+        def transaction_type; end
+        def self.inner_class_types
+          @inner_class_types = {account_funding: AccountFunding}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Subscription < ::Stripe::StripeObject
         class Affiliate < ::Stripe::StripeObject
           # The name of the affiliate that originated the purchase.
@@ -2936,6 +3105,9 @@ module Stripe
       # Fleet data for this PaymentIntent.
       sig { returns(T.nilable(T::Array[FleetDatum])) }
       def fleet_data; end
+      # Attribute for field money_services
+      sig { returns(T.nilable(MoneyServices)) }
+      def money_services; end
       def self.inner_class_types
         @inner_class_types = {
           benefit: Benefit,
@@ -2946,6 +3118,7 @@ module Stripe
           lodging_data: LodgingDatum,
           subscription: Subscription,
           fleet_data: FleetDatum,
+          money_services: MoneyServices,
         }
       end
       def self.field_remappings

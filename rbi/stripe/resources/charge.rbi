@@ -497,6 +497,17 @@ module Stripe
         end
       end
       class Card < ::Stripe::StripeObject
+        class AccountFunding < ::Stripe::StripeObject
+          # The transaction type of the card transaction. One of `account_funding` or `purchase`.
+          sig { returns(T.nilable(String)) }
+          def processed_transaction_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Benefits < ::Stripe::StripeObject
           # Issuer of the benefit card utilized on this payment
           sig { returns(T.nilable(String)) }
@@ -1018,6 +1029,9 @@ module Stripe
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
+        # Attribute for field account_funding
+        sig { returns(T.nilable(AccountFunding)) }
+        def account_funding; end
         def self.inner_class_types
           @inner_class_types = {
             benefits: Benefits,
@@ -1033,6 +1047,7 @@ module Stripe
             reauthorization: Reauthorization,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
+            account_funding: AccountFunding,
           }
         end
         def self.field_remappings

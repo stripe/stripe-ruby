@@ -91,10 +91,22 @@ module Stripe
         params(_settlement_timing: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming)).returns(T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming))
        }
       def settlement_timing=(_settlement_timing); end
+      # A hash of settlement currencies to update. Each key is an ISO 4217 currency code, and the value is either `enabled` or `disabled`.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def settlement_currencies; end
       sig {
-        params(debit_negative_balances: T.nilable(T::Boolean), payouts: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts), settlement_timing: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming)).void
+        params(_settlement_currencies: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
-      def initialize(debit_negative_balances: nil, payouts: nil, settlement_timing: nil); end
+      def settlement_currencies=(_settlement_currencies); end
+      sig {
+        params(debit_negative_balances: T.nilable(T::Boolean), payouts: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::Payouts), settlement_timing: T.nilable(::Stripe::BalanceSettingsUpdateParams::Payments::SettlementTiming), settlement_currencies: T.nilable(T::Hash[String, String])).void
+       }
+      def initialize(
+        debit_negative_balances: nil,
+        payouts: nil,
+        settlement_timing: nil,
+        settlement_currencies: nil
+      ); end
     end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }

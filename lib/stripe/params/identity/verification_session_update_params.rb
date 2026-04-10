@@ -56,13 +56,23 @@ module Stripe
       attr_accessor :provided_details
       # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
       attr_accessor :type
+      # Confirm and submit the provided details for verification.
+      attr_accessor :confirm
 
-      def initialize(expand: nil, metadata: nil, options: nil, provided_details: nil, type: nil)
+      def initialize(
+        expand: nil,
+        metadata: nil,
+        options: nil,
+        provided_details: nil,
+        type: nil,
+        confirm: nil
+      )
         @expand = expand
         @metadata = metadata
         @options = options
         @provided_details = provided_details
         @type = type
+        @confirm = confirm
       end
     end
   end

@@ -80,6 +80,8 @@ module Stripe
       attr_accessor :type
       # The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
       attr_accessor :verification_flow
+      # Confirm and submit the provided details for verification.
+      attr_accessor :confirm
 
       def initialize(
         client_reference_id: nil,
@@ -92,7 +94,8 @@ module Stripe
         related_person: nil,
         return_url: nil,
         type: nil,
-        verification_flow: nil
+        verification_flow: nil,
+        confirm: nil
       )
         @client_reference_id = client_reference_id
         @expand = expand
@@ -105,6 +108,7 @@ module Stripe
         @return_url = return_url
         @type = type
         @verification_flow = verification_flow
+        @confirm = confirm
       end
     end
   end

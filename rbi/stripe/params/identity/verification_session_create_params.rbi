@@ -150,8 +150,13 @@ module Stripe
       def verification_flow; end
       sig { params(_verification_flow: T.nilable(String)).returns(T.nilable(String)) }
       def verification_flow=(_verification_flow); end
+      # Confirm and submit the provided details for verification.
+      sig { returns(T.nilable(T::Boolean)) }
+      def confirm; end
+      sig { params(_confirm: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def confirm=(_confirm); end
       sig {
-        params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
+        params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String), confirm: T.nilable(T::Boolean)).void
        }
       def initialize(
         client_reference_id: nil,
@@ -164,7 +169,8 @@ module Stripe
         related_person: nil,
         return_url: nil,
         type: nil,
-        verification_flow: nil
+        verification_flow: nil,
+        confirm: nil
       ); end
     end
   end

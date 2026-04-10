@@ -104,15 +104,21 @@ module Stripe
       def type; end
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
+      # Confirm and submit the provided details for verification.
+      sig { returns(T.nilable(T::Boolean)) }
+      def confirm; end
+      sig { params(_confirm: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def confirm=(_confirm); end
       sig {
-        params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String)).void
+        params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String), confirm: T.nilable(T::Boolean)).void
        }
       def initialize(
         expand: nil,
         metadata: nil,
         options: nil,
         provided_details: nil,
-        type: nil
+        type: nil,
+        confirm: nil
       ); end
     end
   end

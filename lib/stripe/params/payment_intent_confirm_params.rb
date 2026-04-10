@@ -6205,8 +6205,6 @@ module Stripe
     #
     # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     attr_accessor :setup_future_usage
-    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
-    attr_accessor :shared_payment_granted_token
     # Shipping information for this PaymentIntent.
     attr_accessor :shipping
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
@@ -6235,7 +6233,6 @@ module Stripe
       receipt_email: nil,
       return_url: nil,
       setup_future_usage: nil,
-      shared_payment_granted_token: nil,
       shipping: nil,
       use_stripe_sdk: nil
     )
@@ -6261,7 +6258,6 @@ module Stripe
       @receipt_email = receipt_email
       @return_url = return_url
       @setup_future_usage = setup_future_usage
-      @shared_payment_granted_token = shared_payment_granted_token
       @shipping = shipping
       @use_stripe_sdk = use_stripe_sdk
     end

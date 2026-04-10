@@ -6282,8 +6282,6 @@ module Stripe
     #
     # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
     attr_accessor :setup_future_usage
-    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
-    attr_accessor :shared_payment_granted_token
     # Shipping information for this PaymentIntent.
     attr_accessor :shipping
     # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -6336,7 +6334,6 @@ module Stripe
       return_url: nil,
       secret_key_confirmation: nil,
       setup_future_usage: nil,
-      shared_payment_granted_token: nil,
       shipping: nil,
       statement_descriptor: nil,
       statement_descriptor_suffix: nil,
@@ -6379,7 +6376,6 @@ module Stripe
       @return_url = return_url
       @secret_key_confirmation = secret_key_confirmation
       @setup_future_usage = setup_future_usage
-      @shared_payment_granted_token = shared_payment_granted_token
       @shipping = shipping
       @statement_descriptor = statement_descriptor
       @statement_descriptor_suffix = statement_descriptor_suffix

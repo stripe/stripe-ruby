@@ -42,7 +42,7 @@ module Stripe
           class Bot < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -57,7 +57,7 @@ module Stripe
           class CardIssuerDecline < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -72,7 +72,7 @@ module Stripe
           class CardTesting < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -87,7 +87,7 @@ module Stripe
           class FraudulentDispute < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -102,7 +102,7 @@ module Stripe
           class StolenCard < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -113,15 +113,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Bot risk insight (score: Float, recommended_action).
+          # Bot risk insight.
           attr_reader :bot
-          # Card issuer decline risk insight (score: Float, recommended_action).
+          # Card issuer decline risk insight.
           attr_reader :card_issuer_decline
-          # Card testing risk insight (score: Float, recommended_action).
+          # Card testing risk insight.
           attr_reader :card_testing
-          # Fraudulent dispute risk insight (score: Integer, recommended_action).
+          # Fraudulent dispute risk insight.
           attr_reader :fraudulent_dispute
-          # Stolen card risk insight (score: Integer, recommended_action).
+          # Stolen card risk insight.
           attr_reader :stolen_card
 
           def self.inner_class_types

@@ -1611,7 +1611,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             sig { returns(Float) }
             def score; end
             def self.inner_class_types
@@ -1625,7 +1625,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             sig { returns(Float) }
             def score; end
             def self.inner_class_types
@@ -1639,7 +1639,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             sig { returns(Float) }
             def score; end
             def self.inner_class_types
@@ -1653,7 +1653,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             sig { returns(Integer) }
             def score; end
             def self.inner_class_types
@@ -1667,7 +1667,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             sig { returns(Integer) }
             def score; end
             def self.inner_class_types
@@ -1677,19 +1677,19 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Bot risk insight (score: Float, recommended_action).
+          # Bot risk insight.
           sig { returns(T.nilable(Bot)) }
           def bot; end
-          # Card issuer decline risk insight (score: Float, recommended_action).
+          # Card issuer decline risk insight.
           sig { returns(T.nilable(CardIssuerDecline)) }
           def card_issuer_decline; end
-          # Card testing risk insight (score: Float, recommended_action).
+          # Card testing risk insight.
           sig { returns(T.nilable(CardTesting)) }
           def card_testing; end
-          # Fraudulent dispute risk insight (score: Integer, recommended_action).
+          # Fraudulent dispute risk insight.
           sig { returns(T.nilable(FraudulentDispute)) }
           def fraudulent_dispute; end
-          # Stolen card risk insight (score: Integer, recommended_action).
+          # Stolen card risk insight.
           sig { returns(T.nilable(StolenCard)) }
           def stolen_card; end
           def self.inner_class_types

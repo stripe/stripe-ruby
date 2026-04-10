@@ -558,6 +558,8 @@ module Stripe
       attr_accessor :wechat_pay
       # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
       attr_accessor :zip
+      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+      attr_accessor :shared_payment_granted_token
 
       def initialize(
         acss_debit: nil,
@@ -622,7 +624,8 @@ module Stripe
         upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
-        zip: nil
+        zip: nil,
+        shared_payment_granted_token: nil
       )
         @acss_debit = acss_debit
         @affirm = affirm
@@ -687,6 +690,7 @@ module Stripe
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
         @zip = zip
+        @shared_payment_granted_token = shared_payment_granted_token
       end
     end
 

@@ -148,9 +148,6 @@ module Stripe
         # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
         sig { returns(String) }
         def network_business_profile; end
-        # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
-        sig { returns(T.nilable(String)) }
-        def network_id; end
         def self.inner_class_types
           @inner_class_types = {}
         end

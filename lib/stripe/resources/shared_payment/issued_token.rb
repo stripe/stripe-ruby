@@ -155,8 +155,6 @@ module Stripe
         attr_reader :external_id
         # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
         attr_reader :network_business_profile
-        # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
-        attr_reader :network_id
 
         def self.inner_class_types
           @inner_class_types = {}

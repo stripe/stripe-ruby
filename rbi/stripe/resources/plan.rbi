@@ -73,9 +73,6 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
-    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
-    sig { returns(T.nilable(String)) }
-    def external_reference; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end

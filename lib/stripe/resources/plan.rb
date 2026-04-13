@@ -75,6 +75,8 @@ module Stripe
     attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # Unique identifier for the object.
     attr_reader :id
     # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
@@ -103,8 +105,6 @@ module Stripe
     attr_reader :trial_period_days
     # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     attr_reader :usage_type
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     def self.create(params = {}, opts = {})

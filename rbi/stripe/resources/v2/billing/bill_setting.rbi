@@ -81,6 +81,9 @@ module Stripe
         # latest_version if settings are updated without setting live_version='latest'.
         sig { returns(String) }
         def live_version; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # A lookup key used to retrieve settings dynamically from a static string.
         # This may be up to 200 characters.
         sig { returns(T.nilable(String)) }
@@ -88,9 +91,6 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

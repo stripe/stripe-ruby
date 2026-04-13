@@ -149,26 +149,26 @@ module Stripe
               @time = time
             end
           end
+          # Specific configuration for determining billing dates when type=day.
+          attr_accessor :day
           # The number of intervals (specified in the interval attribute) between
           # cadence billings. For example, type=month and interval_count=3 bills every
           # 3 months. If this is not provided, it will default to 1.
           attr_accessor :interval_count
-          # The frequency at which a cadence bills.
-          attr_accessor :type
-          # Specific configuration for determining billing dates when type=day.
-          attr_accessor :day
           # Specific configuration for determining billing dates when type=month.
           attr_accessor :month
+          # The frequency at which a cadence bills.
+          attr_accessor :type
           # Specific configuration for determining billing dates when type=week.
           attr_accessor :week
           # Specific configuration for determining billing dates when type=year.
           attr_accessor :year
 
-          def initialize(interval_count: nil, type: nil, day: nil, month: nil, week: nil, year: nil)
-            @interval_count = interval_count
-            @type = type
+          def initialize(day: nil, interval_count: nil, month: nil, type: nil, week: nil, year: nil)
             @day = day
+            @interval_count = interval_count
             @month = month
+            @type = type
             @week = week
             @year = year
           end

@@ -1037,6 +1037,8 @@ module Stripe
     attr_reader :default_source
     # The tax rates applied to this invoice, if any.
     attr_reader :default_tax_rates
+    # Always true for a deleted object
+    attr_reader :deleted
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     attr_reader :description
     # The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
@@ -1129,8 +1131,6 @@ module Stripe
     attr_reader :total_taxes
     # Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://docs.stripe.com/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     attr_reader :webhooks_delivered_at
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
     def add_lines(params = {}, opts = {})

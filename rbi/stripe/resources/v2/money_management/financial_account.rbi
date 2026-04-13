@@ -100,6 +100,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Metadata associated with the FinancialAccount.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -122,9 +125,6 @@ module Stripe
         # It contains additional information specific to the FinancialAccount type.
         sig { returns(String) }
         def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

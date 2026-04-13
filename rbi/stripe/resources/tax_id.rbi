@@ -60,6 +60,9 @@ module Stripe
     # ID of the Account representing the customer.
     sig { returns(T.nilable(String)) }
     def customer_account; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
@@ -81,9 +84,6 @@ module Stripe
     # Tax ID verification information.
     sig { returns(T.nilable(Verification)) }
     def verification; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Creates a new account or customer tax_id object.
     sig {
       params(params: T.any(::Stripe::TaxIdCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxId)

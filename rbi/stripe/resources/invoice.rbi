@@ -1093,6 +1093,9 @@ module Stripe
     # The tax rates applied to this invoice, if any.
     sig { returns(T::Array[::Stripe::TaxRate]) }
     def default_tax_rates; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     sig { returns(T.nilable(String)) }
     def description; end
@@ -1231,9 +1234,6 @@ module Stripe
     # Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://docs.stripe.com/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     sig { returns(T.nilable(Integer)) }
     def webhooks_delivered_at; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
     sig {
       params(params: T.any(::Stripe::InvoiceAddLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)

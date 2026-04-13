@@ -104,6 +104,8 @@ module Stripe
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Metadata associated with the FinancialAccount.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -119,8 +121,6 @@ module Stripe
         # Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
         # It contains additional information specific to the FinancialAccount type.
         attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

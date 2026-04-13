@@ -26,10 +26,10 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The type of next action.
-          attr_reader :type
           # Confirmation of Payee details.
           attr_reader :confirmation_of_payee
+          # The type of next action.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = { confirmation_of_payee: ConfirmationOfPayee }
@@ -43,6 +43,8 @@ module Stripe
         attr_reader :created
         # ID of the outbound setup intent.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Specifies which actions needs to be taken next to continue setup of the credential.
         attr_reader :next_action
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -53,8 +55,6 @@ module Stripe
         attr_reader :status
         # The intended money movement flow this payout method should be set up for, specified in params.
         attr_reader :usage_intent
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { next_action: NextAction }

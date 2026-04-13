@@ -65,6 +65,8 @@ module Stripe
     attr_reader :cvc_check
     # Whether this card is the default external account for its currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
     attr_reader :default_for_currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
     attr_reader :description
     # (For tokenized numbers only.) The last four digits of the device account number.
@@ -101,8 +103,6 @@ module Stripe
     attr_reader :status
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
     attr_reader :tokenization_method
-    # Always true for a deleted object
-    attr_reader :deleted
 
     def resource_url
       if respond_to?(:customer) && !customer.nil? && !customer.empty?

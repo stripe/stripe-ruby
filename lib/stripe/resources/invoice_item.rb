@@ -136,6 +136,8 @@ module Stripe
     attr_reader :customer_account
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :date
+    # Always true for a deleted object
+    attr_reader :deleted
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
     # If true, discounts will apply to this invoice item. Always false for prorations.
@@ -174,8 +176,6 @@ module Stripe
     attr_reader :tax_rates
     # ID of the test clock this invoice item belongs to.
     attr_reader :test_clock
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     def self.create(params = {}, opts = {})

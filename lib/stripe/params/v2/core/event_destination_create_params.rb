@@ -44,6 +44,10 @@ module Stripe
             @url = url
           end
         end
+        # Amazon EventBridge configuration.
+        attr_accessor :amazon_eventbridge
+        # Azure Event Grid configuration.
+        attr_accessor :azure_event_grid
         # An optional description of what the event destination is used for.
         attr_accessor :description
         # The list of events to enable for this endpoint.
@@ -66,14 +70,12 @@ module Stripe
         attr_accessor :snapshot_api_version
         # Event destination type.
         attr_accessor :type
-        # Amazon EventBridge configuration.
-        attr_accessor :amazon_eventbridge
-        # Azure Event Grid configuration.
-        attr_accessor :azure_event_grid
         # Webhook endpoint configuration.
         attr_accessor :webhook_endpoint
 
         def initialize(
+          amazon_eventbridge: nil,
+          azure_event_grid: nil,
           description: nil,
           enabled_events: nil,
           event_payload: nil,
@@ -83,10 +85,10 @@ module Stripe
           name: nil,
           snapshot_api_version: nil,
           type: nil,
-          amazon_eventbridge: nil,
-          azure_event_grid: nil,
           webhook_endpoint: nil
         )
+          @amazon_eventbridge = amazon_eventbridge
+          @azure_event_grid = azure_event_grid
           @description = description
           @enabled_events = enabled_events
           @event_payload = event_payload
@@ -96,8 +98,6 @@ module Stripe
           @name = name
           @snapshot_api_version = snapshot_api_version
           @type = type
-          @amazon_eventbridge = amazon_eventbridge
-          @azure_event_grid = azure_event_grid
           @webhook_endpoint = webhook_endpoint
         end
       end

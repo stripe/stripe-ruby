@@ -7,69 +7,10 @@ module Stripe
     module MoneyManagement
       # Use ReceivedCredits API to retrieve information on when, where, and how funds are sent into your FinancialAccount.
       class ReceivedCredit < APIResource
-        class StatusDetails < ::Stripe::StripeObject
-          class Failed < ::Stripe::StripeObject
-            # Open Enum. The `failed` status reason.
-            sig { returns(String) }
-            def reason; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Returned < ::Stripe::StripeObject
-            # Open Enum. The `returned` status reason.
-            sig { returns(String) }
-            def reason; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
-          sig { returns(T.nilable(Failed)) }
-          def failed; end
-          # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
-          sig { returns(T.nilable(Returned)) }
-          def returned; end
-          def self.inner_class_types
-            @inner_class_types = {failed: Failed, returned: Returned}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class StatusTransitions < ::Stripe::StripeObject
-          # Timestamp describing when the ReceivedCredit was marked as `failed`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-          sig { returns(T.nilable(String)) }
-          def failed_at; end
-          # Timestamp describing when the ReceivedCredit changed status to `returned`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-          sig { returns(T.nilable(String)) }
-          def returned_at; end
-          # Timestamp describing when the ReceivedCredit was marked as `succeeded`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-          sig { returns(T.nilable(String)) }
-          def succeeded_at; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class BalanceTransfer < ::Stripe::StripeObject
           # The ID of the account that owns the source object originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def from_account; end
-          # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
-          sig { returns(String) }
-          def type; end
           # The ID of the outbound payment object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def outbound_payment; end
@@ -82,6 +23,9 @@ module Stripe
           # The ID of the v1 transfer object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def transfer; end
+          # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -162,18 +106,18 @@ module Stripe
           # Financial Address on which funds for ReceivedCredit were received.
           sig { returns(String) }
           def financial_address; end
-          # Open Enum. Indicates the origin of source from which external funds originated from.
-          sig { returns(String) }
-          def origin_type; end
-          # Freeform string set by originator of the external ReceivedCredit.
-          sig { returns(T.nilable(String)) }
-          def statement_descriptor; end
           # Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
+          # Open Enum. Indicates the origin of source from which external funds originated from.
+          sig { returns(String) }
+          def origin_type; end
           # Hash containing the transaction bank details. Present if `origin_type` field value is `sepa_bank_account`.
           sig { returns(T.nilable(SepaBankAccount)) }
           def sepa_bank_account; end
+          # Freeform string set by originator of the external ReceivedCredit.
+          sig { returns(T.nilable(String)) }
+          def statement_descriptor; end
           # Hash containing the transaction bank details. Present if `origin_type` field value is `us_bank_account`.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
@@ -188,9 +132,71 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
+            # Open Enum. The `failed` status reason.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Returned < ::Stripe::StripeObject
+            # Open Enum. The `returned` status reason.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
+          sig { returns(T.nilable(Failed)) }
+          def failed; end
+          # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
+          sig { returns(T.nilable(Returned)) }
+          def returned; end
+          def self.inner_class_types
+            @inner_class_types = {failed: Failed, returned: Returned}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StatusTransitions < ::Stripe::StripeObject
+          # Timestamp describing when the ReceivedCredit was marked as `failed`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          sig { returns(T.nilable(String)) }
+          def failed_at; end
+          # Timestamp describing when the ReceivedCredit changed status to `returned`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          sig { returns(T.nilable(String)) }
+          def returned_at; end
+          # Timestamp describing when the ReceivedCredit was marked as `succeeded`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          sig { returns(T.nilable(String)) }
+          def succeeded_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount and currency of the ReceivedCredit.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
+        # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
+        sig { returns(T.nilable(BalanceTransfer)) }
+        def balance_transfer; end
+        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
+        sig { returns(T.nilable(BankTransfer)) }
+        def bank_transfer; end
         # Time at which the ReceivedCredit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
@@ -204,6 +210,9 @@ module Stripe
         # Unique identifier for the ReceivedCredit.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -222,15 +231,6 @@ module Stripe
         # Open Enum. The type of flow that caused the ReceivedCredit.
         sig { returns(String) }
         def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
-        sig { returns(T.nilable(BalanceTransfer)) }
-        def balance_transfer; end
-        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
-        sig { returns(T.nilable(BankTransfer)) }
-        def bank_transfer; end
       end
     end
   end

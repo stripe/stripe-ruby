@@ -82,11 +82,6 @@ module Stripe
              }
             def initialize(currency: nil, exp_month: nil, exp_year: nil, number: nil); end
           end
-          # Closed Enum. The type of payout method to be created/updated.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
           # The type specific details of the bank account payout method.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::BankAccount))
@@ -105,10 +100,15 @@ module Stripe
             params(_card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::Card)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::Card))
            }
           def card=(_card); end
+          # Closed Enum. The type of payout method to be created/updated.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
-            params(type: String, bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::Card)).void
+            params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::Card), type: String).void
            }
-          def initialize(type: nil, bank_account: nil, card: nil); end
+          def initialize(bank_account: nil, card: nil, type: nil); end
         end
         # If provided, the existing payout method resource to link to this outbound setup intent.
         sig { returns(T.nilable(String)) }

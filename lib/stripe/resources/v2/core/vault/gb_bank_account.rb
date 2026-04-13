@@ -110,14 +110,14 @@ module Stripe
           attr_reader :id
           # The last 4 digits of the account number or IBAN.
           attr_reader :last4
+          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+          attr_reader :livemode
           # String representing the object's type. Objects of the same type share the same value of the object field.
           attr_reader :object
           # The Sort Code of the bank account.
           attr_reader :sort_code
           # The list of currencies supported by this bank account.
           attr_reader :supported_currencies
-          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-          attr_reader :livemode
 
           def self.inner_class_types
             @inner_class_types = {

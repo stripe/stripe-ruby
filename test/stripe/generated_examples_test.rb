@@ -9505,6 +9505,77 @@ module Stripe
       us_bank_account = client.v2.core.vault.us_bank_accounts.send_microdeposits("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/send_microdeposits"
     end
+    should "Test v2 core workflow get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflows?status[0]=draft").to_return(
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","description":"description","id":"obj_123","livemode":true,"object":"v2.core.workflow","status":"draft","triggers":[{"type":"event_trigger"}]}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      workflows = client.v2.core.workflows.list({ status: ["draft"] })
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflows?status[0]=draft"
+    end
+    should "Test v2 core workflow get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflows/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","id":"obj_123","livemode":true,"object":"v2.core.workflow","status":"draft","triggers":[{"type":"event_trigger"}]}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      workflow = client.v2.core.workflows.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflows/id_123"
+    end
+    should "Test v2 core workflow post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflows/id_123/invoke").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.workflow_run","status":"failed","status_transitions":{},"trigger":{"type":"event_trigger"},"workflow":"workflow","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      workflow_run = client.v2.core.workflows.invoke(
+        "id_123",
+        {
+          input_parameters: {
+            int_key: 123,
+            string_key: "value",
+            boolean_key: true,
+            object_key: {
+              object_int_key: 123,
+              object_string_key: "value",
+              object_boolean_key: true,
+            },
+            array_key: [1, 2, 3],
+          },
+        }
+      )
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflows/id_123/invoke"
+    end
+    should "Test v2 core workflow run get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/workflow_runs?status[0]=failed&workflow[0]=workflow"
+      ).to_return(
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.workflow_run","status":"failed","status_transitions":{},"trigger":{"type":"event_trigger"},"workflow":"workflow","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      workflow_runs = client.v2.core.workflow_runs.list({
+        status: ["failed"],
+        workflow: ["workflow"],
+      })
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflow_runs?status[0]=failed&workflow[0]=workflow"
+    end
+    should "Test v2 core workflow run get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflow_runs/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.workflow_run","status":"failed","status_transitions":{},"trigger":{"type":"event_trigger"},"workflow":"workflow","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      workflow_run = client.v2.core.workflow_runs.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/workflow_runs/id_123"
+    end
     should "Test v2 data reporting query run post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/data/reporting/query_runs").to_return(
         body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.data.reporting.query_run","status_details":{"key":{}},"sql":"sql","status":"failed","livemode":true}',

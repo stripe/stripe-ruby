@@ -253,6 +253,8 @@ module Stripe
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
+        V2::Core::Workflow.object_name => V2::Core::Workflow,
+        V2::Core::WorkflowRun.object_name => V2::Core::WorkflowRun,
         V2::Data::Reporting::QueryRun.object_name => V2::Data::Reporting::QueryRun,
         V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
         V2::FinancialAddressGeneratedMicrodeposits.object_name =>

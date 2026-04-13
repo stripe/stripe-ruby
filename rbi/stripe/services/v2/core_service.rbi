@@ -15,6 +15,8 @@ module Stripe
       attr_reader :events
       attr_reader :event_destinations
       attr_reader :vault
+      attr_reader :workflows
+      attr_reader :workflow_runs
     end
   end
 end

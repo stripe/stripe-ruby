@@ -1104,6 +1104,9 @@ module Stripe
     # Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
     sig { returns(T.nilable(String)) }
     def default_currency; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](/connect/onboarding) to finish submitting account details.
     sig { returns(T.nilable(T::Boolean)) }
     def details_submitted; end
@@ -1150,9 +1153,6 @@ module Stripe
     # The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
     sig { returns(T.nilable(String)) }
     def type; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #

@@ -6,6 +6,9 @@ module Stripe
   # A product_feature represents an attachment between a feature and a product.
   # When a product is purchased that has a feature attached, Stripe will create an entitlement to the feature for the purchasing customer.
   class ProductFeature < APIResource
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # A feature represents a monetizable ability or functionality in your system.
     # Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
     sig { returns(::Stripe::Entitlements::Feature) }
@@ -19,8 +22,5 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
   end
 end

@@ -638,6 +638,9 @@ module Stripe
       # Attribute for field cellular
       sig { returns(T.nilable(Cellular)) }
       def cellular; end
+      # Always true for a deleted object
+      sig { returns(T.nilable(T::Boolean)) }
+      def deleted; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
@@ -674,9 +677,6 @@ module Stripe
       # Attribute for field wifi
       sig { returns(T.nilable(Wifi)) }
       def wifi; end
-      # Always true for a deleted object
-      sig { returns(T.nilable(T::Boolean)) }
-      def deleted; end
       # Creates a new Configuration object.
       sig {
         params(params: T.any(::Stripe::Terminal::ConfigurationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)

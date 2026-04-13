@@ -1347,6 +1347,11 @@ module Stripe
       def cvc; end
       sig { params(_cvc: T.nilable(String)).returns(T.nilable(String)) }
       def cvc=(_cvc); end
+      # Attribute for param field default_for_currency
+      sig { returns(T.nilable(T::Boolean)) }
+      def default_for_currency; end
+      sig { params(_default_for_currency: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def default_for_currency=(_default_for_currency); end
       # Attribute for param field exp_month
       sig { returns(Integer) }
       def exp_month; end
@@ -1357,6 +1362,13 @@ module Stripe
       def exp_year; end
       sig { params(_exp_year: Integer).returns(Integer) }
       def exp_year=(_exp_year); end
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+       }
+      def metadata=(_metadata); end
       # Attribute for param field name
       sig { returns(T.nilable(String)) }
       def name; end
@@ -1367,20 +1379,8 @@ module Stripe
       def number; end
       sig { params(_number: String).returns(String) }
       def number=(_number); end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-      sig { returns(T.nilable(T::Hash[String, String])) }
-      def metadata; end
       sig {
-        params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-       }
-      def metadata=(_metadata); end
-      # Attribute for param field default_for_currency
-      sig { returns(T.nilable(T::Boolean)) }
-      def default_for_currency; end
-      sig { params(_default_for_currency: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def default_for_currency=(_default_for_currency); end
-      sig {
-        params(object: String, address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), currency: T.nilable(String), cvc: T.nilable(String), exp_month: Integer, exp_year: Integer, name: T.nilable(String), number: String, metadata: T.nilable(T::Hash[String, String]), default_for_currency: T.nilable(T::Boolean)).void
+        params(object: String, address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), currency: T.nilable(String), cvc: T.nilable(String), default_for_currency: T.nilable(T::Boolean), exp_month: Integer, exp_year: Integer, metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), number: String).void
        }
       def initialize(
         object: nil,
@@ -1392,12 +1392,12 @@ module Stripe
         address_zip: nil,
         currency: nil,
         cvc: nil,
+        default_for_currency: nil,
         exp_month: nil,
         exp_year: nil,
-        name: nil,
-        number: nil,
         metadata: nil,
-        default_for_currency: nil
+        name: nil,
+        number: nil
       ); end
     end
     class CardToken < ::Stripe::RequestParams

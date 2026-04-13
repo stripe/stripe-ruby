@@ -981,18 +981,18 @@ module Stripe
       attr_accessor :currency
       # Attribute for param field cvc
       attr_accessor :cvc
+      # Attribute for param field default_for_currency
+      attr_accessor :default_for_currency
       # Attribute for param field exp_month
       attr_accessor :exp_month
       # Attribute for param field exp_year
       attr_accessor :exp_year
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_accessor :metadata
       # Attribute for param field name
       attr_accessor :name
       # Attribute for param field number
       attr_accessor :number
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-      attr_accessor :metadata
-      # Attribute for param field default_for_currency
-      attr_accessor :default_for_currency
 
       def initialize(
         object: nil,
@@ -1004,12 +1004,12 @@ module Stripe
         address_zip: nil,
         currency: nil,
         cvc: nil,
+        default_for_currency: nil,
         exp_month: nil,
         exp_year: nil,
-        name: nil,
-        number: nil,
         metadata: nil,
-        default_for_currency: nil
+        name: nil,
+        number: nil
       )
         @object = object
         @address_city = address_city
@@ -1020,12 +1020,12 @@ module Stripe
         @address_zip = address_zip
         @currency = currency
         @cvc = cvc
+        @default_for_currency = default_for_currency
         @exp_month = exp_month
         @exp_year = exp_year
+        @metadata = metadata
         @name = name
         @number = number
-        @metadata = metadata
-        @default_for_currency = default_for_currency
       end
     end
 

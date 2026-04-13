@@ -25,6 +25,8 @@ module Stripe
             @url = url
           end
         end
+        # Amazon EventBridge configuration.
+        attr_accessor :amazon_eventbridge
         # An optional description of what the event destination is used for.
         attr_accessor :description
         # The list of events to enable for this endpoint.
@@ -47,12 +49,11 @@ module Stripe
         attr_accessor :snapshot_api_version
         # Event destination type.
         attr_accessor :type
-        # Amazon EventBridge configuration.
-        attr_accessor :amazon_eventbridge
         # Webhook endpoint configuration.
         attr_accessor :webhook_endpoint
 
         def initialize(
+          amazon_eventbridge: nil,
           description: nil,
           enabled_events: nil,
           event_payload: nil,
@@ -62,9 +63,9 @@ module Stripe
           name: nil,
           snapshot_api_version: nil,
           type: nil,
-          amazon_eventbridge: nil,
           webhook_endpoint: nil
         )
+          @amazon_eventbridge = amazon_eventbridge
           @description = description
           @enabled_events = enabled_events
           @event_payload = event_payload
@@ -74,7 +75,6 @@ module Stripe
           @name = name
           @snapshot_api_version = snapshot_api_version
           @type = type
-          @amazon_eventbridge = amazon_eventbridge
           @webhook_endpoint = webhook_endpoint
         end
       end

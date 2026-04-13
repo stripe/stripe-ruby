@@ -77,12 +77,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Open Enum. The type of Account Link the user is requesting.
-          attr_reader :type
           # Hash containing configuration options for an Account Link object that onboards a new account.
           attr_reader :account_onboarding
           # Hash containing configuration options for an Account Link that updates an existing account.
           attr_reader :account_update
+          # Open Enum. The type of Account Link the user is requesting.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {
@@ -101,14 +101,14 @@ module Stripe
         attr_reader :created
         # The timestamp at which this Account Link will expire.
         attr_reader :expires_at
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # The URL at which the account can access the Stripe-hosted flow.
         attr_reader :url
         # Hash containing usage options.
         attr_reader :use_case
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { use_case: UseCase }

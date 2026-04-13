@@ -26,6 +26,8 @@ module Stripe
     attr_reader :application
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+    # Always true for a deleted object
+    attr_reader :deleted
     # An optional description of what the webhook is used for.
     attr_reader :description
     # The list of events to enable for this endpoint. `['*']` indicates that all events are enabled, except those that require explicit selection.
@@ -44,8 +46,6 @@ module Stripe
     attr_reader :status
     # The URL of the webhook endpoint.
     attr_reader :url
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
     def self.create(params = {}, opts = {})

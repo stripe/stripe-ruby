@@ -986,7 +986,7 @@ module Stripe
     end
     should "Test core events get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/ll_123").to_return(
-        body: '{"changes":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]},"context":"context","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":{"type":"request","request":{"id":"obj_123","idempotency_key":"idempotency_key"}},"type":"type"}'
+        body: '{"object":"v2.core.event","changes":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]},"context":"context","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"reason":{"request":{"id":"obj_123","idempotency_key":"idempotency_key"},"type":"request"},"type":"type"}'
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
@@ -7515,7 +7515,7 @@ module Stripe
     end
     should "Test v2 billing meter event post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","object":"v2.billing.meter_event","payload":{"key":"payload"},"timestamp":"1970-01-01T15:18:46.294Z","livemode":true}',
+        body: '{"object":"v2.billing.meter_event","created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","livemode":true,"payload":{"key":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7531,7 +7531,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_adjustments"
       ).to_return(
-        body: '{"cancel":{"identifier":"identifier"},"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","id":"obj_123","object":"v2.billing.meter_event_adjustment","status":"complete","type":"cancel","livemode":true}',
+        body: '{"object":"v2.billing.meter_event_adjustment","cancel":{"identifier":"identifier"},"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","id":"obj_123","livemode":true,"status":"complete","type":"cancel"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7545,7 +7545,7 @@ module Stripe
     end
     should "Test v2 billing meter event session post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session").to_return(
-        body: '{"authentication_token":"authentication_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","object":"v2.billing.meter_event_session","livemode":true}',
+        body: '{"object":"v2.billing.meter_event_session","authentication_token":"authentication_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7574,7 +7574,7 @@ module Stripe
     end
     should "Test v2 core account get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
-        body: '{"data":[{"applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.account","applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7584,7 +7584,7 @@ module Stripe
     end
     should "Test v2 core account post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
-        body: '{"applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7594,7 +7594,7 @@ module Stripe
     end
     should "Test v2 core account get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
-        body: '{"applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7604,7 +7604,7 @@ module Stripe
     end
     should "Test v2 core account post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
-        body: '{"applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7614,7 +7614,7 @@ module Stripe
     end
     should "Test v2 core account post 3 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123/close").to_return(
-        body: '{"applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7627,7 +7627,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
       ).to_return(
-        body: '{"data":[{"account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account_person","updated":"1970-01-03T17:07:10.277Z","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.account_person","account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"updated":"1970-01-03T17:07:10.277Z"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7640,7 +7640,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
       ).to_return(
-        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account_person","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.account_person","account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7663,7 +7663,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
       ).to_return(
-        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account_person","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.account_person","account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7676,7 +7676,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
       ).to_return(
-        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.account_person","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.account_person","account":"account","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7689,7 +7689,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/person_tokens"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_person_token","used":true}',
+        body: '{"object":"v2.core.account_person_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"used":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7702,7 +7702,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/person_tokens/id_123"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_person_token","used":true}',
+        body: '{"object":"v2.core.account_person_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"used":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7715,7 +7715,7 @@ module Stripe
     end
     should "Test v2 core account link post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links").to_return(
-        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","object":"v2.core.account_link","url":"url","use_case":{"type":"account_onboarding"},"livemode":true}',
+        body: '{"object":"v2.core.account_link","account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","livemode":true,"url":"url","use_case":{"type":"account_onboarding"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7723,7 +7723,6 @@ module Stripe
       account_link = client.v2.core.account_links.create({
         account: "account",
         use_case: {
-          type: "account_onboarding",
           account_onboarding: {
             collection_options: {
               fields: "eventually_due",
@@ -7742,13 +7741,14 @@ module Stripe
             refresh_url: "refresh_url",
             return_url: "return_url",
           },
+          type: "account_onboarding",
         },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links"
     end
     should "Test v2 core account token post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_token","used":true}',
+        body: '{"object":"v2.core.account_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"used":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7758,7 +7758,7 @@ module Stripe
     end
     should "Test v2 core account token get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.core.account_token","used":true}',
+        body: '{"object":"v2.core.account_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"used":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7768,7 +7768,7 @@ module Stripe
     end
     should "Test v2 core event get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events").to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","type":"type"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.event","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"type"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7778,7 +7778,7 @@ module Stripe
     end
     should "Test v2 core event get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","type":"type"}',
+        body: '{"object":"v2.core.event","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"type"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7788,7 +7788,7 @@ module Stripe
     end
     should "Test v2 core event destination get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations").to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","name":"name","object":"v2.core.event_destination","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.event_destination","created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","livemode":true,"name":"name","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7798,7 +7798,7 @@ module Stripe
     end
     should "Test v2 core event destination post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","name":"name","object":"v2.core.event_destination","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.event_destination","created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","livemode":true,"name":"name","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7823,7 +7823,7 @@ module Stripe
     end
     should "Test v2 core event destination get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","name":"name","object":"v2.core.event_destination","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.event_destination","created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","livemode":true,"name":"name","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7836,7 +7836,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","name":"name","object":"v2.core.event_destination","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.event_destination","created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","livemode":true,"name":"name","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7849,7 +7849,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/disable"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","name":"name","object":"v2.core.event_destination","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.event_destination","created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","livemode":true,"name":"name","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7862,7 +7862,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/enable"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","name":"name","object":"v2.core.event_destination","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true}',
+        body: '{"object":"v2.core.event_destination","created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","id":"obj_123","livemode":true,"name":"name","status":"disabled","type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7875,7 +7875,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","type":"type"}',
+        body: '{"object":"v2.core.event","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"type"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

@@ -61,6 +61,8 @@ module Stripe
     attr_reader :customer
     # ID of the Account representing the customer.
     attr_reader :customer_account
+    # Always true for a deleted object
+    attr_reader :deleted
     # Unique identifier for the object.
     attr_reader :id
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -75,8 +77,6 @@ module Stripe
     attr_reader :value
     # Tax ID verification information.
     attr_reader :verification
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Creates a new account or customer tax_id object.
     def self.create(params = {}, opts = {})

@@ -62,6 +62,8 @@ module Stripe
     attr_reader :created
     # The ID of the [Price](https://docs.stripe.com/api/prices) object that is the default price for this product.
     attr_reader :default_price
+    # Always true for a deleted object
+    attr_reader :deleted
     # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
     attr_reader :description
     # Unique identifier for the object.
@@ -94,8 +96,6 @@ module Stripe
     attr_reader :updated
     # A URL of a publicly-accessible webpage for this product.
     attr_reader :url
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Creates a new product object.
     def self.create(params = {}, opts = {})

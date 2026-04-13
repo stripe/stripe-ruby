@@ -994,6 +994,8 @@ module Stripe
     attr_reader :created
     # Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
     attr_reader :default_currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](/connect/onboarding) to finish submitting account details.
     attr_reader :details_submitted
     # An email address associated with the account. It's not used for authentication and Stripe doesn't market to this field without explicit approval from the platform.
@@ -1026,8 +1028,6 @@ module Stripe
     attr_reader :tos_acceptance
     # The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
     attr_reader :type
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).

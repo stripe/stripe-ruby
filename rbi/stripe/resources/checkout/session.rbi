@@ -1260,6 +1260,25 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Boleto < ::Stripe::StripeObject
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
           sig { returns(Integer) }
@@ -2232,6 +2251,9 @@ module Stripe
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        # Attribute for field bizum
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
@@ -2277,6 +2299,7 @@ module Stripe
             twint: Twint,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            bizum: Bizum,
           }
         end
         def self.field_remappings

@@ -1129,6 +1129,16 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams; end
+          # Additional fields for mandate creation.
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
+
         class Boleto < ::Stripe::RequestParams
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
           attr_accessor :expires_after_days
@@ -2086,6 +2096,8 @@ module Stripe
         attr_accessor :us_bank_account
         # contains details about the WeChat Pay payment method options.
         attr_accessor :wechat_pay
+        # contains details about the Bizum payment method options.
+        attr_accessor :bizum
 
         def initialize(
           acss_debit: nil,
@@ -2134,7 +2146,8 @@ module Stripe
           twint: nil,
           upi: nil,
           us_bank_account: nil,
-          wechat_pay: nil
+          wechat_pay: nil,
+          bizum: nil
         )
           @acss_debit = acss_debit
           @affirm = affirm
@@ -2183,6 +2196,7 @@ module Stripe
           @upi = upi
           @us_bank_account = us_bank_account
           @wechat_pay = wechat_pay
+          @bizum = bizum
         end
       end
 

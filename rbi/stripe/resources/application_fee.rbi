@@ -8,6 +8,9 @@ module Stripe
       # Charge ID that created this application fee.
       sig { returns(T.nilable(String)) }
       def charge; end
+      # PaymentRecord ID that created this application fee.
+      sig { returns(T.nilable(String)) }
+      def payment_record; end
       # Payout ID that created this application fee.
       sig { returns(T.nilable(String)) }
       def payout; end
@@ -17,9 +20,6 @@ module Stripe
       # Type of object that created the application fee.
       sig { returns(String) }
       def type; end
-      # PaymentRecord ID that created this application fee.
-      sig { returns(T.nilable(String)) }
-      def payment_record; end
       def self.inner_class_types
         @inner_class_types = {}
       end

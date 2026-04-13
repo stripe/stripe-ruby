@@ -46,6 +46,8 @@ module Stripe
           @phone = phone
         end
       end
+      # Confirm and submit the provided details for verification.
+      attr_accessor :confirm
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -56,23 +58,21 @@ module Stripe
       attr_accessor :provided_details
       # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
       attr_accessor :type
-      # Confirm and submit the provided details for verification.
-      attr_accessor :confirm
 
       def initialize(
+        confirm: nil,
         expand: nil,
         metadata: nil,
         options: nil,
         provided_details: nil,
-        type: nil,
-        confirm: nil
+        type: nil
       )
+        @confirm = confirm
         @expand = expand
         @metadata = metadata
         @options = options
         @provided_details = provided_details
         @type = type
-        @confirm = confirm
       end
     end
   end

@@ -464,6 +464,9 @@ module Stripe
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Attribute for field dob
     sig { returns(T.nilable(Dob)) }
     def dob; end
@@ -548,8 +551,5 @@ module Stripe
     # Attribute for field verification
     sig { returns(T.nilable(Verification)) }
     def verification; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
   end
 end

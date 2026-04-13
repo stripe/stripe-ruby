@@ -2022,6 +2022,8 @@ module Stripe
         attr_accessor :bancontact
         # contains details about the Billie payment method options.
         attr_accessor :billie
+        # contains details about the Bizum payment method options.
+        attr_accessor :bizum
         # contains details about the Boleto payment method options.
         attr_accessor :boleto
         # contains details about the Card payment method options.
@@ -2096,8 +2098,6 @@ module Stripe
         attr_accessor :us_bank_account
         # contains details about the WeChat Pay payment method options.
         attr_accessor :wechat_pay
-        # contains details about the Bizum payment method options.
-        attr_accessor :bizum
 
         def initialize(
           acss_debit: nil,
@@ -2110,6 +2110,7 @@ module Stripe
           bacs_debit: nil,
           bancontact: nil,
           billie: nil,
+          bizum: nil,
           boleto: nil,
           card: nil,
           cashapp: nil,
@@ -2146,8 +2147,7 @@ module Stripe
           twint: nil,
           upi: nil,
           us_bank_account: nil,
-          wechat_pay: nil,
-          bizum: nil
+          wechat_pay: nil
         )
           @acss_debit = acss_debit
           @affirm = affirm
@@ -2159,6 +2159,7 @@ module Stripe
           @bacs_debit = bacs_debit
           @bancontact = bancontact
           @billie = billie
+          @bizum = bizum
           @boleto = boleto
           @card = card
           @cashapp = cashapp
@@ -2196,7 +2197,6 @@ module Stripe
           @upi = upi
           @us_bank_account = us_bank_account
           @wechat_pay = wechat_pay
-          @bizum = bizum
         end
       end
 
@@ -2600,6 +2600,8 @@ module Stripe
       #
       # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
       attr_accessor :approval_method
+      # Settings for automatic surcharge calculation for this session.
+      attr_accessor :automatic_surcharge
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       attr_accessor :automatic_tax
       # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
@@ -2768,8 +2770,6 @@ module Stripe
       attr_accessor :ui_mode
       # Wallet-specific configuration.
       attr_accessor :wallet_options
-      # Settings for automatic surcharge calculation for this session.
-      attr_accessor :automatic_surcharge
       # Attribute for param field checkout_items
       attr_accessor :checkout_items
 
@@ -2778,6 +2778,7 @@ module Stripe
         after_expiration: nil,
         allow_promotion_codes: nil,
         approval_method: nil,
+        automatic_surcharge: nil,
         automatic_tax: nil,
         billing_address_collection: nil,
         branding_settings: nil,
@@ -2826,13 +2827,13 @@ module Stripe
         tax_id_collection: nil,
         ui_mode: nil,
         wallet_options: nil,
-        automatic_surcharge: nil,
         checkout_items: nil
       )
         @adaptive_pricing = adaptive_pricing
         @after_expiration = after_expiration
         @allow_promotion_codes = allow_promotion_codes
         @approval_method = approval_method
+        @automatic_surcharge = automatic_surcharge
         @automatic_tax = automatic_tax
         @billing_address_collection = billing_address_collection
         @branding_settings = branding_settings
@@ -2881,7 +2882,6 @@ module Stripe
         @tax_id_collection = tax_id_collection
         @ui_mode = ui_mode
         @wallet_options = wallet_options
-        @automatic_surcharge = automatic_surcharge
         @checkout_items = checkout_items
       end
 

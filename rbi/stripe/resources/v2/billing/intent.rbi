@@ -35,29 +35,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusTransitions < ::Stripe::StripeObject
-          # Time at which the Billing Intent was canceled.
-          sig { returns(T.nilable(String)) }
-          def canceled_at; end
-          # Time at which the Billing Intent was committed.
-          sig { returns(T.nilable(String)) }
-          def committed_at; end
-          # Time at which the Billing Intent was drafted.
-          sig { returns(T.nilable(String)) }
-          def drafted_at; end
-          # Time at which the Billing Intent will expire.
-          sig { returns(String) }
-          def expires_at; end
-          # Time at which the Billing Intent was reserved.
-          sig { returns(T.nilable(String)) }
-          def reserved_at; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class CadenceData < ::Stripe::StripeObject
           class BillingCycle < ::Stripe::StripeObject
             class Day < ::Stripe::StripeObject
@@ -209,18 +186,18 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
-            sig { returns(Integer) }
-            def interval_count; end
-            # The frequency at which a cadence bills.
-            sig { returns(String) }
-            def type; end
             # Specific configuration for determining billing dates when type=day.
             sig { returns(T.nilable(Day)) }
             def day; end
+            # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
+            sig { returns(Integer) }
+            def interval_count; end
             # Specific configuration for determining billing dates when type=month.
             sig { returns(T.nilable(Month)) }
             def month; end
+            # The frequency at which a cadence bills.
+            sig { returns(String) }
+            def type; end
             # Specific configuration for determining billing dates when type=week.
             sig { returns(T.nilable(Week)) }
             def week; end
@@ -321,9 +298,38 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StatusTransitions < ::Stripe::StripeObject
+          # Time at which the Billing Intent was canceled.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
+          # Time at which the Billing Intent was committed.
+          sig { returns(T.nilable(String)) }
+          def committed_at; end
+          # Time at which the Billing Intent was drafted.
+          sig { returns(T.nilable(String)) }
+          def drafted_at; end
+          # Time at which the Billing Intent will expire.
+          sig { returns(String) }
+          def expires_at; end
+          # Time at which the Billing Intent was reserved.
+          sig { returns(T.nilable(String)) }
+          def reserved_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Breakdown of the amount for this Billing Intent.
         sig { returns(AmountDetails) }
         def amount_details; end
+        # ID of an existing Cadence to use.
+        sig { returns(T.nilable(String)) }
+        def cadence; end
+        # Data for creating a new Cadence.
+        sig { returns(T.nilable(CadenceData)) }
+        def cadence_data; end
         # Time at which the object was created.
         sig { returns(String) }
         def created; end
@@ -333,6 +339,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -342,15 +351,6 @@ module Stripe
         # Timestamps for status transitions of the Billing Intent.
         sig { returns(StatusTransitions) }
         def status_transitions; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # ID of an existing Cadence to use.
-        sig { returns(T.nilable(String)) }
-        def cadence; end
-        # Data for creating a new Cadence.
-        sig { returns(T.nilable(CadenceData)) }
-        def cadence_data; end
       end
     end
   end

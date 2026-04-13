@@ -22,12 +22,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The type of next action.
-          sig { returns(String) }
-          def type; end
           # Confirmation of Payee details.
           sig { returns(T.nilable(ConfirmationOfPayee)) }
           def confirmation_of_payee; end
+          # The type of next action.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {confirmation_of_payee: ConfirmationOfPayee}
           end
@@ -41,6 +41,9 @@ module Stripe
         # ID of the outbound setup intent.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Specifies which actions needs to be taken next to continue setup of the credential.
         sig { returns(T.nilable(NextAction)) }
         def next_action; end
@@ -56,9 +59,6 @@ module Stripe
         # The intended money movement flow this payout method should be set up for, specified in params.
         sig { returns(String) }
         def usage_intent; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

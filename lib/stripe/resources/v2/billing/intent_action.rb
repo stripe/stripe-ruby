@@ -83,10 +83,10 @@ module Stripe
             attr_reader :applies_to
             # The ID of the created discount rule. This is only present once the Billing Intent is committed and the discount rule is created.
             attr_reader :invoice_discount_rule
-            # Type of the discount rule.
-            attr_reader :type
             # Configuration for percentage off discount.
             attr_reader :percent_off
+            # Type of the discount rule.
+            attr_reader :type
 
             def self.inner_class_types
               @inner_class_types = { percent_off: PercentOff }
@@ -120,10 +120,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of the amount.
-                attr_reader :type
                 # The custom pricing unit amount.
                 attr_reader :custom_pricing_unit
+                # The type of the amount.
+                attr_reader :type
 
                 def self.inner_class_types
                   @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
@@ -166,10 +166,10 @@ module Stripe
             attr_reader :applies_to
             # The ID of the spend modifier.
             attr_reader :id
-            # Type of the spend modifier.
-            attr_reader :type
             # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
             attr_reader :max_billing_period_spend
+            # Type of the spend modifier.
+            attr_reader :type
 
             def self.inner_class_types
               @inner_class_types = { max_billing_period_spend: MaxBillingPeriodSpend }
@@ -179,21 +179,21 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the apply action will take effect. If not specified, defaults to on_reserve.
-          attr_reader :effective_at
-          # Type of the apply action details.
-          attr_reader :type
           # Details for applying a discount.
           attr_reader :discount
+          # When the apply action will take effect. If not specified, defaults to on_reserve.
+          attr_reader :effective_at
           # Details for applying a discount rule to future invoices.
           attr_reader :invoice_discount_rule
           # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
           attr_reader :spend_modifier_rule
+          # Type of the apply action details.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {
-              effective_at: EffectiveAt,
               discount: Discount,
+              effective_at: EffectiveAt,
               invoice_discount_rule: InvoiceDiscountRule,
               spend_modifier_rule: SpendModifierRule,
             }
@@ -259,10 +259,10 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of behavior to override.
-                attr_reader :type
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
+                # The type of behavior to override.
+                attr_reader :type
 
                 def self.inner_class_types
                   @inner_class_types = { license_fee: LicenseFee }
@@ -302,10 +302,10 @@ module Stripe
           attr_reader :collect_at
           # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
           attr_reader :effective_at
-          # Type of the action details.
-          attr_reader :type
           # Details for deactivating a Pricing Plan Subscription.
           attr_reader :pricing_plan_subscription_details
+          # Type of the action details.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {
@@ -338,12 +338,12 @@ module Stripe
 
           class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
             class ComponentConfiguration < ::Stripe::StripeObject
-              # Quantity of the component to be used.
-              attr_reader :quantity
               # Lookup key for the pricing plan component.
               attr_reader :lookup_key
               # ID of the pricing plan component.
               attr_reader :pricing_plan_component
+              # Quantity of the component to be used.
+              attr_reader :quantity
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -383,12 +383,12 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of behavior to override.
-                attr_reader :type
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
                 # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                 attr_reader :recurring_credit_grant
+                # The type of behavior to override.
+                attr_reader :type
 
                 def self.inner_class_types
                   @inner_class_types = {
@@ -438,10 +438,10 @@ module Stripe
           attr_reader :collect_at
           # When the modify action will take effect. If not specified, the default behavior is on_reserve.
           attr_reader :effective_at
-          # Type of the action details.
-          attr_reader :type
           # Details for modifying a Pricing Plan Subscription.
           attr_reader :pricing_plan_subscription_details
+          # Type of the action details.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {
@@ -470,12 +470,12 @@ module Stripe
           end
           # When the remove action will take effect. If not specified, defaults to on_reserve.
           attr_reader :effective_at
-          # Type of the remove action.
-          attr_reader :type
           # The ID of the discount rule to remove for future invoices.
           attr_reader :invoice_discount_rule
           # The ID of the spend modifier rule removed.
           attr_reader :spend_modifier_rule
+          # Type of the remove action.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = { effective_at: EffectiveAt }
@@ -504,12 +504,12 @@ module Stripe
 
           class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
             class ComponentConfiguration < ::Stripe::StripeObject
-              # Quantity of the component to be used.
-              attr_reader :quantity
               # Lookup key for the pricing plan component.
               attr_reader :lookup_key
               # ID of the pricing plan component.
               attr_reader :pricing_plan_component
+              # Quantity of the component to be used.
+              attr_reader :quantity
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -547,12 +547,12 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of behavior to override.
-                attr_reader :type
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 attr_reader :license_fee
                 # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                 attr_reader :recurring_credit_grant
+                # The type of behavior to override.
+                attr_reader :type
 
                 def self.inner_class_types
                   @inner_class_types = {
@@ -638,10 +638,10 @@ module Stripe
           attr_reader :collect_at
           # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
           attr_reader :effective_at
-          # Type of the action details.
-          attr_reader :type
           # Details for subscribing to a Pricing Plan.
           attr_reader :pricing_plan_subscription_details
+          # Type of the action details.
+          attr_reader :type
           # Details for subscribing to a V1 subscription.
           attr_reader :v1_subscription_details
 
@@ -657,26 +657,26 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Time at which the object was created.
-        attr_reader :created
-        # Unique identifier for the object.
-        attr_reader :id
-        # String representing the object's type. Objects of the same type share the same value of the object field.
-        attr_reader :object
-        # Type of the Billing Intent Action.
-        attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
         # Details for an apply action.
         attr_reader :apply
+        # Time at which the object was created.
+        attr_reader :created
         # Details for a deactivate action.
         attr_reader :deactivate
+        # Unique identifier for the object.
+        attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Details for a modify action.
         attr_reader :modify
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
         # Details for a remove action.
         attr_reader :remove
         # Details for a subscribe action.
         attr_reader :subscribe
+        # Type of the Billing Intent Action.
+        attr_reader :type
 
         def self.inner_class_types
           @inner_class_types = {

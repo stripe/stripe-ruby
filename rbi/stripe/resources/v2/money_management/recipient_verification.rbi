@@ -54,6 +54,9 @@ module Stripe
         # The ID of the RecipientVerification.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Closed Enum. Match level of the RecipientVerification: `match`, `close_match`, `no_match`, `unavailable`.
         sig { returns(String) }
         def match_result; end
@@ -69,9 +72,6 @@ module Stripe
         # Hash containing timestamps of when the object transitioned to a particular status.
         sig { returns(T.nilable(StatusTransitions)) }
         def status_transitions; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

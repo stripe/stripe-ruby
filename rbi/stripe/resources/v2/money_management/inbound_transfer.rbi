@@ -97,21 +97,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Creation time of the HistoryEntry in RFC 3339 format and UTC.
-          sig { returns(String) }
-          def created; end
-          # Effective at time of the HistoryEntry in RFC 3339 format and UTC.
-          sig { returns(String) }
-          def effective_at; end
-          # A unique ID for the HistoryEntry.
-          sig { returns(String) }
-          def id; end
-          # Open Enum. The Level of the HistoryEntry.
-          sig { returns(String) }
-          def level; end
-          # Open Enum. The type of the HistoryEntry.
-          sig { returns(String) }
-          def type; end
           # The history entry for a failed InboundTransfer.
           sig { returns(T.nilable(BankDebitFailed)) }
           def bank_debit_failed; end
@@ -127,6 +112,21 @@ module Stripe
           # The history entry for a succeeded InboundTransfer.
           sig { returns(T.nilable(BankDebitSucceeded)) }
           def bank_debit_succeeded; end
+          # Creation time of the HistoryEntry in RFC 3339 format and UTC.
+          sig { returns(String) }
+          def created; end
+          # Effective at time of the HistoryEntry in RFC 3339 format and UTC.
+          sig { returns(String) }
+          def effective_at; end
+          # A unique ID for the HistoryEntry.
+          sig { returns(String) }
+          def id; end
+          # Open Enum. The Level of the HistoryEntry.
+          sig { returns(String) }
+          def level; end
+          # Open Enum. The type of the HistoryEntry.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {
               bank_debit_failed: BankDebitFailed,
@@ -155,6 +155,9 @@ module Stripe
         # Unique identifier for the InboundTransfer.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -167,9 +170,6 @@ module Stripe
         # A list of history objects, representing changes in the state of the InboundTransfer.
         sig { returns(T::Array[TransferHistory]) }
         def transfer_history; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

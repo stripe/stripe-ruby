@@ -51,6 +51,8 @@ module Stripe
         attr_reader :id
         # List of ReceivedCredits that matched with the SettlementAllocationIntent.
         attr_reader :linked_credits
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Metadata associated with the SettlementAllocationIntent.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -61,8 +63,6 @@ module Stripe
         attr_reader :status
         # Status details for a SettlementAllocationIntent in `errored` state.
         attr_reader :status_details
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { status_details: StatusDetails }

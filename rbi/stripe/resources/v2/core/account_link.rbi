@@ -144,9 +144,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Open Enum. The type of Account Link the user is requesting.
-          sig { returns(String) }
-          def type; end
           # Hash containing configuration options for an Account Link object that onboards a new account.
           sig { returns(T.nilable(AccountOnboarding)) }
           def account_onboarding; end
@@ -159,6 +156,9 @@ module Stripe
           # Hash containing configuration options for an Account Link that updates an existing recipient.
           sig { returns(T.nilable(RecipientUpdate)) }
           def recipient_update; end
+          # Open Enum. The type of Account Link the user is requesting.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {
               account_onboarding: AccountOnboarding,
@@ -180,6 +180,9 @@ module Stripe
         # The timestamp at which this Account Link will expire.
         sig { returns(String) }
         def expires_at; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -189,9 +192,6 @@ module Stripe
         # Hash containing usage options.
         sig { returns(UseCase) }
         def use_case; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

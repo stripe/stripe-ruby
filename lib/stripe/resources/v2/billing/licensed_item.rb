@@ -31,6 +31,8 @@ module Stripe
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # An internal key you can use to search for a particular licensed item.
         # Maximum length of 200 characters.
         attr_reader :lookup_key
@@ -44,8 +46,6 @@ module Stripe
         # to "seat" for Checkout to display "(price) per seat", or "environment" to display "(price) per environment".
         # Maximum length of 100 characters.
         attr_reader :unit_label
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { tax_details: TaxDetails }

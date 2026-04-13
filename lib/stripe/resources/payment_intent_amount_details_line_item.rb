@@ -136,14 +136,14 @@ module Stripe
     attr_reader :product_name
     # The quantity of items. Required for L3 rates. An integer greater than 0.
     attr_reader :quantity
+    # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    attr_reader :quantity_precision
     # Contains information about the tax on the item.
     attr_reader :tax
     # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     attr_reader :unit_cost
     # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     attr_reader :unit_of_measure
-    # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
-    attr_reader :quantity_precision
 
     def self.inner_class_types
       @inner_class_types = { payment_method_options: PaymentMethodOptions, tax: Tax }

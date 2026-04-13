@@ -29,6 +29,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # An internal key you can use to search for a particular one-time item.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
@@ -47,9 +50,6 @@ module Stripe
         # Maximum length of 100 characters.
         sig { returns(T.nilable(String)) }
         def unit_label; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

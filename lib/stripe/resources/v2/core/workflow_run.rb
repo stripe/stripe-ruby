@@ -114,12 +114,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Which type of trigger this is.
-          attr_reader :type
           # The Workflow Run was launched when Stripe emitted a certain event.
           attr_reader :event_trigger
           # The Workflow Run was launched through a direct call, using either the Dashboard or the Stripe API.
           attr_reader :manual
+          # Which type of trigger this is.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = { event_trigger: EventTrigger, manual: Manual }
@@ -133,6 +133,8 @@ module Stripe
         attr_reader :created
         # The unique ID of the Workflow Run.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # The current Workflow Run execution status.
@@ -145,8 +147,6 @@ module Stripe
         attr_reader :trigger
         # The Workflow this Run belongs to.
         attr_reader :workflow
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

@@ -60,6 +60,8 @@ module Stripe
       end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       attr_accessor :client_reference_id
+      # Confirm and submit the provided details for verification.
+      attr_accessor :confirm
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -80,11 +82,10 @@ module Stripe
       attr_accessor :type
       # The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
       attr_accessor :verification_flow
-      # Confirm and submit the provided details for verification.
-      attr_accessor :confirm
 
       def initialize(
         client_reference_id: nil,
+        confirm: nil,
         expand: nil,
         metadata: nil,
         options: nil,
@@ -94,10 +95,10 @@ module Stripe
         related_person: nil,
         return_url: nil,
         type: nil,
-        verification_flow: nil,
-        confirm: nil
+        verification_flow: nil
       )
         @client_reference_id = client_reference_id
+        @confirm = confirm
         @expand = expand
         @metadata = metadata
         @options = options
@@ -108,7 +109,6 @@ module Stripe
         @return_url = return_url
         @type = type
         @verification_flow = verification_flow
-        @confirm = confirm
       end
     end
   end

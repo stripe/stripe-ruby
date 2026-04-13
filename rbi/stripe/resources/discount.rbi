@@ -45,6 +45,9 @@ module Stripe
     # The ID of the account representing the customer associated with this discount.
     sig { returns(T.nilable(String)) }
     def customer_account; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     sig { returns(T.nilable(Integer)) }
     def end; end
@@ -81,8 +84,5 @@ module Stripe
     # The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     sig { returns(T.nilable(String)) }
     def subscription_item; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
   end
 end

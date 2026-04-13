@@ -82,15 +82,15 @@ module Stripe
           end
           # Billing information associated with the payment method.
           attr_accessor :billing_details
-          # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
-          attr_accessor :type
           # Contains card details that can be used to create a card PaymentMethod for PCI compliant users.
           attr_accessor :card
+          # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+          attr_accessor :type
 
-          def initialize(billing_details: nil, type: nil, card: nil)
+          def initialize(billing_details: nil, card: nil, type: nil)
             @billing_details = billing_details
-            @type = type
             @card = card
+            @type = type
           end
         end
 

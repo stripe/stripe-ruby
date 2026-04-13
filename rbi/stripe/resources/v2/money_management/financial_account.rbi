@@ -220,6 +220,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # If this is a managed FinancialAccount, `managed_by` indicates the product that created and manages this FinancialAccount. For managed FinancialAccounts,
         # creation of money management resources can only be orchestrated by the managing product.
         sig { returns(T.nilable(ManagedBy)) }
@@ -249,9 +252,6 @@ module Stripe
         # It contains additional information specific to the FinancialAccount type.
         sig { returns(String) }
         def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

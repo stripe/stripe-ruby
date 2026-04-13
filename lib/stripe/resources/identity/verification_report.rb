@@ -191,17 +191,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Additional email verification details
+        attr_reader :details
         # Email to be verified.
         attr_reader :email
         # Details on the verification error. Present when status is `unverified`.
         attr_reader :error
         # Status of this `email` check.
         attr_reader :status
-        # Additional email verification details
-        attr_reader :details
 
         def self.inner_class_types
-          @inner_class_types = { error: Error, details: Details }
+          @inner_class_types = { details: Details, error: Error }
         end
 
         def self.field_remappings

@@ -11,57 +11,11 @@ module Stripe
           "v2.money_management.received_debit"
         end
 
-        class StatusDetails < ::Stripe::StripeObject
-          class Failed < ::Stripe::StripeObject
-            # Open Enum. The reason for the failure of the ReceivedDebit.
-            attr_reader :reason
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Information that elaborates on the `failed` status of a ReceivedDebit.
-          # It is only present when the ReceivedDebit status is `failed`.
-          attr_reader :failed
-
-          def self.inner_class_types
-            @inner_class_types = { failed: Failed }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
-        class StatusTransitions < ::Stripe::StripeObject
-          # The time when the ReceivedDebit was marked as `canceled`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
-          attr_reader :canceled_at
-          # The time when the ReceivedDebit was marked as `failed`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
-          attr_reader :failed_at
-          # The time when the ReceivedDebit was marked as `succeeded`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
-          attr_reader :succeeded_at
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class BalanceTransfer < ::Stripe::StripeObject
-          # Open Enum. The type of balance transfer that originated the ReceivedDebit.
-          attr_reader :type
           # The ID of the topup object that originated the ReceivedDebit.
           attr_reader :topup
+          # Open Enum. The type of balance transfer that originated the ReceivedDebit.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -155,6 +109,52 @@ module Stripe
           end
         end
 
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
+            # Open Enum. The reason for the failure of the ReceivedDebit.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Information that elaborates on the `failed` status of a ReceivedDebit.
+          # It is only present when the ReceivedDebit status is `failed`.
+          attr_reader :failed
+
+          def self.inner_class_types
+            @inner_class_types = { failed: Failed }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StatusTransitions < ::Stripe::StripeObject
+          # The time when the ReceivedDebit was marked as `canceled`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          attr_reader :canceled_at
+          # The time when the ReceivedDebit was marked as `failed`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          attr_reader :failed_at
+          # The time when the ReceivedDebit was marked as `succeeded`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          attr_reader :succeeded_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StripeBalancePayment < ::Stripe::StripeObject
           # ID of the debit agreement associated with this payment.
           attr_reader :debit_agreement
@@ -171,6 +171,12 @@ module Stripe
         end
         # Amount and currency of the ReceivedDebit.
         attr_reader :amount
+        # This object stores details about the balance transfer object that resulted in the ReceivedDebit.
+        attr_reader :balance_transfer
+        # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
+        attr_reader :bank_transfer
+        # This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
+        attr_reader :card_spend
         # The time at which the ReceivedDebit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
         attr_reader :created
@@ -182,6 +188,8 @@ module Stripe
         attr_reader :financial_account
         # Unique identifier for the ReceivedDebit.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # A link to the Stripe-hosted receipt for this ReceivedDebit.
@@ -192,26 +200,18 @@ module Stripe
         attr_reader :status_details
         # The time at which the ReceivedDebit transitioned to a particular status.
         attr_reader :status_transitions
-        # Open Enum. The type of the ReceivedDebit.
-        attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
-        # This object stores details about the balance transfer object that resulted in the ReceivedDebit.
-        attr_reader :balance_transfer
-        # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
-        attr_reader :bank_transfer
-        # This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
-        attr_reader :card_spend
         # This object stores details about the Stripe Balance Payment that resulted in the ReceivedDebit.
         attr_reader :stripe_balance_payment
+        # Open Enum. The type of the ReceivedDebit.
+        attr_reader :type
 
         def self.inner_class_types
           @inner_class_types = {
-            status_details: StatusDetails,
-            status_transitions: StatusTransitions,
             balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
             card_spend: CardSpend,
+            status_details: StatusDetails,
+            status_transitions: StatusTransitions,
             stripe_balance_payment: StripeBalancePayment,
           }
         end

@@ -404,6 +404,8 @@ module Stripe
         attr_reader :created
         # Unique identifier for the `batch_job`.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # The maximum requests per second defined for the `batch_job`.
         attr_reader :maximum_rps
         # The metadata of the `batch_job`.
@@ -416,8 +418,6 @@ module Stripe
         attr_reader :status
         # Additional details about the current state of the `batch_job`.
         attr_reader :status_details
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         ENDPOINT_PATH_V1_ACCOUNT_UPDATE = "/v1/accounts/:account"
         ENDPOINT_PATH_V1_CREDIT_NOTE_CREATE = "/v1/credit_notes"

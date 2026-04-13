@@ -2866,20 +2866,20 @@ module Stripe
       attr_reader :customer_reference
       # Attribute for field event_details
       attr_reader :event_details
+      # Fleet data for this PaymentIntent.
+      attr_reader :fleet_data
       # Attribute for field flight_data
       attr_reader :flight_data
       # Attribute for field lodging_data
       attr_reader :lodging_data
+      # Attribute for field money_services
+      attr_reader :money_services
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_reader :order_reference
       # Attribute for field subscription
       attr_reader :subscription
-      # Fleet data for this PaymentIntent.
-      attr_reader :fleet_data
-      # Attribute for field money_services
-      attr_reader :money_services
 
       def self.inner_class_types
         @inner_class_types = {
@@ -2887,11 +2887,11 @@ module Stripe
           car_rental: CarRental,
           car_rental_data: CarRentalDatum,
           event_details: EventDetails,
+          fleet_data: FleetDatum,
           flight_data: FlightDatum,
           lodging_data: LodgingDatum,
-          subscription: Subscription,
-          fleet_data: FleetDatum,
           money_services: MoneyServices,
+          subscription: Subscription,
         }
       end
 

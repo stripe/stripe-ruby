@@ -52,6 +52,9 @@ module Stripe
     # The ID of the [Price](https://docs.stripe.com/api/prices) object that is the default price for this product.
     sig { returns(T.nilable(T.any(String, ::Stripe::Price))) }
     def default_price; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
     sig { returns(T.nilable(String)) }
     def description; end
@@ -100,9 +103,6 @@ module Stripe
     # A URL of a publicly-accessible webpage for this product.
     sig { returns(T.nilable(String)) }
     def url; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Creates a new product object.
     sig {
       params(params: T.any(::Stripe::ProductCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Product)

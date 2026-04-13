@@ -22,9 +22,6 @@ module Stripe
           end
         end
         class Product < ::Stripe::StripeObject
-          # The type of the product.
-          sig { returns(String) }
-          def type; end
           # The licensed item identifier.
           sig { returns(T.nilable(String)) }
           def licensed_item; end
@@ -34,6 +31,9 @@ module Stripe
           # The tax code for the product.
           sig { returns(T.nilable(String)) }
           def tax_code; end
+          # The type of the product.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -98,6 +98,9 @@ module Stripe
         # The ID of the ManualRule object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Location where the rule applies.
         sig { returns(T.nilable(Location)) }
         def location; end
@@ -113,9 +116,6 @@ module Stripe
         # The status of the ManualRule object.
         sig { returns(String) }
         def status; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

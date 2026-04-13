@@ -542,6 +542,15 @@ module Stripe
           params(_bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
          }
         def bancontact=(_bancontact); end
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)))
+         }
+        def bizum; end
+        sig {
+          params(_bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)))
+         }
+        def bizum=(_bizum); end
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
@@ -551,6 +560,15 @@ module Stripe
           params(_card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
          }
         def card=(_card); end
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)))
+         }
+        def check_scan; end
+        sig {
+          params(_check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)))
+         }
+        def check_scan=(_check_scan); end
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
@@ -623,31 +641,15 @@ module Stripe
           params(_us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account=(_us_bank_account); end
-        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)))
-         }
-        def bizum; end
-        sig {
-          params(_bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)))
-         }
-        def bizum=(_bizum); end
-        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
-        sig {
-          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)))
-         }
-        def check_scan; end
-        sig {
-          params(_check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)))
-         }
-        def check_scan=(_check_scan); end
-        sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          bizum: nil,
           card: nil,
+          check_scan: nil,
           customer_balance: nil,
           id_bank_transfer: nil,
           konbini: nil,
@@ -655,9 +657,7 @@ module Stripe
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil,
-          bizum: nil,
-          check_scan: nil
+          us_bank_account: nil
         ); end
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.

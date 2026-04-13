@@ -73,6 +73,9 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
@@ -115,9 +118,6 @@ module Stripe
     # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     sig { returns(String) }
     def usage_type; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     sig {
       params(params: T.any(::Stripe::PlanCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)

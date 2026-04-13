@@ -53,6 +53,9 @@ module Stripe
         # List of ReceivedCredits that matched with the SettlementAllocationIntent.
         sig { returns(T::Array[String]) }
         def linked_credits; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Metadata associated with the SettlementAllocationIntent.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -68,9 +71,6 @@ module Stripe
         # Status details for a SettlementAllocationIntent in `errored` state.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

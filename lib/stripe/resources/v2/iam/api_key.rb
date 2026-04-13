@@ -24,10 +24,10 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The type of entity.
-          attr_reader :type
           # An application.
           attr_reader :application
+          # The type of entity.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = { application: Application }
@@ -93,6 +93,8 @@ module Stripe
         attr_reader :ip_allowlist
         # Timestamp when the API key was last used.
         attr_reader :last_used
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Account that manages this API key (for keys managed by platforms).
         attr_reader :managed_by
         # Name of the API key.
@@ -101,16 +103,14 @@ module Stripe
         attr_reader :note
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Current status of the API key (e.g., active, expired).
-        attr_reader :status
-        # Type of the API key.
-        attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
         # Token set for a publishable key.
         attr_reader :publishable_key
         # Token set for a secret key.
         attr_reader :secret_key
+        # Current status of the API key (e.g., active, expired).
+        attr_reader :status
+        # Type of the API key.
+        attr_reader :type
 
         def self.inner_class_types
           @inner_class_types = {

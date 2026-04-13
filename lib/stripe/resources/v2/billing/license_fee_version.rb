@@ -62,6 +62,8 @@ module Stripe
         attr_reader :id
         # The ID of the parent License Fee.
         attr_reader :license_fee_id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum
@@ -75,8 +77,6 @@ module Stripe
         # The per-unit amount to be charged, represented as a decimal string in minor currency units with at most 12 decimal
         # places. Cannot be set if `tiers` is provided.
         attr_reader :unit_amount
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { tiers: Tier, transform_quantity: TransformQuantity }

@@ -63,14 +63,14 @@ module Stripe
       end
       # A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
       attr_reader :debit_negative_balances
-      # Settings specific to the account's payouts.
-      attr_reader :payouts
-      # Attribute for field settlement_timing
-      attr_reader :settlement_timing
       # The default settlement currency for the account.
       attr_reader :default_settlement_currency
+      # Settings specific to the account's payouts.
+      attr_reader :payouts
       # A hash of settlement currencies and their states. Each key is an ISO 4217 currency code, and the value is one of `enabled`, `disabled`, or `restricted_by_application`.
       attr_reader :settlement_currencies
+      # Attribute for field settlement_timing
+      attr_reader :settlement_timing
 
       def self.inner_class_types
         @inner_class_types = { payouts: Payouts, settlement_timing: SettlementTiming }

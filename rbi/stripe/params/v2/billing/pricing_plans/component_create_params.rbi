@@ -44,6 +44,15 @@ module Stripe
             sig { params(id: String).void }
             def initialize(id: nil); end
           end
+          # Details if this component is a License Fee.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee))
+           }
+          def license_fee; end
+          sig {
+            params(_license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee))
+           }
+          def license_fee=(_license_fee); end
           # An identifier that can be used to find this component.
           sig { returns(T.nilable(String)) }
           def lookup_key; end
@@ -56,20 +65,6 @@ module Stripe
             params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
            }
           def metadata=(_metadata); end
-          # The type of the PricingPlanComponent.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
-          # Details if this component is a License Fee.
-          sig {
-            returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee))
-           }
-          def license_fee; end
-          sig {
-            params(_license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee))
-           }
-          def license_fee=(_license_fee); end
           # Details if this component is a Rate Card.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::RateCard))
@@ -88,16 +83,21 @@ module Stripe
             params(_service_action: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction))
            }
           def service_action=(_service_action); end
+          # The type of the PricingPlanComponent.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
-            params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), type: String, license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee), rate_card: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::RateCard), service_action: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction)).void
+            params(license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::LicenseFee), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), rate_card: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::RateCard), service_action: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentCreateParams::ServiceAction), type: String).void
            }
           def initialize(
+            license_fee: nil,
             lookup_key: nil,
             metadata: nil,
-            type: nil,
-            license_fee: nil,
             rate_card: nil,
-            service_action: nil
+            service_action: nil,
+            type: nil
           ); end
         end
       end

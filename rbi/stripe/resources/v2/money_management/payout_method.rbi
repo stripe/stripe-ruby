@@ -21,20 +21,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsageStatus < ::Stripe::StripeObject
-          # Payments status - used when sending OutboundPayments (sending funds to recipients).
-          sig { returns(String) }
-          def payments; end
-          # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
-          sig { returns(String) }
-          def transfers; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class BankAccount < ::Stripe::StripeObject
           # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
@@ -129,21 +115,47 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class UsageStatus < ::Stripe::StripeObject
+          # Payments status - used when sending OutboundPayments (sending funds to recipients).
+          sig { returns(String) }
+          def payments; end
+          # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
+          sig { returns(String) }
+          def transfers; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The alternative reference for this payout method, if it's a projected payout method.
         sig { returns(T.nilable(AlternativeReference)) }
         def alternative_reference; end
         # A set of available payout speeds for this payout method.
         sig { returns(T::Array[String]) }
         def available_payout_speeds; end
+        # The PayoutMethodBankAccount object details.
+        sig { returns(T.nilable(BankAccount)) }
+        def bank_account; end
+        # The PayoutMethodCard object details.
+        sig { returns(T.nilable(Card)) }
+        def card; end
         # Created timestamp.
         sig { returns(String) }
         def created; end
+        # The PayoutMethodCryptoWallet object details.
+        sig { returns(T.nilable(CryptoWallet)) }
+        def crypto_wallet; end
         # ID of the PayoutMethod object.
         sig { returns(String) }
         def id; end
         # ID of the underlying active OutboundSetupIntent object, if any.
         sig { returns(T.nilable(String)) }
         def latest_outbound_setup_intent; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -157,18 +169,6 @@ module Stripe
         # Indicates whether the payout method has met the necessary requirements for outbound money movement.
         sig { returns(UsageStatus) }
         def usage_status; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # The PayoutMethodBankAccount object details.
-        sig { returns(T.nilable(BankAccount)) }
-        def bank_account; end
-        # The PayoutMethodCard object details.
-        sig { returns(T.nilable(Card)) }
-        def card; end
-        # The PayoutMethodCryptoWallet object details.
-        sig { returns(T.nilable(CryptoWallet)) }
-        def crypto_wallet; end
       end
     end
   end

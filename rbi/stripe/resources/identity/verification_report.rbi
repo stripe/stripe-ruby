@@ -201,6 +201,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Additional email verification details
+        sig { returns(T.nilable(Details)) }
+        def details; end
         # Email to be verified.
         sig { returns(T.nilable(String)) }
         def email; end
@@ -210,11 +213,8 @@ module Stripe
         # Status of this `email` check.
         sig { returns(String) }
         def status; end
-        # Additional email verification details
-        sig { returns(T.nilable(Details)) }
-        def details; end
         def self.inner_class_types
-          @inner_class_types = {error: Error, details: Details}
+          @inner_class_types = {details: Details, error: Error}
         end
         def self.field_remappings
           @field_remappings = {}

@@ -42,6 +42,8 @@ module Stripe
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Always true for a deleted object
+      attr_reader :deleted
       # Time at which this clock is scheduled to auto delete.
       attr_reader :deletes_after
       # Time at which all objects belonging to this clock are frozen.
@@ -58,8 +60,6 @@ module Stripe
       attr_reader :status
       # Attribute for field status_details
       attr_reader :status_details
-      # Always true for a deleted object
-      attr_reader :deleted
 
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       def advance(params = {}, opts = {})

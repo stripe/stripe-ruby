@@ -736,6 +736,8 @@ module Stripe
     attr_accessor :application_fee_amount
     # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
     attr_accessor :application_fee_percent
+    # Configuration for automatic surcharge calculation.
+    attr_accessor :automatic_surcharge
     # Configuration for automatic tax collection.
     attr_accessor :automatic_tax
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
@@ -798,14 +800,13 @@ module Stripe
     attr_accessor :tax_id_collection
     # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
     attr_accessor :transfer_data
-    # Configuration for automatic surcharge calculation.
-    attr_accessor :automatic_surcharge
 
     def initialize(
       after_completion: nil,
       allow_promotion_codes: nil,
       application_fee_amount: nil,
       application_fee_percent: nil,
+      automatic_surcharge: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
       consent_collection: nil,
@@ -832,13 +833,13 @@ module Stripe
       submit_type: nil,
       subscription_data: nil,
       tax_id_collection: nil,
-      transfer_data: nil,
-      automatic_surcharge: nil
+      transfer_data: nil
     )
       @after_completion = after_completion
       @allow_promotion_codes = allow_promotion_codes
       @application_fee_amount = application_fee_amount
       @application_fee_percent = application_fee_percent
+      @automatic_surcharge = automatic_surcharge
       @automatic_tax = automatic_tax
       @billing_address_collection = billing_address_collection
       @consent_collection = consent_collection
@@ -866,7 +867,6 @@ module Stripe
       @subscription_data = subscription_data
       @tax_id_collection = tax_id_collection
       @transfer_data = transfer_data
-      @automatic_surcharge = automatic_surcharge
     end
 
     def self.field_encodings

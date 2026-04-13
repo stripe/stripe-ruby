@@ -38,33 +38,33 @@ module Stripe
               @id = id
             end
           end
+          # Details if this component is a License Fee.
+          attr_accessor :license_fee
           # An identifier that can be used to find this component.
           attr_accessor :lookup_key
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
-          # The type of the PricingPlanComponent.
-          attr_accessor :type
-          # Details if this component is a License Fee.
-          attr_accessor :license_fee
           # Details if this component is a Rate Card.
           attr_accessor :rate_card
           # Details if this component is a Service Action.
           attr_accessor :service_action
+          # The type of the PricingPlanComponent.
+          attr_accessor :type
 
           def initialize(
+            license_fee: nil,
             lookup_key: nil,
             metadata: nil,
-            type: nil,
-            license_fee: nil,
             rate_card: nil,
-            service_action: nil
+            service_action: nil,
+            type: nil
           )
+            @license_fee = license_fee
             @lookup_key = lookup_key
             @metadata = metadata
-            @type = type
-            @license_fee = license_fee
             @rate_card = rate_card
             @service_action = service_action
+            @type = type
           end
         end
       end

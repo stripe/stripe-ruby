@@ -630,8 +630,12 @@ module Stripe
         attr_reader :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         attr_reader :bancontact
+        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
+        attr_reader :bizum
         # This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
         attr_reader :card
+        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+        attr_reader :check_scan
         # This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
         attr_reader :customer_balance
         # This sub-hash contains details about the Indonesia bank transfer payment method options to pass to invoices created by the subscription.
@@ -648,16 +652,14 @@ module Stripe
         attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
-        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
-        attr_reader :bizum
-        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
-        attr_reader :check_scan
 
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
             id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
@@ -666,8 +668,6 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
-            bizum: Bizum,
-            check_scan: CheckScan,
           }
         end
 

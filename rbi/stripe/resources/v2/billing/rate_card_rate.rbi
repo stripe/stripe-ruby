@@ -77,6 +77,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -108,9 +111,6 @@ module Stripe
         # places. Cannot be set if `tiers` is provided.
         sig { returns(T.nilable(String)) }
         def unit_amount; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

@@ -81,18 +81,18 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
-        # String representing the object's type. Objects of the same type share the same value of the object field.
-        sig { returns(String) }
-        def object; end
-        # The type of the spend modifier.
-        sig { returns(String) }
-        def type; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
         # Max invoice spend details. Present if type is `max_billing_period_spend`.
         sig { returns(T.nilable(MaxBillingPeriodSpend)) }
         def max_billing_period_spend; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
+        # The type of the spend modifier.
+        sig { returns(String) }
+        def type; end
       end
     end
   end

@@ -907,6 +907,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field account_funding
+        attr_reader :account_funding
         # The authorized amount.
         attr_reader :amount_authorized
         # The latest amount intended to be authorized by this charge.
@@ -977,11 +979,10 @@ module Stripe
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         attr_reader :wallet
-        # Attribute for field account_funding
-        attr_reader :account_funding
 
         def self.inner_class_types
           @inner_class_types = {
+            account_funding: AccountFunding,
             benefits: Benefits,
             checks: Checks,
             decremental_authorization: DecrementalAuthorization,
@@ -995,7 +996,6 @@ module Stripe
             reauthorization: Reauthorization,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
-            account_funding: AccountFunding,
           }
         end
 

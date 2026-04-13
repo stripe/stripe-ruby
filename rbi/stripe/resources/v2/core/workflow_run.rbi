@@ -106,15 +106,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Which type of trigger this is.
-          sig { returns(String) }
-          def type; end
           # The Workflow Run was launched when Stripe emitted a certain event.
           sig { returns(T.nilable(EventTrigger)) }
           def event_trigger; end
           # The Workflow Run was launched through a direct call, using either the Dashboard or the Stripe API.
           sig { returns(T.nilable(Manual)) }
           def manual; end
+          # Which type of trigger this is.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {event_trigger: EventTrigger, manual: Manual}
           end
@@ -128,6 +128,9 @@ module Stripe
         # The unique ID of the Workflow Run.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -146,9 +149,6 @@ module Stripe
         # The Workflow this Run belongs to.
         sig { returns(String) }
         def workflow; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

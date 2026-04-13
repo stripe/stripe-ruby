@@ -79,12 +79,12 @@ module Stripe
             # The ID of the created discount rule. This is only present once the Billing Intent is committed and the discount rule is created.
             sig { returns(T.nilable(String)) }
             def invoice_discount_rule; end
-            # Type of the discount rule.
-            sig { returns(String) }
-            def type; end
             # Configuration for percentage off discount.
             sig { returns(T.nilable(PercentOff)) }
             def percent_off; end
+            # Type of the discount rule.
+            sig { returns(String) }
+            def type; end
             def self.inner_class_types
               @inner_class_types = {percent_off: PercentOff}
             end
@@ -114,12 +114,12 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of the amount.
-                sig { returns(String) }
-                def type; end
                 # The custom pricing unit amount.
                 sig { returns(T.nilable(CustomPricingUnit)) }
                 def custom_pricing_unit; end
+                # The type of the amount.
+                sig { returns(String) }
+                def type; end
                 def self.inner_class_types
                   @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
                 end
@@ -160,12 +160,12 @@ module Stripe
             # The ID of the spend modifier.
             sig { returns(String) }
             def id; end
-            # Type of the spend modifier.
-            sig { returns(String) }
-            def type; end
             # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
             sig { returns(T.nilable(MaxBillingPeriodSpend)) }
             def max_billing_period_spend; end
+            # Type of the spend modifier.
+            sig { returns(String) }
+            def type; end
             def self.inner_class_types
               @inner_class_types = {max_billing_period_spend: MaxBillingPeriodSpend}
             end
@@ -173,25 +173,25 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the apply action will take effect. If not specified, defaults to on_reserve.
-          sig { returns(T.nilable(EffectiveAt)) }
-          def effective_at; end
-          # Type of the apply action details.
-          sig { returns(String) }
-          def type; end
           # Details for applying a discount.
           sig { returns(T.nilable(Discount)) }
           def discount; end
+          # When the apply action will take effect. If not specified, defaults to on_reserve.
+          sig { returns(T.nilable(EffectiveAt)) }
+          def effective_at; end
           # Details for applying a discount rule to future invoices.
           sig { returns(T.nilable(InvoiceDiscountRule)) }
           def invoice_discount_rule; end
           # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
           sig { returns(T.nilable(SpendModifierRule)) }
           def spend_modifier_rule; end
+          # Type of the apply action details.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {
-              effective_at: EffectiveAt,
               discount: Discount,
+              effective_at: EffectiveAt,
               invoice_discount_rule: InvoiceDiscountRule,
               spend_modifier_rule: SpendModifierRule,
             }
@@ -251,12 +251,12 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of behavior to override.
-                sig { returns(String) }
-                def type; end
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
+                # The type of behavior to override.
+                sig { returns(String) }
+                def type; end
                 def self.inner_class_types
                   @inner_class_types = {license_fee: LicenseFee}
                 end
@@ -296,12 +296,12 @@ module Stripe
           # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
-          # Type of the action details.
-          sig { returns(String) }
-          def type; end
           # Details for deactivating a Pricing Plan Subscription.
           sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
           def pricing_plan_subscription_details; end
+          # Type of the action details.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {
               cancellation_details: CancellationDetails,
@@ -330,15 +330,15 @@ module Stripe
           end
           class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
             class ComponentConfiguration < ::Stripe::StripeObject
-              # Quantity of the component to be used.
-              sig { returns(T.nilable(Integer)) }
-              def quantity; end
               # Lookup key for the pricing plan component.
               sig { returns(T.nilable(String)) }
               def lookup_key; end
               # ID of the pricing plan component.
               sig { returns(T.nilable(String)) }
               def pricing_plan_component; end
+              # Quantity of the component to be used.
+              sig { returns(T.nilable(Integer)) }
+              def quantity; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -373,15 +373,15 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of behavior to override.
-                sig { returns(String) }
-                def type; end
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
                 # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                 sig { returns(T.nilable(RecurringCreditGrant)) }
                 def recurring_credit_grant; end
+                # The type of behavior to override.
+                sig { returns(String) }
+                def type; end
                 def self.inner_class_types
                   @inner_class_types = {
                     license_fee: LicenseFee,
@@ -433,12 +433,12 @@ module Stripe
           # When the modify action will take effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
-          # Type of the action details.
-          sig { returns(String) }
-          def type; end
           # Details for modifying a Pricing Plan Subscription.
           sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
           def pricing_plan_subscription_details; end
+          # Type of the action details.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {
               effective_at: EffectiveAt,
@@ -464,15 +464,15 @@ module Stripe
           # When the remove action will take effect. If not specified, defaults to on_reserve.
           sig { returns(T.nilable(EffectiveAt)) }
           def effective_at; end
-          # Type of the remove action.
-          sig { returns(String) }
-          def type; end
           # The ID of the discount rule to remove for future invoices.
           sig { returns(T.nilable(String)) }
           def invoice_discount_rule; end
           # The ID of the spend modifier rule removed.
           sig { returns(T.nilable(String)) }
           def spend_modifier_rule; end
+          # Type of the remove action.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {effective_at: EffectiveAt}
           end
@@ -497,15 +497,15 @@ module Stripe
           end
           class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
             class ComponentConfiguration < ::Stripe::StripeObject
-              # Quantity of the component to be used.
-              sig { returns(T.nilable(Integer)) }
-              def quantity; end
               # Lookup key for the pricing plan component.
               sig { returns(T.nilable(String)) }
               def lookup_key; end
               # ID of the pricing plan component.
               sig { returns(T.nilable(String)) }
               def pricing_plan_component; end
+              # Quantity of the component to be used.
+              sig { returns(T.nilable(Integer)) }
+              def quantity; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -537,15 +537,15 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The type of behavior to override.
-                sig { returns(String) }
-                def type; end
                 # Overrides the behavior for license fee components when the action takes effect during the service period.
                 sig { returns(T.nilable(LicenseFee)) }
                 def license_fee; end
                 # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                 sig { returns(T.nilable(RecurringCreditGrant)) }
                 def recurring_credit_grant; end
+                # The type of behavior to override.
+                sig { returns(String) }
+                def type; end
                 def self.inner_class_types
                   @inner_class_types = {
                     license_fee: LicenseFee,
@@ -635,12 +635,12 @@ module Stripe
           # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
-          # Type of the action details.
-          sig { returns(String) }
-          def type; end
           # Details for subscribing to a Pricing Plan.
           sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
           def pricing_plan_subscription_details; end
+          # Type of the action details.
+          sig { returns(String) }
+          def type; end
           # Details for subscribing to a V1 subscription.
           sig { returns(T.nilable(V1SubscriptionDetails)) }
           def v1_subscription_details; end
@@ -655,36 +655,36 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Time at which the object was created.
-        sig { returns(String) }
-        def created; end
-        # Unique identifier for the object.
-        sig { returns(String) }
-        def id; end
-        # String representing the object's type. Objects of the same type share the same value of the object field.
-        sig { returns(String) }
-        def object; end
-        # Type of the Billing Intent Action.
-        sig { returns(String) }
-        def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
         # Details for an apply action.
         sig { returns(T.nilable(Apply)) }
         def apply; end
+        # Time at which the object was created.
+        sig { returns(String) }
+        def created; end
         # Details for a deactivate action.
         sig { returns(T.nilable(Deactivate)) }
         def deactivate; end
+        # Unique identifier for the object.
+        sig { returns(String) }
+        def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Details for a modify action.
         sig { returns(T.nilable(Modify)) }
         def modify; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
         # Details for a remove action.
         sig { returns(T.nilable(Remove)) }
         def remove; end
         # Details for a subscribe action.
         sig { returns(T.nilable(Subscribe)) }
         def subscribe; end
+        # Type of the Billing Intent Action.
+        sig { returns(String) }
+        def type; end
       end
     end
   end

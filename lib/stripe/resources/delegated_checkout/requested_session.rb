@@ -379,6 +379,37 @@ module Stripe
         end
       end
 
+      class PaymentMethodOptions < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The card brands blocked by the agent.
+          attr_reader :brands_blocked
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Card-specific payment method options.
+        attr_reader :card
+        # The computed displayable card brands.
+        attr_reader :displayable_card_brands
+        # The computed displayable payment method types.
+        attr_reader :displayable_payment_method_types
+        # The payment method types excluded by the agent.
+        attr_reader :excluded_payment_method_types
+
+        def self.inner_class_types
+          @inner_class_types = { card: Card }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class PaymentMethodPreview < ::Stripe::StripeObject
         class BillingDetails < ::Stripe::StripeObject
           class Address < ::Stripe::StripeObject
@@ -496,10 +527,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The card brands supported by the seller.
+        attr_reader :card_brands
         # The marketplace seller details.
         attr_reader :marketplace_seller_details
         # The network profile of the seller.
         attr_reader :network_profile
+        # The payment method types supported by the seller.
+        attr_reader :payment_method_types
         # The URL to the seller's privacy notice.
         attr_reader :privacy_notice_url
         # The URL to the seller's return policy.
@@ -508,10 +543,6 @@ module Stripe
         attr_reader :store_policy_url
         # The URL to the seller's terms of service.
         attr_reader :terms_of_service_url
-        # The card brands supported by the seller.
-        attr_reader :card_brands
-        # The payment method types supported by the seller.
-        attr_reader :payment_method_types
 
         def self.inner_class_types
           @inner_class_types = { marketplace_seller_details: MarketplaceSellerDetails }
@@ -558,37 +589,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-
-      class PaymentMethodOptions < ::Stripe::StripeObject
-        class Card < ::Stripe::StripeObject
-          # The card brands blocked by the agent.
-          attr_reader :brands_blocked
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Card-specific payment method options.
-        attr_reader :card
-        # The computed displayable card brands.
-        attr_reader :displayable_card_brands
-        # The computed displayable payment method types.
-        attr_reader :displayable_payment_method_types
-        # The payment method types excluded by the agent.
-        attr_reader :excluded_payment_method_types
-
-        def self.inner_class_types
-          @inner_class_types = { card: Card }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # Affiliate attribution data associated with this requested session.
       attr_reader :affiliate_attributions
       # The subtotal amount of the requested session.
@@ -619,6 +619,8 @@ module Stripe
       attr_reader :order_details
       # The payment method used for the requested session.
       attr_reader :payment_method
+      # The payment method options for this requested session.
+      attr_reader :payment_method_options
       # The preview of the payment method to be created when the requested session is confirmed.
       attr_reader :payment_method_preview
       # The risk details of the requested session.
@@ -637,8 +639,6 @@ module Stripe
       attr_reader :total_details
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated_at
-      # The payment method options for this requested session.
-      attr_reader :payment_method_options
 
       # Confirms a requested session
       def confirm(params = {}, opts = {})
@@ -706,11 +706,11 @@ module Stripe
           fulfillment_details: FulfillmentDetails,
           line_item_details: LineItemDetail,
           order_details: OrderDetails,
+          payment_method_options: PaymentMethodOptions,
           payment_method_preview: PaymentMethodPreview,
           risk_details: RiskDetails,
           seller_details: SellerDetails,
           total_details: TotalDetails,
-          payment_method_options: PaymentMethodOptions,
         }
       end
 

@@ -11,52 +11,6 @@ module Stripe
         "shared_payment.granted_token"
       end
 
-      class UsageDetails < ::Stripe::StripeObject
-        class AmountCaptured < ::Stripe::StripeObject
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
-          # Integer value of the amount in the smallest currency unit.
-          attr_reader :value
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The total amount captured using this SharedPaymentToken.
-        attr_reader :amount_captured
-
-        def self.inner_class_types
-          @inner_class_types = { amount_captured: AmountCaptured }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class UsageLimits < ::Stripe::StripeObject
-        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        attr_reader :currency
-        # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
-        attr_reader :expires_at
-        # Max amount that can be captured using this SharedPaymentToken.
-        attr_reader :max_amount
-        # The recurring interval at which the shared payment token's amount usage restrictions reset.
-        attr_reader :recurring_interval
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class AgentDetails < ::Stripe::StripeObject
         # The Stripe Profile ID of the agent that issued this SharedPaymentGrantedToken.
         attr_reader :network_business_profile
@@ -1684,6 +1638,54 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class UsageDetails < ::Stripe::StripeObject
+        class AmountCaptured < ::Stripe::StripeObject
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_reader :currency
+          # Integer value of the amount in the smallest currency unit.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The total amount captured using this SharedPaymentToken.
+        attr_reader :amount_captured
+
+        def self.inner_class_types
+          @inner_class_types = { amount_captured: AmountCaptured }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class UsageLimits < ::Stripe::StripeObject
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_reader :currency
+        # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
+        attr_reader :expires_at
+        # Max amount that can be captured using this SharedPaymentToken.
+        attr_reader :max_amount
+        # The recurring interval at which the shared payment token's amount usage restrictions reset.
+        attr_reader :recurring_interval
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Details about the agent that issued this SharedPaymentGrantedToken.
+      attr_reader :agent_details
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
       # Time at which this SharedPaymentGrantedToken expires and can no longer be used to confirm a PaymentIntent.
@@ -1696,18 +1698,16 @@ module Stripe
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # Details of the PaymentMethod that was shared via this token.
+      attr_reader :payment_method_details
+      # Risk details of the SharedPaymentGrantedToken.
+      attr_reader :risk_details
       # Metadata about the SharedPaymentGrantedToken.
       attr_reader :shared_metadata
       # Some details about how the SharedPaymentGrantedToken has been used already.
       attr_reader :usage_details
       # Limits on how this SharedPaymentGrantedToken can be used.
       attr_reader :usage_limits
-      # Details about the agent that issued this SharedPaymentGrantedToken.
-      attr_reader :agent_details
-      # Details of the PaymentMethod that was shared via this token.
-      attr_reader :payment_method_details
-      # Risk details of the SharedPaymentGrantedToken.
-      attr_reader :risk_details
 
       def test_helpers
         TestHelpers.new(self)
@@ -1752,11 +1752,11 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
-          usage_details: UsageDetails,
-          usage_limits: UsageLimits,
           agent_details: AgentDetails,
           payment_method_details: PaymentMethodDetails,
           risk_details: RiskDetails,
+          usage_details: UsageDetails,
+          usage_limits: UsageLimits,
         }
       end
 

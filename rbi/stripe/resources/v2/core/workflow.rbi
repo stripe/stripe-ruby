@@ -31,15 +31,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Which type of trigger this is.
-          sig { returns(String) }
-          def type; end
           # The Workflow can be launched when Stripe emits a certain event.
           sig { returns(T.nilable(EventTrigger)) }
           def event_trigger; end
           # The Workflow can be launched through a direct call, using either the Dashboard or the Stripe API.
           sig { returns(T.nilable(Manual)) }
           def manual; end
+          # Which type of trigger this is.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {event_trigger: EventTrigger, manual: Manual}
           end

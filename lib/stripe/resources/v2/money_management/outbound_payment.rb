@@ -28,12 +28,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Open Enum. Speed of the payout.
-          attr_reader :speed
           # Open Enum. Method for bank account.
           attr_reader :bank_account
           # Delivery options for paper check.
           attr_reader :paper_check
+          # Open Enum. Speed of the payout.
+          attr_reader :speed
 
           def self.inner_class_types
             @inner_class_types = { paper_check: PaperCheck }
@@ -247,6 +247,8 @@ module Stripe
         attr_reader :from
         # Unique identifier for the OutboundPayment.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -278,8 +280,6 @@ module Stripe
         attr_reader :trace_id
         # Information to track this OutboundPayment with the recipient bank.
         attr_reader :tracking_details
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

@@ -67,12 +67,12 @@ module Stripe
         # The list of specs by country.
         sig { returns(T::Hash[String, Countries]) }
         def countries; end
-        # String representing the object's type. Objects of the same type share the same value of the object field.
-        sig { returns(String) }
-        def object; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
       end
     end
   end

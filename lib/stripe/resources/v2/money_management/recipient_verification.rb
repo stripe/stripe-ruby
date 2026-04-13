@@ -54,6 +54,8 @@ module Stripe
         attr_reader :expires_at
         # The ID of the RecipientVerification.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Closed Enum. Match level of the RecipientVerification: `match`, `close_match`, `no_match`, `unavailable`.
         attr_reader :match_result
         # Details for the match result.
@@ -64,8 +66,6 @@ module Stripe
         attr_reader :status
         # Hash containing timestamps of when the object transitioned to a particular status.
         attr_reader :status_transitions
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

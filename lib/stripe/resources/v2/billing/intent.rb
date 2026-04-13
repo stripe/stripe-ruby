@@ -36,27 +36,6 @@ module Stripe
           end
         end
 
-        class StatusTransitions < ::Stripe::StripeObject
-          # Time at which the Billing Intent was canceled.
-          attr_reader :canceled_at
-          # Time at which the Billing Intent was committed.
-          attr_reader :committed_at
-          # Time at which the Billing Intent was drafted.
-          attr_reader :drafted_at
-          # Time at which the Billing Intent will expire.
-          attr_reader :expires_at
-          # Time at which the Billing Intent was reserved.
-          attr_reader :reserved_at
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class CadenceData < ::Stripe::StripeObject
           class BillingCycle < ::Stripe::StripeObject
             class Day < ::Stripe::StripeObject
@@ -206,14 +185,14 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
-            attr_reader :interval_count
-            # The frequency at which a cadence bills.
-            attr_reader :type
             # Specific configuration for determining billing dates when type=day.
             attr_reader :day
+            # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
+            attr_reader :interval_count
             # Specific configuration for determining billing dates when type=month.
             attr_reader :month
+            # The frequency at which a cadence bills.
+            attr_reader :type
             # Specific configuration for determining billing dates when type=week.
             attr_reader :week
             # Specific configuration for determining billing dates when type=year.
@@ -316,32 +295,53 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class StatusTransitions < ::Stripe::StripeObject
+          # Time at which the Billing Intent was canceled.
+          attr_reader :canceled_at
+          # Time at which the Billing Intent was committed.
+          attr_reader :committed_at
+          # Time at which the Billing Intent was drafted.
+          attr_reader :drafted_at
+          # Time at which the Billing Intent will expire.
+          attr_reader :expires_at
+          # Time at which the Billing Intent was reserved.
+          attr_reader :reserved_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Breakdown of the amount for this Billing Intent.
         attr_reader :amount_details
+        # ID of an existing Cadence to use.
+        attr_reader :cadence
+        # Data for creating a new Cadence.
+        attr_reader :cadence_data
         # Time at which the object was created.
         attr_reader :created
         # Three-letter ISO currency code, in lowercase. Must be a supported currency.
         attr_reader :currency
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Current status of the Billing Intent.
         attr_reader :status
         # Timestamps for status transitions of the Billing Intent.
         attr_reader :status_transitions
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
-        # ID of an existing Cadence to use.
-        attr_reader :cadence
-        # Data for creating a new Cadence.
-        attr_reader :cadence_data
 
         def self.inner_class_types
           @inner_class_types = {
             amount_details: AmountDetails,
-            status_transitions: StatusTransitions,
             cadence_data: CadenceData,
+            status_transitions: StatusTransitions,
           }
         end
 

@@ -54,6 +54,12 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Details if this component is a License Fee.
+        sig { returns(T.nilable(LicenseFee)) }
+        def license_fee; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # An internal key you can use to search for a particular PricingPlanComponent.
         sig { returns(T.nilable(String)) }
         def lookup_key; end
@@ -69,21 +75,15 @@ module Stripe
         # The ID of the Pricing Plan Version this component belongs to.
         sig { returns(String) }
         def pricing_plan_version; end
-        # The type of the PricingPlanComponent.
-        sig { returns(String) }
-        def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # Details if this component is a License Fee.
-        sig { returns(T.nilable(LicenseFee)) }
-        def license_fee; end
         # Details if this component is a Rate Card.
         sig { returns(T.nilable(RateCard)) }
         def rate_card; end
         # Details if this component is a Service Action.
         sig { returns(T.nilable(ServiceAction)) }
         def service_action; end
+        # The type of the PricingPlanComponent.
+        sig { returns(String) }
+        def type; end
       end
     end
   end

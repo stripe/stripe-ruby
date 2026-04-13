@@ -101,11 +101,6 @@ module Stripe
             sig { params(address: String, memo: T.nilable(String), network: String).void }
             def initialize(address: nil, memo: nil, network: nil); end
           end
-          # Closed Enum. The type of payout method to be created.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
           # The type specific details of the bank account payout method.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount))
@@ -133,10 +128,15 @@ module Stripe
             params(_crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet))
            }
           def crypto_wallet=(_crypto_wallet); end
+          # Closed Enum. The type of payout method to be created.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
-            params(type: String, bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet)).void
+            params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet), type: String).void
            }
-          def initialize(type: nil, bank_account: nil, card: nil, crypto_wallet: nil); end
+          def initialize(bank_account: nil, card: nil, crypto_wallet: nil, type: nil); end
         end
         # If provided, the existing payout method resource to link to this setup intent.
         # Any payout_method_data provided is used to update information on this linked payout method resource.

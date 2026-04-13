@@ -46,16 +46,16 @@ module Stripe
             @field_encodings = { probability: :decimal_string }
           end
         end
+        # Account ID that this signal is associated with.
+        attr_reader :account
+        # Timestamp when the signal was evaluated.
+        attr_reader :evaluated_at
         # Fraudulent merchant signal data. Present when type is fraudulent_merchant.
         attr_reader :fraudulent_merchant
         # Unique identifier for this account signal.
         attr_reader :id
         # The type of account signal. Currently only fraudulent_merchant is supported.
         attr_reader :type
-        # Account ID that this signal is associated with.
-        attr_reader :account
-        # Timestamp when the signal was evaluated.
-        attr_reader :evaluated_at
 
         def self.inner_class_types
           @inner_class_types = { fraudulent_merchant: FraudulentMerchant }

@@ -116,14 +116,14 @@ module Stripe
         attr_accessor :product_name
         # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
         # Contains information about the tax on the item.
         attr_accessor :tax
         # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
-        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
-        attr_accessor :quantity_precision
 
         def initialize(
           discount_amount: nil,
@@ -131,20 +131,20 @@ module Stripe
           product_code: nil,
           product_name: nil,
           quantity: nil,
+          quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil,
-          quantity_precision: nil
+          unit_of_measure: nil
         )
           @discount_amount = discount_amount
           @payment_method_options = payment_method_options
           @product_code = product_code
           @product_name = product_name
           @quantity = quantity
+          @quantity_precision = quantity_precision
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
-          @quantity_precision = quantity_precision
         end
       end
 

@@ -59,6 +59,10 @@ module Stripe
         attr_reader :created
         # Unique identifier for the object.
         attr_reader :id
+        # Details if this component is a License Fee.
+        attr_reader :license_fee
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # An internal key you can use to search for a particular PricingPlanComponent.
         attr_reader :lookup_key
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -69,16 +73,12 @@ module Stripe
         attr_reader :pricing_plan
         # The ID of the Pricing Plan Version this component belongs to.
         attr_reader :pricing_plan_version
-        # The type of the PricingPlanComponent.
-        attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
-        # Details if this component is a License Fee.
-        attr_reader :license_fee
         # Details if this component is a Rate Card.
         attr_reader :rate_card
         # Details if this component is a Service Action.
         attr_reader :service_action
+        # The type of the PricingPlanComponent.
+        attr_reader :type
 
         def self.inner_class_types
           @inner_class_types = {

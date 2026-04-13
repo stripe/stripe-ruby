@@ -59,6 +59,25 @@ module Stripe
       end
     end
 
+    class AutomaticSurcharge < ::Stripe::StripeObject
+      # Determines which amount serves as the basis for calculating the surcharge.
+      attr_reader :calculation_basis
+      # Indicates whether automatic surcharge is enabled for the payment link.
+      attr_reader :enabled
+      # The surcharge provider used for this payment link.
+      attr_reader :provider
+      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+      attr_reader :tax_behavior
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class AutomaticTax < ::Stripe::StripeObject
       class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
@@ -667,25 +686,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-
-    class AutomaticSurcharge < ::Stripe::StripeObject
-      # Determines which amount serves as the basis for calculating the surcharge.
-      attr_reader :calculation_basis
-      # Indicates whether automatic surcharge is enabled for the payment link.
-      attr_reader :enabled
-      # The surcharge provider used for this payment link.
-      attr_reader :provider
-      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
-      attr_reader :tax_behavior
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     # Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
     attr_reader :active
     # Attribute for field after_completion
@@ -698,6 +698,8 @@ module Stripe
     attr_reader :application_fee_amount
     # This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     attr_reader :application_fee_percent
+    # Attribute for field automatic_surcharge
+    attr_reader :automatic_surcharge
     # Attribute for field automatic_tax
     attr_reader :automatic_tax
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
@@ -758,8 +760,6 @@ module Stripe
     attr_reader :transfer_data
     # The public URL that can be shared with customers.
     attr_reader :url
-    # Attribute for field automatic_surcharge
-    attr_reader :automatic_surcharge
 
     # Creates a payment link.
     def self.create(params = {}, opts = {})
@@ -804,6 +804,7 @@ module Stripe
     def self.inner_class_types
       @inner_class_types = {
         after_completion: AfterCompletion,
+        automatic_surcharge: AutomaticSurcharge,
         automatic_tax: AutomaticTax,
         consent_collection: ConsentCollection,
         custom_fields: CustomField,
@@ -820,7 +821,6 @@ module Stripe
         subscription_data: SubscriptionData,
         tax_id_collection: TaxIdCollection,
         transfer_data: TransferData,
-        automatic_surcharge: AutomaticSurcharge,
       }
     end
 

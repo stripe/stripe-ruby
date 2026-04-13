@@ -26,21 +26,6 @@ module Stripe
           end
         end
 
-        class UsageStatus < ::Stripe::StripeObject
-          # Payments status - used when sending OutboundPayments (sending funds to recipients).
-          attr_reader :payments
-          # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
-          attr_reader :transfers
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class BankAccount < ::Stripe::StripeObject
           # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
@@ -122,16 +107,39 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class UsageStatus < ::Stripe::StripeObject
+          # Payments status - used when sending OutboundPayments (sending funds to recipients).
+          attr_reader :payments
+          # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
+          attr_reader :transfers
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The alternative reference for this payout method, if it's a projected payout method.
         attr_reader :alternative_reference
         # A set of available payout speeds for this payout method.
         attr_reader :available_payout_speeds
+        # The PayoutMethodBankAccount object details.
+        attr_reader :bank_account
+        # The PayoutMethodCard object details.
+        attr_reader :card
         # Created timestamp.
         attr_reader :created
+        # The PayoutMethodCryptoWallet object details.
+        attr_reader :crypto_wallet
         # ID of the PayoutMethod object.
         attr_reader :id
         # ID of the underlying active OutboundSetupIntent object, if any.
         attr_reader :latest_outbound_setup_intent
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
@@ -141,22 +149,14 @@ module Stripe
         attr_reader :type
         # Indicates whether the payout method has met the necessary requirements for outbound money movement.
         attr_reader :usage_status
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
-        # The PayoutMethodBankAccount object details.
-        attr_reader :bank_account
-        # The PayoutMethodCard object details.
-        attr_reader :card
-        # The PayoutMethodCryptoWallet object details.
-        attr_reader :crypto_wallet
 
         def self.inner_class_types
           @inner_class_types = {
             alternative_reference: AlternativeReference,
-            usage_status: UsageStatus,
             bank_account: BankAccount,
             card: Card,
             crypto_wallet: CryptoWallet,
+            usage_status: UsageStatus,
           }
         end
 

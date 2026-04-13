@@ -82,6 +82,9 @@ module Stripe
           # The last 4 digits of the account number.
           sig { returns(String) }
           def last4; end
+          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+          sig { returns(T::Boolean) }
+          def livemode; end
           # String representing the object's type. Objects of the same type share the same value of the object field.
           sig { returns(String) }
           def object; end
@@ -94,9 +97,6 @@ module Stripe
           # The bank account verification details.
           sig { returns(Verification) }
           def verification; end
-          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-          sig { returns(T::Boolean) }
-          def livemode; end
         end
       end
     end

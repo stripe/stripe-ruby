@@ -3088,12 +3088,18 @@ module Stripe
       # Attribute for field event_details
       sig { returns(T.nilable(EventDetails)) }
       def event_details; end
+      # Fleet data for this PaymentIntent.
+      sig { returns(T.nilable(T::Array[FleetDatum])) }
+      def fleet_data; end
       # Attribute for field flight_data
       sig { returns(T.nilable(T::Array[FlightDatum])) }
       def flight_data; end
       # Attribute for field lodging_data
       sig { returns(T.nilable(T::Array[LodgingDatum])) }
       def lodging_data; end
+      # Attribute for field money_services
+      sig { returns(T.nilable(MoneyServices)) }
+      def money_services; end
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
@@ -3102,23 +3108,17 @@ module Stripe
       # Attribute for field subscription
       sig { returns(T.nilable(Subscription)) }
       def subscription; end
-      # Fleet data for this PaymentIntent.
-      sig { returns(T.nilable(T::Array[FleetDatum])) }
-      def fleet_data; end
-      # Attribute for field money_services
-      sig { returns(T.nilable(MoneyServices)) }
-      def money_services; end
       def self.inner_class_types
         @inner_class_types = {
           benefit: Benefit,
           car_rental: CarRental,
           car_rental_data: CarRentalDatum,
           event_details: EventDetails,
+          fleet_data: FleetDatum,
           flight_data: FlightDatum,
           lodging_data: LodgingDatum,
-          subscription: Subscription,
-          fleet_data: FleetDatum,
           money_services: MoneyServices,
+          subscription: Subscription,
         }
       end
       def self.field_remappings

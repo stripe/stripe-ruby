@@ -73,20 +73,20 @@ module Stripe
               @network = network
             end
           end
-          # Closed Enum. The type of payout method to be created.
-          attr_accessor :type
           # The type specific details of the bank account payout method.
           attr_accessor :bank_account
           # The type specific details of the card payout method.
           attr_accessor :card
           # The type specific details of the crypto wallet payout method.
           attr_accessor :crypto_wallet
+          # Closed Enum. The type of payout method to be created.
+          attr_accessor :type
 
-          def initialize(type: nil, bank_account: nil, card: nil, crypto_wallet: nil)
-            @type = type
+          def initialize(bank_account: nil, card: nil, crypto_wallet: nil, type: nil)
             @bank_account = bank_account
             @card = card
             @crypto_wallet = crypto_wallet
+            @type = type
           end
         end
         # If provided, the existing payout method resource to link to this setup intent.

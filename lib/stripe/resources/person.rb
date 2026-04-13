@@ -437,6 +437,8 @@ module Stripe
     attr_reader :address_kanji
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+    # Always true for a deleted object
+    attr_reader :deleted
     # Attribute for field dob
     attr_reader :dob
     # The person's email address. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
@@ -493,8 +495,6 @@ module Stripe
     attr_reader :us_cfpb_data
     # Attribute for field verification
     attr_reader :verification
-    # Always true for a deleted object
-    attr_reader :deleted
 
     def resource_url
       if !respond_to?(:account) || account.nil?

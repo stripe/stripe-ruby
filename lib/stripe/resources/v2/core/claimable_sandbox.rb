@@ -81,6 +81,8 @@ module Stripe
         attr_reader :expires_at
         # Unique identifier for the Claimable sandbox.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Values prefilled during the creation of the sandbox. When a user claims the sandbox, they will be able to update these values.
@@ -89,8 +91,6 @@ module Stripe
         attr_reader :sandbox_details
         # Status of the sandbox. One of `unclaimed`, `expired`, `claimed`.
         attr_reader :status
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { prefill: Prefill, sandbox_details: SandboxDetails }

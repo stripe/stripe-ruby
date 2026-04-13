@@ -262,15 +262,15 @@ module Stripe
                     @field_encodings = {value: :decimal_string}
                   end
                 end
-                # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-                sig { returns(String) }
-                def type; end
                 # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
                 sig { returns(T.nilable(CustomPricingUnit)) }
                 def custom_pricing_unit; end
                 # The monetary amount of the credit grant. Required if `type` is `monetary`.
                 sig { returns(T.nilable(::Stripe::V2::Amount)) }
                 def monetary; end
+                # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+                sig { returns(String) }
+                def type; end
                 def self.inner_class_types
                   @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
                 end
@@ -371,15 +371,15 @@ module Stripe
                     @field_encodings = {value: :decimal_string}
                   end
                 end
-                # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-                sig { returns(String) }
-                def type; end
                 # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
                 sig { returns(T.nilable(CustomPricingUnit)) }
                 def custom_pricing_unit; end
                 # The monetary amount of the credit grant. Required if `type` is `monetary`.
                 sig { returns(T.nilable(::Stripe::V2::Amount)) }
                 def monetary; end
+                # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+                sig { returns(String) }
+                def type; end
                 def self.inner_class_types
                   @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
                 end
@@ -636,6 +636,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -660,9 +663,6 @@ module Stripe
         # The ID of the Test Clock of the associated Billing Cadence, if any.
         sig { returns(T.nilable(String)) }
         def test_clock; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

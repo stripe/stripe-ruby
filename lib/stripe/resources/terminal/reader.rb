@@ -497,6 +497,8 @@ module Stripe
       end
       # The most recent action performed by the reader.
       attr_reader :action
+      # Always true for a deleted object
+      attr_reader :deleted
       # The current software version of the reader.
       attr_reader :device_sw_version
       # Device type of the reader.
@@ -521,8 +523,6 @@ module Stripe
       attr_reader :serial_number
       # The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
       attr_reader :status
-      # Always true for a deleted object
-      attr_reader :deleted
 
       # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def cancel_action(params = {}, opts = {})

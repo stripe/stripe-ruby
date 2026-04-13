@@ -54,6 +54,22 @@ module Stripe
           sig { params(url: String).void }
           def initialize(url: nil); end
         end
+        # Amazon EventBridge configuration.
+        sig {
+          returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
+         }
+        def amazon_eventbridge; end
+        sig {
+          params(_amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
+         }
+        def amazon_eventbridge=(_amazon_eventbridge); end
+        # Azure Event Grid configuration.
+        sig { returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)) }
+        def azure_event_grid; end
+        sig {
+          params(_azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid))
+         }
+        def azure_event_grid=(_azure_event_grid); end
         # An optional description of what the event destination is used for.
         sig { returns(T.nilable(String)) }
         def description; end
@@ -107,22 +123,6 @@ module Stripe
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        # Amazon EventBridge configuration.
-        sig {
-          returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
-         }
-        def amazon_eventbridge; end
-        sig {
-          params(_amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
-         }
-        def amazon_eventbridge=(_amazon_eventbridge); end
-        # Azure Event Grid configuration.
-        sig { returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)) }
-        def azure_event_grid; end
-        sig {
-          params(_azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid))
-         }
-        def azure_event_grid=(_azure_event_grid); end
         # Webhook endpoint configuration.
         sig {
           returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint))
@@ -133,9 +133,11 @@ module Stripe
          }
         def webhook_endpoint=(_webhook_endpoint); end
         sig {
-          params(description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid), webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
+          params(amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid), description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
          }
         def initialize(
+          amazon_eventbridge: nil,
+          azure_event_grid: nil,
           description: nil,
           enabled_events: nil,
           event_payload: nil,
@@ -145,8 +147,6 @@ module Stripe
           name: nil,
           snapshot_api_version: nil,
           type: nil,
-          amazon_eventbridge: nil,
-          azure_event_grid: nil,
           webhook_endpoint: nil
         ); end
       end

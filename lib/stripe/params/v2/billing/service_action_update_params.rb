@@ -22,17 +22,17 @@ module Stripe
             @name = name
           end
         end
-        # An internal key you can use to search for this service action. Maximum length of 200 characters.
-        attr_accessor :lookup_key
         # Details for the credit grant. Can only be set if the service action's `type` is `credit_grant`.
         attr_accessor :credit_grant
         # Details for the credit grant per tenant. Can only be set if the service action's `type` is `credit_grant_per_tenant`.
         attr_accessor :credit_grant_per_tenant
+        # An internal key you can use to search for this service action. Maximum length of 200 characters.
+        attr_accessor :lookup_key
 
-        def initialize(lookup_key: nil, credit_grant: nil, credit_grant_per_tenant: nil)
-          @lookup_key = lookup_key
+        def initialize(credit_grant: nil, credit_grant_per_tenant: nil, lookup_key: nil)
           @credit_grant = credit_grant
           @credit_grant_per_tenant = credit_grant_per_tenant
+          @lookup_key = lookup_key
         end
       end
     end

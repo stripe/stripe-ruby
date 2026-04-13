@@ -25,11 +25,6 @@ module Stripe
                 @field_encodings = {value: :decimal_string}
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit))
@@ -46,10 +41,15 @@ module Stripe
               params(_monetary: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
              }
             def monetary=(_monetary); end
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount)).void
+              params(custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount), type: String).void
              }
-            def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
+            def initialize(custom_pricing_unit: nil, monetary: nil, type: nil); end
             def self.field_encodings
               @field_encodings = {
                 custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
@@ -177,11 +177,6 @@ module Stripe
                 @field_encodings = {value: :decimal_string}
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit))
@@ -198,10 +193,15 @@ module Stripe
               params(_monetary: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
              }
             def monetary=(_monetary); end
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig {
-              params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount)).void
+              params(custom_pricing_unit: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::V2::Amount), type: String).void
              }
-            def initialize(type: nil, custom_pricing_unit: nil, monetary: nil); end
+            def initialize(custom_pricing_unit: nil, monetary: nil, type: nil); end
             def self.field_encodings
               @field_encodings = {
                 custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
@@ -267,11 +267,6 @@ module Stripe
                   sig { params(payload_key: String, value: String).void }
                   def initialize(payload_key: nil, value: nil); end
                 end
-                # The type of the meter segment condition. We currently support `dimension`.
-                sig { returns(String) }
-                def type; end
-                sig { params(_type: String).returns(String) }
-                def type=(_type); end
                 # Dimension-based meter segment condition.
                 sig {
                   returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension))
@@ -281,10 +276,15 @@ module Stripe
                   params(_dimension: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension))
                  }
                 def dimension=(_dimension); end
+                # The type of the meter segment condition. We currently support `dimension`.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
                 sig {
-                  params(type: String, dimension: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension)).void
+                  params(dimension: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod::MeterSegmentCondition::Dimension), type: String).void
                  }
-                def initialize(type: nil, dimension: nil); end
+                def initialize(dimension: nil, type: nil); end
               end
               # The meter segment conditions for the grant condition.
               sig {
@@ -300,11 +300,6 @@ module Stripe
                }
               def initialize(meter_segment_conditions: nil); end
             end
-            # The type of the grant condition. We currently support `meter_event_first_per_period`.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
             # The grant condition for the meter event first per period.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod))
@@ -314,10 +309,15 @@ module Stripe
               params(_meter_event_first_per_period: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod))
              }
             def meter_event_first_per_period=(_meter_event_first_per_period); end
+            # The type of the grant condition. We currently support `meter_event_first_per_period`.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig {
-              params(type: String, meter_event_first_per_period: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod)).void
+              params(meter_event_first_per_period: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant::GrantCondition::MeterEventFirstPerPeriod), type: String).void
              }
-            def initialize(type: nil, meter_event_first_per_period: nil); end
+            def initialize(meter_event_first_per_period: nil, type: nil); end
           end
           # The amount of the credit grant.
           sig {
@@ -391,6 +391,22 @@ module Stripe
             }
           end
         end
+        # Details for the credit grant. Required if `type` is `credit_grant`.
+        sig { returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant)) }
+        def credit_grant; end
+        sig {
+          params(_credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant))
+         }
+        def credit_grant=(_credit_grant); end
+        # Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
+        sig {
+          returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant))
+         }
+        def credit_grant_per_tenant; end
+        sig {
+          params(_credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant))
+         }
+        def credit_grant_per_tenant=(_credit_grant_per_tenant); end
         # An internal key you can use to search for this service action. Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end
@@ -411,32 +427,16 @@ module Stripe
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        # Details for the credit grant. Required if `type` is `credit_grant`.
-        sig { returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant)) }
-        def credit_grant; end
         sig {
-          params(_credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant))
-         }
-        def credit_grant=(_credit_grant); end
-        # Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
-        sig {
-          returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant))
-         }
-        def credit_grant_per_tenant; end
-        sig {
-          params(_credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant))
-         }
-        def credit_grant_per_tenant=(_credit_grant_per_tenant); end
-        sig {
-          params(lookup_key: T.nilable(String), service_interval: String, service_interval_count: Integer, type: String, credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant), credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant)).void
+          params(credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrant), credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionCreateParams::CreditGrantPerTenant), lookup_key: T.nilable(String), service_interval: String, service_interval_count: Integer, type: String).void
          }
         def initialize(
+          credit_grant: nil,
+          credit_grant_per_tenant: nil,
           lookup_key: nil,
           service_interval: nil,
           service_interval_count: nil,
-          type: nil,
-          credit_grant: nil,
-          credit_grant_per_tenant: nil
+          type: nil
         ); end
         def self.field_encodings
           @field_encodings = {

@@ -30,8 +30,6 @@ module Stripe
 
         class TransactionDetails < ::Stripe::StripeObject
           class Flow < ::Stripe::StripeObject
-            # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
-            attr_reader :type
             # If applicable, the ID of the Adjustment that created this Transaction.
             attr_reader :adjustment
             # If applicable, the ID of the Application Fee that created this Transaction.
@@ -86,6 +84,8 @@ module Stripe
             attr_reader :treasury_received_credit
             # If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
             attr_reader :treasury_received_debit
+            # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+            attr_reader :type
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -118,6 +118,8 @@ module Stripe
         attr_reader :effective_at
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # The Transaction that this TransactionEntry belongs to.
@@ -126,8 +128,6 @@ module Stripe
         attr_reader :transaction_details
         # The v1 Treasury transaction entry associated with this transaction entry.
         attr_reader :treasury_transaction_entry
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

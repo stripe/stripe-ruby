@@ -8,12 +8,12 @@ module Stripe
       # OutboundPaymentQuote represents a quote that provides fee and amount estimates for OutboundPayment.
       class OutboundPaymentQuote < APIResource
         class DeliveryOptions < ::Stripe::StripeObject
-          # Open Enum. Speed of the payout.
-          sig { returns(T.nilable(String)) }
-          def speed; end
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
+          # Open Enum. Speed of the payout.
+          sig { returns(T.nilable(String)) }
+          def speed; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -122,15 +122,15 @@ module Stripe
         # Unique identifier for the OutboundPaymentQuote.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
         # Details about the recipient of an OutboundPaymentQuote.
         sig { returns(To) }
         def to; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

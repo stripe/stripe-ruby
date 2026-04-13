@@ -14,10 +14,10 @@ module Stripe
         attr_reader :billable_item
         # Timestamp of when the object was created.
         attr_reader :created
-        # The ID of the latest RateCard Version when the Rate was created.
-        attr_reader :rate_card_version
         # The ID of the RateCard which this Rate belongs to.
         attr_reader :rate_card
+        # The ID of the latest RateCard Version when the Rate was created.
+        attr_reader :rate_card_version
 
         def self.inner_class_types
           @inner_class_types = {}

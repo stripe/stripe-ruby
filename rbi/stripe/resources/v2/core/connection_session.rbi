@@ -39,15 +39,15 @@ module Stripe
         # The unique identifier for this ConnectionSession.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
         # The access that is collected with the Connection Session.
         sig { returns(T.nilable(T::Array[String])) }
         def requested_access; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

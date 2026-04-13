@@ -878,8 +878,12 @@ module Stripe
         attr_accessor :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # This sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bizum
         # This sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
+        # This sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :check_scan
         # This sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :customer_balance
         # This sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
@@ -896,15 +900,13 @@ module Stripe
         attr_accessor :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
-        # This sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
-        attr_accessor :bizum
-        # This sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
-        attr_accessor :check_scan
 
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          bizum: nil,
           card: nil,
+          check_scan: nil,
           customer_balance: nil,
           id_bank_transfer: nil,
           konbini: nil,
@@ -912,13 +914,13 @@ module Stripe
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil,
-          bizum: nil,
-          check_scan: nil
+          us_bank_account: nil
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @bizum = bizum
           @card = card
+          @check_scan = check_scan
           @customer_balance = customer_balance
           @id_bank_transfer = id_bank_transfer
           @konbini = konbini
@@ -927,8 +929,6 @@ module Stripe
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
-          @bizum = bizum
-          @check_scan = check_scan
         end
       end
       # Payment-method-specific configuration to provide to invoices created by the subscription.

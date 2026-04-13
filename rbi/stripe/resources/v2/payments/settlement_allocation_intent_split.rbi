@@ -8,9 +8,6 @@ module Stripe
       # SettlementAllocationIntentSplit resource.
       class SettlementAllocationIntentSplit < APIResource
         class Flow < ::Stripe::StripeObject
-          # Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
-          sig { returns(String) }
-          def type; end
           # If applicable, the ID of the OutboundPayment that created this transaction.
           sig { returns(T.nilable(String)) }
           def outbound_payment; end
@@ -20,6 +17,9 @@ module Stripe
           # If applicable, the ID of the ReceivedCredit that created this transaction.
           sig { returns(T.nilable(String)) }
           def received_credit; end
+          # Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -42,6 +42,9 @@ module Stripe
         # Unique identifier for the SettlementAllocationIntentSplit.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Metadata associated with the SettlementAllocationIntentSplit.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -57,9 +60,6 @@ module Stripe
         # The type of the SettlementAllocationIntentSplit.
         sig { returns(String) }
         def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

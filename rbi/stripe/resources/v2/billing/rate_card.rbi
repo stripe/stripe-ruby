@@ -44,6 +44,9 @@ module Stripe
         # The ID of the Rate Card Version that will be used by all subscriptions when no specific version is specified.
         sig { returns(String) }
         def live_version; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end
@@ -62,9 +65,6 @@ module Stripe
         # The Stripe Tax tax behavior - whether the rates are inclusive or exclusive of tax.
         sig { returns(String) }
         def tax_behavior; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

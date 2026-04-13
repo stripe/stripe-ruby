@@ -552,6 +552,8 @@ module Stripe
       attr_accessor :satispay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+      attr_accessor :shared_payment_granted_token
       # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
       attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -572,8 +574,6 @@ module Stripe
       attr_accessor :wechat_pay
       # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
       attr_accessor :zip
-      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
-      attr_accessor :shared_payment_granted_token
 
       def initialize(
         acss_debit: nil,
@@ -629,6 +629,7 @@ module Stripe
         samsung_pay: nil,
         satispay: nil,
         sepa_debit: nil,
+        shared_payment_granted_token: nil,
         shopeepay: nil,
         sofort: nil,
         stripe_balance: nil,
@@ -638,8 +639,7 @@ module Stripe
         upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
-        zip: nil,
-        shared_payment_granted_token: nil
+        zip: nil
       )
         @acss_debit = acss_debit
         @affirm = affirm
@@ -694,6 +694,7 @@ module Stripe
         @samsung_pay = samsung_pay
         @satispay = satispay
         @sepa_debit = sepa_debit
+        @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
         @sofort = sofort
         @stripe_balance = stripe_balance
@@ -704,7 +705,6 @@ module Stripe
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
         @zip = zip
-        @shared_payment_granted_token = shared_payment_granted_token
       end
     end
 

@@ -926,6 +926,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field account_funding
+        sig { returns(T.nilable(AccountFunding)) }
+        def account_funding; end
         # The authorized amount.
         sig { returns(T.nilable(Integer)) }
         def amount_authorized; end
@@ -1029,11 +1032,9 @@ module Stripe
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
-        # Attribute for field account_funding
-        sig { returns(T.nilable(AccountFunding)) }
-        def account_funding; end
         def self.inner_class_types
           @inner_class_types = {
+            account_funding: AccountFunding,
             benefits: Benefits,
             checks: Checks,
             decremental_authorization: DecrementalAuthorization,
@@ -1047,7 +1048,6 @@ module Stripe
             reauthorization: Reauthorization,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
-            account_funding: AccountFunding,
           }
         end
         def self.field_remappings

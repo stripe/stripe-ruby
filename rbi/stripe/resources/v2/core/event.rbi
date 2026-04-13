@@ -46,9 +46,6 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # The type of the client.
-              sig { returns(String) }
-              def type; end
               # API key that triggered the event.
               sig { returns(T.nilable(ApiKey)) }
               def api_key; end
@@ -58,6 +55,9 @@ module Stripe
               # Stripe action that triggered the event.
               sig { returns(T.nilable(StripeAction)) }
               def stripe_action; end
+              # The type of the client.
+              sig { returns(String) }
+              def type; end
               def self.inner_class_types
                 @inner_class_types = {
                   api_key: ApiKey,
@@ -85,12 +85,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Event reason type.
-          sig { returns(String) }
-          def type; end
           # Information on the API request that instigated the event.
           sig { returns(T.nilable(Request)) }
           def request; end
+          # Event reason type.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {request: Request}
           end

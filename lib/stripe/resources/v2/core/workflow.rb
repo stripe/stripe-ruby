@@ -38,12 +38,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Which type of trigger this is.
-          attr_reader :type
           # The Workflow can be launched when Stripe emits a certain event.
           attr_reader :event_trigger
           # The Workflow can be launched through a direct call, using either the Dashboard or the Stripe API.
           attr_reader :manual
+          # Which type of trigger this is.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = { event_trigger: EventTrigger, manual: Manual }

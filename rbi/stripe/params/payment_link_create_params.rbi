@@ -1071,6 +1071,13 @@ module Stripe
     def application_fee_percent; end
     sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
     def application_fee_percent=(_application_fee_percent); end
+    # Configuration for automatic surcharge calculation.
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge)) }
+    def automatic_surcharge; end
+    sig {
+      params(_automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge))
+     }
+    def automatic_surcharge=(_automatic_surcharge); end
     # Configuration for automatic tax collection.
     sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax)) }
     def automatic_tax; end
@@ -1252,21 +1259,15 @@ module Stripe
       params(_transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
-    # Configuration for automatic surcharge calculation.
-    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge)) }
-    def automatic_surcharge; end
     sig {
-      params(_automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge))
-     }
-    def automatic_surcharge=(_automatic_surcharge); end
-    sig {
-      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData), automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge)).void
+      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
      }
     def initialize(
       after_completion: nil,
       allow_promotion_codes: nil,
       application_fee_amount: nil,
       application_fee_percent: nil,
+      automatic_surcharge: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
       consent_collection: nil,
@@ -1293,8 +1294,7 @@ module Stripe
       submit_type: nil,
       subscription_data: nil,
       tax_id_collection: nil,
-      transfer_data: nil,
-      automatic_surcharge: nil
+      transfer_data: nil
     ); end
     def self.field_encodings
       @field_encodings = {

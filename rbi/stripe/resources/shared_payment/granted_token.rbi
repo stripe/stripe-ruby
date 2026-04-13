@@ -7,51 +7,6 @@ module Stripe
     # SharedPaymentGrantedToken is the view-only resource of a SharedPaymentIssuedToken, which is a limited-use reference to a PaymentMethod.
     # When another Stripe merchant shares a SharedPaymentIssuedToken with you, you can view attributes of the shared token using the SharedPaymentGrantedToken API, and use it with a PaymentIntent.
     class GrantedToken < APIResource
-      class UsageDetails < ::Stripe::StripeObject
-        class AmountCaptured < ::Stripe::StripeObject
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          # Integer value of the amount in the smallest currency unit.
-          sig { returns(Integer) }
-          def value; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # The total amount captured using this SharedPaymentToken.
-        sig { returns(T.nilable(AmountCaptured)) }
-        def amount_captured; end
-        def self.inner_class_types
-          @inner_class_types = {amount_captured: AmountCaptured}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class UsageLimits < ::Stripe::StripeObject
-        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        sig { returns(String) }
-        def currency; end
-        # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
-        sig { returns(T.nilable(Integer)) }
-        def expires_at; end
-        # Max amount that can be captured using this SharedPaymentToken.
-        sig { returns(Integer) }
-        def max_amount; end
-        # The recurring interval at which the shared payment token's amount usage restrictions reset.
-        sig { returns(T.nilable(String)) }
-        def recurring_interval; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class AgentDetails < ::Stripe::StripeObject
         # The Stripe Profile ID of the agent that issued this SharedPaymentGrantedToken.
         sig { returns(T.nilable(String)) }
@@ -1715,6 +1670,54 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class UsageDetails < ::Stripe::StripeObject
+        class AmountCaptured < ::Stripe::StripeObject
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          # Integer value of the amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The total amount captured using this SharedPaymentToken.
+        sig { returns(T.nilable(AmountCaptured)) }
+        def amount_captured; end
+        def self.inner_class_types
+          @inner_class_types = {amount_captured: AmountCaptured}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class UsageLimits < ::Stripe::StripeObject
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(String) }
+        def currency; end
+        # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
+        sig { returns(T.nilable(Integer)) }
+        def expires_at; end
+        # Max amount that can be captured using this SharedPaymentToken.
+        sig { returns(Integer) }
+        def max_amount; end
+        # The recurring interval at which the shared payment token's amount usage restrictions reset.
+        sig { returns(T.nilable(String)) }
+        def recurring_interval; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Details about the agent that issued this SharedPaymentGrantedToken.
+      sig { returns(T.nilable(AgentDetails)) }
+      def agent_details; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
@@ -1733,6 +1736,12 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # Details of the PaymentMethod that was shared via this token.
+      sig { returns(T.nilable(PaymentMethodDetails)) }
+      def payment_method_details; end
+      # Risk details of the SharedPaymentGrantedToken.
+      sig { returns(T.nilable(RiskDetails)) }
+      def risk_details; end
       # Metadata about the SharedPaymentGrantedToken.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def shared_metadata; end
@@ -1742,15 +1751,6 @@ module Stripe
       # Limits on how this SharedPaymentGrantedToken can be used.
       sig { returns(T.nilable(UsageLimits)) }
       def usage_limits; end
-      # Details about the agent that issued this SharedPaymentGrantedToken.
-      sig { returns(T.nilable(AgentDetails)) }
-      def agent_details; end
-      # Details of the PaymentMethod that was shared via this token.
-      sig { returns(T.nilable(PaymentMethodDetails)) }
-      def payment_method_details; end
-      # Risk details of the SharedPaymentGrantedToken.
-      sig { returns(T.nilable(RiskDetails)) }
-      def risk_details; end
     end
   end
 end

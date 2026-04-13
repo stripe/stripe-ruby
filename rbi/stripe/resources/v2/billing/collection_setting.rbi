@@ -279,6 +279,9 @@ module Stripe
         # latest_version if settings are updated without setting live_version='latest'.
         sig { returns(String) }
         def live_version; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # A lookup key used to retrieve settings dynamically from a static string.
         # This may be up to 200 characters.
         sig { returns(T.nilable(String)) }
@@ -292,9 +295,6 @@ module Stripe
         # Payment Method specific configuration stored on the object.
         sig { returns(T.nilable(PaymentMethodOptions)) }
         def payment_method_options; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

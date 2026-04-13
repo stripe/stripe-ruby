@@ -28,11 +28,6 @@ module Stripe
              }
             def initialize(memo: nil, shipping_speed: nil, signature: nil); end
           end
-          # Open Enum. Speed of the payout.
-          sig { returns(T.nilable(String)) }
-          def speed; end
-          sig { params(_speed: T.nilable(String)).returns(T.nilable(String)) }
-          def speed=(_speed); end
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
@@ -47,10 +42,15 @@ module Stripe
             params(_paper_check: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck))
            }
           def paper_check=(_paper_check); end
+          # Open Enum. Speed of the payout.
+          sig { returns(T.nilable(String)) }
+          def speed; end
+          sig { params(_speed: T.nilable(String)).returns(T.nilable(String)) }
+          def speed=(_speed); end
           sig {
-            params(speed: T.nilable(String), bank_account: T.nilable(String), paper_check: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck)).void
+            params(bank_account: T.nilable(String), paper_check: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams::DeliveryOptions::PaperCheck), speed: T.nilable(String)).void
            }
-          def initialize(speed: nil, bank_account: nil, paper_check: nil); end
+          def initialize(bank_account: nil, paper_check: nil, speed: nil); end
         end
         class From < ::Stripe::RequestParams
           # Describes the FinancialAmount's currency drawn from.

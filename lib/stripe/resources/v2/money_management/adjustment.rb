@@ -12,8 +12,6 @@ module Stripe
         end
 
         class AdjustedFlow < ::Stripe::StripeObject
-          # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
-          attr_reader :type
           # If applicable, the ID of the Adjustment linked to this Adjustment.
           attr_reader :adjustment
           # If applicable, the ID of the InboundTransfer linked to this Adjustment.
@@ -26,6 +24,8 @@ module Stripe
           attr_reader :received_credit
           # If applicable, the ID of the ReceivedDebit linked to this Adjustment.
           attr_reader :received_debit
+          # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -47,14 +47,14 @@ module Stripe
         attr_reader :financial_account
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # A link to the Stripe-hosted receipt that is provided when money movement is considered regulated under Stripe’s money transmission licenses. The receipt link remains active for 60 days from the Adjustment creation date. After this period, the link will expire and the receipt url value will be null.
         attr_reader :receipt_url
         # A reference for the Adjustment that associates it with related records or operations.
         attr_reader :reference
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { adjusted_flow: AdjustedFlow }

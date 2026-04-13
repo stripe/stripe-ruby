@@ -66,6 +66,9 @@ module Stripe
     # The current trial that is applied to this subscription item.
     sig { returns(T.nilable(CurrentTrial)) }
     def current_trial; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T::Array[T.any(String, ::Stripe::Discount)]) }
     def discounts; end
@@ -108,9 +111,6 @@ module Stripe
     # Options that configure the trial on the subscription item.
     sig { returns(T.nilable(Trial)) }
     def trial; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     sig {
       params(params: T.any(::Stripe::SubscriptionItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)

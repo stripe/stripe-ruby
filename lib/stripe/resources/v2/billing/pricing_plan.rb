@@ -26,6 +26,8 @@ module Stripe
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
+        # The ID of the latest version of the PricingPlan.
+        attr_reader :latest_version
         # The ID of the live version of the PricingPlan.
         attr_reader :live_version
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

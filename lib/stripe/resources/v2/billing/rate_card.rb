@@ -40,6 +40,8 @@ module Stripe
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
+        # The ID of this rate card's most recently created version.
+        attr_reader :latest_version
         # The ID of the Rate Card Version that will be used by all subscriptions when no specific version is specified.
         attr_reader :live_version
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -55,6 +57,14 @@ module Stripe
         # This is similar to but distinct from billing interval; the service interval deals with the rate at which the
         # customer accumulates fees, while the billing interval in Cadence deals with the rate the customer is billed.
         attr_reader :service_cycle
+        # The interval for assessing service. For example, a monthly Rate Card with a rate of $1 for the first 10 "workloads"
+        # and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
+        # distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
+        # while the billing interval in Cadence deals with the rate the customer is billed.
+        attr_reader :service_interval
+        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
+        # order to specify quarterly service.
+        attr_reader :service_interval_count
         # The Stripe Tax tax behavior - whether the rates are inclusive or exclusive of tax.
         attr_reader :tax_behavior
 

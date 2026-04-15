@@ -83,6 +83,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # The ID of the license fee's most recently created version.
+        sig { returns(String) }
+        def latest_version; end
         # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
         # to specify the pricing and create subscriptions to these items.
         sig { returns(::Stripe::V2::Billing::LicensedItem) }
@@ -105,6 +108,13 @@ module Stripe
         # The service cycle configuration for this License Fee.
         sig { returns(ServiceCycle) }
         def service_cycle; end
+        # The interval for assessing service.
+        sig { returns(String) }
+        def service_interval; end
+        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
+        # order to specify quarterly service.
+        sig { returns(Integer) }
+        def service_interval_count; end
         # The Stripe Tax tax behavior - whether the license fee is inclusive or exclusive of tax.
         sig { returns(String) }
         def tax_behavior; end

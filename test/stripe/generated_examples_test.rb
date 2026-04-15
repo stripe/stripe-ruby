@@ -8075,7 +8075,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/billing/license_fees?lookup_keys[0]=lookup_keys"
       ).to_return(
-        body: '{"data":[{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive","tiers":[{}]}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive","tiers":[{}]}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8085,7 +8085,7 @@ module Stripe
     end
     should "Test v2 billing license fee post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/license_fees").to_return(
-        body: '{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive","tiers":[{}]}',
+        body: '{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive","tiers":[{}]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8102,7 +8102,7 @@ module Stripe
     end
     should "Test v2 billing license fee get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/license_fees/id_123").to_return(
-        body: '{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive","tiers":[{}]}',
+        body: '{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive","tiers":[{}]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8112,7 +8112,7 @@ module Stripe
     end
     should "Test v2 billing license fee post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/license_fees/id_123").to_return(
-        body: '{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive","tiers":[{}]}',
+        body: '{"object":"v2.billing.license_fee","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","licensed_item":{"object":"v2.billing.licensed_item","created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true},"live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive","tiers":[{}]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8333,7 +8333,7 @@ module Stripe
     end
     should "Test v2 billing pricing plan get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/pricing_plans").to_return(
-        body: '{"data":[{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","livemode":true,"tax_behavior":"exclusive"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","livemode":true,"tax_behavior":"exclusive"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8343,7 +8343,7 @@ module Stripe
     end
     should "Test v2 billing pricing plan post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/pricing_plans").to_return(
-        body: '{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","livemode":true,"tax_behavior":"exclusive"}',
+        body: '{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","livemode":true,"tax_behavior":"exclusive"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8357,7 +8357,7 @@ module Stripe
     end
     should "Test v2 billing pricing plan get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/pricing_plans/id_123").to_return(
-        body: '{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","livemode":true,"tax_behavior":"exclusive"}',
+        body: '{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","livemode":true,"tax_behavior":"exclusive"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8367,7 +8367,7 @@ module Stripe
     end
     should "Test v2 billing pricing plan post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/pricing_plans/id_123").to_return(
-        body: '{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","livemode":true,"tax_behavior":"exclusive"}',
+        body: '{"object":"v2.billing.pricing_plan","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","livemode":true,"tax_behavior":"exclusive"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8572,7 +8572,7 @@ module Stripe
     end
     should "Test v2 billing rate card get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/rate_cards").to_return(
-        body: '{"data":[{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8582,7 +8582,7 @@ module Stripe
     end
     should "Test v2 billing rate card post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/rate_cards").to_return(
-        body: '{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive"}',
+        body: '{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8598,7 +8598,7 @@ module Stripe
     end
     should "Test v2 billing rate card get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/rate_cards/id_123").to_return(
-        body: '{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive"}',
+        body: '{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8608,7 +8608,7 @@ module Stripe
     end
     should "Test v2 billing rate card post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/rate_cards/id_123").to_return(
-        body: '{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"tax_behavior":"exclusive"}',
+        body: '{"object":"v2.billing.rate_card","active":true,"created":"1970-01-12T21:42:34.472Z","currency":"usd","display_name":"display_name","id":"obj_123","latest_version":"latest_version","live_version":"live_version","livemode":true,"service_cycle":{"interval":"month","interval_count":797691627},"service_interval":"month","service_interval_count":1375336415,"tax_behavior":"exclusive"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

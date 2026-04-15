@@ -90,6 +90,9 @@ module Stripe
         # The ID of the License Fee Version that will be used by all subscriptions when no specific version is specified.
         sig { returns(String) }
         def live_version; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # An internal key you can use to search for a particular License Fee. Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end
@@ -120,9 +123,6 @@ module Stripe
         # places. Cannot be set if `tiers` is provided.
         sig { returns(T.nilable(String)) }
         def unit_amount; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

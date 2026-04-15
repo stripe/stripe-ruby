@@ -115,15 +115,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
-          sig { returns(String) }
-          def type; end
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
           # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
           sig { returns(T.nilable(SepaBankAccount)) }
           def sepa_bank_account; end
+          # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
+          sig { returns(String) }
+          def type; end
           # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
@@ -155,6 +155,9 @@ module Stripe
         # The ID of a FinancialAddress.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -164,9 +167,6 @@ module Stripe
         # Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
         sig { returns(String) }
         def status; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

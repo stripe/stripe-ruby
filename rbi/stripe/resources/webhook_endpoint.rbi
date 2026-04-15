@@ -20,6 +20,9 @@ module Stripe
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # An optional description of what the webhook is used for.
     sig { returns(T.nilable(String)) }
     def description; end
@@ -47,9 +50,6 @@ module Stripe
     # The URL of the webhook endpoint.
     sig { returns(String) }
     def url; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
     sig {
       params(params: T.any(::Stripe::WebhookEndpointCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::WebhookEndpoint)

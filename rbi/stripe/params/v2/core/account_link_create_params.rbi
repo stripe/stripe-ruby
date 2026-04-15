@@ -203,11 +203,6 @@ module Stripe
               return_url: nil
             ); end
           end
-          # Open Enum. The type of Account Link the user is requesting.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
           # Hash containing configuration options for an Account Link object that onboards a new account.
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding))
@@ -244,15 +239,20 @@ module Stripe
             params(_recipient_update: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate))
            }
           def recipient_update=(_recipient_update); end
+          # Open Enum. The type of Account Link the user is requesting.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
-            params(type: String, account_onboarding: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding), account_update: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate), recipient_onboarding: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientOnboarding), recipient_update: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate)).void
+            params(account_onboarding: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding), account_update: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate), recipient_onboarding: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientOnboarding), recipient_update: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate), type: String).void
            }
           def initialize(
-            type: nil,
             account_onboarding: nil,
             account_update: nil,
             recipient_onboarding: nil,
-            recipient_update: nil
+            recipient_update: nil,
+            type: nil
           ); end
         end
         # The ID of the Account to create link for.

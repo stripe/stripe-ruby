@@ -71,6 +71,11 @@ module Stripe
         sig { params(email: T.nilable(String), phone: T.nilable(String)).void }
         def initialize(email: nil, phone: nil); end
       end
+      # Confirm and submit the provided details for verification.
+      sig { returns(T.nilable(T::Boolean)) }
+      def confirm; end
+      sig { params(_confirm: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def confirm=(_confirm); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -105,9 +110,10 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String)).void
+        params(confirm: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String)).void
        }
       def initialize(
+        confirm: nil,
         expand: nil,
         metadata: nil,
         options: nil,

@@ -22,17 +22,17 @@ module Stripe
                 @field_encodings = { value: :decimal_string }
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            attr_accessor :type
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             attr_accessor :custom_pricing_unit
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             attr_accessor :monetary
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            attr_accessor :type
 
-            def initialize(type: nil, custom_pricing_unit: nil, monetary: nil)
-              @type = type
+            def initialize(custom_pricing_unit: nil, monetary: nil, type: nil)
               @custom_pricing_unit = custom_pricing_unit
               @monetary = monetary
+              @type = type
             end
 
             def self.field_encodings
@@ -126,17 +126,17 @@ module Stripe
                 @field_encodings = { value: :decimal_string }
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            attr_accessor :type
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             attr_accessor :custom_pricing_unit
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             attr_accessor :monetary
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            attr_accessor :type
 
-            def initialize(type: nil, custom_pricing_unit: nil, monetary: nil)
-              @type = type
+            def initialize(custom_pricing_unit: nil, monetary: nil, type: nil)
               @custom_pricing_unit = custom_pricing_unit
               @monetary = monetary
+              @type = type
             end
 
             def self.field_encodings
@@ -189,14 +189,14 @@ module Stripe
                     @value = value
                   end
                 end
-                # The type of the meter segment condition. We currently support `dimension`.
-                attr_accessor :type
                 # Dimension-based meter segment condition.
                 attr_accessor :dimension
+                # The type of the meter segment condition. We currently support `dimension`.
+                attr_accessor :type
 
-                def initialize(type: nil, dimension: nil)
-                  @type = type
+                def initialize(dimension: nil, type: nil)
                   @dimension = dimension
+                  @type = type
                 end
               end
               # The meter segment conditions for the grant condition.
@@ -206,14 +206,14 @@ module Stripe
                 @meter_segment_conditions = meter_segment_conditions
               end
             end
-            # The type of the grant condition. We currently support `meter_event_first_per_period`.
-            attr_accessor :type
             # The grant condition for the meter event first per period.
             attr_accessor :meter_event_first_per_period
+            # The type of the grant condition. We currently support `meter_event_first_per_period`.
+            attr_accessor :type
 
-            def initialize(type: nil, meter_event_first_per_period: nil)
-              @type = type
+            def initialize(meter_event_first_per_period: nil, type: nil)
               @meter_event_first_per_period = meter_event_first_per_period
+              @type = type
             end
           end
           # The amount of the credit grant.
@@ -258,6 +258,10 @@ module Stripe
             }
           end
         end
+        # Details for the credit grant. Required if `type` is `credit_grant`.
+        attr_accessor :credit_grant
+        # Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
+        attr_accessor :credit_grant_per_tenant
         # An internal key you can use to search for this service action. Maximum length of 200 characters.
         attr_accessor :lookup_key
         # The interval for assessing service.
@@ -266,25 +270,21 @@ module Stripe
         attr_accessor :service_interval_count
         # The type of the service action.
         attr_accessor :type
-        # Details for the credit grant. Required if `type` is `credit_grant`.
-        attr_accessor :credit_grant
-        # Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
-        attr_accessor :credit_grant_per_tenant
 
         def initialize(
+          credit_grant: nil,
+          credit_grant_per_tenant: nil,
           lookup_key: nil,
           service_interval: nil,
           service_interval_count: nil,
-          type: nil,
-          credit_grant: nil,
-          credit_grant_per_tenant: nil
+          type: nil
         )
+          @credit_grant = credit_grant
+          @credit_grant_per_tenant = credit_grant_per_tenant
           @lookup_key = lookup_key
           @service_interval = service_interval
           @service_interval_count = service_interval_count
           @type = type
-          @credit_grant = credit_grant
-          @credit_grant_per_tenant = credit_grant_per_tenant
         end
 
         def self.field_encodings

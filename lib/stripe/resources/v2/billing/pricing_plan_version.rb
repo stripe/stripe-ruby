@@ -19,14 +19,14 @@ module Stripe
         attr_reader :end_date
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # The ID of the PricingPlan this version belongs to.
         attr_reader :pricing_plan
         # The timestamp when this version became active.
         attr_reader :start_date
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {}

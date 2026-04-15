@@ -35,6 +35,21 @@ module Stripe
       end
     end
 
+    class AutomaticSurcharge < ::Stripe::RequestParams
+      # Determines which amount serves as the basis for calculating the surcharge.
+      attr_accessor :calculation_basis
+      # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+      attr_accessor :enabled
+      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+      attr_accessor :tax_behavior
+
+      def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil)
+        @calculation_basis = calculation_basis
+        @enabled = enabled
+        @tax_behavior = tax_behavior
+      end
+    end
+
     class AutomaticTax < ::Stripe::RequestParams
       class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
@@ -721,6 +736,8 @@ module Stripe
     attr_accessor :application_fee_amount
     # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
     attr_accessor :application_fee_percent
+    # Configuration for automatic surcharge calculation.
+    attr_accessor :automatic_surcharge
     # Configuration for automatic tax collection.
     attr_accessor :automatic_tax
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
@@ -789,6 +806,7 @@ module Stripe
       allow_promotion_codes: nil,
       application_fee_amount: nil,
       application_fee_percent: nil,
+      automatic_surcharge: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
       consent_collection: nil,
@@ -821,6 +839,7 @@ module Stripe
       @allow_promotion_codes = allow_promotion_codes
       @application_fee_amount = application_fee_amount
       @application_fee_percent = application_fee_percent
+      @automatic_surcharge = automatic_surcharge
       @automatic_tax = automatic_tax
       @billing_address_collection = billing_address_collection
       @consent_collection = consent_collection

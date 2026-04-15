@@ -745,8 +745,12 @@ module Stripe
         attr_reader :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :bancontact
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :bizum
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :card
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :check_scan
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :customer_balance
         # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
@@ -763,16 +767,14 @@ module Stripe
         attr_reader :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :us_bank_account
-        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
-        attr_reader :bizum
-        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
-        attr_reader :check_scan
 
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
             id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
@@ -781,8 +783,6 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
-            bizum: Bizum,
-            check_scan: CheckScan,
           }
         end
 

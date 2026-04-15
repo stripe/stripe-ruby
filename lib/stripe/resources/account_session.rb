@@ -135,6 +135,30 @@ module Stripe
         end
       end
 
+      class Bills < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CapitalFinancing < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -831,6 +855,8 @@ module Stripe
       attr_reader :agentic_commerce_settings
       # Attribute for field balances
       attr_reader :balances
+      # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
+      attr_reader :bills
       # Attribute for field capital_financing
       attr_reader :capital_financing
       # Attribute for field capital_financing_application
@@ -888,6 +914,7 @@ module Stripe
           account_onboarding: AccountOnboarding,
           agentic_commerce_settings: AgenticCommerceSettings,
           balances: Balances,
+          bills: Bills,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
           capital_financing_promotion: CapitalFinancingPromotion,

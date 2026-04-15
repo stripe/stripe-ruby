@@ -1872,6 +1872,8 @@ module Stripe
       attr_accessor :customer_reference
       # Event details for this PaymentIntent
       attr_accessor :event_details
+      # Fleet data for this PaymentIntent.
+      attr_accessor :fleet_data
       # Flight reservation details for this PaymentIntent
       attr_accessor :flight
       # Flight data for this PaymentIntent.
@@ -1880,43 +1882,41 @@ module Stripe
       attr_accessor :lodging
       # Lodging data for this PaymentIntent.
       attr_accessor :lodging_data
+      # Money services details for this PaymentIntent.
+      attr_accessor :money_services
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
-      # Fleet data for this PaymentIntent.
-      attr_accessor :fleet_data
-      # Money services details for this PaymentIntent.
-      attr_accessor :money_services
 
       def initialize(
         car_rental: nil,
         car_rental_data: nil,
         customer_reference: nil,
         event_details: nil,
+        fleet_data: nil,
         flight: nil,
         flight_data: nil,
         lodging: nil,
         lodging_data: nil,
+        money_services: nil,
         order_reference: nil,
-        subscription: nil,
-        fleet_data: nil,
-        money_services: nil
+        subscription: nil
       )
         @car_rental = car_rental
         @car_rental_data = car_rental_data
         @customer_reference = customer_reference
         @event_details = event_details
+        @fleet_data = fleet_data
         @flight = flight
         @flight_data = flight_data
         @lodging = lodging
         @lodging_data = lodging_data
+        @money_services = money_services
         @order_reference = order_reference
         @subscription = subscription
-        @fleet_data = fleet_data
-        @money_services = money_services
       end
     end
 

@@ -48,6 +48,8 @@ module Stripe
         attr_reader :id
         # Optional array of Meter dimensions to group event dimension keys for invoice line items.
         attr_reader :invoice_presentation_dimensions
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # An internal key you can use to search for a particular metered item.
         # Maximum length of 200 characters.
         attr_reader :lookup_key
@@ -66,8 +68,6 @@ module Stripe
         # million events".
         # Maximum length of 100 characters.
         attr_reader :unit_label
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

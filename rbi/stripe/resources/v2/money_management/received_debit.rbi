@@ -7,56 +7,13 @@ module Stripe
     module MoneyManagement
       # ReceivedDebit resource
       class ReceivedDebit < APIResource
-        class StatusDetails < ::Stripe::StripeObject
-          class Failed < ::Stripe::StripeObject
-            # Open Enum. The reason for the failure of the ReceivedDebit.
-            sig { returns(String) }
-            def reason; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Information that elaborates on the `failed` status of a ReceivedDebit.
-          # It is only present when the ReceivedDebit status is `failed`.
-          sig { returns(Failed) }
-          def failed; end
-          def self.inner_class_types
-            @inner_class_types = {failed: Failed}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class StatusTransitions < ::Stripe::StripeObject
-          # The time when the ReceivedDebit was marked as `canceled`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
-          sig { returns(T.nilable(String)) }
-          def canceled_at; end
-          # The time when the ReceivedDebit was marked as `failed`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
-          sig { returns(T.nilable(String)) }
-          def failed_at; end
-          # The time when the ReceivedDebit was marked as `succeeded`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
-          sig { returns(T.nilable(String)) }
-          def succeeded_at; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class BalanceTransfer < ::Stripe::StripeObject
-          # Open Enum. The type of balance transfer that originated the ReceivedDebit.
-          sig { returns(String) }
-          def type; end
           # The ID of the topup object that originated the ReceivedDebit.
           sig { returns(T.nilable(String)) }
           def topup; end
+          # Open Enum. The type of balance transfer that originated the ReceivedDebit.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -149,6 +106,49 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
+            # Open Enum. The reason for the failure of the ReceivedDebit.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Information that elaborates on the `failed` status of a ReceivedDebit.
+          # It is only present when the ReceivedDebit status is `failed`.
+          sig { returns(Failed) }
+          def failed; end
+          def self.inner_class_types
+            @inner_class_types = {failed: Failed}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StatusTransitions < ::Stripe::StripeObject
+          # The time when the ReceivedDebit was marked as `canceled`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
+          # The time when the ReceivedDebit was marked as `failed`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          sig { returns(T.nilable(String)) }
+          def failed_at; end
+          # The time when the ReceivedDebit was marked as `succeeded`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          sig { returns(T.nilable(String)) }
+          def succeeded_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class StripeBalancePayment < ::Stripe::StripeObject
           # ID of the debit agreement associated with this payment.
           sig { returns(T.nilable(String)) }
@@ -166,6 +166,15 @@ module Stripe
         # Amount and currency of the ReceivedDebit.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
+        # This object stores details about the balance transfer object that resulted in the ReceivedDebit.
+        sig { returns(T.nilable(BalanceTransfer)) }
+        def balance_transfer; end
+        # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
+        sig { returns(T.nilable(BankTransfer)) }
+        def bank_transfer; end
+        # This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
+        sig { returns(T.nilable(CardSpend)) }
+        def card_spend; end
         # The time at which the ReceivedDebit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
         sig { returns(String) }
@@ -182,6 +191,9 @@ module Stripe
         # Unique identifier for the ReceivedDebit.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -197,24 +209,12 @@ module Stripe
         # The time at which the ReceivedDebit transitioned to a particular status.
         sig { returns(T.nilable(StatusTransitions)) }
         def status_transitions; end
-        # Open Enum. The type of the ReceivedDebit.
-        sig { returns(String) }
-        def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # This object stores details about the balance transfer object that resulted in the ReceivedDebit.
-        sig { returns(T.nilable(BalanceTransfer)) }
-        def balance_transfer; end
-        # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
-        sig { returns(T.nilable(BankTransfer)) }
-        def bank_transfer; end
-        # This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
-        sig { returns(T.nilable(CardSpend)) }
-        def card_spend; end
         # This object stores details about the Stripe Balance Payment that resulted in the ReceivedDebit.
         sig { returns(T.nilable(StripeBalancePayment)) }
         def stripe_balance_payment; end
+        # Open Enum. The type of the ReceivedDebit.
+        sig { returns(String) }
+        def type; end
       end
     end
   end

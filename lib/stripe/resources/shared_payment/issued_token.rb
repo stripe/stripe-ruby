@@ -10,12 +10,39 @@ module Stripe
         "shared_payment.issued_token"
       end
 
+      class NextAction < ::Stripe::StripeObject
+        class UseStripeSdk < ::Stripe::StripeObject
+          # A base64-encoded string used by Stripe.js and the iOS and Android client SDKs to handle the next action. Its content is subject to change.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Specifies the type of next action required. Determines which child attribute contains action details.
+        attr_reader :type
+        # Contains details for handling the next action using Stripe.js, iOS, or Android SDKs. Present when `next_action.type` is `use_stripe_sdk`.
+        attr_reader :use_stripe_sdk
+
+        def self.inner_class_types
+          @inner_class_types = { use_stripe_sdk: UseStripeSdk }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RiskDetails < ::Stripe::StripeObject
         class Insights < ::Stripe::StripeObject
           class Bot < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -30,7 +57,7 @@ module Stripe
           class CardIssuerDecline < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -45,7 +72,7 @@ module Stripe
           class CardTesting < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -60,7 +87,7 @@ module Stripe
           class FraudulentDispute < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -75,7 +102,7 @@ module Stripe
           class StolenCard < ::Stripe::StripeObject
             # Recommended action for this insight.
             attr_reader :recommended_action
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             attr_reader :score
 
             def self.inner_class_types
@@ -86,15 +113,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Bot risk insight (score: Float, recommended_action).
+          # Bot risk insight.
           attr_reader :bot
-          # Card issuer decline risk insight (score: Float, recommended_action).
+          # Card issuer decline risk insight.
           attr_reader :card_issuer_decline
-          # Card testing risk insight (score: Float, recommended_action).
+          # Card testing risk insight.
           attr_reader :card_testing
-          # Fraudulent dispute risk insight (score: Integer, recommended_action).
+          # Fraudulent dispute risk insight.
           attr_reader :fraudulent_dispute
-          # Stolen card risk insight (score: Integer, recommended_action).
+          # Stolen card risk insight.
           attr_reader :stolen_card
 
           def self.inner_class_types
@@ -128,8 +155,6 @@ module Stripe
         attr_reader :external_id
         # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
         attr_reader :network_business_profile
-        # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
-        attr_reader :network_id
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -197,6 +222,8 @@ module Stripe
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
+      # If present, describes the action required to make this `SharedPaymentIssuedToken` usable for payments. Present when the token is in `requires_action` state.
+      attr_reader :next_action
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # ID of an existing PaymentMethod.
@@ -211,6 +238,8 @@ module Stripe
       attr_reader :setup_future_usage
       # Metadata about the SharedPaymentIssuedToken.
       attr_reader :shared_metadata
+      # Status of this SharedPaymentIssuedToken, one of `active`, `requires_action`, or `deactivated`.
+      attr_reader :status
       # Usage details of the SharedPaymentIssuedToken
       attr_reader :usage_details
       # Usage limits of the SharedPaymentIssuedToken.
@@ -218,6 +247,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          next_action: NextAction,
           risk_details: RiskDetails,
           seller_details: SellerDetails,
           usage_details: UsageDetails,

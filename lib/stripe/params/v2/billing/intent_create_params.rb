@@ -60,15 +60,15 @@ module Stripe
               end
               # The entity that the discount rule applies to, for example, the cadence.
               attr_accessor :applies_to
-              # Type of the discount rule.
-              attr_accessor :type
               # Configuration for percentage off discount.
               attr_accessor :percent_off
+              # Type of the discount rule.
+              attr_accessor :type
 
-              def initialize(applies_to: nil, type: nil, percent_off: nil)
+              def initialize(applies_to: nil, percent_off: nil, type: nil)
                 @applies_to = applies_to
-                @type = type
                 @percent_off = percent_off
+                @type = type
               end
 
               def self.field_encodings
@@ -92,14 +92,14 @@ module Stripe
                       @value = value
                     end
                   end
-                  # The type of the amount.
-                  attr_accessor :type
                   # The custom pricing unit amount.
                   attr_accessor :custom_pricing_unit
+                  # The type of the amount.
+                  attr_accessor :type
 
-                  def initialize(type: nil, custom_pricing_unit: nil)
-                    @type = type
+                  def initialize(custom_pricing_unit: nil, type: nil)
                     @custom_pricing_unit = custom_pricing_unit
+                    @type = type
                   end
                 end
 
@@ -123,40 +123,40 @@ module Stripe
               end
               # What the spend modifier applies to.
               attr_accessor :applies_to
-              # Type of the spend modifier.
-              attr_accessor :type
               # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
               attr_accessor :max_billing_period_spend
+              # Type of the spend modifier.
+              attr_accessor :type
 
-              def initialize(applies_to: nil, type: nil, max_billing_period_spend: nil)
+              def initialize(applies_to: nil, max_billing_period_spend: nil, type: nil)
                 @applies_to = applies_to
-                @type = type
                 @max_billing_period_spend = max_billing_period_spend
+                @type = type
               end
             end
-            # When the apply action will take effect. If not specified, defaults to on_reserve.
-            attr_accessor :effective_at
-            # Type of the apply action details.
-            attr_accessor :type
             # Details for applying a discount.
             attr_accessor :discount
+            # When the apply action will take effect. If not specified, defaults to on_reserve.
+            attr_accessor :effective_at
             # Details for applying a discount rule to future invoices.
             attr_accessor :invoice_discount_rule
             # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
             attr_accessor :spend_modifier_rule
+            # Type of the apply action details.
+            attr_accessor :type
 
             def initialize(
-              effective_at: nil,
-              type: nil,
               discount: nil,
+              effective_at: nil,
               invoice_discount_rule: nil,
-              spend_modifier_rule: nil
+              spend_modifier_rule: nil,
+              type: nil
             )
-              @effective_at = effective_at
-              @type = type
               @discount = discount
+              @effective_at = effective_at
               @invoice_discount_rule = invoice_discount_rule
               @spend_modifier_rule = spend_modifier_rule
+              @type = type
             end
 
             def self.field_encodings
@@ -205,14 +205,14 @@ module Stripe
                       @credit_proration_behavior = credit_proration_behavior
                     end
                   end
-                  # The type of behavior to override.
-                  attr_accessor :type
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
+                  # The type of behavior to override.
+                  attr_accessor :type
 
-                  def initialize(type: nil, license_fee: nil)
-                    @type = type
+                  def initialize(license_fee: nil, type: nil)
                     @license_fee = license_fee
+                    @type = type
                   end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
@@ -273,17 +273,17 @@ module Stripe
 
             class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
               class ComponentConfiguration < ::Stripe::RequestParams
-                # Quantity of the component to be used.
-                attr_accessor :quantity
                 # Lookup key for the pricing plan component.
                 attr_accessor :lookup_key
                 # ID of the pricing plan component.
                 attr_accessor :pricing_plan_component
+                # Quantity of the component to be used.
+                attr_accessor :quantity
 
-                def initialize(quantity: nil, lookup_key: nil, pricing_plan_component: nil)
-                  @quantity = quantity
+                def initialize(lookup_key: nil, pricing_plan_component: nil, quantity: nil)
                   @lookup_key = lookup_key
                   @pricing_plan_component = pricing_plan_component
+                  @quantity = quantity
                 end
               end
 
@@ -309,17 +309,17 @@ module Stripe
                       @create_behavior = create_behavior
                     end
                   end
-                  # The type of behavior to override.
-                  attr_accessor :type
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
                   # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                   attr_accessor :recurring_credit_grant
+                  # The type of behavior to override.
+                  attr_accessor :type
 
-                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil)
-                    @type = type
+                  def initialize(license_fee: nil, recurring_credit_grant: nil, type: nil)
                     @license_fee = license_fee
                     @recurring_credit_grant = recurring_credit_grant
+                    @type = type
                   end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
@@ -387,23 +387,23 @@ module Stripe
             end
             # When the remove action will take effect. If not specified, defaults to on_reserve.
             attr_accessor :effective_at
-            # Type of the remove action.
-            attr_accessor :type
             # The ID of the discount rule to remove for future invoices.
             attr_accessor :invoice_discount_rule
             # The ID of the spend modifier rule to remove.
             attr_accessor :spend_modifier_rule
+            # Type of the remove action.
+            attr_accessor :type
 
             def initialize(
               effective_at: nil,
-              type: nil,
               invoice_discount_rule: nil,
-              spend_modifier_rule: nil
+              spend_modifier_rule: nil,
+              type: nil
             )
               @effective_at = effective_at
-              @type = type
               @invoice_discount_rule = invoice_discount_rule
               @spend_modifier_rule = spend_modifier_rule
+              @type = type
             end
           end
 
@@ -422,17 +422,17 @@ module Stripe
 
             class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
               class ComponentConfiguration < ::Stripe::RequestParams
-                # Quantity of the component to be used.
-                attr_accessor :quantity
                 # Lookup key for the pricing plan component.
                 attr_accessor :lookup_key
                 # ID of the pricing plan component.
                 attr_accessor :pricing_plan_component
+                # Quantity of the component to be used.
+                attr_accessor :quantity
 
-                def initialize(quantity: nil, lookup_key: nil, pricing_plan_component: nil)
-                  @quantity = quantity
+                def initialize(lookup_key: nil, pricing_plan_component: nil, quantity: nil)
                   @lookup_key = lookup_key
                   @pricing_plan_component = pricing_plan_component
+                  @quantity = quantity
                 end
               end
 
@@ -455,17 +455,17 @@ module Stripe
                       @create_behavior = create_behavior
                     end
                   end
-                  # The type of behavior to override.
-                  attr_accessor :type
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   attr_accessor :license_fee
                   # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                   attr_accessor :recurring_credit_grant
+                  # The type of behavior to override.
+                  attr_accessor :type
 
-                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil)
-                    @type = type
+                  def initialize(license_fee: nil, recurring_credit_grant: nil, type: nil)
                     @license_fee = license_fee
                     @recurring_credit_grant = recurring_credit_grant
+                    @type = type
                   end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
@@ -534,29 +534,27 @@ module Stripe
             attr_accessor :collect_at
             # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
-            # Type of the action details.
-            attr_accessor :type
             # Details for subscribing to a pricing plan.
             attr_accessor :pricing_plan_subscription_details
+            # Type of the action details.
+            attr_accessor :type
             # Details for subscribing to a v1 subscription.
             attr_accessor :v1_subscription_details
 
             def initialize(
               collect_at: nil,
               effective_at: nil,
-              type: nil,
               pricing_plan_subscription_details: nil,
+              type: nil,
               v1_subscription_details: nil
             )
               @collect_at = collect_at
               @effective_at = effective_at
-              @type = type
               @pricing_plan_subscription_details = pricing_plan_subscription_details
+              @type = type
               @v1_subscription_details = v1_subscription_details
             end
           end
-          # Type of the Billing Intent action.
-          attr_accessor :type
           # Details for an apply action.
           attr_accessor :apply
           # Details for a deactivate action.
@@ -567,21 +565,23 @@ module Stripe
           attr_accessor :remove
           # Details for a subscribe action.
           attr_accessor :subscribe
+          # Type of the Billing Intent action.
+          attr_accessor :type
 
           def initialize(
-            type: nil,
             apply: nil,
             deactivate: nil,
             modify: nil,
             remove: nil,
-            subscribe: nil
+            subscribe: nil,
+            type: nil
           )
-            @type = type
             @apply = apply
             @deactivate = deactivate
             @modify = modify
             @remove = remove
             @subscribe = subscribe
+            @type = type
           end
 
           def self.field_encodings
@@ -744,33 +744,33 @@ module Stripe
                 @time = time
               end
             end
+            # Specific configuration for determining billing dates when type=day.
+            attr_accessor :day
             # The number of intervals (specified in the interval attribute) between
             # cadence billings. For example, type=month and interval_count=3 bills every
             # 3 months. If this is not provided, it will default to 1.
             attr_accessor :interval_count
-            # The frequency at which a cadence bills.
-            attr_accessor :type
-            # Specific configuration for determining billing dates when type=day.
-            attr_accessor :day
             # Specific configuration for determining billing dates when type=month.
             attr_accessor :month
+            # The frequency at which a cadence bills.
+            attr_accessor :type
             # Specific configuration for determining billing dates when type=week.
             attr_accessor :week
             # Specific configuration for determining billing dates when type=year.
             attr_accessor :year
 
             def initialize(
-              interval_count: nil,
-              type: nil,
               day: nil,
+              interval_count: nil,
               month: nil,
+              type: nil,
               week: nil,
               year: nil
             )
-              @interval_count = interval_count
-              @type = type
               @day = day
+              @interval_count = interval_count
               @month = month
+              @type = type
               @week = week
               @year = year
             end
@@ -856,18 +856,18 @@ module Stripe
         end
         # Actions to be performed by this Billing Intent.
         attr_accessor :actions
-        # Three-letter ISO currency code, in lowercase. Must be a supported currency.
-        attr_accessor :currency
         # ID of an existing Cadence to use.
         attr_accessor :cadence
         # Data for creating a new Cadence.
         attr_accessor :cadence_data
+        # Three-letter ISO currency code, in lowercase. Must be a supported currency.
+        attr_accessor :currency
 
-        def initialize(actions: nil, currency: nil, cadence: nil, cadence_data: nil)
+        def initialize(actions: nil, cadence: nil, cadence_data: nil, currency: nil)
           @actions = actions
-          @currency = currency
           @cadence = cadence
           @cadence_data = cadence_data
+          @currency = currency
         end
 
         def self.field_encodings

@@ -93,6 +93,8 @@ module Stripe
         end
         # The unique identifier of the `Report` object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # The human-readable name of the `Report`.
         attr_reader :name
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -100,8 +102,6 @@ module Stripe
         # Specification of the parameters that the `Report` accepts. It details each parameter's
         # name, description, whether it is required, and any validations performed.
         attr_reader :parameters
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { parameters: Parameters }

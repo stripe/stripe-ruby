@@ -84,6 +84,9 @@ module Stripe
         # Unique identifier for the Claimable sandbox.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -96,9 +99,6 @@ module Stripe
         # Status of the sandbox. One of `unclaimed`, `expired`, `claimed`.
         sig { returns(String) }
         def status; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

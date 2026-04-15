@@ -477,6 +477,19 @@ module Stripe
       end
 
       class Card < ::Stripe::StripeObject
+        class AccountFunding < ::Stripe::StripeObject
+          # The transaction type of the card transaction. One of `account_funding` or `purchase`.
+          attr_reader :processed_transaction_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Benefits < ::Stripe::StripeObject
           # Issuer of the benefit card utilized on this payment
           attr_reader :issuer
@@ -894,6 +907,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field account_funding
+        attr_reader :account_funding
         # The authorized amount.
         attr_reader :amount_authorized
         # The latest amount intended to be authorized by this charge.
@@ -967,6 +982,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            account_funding: AccountFunding,
             benefits: Benefits,
             checks: Checks,
             decremental_authorization: DecrementalAuthorization,

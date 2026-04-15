@@ -116,14 +116,14 @@ module Stripe
         attr_accessor :product_name
         # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
         # Contains information about the tax on the item.
         attr_accessor :tax
         # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
-        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
-        attr_accessor :quantity_precision
 
         def initialize(
           discount_amount: nil,
@@ -131,20 +131,20 @@ module Stripe
           product_code: nil,
           product_name: nil,
           quantity: nil,
+          quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil,
-          quantity_precision: nil
+          unit_of_measure: nil
         )
           @discount_amount = discount_amount
           @payment_method_options = payment_method_options
           @product_code = product_code
           @product_name = product_name
           @quantity = quantity
+          @quantity_precision = quantity_precision
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
-          @quantity_precision = quantity_precision
         end
       end
 
@@ -2106,6 +2106,8 @@ module Stripe
       attr_accessor :customer_reference
       # Event details for this PaymentIntent
       attr_accessor :event_details
+      # Fleet data for this PaymentIntent.
+      attr_accessor :fleet_data
       # Flight reservation details for this PaymentIntent
       attr_accessor :flight
       # Flight data for this PaymentIntent.
@@ -2114,43 +2116,41 @@ module Stripe
       attr_accessor :lodging
       # Lodging data for this PaymentIntent.
       attr_accessor :lodging_data
+      # Money services details for this PaymentIntent.
+      attr_accessor :money_services
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
-      # Fleet data for this PaymentIntent.
-      attr_accessor :fleet_data
-      # Money services details for this PaymentIntent.
-      attr_accessor :money_services
 
       def initialize(
         car_rental: nil,
         car_rental_data: nil,
         customer_reference: nil,
         event_details: nil,
+        fleet_data: nil,
         flight: nil,
         flight_data: nil,
         lodging: nil,
         lodging_data: nil,
+        money_services: nil,
         order_reference: nil,
-        subscription: nil,
-        fleet_data: nil,
-        money_services: nil
+        subscription: nil
       )
         @car_rental = car_rental
         @car_rental_data = car_rental_data
         @customer_reference = customer_reference
         @event_details = event_details
+        @fleet_data = fleet_data
         @flight = flight
         @flight_data = flight_data
         @lodging = lodging
         @lodging_data = lodging_data
+        @money_services = money_services
         @order_reference = order_reference
         @subscription = subscription
-        @fleet_data = fleet_data
-        @money_services = money_services
       end
     end
 

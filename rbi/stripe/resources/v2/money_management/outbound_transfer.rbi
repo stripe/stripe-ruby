@@ -149,6 +149,9 @@ module Stripe
         # Unique identifier for the OutboundTransfer.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -182,9 +185,6 @@ module Stripe
         # A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a "reference number" or something similar.
         sig { returns(TraceId) }
         def trace_id; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

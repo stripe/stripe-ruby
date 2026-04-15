@@ -6,13 +6,38 @@ module Stripe
   module SharedPayment
     # A SharedPaymentIssuedToken is a limited-use reference to a PaymentMethod that can be created with a secret key. When shared with another Stripe account (Seller), it enables that account to either process a payment on Stripe against a PaymentMethod that your Stripe account owns, or to forward a usable credential created against the originalPaymentMethod to then process the payment off-Stripe.
     class IssuedToken < APIResource
+      class NextAction < ::Stripe::StripeObject
+        class UseStripeSdk < ::Stripe::StripeObject
+          # A base64-encoded string used by Stripe.js and the iOS and Android client SDKs to handle the next action. Its content is subject to change.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Specifies the type of next action required. Determines which child attribute contains action details.
+        sig { returns(String) }
+        def type; end
+        # Contains details for handling the next action using Stripe.js, iOS, or Android SDKs. Present when `next_action.type` is `use_stripe_sdk`.
+        sig { returns(T.nilable(UseStripeSdk)) }
+        def use_stripe_sdk; end
+        def self.inner_class_types
+          @inner_class_types = {use_stripe_sdk: UseStripeSdk}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RiskDetails < ::Stripe::StripeObject
         class Insights < ::Stripe::StripeObject
           class Bot < ::Stripe::StripeObject
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             sig { returns(Float) }
             def score; end
             def self.inner_class_types
@@ -26,7 +51,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             sig { returns(Float) }
             def score; end
             def self.inner_class_types
@@ -40,7 +65,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (float).
+            # Risk score for this insight.
             sig { returns(Float) }
             def score; end
             def self.inner_class_types
@@ -54,7 +79,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             sig { returns(Integer) }
             def score; end
             def self.inner_class_types
@@ -68,7 +93,7 @@ module Stripe
             # Recommended action for this insight.
             sig { returns(String) }
             def recommended_action; end
-            # Risk score for this insight (integer).
+            # Risk score for this insight.
             sig { returns(Integer) }
             def score; end
             def self.inner_class_types
@@ -78,19 +103,19 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Bot risk insight (score: Float, recommended_action).
+          # Bot risk insight.
           sig { returns(T.nilable(Bot)) }
           def bot; end
-          # Card issuer decline risk insight (score: Float, recommended_action).
+          # Card issuer decline risk insight.
           sig { returns(T.nilable(CardIssuerDecline)) }
           def card_issuer_decline; end
-          # Card testing risk insight (score: Float, recommended_action).
+          # Card testing risk insight.
           sig { returns(T.nilable(CardTesting)) }
           def card_testing; end
-          # Fraudulent dispute risk insight (score: Integer, recommended_action).
+          # Fraudulent dispute risk insight.
           sig { returns(T.nilable(FraudulentDispute)) }
           def fraudulent_dispute; end
-          # Stolen card risk insight (score: Integer, recommended_action).
+          # Stolen card risk insight.
           sig { returns(T.nilable(StolenCard)) }
           def stolen_card; end
           def self.inner_class_types
@@ -123,9 +148,6 @@ module Stripe
         # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
         sig { returns(String) }
         def network_business_profile; end
-        # The unique and logical string that identifies the seller platform that this SharedToken is being created for.
-        sig { returns(T.nilable(String)) }
-        def network_id; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -196,6 +218,9 @@ module Stripe
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
+      # If present, describes the action required to make this `SharedPaymentIssuedToken` usable for payments. Present when the token is in `requires_action` state.
+      sig { returns(T.nilable(NextAction)) }
+      def next_action; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
@@ -217,6 +242,9 @@ module Stripe
       # Metadata about the SharedPaymentIssuedToken.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def shared_metadata; end
+      # Status of this SharedPaymentIssuedToken, one of `active`, `requires_action`, or `deactivated`.
+      sig { returns(T.nilable(String)) }
+      def status; end
       # Usage details of the SharedPaymentIssuedToken
       sig { returns(T.nilable(UsageDetails)) }
       def usage_details; end

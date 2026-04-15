@@ -42,6 +42,8 @@ module Stripe
         attr_reader :id
         # The ID of the Rate Card Version that will be used by all subscriptions when no specific version is specified.
         attr_reader :live_version
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
         attr_reader :lookup_key
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -55,8 +57,6 @@ module Stripe
         attr_reader :service_cycle
         # The Stripe Tax tax behavior - whether the rates are inclusive or exclusive of tax.
         attr_reader :tax_behavior
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { service_cycle: ServiceCycle }

@@ -2892,6 +2892,15 @@ module Stripe
         params(_event_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails))
        }
       def event_details=(_event_details); end
+      # Fleet data for this PaymentIntent.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum])))
+       }
+      def fleet_data; end
+      sig {
+        params(_fleet_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum])))
+       }
+      def fleet_data=(_fleet_data); end
       # Flight reservation details for this PaymentIntent
       sig { returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight)) }
       def flight; end
@@ -2924,6 +2933,15 @@ module Stripe
         params(_lodging_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum])))
        }
       def lodging_data=(_lodging_data); end
+      # Money services details for this PaymentIntent.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices)))
+       }
+      def money_services; end
+      sig {
+        params(_money_services: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices))).returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices)))
+       }
+      def money_services=(_money_services); end
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
@@ -2938,40 +2956,22 @@ module Stripe
         params(_subscription: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription))
        }
       def subscription=(_subscription); end
-      # Fleet data for this PaymentIntent.
       sig {
-        returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum])))
-       }
-      def fleet_data; end
-      sig {
-        params(_fleet_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum])))
-       }
-      def fleet_data=(_fleet_data); end
-      # Money services details for this PaymentIntent.
-      sig {
-        returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices)))
-       }
-      def money_services; end
-      sig {
-        params(_money_services: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices))).returns(T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices)))
-       }
-      def money_services=(_money_services); end
-      sig {
-        params(car_rental: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum])), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription), fleet_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum])), money_services: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices))).void
+        params(car_rental: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::EventDetails), fleet_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FleetDatum])), flight: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum])), money_services: T.nilable(T.any(String, ::Stripe::ChargeCaptureParams::PaymentDetails::MoneyServices)), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails::Subscription)).void
        }
       def initialize(
         car_rental: nil,
         car_rental_data: nil,
         customer_reference: nil,
         event_details: nil,
+        fleet_data: nil,
         flight: nil,
         flight_data: nil,
         lodging: nil,
         lodging_data: nil,
+        money_services: nil,
         order_reference: nil,
-        subscription: nil,
-        fleet_data: nil,
-        money_services: nil
+        subscription: nil
       ); end
     end
     class TransferData < ::Stripe::RequestParams

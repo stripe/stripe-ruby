@@ -19,12 +19,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The type of entity.
-          sig { returns(String) }
-          def type; end
           # An application.
           sig { returns(T.nilable(Application)) }
           def application; end
+          # The type of entity.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {application: Application}
           end
@@ -92,6 +92,9 @@ module Stripe
         # Timestamp when the API key was last used.
         sig { returns(T.nilable(String)) }
         def last_used; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Account that manages this API key (for keys managed by platforms).
         sig { returns(T.nilable(ManagedBy)) }
         def managed_by; end
@@ -104,21 +107,18 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Current status of the API key (e.g., active, expired).
-        sig { returns(String) }
-        def status; end
-        # Type of the API key.
-        sig { returns(String) }
-        def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
         # Token set for a publishable key.
         sig { returns(T.nilable(PublishableKey)) }
         def publishable_key; end
         # Token set for a secret key.
         sig { returns(T.nilable(SecretKey)) }
         def secret_key; end
+        # Current status of the API key (e.g., active, expired).
+        sig { returns(String) }
+        def status; end
+        # Type of the API key.
+        sig { returns(String) }
+        def type; end
       end
     end
   end

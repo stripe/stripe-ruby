@@ -33,6 +33,9 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
+      # Always true for a deleted object
+      sig { returns(T.nilable(T::Boolean)) }
+      def deleted; end
       # Time at which this clock is scheduled to auto delete.
       sig { returns(Integer) }
       def deletes_after; end
@@ -57,9 +60,6 @@ module Stripe
       # Attribute for field status_details
       sig { returns(StatusDetails) }
       def status_details; end
-      # Always true for a deleted object
-      sig { returns(T.nilable(T::Boolean)) }
-      def deleted; end
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       sig {
         params(params: T.any(::Stripe::TestHelpers::TestClockAdvanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)

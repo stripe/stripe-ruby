@@ -358,8 +358,12 @@ module Stripe
         attr_accessor :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bizum
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :check_scan
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :customer_balance
         # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
@@ -376,15 +380,13 @@ module Stripe
         attr_accessor :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
-        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
-        attr_accessor :bizum
-        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
-        attr_accessor :check_scan
 
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          bizum: nil,
           card: nil,
+          check_scan: nil,
           customer_balance: nil,
           id_bank_transfer: nil,
           konbini: nil,
@@ -392,13 +394,13 @@ module Stripe
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil,
-          bizum: nil,
-          check_scan: nil
+          us_bank_account: nil
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @bizum = bizum
           @card = card
+          @check_scan = check_scan
           @customer_balance = customer_balance
           @id_bank_transfer = id_bank_transfer
           @konbini = konbini
@@ -407,8 +409,6 @@ module Stripe
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
-          @bizum = bizum
-          @check_scan = check_scan
         end
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.

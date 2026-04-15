@@ -20,17 +20,17 @@ module Stripe
               @signature = signature
             end
           end
-          # Open Enum. Speed of the payout.
-          attr_accessor :speed
           # Open Enum. Method for bank account.
           attr_accessor :bank_account
           # Delivery options for paper check.
           attr_accessor :paper_check
+          # Open Enum. Speed of the payout.
+          attr_accessor :speed
 
-          def initialize(speed: nil, bank_account: nil, paper_check: nil)
-            @speed = speed
+          def initialize(bank_account: nil, paper_check: nil, speed: nil)
             @bank_account = bank_account
             @paper_check = paper_check
+            @speed = speed
           end
         end
 

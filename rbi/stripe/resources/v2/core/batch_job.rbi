@@ -395,6 +395,9 @@ module Stripe
         # Unique identifier for the `batch_job`.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # The maximum requests per second defined for the `batch_job`.
         sig { returns(Integer) }
         def maximum_rps; end
@@ -413,9 +416,6 @@ module Stripe
         # Additional details about the current state of the `batch_job`.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

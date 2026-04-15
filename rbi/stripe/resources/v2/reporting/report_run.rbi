@@ -44,13 +44,13 @@ module Stripe
               @field_encodings = {size: :int64_string}
             end
           end
-          # The type of the `ReportRun` or `QueryRun` result.
-          sig { returns(String) }
-          def type; end
           # Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
           # its content type, size, and a URL to download its contents.
           sig { returns(T.nilable(File)) }
           def file; end
+          # The type of the `ReportRun` or `QueryRun` result.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {file: File}
           end
@@ -93,6 +93,9 @@ module Stripe
         # The unique identifier of the `ReportRun` object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -118,9 +121,6 @@ module Stripe
         # is in the `failed` state, providing more information about why the report failed to generate successfully.
         sig { returns(T::Hash[String, StatusDetails]) }
         def status_details; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

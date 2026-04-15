@@ -13,21 +13,6 @@ module Stripe
             "v2.data.reporting.query_run"
           end
 
-          class StatusDetails < ::Stripe::StripeObject
-            # Error code categorizing the reason the `QueryRun` failed.
-            attr_reader :error_code
-            # Error message with additional details about the failure.
-            attr_reader :error_message
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class Result < ::Stripe::StripeObject
             class File < ::Stripe::StripeObject
               class DownloadUrl < ::Stripe::StripeObject
@@ -63,11 +48,11 @@ module Stripe
                 @field_encodings = { size: :int64_string }
               end
             end
-            # The type of the `ReportRun` or `QueryRun` result.
-            attr_reader :type
             # Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
             # its content type, size, and a URL to download its contents.
             attr_reader :file
+            # The type of the `ReportRun` or `QueryRun` result.
+            attr_reader :type
 
             def self.inner_class_types
               @inner_class_types = { file: File }
@@ -95,15 +80,29 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class StatusDetails < ::Stripe::StripeObject
+            # Error code categorizing the reason the `QueryRun` failed.
+            attr_reader :error_code
+            # Error message with additional details about the failure.
+            attr_reader :error_message
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Time at which the object was created.
           attr_reader :created
           # The unique identifier of the `QueryRun` object.
           attr_reader :id
+          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+          attr_reader :livemode
           # String representing the object's type. Objects of the same type share the same value of the object field.
           attr_reader :object
-          # Additional details about the current state of the `QueryRun`. Populated when the `QueryRun`
-          # is in the `failed` state, providing more information about why the query failed.
-          attr_reader :status_details
           # Details how to retrieve the results of a successfully completed `QueryRun`.
           attr_reader :result
           # The options specified for customizing the output of the `QueryRun`.
@@ -112,14 +111,15 @@ module Stripe
           attr_reader :sql
           # The current status of the `QueryRun`.
           attr_reader :status
-          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-          attr_reader :livemode
+          # Additional details about the current state of the `QueryRun`. Populated when the `QueryRun`
+          # is in the `failed` state, providing more information about why the query failed.
+          attr_reader :status_details
 
           def self.inner_class_types
             @inner_class_types = {
-              status_details: StatusDetails,
               result: Result,
               result_options: ResultOptions,
+              status_details: StatusDetails,
             }
           end
 

@@ -138,6 +138,9 @@ module Stripe
     # The quantity of items. Required for L3 rates. An integer greater than 0.
     sig { returns(Integer) }
     def quantity; end
+    # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    sig { returns(T.nilable(Integer)) }
+    def quantity_precision; end
     # Contains information about the tax on the item.
     sig { returns(T.nilable(Tax)) }
     def tax; end
@@ -147,8 +150,5 @@ module Stripe
     # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     sig { returns(T.nilable(String)) }
     def unit_of_measure; end
-    # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
-    sig { returns(T.nilable(Integer)) }
-    def quantity_precision; end
   end
 end

@@ -9,20 +9,6 @@ module Stripe
         # The `QueryRun` object represents an ad-hoc SQL execution. Once created, Stripe processes the query. When
         # the query has finished running, the object provides a reference to the results.
         class QueryRun < APIResource
-          class StatusDetails < ::Stripe::StripeObject
-            # Error code categorizing the reason the `QueryRun` failed.
-            sig { returns(T.nilable(String)) }
-            def error_code; end
-            # Error message with additional details about the failure.
-            sig { returns(T.nilable(String)) }
-            def error_message; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Result < ::Stripe::StripeObject
             class File < ::Stripe::StripeObject
               class DownloadUrl < ::Stripe::StripeObject
@@ -58,13 +44,13 @@ module Stripe
                 @field_encodings = {size: :int64_string}
               end
             end
-            # The type of the `ReportRun` or `QueryRun` result.
-            sig { returns(String) }
-            def type; end
             # Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
             # its content type, size, and a URL to download its contents.
             sig { returns(T.nilable(File)) }
             def file; end
+            # The type of the `ReportRun` or `QueryRun` result.
+            sig { returns(String) }
+            def type; end
             def self.inner_class_types
               @inner_class_types = {file: File}
             end
@@ -87,19 +73,32 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class StatusDetails < ::Stripe::StripeObject
+            # Error code categorizing the reason the `QueryRun` failed.
+            sig { returns(T.nilable(String)) }
+            def error_code; end
+            # Error message with additional details about the failure.
+            sig { returns(T.nilable(String)) }
+            def error_message; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Time at which the object was created.
           sig { returns(String) }
           def created; end
           # The unique identifier of the `QueryRun` object.
           sig { returns(String) }
           def id; end
+          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+          sig { returns(T::Boolean) }
+          def livemode; end
           # String representing the object's type. Objects of the same type share the same value of the object field.
           sig { returns(String) }
           def object; end
-          # Additional details about the current state of the `QueryRun`. Populated when the `QueryRun`
-          # is in the `failed` state, providing more information about why the query failed.
-          sig { returns(T::Hash[String, StatusDetails]) }
-          def status_details; end
           # Details how to retrieve the results of a successfully completed `QueryRun`.
           sig { returns(T.nilable(Result)) }
           def result; end
@@ -112,9 +111,10 @@ module Stripe
           # The current status of the `QueryRun`.
           sig { returns(String) }
           def status; end
-          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-          sig { returns(T::Boolean) }
-          def livemode; end
+          # Additional details about the current state of the `QueryRun`. Populated when the `QueryRun`
+          # is in the `failed` state, providing more information about why the query failed.
+          sig { returns(T::Hash[String, StatusDetails]) }
+          def status_details; end
         end
       end
     end

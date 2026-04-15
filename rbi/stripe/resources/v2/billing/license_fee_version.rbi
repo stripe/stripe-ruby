@@ -60,6 +60,9 @@ module Stripe
         # The ID of the parent License Fee.
         sig { returns(String) }
         def license_fee_id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -78,9 +81,6 @@ module Stripe
         # places. Cannot be set if `tiers` is provided.
         sig { returns(T.nilable(String)) }
         def unit_amount; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

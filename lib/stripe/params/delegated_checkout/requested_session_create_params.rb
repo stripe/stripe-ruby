@@ -173,14 +173,14 @@ module Stripe
       attr_accessor :metadata
       # The payment method for this requested session.
       attr_accessor :payment_method
+      # The payment method options for this requested session.
+      attr_accessor :payment_method_options
       # The details of the seller.
       attr_accessor :seller_details
       # The setup future usage for this requested session.
       attr_accessor :setup_future_usage
       # The shared metadata for this requested session.
       attr_accessor :shared_metadata
-      # The payment method options for this requested session.
-      attr_accessor :payment_method_options
 
       def initialize(
         affiliate_attribution: nil,
@@ -191,10 +191,10 @@ module Stripe
         line_item_details: nil,
         metadata: nil,
         payment_method: nil,
+        payment_method_options: nil,
         seller_details: nil,
         setup_future_usage: nil,
-        shared_metadata: nil,
-        payment_method_options: nil
+        shared_metadata: nil
       )
         @affiliate_attribution = affiliate_attribution
         @currency = currency
@@ -204,10 +204,10 @@ module Stripe
         @line_item_details = line_item_details
         @metadata = metadata
         @payment_method = payment_method
+        @payment_method_options = payment_method_options
         @seller_details = seller_details
         @setup_future_usage = setup_future_usage
         @shared_metadata = shared_metadata
-        @payment_method_options = payment_method_options
       end
     end
   end

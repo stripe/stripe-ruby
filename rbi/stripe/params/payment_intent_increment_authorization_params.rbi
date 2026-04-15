@@ -187,6 +187,11 @@ module Stripe
         def quantity; end
         sig { params(_quantity: Integer).returns(Integer) }
         def quantity=(_quantity); end
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        sig { returns(T.nilable(Integer)) }
+        def quantity_precision; end
+        sig { params(_quantity_precision: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def quantity_precision=(_quantity_precision); end
         # Contains information about the tax on the item.
         sig {
           returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::Tax))
@@ -206,13 +211,8 @@ module Stripe
         def unit_of_measure; end
         sig { params(_unit_of_measure: T.nilable(String)).returns(T.nilable(String)) }
         def unit_of_measure=(_unit_of_measure); end
-        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
-        sig { returns(T.nilable(Integer)) }
-        def quantity_precision; end
-        sig { params(_quantity_precision: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def quantity_precision=(_quantity_precision); end
         sig {
-          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String), quantity_precision: T.nilable(Integer)).void
+          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, quantity_precision: T.nilable(Integer), tax: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
          }
         def initialize(
           discount_amount: nil,
@@ -220,10 +220,10 @@ module Stripe
           product_code: nil,
           product_name: nil,
           quantity: nil,
+          quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil,
-          quantity_precision: nil
+          unit_of_measure: nil
         ); end
       end
       class Shipping < ::Stripe::RequestParams

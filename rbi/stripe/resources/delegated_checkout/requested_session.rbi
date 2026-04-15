@@ -396,6 +396,37 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PaymentMethodOptions < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The card brands blocked by the agent.
+          sig { returns(T.nilable(T::Array[String])) }
+          def brands_blocked; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Card-specific payment method options.
+        sig { returns(T.nilable(Card)) }
+        def card; end
+        # The computed displayable card brands.
+        sig { returns(T.nilable(T::Array[String])) }
+        def displayable_card_brands; end
+        # The computed displayable payment method types.
+        sig { returns(T.nilable(T::Array[String])) }
+        def displayable_payment_method_types; end
+        # The payment method types excluded by the agent.
+        sig { returns(T.nilable(T::Array[String])) }
+        def excluded_payment_method_types; end
+        def self.inner_class_types
+          @inner_class_types = {card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class PaymentMethodPreview < ::Stripe::StripeObject
         class BillingDetails < ::Stripe::StripeObject
           class Address < ::Stripe::StripeObject
@@ -519,12 +550,18 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The card brands supported by the seller.
+        sig { returns(T.nilable(T::Array[String])) }
+        def card_brands; end
         # The marketplace seller details.
         sig { returns(T.nilable(MarketplaceSellerDetails)) }
         def marketplace_seller_details; end
         # The network profile of the seller.
         sig { returns(T.any(String, ::Stripe::Profile)) }
         def network_profile; end
+        # The payment method types supported by the seller.
+        sig { returns(T.nilable(T::Array[String])) }
+        def payment_method_types; end
         # The URL to the seller's privacy notice.
         sig { returns(T.nilable(String)) }
         def privacy_notice_url; end
@@ -537,12 +574,6 @@ module Stripe
         # The URL to the seller's terms of service.
         sig { returns(T.nilable(String)) }
         def terms_of_service_url; end
-        # The card brands supported by the seller.
-        sig { returns(T.nilable(T::Array[String])) }
-        def card_brands; end
-        # The payment method types supported by the seller.
-        sig { returns(T.nilable(T::Array[String])) }
-        def payment_method_types; end
         def self.inner_class_types
           @inner_class_types = {marketplace_seller_details: MarketplaceSellerDetails}
         end
@@ -585,37 +616,6 @@ module Stripe
         def applicable_fees; end
         def self.inner_class_types
           @inner_class_types = {applicable_fees: ApplicableFee}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      class PaymentMethodOptions < ::Stripe::StripeObject
-        class Card < ::Stripe::StripeObject
-          # The card brands blocked by the agent.
-          sig { returns(T.nilable(T::Array[String])) }
-          def brands_blocked; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Card-specific payment method options.
-        sig { returns(T.nilable(Card)) }
-        def card; end
-        # The computed displayable card brands.
-        sig { returns(T.nilable(T::Array[String])) }
-        def displayable_card_brands; end
-        # The computed displayable payment method types.
-        sig { returns(T.nilable(T::Array[String])) }
-        def displayable_payment_method_types; end
-        # The payment method types excluded by the agent.
-        sig { returns(T.nilable(T::Array[String])) }
-        def excluded_payment_method_types; end
-        def self.inner_class_types
-          @inner_class_types = {card: Card}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -666,6 +666,9 @@ module Stripe
       # The payment method used for the requested session.
       sig { returns(T.nilable(String)) }
       def payment_method; end
+      # The payment method options for this requested session.
+      sig { returns(T.nilable(PaymentMethodOptions)) }
+      def payment_method_options; end
       # The preview of the payment method to be created when the requested session is confirmed.
       sig { returns(T.nilable(PaymentMethodPreview)) }
       def payment_method_preview; end
@@ -693,9 +696,6 @@ module Stripe
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def updated_at; end
-      # The payment method options for this requested session.
-      sig { returns(T.nilable(PaymentMethodOptions)) }
-      def payment_method_options; end
       # Confirms a requested session
       sig {
         params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

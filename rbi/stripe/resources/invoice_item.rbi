@@ -45,6 +45,9 @@ module Stripe
         # The subscription schedule that generated this invoice item
         sig { returns(String) }
         def schedule; end
+        # The subscription associated with this schedule
+        sig { returns(T.nilable(String)) }
+        def subscription; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -249,6 +252,9 @@ module Stripe
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def date; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     def description; end
@@ -309,9 +315,6 @@ module Stripe
     # ID of the test clock this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     sig {
       params(params: T.any(::Stripe::InvoiceItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)

@@ -736,9 +736,15 @@ module Stripe
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Card)) }
         def card; end
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(CheckScan)) }
+        def check_scan; end
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(CustomerBalance)) }
         def customer_balance; end
@@ -763,17 +769,13 @@ module Stripe
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
-        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
-        sig { returns(T.nilable(Bizum)) }
-        def bizum; end
-        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
-        sig { returns(T.nilable(CheckScan)) }
-        def check_scan; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
             id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
@@ -782,8 +784,6 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
-            bizum: Bizum,
-            check_scan: CheckScan,
           }
         end
         def self.field_remappings
@@ -1179,6 +1179,9 @@ module Stripe
     # The tax rates applied to this invoice, if any.
     sig { returns(T::Array[::Stripe::TaxRate]) }
     def default_tax_rates; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     sig { returns(T.nilable(String)) }
     def description; end
@@ -1317,9 +1320,6 @@ module Stripe
     # Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://docs.stripe.com/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     sig { returns(T.nilable(Integer)) }
     def webhooks_delivered_at; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
     sig {
       params(params: T.any(::Stripe::InvoiceAddLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)

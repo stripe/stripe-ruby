@@ -173,10 +173,10 @@ module Stripe
       attr_accessor :metadata
       # The payment method for this requested session.
       attr_accessor :payment_method
-      # The shared metadata for this requested session.
-      attr_accessor :shared_metadata
       # The payment method options for this requested session.
       attr_accessor :payment_method_options
+      # The shared metadata for this requested session.
+      attr_accessor :shared_metadata
 
       def initialize(
         expand: nil,
@@ -184,16 +184,16 @@ module Stripe
         line_item_details: nil,
         metadata: nil,
         payment_method: nil,
-        shared_metadata: nil,
-        payment_method_options: nil
+        payment_method_options: nil,
+        shared_metadata: nil
       )
         @expand = expand
         @fulfillment_details = fulfillment_details
         @line_item_details = line_item_details
         @metadata = metadata
         @payment_method = payment_method
-        @shared_metadata = shared_metadata
         @payment_method_options = payment_method_options
+        @shared_metadata = shared_metadata
       end
     end
   end

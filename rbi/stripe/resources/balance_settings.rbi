@@ -60,9 +60,15 @@ module Stripe
       # A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def debit_negative_balances; end
+      # The default settlement currency for the account.
+      sig { returns(T.nilable(String)) }
+      def default_settlement_currency; end
       # Settings specific to the account's payouts.
       sig { returns(T.nilable(Payouts)) }
       def payouts; end
+      # A hash of settlement currencies and their states. Each key is an ISO 4217 currency code, and the value is one of `enabled`, `disabled`, or `restricted_by_application`.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def settlement_currencies; end
       # Attribute for field settlement_timing
       sig { returns(SettlementTiming) }
       def settlement_timing; end

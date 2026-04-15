@@ -29,15 +29,15 @@ module Stripe
                 @field_encodings = {value: :decimal_string}
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            sig { returns(String) }
-            def type; end
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             sig { returns(T.nilable(CustomPricingUnit)) }
             def custom_pricing_unit; end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            sig { returns(String) }
+            def type; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
             end
@@ -145,15 +145,15 @@ module Stripe
                 @field_encodings = {value: :decimal_string}
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            sig { returns(String) }
-            def type; end
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             sig { returns(T.nilable(CustomPricingUnit)) }
             def custom_pricing_unit; end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            sig { returns(String) }
+            def type; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
             end
@@ -242,9 +242,18 @@ module Stripe
         # Timestamp of when the object was created.
         sig { returns(String) }
         def created; end
+        # Details for the credit grant. Provided only if `type` is "credit_grant".
+        sig { returns(T.nilable(CreditGrant)) }
+        def credit_grant; end
+        # Details for the credit grant per tenant. Provided only if `type` is "credit_grant_per_tenant".
+        sig { returns(T.nilable(CreditGrantPerTenant)) }
+        def credit_grant_per_tenant; end
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # An internal key you can use to search for this service action.
         sig { returns(T.nilable(String)) }
         def lookup_key; end
@@ -260,15 +269,6 @@ module Stripe
         # The type of the service action.
         sig { returns(String) }
         def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # Details for the credit grant. Provided only if `type` is "credit_grant".
-        sig { returns(T.nilable(CreditGrant)) }
-        def credit_grant; end
-        # Details for the credit grant per tenant. Provided only if `type` is "credit_grant_per_tenant".
-        sig { returns(T.nilable(CreditGrantPerTenant)) }
-        def credit_grant_per_tenant; end
       end
     end
   end

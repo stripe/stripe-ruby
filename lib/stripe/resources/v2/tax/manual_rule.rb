@@ -27,14 +27,14 @@ module Stripe
         end
 
         class Product < ::Stripe::StripeObject
-          # The type of the product.
-          attr_reader :type
           # The licensed item identifier.
           attr_reader :licensed_item
           # The metered item identifier.
           attr_reader :metered_item
           # The tax code for the product.
           attr_reader :tax_code
+          # The type of the product.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -98,6 +98,8 @@ module Stripe
         attr_reader :created
         # The ID of the ManualRule object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Location where the rule applies.
         attr_reader :location
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -108,8 +110,6 @@ module Stripe
         attr_reader :scheduled_tax_rates
         # The status of the ManualRule object.
         attr_reader :status
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

@@ -45,12 +45,20 @@ module Stripe
       attr_accessor :debit_negative_balances
       # Settings specific to the account's payouts.
       attr_accessor :payouts
+      # A hash of settlement currencies to update. Each key is an ISO 4217 currency code, and the value is either `enabled` or `disabled`.
+      attr_accessor :settlement_currencies
       # Settings related to the account's balance settlement timing.
       attr_accessor :settlement_timing
 
-      def initialize(debit_negative_balances: nil, payouts: nil, settlement_timing: nil)
+      def initialize(
+        debit_negative_balances: nil,
+        payouts: nil,
+        settlement_currencies: nil,
+        settlement_timing: nil
+      )
         @debit_negative_balances = debit_negative_balances
         @payouts = payouts
+        @settlement_currencies = settlement_currencies
         @settlement_timing = settlement_timing
       end
     end

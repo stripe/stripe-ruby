@@ -6,14 +6,14 @@ module Stripe
     module MoneyManagement
       class OutboundPaymentQuoteCreateParams < ::Stripe::RequestParams
         class DeliveryOptions < ::Stripe::RequestParams
-          # Open Enum. Speed of the payout.
-          attr_accessor :speed
           # Open Enum. Method for bank account.
           attr_accessor :bank_account
+          # Open Enum. Speed of the payout.
+          attr_accessor :speed
 
-          def initialize(speed: nil, bank_account: nil)
-            @speed = speed
+          def initialize(bank_account: nil, speed: nil)
             @bank_account = bank_account
+            @speed = speed
           end
         end
 

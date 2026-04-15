@@ -16,14 +16,14 @@ module Stripe
     class FeeSource < ::Stripe::StripeObject
       # Charge ID that created this application fee.
       attr_reader :charge
+      # PaymentRecord ID that created this application fee.
+      attr_reader :payment_record
       # Payout ID that created this application fee.
       attr_reader :payout
       # Transfer ID that created this application fee.
       attr_reader :transfer
       # Type of object that created the application fee.
       attr_reader :type
-      # PaymentRecord ID that created this application fee.
-      attr_reader :payment_record
 
       def self.inner_class_types
         @inner_class_types = {}

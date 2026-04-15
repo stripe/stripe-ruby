@@ -124,11 +124,6 @@ module Stripe
             params(_billing_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails))
            }
           def billing_details=(_billing_details); end
-          # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
           # Contains card details that can be used to create a card PaymentMethod for PCI compliant users.
           sig {
             returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card))
@@ -138,10 +133,15 @@ module Stripe
             params(_card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card))
            }
           def card=(_card); end
+          # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
-            params(billing_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails), type: String, card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card)).void
+            params(billing_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::BillingDetails), card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData::Card), type: String).void
            }
-          def initialize(billing_details: nil, type: nil, card: nil); end
+          def initialize(billing_details: nil, card: nil, type: nil); end
         end
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams

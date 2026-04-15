@@ -12,14 +12,14 @@ module Stripe
         end
 
         class Flow < ::Stripe::StripeObject
-          # Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
-          attr_reader :type
           # If applicable, the ID of the OutboundPayment that created this transaction.
           attr_reader :outbound_payment
           # If applicable, the ID of the OutboundTransfer that created this transaction.
           attr_reader :outbound_transfer
           # If applicable, the ID of the ReceivedCredit that created this transaction.
           attr_reader :received_credit
+          # Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -39,6 +39,8 @@ module Stripe
         attr_reader :flow
         # Unique identifier for the SettlementAllocationIntentSplit.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Metadata associated with the SettlementAllocationIntentSplit.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -49,8 +51,6 @@ module Stripe
         attr_reader :status
         # The type of the SettlementAllocationIntentSplit.
         attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { flow: Flow }

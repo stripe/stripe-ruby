@@ -22,16 +22,16 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # A short description of the alert.
-        attr_reader :summary
         # The alert ID.
         attr_reader :alert_id
+        # The grouping key for the alert.
+        attr_reader :grouping_key
         # The user impact.
         attr_reader :impact
         # The time when impact on the user experience was first detected.
         attr_reader :started_at
-        # The grouping key for the alert.
-        attr_reader :grouping_key
+        # A short description of the alert.
+        attr_reader :summary
 
         def self.inner_class_types
           @inner_class_types = { impact: Impact }

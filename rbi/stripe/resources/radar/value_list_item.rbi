@@ -14,6 +14,9 @@ module Stripe
       # The name or email address of the user who added this item to the value list.
       sig { returns(String) }
       def created_by; end
+      # Always true for a deleted object
+      sig { returns(T.nilable(T::Boolean)) }
+      def deleted; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
@@ -29,9 +32,6 @@ module Stripe
       # The identifier of the value list this item belongs to.
       sig { returns(String) }
       def value_list; end
-      # Always true for a deleted object
-      sig { returns(T.nilable(T::Boolean)) }
-      def deleted; end
       # Creates a new ValueListItem object, which is added to the specified parent value list.
       sig {
         params(params: T.any(::Stripe::Radar::ValueListItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::ValueListItem)

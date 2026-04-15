@@ -81,11 +81,6 @@ module Stripe
               def applies_to; end
               sig { params(_applies_to: String).returns(String) }
               def applies_to=(_applies_to); end
-              # Type of the discount rule.
-              sig { returns(String) }
-              def type; end
-              sig { params(_type: String).returns(String) }
-              def type=(_type); end
               # Configuration for percentage off discount.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff))
@@ -95,10 +90,15 @@ module Stripe
                 params(_percent_off: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff))
                }
               def percent_off=(_percent_off); end
+              # Type of the discount rule.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig {
-                params(applies_to: String, type: String, percent_off: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff)).void
+                params(applies_to: String, percent_off: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff), type: String).void
                }
-              def initialize(applies_to: nil, type: nil, percent_off: nil); end
+              def initialize(applies_to: nil, percent_off: nil, type: nil); end
               def self.field_encodings
                 @field_encodings = {
                   percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
@@ -122,11 +122,6 @@ module Stripe
                     sig { params(id: T.nilable(String), value: String).void }
                     def initialize(id: nil, value: nil); end
                   end
-                  # The type of the amount.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
                   # The custom pricing unit amount.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit))
@@ -136,10 +131,15 @@ module Stripe
                     params(_custom_pricing_unit: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit))
                    }
                   def custom_pricing_unit=(_custom_pricing_unit); end
+                  # The type of the amount.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
-                    params(type: String, custom_pricing_unit: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit)).void
+                    params(custom_pricing_unit: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend::Amount::CustomPricingUnit), type: String).void
                    }
-                  def initialize(type: nil, custom_pricing_unit: nil); end
+                  def initialize(custom_pricing_unit: nil, type: nil); end
                 end
                 class CustomPricingUnitOverageRate < ::Stripe::RequestParams
                   # ID of the custom pricing unit overage rate.
@@ -178,11 +178,6 @@ module Stripe
               def applies_to; end
               sig { params(_applies_to: String).returns(String) }
               def applies_to=(_applies_to); end
-              # Type of the spend modifier.
-              sig { returns(String) }
-              def type; end
-              sig { params(_type: String).returns(String) }
-              def type=(_type); end
               # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend))
@@ -192,25 +187,16 @@ module Stripe
                 params(_max_billing_period_spend: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend))
                }
               def max_billing_period_spend=(_max_billing_period_spend); end
+              # Type of the spend modifier.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig {
-                params(applies_to: String, type: String, max_billing_period_spend: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend)).void
+                params(applies_to: String, max_billing_period_spend: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule::MaxBillingPeriodSpend), type: String).void
                }
-              def initialize(applies_to: nil, type: nil, max_billing_period_spend: nil); end
+              def initialize(applies_to: nil, max_billing_period_spend: nil, type: nil); end
             end
-            # When the apply action will take effect. If not specified, defaults to on_reserve.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
-             }
-            def effective_at; end
-            sig {
-              params(_effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
-             }
-            def effective_at=(_effective_at); end
-            # Type of the apply action details.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
             # Details for applying a discount.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount))
@@ -220,6 +206,15 @@ module Stripe
               params(_discount: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount))
              }
             def discount=(_discount); end
+            # When the apply action will take effect. If not specified, defaults to on_reserve.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
+             }
+            def effective_at; end
+            sig {
+              params(_effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
+             }
+            def effective_at=(_effective_at); end
             # Details for applying a discount rule to future invoices.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule))
@@ -238,15 +233,20 @@ module Stripe
               params(_spend_modifier_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule))
              }
             def spend_modifier_rule=(_spend_modifier_rule); end
+            # Type of the apply action details.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig {
-              params(effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt), type: String, discount: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount), invoice_discount_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule), spend_modifier_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule)).void
+              params(discount: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount), effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt), invoice_discount_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule), spend_modifier_rule: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::SpendModifierRule), type: String).void
              }
             def initialize(
-              effective_at: nil,
-              type: nil,
               discount: nil,
+              effective_at: nil,
               invoice_discount_rule: nil,
-              spend_modifier_rule: nil
+              spend_modifier_rule: nil,
+              type: nil
             ); end
             def self.field_encodings
               @field_encodings = {
@@ -298,11 +298,6 @@ module Stripe
                     sig { params(credit_proration_behavior: String).void }
                     def initialize(credit_proration_behavior: nil); end
                   end
-                  # The type of behavior to override.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
@@ -312,10 +307,15 @@ module Stripe
                     params(_license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
                    }
                   def license_fee=(_license_fee); end
+                  # The type of behavior to override.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
-                    params(type: String, license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee)).void
+                    params(license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee), type: String).void
                    }
-                  def initialize(type: nil, license_fee: nil); end
+                  def initialize(license_fee: nil, type: nil); end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
                 sig {
@@ -415,11 +415,6 @@ module Stripe
             end
             class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
               class ComponentConfiguration < ::Stripe::RequestParams
-                # Quantity of the component to be used.
-                sig { returns(T.nilable(Integer)) }
-                def quantity; end
-                sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
-                def quantity=(_quantity); end
                 # Lookup key for the pricing plan component.
                 sig { returns(T.nilable(String)) }
                 def lookup_key; end
@@ -432,10 +427,15 @@ module Stripe
                   params(_pricing_plan_component: T.nilable(String)).returns(T.nilable(String))
                  }
                 def pricing_plan_component=(_pricing_plan_component); end
+                # Quantity of the component to be used.
+                sig { returns(T.nilable(Integer)) }
+                def quantity; end
+                sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def quantity=(_quantity); end
                 sig {
-                  params(quantity: T.nilable(Integer), lookup_key: T.nilable(String), pricing_plan_component: T.nilable(String)).void
+                  params(lookup_key: T.nilable(String), pricing_plan_component: T.nilable(String), quantity: T.nilable(Integer)).void
                  }
-                def initialize(quantity: nil, lookup_key: nil, pricing_plan_component: nil); end
+                def initialize(lookup_key: nil, pricing_plan_component: nil, quantity: nil); end
               end
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
@@ -467,11 +467,6 @@ module Stripe
                     sig { params(create_behavior: String).void }
                     def initialize(create_behavior: nil); end
                   end
-                  # The type of behavior to override.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
@@ -490,10 +485,15 @@ module Stripe
                     params(_recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant))
                    }
                   def recurring_credit_grant=(_recurring_credit_grant); end
+                  # The type of behavior to override.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
-                    params(type: String, license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee), recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).void
+                    params(license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee), recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant), type: String).void
                    }
-                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil); end
+                  def initialize(license_fee: nil, recurring_credit_grant: nil, type: nil); end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
                 sig {
@@ -612,11 +612,6 @@ module Stripe
               params(_effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt))
              }
             def effective_at=(_effective_at); end
-            # Type of the remove action.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
             # The ID of the discount rule to remove for future invoices.
             sig { returns(T.nilable(String)) }
             def invoice_discount_rule; end
@@ -627,14 +622,19 @@ module Stripe
             def spend_modifier_rule; end
             sig { params(_spend_modifier_rule: T.nilable(String)).returns(T.nilable(String)) }
             def spend_modifier_rule=(_spend_modifier_rule); end
+            # Type of the remove action.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig {
-              params(effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt), type: String, invoice_discount_rule: T.nilable(String), spend_modifier_rule: T.nilable(String)).void
+              params(effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt), invoice_discount_rule: T.nilable(String), spend_modifier_rule: T.nilable(String), type: String).void
              }
             def initialize(
               effective_at: nil,
-              type: nil,
               invoice_discount_rule: nil,
-              spend_modifier_rule: nil
+              spend_modifier_rule: nil,
+              type: nil
             ); end
           end
           class Subscribe < ::Stripe::RequestParams
@@ -654,11 +654,6 @@ module Stripe
             end
             class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
               class ComponentConfiguration < ::Stripe::RequestParams
-                # Quantity of the component to be used.
-                sig { returns(T.nilable(Integer)) }
-                def quantity; end
-                sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
-                def quantity=(_quantity); end
                 # Lookup key for the pricing plan component.
                 sig { returns(T.nilable(String)) }
                 def lookup_key; end
@@ -671,10 +666,15 @@ module Stripe
                   params(_pricing_plan_component: T.nilable(String)).returns(T.nilable(String))
                  }
                 def pricing_plan_component=(_pricing_plan_component); end
+                # Quantity of the component to be used.
+                sig { returns(T.nilable(Integer)) }
+                def quantity; end
+                sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def quantity=(_quantity); end
                 sig {
-                  params(quantity: T.nilable(Integer), lookup_key: T.nilable(String), pricing_plan_component: T.nilable(String)).void
+                  params(lookup_key: T.nilable(String), pricing_plan_component: T.nilable(String), quantity: T.nilable(Integer)).void
                  }
-                def initialize(quantity: nil, lookup_key: nil, pricing_plan_component: nil); end
+                def initialize(lookup_key: nil, pricing_plan_component: nil, quantity: nil); end
               end
               class Overrides < ::Stripe::RequestParams
                 class PartialPeriodBehavior < ::Stripe::RequestParams
@@ -696,11 +696,6 @@ module Stripe
                     sig { params(create_behavior: String).void }
                     def initialize(create_behavior: nil); end
                   end
-                  # The type of behavior to override.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
                   # Overrides the behavior for license fee components when the action takes effect during the service period.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee))
@@ -719,10 +714,15 @@ module Stripe
                     params(_recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant))
                    }
                   def recurring_credit_grant=(_recurring_credit_grant); end
+                  # The type of behavior to override.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
-                    params(type: String, license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee), recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant)).void
+                    params(license_fee: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::LicenseFee), recurring_credit_grant: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails::Overrides::PartialPeriodBehavior::RecurringCreditGrant), type: String).void
                    }
-                  def initialize(type: nil, license_fee: nil, recurring_credit_grant: nil); end
+                  def initialize(license_fee: nil, recurring_credit_grant: nil, type: nil); end
                 end
                 # Configurations for behaviors when the action takes effect during the service period.
                 sig {
@@ -849,11 +849,6 @@ module Stripe
               params(_effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::EffectiveAt)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::EffectiveAt))
              }
             def effective_at=(_effective_at); end
-            # Type of the action details.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
             # Details for subscribing to a pricing plan.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails))
@@ -863,6 +858,11 @@ module Stripe
               params(_pricing_plan_subscription_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails))
              }
             def pricing_plan_subscription_details=(_pricing_plan_subscription_details); end
+            # Type of the action details.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             # Details for subscribing to a v1 subscription.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::V1SubscriptionDetails))
@@ -873,21 +873,16 @@ module Stripe
              }
             def v1_subscription_details=(_v1_subscription_details); end
             sig {
-              params(collect_at: T.nilable(String), effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::EffectiveAt), type: String, pricing_plan_subscription_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails), v1_subscription_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::V1SubscriptionDetails)).void
+              params(collect_at: T.nilable(String), effective_at: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::EffectiveAt), pricing_plan_subscription_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::PricingPlanSubscriptionDetails), type: String, v1_subscription_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::V1SubscriptionDetails)).void
              }
             def initialize(
               collect_at: nil,
               effective_at: nil,
-              type: nil,
               pricing_plan_subscription_details: nil,
+              type: nil,
               v1_subscription_details: nil
             ); end
           end
-          # Type of the Billing Intent action.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
           # Details for an apply action.
           sig { returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply)) }
           def apply; end
@@ -923,16 +918,21 @@ module Stripe
             params(_subscribe: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe))
            }
           def subscribe=(_subscribe); end
+          # Type of the Billing Intent action.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
-            params(type: String, apply: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply), deactivate: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate), modify: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify), remove: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove), subscribe: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe)).void
+            params(apply: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply), deactivate: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate), modify: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify), remove: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove), subscribe: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe), type: String).void
            }
           def initialize(
-            type: nil,
             apply: nil,
             deactivate: nil,
             modify: nil,
             remove: nil,
-            subscribe: nil
+            subscribe: nil,
+            type: nil
           ); end
           def self.field_encodings
             @field_encodings = {
@@ -1148,18 +1148,6 @@ module Stripe
                }
               def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
             end
-            # The number of intervals (specified in the interval attribute) between
-            # cadence billings. For example, type=month and interval_count=3 bills every
-            # 3 months. If this is not provided, it will default to 1.
-            sig { returns(T.nilable(Integer)) }
-            def interval_count; end
-            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def interval_count=(_interval_count); end
-            # The frequency at which a cadence bills.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
             # Specific configuration for determining billing dates when type=day.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day))
@@ -1169,6 +1157,13 @@ module Stripe
               params(_day: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day))
              }
             def day=(_day); end
+            # The number of intervals (specified in the interval attribute) between
+            # cadence billings. For example, type=month and interval_count=3 bills every
+            # 3 months. If this is not provided, it will default to 1.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
             # Specific configuration for determining billing dates when type=month.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month))
@@ -1178,6 +1173,11 @@ module Stripe
               params(_month: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month))
              }
             def month=(_month); end
+            # The frequency at which a cadence bills.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             # Specific configuration for determining billing dates when type=week.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week))
@@ -1197,13 +1197,13 @@ module Stripe
              }
             def year=(_year); end
             sig {
-              params(interval_count: T.nilable(Integer), type: String, day: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day), month: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month), week: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year)).void
+              params(day: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day), interval_count: T.nilable(Integer), month: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month), type: String, week: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year)).void
              }
             def initialize(
-              interval_count: nil,
-              type: nil,
               day: nil,
+              interval_count: nil,
               month: nil,
+              type: nil,
               week: nil,
               year: nil
             ); end
@@ -1337,11 +1337,6 @@ module Stripe
           params(_actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action]).returns(T::Array[::Stripe::V2::Billing::IntentCreateParams::Action])
          }
         def actions=(_actions); end
-        # Three-letter ISO currency code, in lowercase. Must be a supported currency.
-        sig { returns(String) }
-        def currency; end
-        sig { params(_currency: String).returns(String) }
-        def currency=(_currency); end
         # ID of an existing Cadence to use.
         sig { returns(T.nilable(String)) }
         def cadence; end
@@ -1354,10 +1349,15 @@ module Stripe
           params(_cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData))
          }
         def cadence_data=(_cadence_data); end
+        # Three-letter ISO currency code, in lowercase. Must be a supported currency.
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
         sig {
-          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], currency: String, cadence: T.nilable(String), cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData)).void
+          params(actions: T::Array[::Stripe::V2::Billing::IntentCreateParams::Action], cadence: T.nilable(String), cadence_data: T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData), currency: String).void
          }
-        def initialize(actions: nil, currency: nil, cadence: nil, cadence_data: nil); end
+        def initialize(actions: nil, cadence: nil, cadence_data: nil, currency: nil); end
         def self.field_encodings
           @field_encodings = {
             actions: {

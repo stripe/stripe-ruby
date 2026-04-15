@@ -45,11 +45,6 @@ module Stripe
             user_agent: nil
           ); end
         end
-        # ID for the Radar Session to associate with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        sig { returns(String) }
-        def radar_session; end
-        sig { params(_radar_session: String).returns(String) }
-        def radar_session=(_radar_session); end
         # Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
         sig {
           returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data))
@@ -59,10 +54,15 @@ module Stripe
           params(_data: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data))
          }
         def data=(_data); end
+        # ID for the Radar Session to associate with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        sig { returns(String) }
+        def radar_session; end
+        sig { params(_radar_session: String).returns(String) }
+        def radar_session=(_radar_session); end
         sig {
-          params(radar_session: String, data: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data)).void
+          params(data: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails::Data), radar_session: String).void
          }
-        def initialize(radar_session: nil, data: nil); end
+        def initialize(data: nil, radar_session: nil); end
       end
       class CustomerDetails < ::Stripe::RequestParams
         # The ID of the customer associated with the payment evaluation.

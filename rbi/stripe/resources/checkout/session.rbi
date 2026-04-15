@@ -63,6 +63,29 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AutomaticSurcharge < ::Stripe::StripeObject
+        # Determines which amount serves as the basis for calculating the surcharge.
+        sig { returns(T.nilable(String)) }
+        def calculation_basis; end
+        # Indicates whether automatic surcharge is enabled for the session.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # The surcharge provider used for this session.
+        sig { returns(T.nilable(String)) }
+        def provider; end
+        # The status of the most recent surcharge calculation for this session.
+        sig { returns(T.nilable(String)) }
+        def status; end
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        sig { returns(T.nilable(String)) }
+        def tax_behavior; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class AutomaticTax < ::Stripe::StripeObject
         class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
@@ -1260,6 +1283,25 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Boleto < ::Stripe::StripeObject
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
           sig { returns(Integer) }
@@ -2133,6 +2175,9 @@ module Stripe
         # Attribute for field billie
         sig { returns(T.nilable(Billie)) }
         def billie; end
+        # Attribute for field bizum
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
         # Attribute for field boleto
         sig { returns(T.nilable(Boleto)) }
         def boleto; end
@@ -2244,6 +2289,7 @@ module Stripe
             bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
+            bizum: Bizum,
             boleto: Boleto,
             card: Card,
             cashapp: Cashapp,
@@ -2443,6 +2489,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class SurchargeCost < ::Stripe::StripeObject
+        # Total surcharge cost before taxes are applied.
+        sig { returns(Integer) }
+        def amount_subtotal; end
+        # Total tax amount applied due to surcharging. If no tax was applied, defaults to 0.
+        sig { returns(Integer) }
+        def amount_tax; end
+        # Total surcharge cost after taxes are applied.
+        sig { returns(Integer) }
+        def amount_total; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class TaxIdCollection < ::Stripe::StripeObject
         # Indicates whether tax ID collection is enabled for the session
         sig { returns(T::Boolean) }
@@ -2517,6 +2580,9 @@ module Stripe
         # This is the sum of all the shipping amounts.
         sig { returns(T.nilable(Integer)) }
         def amount_shipping; end
+        # The surcharge amount that was applied to the Checkout Session.
+        sig { returns(T.nilable(Integer)) }
+        def amount_surcharge; end
         # This is the sum of all the tax amounts.
         sig { returns(Integer) }
         def amount_tax; end
@@ -2668,6 +2734,9 @@ module Stripe
       # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
       sig { returns(T.nilable(String)) }
       def approval_method; end
+      # Attribute for field automatic_surcharge
+      sig { returns(T.nilable(AutomaticSurcharge)) }
+      def automatic_surcharge; end
       # Attribute for field automatic_tax
       sig { returns(AutomaticTax) }
       def automatic_tax; end
@@ -2680,6 +2749,9 @@ module Stripe
       # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
       sig { returns(T.nilable(String)) }
       def cancel_url; end
+      # Attribute for field checkout_items
+      sig { returns(T.nilable(T::Array[CheckoutItem])) }
+      def checkout_items; end
       # A unique string to reference the Checkout Session. This can be a
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
@@ -2863,6 +2935,9 @@ module Stripe
       # subscription creation is successful.
       sig { returns(T.nilable(String)) }
       def success_url; end
+      # Attribute for field surcharge_cost
+      sig { returns(T.nilable(SurchargeCost)) }
+      def surcharge_cost; end
       # Attribute for field tax_id_collection
       sig { returns(T.nilable(TaxIdCollection)) }
       def tax_id_collection; end
@@ -2879,9 +2954,6 @@ module Stripe
       # Wallet-specific configuration for this Checkout Session.
       sig { returns(T.nilable(WalletOptions)) }
       def wallet_options; end
-      # Attribute for field checkout_items
-      sig { returns(T.nilable(T::Array[CheckoutItem])) }
-      def checkout_items; end
       # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
       sig {
         params(params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)

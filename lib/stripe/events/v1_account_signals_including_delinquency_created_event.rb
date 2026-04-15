@@ -26,18 +26,18 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Categorical assessment of the delinquency risk based on probability.
-        attr_reader :risk_level
-        # The probability of delinquency. Can be between 0.00 and 100.00.
-        attr_reader :probability
-        # Unique identifier for the delinquency signal.
-        attr_reader :signal_id
-        # Array of objects representing individual factors that contributed to the calculated probability of delinquency.
-        attr_reader :indicators
         # The account for which the signals belong to.
         attr_reader :account
         # Time at which the signal was evaluated.
         attr_reader :evaluated_at
+        # Array of objects representing individual factors that contributed to the calculated probability of delinquency.
+        attr_reader :indicators
+        # The probability of delinquency. Can be between 0.00 and 100.00.
+        attr_reader :probability
+        # Categorical assessment of the delinquency risk based on probability.
+        attr_reader :risk_level
+        # Unique identifier for the delinquency signal.
+        attr_reader :signal_id
 
         def self.inner_class_types
           @inner_class_types = { indicators: Indicator }

@@ -286,6 +286,15 @@ module Stripe
       def payment_method; end
       sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
       def payment_method=(_payment_method); end
+      # The payment method options for this requested session.
+      sig {
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions))
+       }
+      def payment_method_options; end
+      sig {
+        params(_payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions))
+       }
+      def payment_method_options=(_payment_method_options); end
       # The details of the seller.
       sig { returns(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails) }
       def seller_details; end
@@ -305,17 +314,8 @@ module Stripe
         params(_shared_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def shared_metadata=(_shared_metadata); end
-      # The payment method options for this requested session.
       sig {
-        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions))
-       }
-      def payment_method_options; end
-      sig {
-        params(_payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions))
-       }
-      def payment_method_options=(_payment_method_options); end
-      sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution), currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions)).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution), currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String])).void
        }
       def initialize(
         affiliate_attribution: nil,
@@ -326,10 +326,10 @@ module Stripe
         line_item_details: nil,
         metadata: nil,
         payment_method: nil,
+        payment_method_options: nil,
         seller_details: nil,
         setup_future_usage: nil,
-        shared_metadata: nil,
-        payment_method_options: nil
+        shared_metadata: nil
       ); end
     end
   end

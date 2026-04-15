@@ -24,11 +24,6 @@ module Stripe
           sig { params(name: T.nilable(String)).void }
           def initialize(name: nil); end
         end
-        # An internal key you can use to search for this service action. Maximum length of 200 characters.
-        sig { returns(T.nilable(String)) }
-        def lookup_key; end
-        sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-        def lookup_key=(_lookup_key); end
         # Details for the credit grant. Can only be set if the service action's `type` is `credit_grant`.
         sig { returns(T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrant)) }
         def credit_grant; end
@@ -45,10 +40,15 @@ module Stripe
           params(_credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant)).returns(T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant))
          }
         def credit_grant_per_tenant=(_credit_grant_per_tenant); end
+        # An internal key you can use to search for this service action. Maximum length of 200 characters.
+        sig { returns(T.nilable(String)) }
+        def lookup_key; end
+        sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+        def lookup_key=(_lookup_key); end
         sig {
-          params(lookup_key: T.nilable(String), credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrant), credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant)).void
+          params(credit_grant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrant), credit_grant_per_tenant: T.nilable(::Stripe::V2::Billing::ServiceActionUpdateParams::CreditGrantPerTenant), lookup_key: T.nilable(String)).void
          }
-        def initialize(lookup_key: nil, credit_grant: nil, credit_grant_per_tenant: nil); end
+        def initialize(credit_grant: nil, credit_grant_per_tenant: nil, lookup_key: nil); end
       end
     end
   end

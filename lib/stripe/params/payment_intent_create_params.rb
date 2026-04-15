@@ -125,14 +125,14 @@ module Stripe
         attr_accessor :product_name
         # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
         # Contains information about the tax on the item.
         attr_accessor :tax
         # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
         attr_accessor :unit_cost
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         attr_accessor :unit_of_measure
-        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
-        attr_accessor :quantity_precision
 
         def initialize(
           discount_amount: nil,
@@ -140,20 +140,20 @@ module Stripe
           product_code: nil,
           product_name: nil,
           quantity: nil,
+          quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
-          unit_of_measure: nil,
-          quantity_precision: nil
+          unit_of_measure: nil
         )
           @discount_amount = discount_amount
           @payment_method_options = payment_method_options
           @product_code = product_code
           @product_name = product_name
           @quantity = quantity
+          @quantity_precision = quantity_precision
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
-          @quantity_precision = quantity_precision
         end
       end
 
@@ -2187,6 +2187,8 @@ module Stripe
       attr_accessor :customer_reference
       # Event details for this PaymentIntent
       attr_accessor :event_details
+      # Fleet data for this PaymentIntent.
+      attr_accessor :fleet_data
       # Flight reservation details for this PaymentIntent
       attr_accessor :flight
       # Flight data for this PaymentIntent.
@@ -2195,16 +2197,14 @@ module Stripe
       attr_accessor :lodging
       # Lodging data for this PaymentIntent.
       attr_accessor :lodging_data
+      # Money services details for this PaymentIntent.
+      attr_accessor :money_services
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
-      # Fleet data for this PaymentIntent.
-      attr_accessor :fleet_data
-      # Money services details for this PaymentIntent.
-      attr_accessor :money_services
 
       def initialize(
         benefit: nil,
@@ -2212,28 +2212,28 @@ module Stripe
         car_rental_data: nil,
         customer_reference: nil,
         event_details: nil,
+        fleet_data: nil,
         flight: nil,
         flight_data: nil,
         lodging: nil,
         lodging_data: nil,
+        money_services: nil,
         order_reference: nil,
-        subscription: nil,
-        fleet_data: nil,
-        money_services: nil
+        subscription: nil
       )
         @benefit = benefit
         @car_rental = car_rental
         @car_rental_data = car_rental_data
         @customer_reference = customer_reference
         @event_details = event_details
+        @fleet_data = fleet_data
         @flight = flight
         @flight_data = flight_data
         @lodging = lodging
         @lodging_data = lodging_data
+        @money_services = money_services
         @order_reference = order_reference
         @subscription = subscription
-        @fleet_data = fleet_data
-        @money_services = money_services
       end
     end
 
@@ -2733,6 +2733,8 @@ module Stripe
       attr_accessor :satispay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+      attr_accessor :shared_payment_granted_token
       # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
       attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -2808,6 +2810,7 @@ module Stripe
         samsung_pay: nil,
         satispay: nil,
         sepa_debit: nil,
+        shared_payment_granted_token: nil,
         shopeepay: nil,
         sofort: nil,
         stripe_balance: nil,
@@ -2872,6 +2875,7 @@ module Stripe
         @samsung_pay = samsung_pay
         @satispay = satispay
         @sepa_debit = sepa_debit
+        @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
         @sofort = sofort
         @stripe_balance = stripe_balance
@@ -3466,6 +3470,8 @@ module Stripe
         attr_accessor :moto
         # Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         attr_accessor :network
+        # Payment details for payment method specific funding fields.
+        attr_accessor :payment_details
         # Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
         attr_accessor :request_decremental_authorization
         # Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
@@ -3503,8 +3509,6 @@ module Stripe
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this payment.
         attr_accessor :three_d_secure
-        # Payment details for payment method specific funding fields.
-        attr_accessor :payment_details
 
         def initialize(
           capture_method: nil,
@@ -3513,6 +3517,7 @@ module Stripe
           mandate_options: nil,
           moto: nil,
           network: nil,
+          payment_details: nil,
           request_decremental_authorization: nil,
           request_extended_authorization: nil,
           request_incremental_authorization: nil,
@@ -3526,8 +3531,7 @@ module Stripe
           statement_descriptor_suffix_kana: nil,
           statement_descriptor_suffix_kanji: nil,
           statement_details: nil,
-          three_d_secure: nil,
-          payment_details: nil
+          three_d_secure: nil
         )
           @capture_method = capture_method
           @cvc_token = cvc_token
@@ -3535,6 +3539,7 @@ module Stripe
           @mandate_options = mandate_options
           @moto = moto
           @network = network
+          @payment_details = payment_details
           @request_decremental_authorization = request_decremental_authorization
           @request_extended_authorization = request_extended_authorization
           @request_incremental_authorization = request_incremental_authorization
@@ -3549,7 +3554,6 @@ module Stripe
           @statement_descriptor_suffix_kanji = statement_descriptor_suffix_kanji
           @statement_details = statement_details
           @three_d_secure = three_d_secure
-          @payment_details = payment_details
         end
       end
 
@@ -3652,6 +3656,8 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Payment details for payment method specific funding transaction fields.
+        attr_accessor :payment_details
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_accessor :request_extended_authorization
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
@@ -3660,23 +3666,21 @@ module Stripe
         attr_accessor :request_reauthorization
         # Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
         attr_accessor :routing
-        # Payment details for payment method specific funding transaction fields.
-        attr_accessor :payment_details
 
         def initialize(
           capture_method: nil,
+          payment_details: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
           request_reauthorization: nil,
-          routing: nil,
-          payment_details: nil
+          routing: nil
         )
           @capture_method = capture_method
+          @payment_details = payment_details
           @request_extended_authorization = request_extended_authorization
           @request_incremental_authorization_support = request_incremental_authorization_support
           @request_reauthorization = request_reauthorization
           @routing = routing
-          @payment_details = payment_details
         end
       end
 
@@ -6278,8 +6282,6 @@ module Stripe
     #
     # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
     attr_accessor :setup_future_usage
-    # ID of the SharedPaymentToken used to confirm this PaymentIntent.
-    attr_accessor :shared_payment_granted_token
     # Shipping information for this PaymentIntent.
     attr_accessor :shipping
     # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -6332,7 +6334,6 @@ module Stripe
       return_url: nil,
       secret_key_confirmation: nil,
       setup_future_usage: nil,
-      shared_payment_granted_token: nil,
       shipping: nil,
       statement_descriptor: nil,
       statement_descriptor_suffix: nil,
@@ -6375,7 +6376,6 @@ module Stripe
       @return_url = return_url
       @secret_key_confirmation = secret_key_confirmation
       @setup_future_usage = setup_future_usage
-      @shared_payment_granted_token = shared_payment_granted_token
       @shipping = shipping
       @statement_descriptor = statement_descriptor
       @statement_descriptor_suffix = statement_descriptor_suffix

@@ -48,11 +48,11 @@ module Stripe
               @field_encodings = { size: :int64_string }
             end
           end
-          # The type of the `ReportRun` or `QueryRun` result.
-          attr_reader :type
           # Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
           # its content type, size, and a URL to download its contents.
           attr_reader :file
+          # The type of the `ReportRun` or `QueryRun` result.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = { file: File }
@@ -99,6 +99,8 @@ module Stripe
         attr_reader :created
         # The unique identifier of the `ReportRun` object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # The unique identifier of the `Report` object which was run.
@@ -116,8 +118,6 @@ module Stripe
         # Additional details about the current state of the `ReportRun`. The field is currently only populated when a `ReportRun`
         # is in the `failed` state, providing more information about why the report failed to generate successfully.
         attr_reader :status_details
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

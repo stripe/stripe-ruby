@@ -90,6 +90,9 @@ module Stripe
         # The unique identifier of the `Report` object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # The human-readable name of the `Report`.
         sig { returns(String) }
         def name; end
@@ -100,9 +103,6 @@ module Stripe
         # name, description, whether it is required, and any validations performed.
         sig { returns(T::Hash[String, Parameters]) }
         def parameters; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

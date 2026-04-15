@@ -7,28 +7,6 @@ module Stripe
     module Core
       # Set up an event destination to receive events from Stripe across multiple destination types, including [webhook endpoints](https://docs.stripe.com/webhooks) and [Amazon EventBridge](https://docs.stripe.com/event-destinations/eventbridge). Event destinations support receiving [thin events](https://docs.stripe.com/api/v2/events) and [snapshot events](https://docs.stripe.com/api/events).
       class EventDestination < APIResource
-        class StatusDetails < ::Stripe::StripeObject
-          class Disabled < ::Stripe::StripeObject
-            # Reason event destination has been disabled.
-            sig { returns(String) }
-            def reason; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Details about why the event destination has been disabled.
-          sig { returns(T.nilable(Disabled)) }
-          def disabled; end
-          def self.inner_class_types
-            @inner_class_types = {disabled: Disabled}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class AmazonEventbridge < ::Stripe::StripeObject
           # The AWS account ID.
           sig { returns(String) }
@@ -69,6 +47,28 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StatusDetails < ::Stripe::StripeObject
+          class Disabled < ::Stripe::StripeObject
+            # Reason event destination has been disabled.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about why the event destination has been disabled.
+          sig { returns(T.nilable(Disabled)) }
+          def disabled; end
+          def self.inner_class_types
+            @inner_class_types = {disabled: Disabled}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class WebhookEndpoint < ::Stripe::StripeObject
           # The signing secret of the webhook endpoint, only includable on creation.
           sig { returns(T.nilable(String)) }
@@ -83,6 +83,12 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Amazon EventBridge configuration.
+        sig { returns(T.nilable(AmazonEventbridge)) }
+        def amazon_eventbridge; end
+        # Azure Event Grid configuration.
+        sig { returns(T.nilable(AzureEventGrid)) }
+        def azure_event_grid; end
         # Time at which the object was created.
         sig { returns(String) }
         def created; end
@@ -105,6 +111,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Metadata.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -129,15 +138,6 @@ module Stripe
         # Time at which the object was last updated.
         sig { returns(String) }
         def updated; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # Amazon EventBridge configuration.
-        sig { returns(T.nilable(AmazonEventbridge)) }
-        def amazon_eventbridge; end
-        # Azure Event Grid configuration.
-        sig { returns(T.nilable(AzureEventGrid)) }
-        def azure_event_grid; end
         # Webhook endpoint configuration.
         sig { returns(T.nilable(WebhookEndpoint)) }
         def webhook_endpoint; end

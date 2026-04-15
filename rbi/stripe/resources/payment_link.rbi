@@ -48,6 +48,26 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class AutomaticSurcharge < ::Stripe::StripeObject
+      # Determines which amount serves as the basis for calculating the surcharge.
+      sig { returns(T.nilable(String)) }
+      def calculation_basis; end
+      # Indicates whether automatic surcharge is enabled for the payment link.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      # The surcharge provider used for this payment link.
+      sig { returns(T.nilable(String)) }
+      def provider; end
+      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+      sig { returns(T.nilable(String)) }
+      def tax_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class AutomaticTax < ::Stripe::StripeObject
       class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
@@ -662,6 +682,9 @@ module Stripe
     # This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     sig { returns(T.nilable(Float)) }
     def application_fee_percent; end
+    # Attribute for field automatic_surcharge
+    sig { returns(T.nilable(AutomaticSurcharge)) }
+    def automatic_surcharge; end
     # Attribute for field automatic_tax
     sig { returns(AutomaticTax) }
     def automatic_tax; end

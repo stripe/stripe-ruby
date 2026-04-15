@@ -33,12 +33,12 @@ module Stripe
                 @field_encodings = { value: :decimal_string }
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            attr_reader :type
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             attr_reader :custom_pricing_unit
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             attr_reader :monetary
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            attr_reader :type
 
             def self.inner_class_types
               @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
@@ -151,12 +151,12 @@ module Stripe
                 @field_encodings = { value: :decimal_string }
               end
             end
-            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-            attr_reader :type
             # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             attr_reader :custom_pricing_unit
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             attr_reader :monetary
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            attr_reader :type
 
             def self.inner_class_types
               @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
@@ -248,8 +248,14 @@ module Stripe
         end
         # Timestamp of when the object was created.
         attr_reader :created
+        # Details for the credit grant. Provided only if `type` is "credit_grant".
+        attr_reader :credit_grant
+        # Details for the credit grant per tenant. Provided only if `type` is "credit_grant_per_tenant".
+        attr_reader :credit_grant_per_tenant
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # An internal key you can use to search for this service action.
         attr_reader :lookup_key
         # String representing the object's type. Objects of the same type share the same value of the object field.
@@ -260,12 +266,6 @@ module Stripe
         attr_reader :service_interval_count
         # The type of the service action.
         attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
-        # Details for the credit grant. Provided only if `type` is "credit_grant".
-        attr_reader :credit_grant
-        # Details for the credit grant per tenant. Provided only if `type` is "credit_grant_per_tenant".
-        attr_reader :credit_grant_per_tenant
 
         def self.inner_class_types
           @inner_class_types = {

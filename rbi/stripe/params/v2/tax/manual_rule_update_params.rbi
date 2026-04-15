@@ -21,11 +21,6 @@ module Stripe
           def initialize(country: nil, state: nil); end
         end
         class Product < ::Stripe::RequestParams
-          # The type of the product.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
           # The licensed item identifier.
           sig { returns(T.nilable(String)) }
           def licensed_item; end
@@ -41,10 +36,15 @@ module Stripe
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
           def tax_code=(_tax_code); end
+          # The type of the product.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
-            params(type: String, licensed_item: T.nilable(String), metered_item: T.nilable(String), tax_code: T.nilable(String)).void
+            params(licensed_item: T.nilable(String), metered_item: T.nilable(String), tax_code: T.nilable(String), type: String).void
            }
-          def initialize(type: nil, licensed_item: nil, metered_item: nil, tax_code: nil); end
+          def initialize(licensed_item: nil, metered_item: nil, tax_code: nil, type: nil); end
         end
         class ScheduledTaxRate < ::Stripe::RequestParams
           class Rate < ::Stripe::RequestParams

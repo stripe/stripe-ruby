@@ -141,8 +141,6 @@ module Stripe
               @return_url = return_url
             end
           end
-          # Open Enum. The type of Account Link the user is requesting.
-          attr_accessor :type
           # Hash containing configuration options for an Account Link object that onboards a new account.
           attr_accessor :account_onboarding
           # Hash containing configuration options for an Account Link that updates an existing account.
@@ -151,19 +149,21 @@ module Stripe
           attr_accessor :recipient_onboarding
           # Hash containing configuration options for an Account Link that updates an existing recipient.
           attr_accessor :recipient_update
+          # Open Enum. The type of Account Link the user is requesting.
+          attr_accessor :type
 
           def initialize(
-            type: nil,
             account_onboarding: nil,
             account_update: nil,
             recipient_onboarding: nil,
-            recipient_update: nil
+            recipient_update: nil,
+            type: nil
           )
-            @type = type
             @account_onboarding = account_onboarding
             @account_update = account_update
             @recipient_onboarding = recipient_onboarding
             @recipient_update = recipient_update
+            @type = type
           end
         end
         # The ID of the Account to create link for.

@@ -30,12 +30,12 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # ID for the Radar Session associated with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        sig { returns(String) }
-        def radar_session; end
         # Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
         sig { returns(T.nilable(Data)) }
         def data; end
+        # ID for the Radar Session associated with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        sig { returns(String) }
+        def radar_session; end
         def self.inner_class_types
           @inner_class_types = {data: Data}
         end

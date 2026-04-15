@@ -11,71 +11,9 @@ module Stripe
           "v2.money_management.received_credit"
         end
 
-        class StatusDetails < ::Stripe::StripeObject
-          class Failed < ::Stripe::StripeObject
-            # Open Enum. The `failed` status reason.
-            attr_reader :reason
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class Returned < ::Stripe::StripeObject
-            # Open Enum. The `returned` status reason.
-            attr_reader :reason
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
-          attr_reader :failed
-          # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
-          attr_reader :returned
-
-          def self.inner_class_types
-            @inner_class_types = { failed: Failed, returned: Returned }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
-        class StatusTransitions < ::Stripe::StripeObject
-          # Timestamp describing when the ReceivedCredit was marked as `failed`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-          attr_reader :failed_at
-          # Timestamp describing when the ReceivedCredit changed status to `returned`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-          attr_reader :returned_at
-          # Timestamp describing when the ReceivedCredit was marked as `succeeded`.
-          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-          attr_reader :succeeded_at
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class BalanceTransfer < ::Stripe::StripeObject
           # The ID of the account that owns the source object originated the ReceivedCredit.
           attr_reader :from_account
-          # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
-          attr_reader :type
           # The ID of the outbound payment object that originated the ReceivedCredit.
           attr_reader :outbound_payment
           # The ID of the outbound transfer object that originated the ReceivedCredit.
@@ -84,6 +22,8 @@ module Stripe
           attr_reader :payout_v1
           # The ID of the v1 transfer object that originated the ReceivedCredit.
           attr_reader :transfer
+          # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -159,14 +99,14 @@ module Stripe
           end
           # Financial Address on which funds for ReceivedCredit were received.
           attr_reader :financial_address
-          # Open Enum. Indicates the origin of source from which external funds originated from.
-          attr_reader :origin_type
-          # Freeform string set by originator of the external ReceivedCredit.
-          attr_reader :statement_descriptor
           # Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
           attr_reader :gb_bank_account
+          # Open Enum. Indicates the origin of source from which external funds originated from.
+          attr_reader :origin_type
           # Hash containing the transaction bank details. Present if `origin_type` field value is `sepa_bank_account`.
           attr_reader :sepa_bank_account
+          # Freeform string set by originator of the external ReceivedCredit.
+          attr_reader :statement_descriptor
           # Hash containing the transaction bank details. Present if `origin_type` field value is `us_bank_account`.
           attr_reader :us_bank_account
 
@@ -225,6 +165,66 @@ module Stripe
           end
         end
 
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
+            # Open Enum. The `failed` status reason.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Returned < ::Stripe::StripeObject
+            # Open Enum. The `returned` status reason.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
+          attr_reader :failed
+          # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
+          attr_reader :returned
+
+          def self.inner_class_types
+            @inner_class_types = { failed: Failed, returned: Returned }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StatusTransitions < ::Stripe::StripeObject
+          # Timestamp describing when the ReceivedCredit was marked as `failed`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          attr_reader :failed_at
+          # Timestamp describing when the ReceivedCredit changed status to `returned`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          attr_reader :returned_at
+          # Timestamp describing when the ReceivedCredit was marked as `succeeded`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          attr_reader :succeeded_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StripeBalancePayment < ::Stripe::StripeObject
           # Statement descriptor for the Stripe Balance Payment.
           attr_reader :statement_descriptor
@@ -239,6 +239,12 @@ module Stripe
         end
         # The amount and currency of the ReceivedCredit.
         attr_reader :amount
+        # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
+        attr_reader :balance_transfer
+        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
+        attr_reader :bank_transfer
+        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
+        attr_reader :card_spend
         # Time at which the ReceivedCredit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created
@@ -250,6 +256,8 @@ module Stripe
         attr_reader :financial_account
         # Unique identifier for the ReceivedCredit.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe’s money transmission licenses.
@@ -260,26 +268,18 @@ module Stripe
         attr_reader :status_details
         # Hash containing timestamps of when the object transitioned to a particular status.
         attr_reader :status_transitions
-        # Open Enum. The type of flow that caused the ReceivedCredit.
-        attr_reader :type
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
-        # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
-        attr_reader :balance_transfer
-        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
-        attr_reader :bank_transfer
-        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
-        attr_reader :card_spend
         # This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
         attr_reader :stripe_balance_payment
+        # Open Enum. The type of flow that caused the ReceivedCredit.
+        attr_reader :type
 
         def self.inner_class_types
           @inner_class_types = {
-            status_details: StatusDetails,
-            status_transitions: StatusTransitions,
             balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
             card_spend: CardSpend,
+            status_details: StatusDetails,
+            status_transitions: StatusTransitions,
             stripe_balance_payment: StripeBalancePayment,
           }
         end

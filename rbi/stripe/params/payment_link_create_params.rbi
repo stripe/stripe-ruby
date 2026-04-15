@@ -49,6 +49,27 @@ module Stripe
        }
       def initialize(hosted_confirmation: nil, redirect: nil, type: nil); end
     end
+    class AutomaticSurcharge < ::Stripe::RequestParams
+      # Determines which amount serves as the basis for calculating the surcharge.
+      sig { returns(T.nilable(String)) }
+      def calculation_basis; end
+      sig { params(_calculation_basis: T.nilable(String)).returns(T.nilable(String)) }
+      def calculation_basis=(_calculation_basis); end
+      # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+      def enabled=(_enabled); end
+      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+      sig { returns(T.nilable(String)) }
+      def tax_behavior; end
+      sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def tax_behavior=(_tax_behavior); end
+      sig {
+        params(calculation_basis: T.nilable(String), enabled: T::Boolean, tax_behavior: T.nilable(String)).void
+       }
+      def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil); end
+    end
     class AutomaticTax < ::Stripe::RequestParams
       class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
@@ -1050,6 +1071,13 @@ module Stripe
     def application_fee_percent; end
     sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
     def application_fee_percent=(_application_fee_percent); end
+    # Configuration for automatic surcharge calculation.
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge)) }
+    def automatic_surcharge; end
+    sig {
+      params(_automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge))
+     }
+    def automatic_surcharge=(_automatic_surcharge); end
     # Configuration for automatic tax collection.
     sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax)) }
     def automatic_tax; end
@@ -1232,13 +1260,14 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
+      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
      }
     def initialize(
       after_completion: nil,
       allow_promotion_codes: nil,
       application_fee_amount: nil,
       application_fee_percent: nil,
+      automatic_surcharge: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
       consent_collection: nil,

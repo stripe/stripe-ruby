@@ -2207,6 +2207,26 @@ module Stripe
       )
     end
 
+    # Report that the specified Payment Attempt Record was authorized.
+    def report_authorized(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_authorized", { payment_attempt_record: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Report that the specified Payment Attempt Record was authorized.
+    def self.report_authorized(payment_attempt_record, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_authorized", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Report that the specified Payment Attempt Record was canceled.
     def report_canceled(params = {}, opts = {})
       request_stripe_object(

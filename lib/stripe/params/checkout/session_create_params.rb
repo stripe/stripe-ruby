@@ -35,6 +35,21 @@ module Stripe
         end
       end
 
+      class AutomaticSurcharge < ::Stripe::RequestParams
+        # Determines which amount serves as the basis for calculating the surcharge.
+        attr_accessor :calculation_basis
+        # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+        attr_accessor :enabled
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        attr_accessor :tax_behavior
+
+        def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil)
+          @calculation_basis = calculation_basis
+          @enabled = enabled
+          @tax_behavior = tax_behavior
+        end
+      end
+
       class AutomaticTax < ::Stripe::RequestParams
         class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
@@ -1114,6 +1129,16 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams; end
+          # Additional fields for mandate creation.
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
+
         class Boleto < ::Stripe::RequestParams
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
           attr_accessor :expires_after_days
@@ -1997,6 +2022,8 @@ module Stripe
         attr_accessor :bancontact
         # contains details about the Billie payment method options.
         attr_accessor :billie
+        # contains details about the Bizum payment method options.
+        attr_accessor :bizum
         # contains details about the Boleto payment method options.
         attr_accessor :boleto
         # contains details about the Card payment method options.
@@ -2083,6 +2110,7 @@ module Stripe
           bacs_debit: nil,
           bancontact: nil,
           billie: nil,
+          bizum: nil,
           boleto: nil,
           card: nil,
           cashapp: nil,
@@ -2131,6 +2159,7 @@ module Stripe
           @bacs_debit = bacs_debit
           @bancontact = bancontact
           @billie = billie
+          @bizum = bizum
           @boleto = boleto
           @card = card
           @cashapp = cashapp
@@ -2571,6 +2600,8 @@ module Stripe
       #
       # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
       attr_accessor :approval_method
+      # Settings for automatic surcharge calculation for this session.
+      attr_accessor :automatic_surcharge
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       attr_accessor :automatic_tax
       # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
@@ -2747,6 +2778,7 @@ module Stripe
         after_expiration: nil,
         allow_promotion_codes: nil,
         approval_method: nil,
+        automatic_surcharge: nil,
         automatic_tax: nil,
         billing_address_collection: nil,
         branding_settings: nil,
@@ -2801,6 +2833,7 @@ module Stripe
         @after_expiration = after_expiration
         @allow_promotion_codes = allow_promotion_codes
         @approval_method = approval_method
+        @automatic_surcharge = automatic_surcharge
         @automatic_tax = automatic_tax
         @billing_address_collection = billing_address_collection
         @branding_settings = branding_settings

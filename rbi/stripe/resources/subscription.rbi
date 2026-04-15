@@ -610,9 +610,15 @@ module Stripe
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
+        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
         # This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Card)) }
         def card; end
+        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(CheckScan)) }
+        def check_scan; end
         # This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(CustomerBalance)) }
         def customer_balance; end
@@ -637,17 +643,13 @@ module Stripe
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
-        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
-        sig { returns(T.nilable(Bizum)) }
-        def bizum; end
-        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
-        sig { returns(T.nilable(CheckScan)) }
-        def check_scan; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
             id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
@@ -656,8 +658,6 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
-            bizum: Bizum,
-            check_scan: CheckScan,
           }
         end
         def self.field_remappings

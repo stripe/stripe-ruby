@@ -10,12 +10,12 @@ module Stripe
       end
 
       class V2PaymentsSettlementAllocationIntentErroredEventData < ::Stripe::StripeObject
-        # Open Enum. The `errored` status reason.
-        attr_reader :reason_code
         # Stripe doc link to debug the issue.
         attr_reader :doc_url
         # User Message detailing the reason code and possible resolution .
         attr_reader :message
+        # Open Enum. The `errored` status reason.
+        attr_reader :reason_code
 
         def self.inner_class_types
           @inner_class_types = {}

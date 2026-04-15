@@ -112,16 +112,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Creation time of the HistoryEntry in RFC 3339 format and UTC.
-          attr_reader :created
-          # Effective at time of the HistoryEntry in RFC 3339 format and UTC.
-          attr_reader :effective_at
-          # A unique ID for the HistoryEntry.
-          attr_reader :id
-          # Open Enum. The Level of the HistoryEntry.
-          attr_reader :level
-          # Open Enum. The type of the HistoryEntry.
-          attr_reader :type
           # The history entry for a failed InboundTransfer.
           attr_reader :bank_debit_failed
           # The history entry for a processing InboundTransfer.
@@ -132,6 +122,16 @@ module Stripe
           attr_reader :bank_debit_returned
           # The history entry for a succeeded InboundTransfer.
           attr_reader :bank_debit_succeeded
+          # Creation time of the HistoryEntry in RFC 3339 format and UTC.
+          attr_reader :created
+          # Effective at time of the HistoryEntry in RFC 3339 format and UTC.
+          attr_reader :effective_at
+          # A unique ID for the HistoryEntry.
+          attr_reader :id
+          # Open Enum. The Level of the HistoryEntry.
+          attr_reader :level
+          # Open Enum. The type of the HistoryEntry.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {
@@ -157,6 +157,8 @@ module Stripe
         attr_reader :from
         # Unique identifier for the InboundTransfer.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe’s money transmission licenses.
@@ -165,8 +167,6 @@ module Stripe
         attr_reader :to
         # A list of history objects, representing changes in the state of the InboundTransfer.
         attr_reader :transfer_history
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { from: From, to: To, transfer_history: TransferHistory }

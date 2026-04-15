@@ -1768,6 +1768,9 @@ module Stripe
     # Attribute for field sepa_debit
     sig { returns(T.nilable(SepaDebit)) }
     def sepa_debit; end
+    # ID of the shared payment granted token used in the creation of this PaymentMethod.
+    sig { returns(T.nilable(String)) }
+    def shared_payment_granted_token; end
     # Attribute for field shopeepay
     sig { returns(T.nilable(Shopeepay)) }
     def shopeepay; end
@@ -1798,9 +1801,6 @@ module Stripe
     # Attribute for field zip
     sig { returns(T.nilable(Zip)) }
     def zip; end
-    # ID of the shared payment granted token used in the creation of this PaymentMethod.
-    sig { returns(T.nilable(String)) }
-    def shared_payment_granted_token; end
     # Attaches a PaymentMethod object to a Customer.
     #
     # To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://docs.stripe.com/docs/api/setup_intents)

@@ -25,15 +25,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Open Enum. Speed of the payout.
-          sig { returns(T.nilable(String)) }
-          def speed; end
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
           # Delivery options for paper check.
           sig { returns(T.nilable(PaperCheck)) }
           def paper_check; end
+          # Open Enum. Speed of the payout.
+          sig { returns(T.nilable(String)) }
+          def speed; end
           def self.inner_class_types
             @inner_class_types = {paper_check: PaperCheck}
           end
@@ -253,6 +253,9 @@ module Stripe
         # Unique identifier for the OutboundPayment.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -298,9 +301,6 @@ module Stripe
         # Information to track this OutboundPayment with the recipient bank.
         sig { returns(T.nilable(TrackingDetails)) }
         def tracking_details; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

@@ -46,6 +46,9 @@ module Stripe
         # Optional array of Meter dimensions to group event dimension keys for invoice line items.
         sig { returns(T::Array[String]) }
         def invoice_presentation_dimensions; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # An internal key you can use to search for a particular metered item.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
@@ -71,9 +74,6 @@ module Stripe
         # Maximum length of 100 characters.
         sig { returns(T.nilable(String)) }
         def unit_label; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

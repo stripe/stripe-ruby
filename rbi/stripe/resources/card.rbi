@@ -91,6 +91,9 @@ module Stripe
     # Whether this card is the default external account for its currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
     sig { returns(T.nilable(T::Boolean)) }
     def default_for_currency; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
     sig { returns(T.nilable(String)) }
     def description; end
@@ -144,8 +147,5 @@ module Stripe
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
     sig { returns(T.nilable(String)) }
     def tokenization_method; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
   end
 end

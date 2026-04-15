@@ -284,13 +284,6 @@ module Stripe
       def payment_method; end
       sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
       def payment_method=(_payment_method); end
-      # The shared metadata for this requested session.
-      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def shared_metadata; end
-      sig {
-        params(_shared_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def shared_metadata=(_shared_metadata); end
       # The payment method options for this requested session.
       sig {
         returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions))
@@ -300,8 +293,15 @@ module Stripe
         params(_payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions))
        }
       def payment_method_options=(_payment_method_options); end
+      # The shared metadata for this requested session.
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+      def shared_metadata; end
       sig {
-        params(expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails), line_item_details: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::LineItemDetail]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), shared_metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions)).void
+        params(_shared_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def shared_metadata=(_shared_metadata); end
+      sig {
+        params(expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::FulfillmentDetails), line_item_details: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::LineItemDetail]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::PaymentMethodOptions), shared_metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
       def initialize(
         expand: nil,
@@ -309,8 +309,8 @@ module Stripe
         line_item_details: nil,
         metadata: nil,
         payment_method: nil,
-        shared_metadata: nil,
-        payment_method_options: nil
+        payment_method_options: nil,
+        shared_metadata: nil
       ); end
     end
   end

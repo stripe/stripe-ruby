@@ -8,9 +8,6 @@ module Stripe
       # Adjustments represent Stripe-initiated credits or debits to a user balance. They might be used to amend balances due to technical or operational error.
       class Adjustment < APIResource
         class AdjustedFlow < ::Stripe::StripeObject
-          # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
-          sig { returns(String) }
-          def type; end
           # If applicable, the ID of the Adjustment linked to this Adjustment.
           sig { returns(T.nilable(String)) }
           def adjustment; end
@@ -29,6 +26,9 @@ module Stripe
           # If applicable, the ID of the ReceivedDebit linked to this Adjustment.
           sig { returns(T.nilable(String)) }
           def received_debit; end
+          # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -54,6 +54,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -63,9 +66,6 @@ module Stripe
         # A reference for the Adjustment that associates it with related records or operations.
         sig { returns(T.nilable(String)) }
         def reference; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

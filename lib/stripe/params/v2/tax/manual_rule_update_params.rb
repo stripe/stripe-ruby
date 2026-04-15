@@ -18,20 +18,20 @@ module Stripe
         end
 
         class Product < ::Stripe::RequestParams
-          # The type of the product.
-          attr_accessor :type
           # The licensed item identifier.
           attr_accessor :licensed_item
           # The metered item identifier.
           attr_accessor :metered_item
           # The tax code for the product.
           attr_accessor :tax_code
+          # The type of the product.
+          attr_accessor :type
 
-          def initialize(type: nil, licensed_item: nil, metered_item: nil, tax_code: nil)
-            @type = type
+          def initialize(licensed_item: nil, metered_item: nil, tax_code: nil, type: nil)
             @licensed_item = licensed_item
             @metered_item = metered_item
             @tax_code = tax_code
+            @type = type
           end
         end
 

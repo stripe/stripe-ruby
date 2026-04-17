@@ -114,6 +114,8 @@ module Stripe
     attr_accessor :currency_options
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    attr_accessor :external_reference
     # A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.
     attr_accessor :lookup_key
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -131,6 +133,7 @@ module Stripe
       active: nil,
       currency_options: nil,
       expand: nil,
+      external_reference: nil,
       lookup_key: nil,
       metadata: nil,
       migrate_to: nil,
@@ -141,6 +144,7 @@ module Stripe
       @active = active
       @currency_options = currency_options
       @expand = expand
+      @external_reference = external_reference
       @lookup_key = lookup_key
       @metadata = metadata
       @migrate_to = migrate_to

@@ -2730,6 +2730,9 @@ module Stripe
       attr_reader :current_attempt
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       attr_reader :custom_fields
+      # A list of the types of [custom payment methods](https://docs.stripe.com/payments/payment-methods/custom-payment-methods) (e.g. cpmt_123) this Checkout
+      # Session is allowed to accept.
+      attr_reader :custom_payment_method_types
       # Attribute for field custom_text
       attr_reader :custom_text
       # The ID of the customer for this Session.
@@ -2797,6 +2800,8 @@ module Stripe
       # A list of the types of payment methods (e.g. card) this Checkout
       # Session is allowed to accept.
       attr_reader :payment_method_types
+      # The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
+      attr_reader :payment_record
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       attr_reader :payment_status

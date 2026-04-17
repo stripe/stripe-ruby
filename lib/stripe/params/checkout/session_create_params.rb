@@ -2620,6 +2620,12 @@ module Stripe
       attr_accessor :currency
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :custom_fields
+      # A list of custom payment methods (e.g., `cpmt_123`) this Checkout Session can accept.
+      #
+      # You can add custom payment methods to your account through the dashboard under Settings > Custom Payment Methods.
+      #
+      # Read more about custom payment methods in checkout in our [custom payment method types guide](https://docs.stripe.com/payments/payment-methods/custom-payment-methods).
+      attr_accessor :custom_payment_method_types
       # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :custom_text
       # ID of an existing Customer, if one exists. In `payment` mode, the customer’s most recently saved card
@@ -2787,6 +2793,7 @@ module Stripe
         consent_collection: nil,
         currency: nil,
         custom_fields: nil,
+        custom_payment_method_types: nil,
         custom_text: nil,
         customer: nil,
         customer_account: nil,
@@ -2842,6 +2849,7 @@ module Stripe
         @consent_collection = consent_collection
         @currency = currency
         @custom_fields = custom_fields
+        @custom_payment_method_types = custom_payment_method_types
         @custom_text = custom_text
         @customer = customer
         @customer_account = customer_account

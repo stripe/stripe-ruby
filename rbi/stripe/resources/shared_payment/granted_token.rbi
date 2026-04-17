@@ -1108,6 +1108,9 @@ module Stripe
             # The ID of the Charge that generated this PaymentMethod, if any.
             sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
             def charge; end
+            # The ID of the PaymentMethod that generated this PaymentMethod, if any.
+            sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
+            def payment_method; end
             # The ID of the SetupAttempt that generated this PaymentMethod, if any.
             sig { returns(T.nilable(T.any(String, ::Stripe::SetupAttempt))) }
             def setup_attempt; end

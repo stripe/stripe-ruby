@@ -538,8 +538,6 @@ module Stripe
       attr_accessor :satispay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
-      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
-      attr_accessor :shared_payment_granted_token
       # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
       attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -615,7 +613,6 @@ module Stripe
         samsung_pay: nil,
         satispay: nil,
         sepa_debit: nil,
-        shared_payment_granted_token: nil,
         shopeepay: nil,
         sofort: nil,
         stripe_balance: nil,
@@ -680,7 +677,6 @@ module Stripe
         @samsung_pay = samsung_pay
         @satispay = satispay
         @sepa_debit = sepa_debit
-        @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
         @sofort = sofort
         @stripe_balance = stripe_balance

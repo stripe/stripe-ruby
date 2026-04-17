@@ -137,6 +137,11 @@ module Stripe
 
       class Bills < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
+          # Whether to enable the bill management feature that grants access to bill creation and payment.
+          attr_reader :bill_management
+          # Whether to enable the send money feature that grants access to bill creation and payment.
+          attr_reader :send_money
+
           def self.inner_class_types
             @inner_class_types = {}
           end

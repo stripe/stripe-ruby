@@ -27,6 +27,21 @@ module Stripe
 
     nested_resource_class_methods :amount_details_line_item, operations: %i[list]
 
+    class AgentDetails < ::Stripe::StripeObject
+      # The name of the agent that initiated the payment.
+      attr_reader :name
+      # The Stripe profile associated with the agent that initiated the payment.
+      attr_reader :network_business_profile
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class AllocatedFunds < ::Stripe::StripeObject
       # Allocated Funds configuration for this PaymentIntent.
       attr_reader :enabled
@@ -4841,6 +4856,8 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # Details about the agent that initiated the creation of this PaymentIntent.
+    attr_reader :agent_details
     # Allocated Funds configuration for this PaymentIntent.
     attr_reader :allocated_funds
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
@@ -4946,8 +4963,6 @@ module Stripe
     #
     # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
     attr_reader :setup_future_usage
-    # ID of the shared payment token granted to be used in this PaymentIntent
-    attr_reader :shared_payment_granted_token
     # Shipping information for this PaymentIntent.
     attr_reader :shipping
     # This is a legacy field that will be removed in the future. It is the ID of the Source object that is associated with this PaymentIntent, if one was supplied.
@@ -5390,6 +5405,7 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        agent_details: AgentDetails,
         allocated_funds: AllocatedFunds,
         amount_details: AmountDetails,
         async_workflows: AsyncWorkflows,

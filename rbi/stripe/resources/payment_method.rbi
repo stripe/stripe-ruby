@@ -1394,6 +1394,9 @@ module Stripe
         # The ID of the Charge that generated this PaymentMethod, if any.
         sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
         def charge; end
+        # The ID of the PaymentMethod that generated this PaymentMethod, if any.
+        sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
+        def payment_method; end
         # The ID of the SetupAttempt that generated this PaymentMethod, if any.
         sig { returns(T.nilable(T.any(String, ::Stripe::SetupAttempt))) }
         def setup_attempt; end
@@ -1768,9 +1771,6 @@ module Stripe
     # Attribute for field sepa_debit
     sig { returns(T.nilable(SepaDebit)) }
     def sepa_debit; end
-    # ID of the shared payment granted token used in the creation of this PaymentMethod.
-    sig { returns(T.nilable(String)) }
-    def shared_payment_granted_token; end
     # Attribute for field shopeepay
     sig { returns(T.nilable(Shopeepay)) }
     def shopeepay; end

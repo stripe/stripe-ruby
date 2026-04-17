@@ -1124,6 +1124,8 @@ module Stripe
           class GeneratedFrom < ::Stripe::StripeObject
             # The ID of the Charge that generated this PaymentMethod, if any.
             attr_reader :charge
+            # The ID of the PaymentMethod that generated this PaymentMethod, if any.
+            attr_reader :payment_method
             # The ID of the SetupAttempt that generated this PaymentMethod, if any.
             attr_reader :setup_attempt
 

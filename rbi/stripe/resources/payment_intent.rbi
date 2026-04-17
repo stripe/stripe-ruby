@@ -15,6 +15,20 @@ module Stripe
   #
   # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
   class PaymentIntent < APIResource
+    class AgentDetails < ::Stripe::StripeObject
+      # The name of the agent that initiated the payment.
+      sig { returns(String) }
+      def name; end
+      # The Stripe profile associated with the agent that initiated the payment.
+      sig { returns(T.any(String, ::Stripe::Profile)) }
+      def network_business_profile; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class AllocatedFunds < ::Stripe::StripeObject
       # Allocated Funds configuration for this PaymentIntent.
       sig { returns(T.nilable(T::Boolean)) }
@@ -5105,6 +5119,9 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # Details about the agent that initiated the creation of this PaymentIntent.
+    sig { returns(T.nilable(AgentDetails)) }
+    def agent_details; end
     # Allocated Funds configuration for this PaymentIntent.
     sig { returns(T.nilable(AllocatedFunds)) }
     def allocated_funds; end
@@ -5253,9 +5270,6 @@ module Stripe
     # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
     sig { returns(T.nilable(String)) }
     def setup_future_usage; end
-    # ID of the shared payment token granted to be used in this PaymentIntent
-    sig { returns(T.nilable(String)) }
-    def shared_payment_granted_token; end
     # Shipping information for this PaymentIntent.
     sig { returns(T.nilable(Shipping)) }
     def shipping; end

@@ -203,9 +203,6 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
-      # ID of an existing Customer.
-      sig { returns(T.nilable(String)) }
-      def customer; end
       # Time at which this SharedPaymentIssuedToken was deactivated.
       sig { returns(T.nilable(Integer)) }
       def deactivated_at; end
@@ -225,7 +222,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # ID of an existing PaymentMethod.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       def payment_method; end
       # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
       sig { returns(T.nilable(String)) }

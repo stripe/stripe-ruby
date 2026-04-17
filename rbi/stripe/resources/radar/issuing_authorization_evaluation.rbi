@@ -22,7 +22,7 @@ module Stripe
         # Raw code indicating the entry mode from the network message.
         sig { returns(T.nilable(String)) }
         def entry_mode_raw_code; end
-        # The timestamp of the authorization initiated in seconds.
+        # The time the authorization was initiated, as a Unix timestamp in seconds.
         sig { returns(Integer) }
         def initiated_at; end
         # Defines how the card was read at the point of sale.
@@ -51,7 +51,7 @@ module Stripe
         # The type of the card.
         sig { returns(String) }
         def card_type; end
-        # The timestamp when the card was created.
+        # The timestamp when the card was created, as a Unix timestamp in seconds.
         sig { returns(Integer) }
         def created_at; end
         # The last 4 digits of the card number.

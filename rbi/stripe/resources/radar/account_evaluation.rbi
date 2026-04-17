@@ -18,6 +18,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class LoginSucceeded < ::Stripe::StripeObject
+          # The qualification for a login success.
+          sig { returns(T.nilable(String)) }
+          def qualification; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class RegistrationFailed < ::Stripe::StripeObject
           # The reason why this registration failed.
           sig { returns(String) }
@@ -29,20 +40,42 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class RegistrationSucceeded < ::Stripe::StripeObject
+          # The qualification for a registration success.
+          sig { returns(T.nilable(String)) }
+          def qualification; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Data about a failed login event.
         sig { returns(T.nilable(LoginFailed)) }
         def login_failed; end
+        # Data about a succeeded login event.
+        sig { returns(T.nilable(LoginSucceeded)) }
+        def login_succeeded; end
         # Time at which the event occurred. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         def occurred_at; end
         # Data about a failed registration event.
         sig { returns(T.nilable(RegistrationFailed)) }
         def registration_failed; end
+        # Data about a succeeded registration event.
+        sig { returns(T.nilable(RegistrationSucceeded)) }
+        def registration_succeeded; end
         # The type of event that occurred.
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {login_failed: LoginFailed, registration_failed: RegistrationFailed}
+          @inner_class_types = {
+            login_failed: LoginFailed,
+            login_succeeded: LoginSucceeded,
+            registration_failed: RegistrationFailed,
+            registration_succeeded: RegistrationSucceeded,
+          }
         end
         def self.field_remappings
           @field_remappings = {}

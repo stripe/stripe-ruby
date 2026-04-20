@@ -202,7 +202,45 @@ module Stripe
           end
         end
 
+        class Pix < ::Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          attr_accessor :expires_after_seconds
+
+          def initialize(amount_includes_iof: nil, expires_after_seconds: nil)
+            @amount_includes_iof = amount_includes_iof
+            @expires_after_seconds = expires_after_seconds
+          end
+        end
+
         class SepaDebit < ::Stripe::RequestParams; end
+
+        class Upi < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Amount to be charged for future payments.
+            attr_accessor :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_accessor :amount_type
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_accessor :description
+            # End date of the mandate or subscription.
+            attr_accessor :end_date
+
+            def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+              @amount = amount
+              @amount_type = amount_type
+              @description = description
+              @end_date = end_date
+            end
+          end
+          # Configuration options for setting up an eMandate
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
 
         class UsBankAccount < ::Stripe::RequestParams
           class FinancialConnections < ::Stripe::RequestParams
@@ -249,8 +287,12 @@ module Stripe
         attr_accessor :konbini
         # If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :payto
+        # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :pix
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :sepa_debit
+        # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
 
@@ -261,7 +303,9 @@ module Stripe
           customer_balance: nil,
           konbini: nil,
           payto: nil,
+          pix: nil,
           sepa_debit: nil,
+          upi: nil,
           us_bank_account: nil
         )
           @acss_debit = acss_debit
@@ -270,7 +314,9 @@ module Stripe
           @customer_balance = customer_balance
           @konbini = konbini
           @payto = payto
+          @pix = pix
           @sepa_debit = sepa_debit
+          @upi = upi
           @us_bank_account = us_bank_account
         end
       end

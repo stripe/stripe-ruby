@@ -1351,6 +1351,16 @@ module Stripe
         end
       end
 
+      class Sunbit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Swish < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1575,6 +1585,8 @@ module Stripe
       attr_reader :sepa_debit
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field sunbit
+      attr_reader :sunbit
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint
@@ -1640,6 +1652,7 @@ module Stripe
           satispay: Satispay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
+          sunbit: Sunbit,
           swish: Swish,
           twint: Twint,
           upi: Upi,

@@ -66,13 +66,13 @@ module Stripe
       attr_accessor :metadata
       # A set of options for the session’s verification checks.
       attr_accessor :options
-      # Details provided about the user being verified. These details may be shown to the user.
+      # Details provided about the user being verified. These details might be shown to the user.
       attr_accessor :provided_details
       # Customer ID
       attr_accessor :related_customer
       # The ID of the Account representing a customer.
       attr_accessor :related_customer_account
-      # Tokens referencing a Person resource and it's associated account.
+      # Tokens referencing a Person resource and its associated account.
       attr_accessor :related_person
       # The URL that the user will be redirected to upon completing the verification flow.
       attr_accessor :return_url

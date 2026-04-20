@@ -421,7 +421,7 @@ module Stripe
           attr_reader :evaluated_at
           # Risk level of this signal, based on the score.
           attr_reader :risk_level
-          # Score for this insight. Possible values for evaluated payments are -1 and any value between 0 and 100. The value is returned with two decimal places. A score of -1 indicates a test integration and higher scores indicate a higher likelihood of the signal being true.
+          # Score for this signal. Possible values for evaluated payments are between 0 and 100. The value is returned with two decimal places and higher scores indicate a higher likelihood of the signal being true. A score of -1 is returned when a model evaluation was not performed, such as requests from incomplete integrations.
           attr_reader :score
 
           def self.inner_class_types
@@ -463,7 +463,7 @@ module Stripe
       attr_reader :outcome
       # Payment details attached to this payment evaluation.
       attr_reader :payment_details
-      # Recommended action based on the score of the fraudulent_payment signal. Possible values are `block` and `continue`.
+      # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block` and `continue`.
       attr_reader :recommended_action
       # Collection of signals for this payment evaluation.
       attr_reader :signals

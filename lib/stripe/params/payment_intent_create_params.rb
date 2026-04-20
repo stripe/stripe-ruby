@@ -567,6 +567,7 @@ module Stripe
         end
       end
 
+      class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
@@ -723,6 +724,8 @@ module Stripe
       attr_accessor :sepa_debit
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
+      # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+      attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -788,6 +791,7 @@ module Stripe
         satispay: nil,
         sepa_debit: nil,
         sofort: nil,
+        sunbit: nil,
         swish: nil,
         twint: nil,
         type: nil,
@@ -845,6 +849,7 @@ module Stripe
         @satispay = satispay
         @sepa_debit = sepa_debit
         @sofort = sofort
+        @sunbit = sunbit
         @swish = swish
         @twint = twint
         @type = type
@@ -2054,12 +2059,52 @@ module Stripe
       end
 
       class Pix < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+          attr_accessor :amount
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
+          # Type of amount. Defaults to `maximum`.
+          attr_accessor :amount_type
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+          attr_accessor :currency
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+          attr_accessor :end_date
+          # Schedule at which the future payments will be charged. Defaults to `monthly`.
+          attr_accessor :payment_schedule
+          # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+          attr_accessor :reference
+          # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+          attr_accessor :start_date
+
+          def initialize(
+            amount: nil,
+            amount_includes_iof: nil,
+            amount_type: nil,
+            currency: nil,
+            end_date: nil,
+            payment_schedule: nil,
+            reference: nil,
+            start_date: nil
+          )
+            @amount = amount
+            @amount_includes_iof = amount_includes_iof
+            @amount_type = amount_type
+            @currency = currency
+            @end_date = end_date
+            @payment_schedule = payment_schedule
+            @reference = reference
+            @start_date = start_date
+          end
+        end
         # Determines if the amount includes the IOF tax. Defaults to `never`.
         attr_accessor :amount_includes_iof
         # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         attr_accessor :expires_after_seconds
         # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         attr_accessor :expires_at
+        # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        attr_accessor :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2067,19 +2112,19 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        #
-        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
         def initialize(
           amount_includes_iof: nil,
           expires_after_seconds: nil,
           expires_at: nil,
+          mandate_options: nil,
           setup_future_usage: nil
         )
           @amount_includes_iof = amount_includes_iof
           @expires_after_seconds = expires_after_seconds
           @expires_at = expires_at
+          @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
         end
       end

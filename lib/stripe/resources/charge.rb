@@ -238,9 +238,9 @@ module Stripe
       end
 
       class Affirm < ::Stripe::StripeObject
-        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        # ID of the location that this reader is assigned to.
         attr_reader :location
-        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        # ID of the reader this transaction was made on.
         attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         attr_reader :transaction_id
@@ -257,7 +257,7 @@ module Stripe
       class AfterpayClearpay < ::Stripe::StripeObject
         # The Afterpay order ID associated with this payment intent.
         attr_reader :order_id
-        # Order identifier shown to the merchant in Afterpay’s online portal.
+        # Order identifier shown to the merchant in Afterpay's online portal.
         attr_reader :reference
 
         def self.inner_class_types
@@ -1369,6 +1369,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # The payer details for this transaction.
         attr_reader :payer_details
         # The Klarna payment method used for this transaction.
@@ -1377,6 +1379,8 @@ module Stripe
         # Preferred language of the Klarna authorization page that the customer is redirected to.
         # Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
         attr_reader :preferred_locale
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
 
         def self.inner_class_types
           @inner_class_types = { payer_details: PayerDetails }
@@ -1987,6 +1991,19 @@ module Stripe
         end
       end
 
+      class Sunbit < ::Stripe::StripeObject
+        # The Sunbit transaction ID associated with this payment.
+        attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Swish < ::Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         attr_reader :fingerprint
@@ -2210,6 +2227,8 @@ module Stripe
       attr_reader :stripe_account
       # Attribute for field stripe_balance
       attr_reader :stripe_balance
+      # Attribute for field sunbit
+      attr_reader :sunbit
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint
@@ -2289,6 +2308,7 @@ module Stripe
           sofort: Sofort,
           stripe_account: StripeAccount,
           stripe_balance: StripeBalance,
+          sunbit: Sunbit,
           swish: Swish,
           twint: Twint,
           upi: Upi,

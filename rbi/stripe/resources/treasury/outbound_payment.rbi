@@ -264,6 +264,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # The purpose of the OutboundPayment, if applicable.
+      sig { returns(T.nilable(String)) }
+      def purpose; end
       # Details about a returned OutboundPayment. Only set when the status is `returned`.
       sig { returns(T.nilable(ReturnedDetails)) }
       def returned_details; end

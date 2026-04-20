@@ -65,6 +65,9 @@ module Stripe
       # Validation behavior determines how a job validates objects for redaction eligibility. Default is `error`.
       sig { returns(T.nilable(String)) }
       def validation_behavior; end
+      # The first 10 validation errors for the current validation attempt. Use the validation errors list endpoint to paginate through the full list.
+      sig { returns(T.nilable(::Stripe::ListObject)) }
+      def validation_errors; end
       # You can cancel a redaction job when it's in one of these statuses: ready, failed.
       #
       # Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.

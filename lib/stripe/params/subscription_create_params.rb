@@ -551,6 +551,23 @@ module Stripe
           end
         end
 
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_accessor :expires_after
+
+            def initialize(expires_after: nil)
+              @expires_after = expires_after
+            end
+          end
+          # Configuration options for setting up a mandate
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
+
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -642,7 +659,7 @@ module Stripe
             attr_accessor :amount_includes_iof
             # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
             attr_accessor :end_date
-            # Schedule at which the future payments will be charged. Defaults to `monthly`.
+            # Schedule at which the future payments will be charged. Defaults to the subscription servicing interval.
             attr_accessor :payment_schedule
 
             def initialize(
@@ -736,6 +753,8 @@ module Stripe
         attr_accessor :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # This sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :blik
         # This sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
         # This sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
@@ -758,6 +777,7 @@ module Stripe
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          blik: nil,
           card: nil,
           customer_balance: nil,
           id_bank_transfer: nil,
@@ -770,6 +790,7 @@ module Stripe
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @blik = blik
           @card = card
           @customer_balance = customer_balance
           @id_bank_transfer = id_bank_transfer

@@ -200,6 +200,15 @@ module Stripe
         end
       end
 
+      class AppDistribution < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class AuBecsDebitPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -713,6 +722,15 @@ module Stripe
         end
       end
 
+      class SunbitPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class SwishPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -839,6 +857,8 @@ module Stripe
       attr_accessor :alma_payments
       # The amazon_pay_payments capability.
       attr_accessor :amazon_pay_payments
+      # The app_distribution capability.
+      attr_accessor :app_distribution
       # The au_becs_debit_payments capability.
       attr_accessor :au_becs_debit_payments
       # The automatic_indirect_tax capability.
@@ -953,6 +973,8 @@ module Stripe
       attr_accessor :sofort_payments
       # The stripe_balance_payments capability.
       attr_accessor :stripe_balance_payments
+      # The sunbit_payments capability.
+      attr_accessor :sunbit_payments
       # The swish_payments capability.
       attr_accessor :swish_payments
       # The tax_reporting_us_1099_k capability.
@@ -986,6 +1008,7 @@ module Stripe
         afterpay_clearpay_payments: nil,
         alma_payments: nil,
         amazon_pay_payments: nil,
+        app_distribution: nil,
         au_becs_debit_payments: nil,
         automatic_indirect_tax: nil,
         bacs_debit_payments: nil,
@@ -1043,6 +1066,7 @@ module Stripe
         shopeepay_payments: nil,
         sofort_payments: nil,
         stripe_balance_payments: nil,
+        sunbit_payments: nil,
         swish_payments: nil,
         tax_reporting_us_1099_k: nil,
         tax_reporting_us_1099_misc: nil,
@@ -1062,6 +1086,7 @@ module Stripe
         @afterpay_clearpay_payments = afterpay_clearpay_payments
         @alma_payments = alma_payments
         @amazon_pay_payments = amazon_pay_payments
+        @app_distribution = app_distribution
         @au_becs_debit_payments = au_becs_debit_payments
         @automatic_indirect_tax = automatic_indirect_tax
         @bacs_debit_payments = bacs_debit_payments
@@ -1119,6 +1144,7 @@ module Stripe
         @shopeepay_payments = shopeepay_payments
         @sofort_payments = sofort_payments
         @stripe_balance_payments = stripe_balance_payments
+        @sunbit_payments = sunbit_payments
         @swish_payments = swish_payments
         @tax_reporting_us_1099_k = tax_reporting_us_1099_k
         @tax_reporting_us_1099_misc = tax_reporting_us_1099_misc

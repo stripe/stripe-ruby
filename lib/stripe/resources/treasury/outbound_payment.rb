@@ -246,6 +246,8 @@ module Stripe
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # The purpose of the OutboundPayment, if applicable.
+      attr_reader :purpose
       # Details about a returned OutboundPayment. Only set when the status is `returned`.
       attr_reader :returned_details
       # The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer).

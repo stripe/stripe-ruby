@@ -142,6 +142,9 @@ module Stripe
       # The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
       sig { returns(T.nilable(String)) }
       def amazon_pay_payments; end
+      # The status of the `app_distribution` capability of the account, or whether the platform can distribute apps to other accounts.
+      sig { returns(T.nilable(String)) }
+      def app_distribution; end
       # The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
       sig { returns(T.nilable(String)) }
       def au_becs_debit_payments; end
@@ -313,6 +316,9 @@ module Stripe
       # The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
       sig { returns(T.nilable(String)) }
       def stripe_balance_payments; end
+      # The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
+      sig { returns(T.nilable(String)) }
+      def sunbit_payments; end
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
       sig { returns(T.nilable(String)) }
       def swish_payments; end

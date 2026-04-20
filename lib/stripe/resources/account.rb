@@ -142,6 +142,8 @@ module Stripe
       attr_reader :alma_payments
       # The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
       attr_reader :amazon_pay_payments
+      # The status of the `app_distribution` capability of the account, or whether the platform can distribute apps to other accounts.
+      attr_reader :app_distribution
       # The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
       attr_reader :au_becs_debit_payments
       # The status of the automatic_indirect_tax capability of the account.
@@ -256,6 +258,8 @@ module Stripe
       attr_reader :sofort_payments
       # The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
       attr_reader :stripe_balance_payments
+      # The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
+      attr_reader :sunbit_payments
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
       attr_reader :swish_payments
       # The status of the tax reporting 1099-K (US) capability of the account.

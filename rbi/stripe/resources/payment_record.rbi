@@ -253,7 +253,7 @@ module Stripe
       class Alma < ::Stripe::StripeObject
         class Installments < ::Stripe::StripeObject
           # The number of installments.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def count; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -912,12 +912,10 @@ module Stripe
         end
       end
       class Eps < ::Stripe::StripeObject
-        # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
+        # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`
         sig { returns(T.nilable(String)) }
         def bank; end
-        # Owner's verified full name. Values are verified or provided by EPS directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-        # EPS rarely provides this information so the attribute is usually empty.
+        # Owner's verified full name. Values are verified or provided by EPS directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. EPS rarely provides this information so the attribute is usually empty.
         sig { returns(T.nilable(String)) }
         def verified_name; end
         def self.inner_class_types
@@ -1177,6 +1175,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
         # The payer details for this transaction.
         sig { returns(T.nilable(PayerDetails)) }
         def payer_details; end
@@ -1188,6 +1189,9 @@ module Stripe
         # Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
         sig { returns(T.nilable(String)) }
         def preferred_locale; end
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         def self.inner_class_types
           @inner_class_types = {payer_details: PayerDetails}
         end
@@ -1795,6 +1799,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sunbit < ::Stripe::StripeObject
+        # The Sunbit transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Swish < ::Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         sig { returns(T.nilable(String)) }
@@ -2087,6 +2102,9 @@ module Stripe
       # Attribute for field stripe_balance
       sig { returns(T.nilable(StripeBalance)) }
       def stripe_balance; end
+      # Attribute for field sunbit
+      sig { returns(T.nilable(Sunbit)) }
+      def sunbit; end
       # Attribute for field swish
       sig { returns(T.nilable(Swish)) }
       def swish; end
@@ -2175,6 +2193,7 @@ module Stripe
           sofort: Sofort,
           stripe_account: StripeAccount,
           stripe_balance: StripeBalance,
+          sunbit: Sunbit,
           swish: Swish,
           twint: Twint,
           upi: Upi,

@@ -181,19 +181,19 @@ module Stripe
       end
       class PixDisplayQrCode < ::Stripe::StripeObject
         # The raw data string used to generate QR code, it should be used together with QR code library.
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         def data; end
         # The date (unix timestamp) when the PIX expires.
-        sig { returns(T.nilable(Integer)) }
+        sig { returns(Integer) }
         def expires_at; end
         # The URL to the hosted pix instructions page, which allows customers to view the pix QR code.
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         def hosted_instructions_url; end
         # The image_url_png string used to render png QR code
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         def image_url_png; end
         # The image_url_svg string used to render svg QR code
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         def image_url_svg; end
         def self.inner_class_types
           @inner_class_types = {}

@@ -964,6 +964,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class KlarnaDisplayQrCode < ::Stripe::StripeObject
+        # The data being used to generate QR code
+        sig { returns(String) }
+        def data; end
+        # The timestamp at which the QR code expires.
+        sig { returns(T.nilable(Integer)) }
+        def expires_at; end
+        # The image_url_png string used to render QR code
+        sig { returns(String) }
+        def image_url_png; end
+        # The image_url_svg string used to render QR code
+        sig { returns(String) }
+        def image_url_svg; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class KonbiniDisplayDetails < ::Stripe::StripeObject
         class Stores < ::Stripe::StripeObject
           class Familymart < ::Stripe::StripeObject
@@ -1336,6 +1356,9 @@ module Stripe
       # Attribute for field display_bank_transfer_instructions
       sig { returns(T.nilable(DisplayBankTransferInstructions)) }
       def display_bank_transfer_instructions; end
+      # Attribute for field klarna_display_qr_code
+      sig { returns(T.nilable(KlarnaDisplayQrCode)) }
+      def klarna_display_qr_code; end
       # Attribute for field konbini_display_details
       sig { returns(T.nilable(KonbiniDisplayDetails)) }
       def konbini_display_details; end
@@ -1388,6 +1411,7 @@ module Stripe
           card_await_notification: CardAwaitNotification,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           display_bank_transfer_instructions: DisplayBankTransferInstructions,
+          klarna_display_qr_code: KlarnaDisplayQrCode,
           konbini_display_details: KonbiniDisplayDetails,
           multibanco_display_details: MultibancoDisplayDetails,
           oxxo_display_details: OxxoDisplayDetails,

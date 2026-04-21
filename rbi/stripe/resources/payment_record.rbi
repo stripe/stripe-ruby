@@ -253,7 +253,7 @@ module Stripe
       class Alma < ::Stripe::StripeObject
         class Installments < ::Stripe::StripeObject
           # The number of installments.
-          sig { returns(T.nilable(Integer)) }
+          sig { returns(Integer) }
           def count; end
           def self.inner_class_types
             @inner_class_types = {}

@@ -866,7 +866,7 @@ module Stripe
     class TotalTax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
         # ID of the tax rate
-        sig { returns(T.any(String, ::Stripe::TaxRate)) }
+        sig { returns(String) }
         def tax_rate; end
         def self.inner_class_types
           @inner_class_types = {}

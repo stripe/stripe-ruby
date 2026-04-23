@@ -199,6 +199,9 @@ module Stripe
         # The last four digits of the card.
         sig { returns(T.nilable(String)) }
         def last4; end
+        # True if this payment was marked as MOTO and out of scope for SCA.
+        sig { returns(T.nilable(T::Boolean)) }
+        def moto; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
         def network; end
@@ -345,6 +348,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Pix < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -465,6 +476,9 @@ module Stripe
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
+      # Attribute for field pix
+      sig { returns(T.nilable(Pix)) }
+      def pix; end
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
@@ -503,6 +517,7 @@ module Stripe
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           sofort: Sofort,

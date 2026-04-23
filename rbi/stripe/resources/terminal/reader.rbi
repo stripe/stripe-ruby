@@ -497,6 +497,9 @@ module Stripe
       # The most recent action performed by the reader.
       sig { returns(T.nilable(Action)) }
       def action; end
+      # Always true for a deleted object
+      sig { returns(T.nilable(T::Boolean)) }
+      def deleted; end
       # The current software version of the reader.
       sig { returns(T.nilable(String)) }
       def device_sw_version; end
@@ -533,9 +536,6 @@ module Stripe
       # The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
       sig { returns(T.nilable(String)) }
       def status; end
-      # Always true for a deleted object
-      sig { returns(T.nilable(T::Boolean)) }
-      def deleted; end
       # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderCancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)

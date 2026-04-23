@@ -459,6 +459,9 @@ module Stripe
         # The person's gender (International regulations require either "male" or "female").
         sig { returns(T.nilable(String)) }
         def legal_gender; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -489,9 +492,6 @@ module Stripe
         # Time at which the object was last updated. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
         def updated; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

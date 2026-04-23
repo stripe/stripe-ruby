@@ -22,12 +22,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Event reason type.
-          sig { returns(String) }
-          def type; end
           # Information on the API request that instigated the event.
           sig { returns(T.nilable(Request)) }
           def request; end
+          # Event reason type.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {request: Request}
           end

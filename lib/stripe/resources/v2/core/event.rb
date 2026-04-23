@@ -26,10 +26,10 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Event reason type.
-          attr_reader :type
           # Information on the API request that instigated the event.
           attr_reader :request
+          # Event reason type.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = { request: Request }

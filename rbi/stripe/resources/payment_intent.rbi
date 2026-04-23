@@ -239,6 +239,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class NextAction < ::Stripe::StripeObject
       class AlipayHandleRedirect < ::Stripe::StripeObject
         # The native data to be used with Alipay SDK you must redirect your customer to in order to authenticate the payment in an Android App.
@@ -891,6 +902,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class KlarnaDisplayQrCode < ::Stripe::StripeObject
+        # The data being used to generate QR code
+        sig { returns(String) }
+        def data; end
+        # The timestamp at which the QR code expires.
+        sig { returns(T.nilable(Integer)) }
+        def expires_at; end
+        # The image_url_png string used to render QR code
+        sig { returns(String) }
+        def image_url_png; end
+        # The image_url_svg string used to render QR code
+        sig { returns(String) }
+        def image_url_svg; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class KonbiniDisplayDetails < ::Stripe::StripeObject
         class Stores < ::Stripe::StripeObject
           class Familymart < ::Stripe::StripeObject
@@ -1263,6 +1294,9 @@ module Stripe
       # Attribute for field display_bank_transfer_instructions
       sig { returns(T.nilable(DisplayBankTransferInstructions)) }
       def display_bank_transfer_instructions; end
+      # Attribute for field klarna_display_qr_code
+      sig { returns(T.nilable(KlarnaDisplayQrCode)) }
+      def klarna_display_qr_code; end
       # Attribute for field konbini_display_details
       sig { returns(T.nilable(KonbiniDisplayDetails)) }
       def konbini_display_details; end
@@ -1315,6 +1349,7 @@ module Stripe
           card_await_notification: CardAwaitNotification,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           display_bank_transfer_instructions: DisplayBankTransferInstructions,
+          klarna_display_qr_code: KlarnaDisplayQrCode,
           konbini_display_details: KonbiniDisplayDetails,
           multibanco_display_details: MultibancoDisplayDetails,
           oxxo_display_details: OxxoDisplayDetails,
@@ -2342,6 +2377,38 @@ module Stripe
         end
       end
       class Pix < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Amount to be charged for future payments.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # Determines if the amount includes the IOF tax.
+          sig { returns(T.nilable(String)) }
+          def amount_includes_iof; end
+          # Type of amount.
+          sig { returns(T.nilable(String)) }
+          def amount_type; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+          sig { returns(T.nilable(String)) }
+          def end_date; end
+          # Schedule at which the future payments will be charged.
+          sig { returns(T.nilable(String)) }
+          def payment_schedule; end
+          # Subscription name displayed to buyers in their bank app.
+          sig { returns(T.nilable(String)) }
+          def reference; end
+          # Start date of the mandate, in `YYYY-MM-DD`.
+          sig { returns(T.nilable(String)) }
+          def start_date; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Determines if the amount includes the IOF tax.
         sig { returns(T.nilable(String)) }
         def amount_includes_iof; end
@@ -2351,6 +2418,9 @@ module Stripe
         # The timestamp at which the Pix expires.
         sig { returns(T.nilable(Integer)) }
         def expires_at; end
+        # Attribute for field mandate_options
+        sig { returns(T.nilable(MandateOptions)) }
+        def mandate_options; end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2361,7 +2431,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {mandate_options: MandateOptions}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -3070,6 +3140,9 @@ module Stripe
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Settings for Managed Payments.
+    sig { returns(T.nilable(ManagedPayments)) }
+    def managed_payments; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     sig { returns(T::Hash[String, String]) }
     def metadata; end

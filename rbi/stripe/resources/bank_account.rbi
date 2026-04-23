@@ -115,6 +115,9 @@ module Stripe
     # Whether this bank account is the default external account for its currency.
     sig { returns(T.nilable(T::Boolean)) }
     def default_for_currency; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
     sig { returns(T.nilable(String)) }
     def fingerprint; end
@@ -144,8 +147,5 @@ module Stripe
     # For external accounts, possible values are `new`, `errored`, `verification_failed`, and `tokenized_account_number_deactivated`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
     sig { returns(String) }
     def status; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
   end
 end

@@ -140,6 +140,8 @@ module Stripe
       attr_reader :alma_payments
       # The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
       attr_reader :amazon_pay_payments
+      # The status of the `app_distribution` capability of the account, or whether the platform can distribute apps to other accounts.
+      attr_reader :app_distribution
       # The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
       attr_reader :au_becs_debit_payments
       # The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
@@ -234,6 +236,8 @@ module Stripe
       attr_reader :sepa_debit_payments
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       attr_reader :sofort_payments
+      # The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
+      attr_reader :sunbit_payments
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
       attr_reader :swish_payments
       # The status of the tax reporting 1099-K (US) capability of the account.
@@ -994,6 +998,8 @@ module Stripe
     attr_reader :created
     # Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
     attr_reader :default_currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](/connect/onboarding) to finish submitting account details.
     attr_reader :details_submitted
     # An email address associated with the account. It's not used for authentication and Stripe doesn't market to this field without explicit approval from the platform.
@@ -1026,8 +1032,6 @@ module Stripe
     attr_reader :tos_acceptance
     # The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
     attr_reader :type
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).

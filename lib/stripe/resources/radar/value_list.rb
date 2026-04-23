@@ -23,9 +23,11 @@ module Stripe
       attr_reader :created
       # The name or email address of the user who created this value list.
       attr_reader :created_by
+      # Always true for a deleted object
+      attr_reader :deleted
       # Unique identifier for the object.
       attr_reader :id
-      # The type of items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
+      # The type of items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `account`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
       attr_reader :item_type
       # List of items contained within this value list.
       attr_reader :list_items
@@ -37,8 +39,6 @@ module Stripe
       attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-      # Always true for a deleted object
-      attr_reader :deleted
 
       # Creates a new ValueList object, which can then be referenced in rules.
       def self.create(params = {}, opts = {})

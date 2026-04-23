@@ -745,6 +745,7 @@ module Stripe
         sig { params(country: String).void }
         def initialize(country: nil); end
       end
+      class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
       class Upi < ::Stripe::RequestParams
@@ -1190,6 +1191,13 @@ module Stripe
         params(_sofort: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sofort)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sofort))
        }
       def sofort=(_sofort); end
+      # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+      sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sunbit)) }
+      def sunbit; end
+      sig {
+        params(_sunbit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sunbit)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sunbit))
+       }
+      def sunbit=(_sunbit); end
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Swish)) }
       def swish; end
@@ -1240,7 +1248,7 @@ module Stripe
        }
       def zip=(_zip); end
       sig {
-        params(acss_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BillingDetails), blik: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypal), payto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Satispay), sepa_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SepaDebit), sofort: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sofort), swish: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Zip)).void
+        params(acss_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BillingDetails), blik: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypal), payto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Satispay), sepa_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SepaDebit), sofort: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sofort), sunbit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sunbit), swish: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -1292,6 +1300,7 @@ module Stripe
         satispay: nil,
         sepa_debit: nil,
         sofort: nil,
+        sunbit: nil,
         swish: nil,
         twint: nil,
         type: nil,
@@ -2906,6 +2915,61 @@ module Stripe
         def initialize(mandate_options: nil, setup_future_usage: nil); end
       end
       class Pix < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def amount=(_amount); end
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          sig { returns(T.nilable(String)) }
+          def amount_includes_iof; end
+          sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
+          def amount_includes_iof=(_amount_includes_iof); end
+          # Type of amount. Defaults to `maximum`.
+          sig { returns(T.nilable(String)) }
+          def amount_type; end
+          sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
+          def amount_type=(_amount_type); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+          def currency=(_currency); end
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+          sig { returns(T.nilable(String)) }
+          def end_date; end
+          sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
+          def end_date=(_end_date); end
+          # Schedule at which the future payments will be charged. Defaults to `monthly`.
+          sig { returns(T.nilable(String)) }
+          def payment_schedule; end
+          sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
+          def payment_schedule=(_payment_schedule); end
+          # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+          sig { returns(T.nilable(String)) }
+          def reference; end
+          sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+          def reference=(_reference); end
+          # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+          sig { returns(T.nilable(String)) }
+          def start_date; end
+          sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+          def start_date=(_start_date); end
+          sig {
+            params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), amount_type: T.nilable(String), currency: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), reference: T.nilable(String), start_date: T.nilable(String)).void
+           }
+          def initialize(
+            amount: nil,
+            amount_includes_iof: nil,
+            amount_type: nil,
+            currency: nil,
+            end_date: nil,
+            payment_schedule: nil,
+            reference: nil,
+            start_date: nil
+          ); end
+        end
         # Determines if the amount includes the IOF tax. Defaults to `never`.
         sig { returns(T.nilable(String)) }
         def amount_includes_iof; end
@@ -2921,6 +2985,15 @@ module Stripe
         def expires_at; end
         sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def expires_at=(_expires_at); end
+        # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Pix::MandateOptions))
+         }
+        def mandate_options; end
+        sig {
+          params(_mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Pix::MandateOptions)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Pix::MandateOptions))
+         }
+        def mandate_options=(_mandate_options); end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2928,19 +3001,18 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        #
-        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+          params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Pix::MandateOptions), setup_future_usage: T.nilable(String)).void
          }
         def initialize(
           amount_includes_iof: nil,
           expires_after_seconds: nil,
           expires_at: nil,
+          mandate_options: nil,
           setup_future_usage: nil
         ); end
       end
@@ -3986,6 +4058,11 @@ module Stripe
       params(_amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails)))
      }
     def amount_details=(_amount_details); end
+    # Amount to confirm on the PaymentIntent. Defaults to `amount` if not provided.
+    sig { returns(T.nilable(Integer)) }
+    def amount_to_confirm; end
+    sig { params(_amount_to_confirm: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def amount_to_confirm=(_amount_to_confirm); end
     # Controls when the funds will be captured from the customer's account.
     sig { returns(T.nilable(String)) }
     def capture_method; end
@@ -4124,10 +4201,11 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails)), amount_to_confirm: T.nilable(Integer), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
       amount_details: nil,
+      amount_to_confirm: nil,
       capture_method: nil,
       confirmation_token: nil,
       error_on_requires_action: nil,

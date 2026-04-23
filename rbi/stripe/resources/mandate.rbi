@@ -48,6 +48,12 @@ module Stripe
       end
     end
     class MultiUse < ::Stripe::StripeObject
+      # The amount of the payment on a multi use mandate.
+      sig { returns(T.nilable(Integer)) }
+      def amount; end
+      # The currency of the payment on a multi use mandate.
+      sig { returns(T.nilable(String)) }
+      def currency; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -228,6 +234,32 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Pix < ::Stripe::StripeObject
+        # Determines if the amount includes the IOF tax.
+        sig { returns(T.nilable(String)) }
+        def amount_includes_iof; end
+        # Type of amount.
+        sig { returns(T.nilable(String)) }
+        def amount_type; end
+        # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+        sig { returns(T.nilable(String)) }
+        def end_date; end
+        # Schedule at which the future payments will be charged.
+        sig { returns(T.nilable(String)) }
+        def payment_schedule; end
+        # Subscription name displayed to buyers in their bank app.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Start date of the mandate, in `YYYY-MM-DD`.
+        sig { returns(T.nilable(String)) }
+        def start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -323,6 +355,9 @@ module Stripe
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
+      # Attribute for field pix
+      sig { returns(T.nilable(Pix)) }
+      def pix; end
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
@@ -354,6 +389,7 @@ module Stripe
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           upi: Upi,

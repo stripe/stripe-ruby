@@ -635,6 +635,8 @@ module Stripe
       attr_reader :bbpos_wisepos_e
       # Attribute for field cellular
       attr_reader :cellular
+      # Always true for a deleted object
+      attr_reader :deleted
       # Unique identifier for the object.
       attr_reader :id
       # Whether this Configuration is the default for your account
@@ -659,8 +661,6 @@ module Stripe
       attr_reader :verifone_p400
       # Attribute for field wifi
       attr_reader :wifi
-      # Always true for a deleted object
-      attr_reader :deleted
 
       # Creates a new Configuration object.
       def self.create(params = {}, opts = {})

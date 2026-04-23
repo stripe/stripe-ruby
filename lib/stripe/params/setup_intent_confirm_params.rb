@@ -328,6 +328,7 @@ module Stripe
         end
       end
 
+      class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
@@ -484,6 +485,8 @@ module Stripe
       attr_accessor :sepa_debit
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
+      # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+      attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -549,6 +552,7 @@ module Stripe
         satispay: nil,
         sepa_debit: nil,
         sofort: nil,
+        sunbit: nil,
         swish: nil,
         twint: nil,
         type: nil,
@@ -606,6 +610,7 @@ module Stripe
         @satispay = satispay
         @sepa_debit = sepa_debit
         @sofort = sofort
+        @sunbit = sunbit
         @swish = swish
         @twint = twint
         @type = type
@@ -971,6 +976,53 @@ module Stripe
         end
       end
 
+      class Pix < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+          attr_accessor :amount
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
+          # Type of amount. Defaults to `maximum`.
+          attr_accessor :amount_type
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+          attr_accessor :currency
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+          attr_accessor :end_date
+          # Schedule at which the future payments will be charged. Defaults to `monthly`.
+          attr_accessor :payment_schedule
+          # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+          attr_accessor :reference
+          # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+          attr_accessor :start_date
+
+          def initialize(
+            amount: nil,
+            amount_includes_iof: nil,
+            amount_type: nil,
+            currency: nil,
+            end_date: nil,
+            payment_schedule: nil,
+            reference: nil,
+            start_date: nil
+          )
+            @amount = amount
+            @amount_includes_iof = amount_includes_iof
+            @amount_type = amount_type
+            @currency = currency
+            @end_date = end_date
+            @payment_schedule = payment_schedule
+            @reference = reference
+            @start_date = start_date
+          end
+        end
+        # Additional fields for mandate creation.
+        attr_accessor :mandate_options
+
+        def initialize(mandate_options: nil)
+          @mandate_options = mandate_options
+        end
+      end
+
       class SepaDebit < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -1100,6 +1152,8 @@ module Stripe
       attr_accessor :paypal
       # If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
       attr_accessor :payto
+      # If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+      attr_accessor :pix
       # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
       # If this is a `upi` SetupIntent, this sub-hash contains details about the UPI payment method options.
@@ -1117,6 +1171,7 @@ module Stripe
         link: nil,
         paypal: nil,
         payto: nil,
+        pix: nil,
         sepa_debit: nil,
         upi: nil,
         us_bank_account: nil
@@ -1130,6 +1185,7 @@ module Stripe
         @link = link
         @paypal = paypal
         @payto = payto
+        @pix = pix
         @sepa_debit = sepa_debit
         @upi = upi
         @us_bank_account = us_bank_account

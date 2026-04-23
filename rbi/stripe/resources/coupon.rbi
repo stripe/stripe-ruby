@@ -44,6 +44,9 @@ module Stripe
     # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
     def currency_options; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
     sig { returns(String) }
     def duration; end
@@ -80,9 +83,6 @@ module Stripe
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     sig { returns(T::Boolean) }
     def valid; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
     #
     # A coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice's subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it.

@@ -1312,6 +1312,14 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Sunbit < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Swish < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1603,6 +1611,9 @@ module Stripe
     # Attribute for field sofort
     sig { returns(T.nilable(Sofort)) }
     def sofort; end
+    # Attribute for field sunbit
+    sig { returns(T.nilable(Sunbit)) }
+    def sunbit; end
     # Attribute for field swish
     sig { returns(T.nilable(Swish)) }
     def swish; end

@@ -196,6 +196,15 @@ module Stripe
         end
       end
 
+      class AppDistribution < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class AuBecsDebitPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -619,6 +628,15 @@ module Stripe
         end
       end
 
+      class SunbitPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class SwishPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -718,6 +736,8 @@ module Stripe
       attr_accessor :alma_payments
       # The amazon_pay_payments capability.
       attr_accessor :amazon_pay_payments
+      # The app_distribution capability.
+      attr_accessor :app_distribution
       # The au_becs_debit_payments capability.
       attr_accessor :au_becs_debit_payments
       # The bacs_debit_payments capability.
@@ -812,6 +832,8 @@ module Stripe
       attr_accessor :sepa_debit_payments
       # The sofort_payments capability.
       attr_accessor :sofort_payments
+      # The sunbit_payments capability.
+      attr_accessor :sunbit_payments
       # The swish_payments capability.
       attr_accessor :swish_payments
       # The tax_reporting_us_1099_k capability.
@@ -839,6 +861,7 @@ module Stripe
         afterpay_clearpay_payments: nil,
         alma_payments: nil,
         amazon_pay_payments: nil,
+        app_distribution: nil,
         au_becs_debit_payments: nil,
         bacs_debit_payments: nil,
         bancontact_payments: nil,
@@ -886,6 +909,7 @@ module Stripe
         sepa_bank_transfer_payments: nil,
         sepa_debit_payments: nil,
         sofort_payments: nil,
+        sunbit_payments: nil,
         swish_payments: nil,
         tax_reporting_us_1099_k: nil,
         tax_reporting_us_1099_misc: nil,
@@ -902,6 +926,7 @@ module Stripe
         @afterpay_clearpay_payments = afterpay_clearpay_payments
         @alma_payments = alma_payments
         @amazon_pay_payments = amazon_pay_payments
+        @app_distribution = app_distribution
         @au_becs_debit_payments = au_becs_debit_payments
         @bacs_debit_payments = bacs_debit_payments
         @bancontact_payments = bancontact_payments
@@ -949,6 +974,7 @@ module Stripe
         @sepa_bank_transfer_payments = sepa_bank_transfer_payments
         @sepa_debit_payments = sepa_debit_payments
         @sofort_payments = sofort_payments
+        @sunbit_payments = sunbit_payments
         @swish_payments = swish_payments
         @tax_reporting_us_1099_k = tax_reporting_us_1099_k
         @tax_reporting_us_1099_misc = tax_reporting_us_1099_misc
@@ -981,18 +1007,18 @@ module Stripe
       attr_accessor :currency
       # Attribute for param field cvc
       attr_accessor :cvc
+      # Attribute for param field default_for_currency
+      attr_accessor :default_for_currency
       # Attribute for param field exp_month
       attr_accessor :exp_month
       # Attribute for param field exp_year
       attr_accessor :exp_year
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_accessor :metadata
       # Attribute for param field name
       attr_accessor :name
       # Attribute for param field number
       attr_accessor :number
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-      attr_accessor :metadata
-      # Attribute for param field default_for_currency
-      attr_accessor :default_for_currency
 
       def initialize(
         object: nil,
@@ -1004,12 +1030,12 @@ module Stripe
         address_zip: nil,
         currency: nil,
         cvc: nil,
+        default_for_currency: nil,
         exp_month: nil,
         exp_year: nil,
-        name: nil,
-        number: nil,
         metadata: nil,
-        default_for_currency: nil
+        name: nil,
+        number: nil
       )
         @object = object
         @address_city = address_city
@@ -1020,12 +1046,12 @@ module Stripe
         @address_zip = address_zip
         @currency = currency
         @cvc = cvc
+        @default_for_currency = default_for_currency
         @exp_month = exp_month
         @exp_year = exp_year
+        @metadata = metadata
         @name = name
         @number = number
-        @metadata = metadata
-        @default_for_currency = default_for_currency
       end
     end
 
@@ -2104,7 +2130,7 @@ module Stripe
     attr_accessor :settings
     # Details on the account's acceptance of the [Stripe Services Agreement](/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
     attr_accessor :tos_acceptance
-    # The type of Stripe account to create. May be one of `custom`, `express` or `standard`.
+    # The `type` parameter is deprecated. Use [`controller`](/api/accounts/create#create_account-controller) instead to configure dashboard access, fee payer, loss liability, and requirement collection.
     attr_accessor :type
 
     def initialize(

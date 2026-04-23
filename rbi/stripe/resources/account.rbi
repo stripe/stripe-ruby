@@ -139,6 +139,9 @@ module Stripe
       # The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
       sig { returns(T.nilable(String)) }
       def amazon_pay_payments; end
+      # The status of the `app_distribution` capability of the account, or whether the platform can distribute apps to other accounts.
+      sig { returns(T.nilable(String)) }
+      def app_distribution; end
       # The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
       sig { returns(T.nilable(String)) }
       def au_becs_debit_payments; end
@@ -280,6 +283,9 @@ module Stripe
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       sig { returns(T.nilable(String)) }
       def sofort_payments; end
+      # The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
+      sig { returns(T.nilable(String)) }
+      def sunbit_payments; end
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
       sig { returns(T.nilable(String)) }
       def swish_payments; end
@@ -1104,6 +1110,9 @@ module Stripe
     # Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
     sig { returns(T.nilable(String)) }
     def default_currency; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](/connect/onboarding) to finish submitting account details.
     sig { returns(T.nilable(T::Boolean)) }
     def details_submitted; end
@@ -1150,9 +1159,6 @@ module Stripe
     # The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
     sig { returns(T.nilable(String)) }
     def type; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #

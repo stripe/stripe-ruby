@@ -158,6 +158,19 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class PauseCollection < ::Stripe::StripeObject
       # The payment collection behavior for this subscription while paused.
       attr_reader :behavior
@@ -328,9 +341,73 @@ module Stripe
           end
         end
 
+        class Pix < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # Determines if the amount includes the IOF tax.
+            attr_reader :amount_includes_iof
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            attr_reader :end_date
+            # Schedule at which the future payments will be charged.
+            attr_reader :payment_schedule
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          attr_reader :expires_after_seconds
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class SepaDebit < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Upi < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_reader :amount_type
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_reader :description
+            # End date of the mandate or subscription.
+            attr_reader :end_date
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
           end
 
           def self.field_remappings
@@ -392,8 +469,12 @@ module Stripe
         attr_reader :konbini
         # This sub-hash contains details about the PayTo payment method options to pass to invoices created by the subscription.
         attr_reader :payto
+        # This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
+        attr_reader :pix
         # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
         attr_reader :sepa_debit
+        # This sub-hash contains details about the UPI payment method options to pass to invoices created by the subscription.
+        attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
 
@@ -405,7 +486,9 @@ module Stripe
             customer_balance: CustomerBalance,
             konbini: Konbini,
             payto: Payto,
+            pix: Pix,
             sepa_debit: SepaDebit,
+            upi: Upi,
             us_bank_account: UsBankAccount,
           }
         end
@@ -574,6 +657,8 @@ module Stripe
     attr_reader :latest_invoice
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Settings for Managed Payments for this Subscription and resulting [Invoices](/api/invoices/object) and [PaymentIntents](/api/payment_intents/object).
+    attr_reader :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`.
@@ -705,7 +790,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
     def resume(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -715,7 +800,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
     def self.resume(subscription, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -778,6 +863,7 @@ module Stripe
         billing_thresholds: BillingThresholds,
         cancellation_details: CancellationDetails,
         invoice_settings: InvoiceSettings,
+        managed_payments: ManagedPayments,
         pause_collection: PauseCollection,
         payment_settings: PaymentSettings,
         pending_invoice_item_interval: PendingInvoiceItemInterval,

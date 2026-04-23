@@ -5,7 +5,7 @@ module Stripe
   class PriceService < StripeService
     # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     def create(params = {}, opts = {})
-      params = PriceCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::PriceCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(method: :post, path: "/v1/prices", params: params, opts: opts, base_address: :api)
     end

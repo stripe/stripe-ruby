@@ -104,6 +104,9 @@ module Stripe
       # The ID of a configuration that will be used to customize all readers in this location.
       sig { returns(T.nilable(String)) }
       def configuration_overrides; end
+      # Always true for a deleted object
+      sig { returns(T.nilable(T::Boolean)) }
+      def deleted; end
       # The display name of the location.
       sig { returns(String) }
       def display_name; end
@@ -128,9 +131,6 @@ module Stripe
       # The phone number of the location.
       sig { returns(T.nilable(String)) }
       def phone; end
-      # Always true for a deleted object
-      sig { returns(T.nilable(T::Boolean)) }
-      def deleted; end
       # Creates a new Location object.
       # For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
       sig {

@@ -26,7 +26,7 @@ module Stripe
     # To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://docs.stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
     # Schedules provide the flexibility to model more complex billing configurations that change over time.
     def create(params = {}, opts = {})
-      params = SubscriptionCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::SubscriptionCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,
@@ -70,7 +70,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
     def resume(subscription, params = {}, opts = {})
       request(
         method: :post,
@@ -128,7 +128,7 @@ module Stripe
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
     def update(subscription_exposed_id, params = {}, opts = {})
-      params = SubscriptionUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+      params = ::Stripe::SubscriptionUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,

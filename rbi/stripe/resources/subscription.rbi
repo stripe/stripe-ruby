@@ -148,6 +148,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class PauseCollection < ::Stripe::StripeObject
       # The payment collection behavior for this subscription while paused.
       sig { returns(String) }
@@ -309,9 +320,74 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Pix < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Determines if the amount includes the IOF tax.
+            sig { returns(T.nilable(String)) }
+            def amount_includes_iof; end
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            sig { returns(T.nilable(String)) }
+            def end_date; end
+            # Schedule at which the future payments will be charged.
+            sig { returns(T.nilable(String)) }
+            def payment_schedule; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          sig { returns(T.nilable(Integer)) }
+          def expires_after_seconds; end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class SepaDebit < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Upi < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            # End date of the mandate or subscription.
+            sig { returns(T.nilable(Integer)) }
+            def end_date; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -377,9 +453,15 @@ module Stripe
         # This sub-hash contains details about the PayTo payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Payto)) }
         def payto; end
+        # This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Pix)) }
+        def pix; end
         # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
+        # This sub-hash contains details about the UPI payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Upi)) }
+        def upi; end
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
@@ -391,7 +473,9 @@ module Stripe
             customer_balance: CustomerBalance,
             konbini: Konbini,
             payto: Payto,
+            pix: Pix,
             sepa_debit: SepaDebit,
+            upi: Upi,
             us_bank_account: UsBankAccount,
           }
         end
@@ -585,6 +669,9 @@ module Stripe
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Settings for Managed Payments for this Subscription and resulting [Invoices](/api/invoices/object) and [PaymentIntents](/api/payment_intents/object).
+    sig { returns(T.nilable(ManagedPayments)) }
+    def managed_payments; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
@@ -711,13 +798,13 @@ module Stripe
      }
     def self.migrate(subscription, params = {}, opts = {}); end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
     sig {
       params(params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def resume(params = {}, opts = {}); end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
     sig {
       params(subscription: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }

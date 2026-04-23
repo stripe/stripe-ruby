@@ -35,6 +35,8 @@ module Stripe
     attr_reader :current_period_end
     # The start time of this subscription item's current billing period.
     attr_reader :current_period_start
+    # Always true for a deleted object
+    attr_reader :deleted
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # Unique identifier for the object.
@@ -65,8 +67,6 @@ module Stripe
     attr_reader :subscription
     # The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
     attr_reader :tax_rates
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     def self.create(params = {}, opts = {})

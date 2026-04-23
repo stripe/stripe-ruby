@@ -105,12 +105,12 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
-          attr_reader :type
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           attr_reader :gb_bank_account
           # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
           attr_reader :sepa_bank_account
+          # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
+          attr_reader :type
           # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
           attr_reader :us_bank_account
 
@@ -138,14 +138,14 @@ module Stripe
         attr_reader :financial_account
         # The ID of a FinancialAddress.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
         attr_reader :settlement_currency
         # Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
         attr_reader :status
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { credentials: Credentials }

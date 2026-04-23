@@ -4196,6 +4196,9 @@ module Stripe
         # Information about the company, individual, and business represented by the Account.
         sig { returns(T.nilable(Identity)) }
         def identity; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -4205,9 +4208,6 @@ module Stripe
         # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         sig { returns(T.nilable(Requirements)) }
         def requirements; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

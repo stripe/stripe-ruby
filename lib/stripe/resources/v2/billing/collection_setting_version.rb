@@ -255,14 +255,14 @@ module Stripe
         attr_reader :email_delivery
         # The ID of the CollectionSettingVersion object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # The ID of the PaymentMethodConfiguration object, which controls which payment methods are displayed to your customers.
         attr_reader :payment_method_configuration
         # Payment Method specific configuration stored on the object.
         attr_reader :payment_method_options
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

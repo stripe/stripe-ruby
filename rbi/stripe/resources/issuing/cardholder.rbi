@@ -181,12 +181,18 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Array of card presence statuses from which authorizations will be allowed. Possible options are `present`, `not_present`. All other statuses will be blocked. Cannot be set with `blocked_card_presences`. Provide an empty value to unset this control.
+        sig { returns(T.nilable(T::Array[String])) }
+        def allowed_card_presences; end
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def allowed_categories; end
         # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
         sig { returns(T.nilable(T::Array[String])) }
         def allowed_merchant_countries; end
+        # Array of card presence statuses from which authorizations will be declined. Possible options are `present`, `not_present`. Cannot be set with `allowed_card_presences`. Provide an empty value to unset this control.
+        sig { returns(T.nilable(T::Array[String])) }
+        def blocked_card_presences; end
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def blocked_categories; end

@@ -58,17 +58,17 @@ module Stripe
               @number = number
             end
           end
-          # Closed Enum. The type of payout method to be created/updated.
-          attr_accessor :type
           # The type specific details of the bank account payout method.
           attr_accessor :bank_account
           # The type specific details of the card payout method.
           attr_accessor :card
+          # Closed Enum. The type of payout method to be created/updated.
+          attr_accessor :type
 
-          def initialize(type: nil, bank_account: nil, card: nil)
-            @type = type
+          def initialize(bank_account: nil, card: nil, type: nil)
             @bank_account = bank_account
             @card = card
+            @type = type
           end
         end
         # If provided, the existing payout method resource to link to this outbound setup intent.

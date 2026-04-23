@@ -205,18 +205,6 @@ module Stripe
              }
             def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
           end
-          # The number of intervals (specified in the interval attribute) between
-          # cadence billings. For example, type=month and interval_count=3 bills every
-          # 3 months. If this is not provided, it will default to 1.
-          sig { returns(T.nilable(Integer)) }
-          def interval_count; end
-          sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def interval_count=(_interval_count); end
-          # The frequency at which a cadence bills.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
           # Specific configuration for determining billing dates when type=day.
           sig { returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day)) }
           def day; end
@@ -224,6 +212,13 @@ module Stripe
             params(_day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day))
            }
           def day=(_day); end
+          # The number of intervals (specified in the interval attribute) between
+          # cadence billings. For example, type=month and interval_count=3 bills every
+          # 3 months. If this is not provided, it will default to 1.
+          sig { returns(T.nilable(Integer)) }
+          def interval_count; end
+          sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def interval_count=(_interval_count); end
           # Specific configuration for determining billing dates when type=month.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month))
@@ -233,6 +228,11 @@ module Stripe
             params(_month: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month))
            }
           def month=(_month); end
+          # The frequency at which a cadence bills.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           # Specific configuration for determining billing dates when type=week.
           sig { returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week)) }
           def week; end
@@ -248,13 +248,13 @@ module Stripe
            }
           def year=(_year); end
           sig {
-            params(interval_count: T.nilable(Integer), type: String, day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day), month: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month), week: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year)).void
+            params(day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day), interval_count: T.nilable(Integer), month: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month), type: String, week: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year)).void
            }
           def initialize(
-            interval_count: nil,
-            type: nil,
             day: nil,
+            interval_count: nil,
             month: nil,
+            type: nil,
             week: nil,
             year: nil
           ); end

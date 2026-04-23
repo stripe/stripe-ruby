@@ -43,6 +43,20 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class TaxDetails < ::Stripe::StripeObject
+      # The performance location.
+      sig { returns(T.nilable(String)) }
+      def performance_location; end
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      sig { returns(T.nilable(String)) }
+      def tax_code; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Whether the product is currently available for purchase.
     sig { returns(T::Boolean) }
     def active; end
@@ -52,6 +66,9 @@ module Stripe
     # The ID of the [Price](https://docs.stripe.com/api/prices) object that is the default price for this product.
     sig { returns(T.nilable(T.any(String, ::Stripe::Price))) }
     def default_price; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
     sig { returns(T.nilable(String)) }
     def description; end
@@ -88,6 +105,9 @@ module Stripe
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     sig { returns(T.nilable(T.any(String, ::Stripe::TaxCode))) }
     def tax_code; end
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    sig { returns(T.nilable(TaxDetails)) }
+    def tax_details; end
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     sig { returns(String) }
     def type; end
@@ -100,9 +120,6 @@ module Stripe
     # A URL of a publicly-accessible webpage for this product.
     sig { returns(T.nilable(String)) }
     def url; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Creates a new product object.
     sig {
       params(params: T.any(::Stripe::ProductCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Product)

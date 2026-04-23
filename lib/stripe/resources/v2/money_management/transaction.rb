@@ -42,8 +42,6 @@ module Stripe
         end
 
         class Flow < ::Stripe::StripeObject
-          # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
-          attr_reader :type
           # If applicable, the ID of the Adjustment that created this Transaction.
           attr_reader :adjustment
           # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
@@ -60,6 +58,8 @@ module Stripe
           attr_reader :received_credit
           # If applicable, the ID of the ReceivedDebit that created this Transaction.
           attr_reader :received_debit
+          # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+          attr_reader :type
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -104,6 +104,8 @@ module Stripe
         attr_reader :flow
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Closed Enum. Current status of the Transaction.
@@ -114,8 +116,6 @@ module Stripe
         attr_reader :status
         # Timestamps for when the Transaction transitioned to a particular status.
         attr_reader :status_transitions
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

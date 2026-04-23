@@ -36,9 +36,6 @@ module Stripe
           end
         end
         class Flow < ::Stripe::StripeObject
-          # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
-          sig { returns(String) }
-          def type; end
           # If applicable, the ID of the Adjustment that created this Transaction.
           sig { returns(T.nilable(String)) }
           def adjustment; end
@@ -63,6 +60,9 @@ module Stripe
           # If applicable, the ID of the ReceivedDebit that created this Transaction.
           sig { returns(T.nilable(String)) }
           def received_debit; end
+          # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -113,6 +113,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -126,9 +129,6 @@ module Stripe
         # Timestamps for when the Transaction transitioned to a particular status.
         sig { returns(StatusTransitions) }
         def status_transitions; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

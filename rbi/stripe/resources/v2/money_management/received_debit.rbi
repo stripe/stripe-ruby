@@ -7,6 +7,43 @@ module Stripe
     module MoneyManagement
       # ReceivedDebit resource
       class ReceivedDebit < APIResource
+        class BankTransfer < ::Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
+            # The name of the bank the debit originated from.
+            sig { returns(T.nilable(String)) }
+            def bank_name; end
+            # Open Enum. The bank network the debit was originated on.
+            sig { returns(String) }
+            def network; end
+            # The routing number of the bank that originated the debit.
+            sig { returns(T.nilable(String)) }
+            def routing_number; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The Financial Address that was debited.
+          sig { returns(String) }
+          def financial_address; end
+          # Open Enum. The type of the payment method used to originate the debit.
+          sig { returns(String) }
+          def payment_method_type; end
+          # The statement descriptor set by the originator of the debit.
+          sig { returns(T.nilable(String)) }
+          def statement_descriptor; end
+          # The payment method used to originate the debit.
+          sig { returns(UsBankAccount) }
+          def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {us_bank_account: UsBankAccount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class StatusDetails < ::Stripe::StripeObject
           class Failed < ::Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
@@ -50,46 +87,12 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class BankTransfer < ::Stripe::StripeObject
-          class UsBankAccount < ::Stripe::StripeObject
-            # The name of the bank the debit originated from.
-            sig { returns(T.nilable(String)) }
-            def bank_name; end
-            # Open Enum. The bank network the debit was originated on.
-            sig { returns(String) }
-            def network; end
-            # The routing number of the bank that originated the debit.
-            sig { returns(T.nilable(String)) }
-            def routing_number; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # The Financial Address that was debited.
-          sig { returns(String) }
-          def financial_address; end
-          # Open Enum. The type of the payment method used to originate the debit.
-          sig { returns(String) }
-          def payment_method_type; end
-          # The statement descriptor set by the originator of the debit.
-          sig { returns(T.nilable(String)) }
-          def statement_descriptor; end
-          # The payment method used to originate the debit.
-          sig { returns(UsBankAccount) }
-          def us_bank_account; end
-          def self.inner_class_types
-            @inner_class_types = {us_bank_account: UsBankAccount}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         # Amount and currency of the ReceivedDebit.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
+        # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
+        sig { returns(T.nilable(BankTransfer)) }
+        def bank_transfer; end
         # The time at which the ReceivedDebit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
         sig { returns(String) }
@@ -103,6 +106,9 @@ module Stripe
         # Unique identifier for the ReceivedDebit.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -121,12 +127,6 @@ module Stripe
         # Open Enum. The type of the ReceivedDebit.
         sig { returns(String) }
         def type; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
-        # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
-        sig { returns(T.nilable(BankTransfer)) }
-        def bank_transfer; end
       end
     end
   end

@@ -1457,8 +1457,53 @@ module Stripe
         end
 
         class Us < ::Stripe::RequestParams
+          class AdmissionsTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=admissions_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class AttendanceTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=attendance_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class EntertainmentTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=entertainment_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class GrossReceiptsTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=gross_receipts_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class HospitalityTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=hospitality_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
           class LocalAmusementTax < ::Stripe::RequestParams
-            # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `02154` (Arlington Heights), `05248` (Bensenville), `06613` (Bloomington), `10906` (Campton Hills), `14000` (Chicago), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), `64421` (Riverside), `65806` (Roselle), and `68081` (Schiller Park).
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=amusement_tax#registration-types).
             attr_accessor :jurisdiction
 
             def initialize(jurisdiction: nil)
@@ -1468,6 +1513,24 @@ module Stripe
 
           class LocalLeaseTax < ::Stripe::RequestParams
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class LuxuryTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=luxury_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class ResortTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=resort_tax#registration-types).
             attr_accessor :jurisdiction
 
             def initialize(jurisdiction: nil)
@@ -1494,28 +1557,69 @@ module Stripe
               @elections = elections
             end
           end
+
+          class TourismTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=tourism_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+          # Options for the admission tax registration.
+          attr_accessor :admissions_tax
+          # Options for the attendance tax registration.
+          attr_accessor :attendance_tax
+          # Options for the entertainment tax registration.
+          attr_accessor :entertainment_tax
+          # Options for the gross receipts tax registration.
+          attr_accessor :gross_receipts_tax
+          # Options for the hospitality tax registration.
+          attr_accessor :hospitality_tax
           # Options for the local amusement tax registration.
           attr_accessor :local_amusement_tax
           # Options for the local lease tax registration.
           attr_accessor :local_lease_tax
+          # Options for the luxury tax registration.
+          attr_accessor :luxury_tax
+          # Options for the resort tax registration.
+          attr_accessor :resort_tax
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
           # Options for the state sales tax registration.
           attr_accessor :state_sales_tax
+          # Options for the tourism tax registration.
+          attr_accessor :tourism_tax
           # Type of registration to be created in the US.
           attr_accessor :type
 
           def initialize(
+            admissions_tax: nil,
+            attendance_tax: nil,
+            entertainment_tax: nil,
+            gross_receipts_tax: nil,
+            hospitality_tax: nil,
             local_amusement_tax: nil,
             local_lease_tax: nil,
+            luxury_tax: nil,
+            resort_tax: nil,
             state: nil,
             state_sales_tax: nil,
+            tourism_tax: nil,
             type: nil
           )
+            @admissions_tax = admissions_tax
+            @attendance_tax = attendance_tax
+            @entertainment_tax = entertainment_tax
+            @gross_receipts_tax = gross_receipts_tax
+            @hospitality_tax = hospitality_tax
             @local_amusement_tax = local_amusement_tax
             @local_lease_tax = local_lease_tax
+            @luxury_tax = luxury_tax
+            @resort_tax = resort_tax
             @state = state
             @state_sales_tax = state_sales_tax
+            @tourism_tax = tourism_tax
             @type = type
           end
         end

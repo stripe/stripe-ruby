@@ -32,6 +32,8 @@ module Stripe
     attr_reader :customer
     # The ID of the account representing the customer associated with this discount.
     attr_reader :customer_account
+    # Always true for a deleted object
+    attr_reader :deleted
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     attr_reader :end
     # The ID of the discount object. Discounts cannot be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.
@@ -52,8 +54,6 @@ module Stripe
     attr_reader :subscription
     # The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     attr_reader :subscription_item
-    # Always true for a deleted object
-    attr_reader :deleted
 
     def self.inner_class_types
       @inner_class_types = { source: Source }

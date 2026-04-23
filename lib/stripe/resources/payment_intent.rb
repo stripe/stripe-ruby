@@ -895,6 +895,25 @@ module Stripe
         end
       end
 
+      class KlarnaDisplayQrCode < ::Stripe::StripeObject
+        # The data being used to generate QR code
+        attr_reader :data
+        # The timestamp at which the QR code expires.
+        attr_reader :expires_at
+        # The image_url_png string used to render QR code
+        attr_reader :image_url_png
+        # The image_url_svg string used to render QR code
+        attr_reader :image_url_svg
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class KonbiniDisplayDetails < ::Stripe::StripeObject
         class Stores < ::Stripe::StripeObject
           class Familymart < ::Stripe::StripeObject
@@ -1253,6 +1272,8 @@ module Stripe
       attr_reader :cashapp_handle_redirect_or_display_qr_code
       # Attribute for field display_bank_transfer_instructions
       attr_reader :display_bank_transfer_instructions
+      # Attribute for field klarna_display_qr_code
+      attr_reader :klarna_display_qr_code
       # Attribute for field konbini_display_details
       attr_reader :konbini_display_details
       # Attribute for field multibanco_display_details
@@ -1291,6 +1312,7 @@ module Stripe
           card_await_notification: CardAwaitNotification,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           display_bank_transfer_instructions: DisplayBankTransferInstructions,
+          klarna_display_qr_code: KlarnaDisplayQrCode,
           konbini_display_details: KonbiniDisplayDetails,
           multibanco_display_details: MultibancoDisplayDetails,
           oxxo_display_details: OxxoDisplayDetails,

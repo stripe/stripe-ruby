@@ -206,6 +206,8 @@ module Stripe
     attr_reader :currency_options
     # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     attr_reader :custom_unit_amount
+    # Always true for a deleted object
+    attr_reader :deleted
     # Unique identifier for the object.
     attr_reader :id
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -238,8 +240,6 @@ module Stripe
     attr_reader :unit_amount
     # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
     attr_reader :unit_amount_decimal
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     def self.create(params = {}, opts = {})

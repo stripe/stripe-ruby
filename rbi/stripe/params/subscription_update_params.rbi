@@ -780,6 +780,30 @@ module Stripe
           sig { params(preferred_language: T.nilable(String)).void }
           def initialize(preferred_language: nil); end
         end
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            sig { returns(T.nilable(Integer)) }
+            def expires_after; end
+            sig { params(_expires_after: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def expires_after=(_expires_after); end
+            sig { params(expires_after: T.nilable(Integer)).void }
+            def initialize(expires_after: nil); end
+          end
+          # Configuration options for setting up a mandate
+          sig {
+            returns(T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions))
+           }
+          def mandate_options; end
+          sig {
+            params(_mandate_options: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions)).returns(T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions))
+           }
+          def mandate_options=(_mandate_options); end
+          sig {
+            params(mandate_options: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions)).void
+           }
+          def initialize(mandate_options: nil); end
+        end
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -923,7 +947,7 @@ module Stripe
             def end_date; end
             sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
             def end_date=(_end_date); end
-            # Schedule at which the future payments will be charged. Defaults to `monthly`.
+            # Schedule at which the future payments will be charged. Defaults to the subscription servicing interval.
             sig { returns(T.nilable(String)) }
             def payment_schedule; end
             sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
@@ -1084,6 +1108,15 @@ module Stripe
           params(_bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
          }
         def bancontact=(_bancontact); end
+        # This sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)))
+         }
+        def blik; end
+        sig {
+          params(_blik: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)))
+         }
+        def blik=(_blik); end
         # This sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
@@ -1166,11 +1199,12 @@ module Stripe
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          blik: nil,
           card: nil,
           customer_balance: nil,
           id_bank_transfer: nil,

@@ -20,10 +20,10 @@ module Stripe
         attr_reader :expires_at
         # The unique id of this auth session.
         attr_reader :id
-        # String representing the object's type. Objects of the same type share the same value of the object field.
-        attr_reader :object
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
 
         def self.inner_class_types
           @inner_class_types = {}

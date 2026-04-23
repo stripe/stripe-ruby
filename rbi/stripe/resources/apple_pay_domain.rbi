@@ -8,6 +8,9 @@ module Stripe
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Attribute for field domain_name
     sig { returns(String) }
     def domain_name; end
@@ -20,9 +23,6 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Create an apple pay domain.
     sig {
       params(params: T.any(::Stripe::ApplePayDomainCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)

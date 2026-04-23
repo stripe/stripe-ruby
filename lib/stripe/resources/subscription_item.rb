@@ -71,6 +71,8 @@ module Stripe
     attr_reader :current_period_start
     # The current trial that is applied to this subscription item.
     attr_reader :current_trial
+    # Always true for a deleted object
+    attr_reader :deleted
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # Unique identifier for the object.
@@ -103,8 +105,6 @@ module Stripe
     attr_reader :tax_rates
     # Options that configure the trial on the subscription item.
     attr_reader :trial
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     def self.create(params = {}, opts = {})

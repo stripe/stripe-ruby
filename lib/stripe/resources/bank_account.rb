@@ -108,6 +108,8 @@ module Stripe
     attr_reader :customer
     # Whether this bank account is the default external account for its currency.
     attr_reader :default_for_currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
     attr_reader :fingerprint
     # Information about the [upcoming new requirements for the bank account](https://docs.stripe.com/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
@@ -128,8 +130,6 @@ module Stripe
     #
     # For external accounts, possible values are `new`, `errored`, `verification_failed`, and `tokenized_account_number_deactivated`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
     attr_reader :status
-    # Always true for a deleted object
-    attr_reader :deleted
 
     def verify(params = {}, opts = {})
       request_stripe_object(

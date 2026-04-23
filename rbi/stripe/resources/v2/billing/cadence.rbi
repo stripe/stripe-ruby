@@ -157,18 +157,18 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
-          sig { returns(Integer) }
-          def interval_count; end
-          # The frequency at which a cadence bills.
-          sig { returns(String) }
-          def type; end
           # Specific configuration for determining billing dates when type=day.
           sig { returns(T.nilable(Day)) }
           def day; end
+          # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
+          sig { returns(Integer) }
+          def interval_count; end
           # Specific configuration for determining billing dates when type=month.
           sig { returns(T.nilable(Month)) }
           def month; end
+          # The frequency at which a cadence bills.
+          sig { returns(String) }
+          def type; end
           # Specific configuration for determining billing dates when type=week.
           sig { returns(T.nilable(Week)) }
           def week; end
@@ -616,6 +616,9 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         def lookup_key; end
@@ -643,9 +646,6 @@ module Stripe
         # The ID of the Test Clock.
         sig { returns(T.nilable(String)) }
         def test_clock; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

@@ -188,6 +188,8 @@ module Stripe
     #
     # If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
     attr_reader :default_source
+    # Always true for a deleted object
+    attr_reader :deleted
     # Tracks the most recent state change on any invoice belonging to the customer. Paying an invoice or marking it uncollectible via the API will set this field to false. An automatic payment failure or passing the `invoice.due_date` will set this field to `true`.
     #
     # If an invoice becomes uncollectible by [dunning](https://docs.stripe.com/billing/automatic-collection), `delinquent` doesn't reset to `false`.
@@ -238,8 +240,6 @@ module Stripe
     attr_reader :tax_ids
     # ID of the test clock that this customer belongs to.
     attr_reader :test_clock
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Creates a new customer object.
     def self.create(params = {}, opts = {})

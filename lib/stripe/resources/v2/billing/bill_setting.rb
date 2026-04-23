@@ -81,13 +81,13 @@ module Stripe
         # The current live version of the settings object. This can be different from
         # latest_version if settings are updated without setting live_version='latest'.
         attr_reader :live_version
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # A lookup key used to retrieve settings dynamically from a static string.
         # This may be up to 200 characters.
         attr_reader :lookup_key
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = { calculation: Calculation, invoice: Invoice }

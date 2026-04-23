@@ -159,14 +159,14 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
-          attr_reader :interval_count
-          # The frequency at which a cadence bills.
-          attr_reader :type
           # Specific configuration for determining billing dates when type=day.
           attr_reader :day
+          # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
+          attr_reader :interval_count
           # Specific configuration for determining billing dates when type=month.
           attr_reader :month
+          # The frequency at which a cadence bills.
+          attr_reader :type
           # Specific configuration for determining billing dates when type=week.
           attr_reader :week
           # Specific configuration for determining billing dates when type=year.
@@ -623,6 +623,8 @@ module Stripe
         attr_reader :created
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
         attr_reader :lookup_key
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -641,8 +643,6 @@ module Stripe
         attr_reader :status
         # The ID of the Test Clock.
         attr_reader :test_clock
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {

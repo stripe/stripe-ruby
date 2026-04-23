@@ -20,6 +20,8 @@ module Stripe
       attr_reader :created
       # The name or email address of the user who added this item to the value list.
       attr_reader :created_by
+      # Always true for a deleted object
+      attr_reader :deleted
       # Unique identifier for the object.
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -30,8 +32,6 @@ module Stripe
       attr_reader :value
       # The identifier of the value list this item belongs to.
       attr_reader :value_list
-      # Always true for a deleted object
-      attr_reader :deleted
 
       # Creates a new ValueListItem object, which is added to the specified parent value list.
       def self.create(params = {}, opts = {})

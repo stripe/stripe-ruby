@@ -335,6 +335,7 @@ module Stripe
         end
       end
 
+      class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
@@ -499,12 +500,16 @@ module Stripe
       attr_accessor :satispay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+      attr_accessor :shared_payment_granted_token
       # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
       attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
       # This hash contains details about the Stripe balance payment method.
       attr_accessor :stripe_balance
+      # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+      attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -574,9 +579,11 @@ module Stripe
         samsung_pay: nil,
         satispay: nil,
         sepa_debit: nil,
+        shared_payment_granted_token: nil,
         shopeepay: nil,
         sofort: nil,
         stripe_balance: nil,
+        sunbit: nil,
         swish: nil,
         twint: nil,
         type: nil,
@@ -638,9 +645,11 @@ module Stripe
         @samsung_pay = samsung_pay
         @satispay = satispay
         @sepa_debit = sepa_debit
+        @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
         @sofort = sofort
         @stripe_balance = stripe_balance
+        @sunbit = sunbit
         @swish = swish
         @twint = twint
         @type = type

@@ -23,6 +23,9 @@ module Stripe
         # The ID of the billing profile object.
         sig { returns(String) }
         def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # An internal key you can use to search for a particular billing profile.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
@@ -36,9 +39,6 @@ module Stripe
         # The current status of the billing profile.
         sig { returns(String) }
         def status; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

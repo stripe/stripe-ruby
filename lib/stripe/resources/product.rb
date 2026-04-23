@@ -56,12 +56,29 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class TaxDetails < ::Stripe::StripeObject
+      # The performance location.
+      attr_reader :performance_location
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      attr_reader :tax_code
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Whether the product is currently available for purchase.
     attr_reader :active
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # The ID of the [Price](https://docs.stripe.com/api/prices) object that is the default price for this product.
     attr_reader :default_price
+    # Always true for a deleted object
+    attr_reader :deleted
     # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
     attr_reader :description
     # Unique identifier for the object.
@@ -86,6 +103,8 @@ module Stripe
     attr_reader :statement_descriptor
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     attr_reader :tax_code
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    attr_reader :tax_details
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     attr_reader :type
     # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
@@ -94,8 +113,6 @@ module Stripe
     attr_reader :updated
     # A URL of a publicly-accessible webpage for this product.
     attr_reader :url
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Creates a new product object.
     def self.create(params = {}, opts = {})
@@ -149,6 +166,7 @@ module Stripe
       @inner_class_types = {
         marketing_features: MarketingFeature,
         package_dimensions: PackageDimensions,
+        tax_details: TaxDetails,
       }
     end
 

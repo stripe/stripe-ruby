@@ -276,7 +276,7 @@ module Stripe
         if elem.is_a?(Hash)
           result += flatten_params(elem, api_mode, "#{calculated_key}[#{i}]")
         elsif elem.is_a?(Array)
-          result += flatten_params_array(elem, api_mode, calculated_key)
+          result += flatten_params_array(elem, api_mode, "#{calculated_key}[#{i}]")
         else
           # Always use indexed format for arrays
           result << ["#{calculated_key}[#{i}]", elem]

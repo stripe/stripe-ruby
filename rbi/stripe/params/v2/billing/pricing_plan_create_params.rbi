@@ -11,7 +11,7 @@ module Stripe
         def currency; end
         sig { params(_currency: String).returns(String) }
         def currency=(_currency); end
-        # Description of pricing plan subscription.
+        # Description of the pricing plan. Maximum length of 500 characters.
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
@@ -33,7 +33,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the pricing plan price includes or excludes tax.
         sig { returns(String) }
         def tax_behavior; end
         sig { params(_tax_behavior: String).returns(String) }

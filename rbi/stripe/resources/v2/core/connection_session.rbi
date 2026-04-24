@@ -5,7 +5,8 @@
 module Stripe
   module V2
     module Core
-      # The ConnectionSession resource.
+      # A short-lived, single-use session used to launch client-side Link onboarding
+      # that connects an Account to a Link consumer account.
       class ConnectionSession < APIResource
         class Connection < ::Stripe::StripeObject
           # The access granted to the Account by the Connection.

@@ -18,7 +18,7 @@ module Stripe
                 @value = value
               end
             end
-            # Description that customers will see in the invoice line item.
+            # Description that customers see in the invoice line item.
             # Maximum length of 250 characters.
             attr_accessor :display_name
             # An internal key you can use to search for a particular metered item.
@@ -56,7 +56,7 @@ module Stripe
             # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
             # most 12 decimal places.
             attr_accessor :unit_amount
-            # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+            # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
             # be set.
             attr_accessor :up_to_decimal
             # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
@@ -95,7 +95,7 @@ module Stripe
           attr_accessor :metered_item
           # The data to create a metered item that binds to this rate. Cannot be set if `metered_item` is provided, and must be set if it isn't.
           attr_accessor :metered_item_data
-          # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
+          # Defines whether the tiered price is graduated or volume-based. In volume-based tiering, the maximum
           # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
           # grows into new tiers. Can only be set if `tiers` is set.
           attr_accessor :tiering_mode

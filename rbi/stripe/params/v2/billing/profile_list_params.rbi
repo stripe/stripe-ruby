@@ -31,7 +31,7 @@ module Stripe
         sig { params(_lookup_keys: T::Array[String]).returns(T::Array[String]) }
         def lookup_keys=(_lookup_keys); end
         # Filter billing profiles by status. Can be combined
-        # with all other filters. If not provided, all billing profiles will be returned.
+        # with all other filters. If not provided, all billing profiles are returned.
         sig { returns(T.nilable(String)) }
         def status; end
         sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }

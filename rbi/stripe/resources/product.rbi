@@ -12,6 +12,35 @@ module Stripe
   # [accept payments with Checkout](https://docs.stripe.com/payments/accept-a-payment#create-product-prices-upfront),
   # and more about [Products and Prices](https://docs.stripe.com/products-prices/overview)
   class Product < APIResource
+    class Identifiers < ::Stripe::StripeObject
+      # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def ean; end
+      # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def gtin; end
+      # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+      sig { returns(T.nilable(String)) }
+      def isbn; end
+      # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def jan; end
+      # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+      sig { returns(T.nilable(String)) }
+      def mpn; end
+      # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+      sig { returns(T.nilable(String)) }
+      def nsn; end
+      # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def upc; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class MarketingFeature < ::Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
       sig { returns(T.nilable(String)) }
@@ -61,6 +90,9 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # Attribute for field identifiers
+    sig { returns(T.nilable(Identifiers)) }
+    def identifiers; end
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     sig { returns(T::Array[String]) }
     def images; end

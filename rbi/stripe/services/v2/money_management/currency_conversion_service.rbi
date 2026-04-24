@@ -8,6 +8,7 @@ module Stripe
       class CurrencyConversionService < StripeService
         # Create a CurrencyConversion.
         #
+        # ** raises FxQuoteExpiredError
         # ** raises FeatureNotEnabledError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::CurrencyConversionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::CurrencyConversion)

@@ -18,7 +18,7 @@ module Stripe
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
-        # Changes the version that new RateCard activations will use. Providing `live_version = "latest"` will set the
+        # Changes the version that new RateCard activations use. Providing `live_version = "latest"` sets the
         # RateCard's `live_version` to its latest version.
         sig { returns(T.nilable(String)) }
         def live_version; end

@@ -34,6 +34,27 @@ module Stripe
           end
         end
         class BankTransfer < ::Stripe::StripeObject
+          class CaBankAccount < ::Stripe::StripeObject
+            # The account holder name of the bank account the transfer was received from.
+            sig { returns(T.nilable(String)) }
+            def account_holder_name; end
+            # The bank name the transfer was received from.
+            sig { returns(T.nilable(String)) }
+            def bank_name; end
+            # The last 4 digits of the account number that originated the transfer.
+            # Depending on the bank, this may instead be the last 4 digits of the return account number.
+            sig { returns(T.nilable(String)) }
+            def last4; end
+            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+            sig { returns(String) }
+            def network; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class GbBankAccount < ::Stripe::StripeObject
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
@@ -103,6 +124,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `ca_bank_account`.
+          sig { returns(T.nilable(CaBankAccount)) }
+          def ca_bank_account; end
           # Financial Address on which funds for ReceivedCredit were received.
           sig { returns(String) }
           def financial_address; end
@@ -123,6 +147,7 @@ module Stripe
           def us_bank_account; end
           def self.inner_class_types
             @inner_class_types = {
+              ca_bank_account: CaBankAccount,
               gb_bank_account: GbBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,

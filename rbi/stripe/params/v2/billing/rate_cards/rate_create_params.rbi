@@ -33,7 +33,7 @@ module Stripe
             def unit_amount; end
             sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
             def unit_amount=(_unit_amount); end
-            # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+            # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
             # be set.
             sig { returns(T.nilable(BigDecimal)) }
             def up_to_decimal; end
@@ -95,9 +95,9 @@ module Stripe
           def metered_item; end
           sig { params(_metered_item: String).returns(String) }
           def metered_item=(_metered_item); end
-          # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
+          # Defines whether the tiered price is graduated or volume-based. In volume-based tiering, the maximum
           # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
-          # grows into new tiers. One of `unit_amount`, `tiers`, or `custom_pricing_unit_amount` is required.
+          # grows into new tiers. Can only be set if `tiers` is set.
           sig { returns(T.nilable(String)) }
           def tiering_mode; end
           sig { params(_tiering_mode: T.nilable(String)).returns(T.nilable(String)) }

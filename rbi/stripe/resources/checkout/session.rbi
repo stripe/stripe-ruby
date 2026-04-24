@@ -2785,6 +2785,10 @@ module Stripe
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T::Array[CustomField]) }
       def custom_fields; end
+      # A list of the types of [custom payment methods](https://docs.stripe.com/payments/payment-methods/custom-payment-methods) (e.g. cpmt_123) this Checkout
+      # Session is allowed to accept.
+      sig { returns(T.nilable(T::Array[String])) }
+      def custom_payment_method_types; end
       # Attribute for field custom_text
       sig { returns(CustomText) }
       def custom_text; end
@@ -2881,6 +2885,9 @@ module Stripe
       # Session is allowed to accept.
       sig { returns(T::Array[String]) }
       def payment_method_types; end
+      # The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentRecord))) }
+      def payment_record; end
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       sig { returns(String) }

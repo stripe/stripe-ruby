@@ -11,7 +11,7 @@ module Stripe
         # This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
         # Maximum length of 250 characters.
         attr_accessor :display_name
-        # Changes the version that new RateCard activations will use. Providing `live_version = "latest"` will set the
+        # Changes the version that new RateCard activations use. Providing `live_version = "latest"` sets the
         # RateCard's `live_version` to its latest version.
         attr_accessor :live_version
         # An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.

@@ -24,6 +24,139 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class CryptoTransaction < ::Stripe::StripeObject
+        class CryptoTransactionConfirmed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            sig { returns(String) }
+            def amount; end
+            # The fee currency.
+            sig { returns(String) }
+            def currency; end
+            # The fee type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the confirmed transaction.
+          sig { returns(String) }
+          def amount; end
+          # The upcharged MCC amount, if one was applied.
+          sig { returns(T.nilable(String)) }
+          def amount_mcc_upcharged; end
+          # The blockchain network for the confirmed transaction.
+          sig { returns(String) }
+          def chain; end
+          # When the transaction was confirmed onchain.
+          sig { returns(Integer) }
+          def confirmed_at; end
+          # The currency of the crypto transaction amount.
+          sig { returns(String) }
+          def currency; end
+          # Fees associated with the transaction.
+          sig { returns(T::Array[Fee]) }
+          def fees; end
+          # The source wallet address for the transaction.
+          sig { returns(String) }
+          def from_address; end
+          # Memo metadata attached to the transaction, if present.
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # The destination wallet address for the transaction.
+          sig { returns(String) }
+          def to_address; end
+          # The blockchain transaction hash.
+          sig { returns(String) }
+          def transaction_hash; end
+          def self.inner_class_types
+            @inner_class_types = {fees: Fee}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CryptoTransactionFailed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            sig { returns(String) }
+            def amount; end
+            # The fee currency.
+            sig { returns(String) }
+            def currency; end
+            # The fee type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the failed transaction.
+          sig { returns(String) }
+          def amount; end
+          # The upcharged MCC amount, if one was applied.
+          sig { returns(T.nilable(String)) }
+          def amount_mcc_upcharged; end
+          # The blockchain network for the failed transaction.
+          sig { returns(String) }
+          def chain; end
+          # The currency of the crypto transaction amount.
+          sig { returns(String) }
+          def currency; end
+          # When the transaction failed.
+          sig { returns(Integer) }
+          def failed_at; end
+          # The reason the transaction failed.
+          sig { returns(String) }
+          def failure_reason; end
+          # Fees associated with the transaction.
+          sig { returns(T::Array[Fee]) }
+          def fees; end
+          # The source wallet address for the attempted transaction.
+          sig { returns(String) }
+          def from_address; end
+          # Memo metadata attached to the transaction, if present.
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # The destination wallet address for the attempted transaction when one exists.
+          sig { returns(T.nilable(String)) }
+          def to_address; end
+          # The blockchain transaction hash when one exists.
+          sig { returns(T.nilable(String)) }
+          def transaction_hash; end
+          def self.inner_class_types
+            @inner_class_types = {fees: Fee}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        sig { returns(T.nilable(CryptoTransactionConfirmed)) }
+        def crypto_transaction_confirmed; end
+        # The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        sig { returns(T.nilable(CryptoTransactionFailed)) }
+        def crypto_transaction_failed; end
+        # The crypto transaction variant for this array entry.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            crypto_transaction_confirmed: CryptoTransactionConfirmed,
+            crypto_transaction_failed: CryptoTransactionFailed,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Fleet < ::Stripe::StripeObject
         class CardholderPromptData < ::Stripe::StripeObject
           # [Deprecated] An alphanumeric ID, though typical point of sales only support numeric entry. The card program can be configured to prompt for a vehicle ID, driver ID, or generic ID.
@@ -231,12 +364,18 @@ module Stripe
         # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
         sig { returns(String) }
         def network_id; end
+        # The identifier of the payment facilitator (PayFac) that processed this authorization, as assigned by the card network. Null when the transaction was not processed through a PayFac.
+        sig { returns(T.nilable(String)) }
+        def payment_facilitator_id; end
         # Postal code where the seller is located
         sig { returns(T.nilable(String)) }
         def postal_code; end
         # State where the seller is located
         sig { returns(T.nilable(String)) }
         def state; end
+        # The identifier of the sub-merchant involved in this authorization, as assigned by the payment facilitator. Null when the transaction was not processed through a PayFac or when no sub-merchant ID was provided.
+        sig { returns(T.nilable(String)) }
+        def sub_merchant_id; end
         # The seller's tax identification number. Currently populated for French merchants only.
         sig { returns(T.nilable(String)) }
         def tax_id; end
@@ -594,6 +733,9 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
+      # Array of onchain crypto transactions linked to this resource.
+      sig { returns(T.nilable(T::Array[CryptoTransaction])) }
+      def crypto_transactions; end
       # The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end

@@ -13,6 +13,15 @@ module Stripe
         end
       end
 
+      class LoginSucceeded < ::Stripe::RequestParams
+        # An optional qualification for a login success.
+        attr_accessor :qualification
+
+        def initialize(qualification: nil)
+          @qualification = qualification
+        end
+      end
+
       class RegistrationFailed < ::Stripe::RequestParams
         # The reason why this registration failed.
         attr_accessor :reason
@@ -21,19 +30,41 @@ module Stripe
           @reason = reason
         end
       end
+
+      class RegistrationSucceeded < ::Stripe::RequestParams
+        # An optional qualification for a registration success.
+        attr_accessor :qualification
+
+        def initialize(qualification: nil)
+          @qualification = qualification
+        end
+      end
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Event payload for login_failed.
       attr_accessor :login_failed
+      # Event payload for login_succeeded.
+      attr_accessor :login_succeeded
       # Event payload for registration_failed.
       attr_accessor :registration_failed
+      # Event payload for registration_succeeded.
+      attr_accessor :registration_succeeded
       # The type of event to report.
       attr_accessor :type
 
-      def initialize(expand: nil, login_failed: nil, registration_failed: nil, type: nil)
+      def initialize(
+        expand: nil,
+        login_failed: nil,
+        login_succeeded: nil,
+        registration_failed: nil,
+        registration_succeeded: nil,
+        type: nil
+      )
         @expand = expand
         @login_failed = login_failed
+        @login_succeeded = login_succeeded
         @registration_failed = registration_failed
+        @registration_succeeded = registration_succeeded
         @type = type
       end
     end

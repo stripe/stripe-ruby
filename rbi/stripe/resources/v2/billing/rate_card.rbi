@@ -13,8 +13,8 @@ module Stripe
           # The interval for assessing service.
           sig { returns(String) }
           def interval; end
-          # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-          # order to specify quarterly service.
+          # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+          # to specify quarterly service.
           sig { returns(Integer) }
           def interval_count; end
           def self.inner_class_types
@@ -44,7 +44,7 @@ module Stripe
         # The ID of this rate card's most recently created version.
         sig { returns(String) }
         def latest_version; end
-        # The ID of the Rate Card Version that will be used by all subscriptions when no specific version is specified.
+        # The ID of the Rate Card Version used by all subscriptions when no specific version is specified.
         sig { returns(String) }
         def live_version; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -59,23 +59,23 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The service cycle configuration for this Rate Card. For example, a monthly Rate Card with a rate of $1 for the
-        # first 10 "workloads" and $2 thereafter means "$1 per workload up to 10 workloads during a month of service."
+        # The service cycle configuration for this Rate Card. For example, a monthly Rate Card with a rate of 1 USD for the
+        # first 10 "workloads" and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service."
         # This is similar to but distinct from billing interval; the service interval deals with the rate at which the
         # customer accumulates fees, while the billing interval in Cadence deals with the rate the customer is billed.
         sig { returns(ServiceCycle) }
         def service_cycle; end
-        # The interval for assessing service. For example, a monthly Rate Card with a rate of $1 for the first 10 "workloads"
-        # and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
+        # The interval for assessing service. For example, a monthly Rate Card with a rate of 1 USD for the first 10 "workloads"
+        # and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service." This is similar to but
         # distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
         # while the billing interval in Cadence deals with the rate the customer is billed.
         sig { returns(String) }
         def service_interval; end
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-        # order to specify quarterly service.
+        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
+        # to specify quarterly service.
         sig { returns(Integer) }
         def service_interval_count; end
-        # The Stripe Tax tax behavior - whether the rates are inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the rate card price includes or excludes tax.
         sig { returns(String) }
         def tax_behavior; end
       end

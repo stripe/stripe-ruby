@@ -12,6 +12,30 @@ module Stripe
         end
 
         class Credentials < ::Stripe::StripeObject
+          class CaBankAccount < ::Stripe::StripeObject
+            # The account holder name to be used during bank transfers.
+            attr_reader :account_holder_name
+            # The account number of the Canadian Bank Account.
+            attr_reader :account_number
+            # The name of the Bank.
+            attr_reader :bank_name
+            # The institution number of the Canadian Bank Account.
+            attr_reader :institution_number
+            # The last four digits of the Canadian Bank Account number. This will always be returned.
+            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            attr_reader :last4
+            # The transit number of the Canadian Bank Account.
+            attr_reader :transit_number
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class GbBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transference.
             attr_reader :account_holder_name
@@ -105,6 +129,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
+          attr_reader :ca_bank_account
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           attr_reader :gb_bank_account
           # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
@@ -116,6 +142,7 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {
+              ca_bank_account: CaBankAccount,
               gb_bank_account: GbBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,

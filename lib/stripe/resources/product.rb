@@ -25,6 +25,31 @@ module Stripe
 
     nested_resource_class_methods :feature, operations: %i[create retrieve delete list]
 
+    class Identifiers < ::Stripe::StripeObject
+      # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+      attr_reader :ean
+      # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+      attr_reader :gtin
+      # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+      attr_reader :isbn
+      # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+      attr_reader :jan
+      # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+      attr_reader :mpn
+      # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+      attr_reader :nsn
+      # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+      attr_reader :upc
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class MarketingFeature < ::Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
       attr_reader :name
@@ -68,6 +93,8 @@ module Stripe
     attr_reader :description
     # Unique identifier for the object.
     attr_reader :id
+    # Attribute for field identifiers
+    attr_reader :identifiers
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     attr_reader :images
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -147,6 +174,7 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        identifiers: Identifiers,
         marketing_features: MarketingFeature,
         package_dimensions: PackageDimensions,
       }

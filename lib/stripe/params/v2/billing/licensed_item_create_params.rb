@@ -13,7 +13,7 @@ module Stripe
             @tax_code = tax_code
           end
         end
-        # Description that customers will see in the invoice line item.
+        # Description that customers see in the invoice line item.
         # Maximum length of 250 characters.
         attr_accessor :display_name
         # An internal key you can use to search for a particular licensed item.

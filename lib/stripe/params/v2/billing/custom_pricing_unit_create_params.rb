@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       class CustomPricingUnitCreateParams < ::Stripe::RequestParams
-        # Description that customers will see in the invoice line item.
+        # Description that customers see in the invoice line item.
         # Maximum length of 10 characters.
         attr_accessor :display_name
         # An internal key you can use to search for a particular custom pricing unit item.

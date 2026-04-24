@@ -31,7 +31,7 @@ module Stripe
         def entry_mode_raw_code; end
         sig { params(_entry_mode_raw_code: T.nilable(String)).returns(T.nilable(String)) }
         def entry_mode_raw_code=(_entry_mode_raw_code); end
-        # The timestamp of the authorization initiated in seconds.
+        # The time the authorization was initiated, as a Unix timestamp in seconds. Must not be in the future.
         sig { returns(Integer) }
         def initiated_at; end
         sig { params(_initiated_at: Integer).returns(Integer) }
@@ -84,7 +84,7 @@ module Stripe
         def card_type; end
         sig { params(_card_type: String).returns(String) }
         def card_type=(_card_type); end
-        # The timestamp when the card was created.
+        # The timestamp when the card was created, as a Unix timestamp in seconds.
         sig { returns(Integer) }
         def created_at; end
         sig { params(_created_at: Integer).returns(Integer) }

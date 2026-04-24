@@ -212,8 +212,6 @@ module Stripe
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-      # ID of an existing Customer.
-      attr_reader :customer
       # Time at which this SharedPaymentIssuedToken was deactivated.
       attr_reader :deactivated_at
       # The reason why the SharedPaymentIssuedToken has been deactivated.

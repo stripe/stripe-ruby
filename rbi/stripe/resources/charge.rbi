@@ -1305,6 +1305,46 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class GiftCard < ::Stripe::StripeObject
+        class Balance < ::Stripe::StripeObject
+          # The balance amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def amount; end
+          # The currency of the balance.
+          sig { returns(String) }
+          def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field balance
+        sig { returns(Balance) }
+        def balance; end
+        # The brand of the gift card.
+        sig { returns(String) }
+        def brand; end
+        # The expiration month of the gift card.
+        sig { returns(T.nilable(Integer)) }
+        def exp_month; end
+        # The expiration year of the gift card.
+        sig { returns(T.nilable(Integer)) }
+        def exp_year; end
+        # The first six digits of the gift card number.
+        sig { returns(String) }
+        def first6; end
+        # The transaction ID from the gift card processor.
+        sig { returns(String) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {balance: Balance}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Giropay < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
@@ -2331,6 +2371,9 @@ module Stripe
       # Attribute for field fpx
       sig { returns(T.nilable(Fpx)) }
       def fpx; end
+      # Attribute for field gift_card
+      sig { returns(T.nilable(GiftCard)) }
+      def gift_card; end
       # Attribute for field giropay
       sig { returns(T.nilable(Giropay)) }
       def giropay; end
@@ -2491,6 +2534,7 @@ module Stripe
           customer_balance: CustomerBalance,
           eps: Eps,
           fpx: Fpx,
+          gift_card: GiftCard,
           giropay: Giropay,
           gopay: Gopay,
           grabpay: Grabpay,

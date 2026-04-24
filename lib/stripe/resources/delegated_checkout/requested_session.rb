@@ -62,6 +62,47 @@ module Stripe
         end
       end
 
+      class BuyerConsents < ::Stripe::StripeObject
+        class Marketing < ::Stripe::StripeObject
+          class Option < ::Stripe::StripeObject
+            # The marketing channel type.
+            attr_reader :channel
+            # The description of the marketing consent option.
+            attr_reader :description
+            # The privacy policy URL for this marketing channel.
+            attr_reader :privacy_policy_url
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The available marketing consent options.
+          attr_reader :options
+
+          def self.inner_class_types
+            @inner_class_types = { options: Option }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The marketing consent options.
+        attr_reader :marketing
+
+        def self.inner_class_types
+          @inner_class_types = { marketing: Marketing }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class FulfillmentDetails < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -595,6 +636,8 @@ module Stripe
       attr_reader :amount_subtotal
       # The total amount of the requested session.
       attr_reader :amount_total
+      # The buyer consent options for this requested session, including marketing preferences.
+      attr_reader :buyer_consents
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created_at
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -703,6 +746,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           affiliate_attributions: AffiliateAttribution,
+          buyer_consents: BuyerConsents,
           fulfillment_details: FulfillmentDetails,
           line_item_details: LineItemDetail,
           order_details: OrderDetails,

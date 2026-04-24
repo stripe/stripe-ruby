@@ -27,6 +27,19 @@ module Stripe
           end
         end
 
+        class LoginSucceeded < ::Stripe::StripeObject
+          # The qualification for a login success.
+          attr_reader :qualification
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class RegistrationFailed < ::Stripe::StripeObject
           # The reason why this registration failed.
           attr_reader :reason
@@ -39,17 +52,39 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class RegistrationSucceeded < ::Stripe::StripeObject
+          # The qualification for a registration success.
+          attr_reader :qualification
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Data about a failed login event.
         attr_reader :login_failed
+        # Data about a succeeded login event.
+        attr_reader :login_succeeded
         # Time at which the event occurred. Measured in seconds since the Unix epoch.
         attr_reader :occurred_at
         # Data about a failed registration event.
         attr_reader :registration_failed
+        # Data about a succeeded registration event.
+        attr_reader :registration_succeeded
         # The type of event that occurred.
         attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = { login_failed: LoginFailed, registration_failed: RegistrationFailed }
+          @inner_class_types = {
+            login_failed: LoginFailed,
+            login_succeeded: LoginSucceeded,
+            registration_failed: RegistrationFailed,
+            registration_succeeded: RegistrationSucceeded,
+          }
         end
 
         def self.field_remappings

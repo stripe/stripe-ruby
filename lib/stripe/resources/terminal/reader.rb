@@ -289,6 +289,39 @@ module Stripe
           end
         end
 
+        class PrintContent < ::Stripe::StripeObject
+          class Image < ::Stripe::StripeObject
+            # Creation time of the object (in seconds since the Unix epoch).
+            attr_reader :created_at
+            # The original name of the uploaded file (e.g. `receipt.png`).
+            attr_reader :filename
+            # The size (in bytes) of the uploaded file.
+            attr_reader :size
+            # The format of the uploaded file.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Metadata of an uploaded file
+          attr_reader :image
+          # The type of content to print. Currently supports `image`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { image: Image }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class ProcessPaymentIntent < ::Stripe::StripeObject
           class ProcessConfig < ::Stripe::StripeObject
             class Tipping < ::Stripe::StripeObject
@@ -466,6 +499,8 @@ module Stripe
         attr_reader :failure_code
         # Detailed failure message, only set if status is `failed`.
         attr_reader :failure_message
+        # Represents a reader action to print content
+        attr_reader :print_content
         # Represents a reader action to process a payment intent
         attr_reader :process_payment_intent
         # Represents a reader action to process a setup intent
@@ -484,6 +519,7 @@ module Stripe
             collect_inputs: CollectInputs,
             collect_payment_method: CollectPaymentMethod,
             confirm_payment_intent: ConfirmPaymentIntent,
+            print_content: PrintContent,
             process_payment_intent: ProcessPaymentIntent,
             process_setup_intent: ProcessSetupIntent,
             refund_payment: RefundPayment,

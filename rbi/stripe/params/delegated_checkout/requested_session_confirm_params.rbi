@@ -174,6 +174,11 @@ module Stripe
       def payment_method; end
       sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
       def payment_method=(_payment_method); end
+      # The URL to redirect your customer back to after they authenticate or complete a payment action. Required for redirect-based payment methods such as Affirm or Klarna.
+      sig { returns(T.nilable(String)) }
+      def return_url; end
+      sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
+      def return_url=(_return_url); end
       # Risk details/signals associated with the requested session
       sig {
         returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
@@ -184,12 +189,13 @@ module Stripe
        }
       def risk_details=(_risk_details); end
       sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
        }
       def initialize(
         affiliate_attribution: nil,
         expand: nil,
         payment_method: nil,
+        return_url: nil,
         risk_details: nil
       ); end
     end

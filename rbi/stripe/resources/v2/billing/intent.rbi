@@ -93,7 +93,7 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from 1-31.
               # If this number is greater than the number of days in the month being billed,
-              # this will anchor to the last day of the month.
+              # this anchors to the last day of the month.
               sig { returns(Integer) }
               def day_of_month; end
               # The month to anchor the billing on for a type="month" billing cycle from
@@ -170,10 +170,10 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from 1-31.
               # If this number is greater than the number of days in the month being billed,
-              # this will anchor to the last day of the month.
+              # this anchors to the last day of the month.
               sig { returns(Integer) }
               def day_of_month; end
-              # The month to bill on from 1-12. If not provided, this will default to the month the cadence was created.
+              # The month to bill on from 1-12. If not provided, this defaults to the month the cadence was created.
               sig { returns(Integer) }
               def month_of_year; end
               # The time at which the billing cycle ends.
@@ -217,7 +217,7 @@ module Stripe
               sig { returns(String) }
               def customer; end
               # The default payment method to use when billing this profile.
-              # If none is provided, the customer `default_payment_method` will be used.
+              # If none is provided, the customer `default_payment_method` is used.
               sig { returns(T.nilable(String)) }
               def default_payment_method; end
               def self.inner_class_types
@@ -227,7 +227,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The ID of the Billing Profile object which determines how a bill will be paid.
+            # The ID of the Billing Profile object which determines how a bill is paid.
             sig { returns(T.nilable(String)) }
             def billing_profile; end
             # Data for creating a new profile.
@@ -308,7 +308,7 @@ module Stripe
           # Time at which the Billing Intent was drafted.
           sig { returns(T.nilable(String)) }
           def drafted_at; end
-          # Time at which the Billing Intent will expire.
+          # Time at which the Billing Intent expires.
           sig { returns(String) }
           def expires_at; end
           # Time at which the Billing Intent was reserved.

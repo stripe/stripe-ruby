@@ -91,8 +91,8 @@ module Stripe
             class ServiceCycle < ::Stripe::StripeObject
               # The interval for assessing service.
               attr_reader :interval
-              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-              # order to specify quarterly service.
+              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+              # to specify quarterly service.
               attr_reader :interval_count
 
               def self.inner_class_types
@@ -110,7 +110,7 @@ module Stripe
               # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
               # most 12 decimal places.
               attr_reader :unit_amount
-              # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+              # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
               # be set.
               attr_reader :up_to_decimal
               # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
@@ -159,7 +159,7 @@ module Stripe
             attr_reader :quantity
             # The service cycle configuration.
             attr_reader :service_cycle
-            # Defines whether the tiering price should be graduated or volume-based.
+            # Defines whether the tiering price is graduated or volume-based.
             attr_reader :tiering_mode
             # Each element represents a pricing tier.
             attr_reader :tiers
@@ -167,7 +167,7 @@ module Stripe
             attr_reader :transform_quantity
             # The per-unit amount to be charged, represented as a decimal string in minor currency units with at most 12 decimal places.
             attr_reader :unit_amount
-            # The unit label from the licensed item, used for display purposes (e.g. "seat", "environment").
+            # The unit label from the licensed item, used for display purposes (for example, "seat", "environment").
             attr_reader :unit_label
 
             def self.inner_class_types
@@ -197,8 +197,8 @@ module Stripe
             class ServiceCycle < ::Stripe::StripeObject
               # The interval for assessing service.
               attr_reader :interval
-              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-              # order to specify quarterly service.
+              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+              # to specify quarterly service.
               attr_reader :interval_count
 
               def self.inner_class_types
@@ -280,7 +280,7 @@ module Stripe
                 class Scope < ::Stripe::StripeObject
                   # The billable items to apply the credit grant to.
                   attr_reader :billable_items
-                  # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+                  # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                   attr_reader :price_type
 
                   def self.inner_class_types
@@ -394,7 +394,7 @@ module Stripe
                 class Scope < ::Stripe::StripeObject
                   # The billable items to apply the credit grant to.
                   attr_reader :billable_items
-                  # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+                  # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                   attr_reader :price_type
 
                   def self.inner_class_types
@@ -463,8 +463,8 @@ module Stripe
             class ServiceCycle < ::Stripe::StripeObject
               # The interval for assessing service.
               attr_reader :interval
-              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-              # order to specify quarterly service.
+              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+              # to specify quarterly service.
               attr_reader :interval_count
 
               def self.inner_class_types

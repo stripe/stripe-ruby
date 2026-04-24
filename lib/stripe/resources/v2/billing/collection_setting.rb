@@ -266,9 +266,9 @@ module Stripe
             }
           end
         end
-        # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-        # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-        # Stripe will email your payer profile an invoice with payment instructions.
+        # Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+        # bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+        # Stripe emails your billing profile an invoice with payment instructions.
         # Defaults to automatic.
         attr_reader :collection_method
         # Timestamp of when the object was created.
@@ -279,8 +279,8 @@ module Stripe
         attr_reader :email_delivery
         # The ID of the CollectionSetting.
         attr_reader :id
-        # The latest version of the current settings object. This will be
-        # Updated every time an attribute of the settings is updated.
+        # The latest version of the current settings object. This is
+        # updated every time an attribute of the settings is updated.
         attr_reader :latest_version
         # The current live version of the settings object. This can be different from
         # latest_version if settings are updated without setting live_version='latest'.

@@ -109,6 +109,8 @@ module Stripe
       attr_accessor :expand
       # The PaymentMethod to use with the requested session.
       attr_accessor :payment_method
+      # The URL to redirect your customer back to after they authenticate or complete a payment action. Required for redirect-based payment methods such as Affirm or Klarna.
+      attr_accessor :return_url
       # Risk details/signals associated with the requested session
       attr_accessor :risk_details
 
@@ -116,11 +118,13 @@ module Stripe
         affiliate_attribution: nil,
         expand: nil,
         payment_method: nil,
+        return_url: nil,
         risk_details: nil
       )
         @affiliate_attribution = affiliate_attribution
         @expand = expand
         @payment_method = payment_method
+        @return_url = return_url
         @risk_details = risk_details
       end
     end

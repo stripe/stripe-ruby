@@ -248,6 +248,8 @@ module Stripe
     attr_accessor :custom_unit_amount
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    attr_accessor :external_reference
     # A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.
     attr_accessor :lookup_key
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -282,6 +284,7 @@ module Stripe
       currency_options: nil,
       custom_unit_amount: nil,
       expand: nil,
+      external_reference: nil,
       lookup_key: nil,
       metadata: nil,
       nickname: nil,
@@ -302,6 +305,7 @@ module Stripe
       @currency_options = currency_options
       @custom_unit_amount = custom_unit_amount
       @expand = expand
+      @external_reference = external_reference
       @lookup_key = lookup_key
       @metadata = metadata
       @nickname = nickname

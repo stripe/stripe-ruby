@@ -11,7 +11,7 @@ module Stripe
         def active; end
         sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def active=(_active); end
-        # Description that customers will see in the invoice line item.
+        # Description that customers see in the invoice line item.
         sig { returns(T.nilable(String)) }
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }

@@ -12,6 +12,112 @@ module Stripe
       # OffSessionPayment will transition through its lifecycle asynchronously.
       # Related guide: [Off-Session Payments API](https://docs.stripe.com/payments/off-session-payments).
       class OffSessionPayment < APIResource
+        class AmountDetails < ::Stripe::StripeObject
+          class Error < ::Stripe::StripeObject
+            # The code of the error that occurred when validating the current amount details.
+            sig { returns(T.nilable(String)) }
+            def code; end
+            # A message providing more details about the error.
+            sig { returns(T.nilable(String)) }
+            def message; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class LineItem < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Total portion of the amount that is for tax.
+              sig { returns(T.nilable(Integer)) }
+              def total_tax_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The amount an item was discounted for. Positive integer.
+            sig { returns(T.nilable(Integer)) }
+            def discount_amount; end
+            # Unique identifier of the product. At most 12 characters long.
+            sig { returns(T.nilable(String)) }
+            def product_code; end
+            # Name of the product. At most 100 characters long.
+            sig { returns(String) }
+            def product_name; end
+            # Number of items of the product. Positive integer.
+            sig { returns(Integer) }
+            def quantity; end
+            # Contains information about the tax on the item.
+            sig { returns(T.nilable(Tax)) }
+            def tax; end
+            # Cost of the product. Non-negative integer.
+            sig { returns(Integer) }
+            def unit_cost; end
+            # Unit of measure for the product. At most 12 characters long.
+            sig { returns(T.nilable(String)) }
+            def unit_of_measure; end
+            def self.inner_class_types
+              @inner_class_types = {tax: Tax}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Shipping < ::Stripe::StripeObject
+            # Portion of the amount that is for shipping.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # The postal code that represents the shipping source.
+            sig { returns(T.nilable(String)) }
+            def from_postal_code; end
+            # The postal code that represents the shipping destination.
+            sig { returns(T.nilable(String)) }
+            def to_postal_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Tax < ::Stripe::StripeObject
+            # Total portion of the amount that is for tax.
+            sig { returns(T.nilable(Integer)) }
+            def total_tax_amount; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The amount the total transaction was discounted for.
+          sig { returns(T.nilable(Integer)) }
+          def discount_amount; end
+          # Contains information about the error that occurred when validating the current amount details.
+          # This field populates when the amount details has a validation error that wasn't enforced because the [enforce_arithmetic_validation](https://docs.corp.stripe.com/api/payment_intents/create#create_payment_intent-amount_details-enforce_arithmetic_validation) parameter was set to `false`.
+          sig { returns(T.nilable(Error)) }
+          def error; end
+          # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+          sig { returns(T::Array[LineItem]) }
+          def line_items; end
+          # Contains information about the shipping portion of the amount.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # Contains information about the tax portion of the amount.
+          sig { returns(T.nilable(Tax)) }
+          def tax; end
+          def self.inner_class_types
+            @inner_class_types = {error: Error, line_items: LineItem, shipping: Shipping, tax: Tax}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Capture < ::Stripe::StripeObject
           # The timestamp when this payment is no longer eligible to be captured.
           sig { returns(T.nilable(String)) }
@@ -19,6 +125,21 @@ module Stripe
           # The method to use to capture the payment.
           sig { returns(String) }
           def capture_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PaymentDetails < ::Stripe::StripeObject
+          # A unique value to identify the customer. This field is applicable only for card payments. For card payments, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
+          sig { returns(T.nilable(String)) }
+          def customer_reference; end
+          # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+          # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
+          sig { returns(T.nilable(String)) }
+          def order_reference; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -81,6 +202,9 @@ module Stripe
         # The amount available to be captured.
         sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def amount_capturable; end
+        # Provides industry-specific information about the amount.
+        sig { returns(T.nilable(AmountDetails)) }
+        def amount_details; end
         # The “presentment amount” to be collected from the customer.
         sig { returns(::Stripe::V2::Amount) }
         def amount_requested; end
@@ -100,6 +224,9 @@ module Stripe
         # ID of the Customer to which this OffSessionPayment belongs.
         sig { returns(String) }
         def customer; end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
         # The reason why the OffSessionPayment failed.
         sig { returns(T.nilable(String)) }
         def failure_reason; end
@@ -127,6 +254,9 @@ module Stripe
         # The account (if any) for which the funds of the OffSessionPayment are intended.
         sig { returns(T.nilable(String)) }
         def on_behalf_of; end
+        # Provides industry-specific information about the payment.
+        sig { returns(T.nilable(PaymentDetails)) }
+        def payment_details; end
         # ID of the payment method used in this OffSessionPayment.
         sig { returns(String) }
         def payment_method; end

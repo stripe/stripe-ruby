@@ -1382,6 +1382,8 @@ module Stripe
       class GeneratedFrom < ::Stripe::StripeObject
         # The ID of the Charge that generated this PaymentMethod, if any.
         attr_reader :charge
+        # The ID of the PaymentMethod that generated this PaymentMethod, if any.
+        attr_reader :payment_method
         # The ID of the SetupAttempt that generated this PaymentMethod, if any.
         attr_reader :setup_attempt
 
@@ -1701,8 +1703,6 @@ module Stripe
     attr_reader :satispay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
-    # ID of the shared payment granted token used in the creation of this PaymentMethod.
-    attr_reader :shared_payment_granted_token
     # Attribute for field shopeepay
     attr_reader :shopeepay
     # Attribute for field sofort

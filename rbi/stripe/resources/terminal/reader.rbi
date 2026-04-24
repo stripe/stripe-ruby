@@ -282,6 +282,40 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class PrintContent < ::Stripe::StripeObject
+          class Image < ::Stripe::StripeObject
+            # Creation time of the object (in seconds since the Unix epoch).
+            sig { returns(Integer) }
+            def created_at; end
+            # The original name of the uploaded file (e.g. `receipt.png`).
+            sig { returns(String) }
+            def filename; end
+            # The size (in bytes) of the uploaded file.
+            sig { returns(Integer) }
+            def size; end
+            # The format of the uploaded file.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Metadata of an uploaded file
+          sig { returns(T.nilable(Image)) }
+          def image; end
+          # The type of content to print. Currently supports `image`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {image: Image}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class ProcessPaymentIntent < ::Stripe::StripeObject
           class ProcessConfig < ::Stripe::StripeObject
             class Tipping < ::Stripe::StripeObject
@@ -473,6 +507,9 @@ module Stripe
         # Detailed failure message, only set if status is `failed`.
         sig { returns(T.nilable(String)) }
         def failure_message; end
+        # Represents a reader action to print content
+        sig { returns(T.nilable(PrintContent)) }
+        def print_content; end
         # Represents a reader action to process a payment intent
         sig { returns(T.nilable(ProcessPaymentIntent)) }
         def process_payment_intent; end
@@ -496,6 +533,7 @@ module Stripe
             collect_inputs: CollectInputs,
             collect_payment_method: CollectPaymentMethod,
             confirm_payment_intent: ConfirmPaymentIntent,
+            print_content: PrintContent,
             process_payment_intent: ProcessPaymentIntent,
             process_setup_intent: ProcessSetupIntent,
             refund_payment: RefundPayment,

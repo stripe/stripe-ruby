@@ -36,7 +36,7 @@ module Stripe
         sig { returns(String) }
         def exchange_rate; end
         # The FinancialAccount the CurrencyConversion was performed on.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def financial_account; end
         # The from block containing what was debited.
         sig { returns(From) }

@@ -355,6 +355,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    sig { returns(T.nilable(String)) }
+    def external_reference; end
+    sig { params(_external_reference: T.nilable(String)).returns(T.nilable(String)) }
+    def external_reference=(_external_reference); end
     # A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.
     sig { returns(T.nilable(String)) }
     def lookup_key; end
@@ -431,7 +436,7 @@ module Stripe
     sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
     def unit_amount_decimal=(_unit_amount_decimal); end
     sig {
-      params(active: T.nilable(T::Boolean), billing_scheme: T.nilable(String), currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::PriceCreateParams::CurrencyOptions]), custom_unit_amount: T.nilable(::Stripe::PriceCreateParams::CustomUnitAmount), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), product: T.nilable(String), product_data: T.nilable(::Stripe::PriceCreateParams::ProductData), recurring: T.nilable(::Stripe::PriceCreateParams::Recurring), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::PriceCreateParams::Tier]), tiers_mode: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean), transform_quantity: T.nilable(::Stripe::PriceCreateParams::TransformQuantity), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
+      params(active: T.nilable(T::Boolean), billing_scheme: T.nilable(String), currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::PriceCreateParams::CurrencyOptions]), custom_unit_amount: T.nilable(::Stripe::PriceCreateParams::CustomUnitAmount), expand: T.nilable(T::Array[String]), external_reference: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), product: T.nilable(String), product_data: T.nilable(::Stripe::PriceCreateParams::ProductData), recurring: T.nilable(::Stripe::PriceCreateParams::Recurring), tax_behavior: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::PriceCreateParams::Tier]), tiers_mode: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean), transform_quantity: T.nilable(::Stripe::PriceCreateParams::TransformQuantity), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
      }
     def initialize(
       active: nil,
@@ -440,6 +445,7 @@ module Stripe
       currency_options: nil,
       custom_unit_amount: nil,
       expand: nil,
+      external_reference: nil,
       lookup_key: nil,
       metadata: nil,
       nickname: nil,

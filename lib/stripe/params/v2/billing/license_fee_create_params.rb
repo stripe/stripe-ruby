@@ -11,7 +11,7 @@ module Stripe
           # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
           # most 12 decimal places.
           attr_accessor :unit_amount
-          # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+          # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
           attr_accessor :up_to_decimal
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
@@ -56,17 +56,17 @@ module Stripe
         attr_accessor :lookup_key
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
-        # The interval for assessing service. For example, a monthly license fee with a rate of $1 for the first 10 "workloads"
-        # and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
+        # The interval for assessing service. For example, a monthly license fee with a rate of 1 USD for the first 10 "workloads"
+        # and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service." This is similar to but
         # distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
         # while the billing interval in Cadence deals with the rate the customer is billed.
         attr_accessor :service_interval
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-        # order to specify quarterly service.
+        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
+        # to specify quarterly service.
         attr_accessor :service_interval_count
-        # The Stripe Tax tax behavior - whether the license fee is inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the license fee price includes or excludes tax.
         attr_accessor :tax_behavior
-        # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
+        # Defines whether the tiered price is graduated or volume-based. In volume-based tiering, the maximum
         # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
         # grows into new tiers. Can only be set if `tiers` is set.
         attr_accessor :tiering_mode

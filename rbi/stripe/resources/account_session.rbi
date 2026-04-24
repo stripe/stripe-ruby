@@ -129,6 +129,12 @@ module Stripe
       end
       class Bills < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
+          # Whether to enable the bill management feature that grants access to bill creation and payment.
+          sig { returns(T::Boolean) }
+          def bill_management; end
+          # Whether to enable the send money feature that grants access to bill creation and payment.
+          sig { returns(T::Boolean) }
+          def send_money; end
           def self.inner_class_types
             @inner_class_types = {}
           end

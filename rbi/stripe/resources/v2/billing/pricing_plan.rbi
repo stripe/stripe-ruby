@@ -18,8 +18,7 @@ module Stripe
         # The currency of the PricingPlan.
         sig { returns(String) }
         def currency; end
-        # A description for pricing plan subscription.
-        # Maximum length of 500 characters.
+        # A description of the pricing plan. Maximum length of 500 characters.
         sig { returns(T.nilable(String)) }
         def description; end
         # Display name of the PricingPlan.
@@ -46,7 +45,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the pricing plan price includes or excludes tax.
         sig { returns(String) }
         def tax_behavior; end
       end

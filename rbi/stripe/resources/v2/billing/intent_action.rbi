@@ -31,10 +31,10 @@ module Stripe
             end
           end
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+            # The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
             sig { returns(T.nilable(String)) }
             def timestamp; end
-            # When the apply action will take effect.
+            # When the apply action takes effect.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -60,7 +60,7 @@ module Stripe
               # The maximum number of times this discount can be applied for this Billing Cadence.
               sig { returns(MaximumApplications) }
               def maximum_applications; end
-              # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+              # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
               sig { returns(BigDecimal) }
               def percent_off; end
               def self.inner_class_types
@@ -176,7 +176,7 @@ module Stripe
           # Details for applying a discount.
           sig { returns(T.nilable(Discount)) }
           def discount; end
-          # When the apply action will take effect. If not specified, defaults to on_reserve.
+          # When the apply action takes effect. If not specified, defaults to on_reserve.
           sig { returns(T.nilable(EffectiveAt)) }
           def effective_at; end
           # Details for applying a discount rule to future invoices.
@@ -224,10 +224,10 @@ module Stripe
             end
           end
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+            # The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
             def timestamp; end
-            # When the deactivate action will take effect.
+            # When the deactivate action takes effect.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -293,7 +293,7 @@ module Stripe
           # Allows users to override the collect at behavior.
           sig { returns(String) }
           def collect_at; end
-          # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+          # When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
           # Details for deactivating a Pricing Plan Subscription.
@@ -315,10 +315,10 @@ module Stripe
         end
         class Modify < ::Stripe::StripeObject
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the modify action will take effect. Only present if type is timestamp.
+            # The timestamp at which the modify action takes effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
             def timestamp; end
-            # When the modify action will take effect.
+            # When the modify action takes effect.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -430,7 +430,7 @@ module Stripe
           # Allows users to override the collect at behavior.
           sig { returns(String) }
           def collect_at; end
-          # When the modify action will take effect. If not specified, the default behavior is on_reserve.
+          # When the modify action takes effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
           # Details for modifying a Pricing Plan Subscription.
@@ -451,7 +451,7 @@ module Stripe
         end
         class Remove < ::Stripe::StripeObject
           class EffectiveAt < ::Stripe::StripeObject
-            # When the remove action will take effect.
+            # When the remove action takes effect.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -461,7 +461,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the remove action will take effect. If not specified, defaults to on_reserve.
+          # When the remove action takes effect. If not specified, defaults to on_reserve.
           sig { returns(T.nilable(EffectiveAt)) }
           def effective_at; end
           # The ID of the discount rule to remove for future invoices.
@@ -482,10 +482,10 @@ module Stripe
         end
         class Subscribe < ::Stripe::StripeObject
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+            # The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
             def timestamp; end
-            # When the subscribe action will take effect.
+            # When the subscribe action takes effect.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -632,7 +632,7 @@ module Stripe
           # Allows users to override the collect at behavior.
           sig { returns(String) }
           def collect_at; end
-          # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+          # When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
           sig { returns(EffectiveAt) }
           def effective_at; end
           # Details for subscribing to a Pricing Plan.

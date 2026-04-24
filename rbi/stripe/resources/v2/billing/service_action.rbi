@@ -55,7 +55,7 @@ module Stripe
               # The billable items to apply the credit grant to.
               sig { returns(T.nilable(T::Array[String])) }
               def billable_items; end
-              # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+              # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
               sig { returns(T.nilable(String)) }
               def price_type; end
               def self.inner_class_types
@@ -171,7 +171,7 @@ module Stripe
               # The billable items to apply the credit grant to.
               sig { returns(T.nilable(T::Array[String])) }
               def billable_items; end
-              # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+              # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
               sig { returns(T.nilable(String)) }
               def price_type; end
               def self.inner_class_types

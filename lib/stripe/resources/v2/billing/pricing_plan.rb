@@ -19,8 +19,7 @@ module Stripe
         attr_reader :created
         # The currency of the PricingPlan.
         attr_reader :currency
-        # A description for pricing plan subscription.
-        # Maximum length of 500 characters.
+        # A description of the pricing plan. Maximum length of 500 characters.
         attr_reader :description
         # Display name of the PricingPlan.
         attr_reader :display_name
@@ -38,7 +37,7 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the pricing plan price includes or excludes tax.
         attr_reader :tax_behavior
 
         def self.inner_class_types

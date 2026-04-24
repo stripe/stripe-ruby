@@ -92,8 +92,8 @@ module Stripe
               # The interval for assessing service.
               sig { returns(String) }
               def interval; end
-              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-              # order to specify quarterly service.
+              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+              # to specify quarterly service.
               sig { returns(Integer) }
               def interval_count; end
               def self.inner_class_types
@@ -111,7 +111,7 @@ module Stripe
               # most 12 decimal places.
               sig { returns(T.nilable(String)) }
               def unit_amount; end
-              # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+              # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
               # be set.
               sig { returns(T.nilable(BigDecimal)) }
               def up_to_decimal; end
@@ -163,7 +163,7 @@ module Stripe
             # The service cycle configuration.
             sig { returns(ServiceCycle) }
             def service_cycle; end
-            # Defines whether the tiering price should be graduated or volume-based.
+            # Defines whether the tiering price is graduated or volume-based.
             sig { returns(T.nilable(String)) }
             def tiering_mode; end
             # Each element represents a pricing tier.
@@ -175,7 +175,7 @@ module Stripe
             # The per-unit amount to be charged, represented as a decimal string in minor currency units with at most 12 decimal places.
             sig { returns(T.nilable(String)) }
             def unit_amount; end
-            # The unit label from the licensed item, used for display purposes (e.g. "seat", "environment").
+            # The unit label from the licensed item, used for display purposes (for example, "seat", "environment").
             sig { returns(T.nilable(String)) }
             def unit_label; end
             def self.inner_class_types
@@ -203,8 +203,8 @@ module Stripe
               # The interval for assessing service.
               sig { returns(String) }
               def interval; end
-              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-              # order to specify quarterly service.
+              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+              # to specify quarterly service.
               sig { returns(Integer) }
               def interval_count; end
               def self.inner_class_types
@@ -288,7 +288,7 @@ module Stripe
                   # The billable items to apply the credit grant to.
                   sig { returns(T.nilable(T::Array[String])) }
                   def billable_items; end
-                  # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+                  # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                   sig { returns(T.nilable(String)) }
                   def price_type; end
                   def self.inner_class_types
@@ -397,7 +397,7 @@ module Stripe
                   # The billable items to apply the credit grant to.
                   sig { returns(T.nilable(T::Array[String])) }
                   def billable_items; end
-                  # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+                  # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                   sig { returns(T.nilable(String)) }
                   def price_type; end
                   def self.inner_class_types
@@ -462,8 +462,8 @@ module Stripe
               # The interval for assessing service.
               sig { returns(String) }
               def interval; end
-              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-              # order to specify quarterly service.
+              # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+              # to specify quarterly service.
               sig { returns(Integer) }
               def interval_count; end
               def self.inner_class_types

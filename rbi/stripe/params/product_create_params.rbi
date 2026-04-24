@@ -241,6 +241,47 @@ module Stripe
         @field_encodings = {unit_amount_decimal: :decimal_string}
       end
     end
+    class Identifiers < ::Stripe::RequestParams
+      # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def ean; end
+      sig { params(_ean: T.nilable(String)).returns(T.nilable(String)) }
+      def ean=(_ean); end
+      # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def gtin; end
+      sig { params(_gtin: T.nilable(String)).returns(T.nilable(String)) }
+      def gtin=(_gtin); end
+      # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+      sig { returns(T.nilable(String)) }
+      def isbn; end
+      sig { params(_isbn: T.nilable(String)).returns(T.nilable(String)) }
+      def isbn=(_isbn); end
+      # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def jan; end
+      sig { params(_jan: T.nilable(String)).returns(T.nilable(String)) }
+      def jan=(_jan); end
+      # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+      sig { returns(T.nilable(String)) }
+      def mpn; end
+      sig { params(_mpn: T.nilable(String)).returns(T.nilable(String)) }
+      def mpn=(_mpn); end
+      # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+      sig { returns(T.nilable(String)) }
+      def nsn; end
+      sig { params(_nsn: T.nilable(String)).returns(T.nilable(String)) }
+      def nsn=(_nsn); end
+      # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def upc; end
+      sig { params(_upc: T.nilable(String)).returns(T.nilable(String)) }
+      def upc=(_upc); end
+      sig {
+        params(ean: T.nilable(String), gtin: T.nilable(String), isbn: T.nilable(String), jan: T.nilable(String), mpn: T.nilable(String), nsn: T.nilable(String), upc: T.nilable(String)).void
+       }
+      def initialize(ean: nil, gtin: nil, isbn: nil, jan: nil, mpn: nil, nsn: nil, upc: nil); end
+    end
     class MarketingFeature < ::Stripe::RequestParams
       # The marketing feature name. Up to 80 characters long.
       sig { returns(String) }
@@ -315,6 +356,13 @@ module Stripe
     def id; end
     sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
     def id=(_id); end
+    # Other identifiers for this product.
+    sig { returns(T.nilable(::Stripe::ProductCreateParams::Identifiers)) }
+    def identifiers; end
+    sig {
+      params(_identifiers: T.nilable(::Stripe::ProductCreateParams::Identifiers)).returns(T.nilable(::Stripe::ProductCreateParams::Identifiers))
+     }
+    def identifiers=(_identifiers); end
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     sig { returns(T.nilable(T::Array[String])) }
     def images; end
@@ -387,7 +435,7 @@ module Stripe
     sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
     def url=(_url); end
     sig {
-      params(active: T.nilable(T::Boolean), default_price_data: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[::Stripe::ProductCreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(::Stripe::ProductCreateParams::PackageDimensions), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::ProductCreateParams::TaxDetails), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), default_price_data: T.nilable(::Stripe::ProductCreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), identifiers: T.nilable(::Stripe::ProductCreateParams::Identifiers), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[::Stripe::ProductCreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(::Stripe::ProductCreateParams::PackageDimensions), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::ProductCreateParams::TaxDetails), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
      }
     def initialize(
       active: nil,
@@ -395,6 +443,7 @@ module Stripe
       description: nil,
       expand: nil,
       id: nil,
+      identifiers: nil,
       images: nil,
       marketing_features: nil,
       metadata: nil,

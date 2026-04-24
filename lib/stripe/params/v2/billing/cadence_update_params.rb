@@ -6,7 +6,7 @@ module Stripe
     module Billing
       class CadenceUpdateParams < ::Stripe::RequestParams
         class Payer < ::Stripe::RequestParams
-          # The ID of the Billing Profile object which determines how a bill will be paid.
+          # The ID of the Billing Profile object which determines how a bill is paid.
           attr_accessor :billing_profile
 
           def initialize(billing_profile: nil)
@@ -19,8 +19,8 @@ module Stripe
             # The ID of the referenced settings object.
             attr_accessor :id
             # An optional field to specify the version of Settings to use.
-            # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
-            # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
+            # If not provided, this defaults to the `live_version` specified on the setting, any time the settings are used.
+            # Using a specific version here prevents the settings from updating, and is discouraged for cadences.
             # To clear a pinned version, set the version to null.
             attr_accessor :version
 
@@ -34,8 +34,8 @@ module Stripe
             # The ID of the referenced settings object.
             attr_accessor :id
             # An optional field to specify the version of Settings to use.
-            # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
-            # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
+            # If not provided, this defaults to the `live_version` specified on the setting, any time the settings are used.
+            # Using a specific version here prevents the settings from updating, and is discouraged for cadences.
             # To clear a pinned version, set the version to null.
             attr_accessor :version
 

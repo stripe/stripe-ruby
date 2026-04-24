@@ -7,7 +7,7 @@ module Stripe
       class CustomPricingUnitUpdateParams < ::Stripe::RequestParams
         # Whether the Custom Pricing Unit is active.
         attr_accessor :active
-        # Description that customers will see in the invoice line item.
+        # Description that customers see in the invoice line item.
         attr_accessor :display_name
         # An internal key you can use to search for a particular CustomPricingUnit item.
         attr_accessor :lookup_key

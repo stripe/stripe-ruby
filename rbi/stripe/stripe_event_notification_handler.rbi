@@ -47,6 +47,30 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsProcessingEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_processing(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_succeeded(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_succeeded_with_errors(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountClosedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_closed(&blk);
@@ -230,6 +254,48 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthEventGenerationFailureResolvedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_health_event_generation_failure_resolved(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_reporting_query_run_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_reporting_query_run_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_reporting_query_run_succeeded(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_reporting_query_run_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendWorkflowRunFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_extend_workflow_run_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendWorkflowRunStartedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_extend_workflow_run_started(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendWorkflowRunSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_extend_workflow_run_succeeded(&blk);
     end
     
     sig do
@@ -446,6 +512,30 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementTransactionUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_transaction_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementConfirmedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_orchestrated_commerce_agreement_confirmed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_orchestrated_commerce_agreement_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_orchestrated_commerce_agreement_partially_confirmed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementTerminatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_orchestrated_commerce_agreement_terminated(&blk);
     end
     
     

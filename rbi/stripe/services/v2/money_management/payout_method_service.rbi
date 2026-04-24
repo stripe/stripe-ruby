@@ -10,6 +10,7 @@ module Stripe
         # and will not appear in the payout method list.
         #
         # ** raises ControlledByDashboardError
+        # ** raises CannotProceedError
         # ** raises InvalidPayoutMethodError
         # ** raises ControlledByAlternateResourceError
         sig {

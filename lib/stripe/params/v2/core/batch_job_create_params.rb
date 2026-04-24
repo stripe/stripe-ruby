@@ -32,7 +32,7 @@ module Stripe
         # Optional field that allows the user to control how fast they want this batch job to run.
         # Gives them a control over the number of webhooks they receive.
         attr_accessor :maximum_rps
-        # The metadata of the `BatchJob` object.
+        # The metadata of the `batch_job`.
         attr_accessor :metadata
         # Notification suppression settings for the batch job.
         attr_accessor :notification_suppression

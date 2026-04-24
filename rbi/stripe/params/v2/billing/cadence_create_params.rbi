@@ -32,7 +32,7 @@ module Stripe
               def initialize(hour: nil, minute: nil, second: nil); end
             end
             # The time at which the billing cycle ends.
-            # This field is optional, and if not provided, it will default to
+            # This field is optional, and if not provided, it defaults to
             # the time at which the cadence was created in UTC timezone.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day::Time))
@@ -73,22 +73,22 @@ module Stripe
             end
             # The day to anchor the billing on for a type="month" billing cycle from
             # 1-31. If this number is greater than the number of days in the month being
-            # billed, this will anchor to the last day of the month. If not provided,
-            # this will default to the day the cadence was created.
+            # billed, this anchors to the last day of the month. If not provided,
+            # this defaults to the day the cadence was created.
             sig { returns(Integer) }
             def day_of_month; end
             sig { params(_day_of_month: Integer).returns(Integer) }
             def day_of_month=(_day_of_month); end
             # The month to anchor the billing on for a type="month" billing cycle from
-            # 1-12. If not provided, this will default to the month the cadence was created.
+            # 1-12. If not provided, this defaults to the month the cadence was created.
             # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-            # All occurrences will be calculated from month provided.
+            # All occurrences are calculated from the month provided.
             sig { returns(T.nilable(Integer)) }
             def month_of_year; end
             sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def month_of_year=(_month_of_year); end
             # The time at which the billing cycle ends.
-            # This field is optional, and if not provided, it will default to
+            # This field is optional, and if not provided, it defaults to
             # the time at which the cadence was created in UTC timezone.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month::Time))
@@ -129,14 +129,14 @@ module Stripe
             end
             # The day of the week to bill the type=week billing cycle on.
             # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
-            # week day numbering. If not provided, this will default to the day the
+            # week day numbering. If not provided, this defaults to the day the
             # cadence was created.
             sig { returns(Integer) }
             def day_of_week; end
             sig { params(_day_of_week: Integer).returns(Integer) }
             def day_of_week=(_day_of_week); end
             # The time at which the billing cycle ends.
-            # This field is optional, and if not provided, it will default to
+            # This field is optional, and if not provided, it defaults to
             # the time at which the cadence was created in UTC timezone.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week::Time))
@@ -177,20 +177,20 @@ module Stripe
             end
             # The day to anchor the billing on for a type="month" billing cycle from
             # 1-31. If this number is greater than the number of days in the month being
-            # billed, this will anchor to the last day of the month. If not provided,
-            # this will default to the day the cadence was created.
+            # billed, this anchors to the last day of the month. If not provided,
+            # this defaults to the day the cadence was created.
             sig { returns(T.nilable(Integer)) }
             def day_of_month; end
             sig { params(_day_of_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def day_of_month=(_day_of_month); end
-            # The month to bill on from 1-12. If not provided, this will default to the
+            # The month to bill on from 1-12. If not provided, this defaults to the
             # month the cadence was created.
             sig { returns(T.nilable(Integer)) }
             def month_of_year; end
             sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def month_of_year=(_month_of_year); end
             # The time at which the billing cycle ends.
-            # This field is optional, and if not provided, it will default to
+            # This field is optional, and if not provided, it defaults to
             # the time at which the cadence was created in UTC timezone.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year::Time))
@@ -214,7 +214,7 @@ module Stripe
           def day=(_day); end
           # The number of intervals (specified in the interval attribute) between
           # cadence billings. For example, type=month and interval_count=3 bills every
-          # 3 months. If this is not provided, it will default to 1.
+          # 3 months. If not provided, this defaults to 1.
           sig { returns(T.nilable(Integer)) }
           def interval_count; end
           sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -260,7 +260,7 @@ module Stripe
           ); end
         end
         class Payer < ::Stripe::RequestParams
-          # The ID of the Billing Profile object which determines how a bill will be paid.
+          # The ID of the Billing Profile object which determines how a bill is paid.
           sig { returns(String) }
           def billing_profile; end
           sig { params(_billing_profile: String).returns(String) }
@@ -276,7 +276,7 @@ module Stripe
             sig { params(_id: String).returns(String) }
             def id=(_id); end
             # An optional field to specify the version of the Settings to use.
-            # If not provided, this will always default to the live version any time the settings are used.
+            # If not provided, this defaults to the live version any time the settings are used.
             sig { returns(T.nilable(String)) }
             def version; end
             sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
@@ -291,7 +291,7 @@ module Stripe
             sig { params(_id: String).returns(String) }
             def id=(_id); end
             # An optional field to specify the version of the Settings to use.
-            # If not provided, this will always default to the live version any time the settings are used.
+            # If not provided, this defaults to the live version any time the settings are used.
             sig { returns(T.nilable(String)) }
             def version; end
             sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }

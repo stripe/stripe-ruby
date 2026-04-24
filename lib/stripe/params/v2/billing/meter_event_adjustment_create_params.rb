@@ -6,7 +6,7 @@ module Stripe
     module Billing
       class MeterEventAdjustmentCreateParams < ::Stripe::RequestParams
         class Cancel < ::Stripe::RequestParams
-          # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
+          # The identifier that was originally assigned to the meter event. You can only cancel events within 24 hours of Stripe receiving them.
           attr_accessor :identifier
 
           def initialize(identifier: nil)
@@ -17,7 +17,7 @@ module Stripe
         attr_accessor :cancel
         # The name of the meter event. Corresponds with the `event_name` field on a meter.
         attr_accessor :event_name
-        # Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
+        # Specifies the type of cancellation. Currently supports canceling a single event.
         attr_accessor :type
 
         def initialize(cancel: nil, event_name: nil, type: nil)

@@ -5,11 +5,11 @@
 module Stripe
   module V2
     module Core
-      # BatchJob resource.
+      # A batch job allows you to perform an API operation on a large set of records asynchronously.
       class BatchJob < APIResource
         class StatusDetails < ::Stripe::StripeObject
           class BatchFailed < ::Stripe::StripeObject
-            # Details about the `BatchJob` failure.
+            # Details about the `batch_job` failure.
             sig { returns(String) }
             def error; end
             def self.inner_class_types
@@ -57,7 +57,7 @@ module Stripe
             # The total number of records that failed processing.
             sig { returns(Integer) }
             def failure_count; end
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             sig { returns(OutputFile) }
             def output_file; end
             # The total number of records that were successfully processed.
@@ -115,7 +115,7 @@ module Stripe
             # The total number of records that failed processing.
             sig { returns(Integer) }
             def failure_count; end
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             sig { returns(OutputFile) }
             def output_file; end
             # The total number of records that were successfully processed.
@@ -215,7 +215,7 @@ module Stripe
             # The total number of records that failed processing.
             sig { returns(Integer) }
             def failure_count; end
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             sig { returns(OutputFile) }
             def output_file; end
             # The total number of records that were successfully processed.
@@ -288,7 +288,7 @@ module Stripe
             # The total number of records that failed processing.
             sig { returns(Integer) }
             def failure_count; end
-            # The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            # The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             sig { returns(OutputFile) }
             def output_file; end
             # The total number of records that were successfully processed.
@@ -308,28 +308,28 @@ module Stripe
               }
             end
           end
-          # Additional details for the `BATCH_FAILED` status of the `BatchJob`.
+          # Additional details for the `BATCH_FAILED` status of the `batch_job`.
           sig { returns(T.nilable(BatchFailed)) }
           def batch_failed; end
-          # Additional details for the `CANCELED` status of the `BatchJob`.
+          # Additional details for the `CANCELED` status of the `batch_job`.
           sig { returns(T.nilable(Canceled)) }
           def canceled; end
-          # Additional details for the `COMPLETE` status of the `BatchJob`.
+          # Additional details for the `COMPLETE` status of the `batch_job`.
           sig { returns(T.nilable(Complete)) }
           def complete; end
-          # Additional details for the `IN_PROGRESS` status of the `BatchJob`.
+          # Additional details for the `IN_PROGRESS` status of the `batch_job`.
           sig { returns(T.nilable(InProgress)) }
           def in_progress; end
-          # Additional details for the `READY_FOR_UPLOAD` status of the `BatchJob`.
+          # Additional details for the `READY_FOR_UPLOAD` status of the `batch_job`.
           sig { returns(T.nilable(ReadyForUpload)) }
           def ready_for_upload; end
-          # Additional details for the `TIMEOUT` status of the `BatchJob`.
+          # Additional details for the `TIMEOUT` status of the `batch_job`.
           sig { returns(T.nilable(Timeout)) }
           def timeout; end
-          # Additional details for the `VALIDATING` status of the `BatchJob`.
+          # Additional details for the `VALIDATING` status of the `batch_job`.
           sig { returns(T.nilable(Validating)) }
           def validating; end
-          # Additional details for the `VALIDATION_FAILED` status of the `BatchJob`.
+          # Additional details for the `VALIDATION_FAILED` status of the `batch_job`.
           sig { returns(T.nilable(ValidationFailed)) }
           def validation_failed; end
           def self.inner_class_types
@@ -389,31 +389,31 @@ module Stripe
             }
           end
         end
-        # Timestamp at which BatchJob was created.
+        # Timestamp at which the `batch_job` was created.
         sig { returns(String) }
         def created; end
-        # Unique identifier for the BatchJob.
+        # Unique identifier for the `batch_job`.
         sig { returns(String) }
         def id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
-        # The maximum rps defined for the `BatchJob`.
+        # The maximum requests per second defined for the `batch_job`.
         sig { returns(Integer) }
         def maximum_rps; end
-        # The metadata of the `BatchJob` object.
+        # The metadata of the `batch_job`.
         sig { returns(T::Hash[String, String]) }
         def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # If the validation will be run previous to the execution of the `BatchJob`.
+        # Whether validation runs before executing the `batch_job`.
         sig { returns(T::Boolean) }
         def skip_validation; end
-        # The current status of the `BatchJob`.
+        # The current status of the `batch_job`.
         sig { returns(String) }
         def status; end
-        # Additional details about the current state of the `BatchJob`.
+        # Additional details about the current state of the `batch_job`.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
       end

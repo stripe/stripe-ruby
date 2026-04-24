@@ -178,6 +178,8 @@ module Stripe
              }
             def initialize(bank_transfer: nil, funding_type: nil); end
           end
+          class Konbini < ::Stripe::RequestParams; end
+          class SepaDebit < ::Stripe::RequestParams; end
           class UsBankAccount < ::Stripe::RequestParams
             class FinancialConnections < ::Stripe::RequestParams
               class Filters < ::Stripe::RequestParams
@@ -275,17 +277,21 @@ module Stripe
            }
           def customer_balance=(_customer_balance); end
           # This sub-hash contains details about the Konbini payment method options.
-          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Konbini))
+           }
           def konbini; end
           sig {
-            params(_konbini: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
+            params(_konbini: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Konbini)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Konbini))
            }
           def konbini=(_konbini); end
           # This sub-hash contains details about the SEPA Direct Debit payment method options.
-          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::SepaDebit))
+           }
           def sepa_debit; end
           sig {
-            params(_sepa_debit: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
+            params(_sepa_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::SepaDebit)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::SepaDebit))
            }
           def sepa_debit=(_sepa_debit); end
           # This sub-hash contains details about the ACH direct debit payment method options.
@@ -298,7 +304,7 @@ module Stripe
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Bancontact), card: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(T::Hash[String, T.untyped]), sepa_debit: T.nilable(T::Hash[String, T.untyped]), us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::UsBankAccount)).void
+            params(acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Bancontact), card: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::Konbini), sepa_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingCreateParams::PaymentMethodOptions::UsBankAccount)).void
            }
           def initialize(
             acss_debit: nil,
@@ -318,9 +324,9 @@ module Stripe
             }
           end
         end
-        # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-        # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-        # Stripe will email your payer profile an invoice with payment instructions.
+        # Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+        # bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+        # Stripe emails your billing profile an invoice with payment instructions.
         # Defaults to automatic.
         sig { returns(T.nilable(String)) }
         def collection_method; end

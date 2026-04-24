@@ -44,7 +44,7 @@ module Stripe
         def maximum_rps; end
         sig { params(_maximum_rps: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def maximum_rps=(_maximum_rps); end
-        # The metadata of the `BatchJob` object.
+        # The metadata of the `batch_job`.
         sig { returns(T::Hash[String, String]) }
         def metadata; end
         sig { params(_metadata: T::Hash[String, String]).returns(T::Hash[String, String]) }

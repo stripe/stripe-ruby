@@ -266,9 +266,9 @@ module Stripe
             }
           end
         end
-        # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-        # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-        # Stripe will email your payer profile an invoice with payment instructions.
+        # Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+        # bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+        # Stripe emails your billing profile an invoice with payment instructions.
         # Defaults to automatic.
         attr_reader :collection_method
         # Timestamp of when the object was created.

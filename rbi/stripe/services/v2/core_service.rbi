@@ -9,14 +9,13 @@ module Stripe
       attr_reader :account_evaluations
       attr_reader :account_links
       attr_reader :account_tokens
+      attr_reader :approval_requests
       attr_reader :batch_jobs
       attr_reader :claimable_sandboxes
       attr_reader :connection_sessions
       attr_reader :events
       attr_reader :event_destinations
       attr_reader :vault
-      attr_reader :workflows
-      attr_reader :workflow_runs
     end
   end
 end

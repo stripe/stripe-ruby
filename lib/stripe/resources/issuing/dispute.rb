@@ -16,6 +16,121 @@ module Stripe
         "issuing.dispute"
       end
 
+      class CryptoTransaction < ::Stripe::StripeObject
+        class CryptoTransactionConfirmed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the confirmed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the confirmed transaction.
+          attr_reader :chain
+          # When the transaction was confirmed onchain.
+          attr_reader :confirmed_at
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the transaction.
+          attr_reader :to_address
+          # The blockchain transaction hash.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CryptoTransactionFailed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the failed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the failed transaction.
+          attr_reader :chain
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # When the transaction failed.
+          attr_reader :failed_at
+          # The reason the transaction failed.
+          attr_reader :failure_reason
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the attempted transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the attempted transaction when one exists.
+          attr_reader :to_address
+          # The blockchain transaction hash when one exists.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        attr_reader :crypto_transaction_confirmed
+        # The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        attr_reader :crypto_transaction_failed
+        # The crypto transaction variant for this array entry.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            crypto_transaction_confirmed: CryptoTransactionConfirmed,
+            crypto_transaction_failed: CryptoTransactionFailed,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Evidence < ::Stripe::StripeObject
         class Canceled < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -241,6 +356,8 @@ module Stripe
       attr_reader :balance_transactions
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Array of onchain crypto transactions linked to this resource.
+      attr_reader :crypto_transactions
       # The currency the `transaction` was made in.
       attr_reader :currency
       # Attribute for field evidence
@@ -313,7 +430,11 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { evidence: Evidence, treasury: Treasury }
+        @inner_class_types = {
+          crypto_transactions: CryptoTransaction,
+          evidence: Evidence,
+          treasury: Treasury,
+        }
       end
 
       def self.field_remappings

@@ -7,6 +7,7 @@ module Stripe
       class CurrencyConversionService < StripeService
         # Create a CurrencyConversion.
         #
+        # ** raises FxQuoteExpiredError
         # ** raises FeatureNotEnabledError
         def create(params = {}, opts = {})
           request(

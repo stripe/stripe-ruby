@@ -11,7 +11,7 @@ module Stripe
           # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
           # most 12 decimal places.
           attr_accessor :unit_amount
-          # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+          # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
           attr_accessor :up_to_decimal
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
@@ -48,14 +48,14 @@ module Stripe
         # This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
         # Maximum length of 250 characters.
         attr_accessor :display_name
-        # Changes the version that new license fee will use. Providing `live_version = "latest"` will set the
+        # Changes the version that new license fee activations use. Providing `live_version = "latest"` sets the
         # license fee's `live_version` to its latest version.
         attr_accessor :live_version
         # An internal key you can use to search for a particular license fee. Maximum length of 200 characters.
         attr_accessor :lookup_key
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
-        # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
+        # Defines whether the tiered price is graduated or volume-based. In volume-based tiering, the maximum
         # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
         # grows into new tiers. Can only be set if `tiers` is set.
         attr_accessor :tiering_mode

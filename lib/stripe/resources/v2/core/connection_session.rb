@@ -4,7 +4,8 @@
 module Stripe
   module V2
     module Core
-      # The ConnectionSession resource.
+      # A short-lived, single-use session used to launch client-side Link onboarding
+      # that connects an Account to a Link consumer account.
       class ConnectionSession < APIResource
         OBJECT_NAME = "v2.core.connection_session"
         def self.object_name

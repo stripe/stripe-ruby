@@ -17,6 +17,41 @@ module Stripe
           "v2.core.claimable_sandbox"
         end
 
+        class OnboardingLinkDetails < ::Stripe::StripeObject
+          # The timestamp the onboarding link expires.
+          attr_reader :expires_at
+          # The URL the user will be redirected to if the onboarding link is expired or invalid.
+          # The URL specified should attempt to generate a new onboarding link,
+          # and re-direct the user to this new onboarding link so that they can proceed with the onboarding flow.
+          attr_reader :refresh_url
+          # URL that will redirect the user to either claim or onboard the claimable sandbox depending on its status.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class OwnerDetails < ::Stripe::StripeObject
+          # The ID of the livemode Stripe account that owns the sandbox.
+          # This field is only set when owner_details.app_install_status is `installed`.
+          attr_reader :account
+          # Indicates whether the platform app is installed on the sandbox’s livemode owner account.
+          attr_reader :app_install_status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Prefill < ::Stripe::StripeObject
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -58,9 +93,6 @@ module Stripe
           attr_reader :account
           # Keys that can be used to set up an integration for this sandbox and operate on the account. This will be present only in the create response, and will be null in subsequent retrieve responses.
           attr_reader :api_keys
-          # The livemode sandbox Stripe account ID. This field is only set if the user activates their sandbox
-          # and chooses to install your platform's Stripe App in their live account.
-          attr_reader :owner_account
 
           def self.inner_class_types
             @inner_class_types = { api_keys: ApiKeys }
@@ -70,9 +102,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # URL for user to claim sandbox into their existing Stripe account.
-        # The value will be null if the sandbox status is `claimed` or `expired`.
-        attr_reader :claim_url
+        # The app channel that will be used when pre-installing your app on the claimable sandbox.
+        attr_reader :app_channel
         # The timestamp the sandbox was claimed. The value will be null if the sandbox status is not `claimed`.
         attr_reader :claimed_at
         # When the sandbox is created.
@@ -85,15 +116,25 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Details about the onboarding link.
+        attr_reader :onboarding_link_details
+        # Details about the livemode owner account of the sandbox.
+        # This will be null until the sandbox is claimed.
+        attr_reader :owner_details
         # Values prefilled during the creation of the sandbox. When a user claims the sandbox, they will be able to update these values.
         attr_reader :prefill
         # Data about the Stripe sandbox object.
         attr_reader :sandbox_details
-        # Status of the sandbox. One of `unclaimed`, `expired`, `claimed`.
+        # Status of the sandbox.
         attr_reader :status
 
         def self.inner_class_types
-          @inner_class_types = { prefill: Prefill, sandbox_details: SandboxDetails }
+          @inner_class_types = {
+            onboarding_link_details: OnboardingLinkDetails,
+            owner_details: OwnerDetails,
+            prefill: Prefill,
+            sandbox_details: SandboxDetails,
+          }
         end
 
         def self.field_remappings

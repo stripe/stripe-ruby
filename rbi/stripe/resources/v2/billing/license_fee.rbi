@@ -13,8 +13,8 @@ module Stripe
           # The interval for assessing service.
           sig { returns(String) }
           def interval; end
-          # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-          # order to specify quarterly service.
+          # The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+          # to specify quarterly service.
           sig { returns(Integer) }
           def interval_count; end
           def self.inner_class_types
@@ -32,7 +32,7 @@ module Stripe
           # most 12 decimal places.
           sig { returns(T.nilable(String)) }
           def unit_amount; end
-          # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+          # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
           sig { returns(T.nilable(BigDecimal)) }
           def up_to_decimal; end
@@ -90,7 +90,7 @@ module Stripe
         # to specify the pricing and create subscriptions to these items.
         sig { returns(::Stripe::V2::Billing::LicensedItem) }
         def licensed_item; end
-        # The ID of the License Fee Version that will be used by all subscriptions when no specific version is specified.
+        # The ID of the License Fee Version used by all subscriptions when no specific version is specified.
         sig { returns(String) }
         def live_version; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -111,14 +111,14 @@ module Stripe
         # The interval for assessing service.
         sig { returns(String) }
         def service_interval; end
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-        # order to specify quarterly service.
+        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
+        # to specify quarterly service.
         sig { returns(Integer) }
         def service_interval_count; end
-        # The Stripe Tax tax behavior - whether the license fee is inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the license fee price includes or excludes tax.
         sig { returns(String) }
         def tax_behavior; end
-        # Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum
+        # Defines whether the tiering price is graduated or volume-based. In volume-based tiering, the maximum
         # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
         # grows into new tiers. Can only be set if `tiers` is set.
         sig { returns(T.nilable(String)) }

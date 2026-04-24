@@ -12,7 +12,7 @@ module Stripe
         end
 
         class Cancel < ::Stripe::StripeObject
-          # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
+          # The identifier that was originally assigned to the meter event. You can only cancel events within 24 hours of Stripe receiving them.
           attr_reader :identifier
 
           def self.inner_class_types
@@ -29,7 +29,7 @@ module Stripe
         attr_reader :created
         # The name of the meter event. Corresponds with the `event_name` field on a meter.
         attr_reader :event_name
-        # The unique id of this meter event adjustment.
+        # The unique ID of this meter event adjustment.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
@@ -37,7 +37,7 @@ module Stripe
         attr_reader :object
         # Open Enum. The meter event adjustment’s status.
         attr_reader :status
-        # Open Enum. Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
+        # Open Enum. Specifies the type of cancellation. Currently supports canceling a single event.
         attr_reader :type
 
         def self.inner_class_types

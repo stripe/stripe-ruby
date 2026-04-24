@@ -1229,6 +1229,43 @@ module Stripe
         end
       end
 
+      class GiftCard < ::Stripe::StripeObject
+        class Balance < ::Stripe::StripeObject
+          # The balance amount in the smallest currency unit.
+          attr_reader :amount
+          # The currency of the balance.
+          attr_reader :currency
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field balance
+        attr_reader :balance
+        # The brand of the gift card.
+        attr_reader :brand
+        # The expiration month of the gift card.
+        attr_reader :exp_month
+        # The expiration year of the gift card.
+        attr_reader :exp_year
+        # The first six digits of the gift card number.
+        attr_reader :first6
+        # The transaction ID from the gift card processor.
+        attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = { balance: Balance }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Giropay < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         attr_reader :bank_code
@@ -2208,6 +2245,8 @@ module Stripe
       attr_reader :eps
       # Attribute for field fpx
       attr_reader :fpx
+      # Attribute for field gift_card
+      attr_reader :gift_card
       # Attribute for field giropay
       attr_reader :giropay
       # Attribute for field gopay
@@ -2324,6 +2363,7 @@ module Stripe
           customer_balance: CustomerBalance,
           eps: Eps,
           fpx: Fpx,
+          gift_card: GiftCard,
           giropay: Giropay,
           gopay: Gopay,
           grabpay: Grabpay,

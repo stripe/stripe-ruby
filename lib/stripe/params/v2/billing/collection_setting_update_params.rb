@@ -204,9 +204,9 @@ module Stripe
             }
           end
         end
-        # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-        # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-        # Stripe will email your payer profile an invoice with payment instructions.
+        # Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+        # bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+        # Stripe emails your billing profile an invoice with payment instructions.
         attr_accessor :collection_method
         # An optional customer-facing display name for the CollectionSetting object.
         # To remove the display name, set it to an empty string in the request.
@@ -215,7 +215,7 @@ module Stripe
         # Email delivery settings.
         attr_accessor :email_delivery
         # Optionally change the live version of the CollectionSetting. Billing Cadences and other objects that refer to this
-        # CollectionSetting will use this version when no overrides are set. Providing `live_version = "latest"` will set the
+        # CollectionSetting uses this version when no overrides are set. Providing `live_version = "latest"` sets the
         # CollectionSetting's `live_version` to its latest version.
         attr_accessor :live_version
         # A lookup key used to retrieve settings dynamically from a static string.

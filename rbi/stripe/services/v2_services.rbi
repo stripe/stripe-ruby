@@ -5,10 +5,14 @@
 module Stripe
   class V2Services < StripeService
     attr_reader :billing
+    attr_reader :commerce
     attr_reader :core
     attr_reader :data
+    attr_reader :extend
     attr_reader :iam
     attr_reader :money_management
+    attr_reader :network
+    attr_reader :orchestrated_commerce
     attr_reader :payments
     attr_reader :reporting
     attr_reader :tax

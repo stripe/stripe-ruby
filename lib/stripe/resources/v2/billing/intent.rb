@@ -94,7 +94,7 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from 1-31.
               # If this number is greater than the number of days in the month being billed,
-              # this will anchor to the last day of the month.
+              # this anchors to the last day of the month.
               attr_reader :day_of_month
               # The month to anchor the billing on for a type="month" billing cycle from
               # 1-12. Occurrences are calculated from the month anchor.
@@ -170,9 +170,9 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from 1-31.
               # If this number is greater than the number of days in the month being billed,
-              # this will anchor to the last day of the month.
+              # this anchors to the last day of the month.
               attr_reader :day_of_month
-              # The month to bill on from 1-12. If not provided, this will default to the month the cadence was created.
+              # The month to bill on from 1-12. If not provided, this defaults to the month the cadence was created.
               attr_reader :month_of_year
               # The time at which the billing cycle ends.
               attr_reader :time
@@ -212,7 +212,7 @@ module Stripe
               # The customer to associate with the profile.
               attr_reader :customer
               # The default payment method to use when billing this profile.
-              # If none is provided, the customer `default_payment_method` will be used.
+              # If none is provided, the customer `default_payment_method` is used.
               attr_reader :default_payment_method
 
               def self.inner_class_types
@@ -223,7 +223,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The ID of the Billing Profile object which determines how a bill will be paid.
+            # The ID of the Billing Profile object which determines how a bill is paid.
             attr_reader :billing_profile
             # Data for creating a new profile.
             attr_reader :billing_profile_data
@@ -303,7 +303,7 @@ module Stripe
           attr_reader :committed_at
           # Time at which the Billing Intent was drafted.
           attr_reader :drafted_at
-          # Time at which the Billing Intent will expire.
+          # Time at which the Billing Intent expires.
           attr_reader :expires_at
           # Time at which the Billing Intent was reserved.
           attr_reader :reserved_at

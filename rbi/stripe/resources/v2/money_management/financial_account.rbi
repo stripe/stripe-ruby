@@ -49,6 +49,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class MultiprocessorSettlement < ::Stripe::StripeObject
+          # Settlement currencies enabled for this FinancialAccount.
+          sig { returns(T::Array[String]) }
+          def settlement_currencies; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Other < ::Stripe::StripeObject
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           sig { returns(String) }
@@ -230,6 +241,9 @@ module Stripe
         # Metadata associated with the FinancialAccount.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
+        # If this is a `multiprocessor_settlement` FinancialAccount, this hash includes details specific to `multiprocessor_settlement` FinancialAccounts.
+        sig { returns(T.nilable(MultiprocessorSettlement)) }
+        def multiprocessor_settlement; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end

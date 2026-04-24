@@ -7,7 +7,7 @@ module Stripe
       class PricingPlanUpdateParams < ::Stripe::RequestParams
         # Whether the PricingPlan is active.
         attr_accessor :active
-        # Description of pricing plan subscription.
+        # Description of the pricing plan. Maximum length of 500 characters.
         attr_accessor :description
         # Display name of the PricingPlan. Maximum 250 characters.
         attr_accessor :display_name

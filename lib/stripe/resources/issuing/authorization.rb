@@ -33,6 +33,121 @@ module Stripe
         end
       end
 
+      class CryptoTransaction < ::Stripe::StripeObject
+        class CryptoTransactionConfirmed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the confirmed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the confirmed transaction.
+          attr_reader :chain
+          # When the transaction was confirmed onchain.
+          attr_reader :confirmed_at
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the transaction.
+          attr_reader :to_address
+          # The blockchain transaction hash.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CryptoTransactionFailed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the failed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the failed transaction.
+          attr_reader :chain
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # When the transaction failed.
+          attr_reader :failed_at
+          # The reason the transaction failed.
+          attr_reader :failure_reason
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the attempted transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the attempted transaction when one exists.
+          attr_reader :to_address
+          # The blockchain transaction hash when one exists.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        attr_reader :crypto_transaction_confirmed
+        # The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        attr_reader :crypto_transaction_failed
+        # The crypto transaction variant for this array entry.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            crypto_transaction_confirmed: CryptoTransactionConfirmed,
+            crypto_transaction_failed: CryptoTransactionFailed,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Fleet < ::Stripe::StripeObject
         class CardholderPromptData < ::Stripe::StripeObject
           # [Deprecated] An alphanumeric ID, though typical point of sales only support numeric entry. The card program can be configured to prompt for a vehicle ID, driver ID, or generic ID.
@@ -237,10 +352,14 @@ module Stripe
         attr_reader :name
         # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
         attr_reader :network_id
+        # The identifier of the payment facilitator (PayFac) that processed this authorization, as assigned by the card network. Null when the transaction was not processed through a PayFac.
+        attr_reader :payment_facilitator_id
         # Postal code where the seller is located
         attr_reader :postal_code
         # State where the seller is located
         attr_reader :state
+        # The identifier of the sub-merchant involved in this authorization, as assigned by the payment facilitator. Null when the transaction was not processed through a PayFac or when no sub-merchant ID was provided.
+        attr_reader :sub_merchant_id
         # The seller's tax identification number. Currently populated for French merchants only.
         attr_reader :tax_id
         # An ID assigned by the seller to the location of the sale.
@@ -566,6 +685,8 @@ module Stripe
       attr_reader :cardholder
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Array of onchain crypto transactions linked to this resource.
+      attr_reader :crypto_transactions
       # The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
       # Fleet-specific information for authorizations using Fleet cards.
@@ -831,6 +952,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           amount_details: AmountDetails,
+          crypto_transactions: CryptoTransaction,
           fleet: Fleet,
           fraud_challenges: FraudChallenge,
           fuel: Fuel,

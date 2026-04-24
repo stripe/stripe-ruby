@@ -13,6 +13,40 @@ module Stripe
       # Claimable sandboxes have 60 days to be claimed. After this expiration time has passed,
       # if the sandbox is not claimed, it will be deleted.
       class ClaimableSandbox < APIResource
+        class OnboardingLinkDetails < ::Stripe::StripeObject
+          # The timestamp the onboarding link expires.
+          sig { returns(String) }
+          def expires_at; end
+          # The URL the user will be redirected to if the onboarding link is expired or invalid.
+          # The URL specified should attempt to generate a new onboarding link,
+          # and re-direct the user to this new onboarding link so that they can proceed with the onboarding flow.
+          sig { returns(String) }
+          def refresh_url; end
+          # URL that will redirect the user to either claim or onboard the claimable sandbox depending on its status.
+          sig { returns(String) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class OwnerDetails < ::Stripe::StripeObject
+          # The ID of the livemode Stripe account that owns the sandbox.
+          # This field is only set when owner_details.app_install_status is `installed`.
+          sig { returns(T.nilable(String)) }
+          def account; end
+          # Indicates whether the platform app is installed on the sandbox’s livemode owner account.
+          sig { returns(String) }
+          def app_install_status; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Prefill < ::Stripe::StripeObject
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -57,10 +91,6 @@ module Stripe
           # Keys that can be used to set up an integration for this sandbox and operate on the account. This will be present only in the create response, and will be null in subsequent retrieve responses.
           sig { returns(T.nilable(ApiKeys)) }
           def api_keys; end
-          # The livemode sandbox Stripe account ID. This field is only set if the user activates their sandbox
-          # and chooses to install your platform's Stripe App in their live account.
-          sig { returns(T.nilable(String)) }
-          def owner_account; end
           def self.inner_class_types
             @inner_class_types = {api_keys: ApiKeys}
           end
@@ -68,10 +98,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # URL for user to claim sandbox into their existing Stripe account.
-        # The value will be null if the sandbox status is `claimed` or `expired`.
-        sig { returns(T.nilable(String)) }
-        def claim_url; end
+        # The app channel that will be used when pre-installing your app on the claimable sandbox.
+        sig { returns(String) }
+        def app_channel; end
         # The timestamp the sandbox was claimed. The value will be null if the sandbox status is not `claimed`.
         sig { returns(T.nilable(String)) }
         def claimed_at; end
@@ -90,13 +119,20 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Details about the onboarding link.
+        sig { returns(OnboardingLinkDetails) }
+        def onboarding_link_details; end
+        # Details about the livemode owner account of the sandbox.
+        # This will be null until the sandbox is claimed.
+        sig { returns(T.nilable(OwnerDetails)) }
+        def owner_details; end
         # Values prefilled during the creation of the sandbox. When a user claims the sandbox, they will be able to update these values.
         sig { returns(Prefill) }
         def prefill; end
         # Data about the Stripe sandbox object.
         sig { returns(SandboxDetails) }
         def sandbox_details; end
-        # Status of the sandbox. One of `unclaimed`, `expired`, `claimed`.
+        # Status of the sandbox.
         sig { returns(String) }
         def status; end
       end

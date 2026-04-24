@@ -17,7 +17,7 @@ module Stripe
           # most 12 decimal places.
           sig { returns(T.nilable(String)) }
           def unit_amount; end
-          # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+          # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
           sig { returns(T.nilable(BigDecimal)) }
           def up_to_decimal; end
@@ -66,7 +66,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum
+        # Defines whether the tiering price is graduated or volume-based. In volume-based tiering, the maximum
         # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
         # grows into new tiers. Can only be set if `tiers` is set.
         sig { returns(T.nilable(String)) }

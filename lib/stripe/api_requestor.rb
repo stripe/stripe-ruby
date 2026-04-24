@@ -869,6 +869,8 @@ module Stripe
         FeatureNotEnabledError.new(error_data[:message], **opts)
       when "financial_account_not_open"
         FinancialAccountNotOpenError.new(error_data[:message], **opts)
+      when "fx_quote_expired"
+        FxQuoteExpiredError.new(error_data[:message], **opts)
       when "insufficient_funds"
         InsufficientFundsError.new(error_data[:message], **opts)
       when "invalid_payment_method"

@@ -22,7 +22,7 @@ module Stripe
               sig { params(dimension: String, value: String).void }
               def initialize(dimension: nil, value: nil); end
             end
-            # Description that customers will see in the invoice line item.
+            # Description that customers see in the invoice line item.
             # Maximum length of 250 characters.
             sig { returns(String) }
             def display_name; end
@@ -80,7 +80,7 @@ module Stripe
             def unit_amount; end
             sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
             def unit_amount=(_unit_amount); end
-            # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+            # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
             # be set.
             sig { returns(T.nilable(BigDecimal)) }
             def up_to_decimal; end
@@ -142,7 +142,7 @@ module Stripe
             params(_metered_item_data: T.nilable(::Stripe::V2::Billing::RateCardModifyRatesParams::RatesToCreate::MeteredItemData)).returns(T.nilable(::Stripe::V2::Billing::RateCardModifyRatesParams::RatesToCreate::MeteredItemData))
            }
           def metered_item_data=(_metered_item_data); end
-          # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
+          # Defines whether the tiered price is graduated or volume-based. In volume-based tiering, the maximum
           # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
           # grows into new tiers. Can only be set if `tiers` is set.
           sig { returns(T.nilable(String)) }

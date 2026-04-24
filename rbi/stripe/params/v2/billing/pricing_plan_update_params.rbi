@@ -11,7 +11,7 @@ module Stripe
         def active; end
         sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def active=(_active); end
-        # Description of pricing plan subscription.
+        # Description of the pricing plan. Maximum length of 500 characters.
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }

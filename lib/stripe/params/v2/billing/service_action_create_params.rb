@@ -46,7 +46,7 @@ module Stripe
             class Scope < ::Stripe::RequestParams
               # The billable items to apply the credit grant to.
               attr_accessor :billable_items
-              # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+              # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
               attr_accessor :price_type
 
               def initialize(billable_items: nil, price_type: nil)
@@ -150,7 +150,7 @@ module Stripe
             class Scope < ::Stripe::RequestParams
               # The billable items to apply the credit grant to.
               attr_accessor :billable_items
-              # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+              # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
               attr_accessor :price_type
 
               def initialize(billable_items: nil, price_type: nil)

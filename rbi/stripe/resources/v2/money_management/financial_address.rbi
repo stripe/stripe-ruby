@@ -8,6 +8,33 @@ module Stripe
       # A Financial Address contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
       class FinancialAddress < APIResource
         class Credentials < ::Stripe::StripeObject
+          class CaBankAccount < ::Stripe::StripeObject
+            # The account holder name to be used during bank transfers.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The account number of the Canadian Bank Account.
+            sig { returns(T.nilable(String)) }
+            def account_number; end
+            # The name of the Bank.
+            sig { returns(String) }
+            def bank_name; end
+            # The institution number of the Canadian Bank Account.
+            sig { returns(String) }
+            def institution_number; end
+            # The last four digits of the Canadian Bank Account number. This will always be returned.
+            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            sig { returns(String) }
+            def last4; end
+            # The transit number of the Canadian Bank Account.
+            sig { returns(String) }
+            def transit_number; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class GbBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transference.
             sig { returns(String) }
@@ -115,6 +142,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
+          sig { returns(T.nilable(CaBankAccount)) }
+          def ca_bank_account; end
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
@@ -129,6 +159,7 @@ module Stripe
           def us_bank_account; end
           def self.inner_class_types
             @inner_class_types = {
+              ca_bank_account: CaBankAccount,
               gb_bank_account: GbBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,

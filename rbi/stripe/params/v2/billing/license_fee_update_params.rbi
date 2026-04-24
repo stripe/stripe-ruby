@@ -18,7 +18,7 @@ module Stripe
           def unit_amount; end
           sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
           def unit_amount=(_unit_amount); end
-          # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+          # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
           sig { returns(T.nilable(BigDecimal)) }
           def up_to_decimal; end
@@ -66,7 +66,7 @@ module Stripe
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
-        # Changes the version that new license fee will use. Providing `live_version = "latest"` will set the
+        # Changes the version that new license fee activations use. Providing `live_version = "latest"` sets the
         # license fee's `live_version` to its latest version.
         sig { returns(T.nilable(String)) }
         def live_version; end
@@ -84,7 +84,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
          }
         def metadata=(_metadata); end
-        # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
+        # Defines whether the tiered price is graduated or volume-based. In volume-based tiering, the maximum
         # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
         # grows into new tiers. Can only be set if `tiers` is set.
         sig { returns(T.nilable(String)) }

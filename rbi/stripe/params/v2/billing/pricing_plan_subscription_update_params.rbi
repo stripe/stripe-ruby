@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class PricingPlanSubscriptionUpdateParams < ::Stripe::RequestParams
-        # When set to true, the `servicing_status_transition.will_cancel_at` field will be cleared.
+        # When set to true, the `servicing_status_transition.will_cancel_at` field is cleared.
         sig { returns(T.nilable(T::Boolean)) }
         def clear_cancel_at; end
         sig { params(_clear_cancel_at: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }

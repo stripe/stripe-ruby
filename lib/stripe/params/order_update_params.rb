@@ -122,6 +122,33 @@ module Stripe
       end
 
       class ProductData < ::Stripe::RequestParams
+        class Identifiers < ::Stripe::RequestParams
+          # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+          attr_accessor :ean
+          # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+          attr_accessor :gtin
+          # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+          attr_accessor :isbn
+          # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+          attr_accessor :jan
+          # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+          attr_accessor :mpn
+          # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+          attr_accessor :nsn
+          # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+          attr_accessor :upc
+
+          def initialize(ean: nil, gtin: nil, isbn: nil, jan: nil, mpn: nil, nsn: nil, upc: nil)
+            @ean = ean
+            @gtin = gtin
+            @isbn = isbn
+            @jan = jan
+            @mpn = mpn
+            @nsn = nsn
+            @upc = upc
+          end
+        end
+
         class PackageDimensions < ::Stripe::RequestParams
           # Height, in inches. Maximum precision is 2 decimal places.
           attr_accessor :height
@@ -145,6 +172,8 @@ module Stripe
         #
         # `product_data` automatically creates a Product with this ID. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates. If any of the fields in the existing Product are different from the values in `product_data`, `product_data` updates the existing Product with the new information. So set `product_data[id]` to the same string every time you sell the same product, but don't re-use the same string for different products.
         attr_accessor :id
+        # Other identifiers for this product.
+        attr_accessor :identifiers
         # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
         attr_accessor :images
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -163,6 +192,7 @@ module Stripe
         def initialize(
           description: nil,
           id: nil,
+          identifiers: nil,
           images: nil,
           metadata: nil,
           name: nil,
@@ -173,6 +203,7 @@ module Stripe
         )
           @description = description
           @id = id
+          @identifiers = identifiers
           @images = images
           @metadata = metadata
           @name = name

@@ -30,12 +30,12 @@ module Stripe
               def initialize(coupon: nil, promotion_code: nil, type: nil); end
             end
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+              # The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
               def timestamp=(_timestamp); end
-              # When the apply action will take effect.
+              # When the apply action takes effect.
               sig { returns(String) }
               def type; end
               sig { params(_type: String).returns(String) }
@@ -63,7 +63,7 @@ module Stripe
                   params(_maximum_applications: ::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff::MaximumApplications).returns(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::InvoiceDiscountRule::PercentOff::MaximumApplications)
                  }
                 def maximum_applications=(_maximum_applications); end
-                # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+                # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
                 sig { returns(BigDecimal) }
                 def percent_off; end
                 sig { params(_percent_off: BigDecimal).returns(BigDecimal) }
@@ -206,7 +206,7 @@ module Stripe
               params(_discount: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::Discount))
              }
             def discount=(_discount); end
-            # When the apply action will take effect. If not specified, defaults to on_reserve.
+            # When the apply action takes effect. If not specified, defaults to on_reserve.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Apply::EffectiveAt))
              }
@@ -273,12 +273,12 @@ module Stripe
               def initialize(comment: nil, feedback: nil); end
             end
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+              # The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
               def timestamp=(_timestamp); end
-              # When the deactivate action will take effect.
+              # When the deactivate action takes effect.
               sig { returns(String) }
               def type; end
               sig { params(_type: String).returns(String) }
@@ -359,12 +359,12 @@ module Stripe
               params(_cancellation_details: T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails)).returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::CancellationDetails))
              }
             def cancellation_details=(_cancellation_details); end
-            # When the invoice will be collected. If not specified, the default behavior is on_effective_at.
+            # When the invoice is collected. If not specified, the default behavior is on_effective_at.
             sig { returns(T.nilable(String)) }
             def collect_at; end
             sig { params(_collect_at: T.nilable(String)).returns(T.nilable(String)) }
             def collect_at=(_collect_at); end
-            # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+            # When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Deactivate::EffectiveAt))
              }
@@ -400,12 +400,12 @@ module Stripe
           end
           class Modify < ::Stripe::RequestParams
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the modify action will take effect. Only present if type is timestamp.
+              # The timestamp at which the modify action takes effect. Only present if type is timestamp.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
               def timestamp=(_timestamp); end
-              # When the modify action will take effect.
+              # When the modify action takes effect.
               sig { returns(String) }
               def type; end
               sig { params(_type: String).returns(String) }
@@ -555,12 +555,12 @@ module Stripe
                 pricing_plan_subscription: nil
               ); end
             end
-            # When the invoice will be collected. If not specified, the default behavior is next_billing_date.
+            # When the invoice is collected. If not specified, the default behavior is next_billing_date.
             sig { returns(T.nilable(String)) }
             def collect_at; end
             sig { params(_collect_at: T.nilable(String)).returns(T.nilable(String)) }
             def collect_at=(_collect_at); end
-            # When the modify action will take effect. If not specified, the default behavior is on_reserve.
+            # When the modify action takes effect. If not specified, the default behavior is on_reserve.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Modify::EffectiveAt))
              }
@@ -595,7 +595,7 @@ module Stripe
           end
           class Remove < ::Stripe::RequestParams
             class EffectiveAt < ::Stripe::RequestParams
-              # When the remove action will take effect.
+              # When the remove action takes effect.
               sig { returns(String) }
               def type; end
               sig { params(_type: String).returns(String) }
@@ -603,7 +603,7 @@ module Stripe
               sig { params(type: String).void }
               def initialize(type: nil); end
             end
-            # When the remove action will take effect. If not specified, defaults to on_reserve.
+            # When the remove action takes effect. If not specified, defaults to on_reserve.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Remove::EffectiveAt))
              }
@@ -639,12 +639,12 @@ module Stripe
           end
           class Subscribe < ::Stripe::RequestParams
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+              # The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
               def timestamp=(_timestamp); end
-              # When the subscribe action will take effect.
+              # When the subscribe action takes effect.
               sig { returns(String) }
               def type; end
               sig { params(_type: String).returns(String) }
@@ -835,12 +835,12 @@ module Stripe
                }
               def initialize(description: nil, items: nil, metadata: nil); end
             end
-            # When the invoice will be collected. If not specified, defaults to on_effective_at.
+            # When the invoice is collected. If not specified, defaults to on_effective_at.
             sig { returns(T.nilable(String)) }
             def collect_at; end
             sig { params(_collect_at: T.nilable(String)).returns(T.nilable(String)) }
             def collect_at=(_collect_at); end
-            # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+            # When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::Action::Subscribe::EffectiveAt))
              }
@@ -975,7 +975,7 @@ module Stripe
                 def initialize(hour: nil, minute: nil, second: nil); end
               end
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Day::Time))
@@ -1016,22 +1016,22 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from
               # 1-31. If this number is greater than the number of days in the month being
-              # billed, this will anchor to the last day of the month. If not provided,
-              # this will default to the day the cadence was created.
+              # billed, this anchors to the last day of the month. If not provided,
+              # this defaults to the day the cadence was created.
               sig { returns(Integer) }
               def day_of_month; end
               sig { params(_day_of_month: Integer).returns(Integer) }
               def day_of_month=(_day_of_month); end
               # The month to anchor the billing on for a type="month" billing cycle from
-              # 1-12. If not provided, this will default to the month the cadence was created.
+              # 1-12. If not provided, this defaults to the month the cadence was created.
               # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-              # All occurrences will be calculated from month provided.
+              # All occurrences are calculated from the month provided.
               sig { returns(T.nilable(Integer)) }
               def month_of_year; end
               sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
               def month_of_year=(_month_of_year); end
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Month::Time))
@@ -1072,14 +1072,14 @@ module Stripe
               end
               # The day of the week to bill the type=week billing cycle on.
               # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
-              # week day numbering. If not provided, this will default to the day the
+              # week day numbering. If not provided, this defaults to the day the
               # cadence was created.
               sig { returns(Integer) }
               def day_of_week; end
               sig { params(_day_of_week: Integer).returns(Integer) }
               def day_of_week=(_day_of_week); end
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Week::Time))
@@ -1120,20 +1120,20 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from
               # 1-31. If this number is greater than the number of days in the month being
-              # billed, this will anchor to the last day of the month. If not provided,
-              # this will default to the day the cadence was created.
+              # billed, this anchors to the last day of the month. If not provided,
+              # this defaults to the day the cadence was created.
               sig { returns(T.nilable(Integer)) }
               def day_of_month; end
               sig { params(_day_of_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
               def day_of_month=(_day_of_month); end
-              # The month to bill on from 1-12. If not provided, this will default to the
+              # The month to bill on from 1-12. If not provided, this defaults to the
               # month the cadence was created.
               sig { returns(T.nilable(Integer)) }
               def month_of_year; end
               sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
               def month_of_year=(_month_of_year); end
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::IntentCreateParams::CadenceData::BillingCycle::Year::Time))
@@ -1159,7 +1159,7 @@ module Stripe
             def day=(_day); end
             # The number of intervals (specified in the interval attribute) between
             # cadence billings. For example, type=month and interval_count=3 bills every
-            # 3 months. If this is not provided, it will default to 1.
+            # 3 months. If not provided, this defaults to 1.
             sig { returns(T.nilable(Integer)) }
             def interval_count; end
             sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -1217,7 +1217,7 @@ module Stripe
               def customer=(_customer); end
               # The default payment method to use when billing this profile.
               # If left blank, the `PaymentMethod` from the `PaymentIntent` provided
-              # on commit will be used to create the profile.
+              # on commit is used to create the profile.
               sig { returns(T.nilable(String)) }
               def default_payment_method; end
               sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
@@ -1225,7 +1225,7 @@ module Stripe
               sig { params(customer: String, default_payment_method: T.nilable(String)).void }
               def initialize(customer: nil, default_payment_method: nil); end
             end
-            # The ID of the Billing Profile object which determines how a bill will be paid.
+            # The ID of the Billing Profile object which determines how a bill is paid.
             sig { returns(T.nilable(String)) }
             def billing_profile; end
             sig { params(_billing_profile: T.nilable(String)).returns(T.nilable(String)) }
@@ -1252,7 +1252,7 @@ module Stripe
               sig { params(_id: String).returns(String) }
               def id=(_id); end
               # An optional field to specify the version of the Settings to use.
-              # If not provided, this will always default to the live version any time the settings are used.
+              # If not provided, this defaults to the live version any time the settings are used.
               sig { returns(T.nilable(String)) }
               def version; end
               sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
@@ -1267,7 +1267,7 @@ module Stripe
               sig { params(_id: String).returns(String) }
               def id=(_id); end
               # An optional field to specify the version of the Settings to use.
-              # If not provided, this will always default to the live version any time the settings are used.
+              # If not provided, this defaults to the live version any time the settings are used.
               sig { returns(T.nilable(String)) }
               def version; end
               sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }

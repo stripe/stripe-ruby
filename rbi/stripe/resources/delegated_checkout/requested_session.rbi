@@ -64,6 +64,45 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class BuyerConsents < ::Stripe::StripeObject
+        class Marketing < ::Stripe::StripeObject
+          class Option < ::Stripe::StripeObject
+            # The marketing channel type.
+            sig { returns(String) }
+            def channel; end
+            # The description of the marketing consent option.
+            sig { returns(String) }
+            def description; end
+            # The privacy policy URL for this marketing channel.
+            sig { returns(String) }
+            def privacy_policy_url; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The available marketing consent options.
+          sig { returns(T.nilable(T::Array[Option])) }
+          def options; end
+          def self.inner_class_types
+            @inner_class_types = {options: Option}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The marketing consent options.
+        sig { returns(T.nilable(Marketing)) }
+        def marketing; end
+        def self.inner_class_types
+          @inner_class_types = {marketing: Marketing}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class FulfillmentDetails < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -630,6 +669,9 @@ module Stripe
       # The total amount of the requested session.
       sig { returns(T.nilable(Integer)) }
       def amount_total; end
+      # The buyer consent options for this requested session, including marketing preferences.
+      sig { returns(T.nilable(BuyerConsents)) }
+      def buyer_consents; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created_at; end

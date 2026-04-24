@@ -119,6 +119,9 @@ module Stripe
         # Reason for the event.
         sig { returns(T.nilable(Reason)) }
         def reason; end
+        # For interop events, this is the snapshot event ID.
+        sig { returns(T.nilable(String)) }
+        def snapshot_event; end
         # The type of the event.
         sig { returns(String) }
         def type; end

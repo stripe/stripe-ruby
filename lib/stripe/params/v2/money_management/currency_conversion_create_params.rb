@@ -32,12 +32,15 @@ module Stripe
         attr_accessor :financial_account
         # From amount object indicating the from currency or optional amount.
         attr_accessor :from
+        # The FX quote to use for the conversion.
+        attr_accessor :fx_quote
         # To amount object indicating the to currency or optional amount.
         attr_accessor :to
 
-        def initialize(financial_account: nil, from: nil, to: nil)
+        def initialize(financial_account: nil, from: nil, fx_quote: nil, to: nil)
           @financial_account = financial_account
           @from = from
+          @fx_quote = fx_quote
           @to = to
         end
       end

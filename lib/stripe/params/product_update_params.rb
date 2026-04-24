@@ -3,6 +3,33 @@
 
 module Stripe
   class ProductUpdateParams < ::Stripe::RequestParams
+    class Identifiers < ::Stripe::RequestParams
+      # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+      attr_accessor :ean
+      # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+      attr_accessor :gtin
+      # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+      attr_accessor :isbn
+      # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+      attr_accessor :jan
+      # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+      attr_accessor :mpn
+      # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+      attr_accessor :nsn
+      # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+      attr_accessor :upc
+
+      def initialize(ean: nil, gtin: nil, isbn: nil, jan: nil, mpn: nil, nsn: nil, upc: nil)
+        @ean = ean
+        @gtin = gtin
+        @isbn = isbn
+        @jan = jan
+        @mpn = mpn
+        @nsn = nsn
+        @upc = upc
+      end
+    end
+
     class MarketingFeature < ::Stripe::RequestParams
       # The marketing feature name. Up to 80 characters long.
       attr_accessor :name
@@ -49,6 +76,8 @@ module Stripe
     attr_accessor :description
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Other identifiers for this product.
+    attr_accessor :identifiers
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     attr_accessor :images
     # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
@@ -80,6 +109,7 @@ module Stripe
       default_price: nil,
       description: nil,
       expand: nil,
+      identifiers: nil,
       images: nil,
       marketing_features: nil,
       metadata: nil,
@@ -96,6 +126,7 @@ module Stripe
       @default_price = default_price
       @description = description
       @expand = expand
+      @identifiers = identifiers
       @images = images
       @marketing_features = marketing_features
       @metadata = metadata

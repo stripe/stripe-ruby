@@ -10,6 +10,8 @@ module Stripe
       end
 
       class V2MoneyManagementTransactionCreatedEventData < ::Stripe::StripeObject
+        # Id of the v1 Treasury Transaction corresponding to this Transaction.
+        attr_reader :treasury_transaction
         # Id of the v1 Transaction corresponding to this Transaction.
         attr_reader :v1_id
 

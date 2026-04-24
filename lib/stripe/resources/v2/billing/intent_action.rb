@@ -34,9 +34,9 @@ module Stripe
           end
 
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+            # The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
             attr_reader :timestamp
-            # When the apply action will take effect.
+            # When the apply action takes effect.
             attr_reader :type
 
             def self.inner_class_types
@@ -64,7 +64,7 @@ module Stripe
               end
               # The maximum number of times this discount can be applied for this Billing Cadence.
               attr_reader :maximum_applications
-              # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+              # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
               attr_reader :percent_off
 
               def self.inner_class_types
@@ -181,7 +181,7 @@ module Stripe
           end
           # Details for applying a discount.
           attr_reader :discount
-          # When the apply action will take effect. If not specified, defaults to on_reserve.
+          # When the apply action takes effect. If not specified, defaults to on_reserve.
           attr_reader :effective_at
           # Details for applying a discount rule to future invoices.
           attr_reader :invoice_discount_rule
@@ -230,9 +230,9 @@ module Stripe
           end
 
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+            # The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
             attr_reader :timestamp
-            # When the deactivate action will take effect.
+            # When the deactivate action takes effect.
             attr_reader :type
 
             def self.inner_class_types
@@ -300,7 +300,7 @@ module Stripe
           attr_reader :cancellation_details
           # Allows users to override the collect at behavior.
           attr_reader :collect_at
-          # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+          # When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
           attr_reader :effective_at
           # Details for deactivating a Pricing Plan Subscription.
           attr_reader :pricing_plan_subscription_details
@@ -322,9 +322,9 @@ module Stripe
 
         class Modify < ::Stripe::StripeObject
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the modify action will take effect. Only present if type is timestamp.
+            # The timestamp at which the modify action takes effect. Only present if type is timestamp.
             attr_reader :timestamp
-            # When the modify action will take effect.
+            # When the modify action takes effect.
             attr_reader :type
 
             def self.inner_class_types
@@ -436,7 +436,7 @@ module Stripe
           end
           # Allows users to override the collect at behavior.
           attr_reader :collect_at
-          # When the modify action will take effect. If not specified, the default behavior is on_reserve.
+          # When the modify action takes effect. If not specified, the default behavior is on_reserve.
           attr_reader :effective_at
           # Details for modifying a Pricing Plan Subscription.
           attr_reader :pricing_plan_subscription_details
@@ -457,7 +457,7 @@ module Stripe
 
         class Remove < ::Stripe::StripeObject
           class EffectiveAt < ::Stripe::StripeObject
-            # When the remove action will take effect.
+            # When the remove action takes effect.
             attr_reader :type
 
             def self.inner_class_types
@@ -468,7 +468,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the remove action will take effect. If not specified, defaults to on_reserve.
+          # When the remove action takes effect. If not specified, defaults to on_reserve.
           attr_reader :effective_at
           # The ID of the discount rule to remove for future invoices.
           attr_reader :invoice_discount_rule
@@ -488,9 +488,9 @@ module Stripe
 
         class Subscribe < ::Stripe::StripeObject
           class EffectiveAt < ::Stripe::StripeObject
-            # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+            # The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
             attr_reader :timestamp
-            # When the subscribe action will take effect.
+            # When the subscribe action takes effect.
             attr_reader :type
 
             def self.inner_class_types
@@ -636,7 +636,7 @@ module Stripe
           end
           # Allows users to override the collect at behavior.
           attr_reader :collect_at
-          # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+          # When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
           attr_reader :effective_at
           # Details for subscribing to a Pricing Plan.
           attr_reader :pricing_plan_subscription_details

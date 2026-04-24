@@ -68,7 +68,7 @@ module Stripe
             end
             # The day to anchor the billing on for a type="month" billing cycle from 1-31.
             # If this number is greater than the number of days in the month being billed,
-            # this will anchor to the last day of the month.
+            # this anchors to the last day of the month.
             attr_reader :day_of_month
             # The month to anchor the billing on for a type="month" billing cycle from
             # 1-12. Occurrences are calculated from the month anchor.
@@ -144,9 +144,9 @@ module Stripe
             end
             # The day to anchor the billing on for a type="month" billing cycle from 1-31.
             # If this number is greater than the number of days in the month being billed,
-            # this will anchor to the last day of the month.
+            # this anchors to the last day of the month.
             attr_reader :day_of_month
-            # The month to bill on from 1-12. If not provided, this will default to the month the cadence was created.
+            # The month to bill on from 1-12. If not provided, this defaults to the month the cadence was created.
             attr_reader :month_of_year
             # The time at which the billing cycle ends.
             attr_reader :time
@@ -197,7 +197,7 @@ module Stripe
             end
             # The maximum applications configuration for this discount.
             attr_reader :maximum_applications
-            # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+            # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
             attr_reader :percent_off
 
             def self.inner_class_types
@@ -235,7 +235,7 @@ module Stripe
         end
 
         class Payer < ::Stripe::StripeObject
-          # The ID of the Billing Profile object which determines how a bill will be paid.
+          # The ID of the Billing Profile object which determines how a bill is paid.
           attr_reader :billing_profile
           # The ID of the Customer object.
           attr_reader :customer
@@ -299,7 +299,7 @@ module Stripe
           class Bill < ::Stripe::StripeObject
             class Calculation < ::Stripe::StripeObject
               class Tax < ::Stripe::StripeObject
-                # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
+                # Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
                 attr_reader :type
 
                 def self.inner_class_types
@@ -327,7 +327,7 @@ module Stripe
                 # The interval unit for the time until due.
                 attr_reader :interval
                 # The number of interval units. For example, if interval=day and interval_count=30,
-                # the invoice will be due in 30 days.
+                # the invoice is due in 30 days.
                 attr_reader :interval_count
 
                 def self.inner_class_types
@@ -338,7 +338,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # The amount of time until the invoice will be overdue for payment.
+              # The amount of time until the invoice is overdue for payment.
               attr_reader :time_until_due
 
               def self.inner_class_types
@@ -623,9 +623,9 @@ module Stripe
                 }
               end
             end
-            # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-            # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-            # Stripe will email your payer profile an invoice with payment instructions.
+            # Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+            # bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+            # Stripe emails your billing profile an invoice with payment instructions.
             # Defaults to automatic.
             attr_reader :collection_method
             # Email delivery settings.

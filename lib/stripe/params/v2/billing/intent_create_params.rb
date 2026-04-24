@@ -23,9 +23,9 @@ module Stripe
             end
 
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+              # The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
               attr_accessor :timestamp
-              # When the apply action will take effect.
+              # When the apply action takes effect.
               attr_accessor :type
 
               def initialize(timestamp: nil, type: nil)
@@ -46,7 +46,7 @@ module Stripe
                 end
                 # The maximum number of times this discount can be applied for this cadence.
                 attr_accessor :maximum_applications
-                # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+                # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
                 attr_accessor :percent_off
 
                 def initialize(maximum_applications: nil, percent_off: nil)
@@ -136,7 +136,7 @@ module Stripe
             end
             # Details for applying a discount.
             attr_accessor :discount
-            # When the apply action will take effect. If not specified, defaults to on_reserve.
+            # When the apply action takes effect. If not specified, defaults to on_reserve.
             attr_accessor :effective_at
             # Details for applying a discount rule to future invoices.
             attr_accessor :invoice_discount_rule
@@ -183,9 +183,9 @@ module Stripe
             end
 
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+              # The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
               attr_accessor :timestamp
-              # When the deactivate action will take effect.
+              # When the deactivate action takes effect.
               attr_accessor :type
 
               def initialize(timestamp: nil, type: nil)
@@ -234,9 +234,9 @@ module Stripe
             end
             # Details about why the cancellation is being requested.
             attr_accessor :cancellation_details
-            # When the invoice will be collected. If not specified, the default behavior is on_effective_at.
+            # When the invoice is collected. If not specified, the default behavior is on_effective_at.
             attr_accessor :collect_at
-            # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+            # When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
             # Details for deactivating a pricing plan subscription.
             attr_accessor :pricing_plan_subscription_details
@@ -260,9 +260,9 @@ module Stripe
 
           class Modify < ::Stripe::RequestParams
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the modify action will take effect. Only present if type is timestamp.
+              # The timestamp at which the modify action takes effect. Only present if type is timestamp.
               attr_accessor :timestamp
-              # When the modify action will take effect.
+              # When the modify action takes effect.
               attr_accessor :type
 
               def initialize(timestamp: nil, type: nil)
@@ -354,9 +354,9 @@ module Stripe
                 @pricing_plan_subscription = pricing_plan_subscription
               end
             end
-            # When the invoice will be collected. If not specified, the default behavior is next_billing_date.
+            # When the invoice is collected. If not specified, the default behavior is next_billing_date.
             attr_accessor :collect_at
-            # When the modify action will take effect. If not specified, the default behavior is on_reserve.
+            # When the modify action takes effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
             # Details for modifying a pricing plan subscription.
             attr_accessor :pricing_plan_subscription_details
@@ -378,14 +378,14 @@ module Stripe
 
           class Remove < ::Stripe::RequestParams
             class EffectiveAt < ::Stripe::RequestParams
-              # When the remove action will take effect.
+              # When the remove action takes effect.
               attr_accessor :type
 
               def initialize(type: nil)
                 @type = type
               end
             end
-            # When the remove action will take effect. If not specified, defaults to on_reserve.
+            # When the remove action takes effect. If not specified, defaults to on_reserve.
             attr_accessor :effective_at
             # The ID of the discount rule to remove for future invoices.
             attr_accessor :invoice_discount_rule
@@ -409,9 +409,9 @@ module Stripe
 
           class Subscribe < ::Stripe::RequestParams
             class EffectiveAt < ::Stripe::RequestParams
-              # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+              # The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
               attr_accessor :timestamp
-              # When the subscribe action will take effect.
+              # When the subscribe action takes effect.
               attr_accessor :type
 
               def initialize(timestamp: nil, type: nil)
@@ -530,9 +530,9 @@ module Stripe
                 @metadata = metadata
               end
             end
-            # When the invoice will be collected. If not specified, defaults to on_effective_at.
+            # When the invoice is collected. If not specified, defaults to on_effective_at.
             attr_accessor :collect_at
-            # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+            # When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
             attr_accessor :effective_at
             # Details for subscribing to a pricing plan.
             attr_accessor :pricing_plan_subscription_details
@@ -621,7 +621,7 @@ module Stripe
                 end
               end
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               attr_accessor :time
 
@@ -651,16 +651,16 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from
               # 1-31. If this number is greater than the number of days in the month being
-              # billed, this will anchor to the last day of the month. If not provided,
-              # this will default to the day the cadence was created.
+              # billed, this anchors to the last day of the month. If not provided,
+              # this defaults to the day the cadence was created.
               attr_accessor :day_of_month
               # The month to anchor the billing on for a type="month" billing cycle from
-              # 1-12. If not provided, this will default to the month the cadence was created.
+              # 1-12. If not provided, this defaults to the month the cadence was created.
               # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-              # All occurrences will be calculated from month provided.
+              # All occurrences are calculated from the month provided.
               attr_accessor :month_of_year
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               attr_accessor :time
 
@@ -692,11 +692,11 @@ module Stripe
               end
               # The day of the week to bill the type=week billing cycle on.
               # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
-              # week day numbering. If not provided, this will default to the day the
+              # week day numbering. If not provided, this defaults to the day the
               # cadence was created.
               attr_accessor :day_of_week
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               attr_accessor :time
 
@@ -727,14 +727,14 @@ module Stripe
               end
               # The day to anchor the billing on for a type="month" billing cycle from
               # 1-31. If this number is greater than the number of days in the month being
-              # billed, this will anchor to the last day of the month. If not provided,
-              # this will default to the day the cadence was created.
+              # billed, this anchors to the last day of the month. If not provided,
+              # this defaults to the day the cadence was created.
               attr_accessor :day_of_month
-              # The month to bill on from 1-12. If not provided, this will default to the
+              # The month to bill on from 1-12. If not provided, this defaults to the
               # month the cadence was created.
               attr_accessor :month_of_year
               # The time at which the billing cycle ends.
-              # This field is optional, and if not provided, it will default to
+              # This field is optional, and if not provided, it defaults to
               # the time at which the cadence was created in UTC timezone.
               attr_accessor :time
 
@@ -748,7 +748,7 @@ module Stripe
             attr_accessor :day
             # The number of intervals (specified in the interval attribute) between
             # cadence billings. For example, type=month and interval_count=3 bills every
-            # 3 months. If this is not provided, it will default to 1.
+            # 3 months. If not provided, this defaults to 1.
             attr_accessor :interval_count
             # Specific configuration for determining billing dates when type=month.
             attr_accessor :month
@@ -782,7 +782,7 @@ module Stripe
               attr_accessor :customer
               # The default payment method to use when billing this profile.
               # If left blank, the `PaymentMethod` from the `PaymentIntent` provided
-              # on commit will be used to create the profile.
+              # on commit is used to create the profile.
               attr_accessor :default_payment_method
 
               def initialize(customer: nil, default_payment_method: nil)
@@ -790,7 +790,7 @@ module Stripe
                 @default_payment_method = default_payment_method
               end
             end
-            # The ID of the Billing Profile object which determines how a bill will be paid.
+            # The ID of the Billing Profile object which determines how a bill is paid.
             attr_accessor :billing_profile
             # Data for creating a new profile.
             attr_accessor :billing_profile_data
@@ -806,7 +806,7 @@ module Stripe
               # The ID of the referenced settings object.
               attr_accessor :id
               # An optional field to specify the version of the Settings to use.
-              # If not provided, this will always default to the live version any time the settings are used.
+              # If not provided, this defaults to the live version any time the settings are used.
               attr_accessor :version
 
               def initialize(id: nil, version: nil)
@@ -819,7 +819,7 @@ module Stripe
               # The ID of the referenced settings object.
               attr_accessor :id
               # An optional field to specify the version of the Settings to use.
-              # If not provided, this will always default to the live version any time the settings are used.
+              # If not provided, this defaults to the live version any time the settings are used.
               attr_accessor :version
 
               def initialize(id: nil, version: nil)

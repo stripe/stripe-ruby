@@ -36,7 +36,7 @@ module Stripe
           # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
           # most 12 decimal places.
           attr_reader :unit_amount
-          # Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+          # Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
           # be set.
           attr_reader :up_to_decimal
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
@@ -92,7 +92,7 @@ module Stripe
         attr_reader :rate_card
         # The ID of the Rate Card Version it was created on.
         attr_reader :rate_card_version
-        # Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum
+        # Defines whether the tiering price is graduated or volume-based. In volume-based tiering, the maximum
         # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
         # grows into new tiers. Can only be set if `tiers` is set.
         attr_reader :tiering_mode

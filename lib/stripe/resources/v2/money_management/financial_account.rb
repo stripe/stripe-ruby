@@ -56,6 +56,19 @@ module Stripe
           end
         end
 
+        class MultiprocessorSettlement < ::Stripe::StripeObject
+          # Settlement currencies enabled for this FinancialAccount.
+          attr_reader :settlement_currencies
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Other < ::Stripe::StripeObject
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           attr_reader :type
@@ -231,6 +244,8 @@ module Stripe
         attr_reader :managed_by
         # Metadata associated with the FinancialAccount.
         attr_reader :metadata
+        # If this is a `multiprocessor_settlement` FinancialAccount, this hash includes details specific to `multiprocessor_settlement` FinancialAccounts.
+        attr_reader :multiprocessor_settlement
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
@@ -252,6 +267,7 @@ module Stripe
             accrued_fees: AccruedFees,
             balance: Balance,
             managed_by: ManagedBy,
+            multiprocessor_settlement: MultiprocessorSettlement,
             other: Other,
             payments: Payments,
             status_details: StatusDetails,

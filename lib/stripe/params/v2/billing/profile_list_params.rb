@@ -18,7 +18,7 @@ module Stripe
         # You can specify up to 10 lookup_keys.
         attr_accessor :lookup_keys
         # Filter billing profiles by status. Can be combined
-        # with all other filters. If not provided, all billing profiles will be returned.
+        # with all other filters. If not provided, all billing profiles are returned.
         attr_accessor :status
 
         def initialize(

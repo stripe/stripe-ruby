@@ -7,7 +7,7 @@ module Stripe
       class PricingPlanCreateParams < ::Stripe::RequestParams
         # The currency of the PricingPlan.
         attr_accessor :currency
-        # Description of pricing plan subscription.
+        # Description of the pricing plan. Maximum length of 500 characters.
         attr_accessor :description
         # Display name of the PricingPlan. Maximum 250 characters.
         attr_accessor :display_name
@@ -15,7 +15,7 @@ module Stripe
         attr_accessor :lookup_key
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
-        # The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the pricing plan price includes or excludes tax.
         attr_accessor :tax_behavior
 
         def initialize(

@@ -6,7 +6,7 @@ module Stripe
     module Billing
       module RateCards
         class RateService < StripeService
-          # Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
+          # Set the Rate for a Metered Item on the latest version of a Rate Card object. This creates a new Rate Card version
           # if the Metered Item already has a rate on the Rate Card.
           def create(rate_card_id, params = {}, opts = {})
             unless params.is_a?(Stripe::RequestParams)
@@ -22,7 +22,7 @@ module Stripe
             )
           end
 
-          # Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
+          # Remove an existing Rate from a Rate Card. This creates a new Rate Card Version without that Rate.
           def delete(rate_card_id, id, params = {}, opts = {})
             request(
               method: :delete,

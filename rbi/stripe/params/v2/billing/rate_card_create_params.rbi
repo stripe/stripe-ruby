@@ -30,21 +30,21 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # The interval for assessing service. For example, a monthly RateCard with a rate of $1 for the first 10 "workloads"
-        # and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
+        # The interval for assessing service. For example, a monthly RateCard with a rate of 1 USD for the first 10 "workloads"
+        # and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service." This is similar to but
         # distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
         # while the billing interval in Cadence deals with the rate the customer is billed.
         sig { returns(String) }
         def service_interval; end
         sig { params(_service_interval: String).returns(String) }
         def service_interval=(_service_interval); end
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-        # order to specify quarterly service.
+        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
+        # to specify quarterly service.
         sig { returns(Integer) }
         def service_interval_count; end
         sig { params(_service_interval_count: Integer).returns(Integer) }
         def service_interval_count=(_service_interval_count); end
-        # The Stripe Tax tax behavior - whether the rates are inclusive or exclusive of tax.
+        # The tax behavior for Stripe Tax — whether the rate card price includes or excludes tax.
         sig { returns(String) }
         def tax_behavior; end
         sig { params(_tax_behavior: String).returns(String) }

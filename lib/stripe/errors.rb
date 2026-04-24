@@ -207,6 +207,9 @@ module Stripe
   class FinancialAccountNotOpenError < StripeError
   end
 
+  class FxQuoteExpiredError < StripeError
+  end
+
   class InsufficientFundsError < StripeError
   end
 

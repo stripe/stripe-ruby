@@ -12,7 +12,7 @@ module Stripe
         # Time at which the object was created.
         sig { returns(String) }
         def created; end
-        # The timestamp when this version became inactive. Null if it's the latest version.
+        # The timestamp when this version became inactive. null if it's the latest version.
         sig { returns(T.nilable(String)) }
         def end_date; end
         # Unique identifier for the object.

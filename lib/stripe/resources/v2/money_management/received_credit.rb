@@ -35,6 +35,26 @@ module Stripe
         end
 
         class BankTransfer < ::Stripe::StripeObject
+          class CaBankAccount < ::Stripe::StripeObject
+            # The account holder name of the bank account the transfer was received from.
+            attr_reader :account_holder_name
+            # The bank name the transfer was received from.
+            attr_reader :bank_name
+            # The last 4 digits of the account number that originated the transfer.
+            # Depending on the bank, this may instead be the last 4 digits of the return account number.
+            attr_reader :last4
+            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+            attr_reader :network
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class GbBankAccount < ::Stripe::StripeObject
             # The bank name the transfer was received from.
             attr_reader :account_holder_name
@@ -97,6 +117,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `ca_bank_account`.
+          attr_reader :ca_bank_account
           # Financial Address on which funds for ReceivedCredit were received.
           attr_reader :financial_address
           # Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
@@ -112,6 +134,7 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {
+              ca_bank_account: CaBankAccount,
               gb_bank_account: GbBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,

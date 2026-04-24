@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class CustomPricingUnitCreateParams < ::Stripe::RequestParams
-        # Description that customers will see in the invoice line item.
+        # Description that customers see in the invoice line item.
         # Maximum length of 10 characters.
         sig { returns(String) }
         def display_name; end

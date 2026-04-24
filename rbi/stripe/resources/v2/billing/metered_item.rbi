@@ -36,7 +36,7 @@ module Stripe
         # Timestamp of when the object was created.
         sig { returns(String) }
         def created; end
-        # Description that customers will see in the invoice line item.
+        # Description that customers see in the invoice line item.
         # Maximum length of 250 characters.
         sig { returns(String) }
         def display_name; end

@@ -7,7 +7,7 @@ module Stripe
     module Billing
       class CadenceUpdateParams < ::Stripe::RequestParams
         class Payer < ::Stripe::RequestParams
-          # The ID of the Billing Profile object which determines how a bill will be paid.
+          # The ID of the Billing Profile object which determines how a bill is paid.
           sig { returns(T.nilable(String)) }
           def billing_profile; end
           sig { params(_billing_profile: T.nilable(String)).returns(T.nilable(String)) }
@@ -23,8 +23,8 @@ module Stripe
             sig { params(_id: String).returns(String) }
             def id=(_id); end
             # An optional field to specify the version of Settings to use.
-            # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
-            # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
+            # If not provided, this defaults to the `live_version` specified on the setting, any time the settings are used.
+            # Using a specific version here prevents the settings from updating, and is discouraged for cadences.
             # To clear a pinned version, set the version to null.
             sig { returns(T.nilable(String)) }
             def version; end
@@ -40,8 +40,8 @@ module Stripe
             sig { params(_id: String).returns(String) }
             def id=(_id); end
             # An optional field to specify the version of Settings to use.
-            # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
-            # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
+            # If not provided, this defaults to the `live_version` specified on the setting, any time the settings are used.
+            # Using a specific version here prevents the settings from updating, and is discouraged for cadences.
             # To clear a pinned version, set the version to null.
             sig { returns(T.nilable(String)) }
             def version; end

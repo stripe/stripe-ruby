@@ -25,6 +25,32 @@ This release changes the pinned API version to 2026-04-22.private.
   * Add support for `admissions_tax`, `attendance_tax`, `entertainment_tax`, `gross_receipts_tax`, `hospitality_tax`, `luxury_tax`, `resort_tax`, and `tourism_tax` on `Tax::RegistrationCreateParams::CountryOption::Me`
   * Add support for `purpose` on `Treasury::OutboundPaymentCreateParams` and `Treasury::OutboundPayment`
 
+## 19.1.0 - 2026-04-23
+This release changes the pinned API version to 2026-04-22.dahlia.
+
+* [#1842](https://github.com/stripe/stripe-ruby/pull/1842) Update generated code
+  * Add support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSessionCreateParams::Component`
+  * Add support for `app_distribution` and `sunbit_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `sunbit` on `Charge::PaymentMethodDetail`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodDatum`
+  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::Klarna`, `PaymentAttemptRecord::PaymentMethodDetail::Klarna`, and `PaymentRecord::PaymentMethodDetail::Klarna`
+  * Add support for `mandate` on `Charge::PaymentMethodDetail::Pix`, `PaymentAttemptRecord::PaymentMethodDetail::Pix`, and `PaymentRecord::PaymentMethodDetail::Pix`
+  * Add support for `managed_payments` on `Checkout::SessionCreateParams`, `Checkout::Session`, `PaymentIntent`, `PaymentLinkCreateParams`, `PaymentLink`, `SetupIntent`, and `Subscription`
+  * Add support for `mandate_options` on `Checkout::Session::PaymentMethodOption::Pix`, `Checkout::SessionCreateParams::PaymentMethodOption::Pix`, `PaymentIntent::PaymentMethodOption::Pix`, `PaymentIntentConfirmParams::PaymentMethodOption::Pix`, `PaymentIntentCreateParams::PaymentMethodOption::Pix`, and `PaymentIntentUpdateParams::PaymentMethodOption::Pix`
+  * Change type of `Checkout::SessionCreateParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntentConfirmParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntentCreateParams::PaymentMethodOption::Pix.setup_future_usage`, and `PaymentIntentUpdateParams::PaymentMethodOption::Pix.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * ⚠️ Change type of `Checkout::Session::PaymentMethodOption::Pix.setup_future_usage` and `PaymentIntent::PaymentMethodOption::Pix.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * Add support for `pix` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Mandate::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * Add support for `upi` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * Add support for `card_presence` on `Issuing::Authorization`
+  * Add support for `allowed_card_presences` and `blocked_card_presences` on `Issuing::Card::SpendingControl`, `Issuing::CardCreateParams::SpendingControl`, `Issuing::CardUpdateParams::SpendingControl`, `Issuing::Cardholder::SpendingControl`, `Issuing::CardholderCreateParams::SpendingControl`, and `Issuing::CardholderUpdateParams::SpendingControl`
+  * Add support for `amount` and `currency` on `Mandate::MultiUse`
+  * Add support for `amount_to_confirm` on `PaymentIntentConfirmParams`
+  * Add support for `klarna_display_qr_code` on `PaymentIntent::NextAction`
+  * Add support for `moto` on `SetupAttempt::PaymentMethodDetail::Card`
+  * Add support for `pix_display_qr_code` on `SetupIntent::NextAction`
+* [#1846](https://github.com/stripe/stripe-ruby/pull/1846) Fix 2D array parameter encoding
+  - Fixes an issue encoding two-dimensional array request params where the SDK incorrectly flattens the array.
+* [#1841](https://github.com/stripe/stripe-ruby/pull/1841) Replace other require cgi with require cgi/escape
+
 ## 19.1.0-beta.2 - 2026-03-27
 * [#1840](https://github.com/stripe/stripe-ruby/pull/1840) Update generated code for beta
   * Fix "Unable to resolve constant" sorbet errors for Params classes

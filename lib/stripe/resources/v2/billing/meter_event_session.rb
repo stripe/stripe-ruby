@@ -11,14 +11,14 @@ module Stripe
           "v2.billing.meter_event_session"
         end
 
-        # The authentication token for this session.  Use this token when calling the
+        # The authentication token for this session. Use this token when calling the
         # high-throughput meter event API.
         attr_reader :authentication_token
         # The creation time of this session.
         attr_reader :created
-        # The time at which this session will expire.
+        # The time at which this session expires.
         attr_reader :expires_at
-        # The unique id of this auth session.
+        # The unique ID of this auth session.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode

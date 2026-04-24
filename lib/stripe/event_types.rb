@@ -8,6 +8,14 @@ module Stripe
         Events::V1BillingMeterErrorReportTriggeredEvent.lookup_type =>
         Events::V1BillingMeterErrorReportTriggeredEvent,
         Events::V1BillingMeterNoMeterFoundEvent.lookup_type => Events::V1BillingMeterNoMeterFoundEvent,
+        Events::V2CommerceProductCatalogImportsFailedEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsFailedEvent,
+        Events::V2CommerceProductCatalogImportsProcessingEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsProcessingEvent,
+        Events::V2CommerceProductCatalogImportsSucceededEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededEvent,
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEvent,
         Events::V2CoreAccountClosedEvent.lookup_type => Events::V2CoreAccountClosedEvent,
         Events::V2CoreAccountCreatedEvent.lookup_type => Events::V2CoreAccountCreatedEvent,
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
@@ -53,6 +61,17 @@ module Stripe
         Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
         Events::V2CoreHealthEventGenerationFailureResolvedEvent.lookup_type =>
         Events::V2CoreHealthEventGenerationFailureResolvedEvent,
+        Events::V2DataReportingQueryRunCreatedEvent.lookup_type =>
+        Events::V2DataReportingQueryRunCreatedEvent,
+        Events::V2DataReportingQueryRunFailedEvent.lookup_type =>
+        Events::V2DataReportingQueryRunFailedEvent,
+        Events::V2DataReportingQueryRunSucceededEvent.lookup_type =>
+        Events::V2DataReportingQueryRunSucceededEvent,
+        Events::V2DataReportingQueryRunUpdatedEvent.lookup_type =>
+        Events::V2DataReportingQueryRunUpdatedEvent,
+        Events::V2ExtendWorkflowRunFailedEvent.lookup_type => Events::V2ExtendWorkflowRunFailedEvent,
+        Events::V2ExtendWorkflowRunStartedEvent.lookup_type => Events::V2ExtendWorkflowRunStartedEvent,
+        Events::V2ExtendWorkflowRunSucceededEvent.lookup_type => Events::V2ExtendWorkflowRunSucceededEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
@@ -125,6 +144,14 @@ module Stripe
         Events::V2MoneyManagementTransactionCreatedEvent,
         Events::V2MoneyManagementTransactionUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementTransactionUpdatedEvent,
+        Events::V2OrchestratedCommerceAgreementConfirmedEvent.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementConfirmedEvent,
+        Events::V2OrchestratedCommerceAgreementCreatedEvent.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementCreatedEvent,
+        Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEvent.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEvent,
+        Events::V2OrchestratedCommerceAgreementTerminatedEvent.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementTerminatedEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -136,6 +163,14 @@ module Stripe
         Events::V1BillingMeterErrorReportTriggeredEventNotification,
         Events::V1BillingMeterNoMeterFoundEventNotification.lookup_type =>
         Events::V1BillingMeterNoMeterFoundEventNotification,
+        Events::V2CommerceProductCatalogImportsFailedEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsFailedEventNotification,
+        Events::V2CommerceProductCatalogImportsProcessingEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsProcessingEventNotification,
+        Events::V2CommerceProductCatalogImportsSucceededEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededEventNotification,
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
         Events::V2CoreAccountClosedEventNotification.lookup_type =>
         Events::V2CoreAccountClosedEventNotification,
         Events::V2CoreAccountCreatedEventNotification.lookup_type =>
@@ -198,6 +233,20 @@ module Stripe
         Events::V2CoreEventDestinationPingEventNotification,
         Events::V2CoreHealthEventGenerationFailureResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthEventGenerationFailureResolvedEventNotification,
+        Events::V2DataReportingQueryRunCreatedEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunCreatedEventNotification,
+        Events::V2DataReportingQueryRunFailedEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunFailedEventNotification,
+        Events::V2DataReportingQueryRunSucceededEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunSucceededEventNotification,
+        Events::V2DataReportingQueryRunUpdatedEventNotification.lookup_type =>
+        Events::V2DataReportingQueryRunUpdatedEventNotification,
+        Events::V2ExtendWorkflowRunFailedEventNotification.lookup_type =>
+        Events::V2ExtendWorkflowRunFailedEventNotification,
+        Events::V2ExtendWorkflowRunStartedEventNotification.lookup_type =>
+        Events::V2ExtendWorkflowRunStartedEventNotification,
+        Events::V2ExtendWorkflowRunSucceededEventNotification.lookup_type =>
+        Events::V2ExtendWorkflowRunSucceededEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>
@@ -270,6 +319,14 @@ module Stripe
         Events::V2MoneyManagementTransactionCreatedEventNotification,
         Events::V2MoneyManagementTransactionUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementTransactionUpdatedEventNotification,
+        Events::V2OrchestratedCommerceAgreementConfirmedEventNotification.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementConfirmedEventNotification,
+        Events::V2OrchestratedCommerceAgreementCreatedEventNotification.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementCreatedEventNotification,
+        Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification,
+        Events::V2OrchestratedCommerceAgreementTerminatedEventNotification.lookup_type =>
+        Events::V2OrchestratedCommerceAgreementTerminatedEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

@@ -8,7 +8,7 @@ module Stripe
       class BillSettingUpdateParams < ::Stripe::RequestParams
         class Calculation < ::Stripe::RequestParams
           class Tax < ::Stripe::RequestParams
-            # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
+            # Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
             sig { returns(String) }
             def type; end
             sig { params(_type: String).returns(String) }
@@ -38,7 +38,7 @@ module Stripe
             sig { params(_interval: String).returns(String) }
             def interval=(_interval); end
             # The number of interval units. For example, if interval=day and interval_count=30,
-            # the invoice will be due in 30 days.
+            # the invoice is due in 30 days.
             sig { returns(Integer) }
             def interval_count; end
             sig { params(_interval_count: Integer).returns(Integer) }
@@ -46,7 +46,7 @@ module Stripe
             sig { params(interval: String, interval_count: Integer).void }
             def initialize(interval: nil, interval_count: nil); end
           end
-          # The amount of time until the invoice will be overdue for payment.
+          # The amount of time until the invoice is overdue for payment.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::BillSettingUpdateParams::Invoice::TimeUntilDue))
            }
@@ -86,7 +86,7 @@ module Stripe
         def invoice_rendering_template; end
         sig { params(_invoice_rendering_template: T.nilable(String)).returns(T.nilable(String)) }
         def invoice_rendering_template=(_invoice_rendering_template); end
-        # Optionally change the live version of the BillSetting. Providing `live_version = "latest"` will set the
+        # Optionally change the live version of the BillSetting. Providing `live_version = "latest"` sets the
         # BillSetting' `live_version` to its latest version.
         sig { returns(T.nilable(String)) }
         def live_version; end

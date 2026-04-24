@@ -85,6 +85,30 @@ module Stripe
       register("v1.billing.meter.no_meter_found", &handler)
     end
 
+    def on_v2_commerce_product_catalog_imports_failed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.commerce.product_catalog.imports.failed", &handler)
+    end
+
+    def on_v2_commerce_product_catalog_imports_processing(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.commerce.product_catalog.imports.processing", &handler)
+    end
+
+    def on_v2_commerce_product_catalog_imports_succeeded(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.commerce.product_catalog.imports.succeeded", &handler)
+    end
+
+    def on_v2_commerce_product_catalog_imports_succeeded_with_errors(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.commerce.product_catalog.imports.succeeded_with_errors", &handler)
+    end
+
     def on_v2_core_account_closed(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -269,6 +293,48 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.core.health.event_generation_failure.resolved", &handler)
+    end
+
+    def on_v2_data_reporting_query_run_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.data.reporting.query_run.created", &handler)
+    end
+
+    def on_v2_data_reporting_query_run_failed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.data.reporting.query_run.failed", &handler)
+    end
+
+    def on_v2_data_reporting_query_run_succeeded(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.data.reporting.query_run.succeeded", &handler)
+    end
+
+    def on_v2_data_reporting_query_run_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.data.reporting.query_run.updated", &handler)
+    end
+
+    def on_v2_extend_workflow_run_failed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.extend.workflow_run.failed", &handler)
+    end
+
+    def on_v2_extend_workflow_run_started(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.extend.workflow_run.started", &handler)
+    end
+
+    def on_v2_extend_workflow_run_succeeded(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.extend.workflow_run.succeeded", &handler)
     end
 
     def on_v2_money_management_adjustment_created(&handler)
@@ -485,6 +551,30 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.money_management.transaction.updated", &handler)
+    end
+
+    def on_v2_orchestrated_commerce_agreement_confirmed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.orchestrated_commerce.agreement.confirmed", &handler)
+    end
+
+    def on_v2_orchestrated_commerce_agreement_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.orchestrated_commerce.agreement.created", &handler)
+    end
+
+    def on_v2_orchestrated_commerce_agreement_partially_confirmed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.orchestrated_commerce.agreement.partially_confirmed", &handler)
+    end
+
+    def on_v2_orchestrated_commerce_agreement_terminated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.orchestrated_commerce.agreement.terminated", &handler)
     end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end

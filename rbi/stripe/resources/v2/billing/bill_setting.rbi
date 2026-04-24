@@ -9,7 +9,7 @@ module Stripe
       class BillSetting < APIResource
         class Calculation < ::Stripe::StripeObject
           class Tax < ::Stripe::StripeObject
-            # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
+            # Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -35,7 +35,7 @@ module Stripe
             sig { returns(String) }
             def interval; end
             # The number of interval units. For example, if interval=day and interval_count=30,
-            # the invoice will be due in 30 days.
+            # the invoice is due in 30 days.
             sig { returns(Integer) }
             def interval_count; end
             def self.inner_class_types
@@ -45,7 +45,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The amount of time until the invoice will be overdue for payment.
+          # The amount of time until the invoice is overdue for payment.
           sig { returns(T.nilable(TimeUntilDue)) }
           def time_until_due; end
           def self.inner_class_types
@@ -73,8 +73,8 @@ module Stripe
         # The ID of the invoice rendering template to be used when generating invoices.
         sig { returns(T.nilable(String)) }
         def invoice_rendering_template; end
-        # The latest version of the current settings object. This will be
-        # Updated every time an attribute of the settings is updated.
+        # The latest version of the current settings object. This is
+        # updated every time an attribute of the settings is updated.
         sig { returns(String) }
         def latest_version; end
         # The current live version of the settings object. This can be different from

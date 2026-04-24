@@ -205,6 +205,7 @@ module Stripe
         V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
         V2::Billing::Profile.object_name => V2::Billing::Profile,
+        V2::Commerce::ProductCatalogImport.object_name => V2::Commerce::ProductCatalogImport,
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
@@ -215,9 +216,13 @@ module Stripe
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
+        V2::Data::Reporting::QueryRun.object_name => V2::Data::Reporting::QueryRun,
+        V2::Extend::Workflow.object_name => V2::Extend::Workflow,
+        V2::Extend::WorkflowRun.object_name => V2::Extend::WorkflowRun,
         V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
         V2::FinancialAddressGeneratedMicrodeposits.object_name =>
         V2::FinancialAddressGeneratedMicrodeposits,
+        V2::Iam::ActivityLog.object_name => V2::Iam::ActivityLog,
         V2::MoneyManagement::Adjustment.object_name => V2::MoneyManagement::Adjustment,
         V2::MoneyManagement::FinancialAccount.object_name => V2::MoneyManagement::FinancialAccount,
         V2::MoneyManagement::FinancialAddress.object_name => V2::MoneyManagement::FinancialAddress,
@@ -233,6 +238,8 @@ module Stripe
         V2::MoneyManagement::ReceivedDebit.object_name => V2::MoneyManagement::ReceivedDebit,
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
+        V2::Network::BusinessProfile.object_name => V2::Network::BusinessProfile,
+        V2::OrchestratedCommerce::Agreement.object_name => V2::OrchestratedCommerce::Agreement,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

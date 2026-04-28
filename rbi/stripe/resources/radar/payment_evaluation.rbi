@@ -34,7 +34,7 @@ module Stripe
         sig { returns(T.nilable(Data)) }
         def data; end
         # ID for the Radar Session associated with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def radar_session; end
         def self.inner_class_types
           @inner_class_types = {data: Data}
@@ -457,7 +457,7 @@ module Stripe
           # Risk level of this signal, based on the score.
           sig { returns(String) }
           def risk_level; end
-          # Score for this insight. Possible values for evaluated payments are -1 and any value between 0 and 100. The value is returned with two decimal places. A score of -1 indicates a test integration and higher scores indicate a higher likelihood of the signal being true.
+          # Score for this signal. Possible values for evaluated payments are between 0 and 100. The value is returned with two decimal places and higher scores indicate a higher likelihood of the signal being true. A score of -1 is returned when a model evaluation was not performed, such as requests from incomplete integrations.
           sig { returns(Float) }
           def score; end
           def self.inner_class_types
@@ -507,7 +507,7 @@ module Stripe
       # Payment details attached to this payment evaluation.
       sig { returns(T.nilable(PaymentDetails)) }
       def payment_details; end
-      # Recommended action based on the score of the fraudulent_payment signal. Possible values are `block` and `continue`.
+      # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block` and `continue`.
       sig { returns(String) }
       def recommended_action; end
       # Collection of signals for this payment evaluation.

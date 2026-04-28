@@ -103,6 +103,50 @@ module Stripe
           touchpoint: nil
         ); end
       end
+      class BuyerConsents < ::Stripe::RequestParams
+        class Marketing < ::Stripe::RequestParams
+          class Consent < ::Stripe::RequestParams
+            # The marketing consent channel.
+            sig { returns(String) }
+            def channel; end
+            sig { params(_channel: String).returns(String) }
+            def channel=(_channel); end
+            # The consent status. Use 'granted' to indicate the buyer has opted in.
+            sig { returns(String) }
+            def status; end
+            sig { params(_status: String).returns(String) }
+            def status=(_status); end
+            sig { params(channel: String, status: String).void }
+            def initialize(channel: nil, status: nil); end
+          end
+          # The list of marketing consent entries.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing::Consent]))
+           }
+          def consents; end
+          sig {
+            params(_consents: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing::Consent])).returns(T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing::Consent]))
+           }
+          def consents=(_consents); end
+          sig {
+            params(consents: T.nilable(T::Array[::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing::Consent])).void
+           }
+          def initialize(consents: nil); end
+        end
+        # The marketing consent data for the buyer.
+        sig {
+          returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing))
+         }
+        def marketing; end
+        sig {
+          params(_marketing: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing))
+         }
+        def marketing=(_marketing); end
+        sig {
+          params(marketing: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents::Marketing)).void
+         }
+        def initialize(marketing: nil); end
+      end
       class RiskDetails < ::Stripe::RequestParams
         class ClientDeviceMetadataDetails < ::Stripe::RequestParams
           # The radar session.
@@ -164,6 +208,15 @@ module Stripe
         params(_affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution))
        }
       def affiliate_attribution=(_affiliate_attribution); end
+      # The buyer's consent choices for marketing communications.
+      sig {
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents))
+       }
+      def buyer_consents; end
+      sig {
+        params(_buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents))
+       }
+      def buyer_consents=(_buyer_consents); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -189,10 +242,11 @@ module Stripe
        }
       def risk_details=(_risk_details); end
       sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents), expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
        }
       def initialize(
         affiliate_attribution: nil,
+        buyer_consents: nil,
         expand: nil,
         payment_method: nil,
         return_url: nil,

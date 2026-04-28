@@ -223,6 +223,13 @@ module Stripe
            }
           def initialize(amount: nil, categories: nil, interval: nil); end
         end
+        # Array of card presence statuses from which authorizations will be allowed. Possible options are `present`, `not_present`. All other statuses will be blocked. Cannot be set with `blocked_card_presences`. Provide an empty value to unset this control.
+        sig { returns(T.nilable(T::Array[String])) }
+        def allowed_card_presences; end
+        sig {
+          params(_allowed_card_presences: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def allowed_card_presences=(_allowed_card_presences); end
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def allowed_categories; end
@@ -237,6 +244,13 @@ module Stripe
           params(_allowed_merchant_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def allowed_merchant_countries=(_allowed_merchant_countries); end
+        # Array of card presence statuses from which authorizations will be declined. Possible options are `present`, `not_present`. Cannot be set with `allowed_card_presences`. Provide an empty value to unset this control.
+        sig { returns(T.nilable(T::Array[String])) }
+        def blocked_card_presences; end
+        sig {
+          params(_blocked_card_presences: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def blocked_card_presences=(_blocked_card_presences); end
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def blocked_categories; end
@@ -266,11 +280,13 @@ module Stripe
         sig { params(_spending_limits_currency: T.nilable(String)).returns(T.nilable(String)) }
         def spending_limits_currency=(_spending_limits_currency); end
         sig {
-          params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]), spending_limits_currency: T.nilable(String)).void
+          params(allowed_card_presences: T.nilable(T::Array[String]), allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_card_presences: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderUpdateParams::SpendingControls::SpendingLimit]), spending_limits_currency: T.nilable(String)).void
          }
         def initialize(
+          allowed_card_presences: nil,
           allowed_categories: nil,
           allowed_merchant_countries: nil,
+          blocked_card_presences: nil,
           blocked_categories: nil,
           blocked_merchant_countries: nil,
           spending_limits: nil,

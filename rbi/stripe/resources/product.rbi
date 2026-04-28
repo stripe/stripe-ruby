@@ -72,6 +72,20 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class TaxDetails < ::Stripe::StripeObject
+      # The performance location.
+      sig { returns(T.nilable(String)) }
+      def performance_location; end
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      sig { returns(T.nilable(String)) }
+      def tax_code; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Whether the product is currently available for purchase.
     sig { returns(T::Boolean) }
     def active; end
@@ -123,6 +137,9 @@ module Stripe
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     sig { returns(T.nilable(T.any(String, ::Stripe::TaxCode))) }
     def tax_code; end
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    sig { returns(T.nilable(TaxDetails)) }
+    def tax_details; end
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     sig { returns(String) }
     def type; end

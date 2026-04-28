@@ -1139,6 +1139,26 @@ module Stripe
           end
         end
 
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_accessor :expires_after
+
+            def initialize(expires_after: nil)
+              @expires_after = expires_after
+            end
+          end
+          # Additional fields for Mandate creation
+          attr_accessor :mandate_options
+          # Attribute for param field setup_future_usage
+          attr_accessor :setup_future_usage
+
+          def initialize(mandate_options: nil, setup_future_usage: nil)
+            @mandate_options = mandate_options
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Boleto < ::Stripe::RequestParams
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
           attr_accessor :expires_after_days
@@ -2024,6 +2044,8 @@ module Stripe
         attr_accessor :billie
         # contains details about the Bizum payment method options.
         attr_accessor :bizum
+        # contains details about the BLIK payment method options.
+        attr_accessor :blik
         # contains details about the Boleto payment method options.
         attr_accessor :boleto
         # contains details about the Card payment method options.
@@ -2111,6 +2133,7 @@ module Stripe
           bancontact: nil,
           billie: nil,
           bizum: nil,
+          blik: nil,
           boleto: nil,
           card: nil,
           cashapp: nil,
@@ -2160,6 +2183,7 @@ module Stripe
           @bancontact = bancontact
           @billie = billie
           @bizum = bizum
+          @blik = blik
           @boleto = boleto
           @card = card
           @cashapp = cashapp

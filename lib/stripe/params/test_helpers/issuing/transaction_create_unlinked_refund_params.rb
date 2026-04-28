@@ -16,10 +16,14 @@ module Stripe
           attr_accessor :name
           # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
           attr_accessor :network_id
+          # The identifier of the payment facilitator (PayFac) that processed this authorization, as assigned by the card network.
+          attr_accessor :payment_facilitator_id
           # Postal code where the seller is located
           attr_accessor :postal_code
           # State where the seller is located
           attr_accessor :state
+          # The identifier of the sub-merchant involved in this authorization, as assigned by the payment facilitator.
+          attr_accessor :sub_merchant_id
           # An ID assigned by the seller to the location of the sale.
           attr_accessor :terminal_id
           # URL provided by the merchant on a 3DS request
@@ -31,8 +35,10 @@ module Stripe
             country: nil,
             name: nil,
             network_id: nil,
+            payment_facilitator_id: nil,
             postal_code: nil,
             state: nil,
+            sub_merchant_id: nil,
             terminal_id: nil,
             url: nil
           )
@@ -41,8 +47,10 @@ module Stripe
             @country = country
             @name = name
             @network_id = network_id
+            @payment_facilitator_id = payment_facilitator_id
             @postal_code = postal_code
             @state = state
+            @sub_merchant_id = sub_merchant_id
             @terminal_id = terminal_id
             @url = url
           end

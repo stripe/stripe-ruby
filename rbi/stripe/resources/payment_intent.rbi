@@ -59,10 +59,10 @@ module Stripe
         # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         sig { returns(T.nilable(Integer)) }
         def amount; end
-        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         sig { returns(T.nilable(String)) }
         def from_postal_code; end
-        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         sig { returns(T.nilable(String)) }
         def to_postal_code; end
         def self.inner_class_types
@@ -1101,6 +1101,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class KlarnaDisplayQrCode < ::Stripe::StripeObject
+        # The data being used to generate QR code
+        sig { returns(String) }
+        def data; end
+        # The timestamp at which the QR code expires.
+        sig { returns(T.nilable(Integer)) }
+        def expires_at; end
+        # The image_url_png string used to render QR code
+        sig { returns(String) }
+        def image_url_png; end
+        # The image_url_svg string used to render QR code
+        sig { returns(String) }
+        def image_url_svg; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class KonbiniDisplayDetails < ::Stripe::StripeObject
         class Stores < ::Stripe::StripeObject
           class Familymart < ::Stripe::StripeObject
@@ -1476,6 +1496,9 @@ module Stripe
       # Attribute for field display_bank_transfer_instructions
       sig { returns(T.nilable(DisplayBankTransferInstructions)) }
       def display_bank_transfer_instructions; end
+      # Attribute for field klarna_display_qr_code
+      sig { returns(T.nilable(KlarnaDisplayQrCode)) }
+      def klarna_display_qr_code; end
       # Attribute for field konbini_display_details
       sig { returns(T.nilable(KonbiniDisplayDetails)) }
       def konbini_display_details; end
@@ -1529,6 +1552,7 @@ module Stripe
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           crypto_display_details: CryptoDisplayDetails,
           display_bank_transfer_instructions: DisplayBankTransferInstructions,
+          klarna_display_qr_code: KlarnaDisplayQrCode,
           konbini_display_details: KonbiniDisplayDetails,
           multibanco_display_details: MultibancoDisplayDetails,
           oxxo_display_details: OxxoDisplayDetails,

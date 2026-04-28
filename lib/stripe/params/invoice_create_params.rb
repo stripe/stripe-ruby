@@ -155,6 +155,7 @@ module Stripe
         end
 
         class Bizum < ::Stripe::RequestParams; end
+        class Blik < ::Stripe::RequestParams; end
 
         class Card < ::Stripe::RequestParams
           class Installments < ::Stripe::RequestParams
@@ -372,6 +373,8 @@ module Stripe
         attr_accessor :bancontact
         # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bizum
+        # If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :blik
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
         # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
@@ -397,6 +400,7 @@ module Stripe
           acss_debit: nil,
           bancontact: nil,
           bizum: nil,
+          blik: nil,
           card: nil,
           check_scan: nil,
           customer_balance: nil,
@@ -411,6 +415,7 @@ module Stripe
           @acss_debit = acss_debit
           @bancontact = bancontact
           @bizum = bizum
+          @blik = blik
           @card = card
           @check_scan = check_scan
           @customer_balance = customer_balance

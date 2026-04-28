@@ -5,5 +5,6 @@
 module Stripe
   class SharedPaymentService < StripeService
     attr_reader :granted_tokens
+    attr_reader :issued_tokens
   end
 end

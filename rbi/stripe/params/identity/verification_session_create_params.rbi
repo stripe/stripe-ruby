@@ -114,7 +114,7 @@ module Stripe
         params(_options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options)).returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options))
        }
       def options=(_options); end
-      # Details provided about the user being verified. These details may be shown to the user.
+      # Details provided about the user being verified. These details might be shown to the user.
       sig {
         returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails))
        }
@@ -133,7 +133,7 @@ module Stripe
       def related_customer_account; end
       sig { params(_related_customer_account: T.nilable(String)).returns(T.nilable(String)) }
       def related_customer_account=(_related_customer_account); end
-      # Tokens referencing a Person resource and it's associated account.
+      # Tokens referencing a Person resource and its associated account.
       sig { returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson)) }
       def related_person; end
       sig {

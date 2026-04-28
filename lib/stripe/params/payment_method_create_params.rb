@@ -383,6 +383,7 @@ module Stripe
       end
     end
 
+    class Sunbit < ::Stripe::RequestParams; end
     class Swish < ::Stripe::RequestParams; end
     class Twint < ::Stripe::RequestParams; end
 
@@ -563,6 +564,8 @@ module Stripe
     attr_accessor :sofort
     # This hash contains details about the Stripe balance payment method.
     attr_accessor :stripe_balance
+    # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    attr_accessor :sunbit
     # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
     attr_accessor :swish
     # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -640,6 +643,7 @@ module Stripe
       shopeepay: nil,
       sofort: nil,
       stripe_balance: nil,
+      sunbit: nil,
       swish: nil,
       twint: nil,
       type: nil,
@@ -709,6 +713,7 @@ module Stripe
       @shopeepay = shopeepay
       @sofort = sofort
       @stripe_balance = stripe_balance
+      @sunbit = sunbit
       @swish = swish
       @twint = twint
       @type = type

@@ -5,6 +5,8 @@ module Stripe
   module SharedPayment
     # A SharedPaymentIssuedToken is a limited-use reference to a PaymentMethod that can be created with a secret key. When shared with another Stripe account (Seller), it enables that account to either process a payment on Stripe against a PaymentMethod that your Stripe account owns, or to forward a usable credential created against the originalPaymentMethod to then process the payment off-Stripe.
     class IssuedToken < APIResource
+      extend Stripe::APIOperations::Create
+
       OBJECT_NAME = "shared_payment.issued_token"
       def self.object_name
         "shared_payment.issued_token"
@@ -242,6 +244,36 @@ module Stripe
       attr_reader :usage_details
       # Usage limits of the SharedPaymentIssuedToken.
       attr_reader :usage_limits
+
+      # Creates a new SharedPaymentIssuedToken object
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/shared_payment/issued_tokens",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Revokes a SharedPaymentIssuedToken
+      def revoke(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/shared_payment/issued_tokens/%<shared_payment_issued_token>s/revoke", { shared_payment_issued_token: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Revokes a SharedPaymentIssuedToken
+      def self.revoke(shared_payment_issued_token, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/shared_payment/issued_tokens/%<shared_payment_issued_token>s/revoke", { shared_payment_issued_token: CGI.escape(shared_payment_issued_token) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       def self.inner_class_types
         @inner_class_types = {

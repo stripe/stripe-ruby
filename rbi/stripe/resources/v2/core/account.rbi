@@ -5,9 +5,8 @@
 module Stripe
   module V2
     module Core
-      # An Account v2 object represents a company, individual, or other entity that interacts with a platform on Stripe. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
-      # The Accounts v2 API supports both the Global Payouts preview feature and the Connect-Billing integration preview feature. However, a particular Account can only access one of them.
-      # The Connect-Billing integration preview feature allows an Account v2 to pay subscription fees to a platform. An Account v1 required a separate Customer object to pay subscription fees.
+      # An Account v2 object represents a company, individual, or other entity that your Stripe integration interacts with. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
+      # The Accounts v2 API is broadly available to Connect platforms, and to other users in preview. The Accounts v2 API also supports the Global Payouts preview feature.
       class Account < APIResource
         class Configuration < ::Stripe::StripeObject
           class CardCreator < ::Stripe::StripeObject
@@ -615,7 +614,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
+              # The ID of a `PaymentMethod` attached to this Account's `customer` configuration, used as the default payment method for invoices and subscriptions.
               sig { returns(T.nilable(String)) }
               def default_payment_method; end
               # Default invoice settings for the customer account.
@@ -3483,7 +3482,7 @@ module Stripe
           # The CardCreator Configuration allows the Account to create and issue cards to users.
           sig { returns(T.nilable(CardCreator)) }
           def card_creator; end
-          # The Customer Configuration allows the Account to be used in inbound payment flows.
+          # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
           sig { returns(T.nilable(Customer)) }
           def customer; end
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
@@ -5880,7 +5879,7 @@ module Stripe
             # Documents that may be submitted to satisfy various informational requests.
             sig { returns(T.nilable(Documents)) }
             def documents; end
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             sig { returns(T.nilable(String)) }
             def email; end
             # The individual's first name.
@@ -5957,7 +5956,7 @@ module Stripe
           # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
           sig { returns(T.nilable(String)) }
           def country; end
-          # The entity type.
+          # The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
           sig { returns(T.nilable(String)) }
           def entity_type; end
           # Information about the individual represented by the Account. This property is `null` unless `entity_type` is set to `individual`.
@@ -6160,7 +6159,7 @@ module Stripe
         # An Account represents a company, individual, or other entity that a user interacts with. Accounts store identity information and one or more configurations that enable product-specific capabilities. You can assign configurations at creation or add them later.
         sig { returns(T.nilable(Configuration)) }
         def configuration; end
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         sig { returns(T.nilable(String)) }
         def contact_email; end
         # The default contact phone for the Account.

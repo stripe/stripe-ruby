@@ -35,6 +35,23 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class CryptoWallet < ::Stripe::StripeObject
+            # The blockchain address of the crypto wallet.
+            sig { returns(String) }
+            def address; end
+            # Required if the network supports memos (e.g. Stellar).
+            sig { returns(T.nilable(String)) }
+            def memo; end
+            # The blockchain network of the crypto wallet.
+            sig { returns(String) }
+            def network; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class GbBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transference.
             sig { returns(String) }
@@ -49,6 +66,20 @@ module Stripe
             # The sort code of the UK Bank Account.
             sig { returns(String) }
             def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class MxBankAccount < ::Stripe::StripeObject
+            # The account holder name to be used during bank transfers.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The CLABE (Clave Bancaria Estandarizada) of the Mexican Bank Account.
+            sig { returns(String) }
+            def clabe; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -145,9 +176,15 @@ module Stripe
           # The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
           sig { returns(T.nilable(CaBankAccount)) }
           def ca_bank_account; end
+          # The credentials of the crypto wallet for the Financial Address. This contains unique details such as the blockchain network, wallet address, and memo of a crypto wallet.
+          sig { returns(T.nilable(CryptoWallet)) }
+          def crypto_wallet; end
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
+          # The credentials of the Mexican Bank Account for the FinancialAddress. This contains unique banking details such as the CLABE and account holder name of a Mexican bank account.
+          sig { returns(T.nilable(MxBankAccount)) }
+          def mx_bank_account; end
           # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
           sig { returns(T.nilable(SepaBankAccount)) }
           def sepa_bank_account; end
@@ -160,7 +197,9 @@ module Stripe
           def self.inner_class_types
             @inner_class_types = {
               ca_bank_account: CaBankAccount,
+              crypto_wallet: CryptoWallet,
               gb_bank_account: GbBankAccount,
+              mx_bank_account: MxBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,
             }

@@ -390,6 +390,8 @@ module Stripe
         Events::V2CoreApprovalRequestApprovedEvent,
         Events::V2CoreApprovalRequestCanceledEvent.lookup_type =>
         Events::V2CoreApprovalRequestCanceledEvent,
+        Events::V2CoreApprovalRequestCreatedEvent.lookup_type => Events::V2CoreApprovalRequestCreatedEvent,
+        Events::V2CoreApprovalRequestExpiredEvent.lookup_type => Events::V2CoreApprovalRequestExpiredEvent,
         Events::V2CoreApprovalRequestFailedEvent.lookup_type => Events::V2CoreApprovalRequestFailedEvent,
         Events::V2CoreApprovalRequestRejectedEvent.lookup_type =>
         Events::V2CoreApprovalRequestRejectedEvent,
@@ -466,6 +468,7 @@ module Stripe
         Events::V2DataReportingQueryRunSucceededEvent,
         Events::V2DataReportingQueryRunUpdatedEvent.lookup_type =>
         Events::V2DataReportingQueryRunUpdatedEvent,
+        Events::V2ExtendExtensionRunFailedEvent.lookup_type => Events::V2ExtendExtensionRunFailedEvent,
         Events::V2ExtendWorkflowRunFailedEvent.lookup_type => Events::V2ExtendWorkflowRunFailedEvent,
         Events::V2ExtendWorkflowRunStartedEvent.lookup_type => Events::V2ExtendWorkflowRunStartedEvent,
         Events::V2ExtendWorkflowRunSucceededEvent.lookup_type => Events::V2ExtendWorkflowRunSucceededEvent,
@@ -1112,6 +1115,10 @@ module Stripe
         Events::V2CoreApprovalRequestApprovedEventNotification,
         Events::V2CoreApprovalRequestCanceledEventNotification.lookup_type =>
         Events::V2CoreApprovalRequestCanceledEventNotification,
+        Events::V2CoreApprovalRequestCreatedEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestCreatedEventNotification,
+        Events::V2CoreApprovalRequestExpiredEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestExpiredEventNotification,
         Events::V2CoreApprovalRequestFailedEventNotification.lookup_type =>
         Events::V2CoreApprovalRequestFailedEventNotification,
         Events::V2CoreApprovalRequestRejectedEventNotification.lookup_type =>
@@ -1202,6 +1209,8 @@ module Stripe
         Events::V2DataReportingQueryRunSucceededEventNotification,
         Events::V2DataReportingQueryRunUpdatedEventNotification.lookup_type =>
         Events::V2DataReportingQueryRunUpdatedEventNotification,
+        Events::V2ExtendExtensionRunFailedEventNotification.lookup_type =>
+        Events::V2ExtendExtensionRunFailedEventNotification,
         Events::V2ExtendWorkflowRunFailedEventNotification.lookup_type =>
         Events::V2ExtendWorkflowRunFailedEventNotification,
         Events::V2ExtendWorkflowRunStartedEventNotification.lookup_type =>

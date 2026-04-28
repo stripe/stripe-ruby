@@ -1690,7 +1690,7 @@ module Stripe
           end
           # The CardCreator Configuration allows the Account to create and issue cards to users.
           attr_accessor :card_creator
-          # The Customer Configuration allows the Account to be used in inbound payment flows.
+          # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
           attr_accessor :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_accessor :merchant
@@ -3587,7 +3587,7 @@ module Stripe
             attr_accessor :date_of_birth
             # Documents that may be submitted to satisfy various informational requests.
             attr_accessor :documents
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             attr_accessor :email
             # The individual's first name.
             attr_accessor :given_name
@@ -3662,7 +3662,7 @@ module Stripe
           attr_accessor :business_details
           # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
           attr_accessor :country
-          # The entity type.
+          # The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
           attr_accessor :entity_type
           # Information about the person represented by the account.
           attr_accessor :individual
@@ -3696,7 +3696,7 @@ module Stripe
         attr_accessor :account_token
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         attr_accessor :configuration
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         attr_accessor :contact_email
         # The default contact phone for the Account.
         attr_accessor :contact_phone

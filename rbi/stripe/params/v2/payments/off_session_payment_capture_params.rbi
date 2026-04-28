@@ -209,9 +209,11 @@ module Stripe
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
         # [storing information in metadata](https://docs.stripe.com/payments/payment-intents#storing-information-in-metadata).
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
-        sig { params(_metadata: T::Hash[String, String]).returns(T::Hash[String, String]) }
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
         def metadata=(_metadata); end
         # Provides industry-specific information about the payment.
         sig {
@@ -247,7 +249,7 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::AmountDetails), amount_to_capture: T.nilable(Integer), application_fee_amount: T.nilable(::Stripe::V2::Amount), metadata: T::Hash[String, String], payment_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::PaymentDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
+          params(amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::AmountDetails), amount_to_capture: T.nilable(Integer), application_fee_amount: T.nilable(::Stripe::V2::Amount), metadata: T.nilable(T::Hash[String, String]), payment_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::PaymentDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::TransferData)).void
          }
         def initialize(
           amount_details: nil,

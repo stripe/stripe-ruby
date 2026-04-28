@@ -36,6 +36,23 @@ module Stripe
             end
           end
 
+          class CryptoWallet < ::Stripe::StripeObject
+            # The blockchain address of the crypto wallet.
+            attr_reader :address
+            # Required if the network supports memos (e.g. Stellar).
+            attr_reader :memo
+            # The blockchain network of the crypto wallet.
+            attr_reader :network
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class GbBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transference.
             attr_reader :account_holder_name
@@ -46,6 +63,21 @@ module Stripe
             attr_reader :last4
             # The sort code of the UK Bank Account.
             attr_reader :sort_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class MxBankAccount < ::Stripe::StripeObject
+            # The account holder name to be used during bank transfers.
+            attr_reader :account_holder_name
+            # The CLABE (Clave Bancaria Estandarizada) of the Mexican Bank Account.
+            attr_reader :clabe
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -131,8 +163,12 @@ module Stripe
           end
           # The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
           attr_reader :ca_bank_account
+          # The credentials of the crypto wallet for the Financial Address. This contains unique details such as the blockchain network, wallet address, and memo of a crypto wallet.
+          attr_reader :crypto_wallet
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           attr_reader :gb_bank_account
+          # The credentials of the Mexican Bank Account for the FinancialAddress. This contains unique banking details such as the CLABE and account holder name of a Mexican bank account.
+          attr_reader :mx_bank_account
           # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
           attr_reader :sepa_bank_account
           # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
@@ -143,7 +179,9 @@ module Stripe
           def self.inner_class_types
             @inner_class_types = {
               ca_bank_account: CaBankAccount,
+              crypto_wallet: CryptoWallet,
               gb_bank_account: GbBankAccount,
+              mx_bank_account: MxBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,
             }

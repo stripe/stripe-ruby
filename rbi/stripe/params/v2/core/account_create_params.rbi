@@ -2629,7 +2629,7 @@ module Stripe
             params(_card_creator: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator))
            }
           def card_creator=(_card_creator); end
-          # The Customer Configuration allows the Account to be used in inbound payment flows.
+          # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer))
            }
@@ -5641,7 +5641,7 @@ module Stripe
               params(_documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents))
              }
             def documents=(_documents); end
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             sig { returns(T.nilable(String)) }
             def email; end
             sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
@@ -5772,7 +5772,7 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # The entity type.
+          # The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
           sig { returns(T.nilable(String)) }
           def entity_type; end
           sig { params(_entity_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -5817,7 +5817,7 @@ module Stripe
           params(_configuration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration))
          }
         def configuration=(_configuration); end
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         sig { returns(T.nilable(String)) }
         def contact_email; end
         sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }

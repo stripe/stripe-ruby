@@ -727,6 +727,9 @@ module Stripe
       # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
       sig { returns(::Stripe::Issuing::Card) }
       def card; end
+      # Whether the card was present at the point of sale for the authorization.
+      sig { returns(T.nilable(String)) }
+      def card_presence; end
       # The cardholder to whom this authorization belongs.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Cardholder))) }
       def cardholder; end

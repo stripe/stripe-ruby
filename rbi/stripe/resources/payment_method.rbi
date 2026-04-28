@@ -1462,6 +1462,14 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Sunbit < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Swish < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1771,6 +1779,9 @@ module Stripe
     # Attribute for field sepa_debit
     sig { returns(T.nilable(SepaDebit)) }
     def sepa_debit; end
+    # ID of the shared payment granted token used in the creation of this PaymentMethod.
+    sig { returns(T.nilable(String)) }
+    def shared_payment_granted_token; end
     # Attribute for field shopeepay
     sig { returns(T.nilable(Shopeepay)) }
     def shopeepay; end
@@ -1780,6 +1791,9 @@ module Stripe
     # Attribute for field stripe_balance
     sig { returns(T.nilable(StripeBalance)) }
     def stripe_balance; end
+    # Attribute for field sunbit
+    sig { returns(T.nilable(Sunbit)) }
+    def sunbit; end
     # Attribute for field swish
     sig { returns(T.nilable(Swish)) }
     def swish; end

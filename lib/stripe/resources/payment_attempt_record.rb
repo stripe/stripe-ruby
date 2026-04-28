@@ -882,11 +882,9 @@ module Stripe
       end
 
       class Eps < ::Stripe::StripeObject
-        # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
+        # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`
         attr_reader :bank
-        # Owner's verified full name. Values are verified or provided by EPS directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-        # EPS rarely provides this information so the attribute is usually empty.
+        # Owner's verified full name. Values are verified or provided by EPS directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. EPS rarely provides this information so the attribute is usually empty.
         attr_reader :verified_name
 
         def self.inner_class_types
@@ -930,7 +928,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Attribute for field balance
+        # The balance of the gift card after the transaction.
         attr_reader :balance
         # The brand of the gift card.
         attr_reader :brand
@@ -940,6 +938,8 @@ module Stripe
         attr_reader :exp_year
         # The first six digits of the gift card number.
         attr_reader :first6
+        # The last four digits of the gift card number.
+        attr_reader :last4
         # The transaction ID from the gift card processor.
         attr_reader :transaction_id
 
@@ -1161,6 +1161,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # The payer details for this transaction.
         attr_reader :payer_details
         # The Klarna payment method used for this transaction.
@@ -1169,6 +1171,8 @@ module Stripe
         # Preferred language of the Klarna authorization page that the customer is redirected to.
         # Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
         attr_reader :preferred_locale
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
 
         def self.inner_class_types
           @inner_class_types = { payer_details: PayerDetails }
@@ -1777,6 +1781,19 @@ module Stripe
         end
       end
 
+      class Sunbit < ::Stripe::StripeObject
+        # The Sunbit transaction ID associated with this payment.
+        attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Swish < ::Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         attr_reader :fingerprint
@@ -2010,6 +2027,8 @@ module Stripe
       attr_reader :stripe_account
       # Attribute for field stripe_balance
       attr_reader :stripe_balance
+      # Attribute for field sunbit
+      attr_reader :sunbit
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint
@@ -2092,6 +2111,7 @@ module Stripe
           sofort: Sofort,
           stripe_account: StripeAccount,
           stripe_balance: StripeBalance,
+          sunbit: Sunbit,
           swish: Swish,
           twint: Twint,
           upi: Upi,

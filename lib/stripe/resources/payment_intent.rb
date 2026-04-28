@@ -74,9 +74,9 @@ module Stripe
       class Shipping < ::Stripe::StripeObject
         # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_reader :amount
-        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         attr_reader :from_postal_code
-        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         attr_reader :to_postal_code
 
         def self.inner_class_types
@@ -1038,6 +1038,25 @@ module Stripe
         end
       end
 
+      class KlarnaDisplayQrCode < ::Stripe::StripeObject
+        # The data being used to generate QR code
+        attr_reader :data
+        # The timestamp at which the QR code expires.
+        attr_reader :expires_at
+        # The image_url_png string used to render QR code
+        attr_reader :image_url_png
+        # The image_url_svg string used to render QR code
+        attr_reader :image_url_svg
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class KonbiniDisplayDetails < ::Stripe::StripeObject
         class Stores < ::Stripe::StripeObject
           class Familymart < ::Stripe::StripeObject
@@ -1398,6 +1417,8 @@ module Stripe
       attr_reader :crypto_display_details
       # Attribute for field display_bank_transfer_instructions
       attr_reader :display_bank_transfer_instructions
+      # Attribute for field klarna_display_qr_code
+      attr_reader :klarna_display_qr_code
       # Attribute for field konbini_display_details
       attr_reader :konbini_display_details
       # Attribute for field multibanco_display_details
@@ -1437,6 +1458,7 @@ module Stripe
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           crypto_display_details: CryptoDisplayDetails,
           display_bank_transfer_instructions: DisplayBankTransferInstructions,
+          klarna_display_qr_code: KlarnaDisplayQrCode,
           konbini_display_details: KonbiniDisplayDetails,
           multibanco_display_details: MultibancoDisplayDetails,
           oxxo_display_details: OxxoDisplayDetails,

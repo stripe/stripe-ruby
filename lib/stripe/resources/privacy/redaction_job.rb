@@ -62,6 +62,8 @@ module Stripe
       attr_reader :status
       # Validation behavior determines how a job validates objects for redaction eligibility. Default is `error`.
       attr_reader :validation_behavior
+      # The first 10 validation errors for the current validation attempt. Use the validation errors list endpoint to paginate through the full list.
+      attr_reader :validation_errors
 
       # You can cancel a redaction job when it's in one of these statuses: ready, failed.
       #

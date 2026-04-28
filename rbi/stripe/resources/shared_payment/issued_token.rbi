@@ -248,6 +248,23 @@ module Stripe
       # Usage limits of the SharedPaymentIssuedToken.
       sig { returns(T.nilable(UsageLimits)) }
       def usage_limits; end
+      # Creates a new SharedPaymentIssuedToken object
+      sig {
+        params(params: T.any(::Stripe::SharedPayment::IssuedTokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
+       }
+      def self.create(params = {}, opts = {}); end
+
+      # Revokes a SharedPaymentIssuedToken
+      sig {
+        params(params: T.any(::Stripe::SharedPayment::IssuedTokenRevokeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
+       }
+      def revoke(params = {}, opts = {}); end
+
+      # Revokes a SharedPaymentIssuedToken
+      sig {
+        params(shared_payment_issued_token: String, params: T.any(::Stripe::SharedPayment::IssuedTokenRevokeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
+       }
+      def self.revoke(shared_payment_issued_token, params = {}, opts = {}); end
     end
   end
 end

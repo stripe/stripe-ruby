@@ -255,6 +255,7 @@ module Stripe
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
+        V2::Data::Analytics::MetricQueryResult.object_name => V2::Data::Analytics::MetricQueryResult,
         V2::Data::Reporting::QueryRun.object_name => V2::Data::Reporting::QueryRun,
         V2::Extend::Workflow.object_name => V2::Extend::Workflow,
         V2::Extend::WorkflowRun.object_name => V2::Extend::WorkflowRun,

@@ -55,6 +55,27 @@ module Stripe
             end
           end
 
+          class EuBankAccount < ::Stripe::StripeObject
+            # The account holder name of the bank account the transfer was received from.
+            attr_reader :account_holder_name
+            # The bank name the transfer was received from.
+            attr_reader :bank_name
+            # The bic of the account that originated the transfer.
+            attr_reader :bic
+            # The last 4 digits of the account number that originated the transfer.
+            attr_reader :last4
+            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+            attr_reader :network
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class GbBankAccount < ::Stripe::StripeObject
             # The bank name the transfer was received from.
             attr_reader :account_holder_name
@@ -66,6 +87,25 @@ module Stripe
             attr_reader :network
             # The sort code of the account that originated the transfer.
             attr_reader :sort_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class MxBankAccount < ::Stripe::StripeObject
+            # The account holder name of the bank account the transfer was received from.
+            attr_reader :account_holder_name
+            # The bank name the transfer was received from.
+            attr_reader :bank_name
+            # The last 4 digits of the account number that originated the transfer.
+            attr_reader :last4
+            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+            attr_reader :network
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -119,10 +159,14 @@ module Stripe
           end
           # Hash containing the transaction bank details. Present if `origin_type` field value is `ca_bank_account`.
           attr_reader :ca_bank_account
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `eu_bank_account`.
+          attr_reader :eu_bank_account
           # Financial Address on which funds for ReceivedCredit were received.
           attr_reader :financial_address
           # Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
           attr_reader :gb_bank_account
+          # Hash containing the transaction bank details. Present if  `origin_type` field value is `mx_bank_account`.
+          attr_reader :mx_bank_account
           # Open Enum. Indicates the origin of source from which external funds originated from.
           attr_reader :origin_type
           # Hash containing the transaction bank details. Present if `origin_type` field value is `sepa_bank_account`.
@@ -135,7 +179,9 @@ module Stripe
           def self.inner_class_types
             @inner_class_types = {
               ca_bank_account: CaBankAccount,
+              eu_bank_account: EuBankAccount,
               gb_bank_account: GbBankAccount,
+              mx_bank_account: MxBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,
             }
@@ -181,6 +227,41 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { dispute: Dispute, refund: Refund }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CryptoWalletTransfer < ::Stripe::StripeObject
+          class CryptoWallet < ::Stripe::StripeObject
+            # The address of the wallet the crypto was received from.
+            attr_reader :address
+            # A memo also for identifying the recipient for memo-based blockchains (e.g., Stellar),.
+            attr_reader :memo
+            # The network the crypto was received from.
+            attr_reader :network
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Hash containing the transaction crypto wallet details.
+          attr_reader :crypto_wallet
+          # Financial Address on which funds for ReceivedCredit were received.
+          attr_reader :financial_address
+          # Open Enum. Indicates the origin of source from which external funds originated from.
+          attr_reader :origin_type
+          # Freeform string set by originator of the external ReceivedCredit.
+          attr_reader :statement_descriptor
+
+          def self.inner_class_types
+            @inner_class_types = { crypto_wallet: CryptoWallet }
           end
 
           def self.field_remappings
@@ -271,6 +352,8 @@ module Stripe
         # Time at which the ReceivedCredit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created
+        # This object stores details about the originating crypto transaction that resulted in the ReceivedCredit. Present if `type` field value is `crypto_wallet_transfer`.
+        attr_reader :crypto_wallet_transfer
         # Freeform string set by originator of the ReceivedCredit.
         attr_reader :description
         # The amount and currency of the original/external credit request.
@@ -301,6 +384,7 @@ module Stripe
             balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
             card_spend: CardSpend,
+            crypto_wallet_transfer: CryptoWalletTransfer,
             status_details: StatusDetails,
             status_transitions: StatusTransitions,
             stripe_balance_payment: StripeBalancePayment,

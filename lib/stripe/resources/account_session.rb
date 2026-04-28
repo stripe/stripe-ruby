@@ -100,6 +100,30 @@ module Stripe
         end
       end
 
+      class BalanceReport < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Balances < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -698,6 +722,30 @@ module Stripe
         end
       end
 
+      class PayoutReconciliationReport < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Payouts < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -858,6 +906,8 @@ module Stripe
       attr_reader :account_onboarding
       # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
       attr_reader :agentic_commerce_settings
+      # Attribute for field balance_report
+      attr_reader :balance_report
       # Attribute for field balances
       attr_reader :balances
       # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
@@ -900,6 +950,8 @@ module Stripe
       attr_reader :payments
       # Attribute for field payout_details
       attr_reader :payout_details
+      # Attribute for field payout_reconciliation_report
+      attr_reader :payout_reconciliation_report
       # Attribute for field payouts
       attr_reader :payouts
       # Attribute for field payouts_list
@@ -918,6 +970,7 @@ module Stripe
           account_management: AccountManagement,
           account_onboarding: AccountOnboarding,
           agentic_commerce_settings: AgenticCommerceSettings,
+          balance_report: BalanceReport,
           balances: Balances,
           bills: Bills,
           capital_financing: CapitalFinancing,
@@ -939,6 +992,7 @@ module Stripe
           payment_disputes: PaymentDisputes,
           payments: Payments,
           payout_details: PayoutDetails,
+          payout_reconciliation_report: PayoutReconciliationReport,
           payouts: Payouts,
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,

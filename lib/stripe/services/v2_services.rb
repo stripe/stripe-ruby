@@ -10,7 +10,7 @@ module Stripe
       @billing = Stripe::V2::BillingService.new(@requestor)
       @commerce = Stripe::V2::CommerceService.new(@requestor)
       @core = Stripe::V2::CoreService.new(@requestor)
-      @data = Stripe::V2::DatumService.new(@requestor)
+      @data = Stripe::V2::DataService.new(@requestor)
       @extend = Stripe::V2::ExtendService.new(@requestor)
       @iam = Stripe::V2::IamService.new(@requestor)
       @money_management = Stripe::V2::MoneyManagementService.new(@requestor)

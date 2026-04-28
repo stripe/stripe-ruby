@@ -681,6 +681,8 @@ module Stripe
       attr_reader :balance_transactions
       # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
       attr_reader :card
+      # Whether the card was present at the point of sale for the authorization.
+      attr_reader :card_presence
       # The cardholder to whom this authorization belongs.
       attr_reader :cardholder
       # Time at which the object was created. Measured in seconds since the Unix epoch.

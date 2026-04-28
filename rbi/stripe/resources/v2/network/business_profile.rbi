@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Network
-      # The Stripe profile represents a business' public identity on the Stripe network.
+      # The Stripe business profile represents a business' public identity on the Stripe network.
       class BusinessProfile < APIResource
         class Branding < ::Stripe::StripeObject
           class Icon < ::Stripe::StripeObject
@@ -55,7 +55,7 @@ module Stripe
         # The description of the business.
         sig { returns(T.nilable(String)) }
         def description; end
-        # The display name of the Stripe profile.
+        # The display name of the Stripe business profile.
         sig { returns(String) }
         def display_name; end
         # The ID of the Stripe business profile; also known as the Network ID. This is the ID used to identify the business on the Stripe network.
@@ -70,7 +70,7 @@ module Stripe
         # The URL of the business.
         sig { returns(T.nilable(String)) }
         def url; end
-        # The username of the Stripe profile.
+        # The username of the Stripe business profile.
         sig { returns(String) }
         def username; end
       end

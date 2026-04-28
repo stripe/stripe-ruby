@@ -3,11 +3,12 @@
 
 module Stripe
   module V2
-    class DatumService < StripeService
-      attr_reader :reporting
+    class DataService < StripeService
+      attr_reader :analytics, :reporting
 
       def initialize(requestor)
         super
+        @analytics = Stripe::V2::Data::AnalyticsService.new(@requestor)
         @reporting = Stripe::V2::Data::ReportingService.new(@requestor)
       end
     end

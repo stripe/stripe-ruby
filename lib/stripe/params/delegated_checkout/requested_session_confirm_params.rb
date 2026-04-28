@@ -69,6 +69,34 @@ module Stripe
         end
       end
 
+      class BuyerConsents < ::Stripe::RequestParams
+        class Marketing < ::Stripe::RequestParams
+          class Consent < ::Stripe::RequestParams
+            # The marketing consent channel.
+            attr_accessor :channel
+            # The consent status. Use 'granted' to indicate the buyer has opted in.
+            attr_accessor :status
+
+            def initialize(channel: nil, status: nil)
+              @channel = channel
+              @status = status
+            end
+          end
+          # The list of marketing consent entries.
+          attr_accessor :consents
+
+          def initialize(consents: nil)
+            @consents = consents
+          end
+        end
+        # The marketing consent data for the buyer.
+        attr_accessor :marketing
+
+        def initialize(marketing: nil)
+          @marketing = marketing
+        end
+      end
+
       class RiskDetails < ::Stripe::RequestParams
         class ClientDeviceMetadataDetails < ::Stripe::RequestParams
           # The radar session.
@@ -105,6 +133,8 @@ module Stripe
       end
       # Affiliate attribution data associated with this requested session.
       attr_accessor :affiliate_attribution
+      # The buyer's consent choices for marketing communications.
+      attr_accessor :buyer_consents
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The PaymentMethod to use with the requested session.
@@ -116,12 +146,14 @@ module Stripe
 
       def initialize(
         affiliate_attribution: nil,
+        buyer_consents: nil,
         expand: nil,
         payment_method: nil,
         return_url: nil,
         risk_details: nil
       )
         @affiliate_attribution = affiliate_attribution
+        @buyer_consents = buyer_consents
         @expand = expand
         @payment_method = payment_method
         @return_url = return_url

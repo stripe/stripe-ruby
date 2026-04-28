@@ -64,6 +64,21 @@ module Stripe
 
       class BuyerConsents < ::Stripe::StripeObject
         class Marketing < ::Stripe::StripeObject
+          class Consent < ::Stripe::StripeObject
+            # The marketing consent channel.
+            attr_reader :channel
+            # The consent status. 'granted' means the buyer opted in, 'none' means they did not.
+            attr_reader :status
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Option < ::Stripe::StripeObject
             # The marketing channel type.
             attr_reader :channel
@@ -80,11 +95,13 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The buyer's marketing consent choices.
+          attr_reader :consents
           # The available marketing consent options.
           attr_reader :options
 
           def self.inner_class_types
-            @inner_class_types = { options: Option }
+            @inner_class_types = { consents: Consent, options: Option }
           end
 
           def self.field_remappings

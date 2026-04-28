@@ -1838,7 +1838,7 @@ module Stripe
               params(_documents: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Individual::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Individual::Documents))
              }
             def documents=(_documents); end
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             sig { returns(T.nilable(String)) }
             def email; end
             sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
@@ -1998,7 +1998,7 @@ module Stripe
             }
           end
         end
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         sig { returns(T.nilable(String)) }
         def contact_email; end
         sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }

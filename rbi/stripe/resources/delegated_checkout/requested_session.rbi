@@ -66,6 +66,20 @@ module Stripe
       end
       class BuyerConsents < ::Stripe::StripeObject
         class Marketing < ::Stripe::StripeObject
+          class Consent < ::Stripe::StripeObject
+            # The marketing consent channel.
+            sig { returns(String) }
+            def channel; end
+            # The consent status. 'granted' means the buyer opted in, 'none' means they did not.
+            sig { returns(String) }
+            def status; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Option < ::Stripe::StripeObject
             # The marketing channel type.
             sig { returns(String) }
@@ -83,11 +97,14 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The buyer's marketing consent choices.
+          sig { returns(T.nilable(T::Array[Consent])) }
+          def consents; end
           # The available marketing consent options.
           sig { returns(T.nilable(T::Array[Option])) }
           def options; end
           def self.inner_class_types
-            @inner_class_types = {options: Option}
+            @inner_class_types = {consents: Consent, options: Option}
           end
           def self.field_remappings
             @field_remappings = {}

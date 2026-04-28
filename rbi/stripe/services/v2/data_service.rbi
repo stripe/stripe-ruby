@@ -4,7 +4,8 @@
 # typed: true
 module Stripe
   module V2
-    class DatumService < StripeService
+    class DataService < StripeService
+      attr_reader :analytics
       attr_reader :reporting
     end
   end

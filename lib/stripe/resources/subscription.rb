@@ -350,6 +350,31 @@ module Stripe
           end
         end
 
+        class Blik < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_reader :expires_after
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Card < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -632,6 +657,8 @@ module Stripe
         attr_reader :bancontact
         # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
         attr_reader :bizum
+        # This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
+        attr_reader :blik
         # This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
         attr_reader :card
         # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
@@ -658,6 +685,7 @@ module Stripe
             acss_debit: AcssDebit,
             bancontact: Bancontact,
             bizum: Bizum,
+            blik: Blik,
             card: Card,
             check_scan: CheckScan,
             customer_balance: CustomerBalance,
@@ -1039,7 +1067,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     def resume(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -1049,7 +1077,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     def self.resume(subscription, params = {}, opts = {})
       request_stripe_object(
         method: :post,

@@ -8655,7 +8655,7 @@ module Stripe
                 },
               ],
               transform_quantity: {
-                divide_by: 1_592_560_163,
+                divide_by: "1592560163",
                 round: "down",
               },
               unit_amount: "unit_amount",
@@ -9621,6 +9621,26 @@ module Stripe
       us_bank_account = client.v2.core.vault.us_bank_accounts.send_microdeposits("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/send_microdeposits"
     end
+    should "Test v2 data analytics metric query post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/data/analytics/metric_query").to_return(
+        body: '{"object":"v2.data.analytics.metric_query_result","created":"1970-01-12T21:42:34.472Z","data":[{"dimensions":{"key":"dimensions"},"id":"obj_123","results":[{"metric":"metric","name":"name","value":"111972721"}],"timestamp":"1970-01-01T15:18:46.294Z"}],"id":"obj_123","livemode":true,"refreshed_at":"1970-01-01T11:25:45.896Z"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      metric_query_result = client.v2.data.analytics.metric_query.create({
+        ends_at: "1970-01-19T14:12:09.638Z",
+        granularity: "week",
+        metrics: [
+          {
+            id: "obj_123",
+            name: "name",
+          },
+        ],
+        starts_at: "1970-01-25T15:13:01.215Z",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/data/analytics/metric_query"
+    end
     should "Test v2 data reporting query run post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/data/reporting/query_runs").to_return(
         body: '{"object":"v2.data.reporting.query_run","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"sql":"sql","status":"failed","status_details":{"key":{}}}',
@@ -9949,7 +9969,7 @@ module Stripe
 
       financial_address = client.v2.money_management.financial_addresses.create({
         financial_account: "financial_account",
-        type: "sepa_bank_account",
+        type: "ca_bank_account",
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
     end
@@ -10573,7 +10593,6 @@ module Stripe
         },
         cadence: "unscheduled",
         customer: "customer",
-        metadata: { key: "metadata" },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
     end
@@ -10613,10 +10632,7 @@ module Stripe
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      off_session_payment = client.v2.payments.off_session_payments.capture(
-        "id_123",
-        { metadata: { key: "metadata" } }
-      )
+      off_session_payment = client.v2.payments.off_session_payments.capture("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
     end
     should "Test v2 payments off session payment post 4 (service)" do
@@ -11114,7 +11130,7 @@ module Stripe
       assert_raises Stripe::FinancialAccountNotOpenError do
         financial_address = client.v2.money_management.financial_addresses.create({
           financial_account: "financial_account",
-          type: "sepa_bank_account",
+          type: "ca_bank_account",
         })
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"

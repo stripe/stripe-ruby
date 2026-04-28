@@ -199,6 +199,9 @@ module Stripe
         # The last four digits of the card.
         sig { returns(T.nilable(String)) }
         def last4; end
+        # True if this payment was marked as MOTO and out of scope for SCA.
+        sig { returns(T.nilable(T::Boolean)) }
+        def moto; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
         def network; end

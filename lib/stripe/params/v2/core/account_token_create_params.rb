@@ -1158,7 +1158,7 @@ module Stripe
             attr_accessor :date_of_birth
             # Documents that may be submitted to satisfy various informational requests.
             attr_accessor :documents
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             attr_accessor :email
             # The individual's first name.
             attr_accessor :given_name
@@ -1259,7 +1259,7 @@ module Stripe
             }
           end
         end
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         attr_accessor :contact_email
         # The default contact phone for the Account.
         attr_accessor :contact_phone

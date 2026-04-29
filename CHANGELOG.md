@@ -1,5 +1,9 @@
 # Changelog
 
+## 19.2.0-alpha.3 - 2026-04-28
+* [#1858](https://github.com/stripe/stripe-ruby/pull/1858) Update generated code for private-preview
+  * Add support for `debit_card` on `V2::Core::Account::Configuration::CardCreator::Capability::Consumer::Lead`, `V2::Core::Account::Identity::Attestation::TermsOfService::CardCreator::Consumer::Lead`, `V2::Core::AccountCreateParams::Configuration::CardCreator::Capability::Consumer::Lead`, `V2::Core::AccountCreateParams::Identity::Attestation::TermsOfService::CardCreator::Consumer::Lead`, `V2::Core::AccountUpdateParams::Configuration::CardCreator::Capability::Consumer::Lead`, and `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService::CardCreator::Consumer::Lead`
+
 ## 19.2.0-alpha.2 - 2026-04-28
 * [#1856](https://github.com/stripe/stripe-ruby/pull/1856) Update generated code for private-preview
   * Add support for new resource `V2::Data::Analytics::MetricQueryResult`

@@ -308,6 +308,15 @@ module Stripe
                   def initialize(prepaid_card: nil); end
                 end
                 class Lead < ::Stripe::RequestParams
+                  class DebitCard < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
                   class PrepaidCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
@@ -317,6 +326,15 @@ module Stripe
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
+                  # Can create consumer issuing debit cards with Lead as BIN sponsor.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Consumer::Lead::DebitCard))
+                   }
+                  def debit_card; end
+                  sig {
+                    params(_debit_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Consumer::Lead::DebitCard)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Consumer::Lead::DebitCard))
+                   }
+                  def debit_card=(_debit_card); end
                   # Can create consumer issuing prepaid cards with Lead as BIN sponsor.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Consumer::Lead::PrepaidCard))
@@ -327,9 +345,9 @@ module Stripe
                    }
                   def prepaid_card=(_prepaid_card); end
                   sig {
-                    params(prepaid_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Consumer::Lead::PrepaidCard)).void
+                    params(debit_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Consumer::Lead::DebitCard), prepaid_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Consumer::Lead::PrepaidCard)).void
                    }
-                  def initialize(prepaid_card: nil); end
+                  def initialize(debit_card: nil, prepaid_card: nil); end
                 end
                 # Can create consumer issuing cards with Celtic as BIN sponsor.
                 sig {
@@ -3996,6 +4014,100 @@ module Stripe
                     def initialize(date: nil, ip: nil, user_agent: nil); end
                   end
                   class Lead < ::Stripe::RequestParams
+                    class DebitCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(String) }
+                        def date; end
+                        sig { params(_date: String).returns(String) }
+                        def date=(_date); end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(String) }
+                        def ip; end
+                        sig { params(_ip: String).returns(String) }
+                        def ip=(_ip); end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                        def user_agent=(_user_agent); end
+                        sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
+                        def initialize(date: nil, ip: nil, user_agent: nil); end
+                      end
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(String) }
+                        def date; end
+                        sig { params(_date: String).returns(String) }
+                        def date=(_date); end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(String) }
+                        def ip; end
+                        sig { params(_ip: String).returns(String) }
+                        def ip=(_ip); end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                        def user_agent=(_user_agent); end
+                        sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
+                        def initialize(date: nil, ip: nil, user_agent: nil); end
+                      end
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(String) }
+                        def date; end
+                        sig { params(_date: String).returns(String) }
+                        def date=(_date); end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(String) }
+                        def ip; end
+                        sig { params(_ip: String).returns(String) }
+                        def ip=(_ip); end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                        def user_agent=(_user_agent); end
+                        sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
+                        def initialize(date: nil, ip: nil, user_agent: nil); end
+                      end
+                      # Bank terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::BankTerms))
+                       }
+                      def bank_terms; end
+                      sig {
+                        params(_bank_terms: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::BankTerms)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::BankTerms))
+                       }
+                      def bank_terms=(_bank_terms); end
+                      # Financial disclosures terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures; end
+                      sig {
+                        params(_financing_disclosures: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::FinancingDisclosures)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures=(_financing_disclosures); end
+                      # Platform terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::Platform))
+                       }
+                      def platform; end
+                      sig {
+                        params(_platform: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::Platform)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::Platform))
+                       }
+                      def platform=(_platform); end
+                      sig {
+                        params(bank_terms: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::BankTerms), financing_disclosures: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::FinancingDisclosures), platform: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard::Platform)).void
+                       }
+                      def initialize(
+                        bank_terms: nil,
+                        financing_disclosures: nil,
+                        platform: nil
+                      ); end
+                    end
                     class PrepaidCard < ::Stripe::RequestParams
                       class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -4090,6 +4202,15 @@ module Stripe
                         platform: nil
                       ); end
                     end
+                    # Terms of service acceptances for consumer issuing debit cards with Lead as BIN sponsor.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard))
+                     }
+                    def debit_card; end
+                    sig {
+                      params(_debit_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard))
+                     }
+                    def debit_card=(_debit_card); end
                     # Terms of service acceptances for consumer issuing prepaid cards with Lead as BIN sponsor.
                     sig {
                       returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::PrepaidCard))
@@ -4100,9 +4221,9 @@ module Stripe
                      }
                     def prepaid_card=(_prepaid_card); end
                     sig {
-                      params(prepaid_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::PrepaidCard)).void
+                      params(debit_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::DebitCard), prepaid_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::CardCreator::Consumer::Lead::PrepaidCard)).void
                      }
-                    def initialize(prepaid_card: nil); end
+                    def initialize(debit_card: nil, prepaid_card: nil); end
                   end
                   # Terms of service acceptances for Stripe consumer card issuing.
                   sig {

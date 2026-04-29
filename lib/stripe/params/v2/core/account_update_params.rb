@@ -203,6 +203,15 @@ module Stripe
                 end
 
                 class Lead < ::Stripe::RequestParams
+                  class DebitCard < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
                   class PrepaidCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
@@ -211,10 +220,13 @@ module Stripe
                       @requested = requested
                     end
                   end
+                  # Can create consumer issuing debit cards with Lead as BIN sponsor.
+                  attr_accessor :debit_card
                   # Can create consumer issuing prepaid cards with Lead as BIN sponsor.
                   attr_accessor :prepaid_card
 
-                  def initialize(prepaid_card: nil)
+                  def initialize(debit_card: nil, prepaid_card: nil)
+                    @debit_card = debit_card
                     @prepaid_card = prepaid_card
                   end
                 end
@@ -2586,6 +2598,65 @@ module Stripe
                       end
                     end
 
+                    class DebitCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+
                     class PrepaidCard < ::Stripe::RequestParams
                       class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -2646,11 +2717,14 @@ module Stripe
                     end
                     # Terms of service acceptances for consumer issuing Apple Pay cards with Lead as BIN sponsor.
                     attr_accessor :apple_pay
+                    # Terms of service acceptances for consumer issuing debit cards with Lead as BIN sponsor.
+                    attr_accessor :debit_card
                     # Terms of service acceptances for consumer issuing prepaid cards with Lead as BIN sponsor.
                     attr_accessor :prepaid_card
 
-                    def initialize(apple_pay: nil, prepaid_card: nil)
+                    def initialize(apple_pay: nil, debit_card: nil, prepaid_card: nil)
                       @apple_pay = apple_pay
+                      @debit_card = debit_card
                       @prepaid_card = prepaid_card
                     end
                   end

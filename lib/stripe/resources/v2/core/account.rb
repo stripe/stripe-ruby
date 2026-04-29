@@ -458,6 +458,35 @@ module Stripe
                 end
 
                 class Lead < ::Stripe::StripeObject
+                  class DebitCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
                   class PrepaidCard < ::Stripe::StripeObject
                     class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -486,11 +515,13 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
+                  # Can create consumer issuing debit cards with Lead as BIN sponsor.
+                  attr_reader :debit_card
                   # Can create consumer issuing prepaid cards with Lead as BIN sponsor.
                   attr_reader :prepaid_card
 
                   def self.inner_class_types
-                    @inner_class_types = { prepaid_card: PrepaidCard }
+                    @inner_class_types = { debit_card: DebitCard, prepaid_card: PrepaidCard }
                   end
 
                   def self.field_remappings
@@ -4688,6 +4719,83 @@ module Stripe
                       end
                     end
 
+                    class DebitCard < ::Stripe::StripeObject
+                      class BankTerms < ::Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class Platform < ::Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_reader :bank_terms
+                      # Financial disclosures terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_reader :financing_disclosures
+                      # Platform terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_reader :platform
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                          platform: Platform,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+
                     class PrepaidCard < ::Stripe::StripeObject
                       class BankTerms < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -4766,11 +4874,17 @@ module Stripe
                     end
                     # Terms of service acceptances for commercial issuing Apple Pay cards with Lead as BIN sponsor.
                     attr_reader :apple_pay
+                    # Terms of service acceptances for consumer issuing debit cards with Lead as BIN sponsor.
+                    attr_reader :debit_card
                     # Terms of service acceptances for commercial issuing revolving credit cards with Lead as BIN sponsor.
                     attr_reader :prepaid_card
 
                     def self.inner_class_types
-                      @inner_class_types = { apple_pay: ApplePay, prepaid_card: PrepaidCard }
+                      @inner_class_types = {
+                        apple_pay: ApplePay,
+                        debit_card: DebitCard,
+                        prepaid_card: PrepaidCard,
+                      }
                     end
 
                     def self.field_remappings

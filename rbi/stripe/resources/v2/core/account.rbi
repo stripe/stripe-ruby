@@ -443,6 +443,34 @@ module Stripe
                   end
                 end
                 class Lead < ::Stripe::StripeObject
+                  class DebitCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
                   class PrepaidCard < ::Stripe::StripeObject
                     class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -471,11 +499,14 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
+                  # Can create consumer issuing debit cards with Lead as BIN sponsor.
+                  sig { returns(T.nilable(DebitCard)) }
+                  def debit_card; end
                   # Can create consumer issuing prepaid cards with Lead as BIN sponsor.
                   sig { returns(T.nilable(PrepaidCard)) }
                   def prepaid_card; end
                   def self.inner_class_types
-                    @inner_class_types = {prepaid_card: PrepaidCard}
+                    @inner_class_types = {debit_card: DebitCard, prepaid_card: PrepaidCard}
                   end
                   def self.field_remappings
                     @field_remappings = {}
@@ -4726,6 +4757,87 @@ module Stripe
                         @field_remappings = {}
                       end
                     end
+                    class DebitCard < ::Stripe::StripeObject
+                      class BankTerms < ::Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class FinancingDisclosures < ::Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class Platform < ::Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      sig { returns(T.nilable(BankTerms)) }
+                      def bank_terms; end
+                      # Financial disclosures terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      sig { returns(T.nilable(FinancingDisclosures)) }
+                      def financing_disclosures; end
+                      # Platform terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      sig { returns(T.nilable(Platform)) }
+                      def platform; end
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                          platform: Platform,
+                        }
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
                     class PrepaidCard < ::Stripe::StripeObject
                       class BankTerms < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -4810,11 +4922,18 @@ module Stripe
                     # Terms of service acceptances for commercial issuing Apple Pay cards with Lead as BIN sponsor.
                     sig { returns(T.nilable(ApplePay)) }
                     def apple_pay; end
+                    # Terms of service acceptances for consumer issuing debit cards with Lead as BIN sponsor.
+                    sig { returns(T.nilable(DebitCard)) }
+                    def debit_card; end
                     # Terms of service acceptances for commercial issuing revolving credit cards with Lead as BIN sponsor.
                     sig { returns(T.nilable(PrepaidCard)) }
                     def prepaid_card; end
                     def self.inner_class_types
-                      @inner_class_types = {apple_pay: ApplePay, prepaid_card: PrepaidCard}
+                      @inner_class_types = {
+                        apple_pay: ApplePay,
+                        debit_card: DebitCard,
+                        prepaid_card: PrepaidCard,
+                      }
                     end
                     def self.field_remappings
                       @field_remappings = {}

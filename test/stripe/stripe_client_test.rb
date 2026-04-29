@@ -13,6 +13,73 @@ module Stripe
         assert client.instance_variable_get(:@requestor).is_a?(APIRequestor)
         assert client.instance_variable_get(:@requestor).config.api_key == "sk_test_123"
       end
+
+      should "use default APIRequestor when no requestor given" do
+        client = StripeClient.new("sk_test_123")
+        assert_equal APIRequestor, client.instance_variable_get(:@requestor).class
+      end
+
+      should "accept a requestor factory callable" do
+        custom_class = Class.new(APIRequestor)
+        factory = ->(config) { custom_class.new(config) }
+        client = StripeClient.new("sk_test_123", requestor: factory)
+        assert_instance_of custom_class, client.instance_variable_get(:@requestor)
+      end
+
+      should "pass config to requestor factory callable" do
+        received_config = nil
+        factory = lambda do |config|
+          received_config = config
+          APIRequestor.new(config)
+        end
+        StripeClient.new("sk_test_123", stripe_account: "acct_abc", requestor: factory)
+        assert_equal "sk_test_123", received_config.api_key
+        assert_equal "acct_abc", received_config.stripe_account
+      end
+
+      should "reject requestor that does not return APIRequestor" do
+        factory = ->(_config) { Object.new }
+        assert_raises(ArgumentError) do
+          StripeClient.new("sk_test_123", requestor: factory)
+        end
+      end
+    end
+
+    context "custom requestor" do
+      setup do
+        @send_request_calls = []
+        calls = @send_request_calls
+        @custom_requestor_class = Class.new(APIRequestor) do
+          define_method(:send_request) do |method, url, headers, body, query, &response_block|
+            calls << { method: method, url: url }
+            super(method, url, headers, body, query, &response_block)
+          end
+        end
+      end
+
+      should "route v1 service calls through custom transport" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
+          .to_return(body: JSON.generate(object: "list", data: []))
+
+        factory = ->(config) { @custom_requestor_class.new(config) }
+        client = StripeClient.new("sk_test_123", requestor: factory)
+        client.v1.customers.list
+
+        assert_equal 1, @send_request_calls.length
+        assert_equal :get, @send_request_calls[0][:method]
+        assert_includes @send_request_calls[0][:url], "/v1/customers"
+      end
+
+      should "route raw_request through custom transport" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
+          .to_return(body: JSON.generate(object: "list", data: []))
+
+        factory = ->(config) { @custom_requestor_class.new(config) }
+        client = StripeClient.new("sk_test_123", requestor: factory)
+        client.raw_request(:get, "/v1/customers")
+
+        assert_equal 1, @send_request_calls.length
+      end
     end
 
     context "StripeClient config" do

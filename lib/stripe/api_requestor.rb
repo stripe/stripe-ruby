@@ -195,23 +195,29 @@ module Stripe
 
     def execute_request(method, path, base_address,
                         params: {}, opts: {}, usage: [])
-      params = params.to_h if params.is_a?(RequestParams)
-      http_resp, req_opts = execute_request_internal(
-        method, path, base_address, params, opts, usage
-      )
-      req_opts = RequestOptions.extract_opts_from_hash(req_opts)
+      old_requestor = self.class.current_thread_context.active_requestor
+      self.class.current_thread_context.active_requestor = self
+      begin
+        params = params.to_h if params.is_a?(RequestParams)
+        http_resp, req_opts = execute_request_internal(
+          method, path, base_address, params, opts, usage
+        )
+        req_opts = RequestOptions.extract_opts_from_hash(req_opts)
 
-      resp = interpret_response(http_resp)
+        resp = interpret_response(http_resp)
 
-      # If being called from `APIRequestor#request`, put the last response in
-      # thread-local memory so that it can be returned to the user. Don't store
-      # anything otherwise so that we don't leak memory.
-      store_last_response(object_id, resp)
+        # If being called from `APIRequestor#request`, put the last response in
+        # thread-local memory so that it can be returned to the user. Don't store
+        # anything otherwise so that we don't leak memory.
+        store_last_response(object_id, resp)
 
-      api_mode = Util.get_api_mode(path)
-      Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
-                                                api_mode: api_mode, requestor: self,
-                                                v2_deleted_object: method == :delete && api_mode == :v2)
+        api_mode = Util.get_api_mode(path)
+        Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
+                                                  api_mode: api_mode, requestor: self,
+                                                  v2_deleted_object: method == :delete && api_mode == :v2)
+      ensure
+        self.class.current_thread_context.active_requestor = old_requestor
+      end
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class
@@ -274,17 +280,23 @@ module Stripe
               "execute_request_stream requires a read_body_chunk_block"
       end
 
-      params = params.to_h if params.is_a?(RequestParams)
-      http_resp, api_key = execute_request_internal(
-        method, path, base_address, params, opts, usage, &read_body_chunk_block
-      )
+      old_requestor = self.class.current_thread_context.active_requestor
+      self.class.current_thread_context.active_requestor = self
+      begin
+        params = params.to_h if params.is_a?(RequestParams)
+        http_resp, api_key = execute_request_internal(
+          method, path, base_address, params, opts, usage, &read_body_chunk_block
+        )
 
-      # When the read_body_chunk_block is given, we no longer have access to the
-      # response body at this point and so return a response object containing
-      # only the headers. This is because the body was consumed by the block.
-      resp = StripeHeadersOnlyResponse.from_net_http(http_resp)
+        # When the read_body_chunk_block is given, we no longer have access to the
+        # response body at this point and so return a response object containing
+        # only the headers. This is because the body was consumed by the block.
+        resp = StripeHeadersOnlyResponse.from_net_http(http_resp)
 
-      [resp, api_key]
+        [resp, api_key]
+      ensure
+        self.class.current_thread_context.active_requestor = old_requestor
+      end
     end
 
     def store_last_response(object_id, resp)
@@ -295,6 +307,19 @@ module Stripe
 
     def last_response_has_key?(object_id)
       self.class.current_thread_context.last_responses&.key?(object_id)
+    end
+
+    # Subclass override point for custom HTTP transports.
+    # Must return an object compatible with Net::HTTPResponse
+    # (.code, .body, .to_hash, .[], .read_body).
+    protected def send_request(method, url, headers, body, query, &response_block)
+      APIRequestor
+        .default_connection_manager(config)
+        .execute_request(method, url,
+                         body: body,
+                         headers: headers,
+                         query: query,
+                         &response_block)
     end
 
     #
@@ -524,13 +549,7 @@ module Stripe
 
       http_resp =
         execute_request_with_rescues(base_url, headers, api_mode, usage, context) do
-          self.class
-              .default_connection_manager(config)
-              .execute_request(method, url,
-                               body: body,
-                               headers: headers,
-                               query: query,
-                               &response_block)
+          send_request(method, url, headers, body, query, &response_block)
         end
 
       [http_resp, opts]

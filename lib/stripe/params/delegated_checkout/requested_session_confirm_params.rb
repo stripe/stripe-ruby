@@ -137,6 +137,8 @@ module Stripe
       attr_accessor :buyer_consents
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The metadata for this requested session.
+      attr_accessor :metadata
       # The PaymentMethod to use with the requested session.
       attr_accessor :payment_method
       # The URL to redirect your customer back to after they authenticate or complete a payment action. Required for redirect-based payment methods such as Affirm or Klarna.
@@ -148,6 +150,7 @@ module Stripe
         affiliate_attribution: nil,
         buyer_consents: nil,
         expand: nil,
+        metadata: nil,
         payment_method: nil,
         return_url: nil,
         risk_details: nil
@@ -155,6 +158,7 @@ module Stripe
         @affiliate_attribution = affiliate_attribution
         @buyer_consents = buyer_consents
         @expand = expand
+        @metadata = metadata
         @payment_method = payment_method
         @return_url = return_url
         @risk_details = risk_details

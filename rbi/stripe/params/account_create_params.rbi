@@ -365,13 +365,48 @@ module Stripe
         def initialize(requested: nil); end
       end
       class CardPayments < ::Stripe::RequestParams
+        class Protections < ::Stripe::RequestParams
+          class PspMigration < ::Stripe::RequestParams
+            # Passing true requests the protection.
+            sig { returns(T::Boolean) }
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
+            sig { params(requested: T::Boolean).void }
+            def initialize(requested: nil); end
+          end
+          # Protection for connected accounts migrating from another PSP.
+          sig {
+            returns(::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections::PspMigration)
+           }
+          def psp_migration; end
+          sig {
+            params(_psp_migration: ::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections::PspMigration).returns(::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections::PspMigration)
+           }
+          def psp_migration=(_psp_migration); end
+          sig {
+            params(psp_migration: ::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections::PspMigration).void
+           }
+          def initialize(psp_migration: nil); end
+        end
+        # Protections to apply to this capability.
+        sig {
+          returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections))
+         }
+        def protections; end
+        sig {
+          params(_protections: T.nilable(::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections)).returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections))
+         }
+        def protections=(_protections); end
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         sig { returns(T.nilable(T::Boolean)) }
         def requested; end
         sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def requested=(_requested); end
-        sig { params(requested: T.nilable(T::Boolean)).void }
-        def initialize(requested: nil); end
+        sig {
+          params(protections: T.nilable(::Stripe::AccountCreateParams::Capabilities::CardPayments::Protections), requested: T.nilable(T::Boolean)).void
+         }
+        def initialize(protections: nil, requested: nil); end
       end
       class CartesBancairesPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

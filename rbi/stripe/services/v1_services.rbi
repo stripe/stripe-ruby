@@ -53,6 +53,7 @@ module Stripe
     attr_reader :payment_attempt_records
     attr_reader :payment_intents
     attr_reader :payment_links
+    attr_reader :payment_locations
     attr_reader :payment_methods
     attr_reader :payment_method_configurations
     attr_reader :payment_method_domains

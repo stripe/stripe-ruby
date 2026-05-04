@@ -139,6 +139,15 @@ module Stripe
         end
       end
 
+      class GiftCard < ::Stripe::RequestParams
+        # The gift card ID to redeem
+        attr_accessor :gift_card
+
+        def initialize(gift_card: nil)
+          @gift_card = gift_card
+        end
+      end
+
       class Giropay < ::Stripe::RequestParams; end
       class Gopay < ::Stripe::RequestParams; end
       class Grabpay < ::Stripe::RequestParams; end
@@ -432,6 +441,8 @@ module Stripe
       attr_accessor :eps
       # If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
       attr_accessor :fpx
+      # If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+      attr_accessor :gift_card
       # If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
       attr_accessor :giropay
       # If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
@@ -545,6 +556,7 @@ module Stripe
         customer_balance: nil,
         eps: nil,
         fpx: nil,
+        gift_card: nil,
         giropay: nil,
         gopay: nil,
         grabpay: nil,
@@ -611,6 +623,7 @@ module Stripe
         @customer_balance = customer_balance
         @eps = eps
         @fpx = fpx
+        @gift_card = gift_card
         @giropay = giropay
         @gopay = gopay
         @grabpay = grabpay

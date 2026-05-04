@@ -369,6 +369,69 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class NetworkLifecycle < ::Stripe::StripeObject
+        class DisputeResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's initial dispute response failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided in support of their initial dispute response.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PreArbitrationResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration response failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration response.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PreArbitrationSubmission < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration submission failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration submission.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information related to the acquiring merchant's initial response to this dispute.
+        sig { returns(T.nilable(DisputeResponse)) }
+        def dispute_response; end
+        # Information related to the acquiring merchant's pre-arbitration response for this dispute.
+        sig { returns(T.nilable(PreArbitrationResponse)) }
+        def pre_arbitration_response; end
+        # Information related to the acquiring merchant's pre-arbitration submission for this dispute.
+        sig { returns(T.nilable(PreArbitrationSubmission)) }
+        def pre_arbitration_submission; end
+        def self.inner_class_types
+          @inner_class_types = {
+            dispute_response: DisputeResponse,
+            pre_arbitration_response: PreArbitrationResponse,
+            pre_arbitration_submission: PreArbitrationSubmission,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         sig { returns(T.nilable(String)) }
@@ -413,6 +476,9 @@ module Stripe
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       def metadata; end
+      # Incoming information from the card network for this dispute. Includes the acquiring merchant's initial response, pre-arbitration submission, and pre-arbitration response to the dispute.
+      sig { returns(T.nilable(NetworkLifecycle)) }
+      def network_lifecycle; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end

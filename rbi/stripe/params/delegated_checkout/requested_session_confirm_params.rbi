@@ -222,6 +222,13 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # The metadata for this requested session.
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       # The PaymentMethod to use with the requested session.
       sig { returns(T.nilable(String)) }
       def payment_method; end
@@ -242,12 +249,13 @@ module Stripe
        }
       def risk_details=(_risk_details); end
       sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents), expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
        }
       def initialize(
         affiliate_attribution: nil,
         buyer_consents: nil,
         expand: nil,
+        metadata: nil,
         payment_method: nil,
         return_url: nil,
         risk_details: nil

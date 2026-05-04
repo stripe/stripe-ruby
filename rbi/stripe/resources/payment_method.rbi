@@ -949,6 +949,32 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class GiftCard < ::Stripe::StripeObject
+      # The brand of the gift card.
+      sig { returns(String) }
+      def brand; end
+      # The expiration month of the gift card.
+      sig { returns(T.nilable(Integer)) }
+      def exp_month; end
+      # The expiration year of the gift card.
+      sig { returns(T.nilable(Integer)) }
+      def exp_year; end
+      # Uniquely identifies the gift card.
+      sig { returns(T.nilable(String)) }
+      def fingerprint; end
+      # The first six digits of the gift card number.
+      sig { returns(String) }
+      def first6; end
+      # The last four digits of the gift card number.
+      sig { returns(T.nilable(String)) }
+      def last4; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Giropay < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1665,6 +1691,9 @@ module Stripe
     # Attribute for field fpx
     sig { returns(T.nilable(Fpx)) }
     def fpx; end
+    # Attribute for field gift_card
+    sig { returns(T.nilable(GiftCard)) }
+    def gift_card; end
     # Attribute for field giropay
     sig { returns(T.nilable(Giropay)) }
     def giropay; end

@@ -1,5 +1,17 @@
 # Changelog
 
+## 19.2.0-alpha.4 - 2026-05-06
+* [#1861](https://github.com/stripe/stripe-ruby/pull/1861) Update generated code for private-preview
+  * Add support for new resource `PaymentLocation`
+  * Add support for `create`, `delete`, `retrieve`, and `update` methods on resource `PaymentLocation`
+  * Add support for `protections` on `AccountCreateParams::Capability::CardPayment`, `AccountUpdateParams::Capability::CardPayment`, and `Capability`
+  * Add support for `gift_card` on `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentMethodCreateParams`, `PaymentMethod`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentUpdateParams::PaymentMethodDatum`, and `SharedPayment::GrantedToken::PaymentMethodDetail`
+  * Add support for `metadata` on `DelegatedCheckout::RequestedSessionConfirmParams`
+  * Add support for `credited_items` on `InvoiceItem::ProrationDetail`
+  * Add support for `network_lifecycle` on `Issuing::Dispute`
+  * Add support for `status_details` on `Subscription`
+* [#1862](https://github.com/stripe/stripe-ruby/pull/1862) Add EventNotificationHandler (private preview)
+
 ## 19.2.0-alpha.3 - 2026-04-28
 * [#1858](https://github.com/stripe/stripe-ruby/pull/1858) Update generated code for private-preview
   * Add support for `debit_card` on `V2::Core::Account::Configuration::CardCreator::Capability::Consumer::Lead`, `V2::Core::Account::Identity::Attestation::TermsOfService::CardCreator::Consumer::Lead`, `V2::Core::AccountCreateParams::Configuration::CardCreator::Capability::Consumer::Lead`, `V2::Core::AccountCreateParams::Identity::Attestation::TermsOfService::CardCreator::Consumer::Lead`, `V2::Core::AccountUpdateParams::Configuration::CardCreator::Capability::Consumer::Lead`, and `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService::CardCreator::Consumer::Lead`

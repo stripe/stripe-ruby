@@ -87,6 +87,9 @@ module Stripe
     # The capability settings for the location. Only applicable for locations with requested Payment Location Capabilities.
     sig { returns(T.nilable(CapabilitySettings)) }
     def capability_settings; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # The display name of the location.
     sig { returns(String) }
     def display_name; end
@@ -104,5 +107,23 @@ module Stripe
       params(params: T.any(::Stripe::PaymentLocationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocation)
      }
     def self.create(params = {}, opts = {}); end
+
+    # Delete a Payment Location.
+    sig {
+      params(id: String, params: T.any(::Stripe::PaymentLocationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocation)
+     }
+    def self.delete(id, params = {}, opts = {}); end
+
+    # Delete a Payment Location.
+    sig {
+      params(params: T.any(::Stripe::PaymentLocationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocation)
+     }
+    def delete(params = {}, opts = {}); end
+
+    # Update a Payment Location.
+    sig {
+      params(id: String, params: T.any(::Stripe::PaymentLocationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocation)
+     }
+    def self.update(id, params = {}, opts = {}); end
   end
 end

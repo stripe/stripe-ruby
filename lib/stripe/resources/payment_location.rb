@@ -5,6 +5,8 @@ module Stripe
   # A Payment Location represents a physical location where payments take place.
   class PaymentLocation < APIResource
     extend Stripe::APIOperations::Create
+    include Stripe::APIOperations::Delete
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_location"
     def self.object_name
@@ -91,6 +93,8 @@ module Stripe
     attr_reader :business_registration
     # The capability settings for the location. Only applicable for locations with requested Payment Location Capabilities.
     attr_reader :capability_settings
+    # Always true for a deleted object
+    attr_reader :deleted
     # The display name of the location.
     attr_reader :display_name
     # Unique identifier for the object.
@@ -105,6 +109,36 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: "/v1/payment_locations",
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Delete a Payment Location.
+    def self.delete(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/payment_locations/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Delete a Payment Location.
+    def delete(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/payment_locations/%<id>s", { id: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Update a Payment Location.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_locations/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

@@ -789,6 +789,47 @@ module Stripe
       end
     end
 
+    class StatusDetails < ::Stripe::StripeObject
+      class Paused < ::Stripe::StripeObject
+        class Subscription < ::Stripe::StripeObject
+          # The reason that the subscription was paused.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information on the `type=subscription` pause.
+        attr_reader :subscription
+        # Unix timestamp in seconds of when the subscription status transitioned to `paused`.
+        attr_reader :transitioned_at
+        # The type of pause.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { subscription: Subscription }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Indicates when and why the subscription transitioned to the paused status.
+      attr_reader :paused
+
+      def self.inner_class_types
+        @inner_class_types = { paused: Paused }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class TransferData < ::Stripe::StripeObject
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_reader :amount_percent
@@ -932,6 +973,8 @@ module Stripe
     #
     # If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
     attr_reader :status
+    # Describes changes to the subscription's status.
+    attr_reader :status_details
     # ID of the test clock this subscription belongs to.
     attr_reader :test_clock
     # The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
@@ -1149,6 +1192,7 @@ module Stripe
         pending_update: PendingUpdate,
         prebilling: Prebilling,
         presentment_details: PresentmentDetails,
+        status_details: StatusDetails,
         transfer_data: TransferData,
         trial_settings: TrialSettings,
       }

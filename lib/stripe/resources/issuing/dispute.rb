@@ -336,6 +336,71 @@ module Stripe
         end
       end
 
+      class NetworkLifecycle < ::Stripe::StripeObject
+        class DisputeResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's initial dispute response failed.
+          attr_reader :error
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided in support of their initial dispute response.
+          attr_reader :merchant_evidence_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PreArbitrationResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration response failed.
+          attr_reader :error
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration response.
+          attr_reader :merchant_evidence_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PreArbitrationSubmission < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration submission failed.
+          attr_reader :error
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration submission.
+          attr_reader :merchant_evidence_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information related to the acquiring merchant's initial response to this dispute.
+        attr_reader :dispute_response
+        # Information related to the acquiring merchant's pre-arbitration response for this dispute.
+        attr_reader :pre_arbitration_response
+        # Information related to the acquiring merchant's pre-arbitration submission for this dispute.
+        attr_reader :pre_arbitration_submission
+
+        def self.inner_class_types
+          @inner_class_types = {
+            dispute_response: DisputeResponse,
+            pre_arbitration_response: PreArbitrationResponse,
+            pre_arbitration_submission: PreArbitrationSubmission,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         attr_reader :debit_reversal
@@ -370,6 +435,8 @@ module Stripe
       attr_reader :loss_reason
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+      # Incoming information from the card network for this dispute. Includes the acquiring merchant's initial response, pre-arbitration submission, and pre-arbitration response to the dispute.
+      attr_reader :network_lifecycle
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # Current status of the dispute.
@@ -433,6 +500,7 @@ module Stripe
         @inner_class_types = {
           crypto_transactions: CryptoTransaction,
           evidence: Evidence,
+          network_lifecycle: NetworkLifecycle,
           treasury: Treasury,
         }
       end

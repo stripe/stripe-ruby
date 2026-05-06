@@ -291,10 +291,29 @@ module Stripe
       end
 
       class CardPayments < ::Stripe::RequestParams
+        class Protections < ::Stripe::RequestParams
+          class PspMigration < ::Stripe::RequestParams
+            # Passing true requests the protection.
+            attr_accessor :requested
+
+            def initialize(requested: nil)
+              @requested = requested
+            end
+          end
+          # Protection for connected accounts migrating from another PSP.
+          attr_accessor :psp_migration
+
+          def initialize(psp_migration: nil)
+            @psp_migration = psp_migration
+          end
+        end
+        # Protections to apply to this capability.
+        attr_accessor :protections
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
-        def initialize(requested: nil)
+        def initialize(protections: nil, requested: nil)
+          @protections = protections
           @requested = requested
         end
       end

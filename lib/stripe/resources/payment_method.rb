@@ -907,6 +907,29 @@ module Stripe
       end
     end
 
+    class GiftCard < ::Stripe::StripeObject
+      # The brand of the gift card.
+      attr_reader :brand
+      # The expiration month of the gift card.
+      attr_reader :exp_month
+      # The expiration year of the gift card.
+      attr_reader :exp_year
+      # Uniquely identifies the gift card.
+      attr_reader :fingerprint
+      # The first six digits of the gift card number.
+      attr_reader :first6
+      # The last four digits of the gift card number.
+      attr_reader :last4
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Giropay < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1637,6 +1660,8 @@ module Stripe
     attr_reader :eps
     # Attribute for field fpx
     attr_reader :fpx
+    # Attribute for field gift_card
+    attr_reader :gift_card
     # Attribute for field giropay
     attr_reader :giropay
     # Attribute for field gopay
@@ -1867,6 +1892,7 @@ module Stripe
         customer_balance: CustomerBalance,
         eps: Eps,
         fpx: Fpx,
+        gift_card: GiftCard,
         giropay: Giropay,
         gopay: Gopay,
         grabpay: Grabpay,

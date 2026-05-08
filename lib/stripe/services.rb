@@ -153,8 +153,8 @@ module Stripe
 
   module Issuing
     autoload :AuthorizationService, "stripe/services/issuing/authorization_service"
-    autoload :CardService, "stripe/services/issuing/card_service"
     autoload :CardholderService, "stripe/services/issuing/cardholder_service"
+    autoload :CardService, "stripe/services/issuing/card_service"
     autoload :DisputeService, "stripe/services/issuing/dispute_service"
     autoload :PersonalizationDesignService, "stripe/services/issuing/personalization_design_service"
     autoload :PhysicalBundleService, "stripe/services/issuing/physical_bundle_service"
@@ -263,9 +263,9 @@ module Stripe
       end
     end
   end
+end
 
-  # Ordered list for Stripe.eager_load! — same order as the original
-  # require calls so eager loading has no load-order surprises.
+module Stripe
   SERVICE_FILES = %w[
     stripe/services/account_capability_service
     stripe/services/account_external_account_service

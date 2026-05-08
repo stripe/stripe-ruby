@@ -269,7 +269,6 @@ module Stripe
   end
 
   module V2
-    autoload :Amount, "stripe/resources/v2/amount"
     autoload :DeletedObject, "stripe/resources/v2/deleted_object"
 
     module Billing
@@ -292,12 +291,10 @@ module Stripe
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
     end
   end
+end
 
-  # Ordered list for Stripe.eager_load! — same order as the original
-  # require calls so eager loading has no load-order surprises.
+module Stripe
   RESOURCE_FILES = %w[
-    stripe/resources/v2/amount
-    stripe/resources/v2/deleted_object
     stripe/resources/v2/core/event_notification
     stripe/resources/account
     stripe/resources/account_link
@@ -455,6 +452,7 @@ module Stripe
     stripe/resources/v2/core/account_token
     stripe/resources/v2/core/event
     stripe/resources/v2/core/event_destination
+    stripe/resources/v2/deleted_object
     stripe/resources/webhook_endpoint
     stripe/events/v1_billing_meter_error_report_triggered_event
     stripe/events/v1_billing_meter_no_meter_found_event

@@ -19,8 +19,8 @@ module Stripe
   autoload :AccountPersonDeleteParams, "stripe/params/account_person_delete_params"
   autoload :AccountPersonListParams, "stripe/params/account_person_list_params"
   autoload :AccountPersonRetrieveParams, "stripe/params/account_person_retrieve_params"
-  autoload :AccountPersonUpdateParams, "stripe/params/account_person_update_params"
   autoload :AccountPersonsParams, "stripe/params/account_persons_params"
+  autoload :AccountPersonUpdateParams, "stripe/params/account_person_update_params"
   autoload :AccountRejectParams, "stripe/params/account_reject_params"
   autoload :AccountRetrieveCurrentParams, "stripe/params/account_retrieve_current_params"
   autoload :AccountRetrieveParams, "stripe/params/account_retrieve_params"
@@ -131,9 +131,9 @@ module Stripe
   autoload :InvoiceLineItemUpdateParams, "stripe/params/invoice_line_item_update_params"
   autoload :InvoiceListParams, "stripe/params/invoice_list_params"
   autoload :InvoiceMarkUncollectibleParams, "stripe/params/invoice_mark_uncollectible_params"
-  autoload :InvoicePayParams, "stripe/params/invoice_pay_params"
   autoload :InvoicePaymentListParams, "stripe/params/invoice_payment_list_params"
   autoload :InvoicePaymentRetrieveParams, "stripe/params/invoice_payment_retrieve_params"
+  autoload :InvoicePayParams, "stripe/params/invoice_pay_params"
   autoload :InvoiceRemoveLinesParams, "stripe/params/invoice_remove_lines_params"
   autoload :InvoiceRenderingTemplateArchiveParams, "stripe/params/invoice_rendering_template_archive_params"
   autoload :InvoiceRenderingTemplateListParams, "stripe/params/invoice_rendering_template_list_params"
@@ -436,16 +436,16 @@ module Stripe
     autoload :CardCreateParams, "stripe/params/issuing/card_create_params"
     autoload :CardDeliverCardParams, "stripe/params/issuing/card_deliver_card_params"
     autoload :CardFailCardParams, "stripe/params/issuing/card_fail_card_params"
+    autoload :CardholderCreateParams, "stripe/params/issuing/cardholder_create_params"
+    autoload :CardholderListParams, "stripe/params/issuing/cardholder_list_params"
+    autoload :CardholderRetrieveParams, "stripe/params/issuing/cardholder_retrieve_params"
+    autoload :CardholderUpdateParams, "stripe/params/issuing/cardholder_update_params"
     autoload :CardListParams, "stripe/params/issuing/card_list_params"
     autoload :CardRetrieveParams, "stripe/params/issuing/card_retrieve_params"
     autoload :CardReturnCardParams, "stripe/params/issuing/card_return_card_params"
     autoload :CardShipCardParams, "stripe/params/issuing/card_ship_card_params"
     autoload :CardSubmitCardParams, "stripe/params/issuing/card_submit_card_params"
     autoload :CardUpdateParams, "stripe/params/issuing/card_update_params"
-    autoload :CardholderCreateParams, "stripe/params/issuing/cardholder_create_params"
-    autoload :CardholderListParams, "stripe/params/issuing/cardholder_list_params"
-    autoload :CardholderRetrieveParams, "stripe/params/issuing/cardholder_retrieve_params"
-    autoload :CardholderUpdateParams, "stripe/params/issuing/cardholder_update_params"
     autoload :DisputeCreateParams, "stripe/params/issuing/dispute_create_params"
     autoload :DisputeListParams, "stripe/params/issuing/dispute_list_params"
     autoload :DisputeRetrieveParams, "stripe/params/issuing/dispute_retrieve_params"
@@ -710,9 +710,10 @@ module Stripe
       end
     end
   end
+end
 
-  # Ordered list for Stripe.eager_load! — same order as the original
-  # require calls so eager loading has no load-order surprises.
+module Stripe
+  # rubocop:disable Metrics/CollectionLiteralLength
   PARAM_FILES = %w[
     stripe/params/account_capability_list_params
     stripe/params/account_capability_retrieve_params
@@ -1329,4 +1330,5 @@ module Stripe
     stripe/params/webhook_endpoint_retrieve_params
     stripe/params/webhook_endpoint_update_params
   ].freeze
+  # rubocop:enable Metrics/CollectionLiteralLength
 end

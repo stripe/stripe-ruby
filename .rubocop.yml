@@ -47,8 +47,6 @@ Metrics/CollectionLiteralLength:
   Exclude:
     # We have thin event types that are automatically generated from the OpenAPI spec
     - "lib/stripe/event_types.rb"
-    # Generated list of param files for eager loading
-    - "lib/stripe/params.rb"
 
 # There are several methods with many branches in api_requestor due to
 # request logic.

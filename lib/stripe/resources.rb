@@ -120,33 +120,54 @@ module Stripe
 
   module Events
     autoload :V1BillingMeterErrorReportTriggeredEvent, "stripe/events/v1_billing_meter_error_report_triggered_event"
-    autoload :V1BillingMeterErrorReportTriggeredEventNotification, "stripe/events/v1_billing_meter_error_report_triggered_event"
+    autoload :V1BillingMeterErrorReportTriggeredEventNotification,
+             "stripe/events/v1_billing_meter_error_report_triggered_event"
     autoload :V1BillingMeterNoMeterFoundEvent, "stripe/events/v1_billing_meter_no_meter_found_event"
     autoload :V1BillingMeterNoMeterFoundEventNotification, "stripe/events/v1_billing_meter_no_meter_found_event"
     autoload :V2CoreAccountClosedEvent, "stripe/events/v2_core_account_closed_event"
     autoload :V2CoreAccountClosedEventNotification, "stripe/events/v2_core_account_closed_event"
     autoload :V2CoreAccountCreatedEvent, "stripe/events/v2_core_account_created_event"
     autoload :V2CoreAccountCreatedEventNotification, "stripe/events/v2_core_account_created_event"
-    autoload :V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent, "stripe/events/v2_core_account_including_configuration_customer_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification, "stripe/events/v2_core_account_including_configuration_customer_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationCustomerUpdatedEvent, "stripe/events/v2_core_account_including_configuration_customer_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification, "stripe/events/v2_core_account_including_configuration_customer_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent, "stripe/events/v2_core_account_including_configuration_merchant_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification, "stripe/events/v2_core_account_including_configuration_merchant_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationMerchantUpdatedEvent, "stripe/events/v2_core_account_including_configuration_merchant_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification, "stripe/events/v2_core_account_including_configuration_merchant_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent, "stripe/events/v2_core_account_including_configuration_recipient_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, "stripe/events/v2_core_account_including_configuration_recipient_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationRecipientUpdatedEvent, "stripe/events/v2_core_account_including_configuration_recipient_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification, "stripe/events/v2_core_account_including_configuration_recipient_updated_event"
-    autoload :V2CoreAccountIncludingDefaultsUpdatedEvent, "stripe/events/v2_core_account_including_defaults_updated_event"
-    autoload :V2CoreAccountIncludingDefaultsUpdatedEventNotification, "stripe/events/v2_core_account_including_defaults_updated_event"
-    autoload :V2CoreAccountIncludingFutureRequirementsUpdatedEvent, "stripe/events/v2_core_account_including_future_requirements_updated_event"
-    autoload :V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification, "stripe/events/v2_core_account_including_future_requirements_updated_event"
-    autoload :V2CoreAccountIncludingIdentityUpdatedEvent, "stripe/events/v2_core_account_including_identity_updated_event"
-    autoload :V2CoreAccountIncludingIdentityUpdatedEventNotification, "stripe/events/v2_core_account_including_identity_updated_event"
-    autoload :V2CoreAccountIncludingRequirementsUpdatedEvent, "stripe/events/v2_core_account_including_requirements_updated_event"
-    autoload :V2CoreAccountIncludingRequirementsUpdatedEventNotification, "stripe/events/v2_core_account_including_requirements_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_customer_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_customer_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_customer_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_customer_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_merchant_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_merchant_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_merchant_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_merchant_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_recipient_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_recipient_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_recipient_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_recipient_updated_event"
+    autoload :V2CoreAccountIncludingDefaultsUpdatedEvent,
+             "stripe/events/v2_core_account_including_defaults_updated_event"
+    autoload :V2CoreAccountIncludingDefaultsUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_defaults_updated_event"
+    autoload :V2CoreAccountIncludingFutureRequirementsUpdatedEvent,
+             "stripe/events/v2_core_account_including_future_requirements_updated_event"
+    autoload :V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_future_requirements_updated_event"
+    autoload :V2CoreAccountIncludingIdentityUpdatedEvent,
+             "stripe/events/v2_core_account_including_identity_updated_event"
+    autoload :V2CoreAccountIncludingIdentityUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_identity_updated_event"
+    autoload :V2CoreAccountIncludingRequirementsUpdatedEvent,
+             "stripe/events/v2_core_account_including_requirements_updated_event"
+    autoload :V2CoreAccountIncludingRequirementsUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_requirements_updated_event"
     autoload :V2CoreAccountLinkReturnedEvent, "stripe/events/v2_core_account_link_returned_event"
     autoload :V2CoreAccountLinkReturnedEventNotification, "stripe/events/v2_core_account_link_returned_event"
     autoload :V2CoreAccountPersonCreatedEvent, "stripe/events/v2_core_account_person_created_event"

@@ -71,7 +71,8 @@ module Stripe
   autoload :CustomerBalanceTransactionUpdateParams, "stripe/params/customer_balance_transaction_update_params"
   autoload :CustomerCashBalanceRetrieveParams, "stripe/params/customer_cash_balance_retrieve_params"
   autoload :CustomerCashBalanceTransactionListParams, "stripe/params/customer_cash_balance_transaction_list_params"
-  autoload :CustomerCashBalanceTransactionRetrieveParams, "stripe/params/customer_cash_balance_transaction_retrieve_params"
+  autoload :CustomerCashBalanceTransactionRetrieveParams,
+           "stripe/params/customer_cash_balance_transaction_retrieve_params"
   autoload :CustomerCashBalanceUpdateParams, "stripe/params/customer_cash_balance_update_params"
   autoload :CustomerCreateFundingInstructionsParams, "stripe/params/customer_create_funding_instructions_params"
   autoload :CustomerCreateParams, "stripe/params/customer_create_params"
@@ -147,7 +148,8 @@ module Stripe
   autoload :MandateRetrieveParams, "stripe/params/mandate_retrieve_params"
   autoload :PaymentAttemptRecordListParams, "stripe/params/payment_attempt_record_list_params"
   autoload :PaymentAttemptRecordRetrieveParams, "stripe/params/payment_attempt_record_retrieve_params"
-  autoload :PaymentIntentAmountDetailsLineItemListParams, "stripe/params/payment_intent_amount_details_line_item_list_params"
+  autoload :PaymentIntentAmountDetailsLineItemListParams,
+           "stripe/params/payment_intent_amount_details_line_item_list_params"
   autoload :PaymentIntentApplyCustomerBalanceParams, "stripe/params/payment_intent_apply_customer_balance_params"
   autoload :PaymentIntentCancelParams, "stripe/params/payment_intent_cancel_params"
   autoload :PaymentIntentCaptureParams, "stripe/params/payment_intent_capture_params"
@@ -180,10 +182,14 @@ module Stripe
   autoload :PaymentMethodListParams, "stripe/params/payment_method_list_params"
   autoload :PaymentMethodRetrieveParams, "stripe/params/payment_method_retrieve_params"
   autoload :PaymentMethodUpdateParams, "stripe/params/payment_method_update_params"
-  autoload :PaymentRecordReportPaymentAttemptCanceledParams, "stripe/params/payment_record_report_payment_attempt_canceled_params"
-  autoload :PaymentRecordReportPaymentAttemptFailedParams, "stripe/params/payment_record_report_payment_attempt_failed_params"
-  autoload :PaymentRecordReportPaymentAttemptGuaranteedParams, "stripe/params/payment_record_report_payment_attempt_guaranteed_params"
-  autoload :PaymentRecordReportPaymentAttemptInformationalParams, "stripe/params/payment_record_report_payment_attempt_informational_params"
+  autoload :PaymentRecordReportPaymentAttemptCanceledParams,
+           "stripe/params/payment_record_report_payment_attempt_canceled_params"
+  autoload :PaymentRecordReportPaymentAttemptFailedParams,
+           "stripe/params/payment_record_report_payment_attempt_failed_params"
+  autoload :PaymentRecordReportPaymentAttemptGuaranteedParams,
+           "stripe/params/payment_record_report_payment_attempt_guaranteed_params"
+  autoload :PaymentRecordReportPaymentAttemptInformationalParams,
+           "stripe/params/payment_record_report_payment_attempt_informational_params"
   autoload :PaymentRecordReportPaymentAttemptParams, "stripe/params/payment_record_report_payment_attempt_params"
   autoload :PaymentRecordReportPaymentParams, "stripe/params/payment_record_report_payment_params"
   autoload :PaymentRecordReportRefundParams, "stripe/params/payment_record_report_refund_params"
@@ -557,7 +563,8 @@ module Stripe
       autoload :AuthorizationCaptureParams, "stripe/params/test_helpers/issuing/authorization_capture_params"
       autoload :AuthorizationCreateParams, "stripe/params/test_helpers/issuing/authorization_create_params"
       autoload :AuthorizationExpireParams, "stripe/params/test_helpers/issuing/authorization_expire_params"
-      autoload :AuthorizationFinalizeAmountParams, "stripe/params/test_helpers/issuing/authorization_finalize_amount_params"
+      autoload :AuthorizationFinalizeAmountParams,
+               "stripe/params/test_helpers/issuing/authorization_finalize_amount_params"
       autoload :AuthorizationIncrementParams, "stripe/params/test_helpers/issuing/authorization_increment_params"
       autoload :AuthorizationRespondParams, "stripe/params/test_helpers/issuing/authorization_respond_params"
       autoload :AuthorizationReverseParams, "stripe/params/test_helpers/issuing/authorization_reverse_params"
@@ -566,31 +573,42 @@ module Stripe
       autoload :CardReturnCardParams, "stripe/params/test_helpers/issuing/card_return_card_params"
       autoload :CardShipCardParams, "stripe/params/test_helpers/issuing/card_ship_card_params"
       autoload :CardSubmitCardParams, "stripe/params/test_helpers/issuing/card_submit_card_params"
-      autoload :PersonalizationDesignActivateParams, "stripe/params/test_helpers/issuing/personalization_design_activate_params"
-      autoload :PersonalizationDesignDeactivateParams, "stripe/params/test_helpers/issuing/personalization_design_deactivate_params"
-      autoload :PersonalizationDesignRejectParams, "stripe/params/test_helpers/issuing/personalization_design_reject_params"
-      autoload :TransactionCreateForceCaptureParams, "stripe/params/test_helpers/issuing/transaction_create_force_capture_params"
-      autoload :TransactionCreateUnlinkedRefundParams, "stripe/params/test_helpers/issuing/transaction_create_unlinked_refund_params"
+      autoload :PersonalizationDesignActivateParams,
+               "stripe/params/test_helpers/issuing/personalization_design_activate_params"
+      autoload :PersonalizationDesignDeactivateParams,
+               "stripe/params/test_helpers/issuing/personalization_design_deactivate_params"
+      autoload :PersonalizationDesignRejectParams,
+               "stripe/params/test_helpers/issuing/personalization_design_reject_params"
+      autoload :TransactionCreateForceCaptureParams,
+               "stripe/params/test_helpers/issuing/transaction_create_force_capture_params"
+      autoload :TransactionCreateUnlinkedRefundParams,
+               "stripe/params/test_helpers/issuing/transaction_create_unlinked_refund_params"
       autoload :TransactionRefundParams, "stripe/params/test_helpers/issuing/transaction_refund_params"
     end
 
     module Terminal
-      autoload :ReaderPresentPaymentMethodParams, "stripe/params/test_helpers/terminal/reader_present_payment_method_params"
-      autoload :ReaderSucceedInputCollectionParams, "stripe/params/test_helpers/terminal/reader_succeed_input_collection_params"
-      autoload :ReaderTimeoutInputCollectionParams, "stripe/params/test_helpers/terminal/reader_timeout_input_collection_params"
+      autoload :ReaderPresentPaymentMethodParams,
+               "stripe/params/test_helpers/terminal/reader_present_payment_method_params"
+      autoload :ReaderSucceedInputCollectionParams,
+               "stripe/params/test_helpers/terminal/reader_succeed_input_collection_params"
+      autoload :ReaderTimeoutInputCollectionParams,
+               "stripe/params/test_helpers/terminal/reader_timeout_input_collection_params"
     end
 
     module Treasury
       autoload :InboundTransferFailParams, "stripe/params/test_helpers/treasury/inbound_transfer_fail_params"
-      autoload :InboundTransferReturnInboundTransferParams, "stripe/params/test_helpers/treasury/inbound_transfer_return_inbound_transfer_params"
+      autoload :InboundTransferReturnInboundTransferParams,
+               "stripe/params/test_helpers/treasury/inbound_transfer_return_inbound_transfer_params"
       autoload :InboundTransferSucceedParams, "stripe/params/test_helpers/treasury/inbound_transfer_succeed_params"
       autoload :OutboundPaymentFailParams, "stripe/params/test_helpers/treasury/outbound_payment_fail_params"
       autoload :OutboundPaymentPostParams, "stripe/params/test_helpers/treasury/outbound_payment_post_params"
-      autoload :OutboundPaymentReturnOutboundPaymentParams, "stripe/params/test_helpers/treasury/outbound_payment_return_outbound_payment_params"
+      autoload :OutboundPaymentReturnOutboundPaymentParams,
+               "stripe/params/test_helpers/treasury/outbound_payment_return_outbound_payment_params"
       autoload :OutboundPaymentUpdateParams, "stripe/params/test_helpers/treasury/outbound_payment_update_params"
       autoload :OutboundTransferFailParams, "stripe/params/test_helpers/treasury/outbound_transfer_fail_params"
       autoload :OutboundTransferPostParams, "stripe/params/test_helpers/treasury/outbound_transfer_post_params"
-      autoload :OutboundTransferReturnOutboundTransferParams, "stripe/params/test_helpers/treasury/outbound_transfer_return_outbound_transfer_params"
+      autoload :OutboundTransferReturnOutboundTransferParams,
+               "stripe/params/test_helpers/treasury/outbound_transfer_return_outbound_transfer_params"
       autoload :OutboundTransferUpdateParams, "stripe/params/test_helpers/treasury/outbound_transfer_update_params"
       autoload :ReceivedCreditCreateParams, "stripe/params/test_helpers/treasury/received_credit_create_params"
       autoload :ReceivedDebitCreateParams, "stripe/params/test_helpers/treasury/received_debit_create_params"
@@ -606,10 +624,12 @@ module Stripe
     autoload :DebitReversalRetrieveParams, "stripe/params/treasury/debit_reversal_retrieve_params"
     autoload :FinancialAccountCloseParams, "stripe/params/treasury/financial_account_close_params"
     autoload :FinancialAccountCreateParams, "stripe/params/treasury/financial_account_create_params"
-    autoload :FinancialAccountFeaturesRetrieveParams, "stripe/params/treasury/financial_account_features_retrieve_params"
+    autoload :FinancialAccountFeaturesRetrieveParams,
+             "stripe/params/treasury/financial_account_features_retrieve_params"
     autoload :FinancialAccountFeaturesUpdateParams, "stripe/params/treasury/financial_account_features_update_params"
     autoload :FinancialAccountListParams, "stripe/params/treasury/financial_account_list_params"
-    autoload :FinancialAccountRetrieveFeaturesParams, "stripe/params/treasury/financial_account_retrieve_features_params"
+    autoload :FinancialAccountRetrieveFeaturesParams,
+             "stripe/params/treasury/financial_account_retrieve_features_params"
     autoload :FinancialAccountRetrieveParams, "stripe/params/treasury/financial_account_retrieve_params"
     autoload :FinancialAccountUpdateFeaturesParams, "stripe/params/treasury/financial_account_update_features_params"
     autoload :FinancialAccountUpdateParams, "stripe/params/treasury/financial_account_update_params"
@@ -618,7 +638,8 @@ module Stripe
     autoload :InboundTransferFailParams, "stripe/params/treasury/inbound_transfer_fail_params"
     autoload :InboundTransferListParams, "stripe/params/treasury/inbound_transfer_list_params"
     autoload :InboundTransferRetrieveParams, "stripe/params/treasury/inbound_transfer_retrieve_params"
-    autoload :InboundTransferReturnInboundTransferParams, "stripe/params/treasury/inbound_transfer_return_inbound_transfer_params"
+    autoload :InboundTransferReturnInboundTransferParams,
+             "stripe/params/treasury/inbound_transfer_return_inbound_transfer_params"
     autoload :InboundTransferSucceedParams, "stripe/params/treasury/inbound_transfer_succeed_params"
     autoload :OutboundPaymentCancelParams, "stripe/params/treasury/outbound_payment_cancel_params"
     autoload :OutboundPaymentCreateParams, "stripe/params/treasury/outbound_payment_create_params"
@@ -626,7 +647,8 @@ module Stripe
     autoload :OutboundPaymentListParams, "stripe/params/treasury/outbound_payment_list_params"
     autoload :OutboundPaymentPostParams, "stripe/params/treasury/outbound_payment_post_params"
     autoload :OutboundPaymentRetrieveParams, "stripe/params/treasury/outbound_payment_retrieve_params"
-    autoload :OutboundPaymentReturnOutboundPaymentParams, "stripe/params/treasury/outbound_payment_return_outbound_payment_params"
+    autoload :OutboundPaymentReturnOutboundPaymentParams,
+             "stripe/params/treasury/outbound_payment_return_outbound_payment_params"
     autoload :OutboundPaymentUpdateParams, "stripe/params/treasury/outbound_payment_update_params"
     autoload :OutboundTransferCancelParams, "stripe/params/treasury/outbound_transfer_cancel_params"
     autoload :OutboundTransferCreateParams, "stripe/params/treasury/outbound_transfer_create_params"
@@ -634,7 +656,8 @@ module Stripe
     autoload :OutboundTransferListParams, "stripe/params/treasury/outbound_transfer_list_params"
     autoload :OutboundTransferPostParams, "stripe/params/treasury/outbound_transfer_post_params"
     autoload :OutboundTransferRetrieveParams, "stripe/params/treasury/outbound_transfer_retrieve_params"
-    autoload :OutboundTransferReturnOutboundTransferParams, "stripe/params/treasury/outbound_transfer_return_outbound_transfer_params"
+    autoload :OutboundTransferReturnOutboundTransferParams,
+             "stripe/params/treasury/outbound_transfer_return_outbound_transfer_params"
     autoload :OutboundTransferUpdateParams, "stripe/params/treasury/outbound_transfer_update_params"
     autoload :ReceivedCreditCreateParams, "stripe/params/treasury/received_credit_create_params"
     autoload :ReceivedCreditListParams, "stripe/params/treasury/received_credit_list_params"
@@ -649,7 +672,6 @@ module Stripe
   end
 
   module V2
-
     module Billing
       autoload :MeterEventAdjustmentCreateParams, "stripe/params/v2/billing/meter_event_adjustment_create_params"
       autoload :MeterEventCreateParams, "stripe/params/v2/billing/meter_event_create_params"

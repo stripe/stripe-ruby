@@ -67,7 +67,7 @@ require "stripe/services/oauth_service"
 
 # Rails integration — registers Stripe in config.eager_load_namespaces
 # so Stripe.eager_load! is called automatically when config.eager_load is true.
-require "stripe/railtie" if defined?(::Rails::Railtie)
+require "stripe/railtie" if defined?(Rails::Railtie)
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"

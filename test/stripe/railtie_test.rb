@@ -1,3 +1,4 @@
+# typed: ignore
 # frozen_string_literal: true
 
 require "test/unit"
@@ -8,7 +9,7 @@ rescue LoadError
   # Rails is not a dependency of stripe-ruby; skip these tests when unavailable.
 end
 
-if defined?(::Rails::Railtie)
+if defined?(Rails::Railtie)
   require "stripe"
 
   class RailtieTest < Test::Unit::TestCase

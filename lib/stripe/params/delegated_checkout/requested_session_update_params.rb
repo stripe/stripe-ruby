@@ -4,6 +4,18 @@
 module Stripe
   module DelegatedCheckout
     class RequestedSessionUpdateParams < ::Stripe::RequestParams
+      class Discounts < ::Stripe::RequestParams
+        # Array of discount codes to apply.
+        attr_accessor :codes
+        # Whether to enforce strict eligibility for discount codes. Defaults to true. When false, invalid codes are returned in the discounts.invalid array instead of raising an error.
+        attr_accessor :enforce_strict_eligibility
+
+        def initialize(codes: nil, enforce_strict_eligibility: nil)
+          @codes = codes
+          @enforce_strict_eligibility = enforce_strict_eligibility
+        end
+      end
+
       class FulfillmentDetails < ::Stripe::RequestParams
         class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -163,6 +175,8 @@ module Stripe
           @excluded_payment_method_types = excluded_payment_method_types
         end
       end
+      # The discount codes to apply to this requested session.
+      attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The details of the fulfillment.
@@ -179,6 +193,7 @@ module Stripe
       attr_accessor :shared_metadata
 
       def initialize(
+        discounts: nil,
         expand: nil,
         fulfillment_details: nil,
         line_item_details: nil,
@@ -187,6 +202,7 @@ module Stripe
         payment_method_options: nil,
         shared_metadata: nil
       )
+        @discounts = discounts
         @expand = expand
         @fulfillment_details = fulfillment_details
         @line_item_details = line_item_details

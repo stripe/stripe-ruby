@@ -120,6 +120,60 @@ module Stripe
         end
       end
 
+      class Discounts < ::Stripe::StripeObject
+        class Applied < ::Stripe::StripeObject
+          # The amount off provided by this discount.
+          attr_reader :amount_off
+          # The discount code.
+          attr_reader :code
+          # The currency of the discount amount.
+          attr_reader :currency
+          # The unique key of the applied discount.
+          attr_reader :key
+          # The display name of the discount.
+          attr_reader :name
+          # The percentage off provided by this discount.
+          attr_reader :percent_off
+          # The type of discount.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Invalid < ::Stripe::StripeObject
+          # The discount code that was invalid.
+          attr_reader :code
+          # The reason the discount code is invalid.
+          attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The list of successfully applied discounts.
+        attr_reader :applied
+        # The list of discount codes that could not be applied.
+        attr_reader :invalid
+
+        def self.inner_class_types
+          @inner_class_types = { applied: Applied, invalid: Invalid }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class FulfillmentDetails < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -398,6 +452,8 @@ module Stripe
         end
         # The total discount for this line item. If no discount were applied, defaults to 0.
         attr_reader :amount_discount
+        # The sale amount for this line item.
+        attr_reader :amount_sale
         # The total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
         # The fulfillment type of the line item.
@@ -628,19 +684,52 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class Breakdown < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
+            # The amount this discount contributed to the total discount.
+            attr_reader :amount
+            # The key of the applied discount.
+            attr_reader :key
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The breakdown of discounts applied to the session.
+          attr_reader :discounts
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discount }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         attr_reader :amount_cart_discount
+        # The total discount amount from discount codes across the session.
+        attr_reader :amount_discount
         # The amount fulfillment of the total details.
         attr_reader :amount_fulfillment
         # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         attr_reader :amount_items_discount
+        # The total sale amount across the session.
+        attr_reader :amount_sale
         # The amount tax of the total details.
         attr_reader :amount_tax
         # The applicable fees of the total details.
         attr_reader :applicable_fees
+        # The breakdown of discounts applied to the session.
+        attr_reader :breakdown
 
         def self.inner_class_types
-          @inner_class_types = { applicable_fees: ApplicableFee }
+          @inner_class_types = { applicable_fees: ApplicableFee, breakdown: Breakdown }
         end
 
         def self.field_remappings
@@ -661,6 +750,8 @@ module Stripe
       attr_reader :currency
       # The customer for this requested session.
       attr_reader :customer
+      # The discounts applied to and rejected from this requested session.
+      attr_reader :discounts
       # Time at which the requested session expires. Measured in seconds since the Unix epoch.
       attr_reader :expires_at
       # The details of the fulfillment.
@@ -764,6 +855,7 @@ module Stripe
         @inner_class_types = {
           affiliate_attributions: AffiliateAttribution,
           buyer_consents: BuyerConsents,
+          discounts: Discounts,
           fulfillment_details: FulfillmentDetails,
           line_item_details: LineItemDetail,
           order_details: OrderDetails,

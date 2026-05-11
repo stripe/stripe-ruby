@@ -120,6 +120,63 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Discounts < ::Stripe::StripeObject
+        class Applied < ::Stripe::StripeObject
+          # The amount off provided by this discount.
+          sig { returns(T.nilable(Integer)) }
+          def amount_off; end
+          # The discount code.
+          sig { returns(String) }
+          def code; end
+          # The currency of the discount amount.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # The unique key of the applied discount.
+          sig { returns(String) }
+          def key; end
+          # The display name of the discount.
+          sig { returns(String) }
+          def name; end
+          # The percentage off provided by this discount.
+          sig { returns(T.nilable(Float)) }
+          def percent_off; end
+          # The type of discount.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Invalid < ::Stripe::StripeObject
+          # The discount code that was invalid.
+          sig { returns(String) }
+          def code; end
+          # The reason the discount code is invalid.
+          sig { returns(String) }
+          def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The list of successfully applied discounts.
+        sig { returns(T.nilable(T::Array[Applied])) }
+        def applied; end
+        # The list of discount codes that could not be applied.
+        sig { returns(T.nilable(T::Array[Invalid])) }
+        def invalid; end
+        def self.inner_class_types
+          @inner_class_types = {applied: Applied, invalid: Invalid}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class FulfillmentDetails < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -410,6 +467,9 @@ module Stripe
         # The total discount for this line item. If no discount were applied, defaults to 0.
         sig { returns(Integer) }
         def amount_discount; end
+        # The sale amount for this line item.
+        sig { returns(T.nilable(Integer)) }
+        def amount_sale; end
         # The total before any discounts or taxes are applied.
         sig { returns(Integer) }
         def amount_subtotal; end
@@ -655,23 +715,57 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Breakdown < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
+            # The amount this discount contributed to the total discount.
+            sig { returns(Integer) }
+            def amount; end
+            # The key of the applied discount.
+            sig { returns(String) }
+            def key; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The breakdown of discounts applied to the session.
+          sig { returns(T.nilable(T::Array[Discount])) }
+          def discounts; end
+          def self.inner_class_types
+            @inner_class_types = {discounts: Discount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         sig { returns(T.nilable(Integer)) }
         def amount_cart_discount; end
+        # The total discount amount from discount codes across the session.
+        sig { returns(T.nilable(Integer)) }
+        def amount_discount; end
         # The amount fulfillment of the total details.
         sig { returns(T.nilable(Integer)) }
         def amount_fulfillment; end
         # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         sig { returns(T.nilable(Integer)) }
         def amount_items_discount; end
+        # The total sale amount across the session.
+        sig { returns(T.nilable(Integer)) }
+        def amount_sale; end
         # The amount tax of the total details.
         sig { returns(T.nilable(Integer)) }
         def amount_tax; end
         # The applicable fees of the total details.
         sig { returns(T.nilable(T::Array[ApplicableFee])) }
         def applicable_fees; end
+        # The breakdown of discounts applied to the session.
+        sig { returns(T.nilable(Breakdown)) }
+        def breakdown; end
         def self.inner_class_types
-          @inner_class_types = {applicable_fees: ApplicableFee}
+          @inner_class_types = {applicable_fees: ApplicableFee, breakdown: Breakdown}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -698,6 +792,9 @@ module Stripe
       # The customer for this requested session.
       sig { returns(T.nilable(String)) }
       def customer; end
+      # The discounts applied to and rejected from this requested session.
+      sig { returns(T.nilable(Discounts)) }
+      def discounts; end
       # Time at which the requested session expires. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def expires_at; end

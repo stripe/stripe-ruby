@@ -28,13 +28,22 @@ module Stripe
     attr_accessor :guaranteed_at
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
+    # Payment evaluations associated with this reported payment.
+    attr_accessor :payment_evaluations
     # Processor information for this payment.
     attr_accessor :processor_details
 
-    def initialize(expand: nil, guaranteed_at: nil, metadata: nil, processor_details: nil)
+    def initialize(
+      expand: nil,
+      guaranteed_at: nil,
+      metadata: nil,
+      payment_evaluations: nil,
+      processor_details: nil
+    )
       @expand = expand
       @guaranteed_at = guaranteed_at
       @metadata = metadata
+      @payment_evaluations = payment_evaluations
       @processor_details = processor_details
     end
   end

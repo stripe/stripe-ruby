@@ -6,6 +6,7 @@ module Stripe
   class PaymentLocation < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
+    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_location"
@@ -132,6 +133,11 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    # List all Payment Locations.
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_locations", params: params, opts: opts)
     end
 
     # Update a Payment Location.

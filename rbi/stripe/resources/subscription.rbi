@@ -389,37 +389,8 @@ module Stripe
           end
         end
         class CheckScan < ::Stripe::StripeObject
-          class CheckDepositAddress < ::Stripe::StripeObject
-            # Attribute for field city
-            sig { returns(T.nilable(String)) }
-            def city; end
-            # Attribute for field country
-            sig { returns(T.nilable(String)) }
-            def country; end
-            # Attribute for field line1
-            sig { returns(T.nilable(String)) }
-            def line1; end
-            # Attribute for field line2
-            sig { returns(T.nilable(String)) }
-            def line2; end
-            # Attribute for field postal_code
-            sig { returns(T.nilable(String)) }
-            def postal_code; end
-            # Attribute for field state
-            sig { returns(T.nilable(String)) }
-            def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Attribute for field check_deposit_address
-          sig { returns(T.nilable(CheckDepositAddress)) }
-          def check_deposit_address; end
           def self.inner_class_types
-            @inner_class_types = {check_deposit_address: CheckDepositAddress}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}

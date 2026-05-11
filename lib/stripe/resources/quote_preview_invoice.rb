@@ -527,33 +527,8 @@ module Stripe
         end
 
         class CheckScan < ::Stripe::StripeObject
-          class CheckDepositAddress < ::Stripe::StripeObject
-            # Attribute for field city
-            attr_reader :city
-            # Attribute for field country
-            attr_reader :country
-            # Attribute for field line1
-            attr_reader :line1
-            # Attribute for field line2
-            attr_reader :line2
-            # Attribute for field postal_code
-            attr_reader :postal_code
-            # Attribute for field state
-            attr_reader :state
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Attribute for field check_deposit_address
-          attr_reader :check_deposit_address
-
           def self.inner_class_types
-            @inner_class_types = { check_deposit_address: CheckDepositAddress }
+            @inner_class_types = {}
           end
 
           def self.field_remappings

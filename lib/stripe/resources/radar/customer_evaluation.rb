@@ -120,6 +120,8 @@ module Stripe
       attr_reader :object
       # A hash of signal objects providing Radar's evaluation of the customer.
       attr_reader :signals
+      # The outcome status reported for this evaluation: allowed, restricted, or blocked.
+      attr_reader :status
 
       # Creates a new CustomerEvaluation object.
       def self.create(params = {}, opts = {})

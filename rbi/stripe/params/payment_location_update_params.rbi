@@ -80,9 +80,22 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Pass true when updating location fields that will trigger onboarding review for any of the location's active location capabilities. If this parameter is not set to true, updates that would trigger onboarding review will fail. Only applicable for locations with active location capabilities.
+    sig { returns(T.nilable(T::Boolean)) }
+    def onboarding_data_update_acknowledged; end
     sig {
-      params(address: T.nilable(::Stripe::PaymentLocationUpdateParams::Address), business_registration: T.nilable(::Stripe::PaymentLocationUpdateParams::BusinessRegistration), display_name: T.nilable(String), expand: T.nilable(T::Array[String])).void
+      params(_onboarding_data_update_acknowledged: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
      }
-    def initialize(address: nil, business_registration: nil, display_name: nil, expand: nil); end
+    def onboarding_data_update_acknowledged=(_onboarding_data_update_acknowledged); end
+    sig {
+      params(address: T.nilable(::Stripe::PaymentLocationUpdateParams::Address), business_registration: T.nilable(::Stripe::PaymentLocationUpdateParams::BusinessRegistration), display_name: T.nilable(String), expand: T.nilable(T::Array[String]), onboarding_data_update_acknowledged: T.nilable(T::Boolean)).void
+     }
+    def initialize(
+      address: nil,
+      business_registration: nil,
+      display_name: nil,
+      expand: nil,
+      onboarding_data_update_acknowledged: nil
+    ); end
   end
 end

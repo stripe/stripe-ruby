@@ -7,6 +7,7 @@ module Stripe
     class IssuingService < StripeService
       attr_reader :authorizations
       attr_reader :cards
+      attr_reader :disputes
       attr_reader :personalization_designs
       attr_reader :transactions
     end

@@ -496,6 +496,41 @@ module Stripe
         )
       end
 
+      def test_helpers
+        TestHelpers.new(self)
+      end
+
+      class TestHelpers < APIResourceTestHelpers
+        RESOURCE_CLASS = Dispute
+        def self.resource_class
+          "Dispute"
+        end
+
+        # Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+        def self.simulate_network_lifecycle_pre_arbitration_submission(
+          dispute,
+          params = {},
+          opts = {}
+        )
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_submission", { dispute: CGI.escape(dispute) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+        def simulate_network_lifecycle_pre_arbitration_submission(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_submission", { dispute: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+      end
+
       def self.inner_class_types
         @inner_class_types = {
           crypto_transactions: CryptoTransaction,

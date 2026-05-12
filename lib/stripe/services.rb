@@ -287,6 +287,7 @@ module Stripe
     module Issuing
       autoload :AuthorizationService, "stripe/services/test_helpers/issuing/authorization_service"
       autoload :CardService, "stripe/services/test_helpers/issuing/card_service"
+      autoload :DisputeService, "stripe/services/test_helpers/issuing/dispute_service"
       autoload :PersonalizationDesignService, "stripe/services/test_helpers/issuing/personalization_design_service"
       autoload :TransactionService, "stripe/services/test_helpers/issuing/transaction_service"
     end
@@ -695,6 +696,7 @@ module Stripe
     stripe/services/test_helpers/customer_service
     stripe/services/test_helpers/issuing/authorization_service
     stripe/services/test_helpers/issuing/card_service
+    stripe/services/test_helpers/issuing/dispute_service
     stripe/services/test_helpers/issuing/personalization_design_service
     stripe/services/test_helpers/issuing/transaction_service
     stripe/services/test_helpers/issuing_service

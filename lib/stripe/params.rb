@@ -551,6 +551,8 @@ module Stripe
     autoload :DisputeRetrieveParams, "stripe/params/issuing/dispute_retrieve_params"
     autoload :DisputeSettlementDetailListParams, "stripe/params/issuing/dispute_settlement_detail_list_params"
     autoload :DisputeSettlementDetailRetrieveParams, "stripe/params/issuing/dispute_settlement_detail_retrieve_params"
+    autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
+             "stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params"
     autoload :DisputeSubmitParams, "stripe/params/issuing/dispute_submit_params"
     autoload :DisputeUpdateParams, "stripe/params/issuing/dispute_update_params"
     autoload :FraudLiabilityDebitListParams, "stripe/params/issuing/fraud_liability_debit_list_params"
@@ -738,6 +740,8 @@ module Stripe
       autoload :CardReturnCardParams, "stripe/params/test_helpers/issuing/card_return_card_params"
       autoload :CardShipCardParams, "stripe/params/test_helpers/issuing/card_ship_card_params"
       autoload :CardSubmitCardParams, "stripe/params/test_helpers/issuing/card_submit_card_params"
+      autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
+               "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params"
       autoload :PersonalizationDesignActivateParams,
                "stripe/params/test_helpers/issuing/personalization_design_activate_params"
       autoload :PersonalizationDesignDeactivateParams,
@@ -1497,6 +1501,7 @@ module Stripe
     stripe/params/issuing/dispute_retrieve_params
     stripe/params/issuing/dispute_settlement_detail_list_params
     stripe/params/issuing/dispute_settlement_detail_retrieve_params
+    stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params
     stripe/params/issuing/dispute_submit_params
     stripe/params/issuing/dispute_update_params
     stripe/params/issuing/fraud_liability_debit_list_params
@@ -1817,6 +1822,7 @@ module Stripe
     stripe/params/test_helpers/issuing/card_return_card_params
     stripe/params/test_helpers/issuing/card_ship_card_params
     stripe/params/test_helpers/issuing/card_submit_card_params
+    stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params
     stripe/params/test_helpers/issuing/personalization_design_activate_params
     stripe/params/test_helpers/issuing/personalization_design_deactivate_params
     stripe/params/test_helpers/issuing/personalization_design_reject_params

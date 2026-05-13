@@ -5,7 +5,7 @@ module Stripe
   module DelegatedCheckout
     class RequestedSessionUpdateParams < ::Stripe::RequestParams
       class Discounts < ::Stripe::RequestParams
-        # Array of discount codes to apply.
+        # Array of discount codes to apply. Pass an empty value to remove all applied discounts.
         attr_accessor :codes
         # Whether to enforce strict eligibility for discount codes. Defaults to true. When false, invalid codes are returned in the discounts.invalid array instead of raising an error.
         attr_accessor :enforce_strict_eligibility
@@ -175,7 +175,7 @@ module Stripe
           @excluded_payment_method_types = excluded_payment_method_types
         end
       end
-      # The discount codes to apply to this requested session.
+      # The discount codes to apply to this requested session. Pass an empty value to remove all applied discounts.
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand

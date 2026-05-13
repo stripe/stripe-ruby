@@ -6,10 +6,12 @@ module Stripe
   module DelegatedCheckout
     class RequestedSessionUpdateParams < ::Stripe::RequestParams
       class Discounts < ::Stripe::RequestParams
-        # Array of discount codes to apply.
-        sig { returns(T::Array[String]) }
+        # Array of discount codes to apply. Pass an empty value to remove all applied discounts.
+        sig { returns(T.any(String, T::Array[String])) }
         def codes; end
-        sig { params(_codes: T::Array[String]).returns(T::Array[String]) }
+        sig {
+          params(_codes: T.any(String, T::Array[String])).returns(T.any(String, T::Array[String]))
+         }
         def codes=(_codes); end
         # Whether to enforce strict eligibility for discount codes. Defaults to true. When false, invalid codes are returned in the discounts.invalid array instead of raising an error.
         sig { returns(T.nilable(T::Boolean)) }
@@ -19,7 +21,7 @@ module Stripe
          }
         def enforce_strict_eligibility=(_enforce_strict_eligibility); end
         sig {
-          params(codes: T::Array[String], enforce_strict_eligibility: T.nilable(T::Boolean)).void
+          params(codes: T.any(String, T::Array[String]), enforce_strict_eligibility: T.nilable(T::Boolean)).void
          }
         def initialize(codes: nil, enforce_strict_eligibility: nil); end
       end
@@ -267,7 +269,7 @@ module Stripe
          }
         def initialize(card: nil, excluded_payment_method_types: nil); end
       end
-      # The discount codes to apply to this requested session.
+      # The discount codes to apply to this requested session. Pass an empty value to remove all applied discounts.
       sig {
         returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams::Discounts))
        }

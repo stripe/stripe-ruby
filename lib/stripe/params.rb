@@ -551,6 +551,8 @@ module Stripe
     autoload :DisputeRetrieveParams, "stripe/params/issuing/dispute_retrieve_params"
     autoload :DisputeSettlementDetailListParams, "stripe/params/issuing/dispute_settlement_detail_list_params"
     autoload :DisputeSettlementDetailRetrieveParams, "stripe/params/issuing/dispute_settlement_detail_retrieve_params"
+    autoload :DisputeSimulateNetworkLifecycleDisputeResponseParams,
+             "stripe/params/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
     autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
              "stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params"
     autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
@@ -742,6 +744,8 @@ module Stripe
       autoload :CardReturnCardParams, "stripe/params/test_helpers/issuing/card_return_card_params"
       autoload :CardShipCardParams, "stripe/params/test_helpers/issuing/card_ship_card_params"
       autoload :CardSubmitCardParams, "stripe/params/test_helpers/issuing/card_submit_card_params"
+      autoload :DisputeSimulateNetworkLifecycleDisputeResponseParams,
+               "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
@@ -1518,6 +1522,7 @@ module Stripe
     stripe/params/issuing/dispute_retrieve_params
     stripe/params/issuing/dispute_settlement_detail_list_params
     stripe/params/issuing/dispute_settlement_detail_retrieve_params
+    stripe/params/issuing/dispute_simulate_network_lifecycle_dispute_response_params
     stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params
     stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params
     stripe/params/issuing/dispute_submit_params
@@ -1840,6 +1845,7 @@ module Stripe
     stripe/params/test_helpers/issuing/card_return_card_params
     stripe/params/test_helpers/issuing/card_ship_card_params
     stripe/params/test_helpers/issuing/card_submit_card_params
+    stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params
     stripe/params/test_helpers/issuing/personalization_design_activate_params

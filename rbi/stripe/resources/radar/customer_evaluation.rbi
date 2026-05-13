@@ -120,6 +120,9 @@ module Stripe
       # A hash of signal objects providing Radar's evaluation of the customer.
       sig { returns(T.nilable(Signals)) }
       def signals; end
+      # The outcome status reported for this evaluation: allowed, restricted, or blocked.
+      sig { returns(T.nilable(String)) }
+      def status; end
       # Creates a new CustomerEvaluation object.
       sig {
         params(params: T.any(::Stripe::Radar::CustomerEvaluationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::CustomerEvaluation)

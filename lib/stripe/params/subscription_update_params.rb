@@ -700,44 +700,7 @@ module Stripe
           end
         end
 
-        class CheckScan < ::Stripe::RequestParams
-          class CheckDepositAddress < ::Stripe::RequestParams
-            # Attribute for param field city
-            attr_accessor :city
-            # Attribute for param field country
-            attr_accessor :country
-            # Attribute for param field line1
-            attr_accessor :line1
-            # Attribute for param field line2
-            attr_accessor :line2
-            # Attribute for param field postal_code
-            attr_accessor :postal_code
-            # Attribute for param field state
-            attr_accessor :state
-
-            def initialize(
-              city: nil,
-              country: nil,
-              line1: nil,
-              line2: nil,
-              postal_code: nil,
-              state: nil
-            )
-              @city = city
-              @country = country
-              @line1 = line1
-              @line2 = line2
-              @postal_code = postal_code
-              @state = state
-            end
-          end
-          # Attribute for param field check_deposit_address
-          attr_accessor :check_deposit_address
-
-          def initialize(check_deposit_address: nil)
-            @check_deposit_address = check_deposit_address
-          end
-        end
+        class CheckScan < ::Stripe::RequestParams; end
 
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams

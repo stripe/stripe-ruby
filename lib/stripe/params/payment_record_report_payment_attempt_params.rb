@@ -59,11 +59,14 @@ module Stripe
       end
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       attr_accessor :guaranteed_at
+      # Payment evaluations associated with this reported payment.
+      attr_accessor :payment_evaluations
       # Processor information for this payment.
       attr_accessor :processor_details
 
-      def initialize(guaranteed_at: nil, processor_details: nil)
+      def initialize(guaranteed_at: nil, payment_evaluations: nil, processor_details: nil)
         @guaranteed_at = guaranteed_at
+        @payment_evaluations = payment_evaluations
         @processor_details = processor_details
       end
     end

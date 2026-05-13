@@ -69,6 +69,18 @@ module Stripe
         end
       end
 
+      class Discounts < ::Stripe::RequestParams
+        # Array of discount codes to apply.
+        attr_accessor :codes
+        # Whether to enforce strict eligibility for discount codes. Defaults to true. When false, invalid codes are returned in the discounts.invalid array instead of raising an error.
+        attr_accessor :enforce_strict_eligibility
+
+        def initialize(codes: nil, enforce_strict_eligibility: nil)
+          @codes = codes
+          @enforce_strict_eligibility = enforce_strict_eligibility
+        end
+      end
+
       class FulfillmentDetails < ::Stripe::RequestParams
         class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -163,6 +175,8 @@ module Stripe
       attr_accessor :currency
       # The customer for this requested session.
       attr_accessor :customer
+      # The discount codes to apply to this requested session.
+      attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The details of the fulfillment.
@@ -186,6 +200,7 @@ module Stripe
         affiliate_attribution: nil,
         currency: nil,
         customer: nil,
+        discounts: nil,
         expand: nil,
         fulfillment_details: nil,
         line_item_details: nil,
@@ -199,6 +214,7 @@ module Stripe
         @affiliate_attribution = affiliate_attribution
         @currency = currency
         @customer = customer
+        @discounts = discounts
         @expand = expand
         @fulfillment_details = fulfillment_details
         @line_item_details = line_item_details

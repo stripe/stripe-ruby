@@ -2128,10 +2128,15 @@ module Stripe
         params(_benefit: T.nilable(::Stripe::SetupIntentConfirmParams::SetupDetails::Benefit)).returns(T.nilable(::Stripe::SetupIntentConfirmParams::SetupDetails::Benefit))
        }
       def benefit=(_benefit); end
+      # The ID of the Payment Location for this SetupIntent.
+      sig { returns(T.nilable(String)) }
+      def location; end
+      sig { params(_location: T.nilable(String)).returns(T.nilable(String)) }
+      def location=(_location); end
       sig {
-        params(benefit: T.nilable(::Stripe::SetupIntentConfirmParams::SetupDetails::Benefit)).void
+        params(benefit: T.nilable(::Stripe::SetupIntentConfirmParams::SetupDetails::Benefit), location: T.nilable(String)).void
        }
-      def initialize(benefit: nil); end
+      def initialize(benefit: nil, location: nil); end
     end
     # ID of the ConfirmationToken used to confirm this SetupIntent.
     #

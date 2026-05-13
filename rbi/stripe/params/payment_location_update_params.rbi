@@ -11,9 +11,9 @@ module Stripe
       sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
       def city=(_city); end
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def country; end
-      sig { params(_country: String).returns(String) }
+      sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
       def country=(_country); end
       # Address line 1, such as the street, PO Box, or company name.
       sig { returns(T.nilable(String)) }
@@ -36,7 +36,7 @@ module Stripe
       sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
       def state=(_state); end
       sig {
-        params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+        params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
        }
       def initialize(
         city: nil,
@@ -80,9 +80,22 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Pass true when updating location fields that will trigger onboarding review for any of the location's active location capabilities. If this parameter is not set to true, updates that would trigger onboarding review will fail. Only applicable for locations with active location capabilities.
+    sig { returns(T.nilable(T::Boolean)) }
+    def onboarding_data_update_acknowledged; end
     sig {
-      params(address: T.nilable(::Stripe::PaymentLocationUpdateParams::Address), business_registration: T.nilable(::Stripe::PaymentLocationUpdateParams::BusinessRegistration), display_name: T.nilable(String), expand: T.nilable(T::Array[String])).void
+      params(_onboarding_data_update_acknowledged: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
      }
-    def initialize(address: nil, business_registration: nil, display_name: nil, expand: nil); end
+    def onboarding_data_update_acknowledged=(_onboarding_data_update_acknowledged); end
+    sig {
+      params(address: T.nilable(::Stripe::PaymentLocationUpdateParams::Address), business_registration: T.nilable(::Stripe::PaymentLocationUpdateParams::BusinessRegistration), display_name: T.nilable(String), expand: T.nilable(T::Array[String]), onboarding_data_update_acknowledged: T.nilable(T::Boolean)).void
+     }
+    def initialize(
+      address: nil,
+      business_registration: nil,
+      display_name: nil,
+      expand: nil,
+      onboarding_data_update_acknowledged: nil
+    ); end
   end
 end

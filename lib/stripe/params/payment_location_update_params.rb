@@ -43,12 +43,21 @@ module Stripe
     attr_accessor :display_name
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Pass true when updating location fields that will trigger onboarding review for any of the location's active location capabilities. If this parameter is not set to true, updates that would trigger onboarding review will fail. Only applicable for locations with active location capabilities.
+    attr_accessor :onboarding_data_update_acknowledged
 
-    def initialize(address: nil, business_registration: nil, display_name: nil, expand: nil)
+    def initialize(
+      address: nil,
+      business_registration: nil,
+      display_name: nil,
+      expand: nil,
+      onboarding_data_update_acknowledged: nil
+    )
       @address = address
       @business_registration = business_registration
       @display_name = display_name
       @expand = expand
+      @onboarding_data_update_acknowledged = onboarding_data_update_acknowledged
     end
   end
 end

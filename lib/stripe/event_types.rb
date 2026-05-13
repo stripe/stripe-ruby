@@ -495,6 +495,10 @@ module Stripe
         Events::V2MoneyManagementAdjustmentCreatedEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEvent,
+        Events::V2MoneyManagementFinancialAccountStatementCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountStatementCreatedEvent,
+        Events::V2MoneyManagementFinancialAccountStatementRestatedEvent.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountStatementRestatedEvent,
         Events::V2MoneyManagementFinancialAccountUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementFinancialAccountUpdatedEvent,
         Events::V2MoneyManagementFinancialAddressActivatedEvent.lookup_type =>
@@ -1245,6 +1249,10 @@ module Stripe
         Events::V2MoneyManagementAdjustmentCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification,
+        Events::V2MoneyManagementFinancialAccountStatementCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountStatementCreatedEventNotification,
+        Events::V2MoneyManagementFinancialAccountStatementRestatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountStatementRestatedEventNotification,
         Events::V2MoneyManagementFinancialAccountUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementFinancialAccountUpdatedEventNotification,
         Events::V2MoneyManagementFinancialAddressActivatedEventNotification.lookup_type =>

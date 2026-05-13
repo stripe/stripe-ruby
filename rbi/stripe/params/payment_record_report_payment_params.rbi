@@ -133,6 +133,13 @@ module Stripe
       def guaranteed_at; end
       sig { params(_guaranteed_at: Integer).returns(Integer) }
       def guaranteed_at=(_guaranteed_at); end
+      # Payment evaluations associated with this reported payment.
+      sig { returns(T.nilable(T::Array[String])) }
+      def payment_evaluations; end
+      sig {
+        params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def payment_evaluations=(_payment_evaluations); end
       # Processor information for this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails))
@@ -143,9 +150,9 @@ module Stripe
        }
       def processor_details=(_processor_details); end
       sig {
-        params(guaranteed_at: Integer, processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails)).void
+        params(guaranteed_at: Integer, payment_evaluations: T.nilable(T::Array[String]), processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails)).void
        }
-      def initialize(guaranteed_at: nil, processor_details: nil); end
+      def initialize(guaranteed_at: nil, payment_evaluations: nil, processor_details: nil); end
     end
     class PaymentMethodDetails < ::Stripe::RequestParams
       class BillingDetails < ::Stripe::RequestParams

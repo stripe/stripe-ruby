@@ -2171,6 +2171,8 @@ module Stripe
       attr_accessor :flight
       # Flight data for this PaymentIntent.
       attr_accessor :flight_data
+      # The ID of the Payment Location for this PaymentIntent.
+      attr_accessor :location
       # Lodging reservation details for this PaymentIntent
       attr_accessor :lodging
       # Lodging data for this PaymentIntent.
@@ -2193,6 +2195,7 @@ module Stripe
         fleet_data: nil,
         flight: nil,
         flight_data: nil,
+        location: nil,
         lodging: nil,
         lodging_data: nil,
         money_services: nil,
@@ -2207,6 +2210,7 @@ module Stripe
         @fleet_data = fleet_data
         @flight = flight
         @flight_data = flight_data
+        @location = location
         @lodging = lodging
         @lodging_data = lodging_data
         @money_services = money_services

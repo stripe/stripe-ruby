@@ -25,6 +25,17 @@ module Stripe
       )
     end
 
+    # List all Payment Locations.
+    def list(params = {}, opts = {})
+      request(
+        method: :get,
+        path: "/v1/payment_locations",
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Retrieve a Payment Location.
     def retrieve(id, params = {}, opts = {})
       request(

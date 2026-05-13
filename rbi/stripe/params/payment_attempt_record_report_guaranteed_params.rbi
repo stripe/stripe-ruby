@@ -50,6 +50,13 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # Payment evaluations associated with this reported payment.
+    sig { returns(T.nilable(T::Array[String])) }
+    def payment_evaluations; end
+    sig {
+      params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def payment_evaluations=(_payment_evaluations); end
     # Processor information for this payment.
     sig {
       returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails))
@@ -60,8 +67,14 @@ module Stripe
      }
     def processor_details=(_processor_details); end
     sig {
-      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).void
+      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).void
      }
-    def initialize(expand: nil, guaranteed_at: nil, metadata: nil, processor_details: nil); end
+    def initialize(
+      expand: nil,
+      guaranteed_at: nil,
+      metadata: nil,
+      payment_evaluations: nil,
+      processor_details: nil
+    ); end
   end
 end

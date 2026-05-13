@@ -106,6 +106,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class DisputeDetails < ::Stripe::StripeObject
+          # The ID of the debit dispute, if one has been created.
+          sig { returns(T.nilable(String)) }
+          def debit_dispute; end
+          # The time at which the dispute window closes.
+          sig { returns(T.nilable(String)) }
+          def dispute_window_closes_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class StatusDetails < ::Stripe::StripeObject
           class Failed < ::Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
@@ -182,6 +196,9 @@ module Stripe
         # Freeform string sent by the originator of the ReceivedDebit.
         sig { returns(T.nilable(String)) }
         def description; end
+        # The dispute details.
+        sig { returns(T.nilable(DisputeDetails)) }
+        def dispute_details; end
         # The amount and currency of the original/external debit request.
         sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def external_amount; end

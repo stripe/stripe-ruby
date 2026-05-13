@@ -1087,64 +1087,7 @@ module Stripe
            }
           def initialize(mandate_options: nil, network: nil, request_three_d_secure: nil); end
         end
-        class CheckScan < ::Stripe::RequestParams
-          class CheckDepositAddress < ::Stripe::RequestParams
-            # Attribute for param field city
-            sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
-            # Attribute for param field country
-            sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
-            # Attribute for param field line1
-            sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
-            # Attribute for param field line2
-            sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
-            # Attribute for param field postal_code
-            sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
-            # Attribute for param field state
-            sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
-            sig {
-              params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
-             }
-            def initialize(
-              city: nil,
-              country: nil,
-              line1: nil,
-              line2: nil,
-              postal_code: nil,
-              state: nil
-            ); end
-          end
-          # Attribute for param field check_deposit_address
-          sig {
-            returns(T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan::CheckDepositAddress))
-           }
-          def check_deposit_address; end
-          sig {
-            params(_check_deposit_address: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan::CheckDepositAddress)).returns(T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan::CheckDepositAddress))
-           }
-          def check_deposit_address=(_check_deposit_address); end
-          sig {
-            params(check_deposit_address: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan::CheckDepositAddress)).void
-           }
-          def initialize(check_deposit_address: nil); end
-        end
+        class CheckScan < ::Stripe::RequestParams; end
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams

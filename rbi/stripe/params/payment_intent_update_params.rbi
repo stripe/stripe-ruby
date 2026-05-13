@@ -3393,6 +3393,11 @@ module Stripe
         params(_flight_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum])))
        }
       def flight_data=(_flight_data); end
+      # The ID of the Payment Location for this PaymentIntent.
+      sig { returns(T.nilable(String)) }
+      def location; end
+      sig { params(_location: T.nilable(String)).returns(T.nilable(String)) }
+      def location=(_location); end
       # Lodging reservation details for this PaymentIntent
       sig { returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Lodging)) }
       def lodging; end
@@ -3433,7 +3438,7 @@ module Stripe
        }
       def subscription=(_subscription); end
       sig {
-        params(benefit: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Benefit), car_rental: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::EventDetails), fleet_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FleetDatum])), flight: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum])), lodging: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum])), money_services: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails::MoneyServices)), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Subscription)).void
+        params(benefit: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Benefit), car_rental: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRental), car_rental_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum])), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::EventDetails), fleet_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FleetDatum])), flight: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Flight), flight_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum])), location: T.nilable(String), lodging: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Lodging), lodging_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum])), money_services: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails::MoneyServices)), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentDetails::Subscription)).void
        }
       def initialize(
         benefit: nil,
@@ -3444,6 +3449,7 @@ module Stripe
         fleet_data: nil,
         flight: nil,
         flight_data: nil,
+        location: nil,
         lodging: nil,
         lodging_data: nil,
         money_services: nil,

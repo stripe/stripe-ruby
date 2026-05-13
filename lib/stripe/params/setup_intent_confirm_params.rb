@@ -1350,9 +1350,12 @@ module Stripe
       end
       # Benefit details for this SetupIntent
       attr_accessor :benefit
+      # The ID of the Payment Location for this SetupIntent.
+      attr_accessor :location
 
-      def initialize(benefit: nil)
+      def initialize(benefit: nil, location: nil)
         @benefit = benefit
+        @location = location
       end
     end
     # ID of the ConfirmationToken used to confirm this SetupIntent.

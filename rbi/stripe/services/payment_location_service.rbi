@@ -16,6 +16,12 @@ module Stripe
      }
     def delete(id, params = {}, opts = {}); end
 
+    # List all Payment Locations.
+    sig {
+      params(params: T.any(::Stripe::PaymentLocationListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+     }
+    def list(params = {}, opts = {}); end
+
     # Retrieve a Payment Location.
     sig {
       params(id: String, params: T.any(::Stripe::PaymentLocationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocation)

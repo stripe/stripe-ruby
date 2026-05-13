@@ -15,6 +15,8 @@ module Stripe
       attr_reader :connection_sessions
       attr_reader :events
       attr_reader :event_destinations
+      attr_reader :fee_batches
+      attr_reader :fee_entries
       attr_reader :vault
     end
   end

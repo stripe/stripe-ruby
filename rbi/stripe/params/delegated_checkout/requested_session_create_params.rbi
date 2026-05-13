@@ -103,6 +103,24 @@ module Stripe
           touchpoint: nil
         ); end
       end
+      class Discounts < ::Stripe::RequestParams
+        # Array of discount codes to apply.
+        sig { returns(T::Array[String]) }
+        def codes; end
+        sig { params(_codes: T::Array[String]).returns(T::Array[String]) }
+        def codes=(_codes); end
+        # Whether to enforce strict eligibility for discount codes. Defaults to true. When false, invalid codes are returned in the discounts.invalid array instead of raising an error.
+        sig { returns(T.nilable(T::Boolean)) }
+        def enforce_strict_eligibility; end
+        sig {
+          params(_enforce_strict_eligibility: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+         }
+        def enforce_strict_eligibility=(_enforce_strict_eligibility); end
+        sig {
+          params(codes: T::Array[String], enforce_strict_eligibility: T.nilable(T::Boolean)).void
+         }
+        def initialize(codes: nil, enforce_strict_eligibility: nil); end
+      end
       class FulfillmentDetails < ::Stripe::RequestParams
         class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -251,6 +269,15 @@ module Stripe
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
+      # The discount codes to apply to this requested session.
+      sig {
+        returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::Discounts))
+       }
+      def discounts; end
+      sig {
+        params(_discounts: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::Discounts)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::Discounts))
+       }
+      def discounts=(_discounts); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -315,12 +342,13 @@ module Stripe
        }
       def shared_metadata=(_shared_metadata); end
       sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution), currency: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String])).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::AffiliateAttribution), currency: String, customer: T.nilable(String), discounts: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::Discounts), expand: T.nilable(T::Array[String]), fulfillment_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::FulfillmentDetails), line_item_details: T::Array[::Stripe::DelegatedCheckout::RequestedSessionCreateParams::LineItemDetail], metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), payment_method_options: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionCreateParams::PaymentMethodOptions), seller_details: ::Stripe::DelegatedCheckout::RequestedSessionCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String])).void
        }
       def initialize(
         affiliate_attribution: nil,
         currency: nil,
         customer: nil,
+        discounts: nil,
         expand: nil,
         fulfillment_details: nil,
         line_item_details: nil,

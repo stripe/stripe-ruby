@@ -1311,9 +1311,12 @@ module Stripe
       end
       # Benefit details for this SetupIntent
       attr_accessor :benefit
+      # The ID of the Payment Location for this SetupIntent.
+      attr_accessor :location
 
-      def initialize(benefit: nil)
+      def initialize(benefit: nil, location: nil)
         @benefit = benefit
+        @location = location
       end
     end
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.

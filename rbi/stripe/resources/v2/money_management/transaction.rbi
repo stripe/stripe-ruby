@@ -51,6 +51,9 @@ module Stripe
           # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
           sig { returns(T.nilable(String)) }
           def currency_conversion; end
+          # If applicable, the ID of the DebitDispute that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def debit_dispute; end
           # If applicable, the ID of the Dispute that created this Transaction.
           sig { returns(T.nilable(String)) }
           def dispute; end

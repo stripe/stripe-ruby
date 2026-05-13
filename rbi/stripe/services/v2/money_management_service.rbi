@@ -7,6 +7,7 @@ module Stripe
     class MoneyManagementService < StripeService
       attr_reader :adjustments
       attr_reader :currency_conversions
+      attr_reader :debit_disputes
       attr_reader :financial_accounts
       attr_reader :financial_addresses
       attr_reader :inbound_transfers

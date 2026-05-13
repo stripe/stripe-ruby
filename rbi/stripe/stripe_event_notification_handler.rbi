@@ -2042,6 +2042,18 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountStatementCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_financial_account_statement_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountStatementRestatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_financial_account_statement_restated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAddressActivatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_address_activated(&blk);

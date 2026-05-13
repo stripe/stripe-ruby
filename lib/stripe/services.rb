@@ -411,6 +411,8 @@ module Stripe
       autoload :ConnectionSessionService, "stripe/services/v2/core/connection_session_service"
       autoload :EventDestinationService, "stripe/services/v2/core/event_destination_service"
       autoload :EventService, "stripe/services/v2/core/event_service"
+      autoload :FeeBatchService, "stripe/services/v2/core/fee_batch_service"
+      autoload :FeeEntryService, "stripe/services/v2/core/fee_entry_service"
       autoload :VaultService, "stripe/services/v2/core/vault_service"
 
       module Accounts
@@ -450,6 +452,7 @@ module Stripe
     module MoneyManagement
       autoload :AdjustmentService, "stripe/services/v2/money_management/adjustment_service"
       autoload :CurrencyConversionService, "stripe/services/v2/money_management/currency_conversion_service"
+      autoload :DebitDisputeService, "stripe/services/v2/money_management/debit_dispute_service"
       autoload :FinancialAccountService, "stripe/services/v2/money_management/financial_account_service"
       autoload :FinancialAddressService, "stripe/services/v2/money_management/financial_address_service"
       autoload :InboundTransferService, "stripe/services/v2/money_management/inbound_transfer_service"
@@ -465,6 +468,10 @@ module Stripe
       autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
       autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
       autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
+
+      module FinancialAccounts
+        autoload :StatementService, "stripe/services/v2/money_management/financial_accounts/statement_service"
+      end
     end
 
     module Network
@@ -776,6 +783,8 @@ module Stripe
     stripe/services/v2/core/connection_session_service
     stripe/services/v2/core/event_destination_service
     stripe/services/v2/core/event_service
+    stripe/services/v2/core/fee_batch_service
+    stripe/services/v2/core/fee_entry_service
     stripe/services/v2/core/vault/gb_bank_account_service
     stripe/services/v2/core/vault/us_bank_account_service
     stripe/services/v2/core/vault_service
@@ -793,7 +802,9 @@ module Stripe
     stripe/services/v2/iam_service
     stripe/services/v2/money_management/adjustment_service
     stripe/services/v2/money_management/currency_conversion_service
+    stripe/services/v2/money_management/debit_dispute_service
     stripe/services/v2/money_management/financial_account_service
+    stripe/services/v2/money_management/financial_accounts/statement_service
     stripe/services/v2/money_management/financial_address_service
     stripe/services/v2/money_management/inbound_transfer_service
     stripe/services/v2/money_management/outbound_payment_quote_service

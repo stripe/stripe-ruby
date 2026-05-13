@@ -109,6 +109,21 @@ module Stripe
           end
         end
 
+        class DisputeDetails < ::Stripe::StripeObject
+          # The ID of the debit dispute, if one has been created.
+          attr_reader :debit_dispute
+          # The time at which the dispute window closes.
+          attr_reader :dispute_window_closes_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StatusDetails < ::Stripe::StripeObject
           class Failed < ::Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
@@ -182,6 +197,8 @@ module Stripe
         attr_reader :created
         # Freeform string sent by the originator of the ReceivedDebit.
         attr_reader :description
+        # The dispute details.
+        attr_reader :dispute_details
         # The amount and currency of the original/external debit request.
         attr_reader :external_amount
         # Financial Account on which funds for ReceivedDebit were debited.
@@ -210,6 +227,7 @@ module Stripe
             balance_transfer: BalanceTransfer,
             bank_transfer: BankTransfer,
             card_spend: CardSpend,
+            dispute_details: DisputeDetails,
             status_details: StatusDetails,
             status_transitions: StatusTransitions,
             stripe_balance_payment: StripeBalancePayment,

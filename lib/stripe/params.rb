@@ -1019,6 +1019,10 @@ module Stripe
       autoload :EventDestinationUpdateParams, "stripe/params/v2/core/event_destination_update_params"
       autoload :EventListParams, "stripe/params/v2/core/event_list_params"
       autoload :EventRetrieveParams, "stripe/params/v2/core/event_retrieve_params"
+      autoload :FeeBatchListParams, "stripe/params/v2/core/fee_batch_list_params"
+      autoload :FeeBatchRetrieveParams, "stripe/params/v2/core/fee_batch_retrieve_params"
+      autoload :FeeEntryListParams, "stripe/params/v2/core/fee_entry_list_params"
+      autoload :FeeEntryRetrieveParams, "stripe/params/v2/core/fee_entry_retrieve_params"
 
       module Accounts
         autoload :PersonCreateParams, "stripe/params/v2/core/accounts/person_create_params"
@@ -1087,6 +1091,9 @@ module Stripe
       autoload :CurrencyConversionListParams, "stripe/params/v2/money_management/currency_conversion_list_params"
       autoload :CurrencyConversionRetrieveParams,
                "stripe/params/v2/money_management/currency_conversion_retrieve_params"
+      autoload :DebitDisputeCreateParams, "stripe/params/v2/money_management/debit_dispute_create_params"
+      autoload :DebitDisputeListParams, "stripe/params/v2/money_management/debit_dispute_list_params"
+      autoload :DebitDisputeRetrieveParams, "stripe/params/v2/money_management/debit_dispute_retrieve_params"
       autoload :FinancialAccountCloseParams, "stripe/params/v2/money_management/financial_account_close_params"
       autoload :FinancialAccountCreateParams, "stripe/params/v2/money_management/financial_account_create_params"
       autoload :FinancialAccountListParams, "stripe/params/v2/money_management/financial_account_list_params"
@@ -1136,6 +1143,12 @@ module Stripe
       autoload :TransactionEntryRetrieveParams, "stripe/params/v2/money_management/transaction_entry_retrieve_params"
       autoload :TransactionListParams, "stripe/params/v2/money_management/transaction_list_params"
       autoload :TransactionRetrieveParams, "stripe/params/v2/money_management/transaction_retrieve_params"
+
+      module FinancialAccounts
+        autoload :StatementListParams, "stripe/params/v2/money_management/financial_accounts/statement_list_params"
+        autoload :StatementRetrieveParams,
+                 "stripe/params/v2/money_management/financial_accounts/statement_retrieve_params"
+      end
     end
 
     module Network
@@ -2061,6 +2074,10 @@ module Stripe
     stripe/params/v2/core/event_destination_update_params
     stripe/params/v2/core/event_list_params
     stripe/params/v2/core/event_retrieve_params
+    stripe/params/v2/core/fee_batch_list_params
+    stripe/params/v2/core/fee_batch_retrieve_params
+    stripe/params/v2/core/fee_entry_list_params
+    stripe/params/v2/core/fee_entry_retrieve_params
     stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_archive_params
     stripe/params/v2/core/vault/gb_bank_account_create_params
@@ -2094,11 +2111,16 @@ module Stripe
     stripe/params/v2/money_management/currency_conversion_create_params
     stripe/params/v2/money_management/currency_conversion_list_params
     stripe/params/v2/money_management/currency_conversion_retrieve_params
+    stripe/params/v2/money_management/debit_dispute_create_params
+    stripe/params/v2/money_management/debit_dispute_list_params
+    stripe/params/v2/money_management/debit_dispute_retrieve_params
     stripe/params/v2/money_management/financial_account_close_params
     stripe/params/v2/money_management/financial_account_create_params
     stripe/params/v2/money_management/financial_account_list_params
     stripe/params/v2/money_management/financial_account_retrieve_params
     stripe/params/v2/money_management/financial_account_update_params
+    stripe/params/v2/money_management/financial_accounts/statement_list_params
+    stripe/params/v2/money_management/financial_accounts/statement_retrieve_params
     stripe/params/v2/money_management/financial_address_create_params
     stripe/params/v2/money_management/financial_address_list_params
     stripe/params/v2/money_management/financial_address_retrieve_params

@@ -9,6 +9,24 @@ module Stripe
         "v2.payments.off_session_payment.attempt_failed"
       end
 
+      class V2PaymentsOffSessionPaymentAttemptFailedEventData < ::Stripe::StripeObject
+        # The ID of the payment attempt record associated with this failed attempt.
+        attr_reader :payment_attempt_record
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { data: V2PaymentsOffSessionPaymentAttemptFailedEventData }
+      end
+      attr_reader :data, :related_object
+
       # Retrieves the related object from the API. Makes an API request on every call.
       def fetch_related_object
         _request(
@@ -18,7 +36,6 @@ module Stripe
           opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" }
         )
       end
-      attr_reader :related_object
     end
 
     # Sent after a failed attempt if there are still retries available on the OffSessionPayment.

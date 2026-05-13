@@ -2078,6 +2078,18 @@ module Stripe
       register("v2.money_management.financial_account.updated", &handler)
     end
 
+    def on_v2_money_management_financial_account_statement_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.financial_account_statement.created", &handler)
+    end
+
+    def on_v2_money_management_financial_account_statement_restated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.financial_account_statement.restated", &handler)
+    end
+
     def on_v2_money_management_financial_address_activated(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 

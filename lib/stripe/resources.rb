@@ -1001,6 +1001,14 @@ module Stripe
              "stripe/events/v2_money_management_financial_account_created_event"
     autoload :V2MoneyManagementFinancialAccountCreatedEventNotification,
              "stripe/events/v2_money_management_financial_account_created_event"
+    autoload :V2MoneyManagementFinancialAccountStatementCreatedEvent,
+             "stripe/events/v2_money_management_financial_account_statement_created_event"
+    autoload :V2MoneyManagementFinancialAccountStatementCreatedEventNotification,
+             "stripe/events/v2_money_management_financial_account_statement_created_event"
+    autoload :V2MoneyManagementFinancialAccountStatementRestatedEvent,
+             "stripe/events/v2_money_management_financial_account_statement_restated_event"
+    autoload :V2MoneyManagementFinancialAccountStatementRestatedEventNotification,
+             "stripe/events/v2_money_management_financial_account_statement_restated_event"
     autoload :V2MoneyManagementFinancialAccountUpdatedEvent,
              "stripe/events/v2_money_management_financial_account_updated_event"
     autoload :V2MoneyManagementFinancialAccountUpdatedEventNotification,
@@ -1428,6 +1436,8 @@ module Stripe
       autoload :EventNotification, "stripe/resources/v2/core/event_notification"
       autoload :EventReason, "stripe/resources/v2/core/event_notification"
       autoload :EventReasonRequest, "stripe/resources/v2/core/event_notification"
+      autoload :FeeBatch, "stripe/resources/v2/core/fee_batch"
+      autoload :FeeEntry, "stripe/resources/v2/core/fee_entry"
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
 
       module Vault
@@ -1459,7 +1469,9 @@ module Stripe
     module MoneyManagement
       autoload :Adjustment, "stripe/resources/v2/money_management/adjustment"
       autoload :CurrencyConversion, "stripe/resources/v2/money_management/currency_conversion"
+      autoload :DebitDispute, "stripe/resources/v2/money_management/debit_dispute"
       autoload :FinancialAccount, "stripe/resources/v2/money_management/financial_account"
+      autoload :FinancialAccountStatement, "stripe/resources/v2/money_management/financial_account_statement"
       autoload :FinancialAddress, "stripe/resources/v2/money_management/financial_address"
       autoload :InboundTransfer, "stripe/resources/v2/money_management/inbound_transfer"
       autoload :OutboundPayment, "stripe/resources/v2/money_management/outbound_payment"
@@ -1734,6 +1746,8 @@ module Stripe
     stripe/resources/v2/core/connection_session
     stripe/resources/v2/core/event
     stripe/resources/v2/core/event_destination
+    stripe/resources/v2/core/fee_batch
+    stripe/resources/v2/core/fee_entry
     stripe/resources/v2/core/vault/gb_bank_account
     stripe/resources/v2/core/vault/us_bank_account
     stripe/resources/v2/data/analytics/metric_query_result
@@ -1747,7 +1761,9 @@ module Stripe
     stripe/resources/v2/iam/api_key
     stripe/resources/v2/money_management/adjustment
     stripe/resources/v2/money_management/currency_conversion
+    stripe/resources/v2/money_management/debit_dispute
     stripe/resources/v2/money_management/financial_account
+    stripe/resources/v2/money_management/financial_account_statement
     stripe/resources/v2/money_management/financial_address
     stripe/resources/v2/money_management/inbound_transfer
     stripe/resources/v2/money_management/outbound_payment
@@ -2103,6 +2119,8 @@ module Stripe
     stripe/events/v2_iam_stripe_access_grant_updated_event
     stripe/events/v2_money_management_adjustment_created_event
     stripe/events/v2_money_management_financial_account_created_event
+    stripe/events/v2_money_management_financial_account_statement_created_event
+    stripe/events/v2_money_management_financial_account_statement_restated_event
     stripe/events/v2_money_management_financial_account_updated_event
     stripe/events/v2_money_management_financial_address_activated_event
     stripe/events/v2_money_management_financial_address_failed_event

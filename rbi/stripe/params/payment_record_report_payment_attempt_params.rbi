@@ -44,6 +44,13 @@ module Stripe
       def failure_code; end
       sig { params(_failure_code: T.nilable(String)).returns(T.nilable(String)) }
       def failure_code=(_failure_code); end
+      # Payment evaluations associated with this reported payment.
+      sig { returns(T.nilable(T::Array[String])) }
+      def payment_evaluations; end
+      sig {
+        params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def payment_evaluations=(_payment_evaluations); end
       # Processor information for this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Failed::ProcessorDetails))
@@ -54,9 +61,14 @@ module Stripe
        }
       def processor_details=(_processor_details); end
       sig {
-        params(failed_at: Integer, failure_code: T.nilable(String), processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Failed::ProcessorDetails)).void
+        params(failed_at: Integer, failure_code: T.nilable(String), payment_evaluations: T.nilable(T::Array[String]), processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::Failed::ProcessorDetails)).void
        }
-      def initialize(failed_at: nil, failure_code: nil, processor_details: nil); end
+      def initialize(
+        failed_at: nil,
+        failure_code: nil,
+        payment_evaluations: nil,
+        processor_details: nil
+      ); end
     end
     class Guaranteed < ::Stripe::RequestParams
       class ProcessorDetails < ::Stripe::RequestParams

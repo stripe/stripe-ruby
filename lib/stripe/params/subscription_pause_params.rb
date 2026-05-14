@@ -37,7 +37,7 @@ module Stripe
     attr_accessor :expand
     # Determines how to handle debits and credits when pausing. The default is `pending_invoice_item`.
     attr_accessor :invoicing_behavior
-    # The type of pause to apply.
+    # The type of pause to apply. Defaults to `subscription`.
     attr_accessor :type
 
     def initialize(bill_for: nil, expand: nil, invoicing_behavior: nil, type: nil)

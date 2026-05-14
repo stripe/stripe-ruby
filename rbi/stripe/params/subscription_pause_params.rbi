@@ -61,13 +61,13 @@ module Stripe
     def invoicing_behavior; end
     sig { params(_invoicing_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def invoicing_behavior=(_invoicing_behavior); end
-    # The type of pause to apply.
-    sig { returns(String) }
+    # The type of pause to apply. Defaults to `subscription`.
+    sig { returns(T.nilable(String)) }
     def type; end
-    sig { params(_type: String).returns(String) }
+    sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
     def type=(_type); end
     sig {
-      params(bill_for: T.nilable(::Stripe::SubscriptionPauseParams::BillFor), expand: T.nilable(T::Array[String]), invoicing_behavior: T.nilable(String), type: String).void
+      params(bill_for: T.nilable(::Stripe::SubscriptionPauseParams::BillFor), expand: T.nilable(T::Array[String]), invoicing_behavior: T.nilable(String), type: T.nilable(String)).void
      }
     def initialize(bill_for: nil, expand: nil, invoicing_behavior: nil, type: nil); end
   end

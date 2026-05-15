@@ -6,6 +6,12 @@ module Stripe
   module TestHelpers
     module Issuing
       class DisputeService < StripeService
+        # Test helper: closes a test-mode Issuing dispute as won or lost.
+        sig {
+          params(dispute: String, params: T.any(::Stripe::TestHelpers::Issuing::DisputeCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+         }
+        def close(dispute, params = {}, opts = {}); end
+
         # Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
         sig {
           params(dispute: String, params: T.any(::Stripe::TestHelpers::Issuing::DisputeSimulateNetworkLifecycleDisputeResponseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)

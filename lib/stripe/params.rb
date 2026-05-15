@@ -547,6 +547,7 @@ module Stripe
     autoload :CreditUnderwritingRecordReportDecisionParams,
              "stripe/params/issuing/credit_underwriting_record_report_decision_params"
     autoload :CreditUnderwritingRecordRetrieveParams, "stripe/params/issuing/credit_underwriting_record_retrieve_params"
+    autoload :DisputeCloseParams, "stripe/params/issuing/dispute_close_params"
     autoload :DisputeCreateParams, "stripe/params/issuing/dispute_create_params"
     autoload :DisputeListParams, "stripe/params/issuing/dispute_list_params"
     autoload :DisputeRetrieveParams, "stripe/params/issuing/dispute_retrieve_params"
@@ -745,6 +746,7 @@ module Stripe
       autoload :CardReturnCardParams, "stripe/params/test_helpers/issuing/card_return_card_params"
       autoload :CardShipCardParams, "stripe/params/test_helpers/issuing/card_ship_card_params"
       autoload :CardSubmitCardParams, "stripe/params/test_helpers/issuing/card_submit_card_params"
+      autoload :DisputeCloseParams, "stripe/params/test_helpers/issuing/dispute_close_params"
       autoload :DisputeSimulateNetworkLifecycleDisputeResponseParams,
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
@@ -1518,6 +1520,7 @@ module Stripe
     stripe/params/issuing/credit_underwriting_record_list_params
     stripe/params/issuing/credit_underwriting_record_report_decision_params
     stripe/params/issuing/credit_underwriting_record_retrieve_params
+    stripe/params/issuing/dispute_close_params
     stripe/params/issuing/dispute_create_params
     stripe/params/issuing/dispute_list_params
     stripe/params/issuing/dispute_retrieve_params
@@ -1847,6 +1850,7 @@ module Stripe
     stripe/params/test_helpers/issuing/card_return_card_params
     stripe/params/test_helpers/issuing/card_ship_card_params
     stripe/params/test_helpers/issuing/card_submit_card_params
+    stripe/params/test_helpers/issuing/dispute_close_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params

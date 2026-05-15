@@ -213,37 +213,6 @@ module Stripe
       end
     end
     class ProrationDetails < ::Stripe::StripeObject
-      class CreditedItems < ::Stripe::StripeObject
-        class InvoiceLineItems < ::Stripe::StripeObject
-          # The invoice id for the debited line item(s).
-          sig { returns(String) }
-          def invoice; end
-          # IDs of the debited invoice line item(s) on the invoice that correspond to the credit proration.
-          sig { returns(T::Array[String]) }
-          def invoice_line_items; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
-        sig { returns(T.nilable(String)) }
-        def invoice_item; end
-        # Attribute for field invoice_line_items
-        sig { returns(T.nilable(InvoiceLineItems)) }
-        def invoice_line_items; end
-        # Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
-        sig { returns(String) }
-        def type; end
-        def self.inner_class_types
-          @inner_class_types = {invoice_line_items: InvoiceLineItems}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class DiscountAmount < ::Stripe::StripeObject
         # The amount, in cents (or local equivalent), of the discount.
         sig { returns(Integer) }
@@ -258,14 +227,11 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Attribute for field credited_items
-      sig { returns(T.nilable(CreditedItems)) }
-      def credited_items; end
       # Discount amounts applied when the proration was created.
       sig { returns(T::Array[DiscountAmount]) }
       def discount_amounts; end
       def self.inner_class_types
-        @inner_class_types = {credited_items: CreditedItems, discount_amounts: DiscountAmount}
+        @inner_class_types = {discount_amounts: DiscountAmount}
       end
       def self.field_remappings
         @field_remappings = {}

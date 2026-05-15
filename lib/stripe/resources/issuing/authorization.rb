@@ -33,6 +33,23 @@ module Stripe
         end
       end
 
+      class BalanceResponse < ::Stripe::StripeObject
+        # The cardholder account type affected by this authorization.
+        attr_reader :account_type
+        # The remaining balance in the cardholder's account after the authorization, in the smallest currency unit.
+        attr_reader :amount
+        # The currency of the remaining balance in the cardholder's account after the authorization.
+        attr_reader :currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CryptoTransaction < ::Stripe::StripeObject
         class CryptoTransactionConfirmed < ::Stripe::StripeObject
           class Fee < ::Stripe::StripeObject
@@ -677,6 +694,8 @@ module Stripe
       attr_reader :approved
       # How the card details were provided.
       attr_reader :authorization_method
+      # Attribute for field balance_response
+      attr_reader :balance_response
       # List of balance transactions associated with this authorization.
       attr_reader :balance_transactions
       # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
@@ -954,6 +973,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           amount_details: AmountDetails,
+          balance_response: BalanceResponse,
           crypto_transactions: CryptoTransaction,
           fleet: Fleet,
           fraud_challenges: FraudChallenge,

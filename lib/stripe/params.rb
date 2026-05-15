@@ -208,6 +208,7 @@ module Stripe
   autoload :PaymentLinkListParams, "stripe/params/payment_link_list_params"
   autoload :PaymentLinkRetrieveParams, "stripe/params/payment_link_retrieve_params"
   autoload :PaymentLinkUpdateParams, "stripe/params/payment_link_update_params"
+  autoload :PaymentLocationCapabilityUpdateParams, "stripe/params/payment_location_capability_update_params"
   autoload :PaymentLocationCreateParams, "stripe/params/payment_location_create_params"
   autoload :PaymentLocationDeleteParams, "stripe/params/payment_location_delete_params"
   autoload :PaymentLocationListParams, "stripe/params/payment_location_list_params"
@@ -1594,6 +1595,7 @@ module Stripe
     stripe/params/payment_link_list_params
     stripe/params/payment_link_retrieve_params
     stripe/params/payment_link_update_params
+    stripe/params/payment_location_capability_update_params
     stripe/params/payment_location_create_params
     stripe/params/payment_location_delete_params
     stripe/params/payment_location_list_params

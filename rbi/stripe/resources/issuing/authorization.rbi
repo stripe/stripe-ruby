@@ -24,6 +24,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class BalanceResponse < ::Stripe::StripeObject
+        # The cardholder account type affected by this authorization.
+        sig { returns(String) }
+        def account_type; end
+        # The remaining balance in the cardholder's account after the authorization, in the smallest currency unit.
+        sig { returns(Integer) }
+        def amount; end
+        # The currency of the remaining balance in the cardholder's account after the authorization.
+        sig { returns(String) }
+        def currency; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CryptoTransaction < ::Stripe::StripeObject
         class CryptoTransactionConfirmed < ::Stripe::StripeObject
           class Fee < ::Stripe::StripeObject
@@ -721,6 +738,9 @@ module Stripe
       # How the card details were provided.
       sig { returns(String) }
       def authorization_method; end
+      # Attribute for field balance_response
+      sig { returns(T.nilable(BalanceResponse)) }
+      def balance_response; end
       # List of balance transactions associated with this authorization.
       sig { returns(T::Array[::Stripe::BalanceTransaction]) }
       def balance_transactions; end

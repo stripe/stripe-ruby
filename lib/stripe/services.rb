@@ -69,6 +69,7 @@ module Stripe
   autoload :PaymentIntentService, "stripe/services/payment_intent_service"
   autoload :PaymentLinkLineItemService, "stripe/services/payment_link_line_item_service"
   autoload :PaymentLinkService, "stripe/services/payment_link_service"
+  autoload :PaymentLocationCapabilityService, "stripe/services/payment_location_capability_service"
   autoload :PaymentLocationService, "stripe/services/payment_location_service"
   autoload :PaymentMethodConfigurationService, "stripe/services/payment_method_configuration_service"
   autoload :PaymentMethodDomainService, "stripe/services/payment_method_domain_service"
@@ -625,6 +626,7 @@ module Stripe
     stripe/services/payment_intent_service
     stripe/services/payment_link_line_item_service
     stripe/services/payment_link_service
+    stripe/services/payment_location_capability_service
     stripe/services/payment_location_service
     stripe/services/payment_method_configuration_service
     stripe/services/payment_method_domain_service

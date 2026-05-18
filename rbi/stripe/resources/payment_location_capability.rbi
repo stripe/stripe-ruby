@@ -45,6 +45,9 @@ module Stripe
     # The identifier for the capability.
     sig { returns(String) }
     def capability; end
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    sig { returns(T::Boolean) }
+    def livemode; end
     # The payment location for which the capability enables functionality.
     sig { returns(String) }
     def location; end
@@ -63,6 +66,12 @@ module Stripe
     # The status of the capability.
     sig { returns(String) }
     def status; end
+    # Returns a list of PaymentLocationCapability objects associated with the location.
+    sig {
+      params(params: T.any(::Stripe::PaymentLocationCapabilityListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+     }
+    def self.list(params = {}, opts = {}); end
+
     # Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
     sig {
       params(capability: String, params: T.any(::Stripe::PaymentLocationCapabilityUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocationCapability)

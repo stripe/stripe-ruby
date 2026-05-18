@@ -4,6 +4,7 @@
 module Stripe
   # A Payment Location Capability represents a capability for a Stripe account at a Payment Location.
   class PaymentLocationCapability < APIResource
+    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_location_capability"
@@ -47,6 +48,8 @@ module Stripe
     attr_reader :account
     # The identifier for the capability.
     attr_reader :capability
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    attr_reader :livemode
     # The payment location for which the capability enables functionality.
     attr_reader :location
     # String representing the object's type. Objects of the same type share the same value.
@@ -59,6 +62,16 @@ module Stripe
     attr_reader :requirements
     # The status of the capability.
     attr_reader :status
+
+    # Returns a list of PaymentLocationCapability objects associated with the location.
+    def self.list(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/payment_location_capabilities",
+        params: params,
+        opts: opts
+      )
+    end
 
     # Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
     def self.update(capability, params = {}, opts = {})

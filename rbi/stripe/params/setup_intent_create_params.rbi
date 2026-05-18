@@ -2103,13 +2103,18 @@ module Stripe
     class SetupDetails < ::Stripe::RequestParams
       class Benefit < ::Stripe::RequestParams
         class FrMealVoucher < ::Stripe::RequestParams
+          # Whether to enable meal voucher benefit for this setup intent.
+          sig { returns(T.nilable(String)) }
+          def enabled; end
+          sig { params(_enabled: T.nilable(String)).returns(T.nilable(String)) }
+          def enabled=(_enabled); end
           # The 14-digit SIRET of the meal voucher acceptor.
           sig { returns(String) }
           def siret; end
           sig { params(_siret: String).returns(String) }
           def siret=(_siret); end
-          sig { params(siret: String).void }
-          def initialize(siret: nil); end
+          sig { params(enabled: T.nilable(String), siret: String).void }
+          def initialize(enabled: nil, siret: nil); end
         end
         # French meal voucher benefit details for this SetupIntent.
         sig {

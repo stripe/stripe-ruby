@@ -289,10 +289,13 @@ module Stripe
     class PaymentDetails < ::Stripe::RequestParams
       class Benefit < ::Stripe::RequestParams
         class FrMealVoucher < ::Stripe::RequestParams
+          # Whether to enable meal voucher benefit for this payment.
+          attr_accessor :enabled
           # The 14-digit SIRET of the meal voucher acceptor.
           attr_accessor :siret
 
-          def initialize(siret: nil)
+          def initialize(enabled: nil, siret: nil)
+            @enabled = enabled
             @siret = siret
           end
         end

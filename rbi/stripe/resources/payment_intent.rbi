@@ -15,6 +15,99 @@ module Stripe
   #
   # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
   class PaymentIntent < APIResource
+    class AdvancedFeatureDetails < ::Stripe::StripeObject
+      class DecrementalAuthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class IncrementalAuthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Multicapture < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Overcapture < ::Stripe::StripeObject
+        # The maximum amount that can be captured.
+        sig { returns(T.nilable(Integer)) }
+        def maximum_amount_capturable; end
+        # Indicates whether overcapture is supported.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Reauthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Timestamp at which the authorization will expire if not captured.
+      sig { returns(T.nilable(Integer)) }
+      def capture_before; end
+      # Attribute for field decremental_authorization
+      sig { returns(T.nilable(DecrementalAuthorization)) }
+      def decremental_authorization; end
+      # Attribute for field incremental_authorization
+      sig { returns(T.nilable(IncrementalAuthorization)) }
+      def incremental_authorization; end
+      # Attribute for field multicapture
+      sig { returns(T.nilable(Multicapture)) }
+      def multicapture; end
+      # Attribute for field overcapture
+      sig { returns(T.nilable(Overcapture)) }
+      def overcapture; end
+      # Attribute for field reauthorization
+      sig { returns(T.nilable(Reauthorization)) }
+      def reauthorization; end
+      # Timestamp at which the reauthorization window closes.
+      sig { returns(T.nilable(Integer)) }
+      def reauthorize_before; end
+      def self.inner_class_types
+        @inner_class_types = {
+          decremental_authorization: DecrementalAuthorization,
+          incremental_authorization: IncrementalAuthorization,
+          multicapture: Multicapture,
+          overcapture: Overcapture,
+          reauthorization: Reauthorization,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class AgentDetails < ::Stripe::StripeObject
       # The name of the agent that initiated the payment.
       sig { returns(String) }
@@ -5143,6 +5236,9 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # Attribute for field advanced_feature_details
+    sig { returns(T.nilable(AdvancedFeatureDetails)) }
+    def advanced_feature_details; end
     # Details about the agent that initiated the creation of this PaymentIntent.
     sig { returns(T.nilable(AgentDetails)) }
     def agent_details; end

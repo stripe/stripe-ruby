@@ -748,45 +748,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class StatusDetails < ::Stripe::StripeObject
-      class Paused < ::Stripe::StripeObject
-        class Subscription < ::Stripe::StripeObject
-          # The reason that the subscription was paused.
-          sig { returns(String) }
-          def type; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Information on the `type=subscription` pause.
-        sig { returns(Subscription) }
-        def subscription; end
-        # Unix timestamp in seconds of when the subscription status transitioned to `paused`.
-        sig { returns(Integer) }
-        def transitioned_at; end
-        # The type of pause.
-        sig { returns(String) }
-        def type; end
-        def self.inner_class_types
-          @inner_class_types = {subscription: Subscription}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      # Indicates when and why the subscription transitioned to the paused status.
-      sig { returns(Paused) }
-      def paused; end
-      def self.inner_class_types
-        @inner_class_types = {paused: Paused}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     class TransferData < ::Stripe::StripeObject
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       sig { returns(T.nilable(Float)) }
@@ -976,9 +937,6 @@ module Stripe
     # If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
     sig { returns(String) }
     def status; end
-    # Describes changes to the subscription's status.
-    sig { returns(T.nilable(StatusDetails)) }
-    def status_details; end
     # ID of the test clock this subscription belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end

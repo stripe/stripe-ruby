@@ -208,6 +208,9 @@ module Stripe
   autoload :PaymentLinkListParams, "stripe/params/payment_link_list_params"
   autoload :PaymentLinkRetrieveParams, "stripe/params/payment_link_retrieve_params"
   autoload :PaymentLinkUpdateParams, "stripe/params/payment_link_update_params"
+  autoload :PaymentLocationCapabilityListParams, "stripe/params/payment_location_capability_list_params"
+  autoload :PaymentLocationCapabilityRetrieveParams, "stripe/params/payment_location_capability_retrieve_params"
+  autoload :PaymentLocationCapabilityUpdateParams, "stripe/params/payment_location_capability_update_params"
   autoload :PaymentLocationCreateParams, "stripe/params/payment_location_create_params"
   autoload :PaymentLocationDeleteParams, "stripe/params/payment_location_delete_params"
   autoload :PaymentLocationListParams, "stripe/params/payment_location_list_params"
@@ -546,11 +549,14 @@ module Stripe
     autoload :CreditUnderwritingRecordReportDecisionParams,
              "stripe/params/issuing/credit_underwriting_record_report_decision_params"
     autoload :CreditUnderwritingRecordRetrieveParams, "stripe/params/issuing/credit_underwriting_record_retrieve_params"
+    autoload :DisputeCloseParams, "stripe/params/issuing/dispute_close_params"
     autoload :DisputeCreateParams, "stripe/params/issuing/dispute_create_params"
     autoload :DisputeListParams, "stripe/params/issuing/dispute_list_params"
     autoload :DisputeRetrieveParams, "stripe/params/issuing/dispute_retrieve_params"
     autoload :DisputeSettlementDetailListParams, "stripe/params/issuing/dispute_settlement_detail_list_params"
     autoload :DisputeSettlementDetailRetrieveParams, "stripe/params/issuing/dispute_settlement_detail_retrieve_params"
+    autoload :DisputeSimulateNetworkLifecycleDisputeResponseParams,
+             "stripe/params/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
     autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
              "stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params"
     autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
@@ -742,6 +748,9 @@ module Stripe
       autoload :CardReturnCardParams, "stripe/params/test_helpers/issuing/card_return_card_params"
       autoload :CardShipCardParams, "stripe/params/test_helpers/issuing/card_ship_card_params"
       autoload :CardSubmitCardParams, "stripe/params/test_helpers/issuing/card_submit_card_params"
+      autoload :DisputeCloseParams, "stripe/params/test_helpers/issuing/dispute_close_params"
+      autoload :DisputeSimulateNetworkLifecycleDisputeResponseParams,
+               "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
@@ -1513,11 +1522,13 @@ module Stripe
     stripe/params/issuing/credit_underwriting_record_list_params
     stripe/params/issuing/credit_underwriting_record_report_decision_params
     stripe/params/issuing/credit_underwriting_record_retrieve_params
+    stripe/params/issuing/dispute_close_params
     stripe/params/issuing/dispute_create_params
     stripe/params/issuing/dispute_list_params
     stripe/params/issuing/dispute_retrieve_params
     stripe/params/issuing/dispute_settlement_detail_list_params
     stripe/params/issuing/dispute_settlement_detail_retrieve_params
+    stripe/params/issuing/dispute_simulate_network_lifecycle_dispute_response_params
     stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params
     stripe/params/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params
     stripe/params/issuing/dispute_submit_params
@@ -1589,6 +1600,9 @@ module Stripe
     stripe/params/payment_link_list_params
     stripe/params/payment_link_retrieve_params
     stripe/params/payment_link_update_params
+    stripe/params/payment_location_capability_list_params
+    stripe/params/payment_location_capability_retrieve_params
+    stripe/params/payment_location_capability_update_params
     stripe/params/payment_location_create_params
     stripe/params/payment_location_delete_params
     stripe/params/payment_location_list_params
@@ -1840,6 +1854,8 @@ module Stripe
     stripe/params/test_helpers/issuing/card_return_card_params
     stripe/params/test_helpers/issuing/card_ship_card_params
     stripe/params/test_helpers/issuing/card_submit_card_params
+    stripe/params/test_helpers/issuing/dispute_close_params
+    stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params
     stripe/params/test_helpers/issuing/personalization_design_activate_params

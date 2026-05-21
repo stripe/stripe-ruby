@@ -118,6 +118,7 @@ module Stripe
         PaymentIntentAmountDetailsLineItem.object_name => PaymentIntentAmountDetailsLineItem,
         PaymentLink.object_name => PaymentLink,
         PaymentLocation.object_name => PaymentLocation,
+        PaymentLocationCapability.object_name => PaymentLocationCapability,
         PaymentMethod.object_name => PaymentMethod,
         PaymentMethodBalance.object_name => PaymentMethodBalance,
         PaymentMethodConfiguration.object_name => PaymentMethodConfiguration,

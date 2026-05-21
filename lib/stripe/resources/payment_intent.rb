@@ -27,6 +27,103 @@ module Stripe
 
     nested_resource_class_methods :amount_details_line_item, operations: %i[list]
 
+    class AdvancedFeatureDetails < ::Stripe::StripeObject
+      class DecrementalAuthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class IncrementalAuthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Multicapture < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Overcapture < ::Stripe::StripeObject
+        # The maximum amount that can be captured.
+        attr_reader :maximum_amount_capturable
+        # Indicates whether overcapture is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Reauthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Timestamp at which the authorization will expire if not captured.
+      attr_reader :capture_before
+      # Attribute for field decremental_authorization
+      attr_reader :decremental_authorization
+      # Attribute for field incremental_authorization
+      attr_reader :incremental_authorization
+      # Attribute for field multicapture
+      attr_reader :multicapture
+      # Attribute for field overcapture
+      attr_reader :overcapture
+      # Attribute for field reauthorization
+      attr_reader :reauthorization
+      # Timestamp at which the reauthorization window closes.
+      attr_reader :reauthorize_before
+
+      def self.inner_class_types
+        @inner_class_types = {
+          decremental_authorization: DecrementalAuthorization,
+          incremental_authorization: IncrementalAuthorization,
+          multicapture: Multicapture,
+          overcapture: Overcapture,
+          reauthorization: Reauthorization,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class AgentDetails < ::Stripe::StripeObject
       # The name of the agent that initiated the payment.
       attr_reader :name
@@ -4878,10 +4975,14 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # Attribute for field advanced_feature_details
+    attr_reader :advanced_feature_details
     # Details about the agent that initiated the creation of this PaymentIntent.
     attr_reader :agent_details
     # Allocated Funds configuration for this PaymentIntent.
     attr_reader :allocated_funds
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_reader :allowed_payment_method_types
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_reader :amount
     # Amount that can be captured from this PaymentIntent.
@@ -5427,6 +5528,7 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        advanced_feature_details: AdvancedFeatureDetails,
         agent_details: AgentDetails,
         allocated_funds: AllocatedFunds,
         amount_details: AmountDetails,

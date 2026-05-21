@@ -21,9 +21,16 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # Payment evaluations associated with this reported payment.
+    sig { returns(T.nilable(T::Array[String])) }
+    def payment_evaluations; end
     sig {
-      params(canceled_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
+      params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
      }
-    def initialize(canceled_at: nil, expand: nil, metadata: nil); end
+    def payment_evaluations=(_payment_evaluations); end
+    sig {
+      params(canceled_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String])).void
+     }
+    def initialize(canceled_at: nil, expand: nil, metadata: nil, payment_evaluations: nil); end
   end
 end

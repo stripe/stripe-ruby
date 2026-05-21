@@ -55,6 +55,7 @@ module Stripe
   autoload :PaymentIntentAmountDetailsLineItem, "stripe/resources/payment_intent_amount_details_line_item"
   autoload :PaymentLink, "stripe/resources/payment_link"
   autoload :PaymentLocation, "stripe/resources/payment_location"
+  autoload :PaymentLocationCapability, "stripe/resources/payment_location_capability"
   autoload :PaymentMethod, "stripe/resources/payment_method"
   autoload :PaymentMethodBalance, "stripe/resources/payment_method_balance"
   autoload :PaymentMethodConfiguration, "stripe/resources/payment_method_configuration"
@@ -1621,6 +1622,7 @@ module Stripe
     stripe/resources/payment_intent_amount_details_line_item
     stripe/resources/payment_link
     stripe/resources/payment_location
+    stripe/resources/payment_location_capability
     stripe/resources/payment_method
     stripe/resources/payment_method_balance
     stripe/resources/payment_method_configuration

@@ -27,12 +27,20 @@ module Stripe
       attr_accessor :failed_at
       # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
       attr_accessor :failure_code
+      # Payment evaluations associated with this reported payment.
+      attr_accessor :payment_evaluations
       # Processor information for this payment.
       attr_accessor :processor_details
 
-      def initialize(failed_at: nil, failure_code: nil, processor_details: nil)
+      def initialize(
+        failed_at: nil,
+        failure_code: nil,
+        payment_evaluations: nil,
+        processor_details: nil
+      )
         @failed_at = failed_at
         @failure_code = failure_code
+        @payment_evaluations = payment_evaluations
         @processor_details = processor_details
       end
     end

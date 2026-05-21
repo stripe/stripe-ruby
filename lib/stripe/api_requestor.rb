@@ -201,6 +201,9 @@ module Stripe
       )
       req_opts = RequestOptions.extract_opts_from_hash(req_opts)
 
+      notice = http_resp["stripe-notice"]
+      warn("WARNING: #{notice}") if notice
+
       resp = interpret_response(http_resp)
 
       # If being called from `APIRequestor#request`, put the last response in

@@ -77,11 +77,33 @@ module Stripe
      }
     def search(params = {}, opts = {}); end
 
+    # Serializes a Subscription cancel request into a batch job JSONL line.
+    sig {
+      params(subscription_exposed_id: String, params: ::Stripe::SubscriptionCancelParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_cancel(subscription_exposed_id, params = {}, opts = {}); end
+
+    # Serializes a Subscription create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::SubscriptionCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
     # Serializes a Subscription migrate request into a batch job JSONL line.
     sig {
       params(subscription: String, params: ::Stripe::SubscriptionMigrateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_migrate(subscription, params = {}, opts = {}); end
+
+    # Serializes a Subscription pause request into a batch job JSONL line.
+    sig {
+      params(subscription: String, params: ::Stripe::SubscriptionPauseParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_pause(subscription, params = {}, opts = {}); end
+
+    # Serializes a Subscription resume request into a batch job JSONL line.
+    sig {
+      params(subscription: String, params: ::Stripe::SubscriptionResumeParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_resume(subscription, params = {}, opts = {}); end
 
     # Serializes a Subscription update request into a batch job JSONL line.
     sig {

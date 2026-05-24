@@ -22,6 +22,18 @@ module Stripe
      }
     def retrieve(customer, transaction, params = {}, opts = {}); end
 
+    # Serializes a CustomerBalanceTransaction create request into a batch job JSONL line.
+    sig {
+      params(customer: String, params: ::Stripe::CustomerBalanceTransactionCreateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_create(customer, params = {}, opts = {}); end
+
+    # Serializes a CustomerBalanceTransaction update request into a batch job JSONL line.
+    sig {
+      params(customer: String, transaction: String, params: ::Stripe::CustomerBalanceTransactionUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(customer, transaction, params = {}, opts = {}); end
+
     # Most credit balance transaction fields are immutable, but you may update its description and metadata.
     sig {
       params(customer: String, transaction: String, params: T.any(::Stripe::CustomerBalanceTransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerBalanceTransaction)

@@ -22,6 +22,18 @@ module Stripe
      }
     def retrieve(template, params = {}, opts = {}); end
 
+    # Serializes an InvoiceRenderingTemplate archive request into a batch job JSONL line.
+    sig {
+      params(template: String, params: ::Stripe::InvoiceRenderingTemplateArchiveParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_archive(template, params = {}, opts = {}); end
+
+    # Serializes an InvoiceRenderingTemplate unarchive request into a batch job JSONL line.
+    sig {
+      params(template: String, params: ::Stripe::InvoiceRenderingTemplateUnarchiveParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_unarchive(template, params = {}, opts = {}); end
+
     # Unarchive an invoice rendering template so it can be used on new Stripe objects again.
     sig {
       params(template: String, params: T.any(::Stripe::InvoiceRenderingTemplateUnarchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)

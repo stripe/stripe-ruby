@@ -128,34 +128,93 @@ module Stripe
       )
     end
 
-    # Serializes a Subscription migrate request into a batch job JSONL line.
-    def serialize_batch_migrate(subscription, params = {}, opts = {})
-      item_id = SecureRandom.uuid
+    # Serializes a Subscription cancel request into a batch job JSONL line.
+    def serialize_batch_cancel(subscription_exposed_id, params = {}, opts = {})
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:path_params] = { subscription: subscription }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:path_params] = { subscription_exposed_id: subscription_exposed_id }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription migrate request into a batch job JSONL line.
+    def serialize_batch_migrate(subscription, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { subscription: subscription }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription pause request into a batch job JSONL line.
+    def serialize_batch_pause(subscription, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { subscription: subscription }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription resume request into a batch job JSONL line.
+    def serialize_batch_resume(subscription, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { subscription: subscription }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Serializes a Subscription update request into a batch job JSONL line.
     def serialize_batch_update(subscription_exposed_id, params = {}, opts = {})
-      item_id = SecureRandom.uuid
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:path_params] = { subscription_exposed_id: subscription_exposed_id }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:path_params] = { subscription_exposed_id: subscription_exposed_id }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates an existing subscription to match the specified parameters.

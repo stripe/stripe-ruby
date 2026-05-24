@@ -50,6 +50,22 @@ module Stripe
      }
     def search(params = {}, opts = {}); end
 
+    # Serializes a Customer create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::CustomerCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a Customer delete request into a batch job JSONL line.
+    sig {
+      params(customer: String, params: ::Stripe::CustomerDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(customer, params = {}, opts = {}); end
+
+    # Serializes a Customer delete_discount request into a batch job JSONL line.
+    sig {
+      params(customer: String, params: ::Stripe::CustomerDeleteDiscountParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete_discount(customer, params = {}, opts = {}); end
+
     # Serializes a Customer update request into a batch job JSONL line.
     sig {
       params(customer: String, params: ::Stripe::CustomerUpdateParams, opts: T.untyped).returns(String)

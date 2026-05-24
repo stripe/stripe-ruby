@@ -73,16 +73,16 @@ module Stripe
 
     # Serializes a CreditNote create request into a batch job JSONL line.
     def serialize_batch_create(params = {}, opts = {})
-      item_id = SecureRandom.uuid
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates an existing credit note.

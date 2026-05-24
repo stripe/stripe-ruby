@@ -52,6 +52,12 @@ module Stripe
      }
     def serialize_batch_create(params = {}, opts = {}); end
 
+    # Serializes a SubscriptionSchedule release request into a batch job JSONL line.
+    sig {
+      params(schedule: String, params: ::Stripe::SubscriptionScheduleReleaseParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_release(schedule, params = {}, opts = {}); end
+
     # Serializes a SubscriptionSchedule update request into a batch job JSONL line.
     sig {
       params(schedule: String, params: ::Stripe::SubscriptionScheduleUpdateParams, opts: T.untyped).returns(String)

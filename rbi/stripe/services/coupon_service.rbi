@@ -30,6 +30,22 @@ module Stripe
      }
     def retrieve(coupon, params = {}, opts = {}); end
 
+    # Serializes a Coupon create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::CouponCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a Coupon delete request into a batch job JSONL line.
+    sig {
+      params(coupon: String, params: ::Stripe::CouponDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(coupon, params = {}, opts = {}); end
+
+    # Serializes a Coupon update request into a batch job JSONL line.
+    sig {
+      params(coupon: String, params: ::Stripe::CouponUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(coupon, params = {}, opts = {}); end
+
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
     sig {
       params(coupon: String, params: T.any(::Stripe::CouponUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)

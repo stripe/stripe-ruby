@@ -58,6 +58,16 @@ module Stripe
      }
     def retrieve_current(params = {}, opts = {}); end
 
+    # Serializes an Account create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::AccountCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes an Account delete request into a batch job JSONL line.
+    sig {
+      params(account: String, params: ::Stripe::AccountDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(account, params = {}, opts = {}); end
+
     # Serializes an Account update request into a batch job JSONL line.
     sig {
       params(account: String, params: ::Stripe::AccountUpdateParams, opts: T.untyped).returns(String)

@@ -305,6 +305,7 @@ module Stripe
   autoload :SubscriptionItemUpdateParams, "stripe/params/subscription_item_update_params"
   autoload :SubscriptionListParams, "stripe/params/subscription_list_params"
   autoload :SubscriptionMigrateParams, "stripe/params/subscription_migrate_params"
+  autoload :SubscriptionPauseParams, "stripe/params/subscription_pause_params"
   autoload :SubscriptionResumeParams, "stripe/params/subscription_resume_params"
   autoload :SubscriptionRetrieveParams, "stripe/params/subscription_retrieve_params"
   autoload :SubscriptionScheduleAmendParams, "stripe/params/subscription_schedule_amend_params"
@@ -1451,6 +1452,7 @@ module Stripe
     stripe/params/subscription_item_update_params
     stripe/params/subscription_list_params
     stripe/params/subscription_migrate_params
+    stripe/params/subscription_pause_params
     stripe/params/subscription_resume_params
     stripe/params/subscription_retrieve_params
     stripe/params/subscription_schedule_amend_params

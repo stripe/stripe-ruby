@@ -8128,7 +8128,7 @@ module Stripe
       batch_job = client.v2.core.batch_jobs.create({
         endpoint: {
           http_method: "delete",
-          path: "/v1/subscription_schedules",
+          path: "/v1/subscriptions/:subscription_exposed_id",
         },
         metadata: { key: "metadata" },
         skip_validation: true,

@@ -232,6 +232,8 @@ module Stripe
             @field_encodings = { unit_amount_decimal: :decimal_string }
           end
         end
+        # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+        attr_accessor :discountable
         # The coupons to redeem into discounts for the item.
         attr_accessor :discounts
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -248,6 +250,7 @@ module Stripe
         attr_accessor :tax_rates
 
         def initialize(
+          discountable: nil,
           discounts: nil,
           metadata: nil,
           period: nil,
@@ -256,6 +259,7 @@ module Stripe
           quantity: nil,
           tax_rates: nil
         )
+          @discountable = discountable
           @discounts = discounts
           @metadata = metadata
           @period = period

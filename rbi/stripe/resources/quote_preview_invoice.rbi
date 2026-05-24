@@ -1028,6 +1028,9 @@ module Stripe
     # The amount, in cents (or local equivalent), that was paid.
     sig { returns(Integer) }
     def amount_paid; end
+    # Amount, in cents (or local equivalent), that was paid on the invoice outside of Stripe.
+    sig { returns(T.nilable(Integer)) }
+    def amount_paid_off_stripe; end
     # The difference between amount_due and amount_paid, in cents (or local equivalent).
     sig { returns(Integer) }
     def amount_remaining; end

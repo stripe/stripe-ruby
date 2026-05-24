@@ -46,9 +46,9 @@ module Stripe
       class Shipping < ::Stripe::StripeObject
         # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_reader :amount
-        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         attr_reader :from_postal_code
-        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         attr_reader :to_postal_code
 
         def self.inner_class_types
@@ -330,6 +330,16 @@ module Stripe
         # The URL you must redirect your customer to in order to authenticate the payment.
         attr_reader :url
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BlikAuthorize < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1264,6 +1274,8 @@ module Stripe
       end
       # Attribute for field alipay_handle_redirect
       attr_reader :alipay_handle_redirect
+      # Attribute for field blik_authorize
+      attr_reader :blik_authorize
       # Attribute for field boleto_display_details
       attr_reader :boleto_display_details
       # Attribute for field card_await_notification
@@ -1308,6 +1320,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           alipay_handle_redirect: AlipayHandleRedirect,
+          blik_authorize: BlikAuthorize,
           boleto_display_details: BoletoDisplayDetails,
           card_await_notification: CardAwaitNotification,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
@@ -2764,6 +2777,16 @@ module Stripe
         end
       end
 
+      class Bizum < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Blik < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -3817,6 +3840,19 @@ module Stripe
         end
       end
 
+      class Scalapay < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SepaDebit < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -4123,6 +4159,8 @@ module Stripe
       attr_reader :bancontact
       # Attribute for field billie
       attr_reader :billie
+      # Attribute for field bizum
+      attr_reader :bizum
       # Attribute for field blik
       attr_reader :blik
       # Attribute for field boleto
@@ -4203,6 +4241,8 @@ module Stripe
       attr_reader :samsung_pay
       # Attribute for field satispay
       attr_reader :satispay
+      # Attribute for field scalapay
+      attr_reader :scalapay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
       # Attribute for field shopeepay
@@ -4236,6 +4276,7 @@ module Stripe
           bacs_debit: BacsDebit,
           bancontact: Bancontact,
           billie: Billie,
+          bizum: Bizum,
           blik: Blik,
           boleto: Boleto,
           card: Card,
@@ -4276,6 +4317,7 @@ module Stripe
           revolut_pay: RevolutPay,
           samsung_pay: SamsungPay,
           satispay: Satispay,
+          scalapay: Scalapay,
           sepa_debit: SepaDebit,
           shopeepay: Shopeepay,
           sofort: Sofort,
@@ -4394,15 +4436,35 @@ module Stripe
     end
 
     class TransferData < ::Stripe::StripeObject
+      class PaymentData < ::Stripe::StripeObject
+        # An arbitrary string attached to the destination payment. Often useful for displaying to users.
+        attr_reader :description
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_reader :metadata
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The amount transferred to the destination account. This transfer will occur automatically after the payment succeeds. If no amount is specified, by default the entire payment amount is transferred to the destination account.
       #  The amount must be less than or equal to the [amount](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
       #  representing how much to transfer in the smallest currency unit (e.g., 100 cents to charge $1.00).
       attr_reader :amount
+      # An arbitrary string attached to the transfer. Often useful for displaying to users.
+      attr_reader :description
       # The account (if any) that the payment is attributed to for tax reporting, and where funds from the payment are transferred to after payment success.
       attr_reader :destination
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # Attribute for field payment_data
+      attr_reader :payment_data
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { payment_data: PaymentData }
       end
 
       def self.field_remappings
@@ -4768,7 +4830,9 @@ module Stripe
     # Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
     # After it's captured, a PaymentIntent can no longer be incremented.
     #
-    # Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+    # Learn more about incremental authorizations with
+    # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+    # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
     def increment_authorization(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -4801,7 +4865,9 @@ module Stripe
     # Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
     # After it's captured, a PaymentIntent can no longer be incremented.
     #
-    # Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+    # Learn more about incremental authorizations with
+    # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+    # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
     def self.increment_authorization(intent, params = {}, opts = {})
       request_stripe_object(
         method: :post,

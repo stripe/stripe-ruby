@@ -420,6 +420,31 @@ module Stripe
       end
     end
 
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class Restrictions < ::Stripe::RequestParams
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          attr_accessor :brands_blocked
+
+          def initialize(brands_blocked: nil)
+            @brands_blocked = brands_blocked
+          end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        attr_accessor :restrictions
+
+        def initialize(restrictions: nil)
+          @restrictions = restrictions
+        end
+      end
+      # Configuration for `card` payment methods.
+      attr_accessor :card
+
+      def initialize(card: nil)
+        @card = card
+      end
+    end
+
     class PhoneNumberCollection < ::Stripe::RequestParams
       # Set to `true` to enable phone number collection.
       attr_accessor :enabled
@@ -566,6 +591,8 @@ module Stripe
     #
     # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     attr_accessor :payment_method_collection
+    # Payment-method-specific configuration.
+    attr_accessor :payment_method_options
     # The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     attr_accessor :payment_method_types
     # Controls phone number collection settings during checkout.
@@ -601,6 +628,7 @@ module Stripe
       optional_items: nil,
       payment_intent_data: nil,
       payment_method_collection: nil,
+      payment_method_options: nil,
       payment_method_types: nil,
       phone_number_collection: nil,
       restrictions: nil,
@@ -626,6 +654,7 @@ module Stripe
       @optional_items = optional_items
       @payment_intent_data = payment_intent_data
       @payment_method_collection = payment_method_collection
+      @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
       @phone_number_collection = phone_number_collection
       @restrictions = restrictions

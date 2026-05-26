@@ -28,6 +28,27 @@ module Stripe
           end
         end
 
+        class AzureEventGrid < ::Stripe::StripeObject
+          # The name of the Azure partner topic.
+          attr_reader :azure_partner_topic_name
+          # The status of the Azure partner topic.
+          attr_reader :azure_partner_topic_status
+          # The Azure region.
+          attr_reader :azure_region
+          # The name of the Azure resource group.
+          attr_reader :azure_resource_group_name
+          # The Azure subscription ID.
+          attr_reader :azure_subscription_id
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StatusDetails < ::Stripe::StripeObject
           class Disabled < ::Stripe::StripeObject
             # Reason event destination has been disabled.
@@ -69,6 +90,8 @@ module Stripe
         end
         # Amazon EventBridge configuration.
         attr_reader :amazon_eventbridge
+        # Azure Event Grid configuration.
+        attr_reader :azure_event_grid
         # Time at which the object was created.
         attr_reader :created
         # An optional description of what the event destination is used for.
@@ -109,6 +132,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             amazon_eventbridge: AmazonEventbridge,
+            azure_event_grid: AzureEventGrid,
             status_details: StatusDetails,
             webhook_endpoint: WebhookEndpoint,
           }

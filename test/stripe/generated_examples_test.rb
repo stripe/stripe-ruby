@@ -7572,6 +7572,49 @@ module Stripe
       })
       assert_requested :post, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
     end
+    should "Test v2 commerce product catalog import get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
+      ).to_return(
+        body: '{"data":[{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      product_catalog_imports = client.v2.commerce.product_catalog.imports.list
+      assert_requested :get,  "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
+    end
+    should "Test v2 commerce product catalog import post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
+      ).to_return(
+        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      product_catalog_import = client.v2.commerce.product_catalog.imports.create({
+        feed_type: "pricing",
+        metadata: { key: "metadata" },
+        mode: "upsert",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
+    end
+    should "Test v2 commerce product catalog import get 2 (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports/id_123"
+      ).to_return(
+        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      product_catalog_import = client.v2.commerce.product_catalog.imports.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports/id_123"
+    end
     should "Test v2 core account get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
         body: '{"data":[{"object":"v2.core.account","applied_configurations":["recipient"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}],"next_page_url":null,"previous_page_url":null}',

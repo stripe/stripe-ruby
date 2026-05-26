@@ -413,6 +413,8 @@ module Stripe
               @field_encodings = { unit_amount_decimal: :decimal_string }
             end
           end
+          # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+          attr_accessor :discountable
           # The coupons to redeem into discounts for the item.
           attr_accessor :discounts
           # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -429,6 +431,7 @@ module Stripe
           attr_accessor :tax_rates
 
           def initialize(
+            discountable: nil,
             discounts: nil,
             metadata: nil,
             period: nil,
@@ -437,6 +440,7 @@ module Stripe
             quantity: nil,
             tax_rates: nil
           )
+            @discountable = discountable
             @discounts = discounts
             @metadata = metadata
             @period = period
@@ -851,6 +855,58 @@ module Stripe
         end
       end
 
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Specifies the billing period.
+          attr_accessor :duration
+          # The end date of the billing schedule.
+          attr_accessor :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The end date for the billing schedule.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_until = bill_until
+          @key = key
+        end
+      end
+
       class Item < ::Stripe::RequestParams
         class BillingThresholds < ::Stripe::RequestParams
           # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
@@ -980,6 +1036,8 @@ module Stripe
       attr_accessor :billing_cycle_anchor
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
+      # Sets the billing schedules for the subscription.
+      attr_accessor :billing_schedules
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
       # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
@@ -1004,6 +1062,7 @@ module Stripe
       def initialize(
         billing_cycle_anchor: nil,
         billing_mode: nil,
+        billing_schedules: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         cancel_now: nil,
@@ -1017,6 +1076,7 @@ module Stripe
       )
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_mode = billing_mode
+        @billing_schedules = billing_schedules
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
         @cancel_now = cancel_now

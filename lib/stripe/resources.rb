@@ -124,6 +124,22 @@ module Stripe
              "stripe/events/v1_billing_meter_error_report_triggered_event"
     autoload :V1BillingMeterNoMeterFoundEvent, "stripe/events/v1_billing_meter_no_meter_found_event"
     autoload :V1BillingMeterNoMeterFoundEventNotification, "stripe/events/v1_billing_meter_no_meter_found_event"
+    autoload :V2CommerceProductCatalogImportsFailedEvent,
+             "stripe/events/v2_commerce_product_catalog_imports_failed_event"
+    autoload :V2CommerceProductCatalogImportsFailedEventNotification,
+             "stripe/events/v2_commerce_product_catalog_imports_failed_event"
+    autoload :V2CommerceProductCatalogImportsProcessingEvent,
+             "stripe/events/v2_commerce_product_catalog_imports_processing_event"
+    autoload :V2CommerceProductCatalogImportsProcessingEventNotification,
+             "stripe/events/v2_commerce_product_catalog_imports_processing_event"
+    autoload :V2CommerceProductCatalogImportsSucceededEvent,
+             "stripe/events/v2_commerce_product_catalog_imports_succeeded_event"
+    autoload :V2CommerceProductCatalogImportsSucceededEventNotification,
+             "stripe/events/v2_commerce_product_catalog_imports_succeeded_event"
+    autoload :V2CommerceProductCatalogImportsSucceededWithErrorsEvent,
+             "stripe/events/v2_commerce_product_catalog_imports_succeeded_with_errors_event"
+    autoload :V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
+             "stripe/events/v2_commerce_product_catalog_imports_succeeded_with_errors_event"
     autoload :V2CoreAccountClosedEvent, "stripe/events/v2_core_account_closed_event"
     autoload :V2CoreAccountClosedEventNotification, "stripe/events/v2_core_account_closed_event"
     autoload :V2CoreAccountCreatedEvent, "stripe/events/v2_core_account_created_event"
@@ -275,6 +291,10 @@ module Stripe
       autoload :MeterEvent, "stripe/resources/v2/billing/meter_event"
       autoload :MeterEventAdjustment, "stripe/resources/v2/billing/meter_event_adjustment"
       autoload :MeterEventSession, "stripe/resources/v2/billing/meter_event_session"
+    end
+
+    module Commerce
+      autoload :ProductCatalogImport, "stripe/resources/v2/commerce/product_catalog_import"
     end
 
     module Core
@@ -445,6 +465,7 @@ module Stripe
     stripe/resources/v2/billing/meter_event
     stripe/resources/v2/billing/meter_event_adjustment
     stripe/resources/v2/billing/meter_event_session
+    stripe/resources/v2/commerce/product_catalog_import
     stripe/resources/v2/core/account
     stripe/resources/v2/core/account_link
     stripe/resources/v2/core/account_person
@@ -456,6 +477,10 @@ module Stripe
     stripe/resources/webhook_endpoint
     stripe/events/v1_billing_meter_error_report_triggered_event
     stripe/events/v1_billing_meter_no_meter_found_event
+    stripe/events/v2_commerce_product_catalog_imports_failed_event
+    stripe/events/v2_commerce_product_catalog_imports_processing_event
+    stripe/events/v2_commerce_product_catalog_imports_succeeded_event
+    stripe/events/v2_commerce_product_catalog_imports_succeeded_with_errors_event
     stripe/events/v2_core_account_closed_event
     stripe/events/v2_core_account_created_event
     stripe/events/v2_core_account_including_configuration_customer_capability_status_updated_event

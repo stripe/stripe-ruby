@@ -185,6 +185,16 @@ module Stripe
       end
     end
 
+    class Bizum < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Blik < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1249,6 +1259,16 @@ module Stripe
       end
     end
 
+    class Scalapay < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class SepaDebit < ::Stripe::StripeObject
       class GeneratedFrom < ::Stripe::StripeObject
         # The ID of the Charge that generated this PaymentMethod, if any.
@@ -1455,6 +1475,8 @@ module Stripe
     attr_reader :billie
     # Attribute for field billing_details
     attr_reader :billing_details
+    # Attribute for field bizum
+    attr_reader :bizum
     # Attribute for field blik
     attr_reader :blik
     # Attribute for field boleto
@@ -1543,6 +1565,8 @@ module Stripe
     attr_reader :samsung_pay
     # Attribute for field satispay
     attr_reader :satispay
+    # Attribute for field scalapay
+    attr_reader :scalapay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
     # Attribute for field sofort
@@ -1663,6 +1687,7 @@ module Stripe
         bancontact: Bancontact,
         billie: Billie,
         billing_details: BillingDetails,
+        bizum: Bizum,
         blik: Blik,
         boleto: Boleto,
         card: Card,
@@ -1700,6 +1725,7 @@ module Stripe
         revolut_pay: RevolutPay,
         samsung_pay: SamsungPay,
         satispay: Satispay,
+        scalapay: Scalapay,
         sepa_debit: SepaDebit,
         sofort: Sofort,
         sunbit: Sunbit,

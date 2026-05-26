@@ -203,12 +203,12 @@ module Stripe
           params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
          }
         def amount=(_amount); end
-        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         sig { returns(T.nilable(String)) }
         def from_postal_code; end
         sig { params(_from_postal_code: T.nilable(String)).returns(T.nilable(String)) }
         def from_postal_code=(_from_postal_code); end
-        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         sig { returns(T.nilable(String)) }
         def to_postal_code; end
         sig { params(_to_postal_code: T.nilable(String)).returns(T.nilable(String)) }
@@ -549,6 +549,7 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
       end
+      class Bizum < ::Stripe::RequestParams; end
       class Blik < ::Stripe::RequestParams; end
       class Boleto < ::Stripe::RequestParams
         # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
@@ -739,6 +740,7 @@ module Stripe
       class RevolutPay < ::Stripe::RequestParams; end
       class SamsungPay < ::Stripe::RequestParams; end
       class Satispay < ::Stripe::RequestParams; end
+      class Scalapay < ::Stripe::RequestParams; end
       class SepaDebit < ::Stripe::RequestParams
         # IBAN of the bank account.
         sig { returns(String) }
@@ -928,6 +930,13 @@ module Stripe
         params(_billing_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::BillingDetails)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::BillingDetails))
        }
       def billing_details=(_billing_details); end
+      # If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+      sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Bizum)) }
+      def bizum; end
+      sig {
+        params(_bizum: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Bizum)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Bizum))
+       }
+      def bizum=(_bizum); end
       # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Blik)) }
       def blik; end
@@ -1037,7 +1046,7 @@ module Stripe
         params(_kr_card: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::KrCard)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::KrCard))
        }
       def kr_card=(_kr_card); end
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
       sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Link)) }
       def link; end
       sig {
@@ -1181,6 +1190,13 @@ module Stripe
         params(_satispay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Satispay)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Satispay))
        }
       def satispay=(_satispay); end
+      # If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+      sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Scalapay)) }
+      def scalapay; end
+      sig {
+        params(_scalapay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Scalapay)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Scalapay))
+       }
+      def scalapay=(_scalapay); end
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::SepaDebit)) }
       def sepa_debit; end
@@ -1252,7 +1268,7 @@ module Stripe
        }
       def zip=(_zip); end
       sig {
-        params(acss_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::BillingDetails), blik: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Paypal), payto: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Satispay), sepa_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::SepaDebit), sofort: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Sofort), sunbit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Sunbit), swish: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Zip)).void
+        params(acss_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::BillingDetails), bizum: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Bizum), blik: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Paypal), payto: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Satispay), scalapay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Scalapay), sepa_debit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::SepaDebit), sofort: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Sofort), sunbit: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Sunbit), swish: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -1267,6 +1283,7 @@ module Stripe
         bancontact: nil,
         billie: nil,
         billing_details: nil,
+        bizum: nil,
         blik: nil,
         boleto: nil,
         cashapp: nil,
@@ -1302,6 +1319,7 @@ module Stripe
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
+        scalapay: nil,
         sepa_debit: nil,
         sofort: nil,
         sunbit: nil,
@@ -1629,6 +1647,7 @@ module Stripe
         sig { params(capture_method: T.nilable(String)).void }
         def initialize(capture_method: nil); end
       end
+      class Bizum < ::Stripe::RequestParams; end
       class Blik < ::Stripe::RequestParams
         # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         sig { returns(T.nilable(String)) }
@@ -3091,6 +3110,19 @@ module Stripe
         sig { params(capture_method: T.nilable(String)).void }
         def initialize(capture_method: nil); end
       end
+      class Scalapay < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_method=(_capture_method); end
+        sig { params(capture_method: T.nilable(String)).void }
+        def initialize(capture_method: nil); end
+      end
       class SepaDebit < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -3524,6 +3556,15 @@ module Stripe
         params(_billie: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Billie))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Billie)))
        }
       def billie=(_billie); end
+      # If this is a `bizum` PaymentMethod, this sub-hash contains details about the Bizum payment method options.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Bizum)))
+       }
+      def bizum; end
+      sig {
+        params(_bizum: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Bizum))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Bizum)))
+       }
+      def bizum=(_bizum); end
       # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Blik)))
@@ -3677,7 +3718,7 @@ module Stripe
         params(_kr_card: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::KrCard))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::KrCard)))
        }
       def kr_card=(_kr_card); end
-      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Link)))
        }
@@ -3839,6 +3880,15 @@ module Stripe
         params(_satispay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Satispay))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Satispay)))
        }
       def satispay=(_satispay); end
+      # If this is a `scalapay` PaymentMethod, this sub-hash contains details about the ScalaPay payment method options.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Scalapay)))
+       }
+      def scalapay; end
+      sig {
+        params(_scalapay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Scalapay))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Scalapay)))
+       }
+      def scalapay=(_scalapay); end
       # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::SepaDebit)))
@@ -3912,7 +3962,7 @@ module Stripe
        }
       def zip=(_zip); end
       sig {
-        params(acss_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AcssDebit)), affirm: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Affirm)), afterpay_clearpay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AfterpayClearpay)), alipay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Alipay)), alma: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Alma)), amazon_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AmazonPay)), au_becs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AuBecsDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Billie)), blik: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Blik)), boleto: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Boleto)), card: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Card)), card_present: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent)), cashapp: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Cashapp)), crypto: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Crypto)), customer_balance: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CustomerBalance)), eps: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Eps)), fpx: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Fpx)), giropay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Giropay)), grabpay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Grabpay)), ideal: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Ideal)), interac_present: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::InteracPresent)), kakao_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::KakaoPay)), klarna: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Klarna)), konbini: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Konbini)), kr_card: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::KrCard)), link: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Link)), mb_way: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::MbWay)), mobilepay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Mobilepay)), multibanco: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Multibanco)), naver_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::NaverPay)), nz_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::NzBankAccount)), oxxo: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Oxxo)), p24: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::P24)), pay_by_bank: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::PayByBank)), payco: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Payco)), paynow: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Paynow)), paypal: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Paypal)), payto: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Pix)), promptpay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Promptpay)), revolut_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::RevolutPay)), samsung_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::SamsungPay)), satispay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Satispay)), sepa_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::SepaDebit)), sofort: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Sofort)), swish: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Swish)), twint: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Twint)), upi: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::WechatPay)), zip: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Zip))).void
+        params(acss_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AcssDebit)), affirm: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Affirm)), afterpay_clearpay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AfterpayClearpay)), alipay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Alipay)), alma: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Alma)), amazon_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AmazonPay)), au_becs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::AuBecsDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Blik)), boleto: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Boleto)), card: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Card)), card_present: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent)), cashapp: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Cashapp)), crypto: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Crypto)), customer_balance: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CustomerBalance)), eps: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Eps)), fpx: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Fpx)), giropay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Giropay)), grabpay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Grabpay)), ideal: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Ideal)), interac_present: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::InteracPresent)), kakao_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::KakaoPay)), klarna: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Klarna)), konbini: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Konbini)), kr_card: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::KrCard)), link: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Link)), mb_way: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::MbWay)), mobilepay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Mobilepay)), multibanco: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Multibanco)), naver_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::NaverPay)), nz_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::NzBankAccount)), oxxo: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Oxxo)), p24: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::P24)), pay_by_bank: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::PayByBank)), payco: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Payco)), paynow: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Paynow)), paypal: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Paypal)), payto: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Pix)), promptpay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Promptpay)), revolut_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::RevolutPay)), samsung_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::SamsungPay)), satispay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Satispay)), scalapay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Scalapay)), sepa_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::SepaDebit)), sofort: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Sofort)), swish: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Swish)), twint: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Twint)), upi: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::WechatPay)), zip: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Zip))).void
        }
       def initialize(
         acss_debit: nil,
@@ -3925,6 +3975,7 @@ module Stripe
         bacs_debit: nil,
         bancontact: nil,
         billie: nil,
+        bizum: nil,
         blik: nil,
         boleto: nil,
         card: nil,
@@ -3960,6 +4011,7 @@ module Stripe
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
+        scalapay: nil,
         sepa_debit: nil,
         sofort: nil,
         swish: nil,
@@ -4056,6 +4108,24 @@ module Stripe
       def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
     end
     class TransferData < ::Stripe::RequestParams
+      class PaymentData < ::Stripe::RequestParams
+        # An arbitrary string attached to the destination payment. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+         }
+        def metadata=(_metadata); end
+        sig {
+          params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
+         }
+        def initialize(description: nil, metadata: nil); end
+      end
       # The amount that will be transferred automatically when a charge succeeds.
       # The amount is capped at the total transaction amount and if no amount is set,
       # the full amount is transferred.
@@ -4067,6 +4137,11 @@ module Stripe
       def amount; end
       sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount=(_amount); end
+      # An arbitrary string attached to the transfer. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
+      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+      def description=(_description); end
       # If specified, successful charges will be attributed to the destination
       # account for tax reporting, and the funds from charges will be transferred
       # to the destination account. The ID of the resulting transfer will be
@@ -4075,8 +4150,30 @@ module Stripe
       def destination; end
       sig { params(_destination: String).returns(String) }
       def destination=(_destination); end
-      sig { params(amount: T.nilable(Integer), destination: String).void }
-      def initialize(amount: nil, destination: nil); end
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
+      # The data with which to populate the destination payment.
+      sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::TransferData::PaymentData)) }
+      def payment_data; end
+      sig {
+        params(_payment_data: T.nilable(::Stripe::PaymentIntentCreateParams::TransferData::PaymentData)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::TransferData::PaymentData))
+       }
+      def payment_data=(_payment_data); end
+      sig {
+        params(amount: T.nilable(Integer), description: T.nilable(String), destination: String, metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_data: T.nilable(::Stripe::PaymentIntentCreateParams::TransferData::PaymentData)).void
+       }
+      def initialize(
+        amount: nil,
+        description: nil,
+        destination: nil,
+        metadata: nil,
+        payment_data: nil
+      ); end
     end
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(Integer) }
@@ -4195,7 +4292,7 @@ module Stripe
       params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
      }
     def metadata=(_metadata); end
-    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://docs.stripe.com/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-confirm).
+    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect payment method details and [charge them later](https://docs.stripe.com/payments/save-during-payment). This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-confirm).
     sig { returns(T.nilable(T.any(T::Boolean, String))) }
     def off_session; end
     sig {

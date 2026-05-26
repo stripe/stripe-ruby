@@ -22,7 +22,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
+    # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Not present for subscription mode.
     sig { returns(T.nilable(String)) }
     def checkout_session; end
     # The ID of the customer associated with this discount.
@@ -37,7 +37,7 @@ module Stripe
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     sig { returns(T.nilable(Integer)) }
     def end; end
-    # The ID of the discount object. Discounts cannot be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.
+    # The ID of the discount object. Discounts can't be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.
     sig { returns(String) }
     def id; end
     # The invoice that the discount's coupon was applied to, if it was applied directly to a particular invoice.

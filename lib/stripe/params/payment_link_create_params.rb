@@ -74,7 +74,7 @@ module Stripe
       attr_accessor :payment_method_reuse_agreement
       # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
       # Session will determine whether to display an option to opt into promotional communication
-      # from the merchant depending on the customer's locale. Only available to US merchants.
+      # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
       attr_accessor :promotions
       # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
       # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
@@ -564,6 +564,31 @@ module Stripe
       end
     end
 
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class Restrictions < ::Stripe::RequestParams
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          attr_accessor :brands_blocked
+
+          def initialize(brands_blocked: nil)
+            @brands_blocked = brands_blocked
+          end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        attr_accessor :restrictions
+
+        def initialize(restrictions: nil)
+          @restrictions = restrictions
+        end
+      end
+      # Configuration for `card` payment methods.
+      attr_accessor :card
+
+      def initialize(card: nil)
+        @card = card
+      end
+    end
+
     class PhoneNumberCollection < ::Stripe::RequestParams
       # Set to `true` to enable phone number collection.
       attr_accessor :enabled
@@ -748,6 +773,8 @@ module Stripe
     #
     # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     attr_accessor :payment_method_collection
+    # Attribute for param field payment_method_options
+    attr_accessor :payment_method_options
     # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://docs.stripe.com/payments/payment-methods/integration-options#payment-method-product-support)).
     attr_accessor :payment_method_types
     # Controls phone number collection settings during checkout.
@@ -792,6 +819,7 @@ module Stripe
       optional_items: nil,
       payment_intent_data: nil,
       payment_method_collection: nil,
+      payment_method_options: nil,
       payment_method_types: nil,
       phone_number_collection: nil,
       restrictions: nil,
@@ -824,6 +852,7 @@ module Stripe
       @optional_items = optional_items
       @payment_intent_data = payment_intent_data
       @payment_method_collection = payment_method_collection
+      @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
       @phone_number_collection = phone_number_collection
       @restrictions = restrictions

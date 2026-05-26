@@ -152,6 +152,8 @@ module Stripe
       attr_reader :bank_transfer_payments
       # The status of the Billie capability of the account, or whether the account can directly process Billie payments.
       attr_reader :billie_payments
+      # The status of the Bizum capability of the account, or whether the account can directly process Bizum payments.
+      attr_reader :bizum_payments
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       attr_reader :blik_payments
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
@@ -230,6 +232,8 @@ module Stripe
       attr_reader :samsung_pay_payments
       # The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
       attr_reader :satispay_payments
+      # The status of the Scalapay capability of the account, or whether the account can directly process Scalapay payments.
+      attr_reader :scalapay_payments
       # The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
       attr_reader :sepa_bank_transfer_payments
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.

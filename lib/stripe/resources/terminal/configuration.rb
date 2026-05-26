@@ -540,7 +540,59 @@ module Stripe
         end
       end
 
+      class VerifoneM425 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class VerifoneP400 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class VerifoneP630 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class VerifoneUx700 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class VerifoneV660p < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
 
@@ -657,8 +709,16 @@ module Stripe
       attr_reader :stripe_s710
       # Attribute for field tipping
       attr_reader :tipping
+      # Attribute for field verifone_m425
+      attr_reader :verifone_m425
       # Attribute for field verifone_p400
       attr_reader :verifone_p400
+      # Attribute for field verifone_p630
+      attr_reader :verifone_p630
+      # Attribute for field verifone_ux700
+      attr_reader :verifone_ux700
+      # Attribute for field verifone_v660p
+      attr_reader :verifone_v660p
       # Attribute for field wifi
       attr_reader :wifi
 
@@ -722,7 +782,11 @@ module Stripe
           stripe_s700: StripeS700,
           stripe_s710: StripeS710,
           tipping: Tipping,
+          verifone_m425: VerifoneM425,
           verifone_p400: VerifoneP400,
+          verifone_p630: VerifoneP630,
+          verifone_ux700: VerifoneUx700,
+          verifone_v660p: VerifoneV660p,
           wifi: Wifi,
         }
       end

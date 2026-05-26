@@ -241,6 +241,7 @@ module Stripe
 
   module V2
     autoload :BillingService, "stripe/services/v2/billing_service"
+    autoload :CommerceService, "stripe/services/v2/commerce_service"
     autoload :CoreService, "stripe/services/v2/core_service"
 
     module Billing
@@ -248,6 +249,14 @@ module Stripe
       autoload :MeterEventService, "stripe/services/v2/billing/meter_event_service"
       autoload :MeterEventSessionService, "stripe/services/v2/billing/meter_event_session_service"
       autoload :MeterEventStreamService, "stripe/services/v2/billing/meter_event_stream_service"
+    end
+
+    module Commerce
+      autoload :ProductCatalogService, "stripe/services/v2/commerce/product_catalog_service"
+
+      module ProductCatalog
+        autoload :ImportService, "stripe/services/v2/commerce/product_catalog/import_service"
+      end
     end
 
     module Core
@@ -446,6 +455,9 @@ module Stripe
     stripe/services/v2/billing/meter_event_session_service
     stripe/services/v2/billing/meter_event_stream_service
     stripe/services/v2/billing_service
+    stripe/services/v2/commerce/product_catalog/import_service
+    stripe/services/v2/commerce/product_catalog_service
+    stripe/services/v2/commerce_service
     stripe/services/v2/core/account_link_service
     stripe/services/v2/core/account_service
     stripe/services/v2/core/account_token_service

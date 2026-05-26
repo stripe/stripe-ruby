@@ -282,6 +282,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Upi < ::Stripe::StripeObject
         # Amount to be charged for future payments.
         sig { returns(T.nilable(Integer)) }
@@ -364,6 +372,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field twint
+      sig { returns(T.nilable(Twint)) }
+      def twint; end
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
       sig { returns(String) }
       def type; end
@@ -392,6 +403,7 @@ module Stripe
           pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,
         }

@@ -3,6 +3,8 @@
 
 module Stripe
   class PaymentMethodConfigurationListParams < ::Stripe::RequestParams
+    # Whether the configuration is active.
+    attr_accessor :active
     # The Connect application to filter by.
     attr_accessor :application
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -15,12 +17,14 @@ module Stripe
     attr_accessor :starting_after
 
     def initialize(
+      active: nil,
       application: nil,
       ending_before: nil,
       expand: nil,
       limit: nil,
       starting_after: nil
     )
+      @active = active
       @application = application
       @ending_before = ending_before
       @expand = expand

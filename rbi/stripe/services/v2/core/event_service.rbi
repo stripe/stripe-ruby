@@ -12,7 +12,8 @@ module Stripe
          }
         def list(params = {}, opts = {}); end
 
-        # Retrieves the details of an event.
+        # Retrieves the details of an event if it was created in the last 30 days. Supply the unique
+        # identifier of the event, which might have been delivered to your event destination.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::EventRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Event)
          }

@@ -17,6 +17,25 @@ module Stripe
           end
         end
 
+        class AzureEventGrid < ::Stripe::RequestParams
+          # The Azure region.
+          attr_accessor :azure_region
+          # The name of the Azure resource group.
+          attr_accessor :azure_resource_group_name
+          # The Azure subscription ID.
+          attr_accessor :azure_subscription_id
+
+          def initialize(
+            azure_region: nil,
+            azure_resource_group_name: nil,
+            azure_subscription_id: nil
+          )
+            @azure_region = azure_region
+            @azure_resource_group_name = azure_resource_group_name
+            @azure_subscription_id = azure_subscription_id
+          end
+        end
+
         class WebhookEndpoint < ::Stripe::RequestParams
           # The URL of the webhook endpoint.
           attr_accessor :url
@@ -27,6 +46,8 @@ module Stripe
         end
         # Amazon EventBridge configuration.
         attr_accessor :amazon_eventbridge
+        # Azure Event Grid configuration.
+        attr_accessor :azure_event_grid
         # An optional description of what the event destination is used for.
         attr_accessor :description
         # The list of events to enable for this endpoint.
@@ -54,6 +75,7 @@ module Stripe
 
         def initialize(
           amazon_eventbridge: nil,
+          azure_event_grid: nil,
           description: nil,
           enabled_events: nil,
           event_payload: nil,
@@ -66,6 +88,7 @@ module Stripe
           webhook_endpoint: nil
         )
           @amazon_eventbridge = amazon_eventbridge
+          @azure_event_grid = azure_event_grid
           @description = description
           @enabled_events = enabled_events
           @event_payload = event_payload

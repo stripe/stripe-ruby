@@ -24,6 +24,29 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class AzureEventGrid < ::Stripe::StripeObject
+          # The name of the Azure partner topic.
+          sig { returns(String) }
+          def azure_partner_topic_name; end
+          # The status of the Azure partner topic.
+          sig { returns(String) }
+          def azure_partner_topic_status; end
+          # The Azure region.
+          sig { returns(String) }
+          def azure_region; end
+          # The name of the Azure resource group.
+          sig { returns(String) }
+          def azure_resource_group_name; end
+          # The Azure subscription ID.
+          sig { returns(String) }
+          def azure_subscription_id; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class StatusDetails < ::Stripe::StripeObject
           class Disabled < ::Stripe::StripeObject
             # Reason event destination has been disabled.
@@ -63,6 +86,9 @@ module Stripe
         # Amazon EventBridge configuration.
         sig { returns(T.nilable(AmazonEventbridge)) }
         def amazon_eventbridge; end
+        # Azure Event Grid configuration.
+        sig { returns(T.nilable(AzureEventGrid)) }
+        def azure_event_grid; end
         # Time at which the object was created.
         sig { returns(String) }
         def created; end

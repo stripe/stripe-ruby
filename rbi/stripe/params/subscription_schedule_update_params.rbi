@@ -309,6 +309,11 @@ module Stripe
             @field_encodings = {unit_amount_decimal: :decimal_string}
           end
         end
+        # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+        sig { returns(T.nilable(T::Boolean)) }
+        def discountable; end
+        sig { params(_discountable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def discountable=(_discountable); end
         # The coupons to redeem into discounts for the item.
         sig {
           returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem::Discount]))
@@ -361,9 +366,10 @@ module Stripe
          }
         def tax_rates=(_tax_rates); end
         sig {
-          params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(discountable: T.nilable(T::Boolean), discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
+          discountable: nil,
           discounts: nil,
           metadata: nil,
           period: nil,

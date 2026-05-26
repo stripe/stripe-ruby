@@ -898,6 +898,8 @@ module Stripe
     attr_reader :amount_overpaid
     # The amount, in cents (or local equivalent), that was paid.
     attr_reader :amount_paid
+    # Amount, in cents (or local equivalent), that was paid on the invoice outside of Stripe.
+    attr_reader :amount_paid_off_stripe
     # The difference between amount_due and amount_paid, in cents (or local equivalent).
     attr_reader :amount_remaining
     # This is the sum of all the shipping amounts.

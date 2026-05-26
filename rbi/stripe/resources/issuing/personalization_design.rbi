@@ -54,7 +54,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
+      # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`. Image must be in PNG format with dimensions of 1000px by 200px. It must be a binary (black and white) image containing a black logo on a white background. We don't accept grayscale.
       sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def card_logo; end
       # Hash containing carrier text, for use with physical bundles that support carrier text.

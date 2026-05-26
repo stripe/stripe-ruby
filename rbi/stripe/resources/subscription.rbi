@@ -89,6 +89,71 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class BillingSchedule < ::Stripe::StripeObject
+      class AppliesTo < ::Stripe::StripeObject
+        # The billing schedule will apply to the subscription item with the given price ID.
+        sig { returns(T.nilable(T.any(String, ::Stripe::Price))) }
+        def price; end
+        # Controls which subscription items the billing schedule applies to.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BillUntil < ::Stripe::StripeObject
+        class Duration < ::Stripe::StripeObject
+          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+          sig { returns(String) }
+          def interval; end
+          # The multiplier applied to the interval.
+          sig { returns(T.nilable(Integer)) }
+          def interval_count; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The timestamp the billing schedule will apply until.
+        sig { returns(Integer) }
+        def computed_timestamp; end
+        # Specifies the billing period.
+        sig { returns(T.nilable(Duration)) }
+        def duration; end
+        # If specified, the billing schedule will apply until the specified timestamp.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {duration: Duration}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies which subscription items the billing schedule applies to.
+      sig { returns(T.nilable(T::Array[AppliesTo])) }
+      def applies_to; end
+      # Specifies the end of billing period.
+      sig { returns(BillUntil) }
+      def bill_until; end
+      # Unique identifier for the billing schedule.
+      sig { returns(String) }
+      def key; end
+      def self.inner_class_types
+        @inner_class_types = {applies_to: AppliesTo, bill_until: BillUntil}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class BillingThresholds < ::Stripe::StripeObject
       # Monetary threshold that triggers the subscription to create an invoice
       sig { returns(T.nilable(Integer)) }
@@ -517,9 +582,18 @@ module Stripe
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       sig { returns(T.nilable(Integer)) }
       def billing_cycle_anchor; end
+      # The pending subscription-level discount that will be applied when the pending update is applied.
+      sig { returns(T.nilable(::Stripe::Discount)) }
+      def discount; end
+      # The discounts that will be applied to the subscription when the pending update is applied. Use `expand[]=discounts` to expand each discount.
+      sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Discount)])) }
+      def discounts; end
       # The point after which the changes reflected by this update will be discarded and no longer applied.
       sig { returns(Integer) }
       def expires_at; end
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def metadata; end
       # List of subscription items, each with an attached plan, that will be set if the update is applied.
       sig { returns(T.nilable(T::Array[::Stripe::SubscriptionItem])) }
       def subscription_items; end
@@ -601,6 +675,9 @@ module Stripe
     # The billing mode of the subscription.
     sig { returns(BillingMode) }
     def billing_mode; end
+    # Billing schedules for this subscription.
+    sig { returns(T::Array[BillingSchedule]) }
+    def billing_schedules; end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
     sig { returns(T.nilable(BillingThresholds)) }
     def billing_thresholds; end
@@ -736,7 +813,7 @@ module Stripe
     # If the subscription has a trial, the beginning of that trial.
     sig { returns(T.nilable(Integer)) }
     def trial_start; end
-    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
@@ -746,7 +823,7 @@ module Stripe
      }
     def cancel(params = {}, opts = {}); end
 
-    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
@@ -798,13 +875,13 @@ module Stripe
      }
     def self.migrate(subscription, params = {}, opts = {}); end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     sig {
       params(params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def resume(params = {}, opts = {}); end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     sig {
       params(subscription: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }

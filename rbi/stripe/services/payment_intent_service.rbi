@@ -104,7 +104,9 @@ module Stripe
     # Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
     # After it's captured, a PaymentIntent can no longer be incremented.
     #
-    # Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+    # Learn more about incremental authorizations with
+    # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+    # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
     sig {
       params(intent: String, params: T.any(::Stripe::PaymentIntentIncrementAuthorizationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }

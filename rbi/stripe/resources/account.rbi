@@ -157,6 +157,9 @@ module Stripe
       # The status of the Billie capability of the account, or whether the account can directly process Billie payments.
       sig { returns(T.nilable(String)) }
       def billie_payments; end
+      # The status of the Bizum capability of the account, or whether the account can directly process Bizum payments.
+      sig { returns(T.nilable(String)) }
+      def bizum_payments; end
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       sig { returns(T.nilable(String)) }
       def blik_payments; end
@@ -274,6 +277,9 @@ module Stripe
       # The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
       sig { returns(T.nilable(String)) }
       def satispay_payments; end
+      # The status of the Scalapay capability of the account, or whether the account can directly process Scalapay payments.
+      sig { returns(T.nilable(String)) }
+      def scalapay_payments; end
       # The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
       sig { returns(T.nilable(String)) }
       def sepa_bank_transfer_payments; end

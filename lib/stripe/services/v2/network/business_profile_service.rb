@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Network
       class BusinessProfileService < StripeService
-        # Retrieve the Stripe profile associated with the requesting merchant and livemode.
+        # Retrieve the Stripe business profile associated with the requesting merchant and livemode.
         def me(params = {}, opts = {})
           request(
             method: :get,
@@ -16,7 +16,7 @@ module Stripe
           )
         end
 
-        # Retrieve a Stripe profile by its Network ID.
+        # Retrieve a Stripe business profile by its Network ID.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

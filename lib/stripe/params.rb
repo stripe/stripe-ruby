@@ -894,6 +894,7 @@ module Stripe
 
     module Iam
       autoload :ActivityLogListParams, "stripe/params/v2/iam/activity_log_list_params"
+      autoload :ActivityLogRetrieveParams, "stripe/params/v2/iam/activity_log_retrieve_params"
     end
 
     module MoneyManagement
@@ -1709,6 +1710,7 @@ module Stripe
     stripe/params/v2/extend/workflow_run_list_params
     stripe/params/v2/extend/workflow_run_retrieve_params
     stripe/params/v2/iam/activity_log_list_params
+    stripe/params/v2/iam/activity_log_retrieve_params
     stripe/params/v2/money_management/adjustment_list_params
     stripe/params/v2/money_management/adjustment_retrieve_params
     stripe/params/v2/money_management/financial_account_close_params

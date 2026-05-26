@@ -8533,6 +8533,16 @@ module Stripe
       activity_logs = client.v2.iam.activity_logs.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs"
     end
+    should "Test v2 iam activity log get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs/id_123").to_return(
+        body: '{"object":"v2.iam.activity_log","actor":{"type":"api_key"},"context":"context","created":"1970-01-12T21:42:34.472Z","details":{"type":"api_key"},"id":"obj_123","livemode":true,"type":"api_key_created"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      activity_log = client.v2.iam.activity_logs.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs/id_123"
+    end
     should "Test v2 money management adjustment get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments").to_return(
         body: '{"data":[{"object":"v2.money_management.adjustment","amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","livemode":true}],"next_page_url":null,"previous_page_url":null}',
@@ -9222,7 +9232,7 @@ module Stripe
             currency: "USD",
             value: 96,
           },
-          network: "rtp",
+          network: "ach",
         }
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/test_helpers/financial_addresses/id_123/credit"

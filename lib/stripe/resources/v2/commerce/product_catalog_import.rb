@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Commerce
-      # The product catalog import object tracks the long-running background process that handles uploading, processing and validation.
+      # The ProductCatalogImport object tracks the long-running background process that handles uploading, processing and validation.
       class ProductCatalogImport < APIResource
         OBJECT_NAME = "v2.commerce.product_catalog_import"
         def self.object_name

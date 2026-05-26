@@ -3003,25 +3003,47 @@ module Stripe
               end
 
               class ProofOfRegistration < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end
 
               class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end

@@ -894,12 +894,26 @@ module Stripe
              "stripe/events/v2_core_health_authorization_rate_drop_resolved_event"
     autoload :V2CoreHealthAuthorizationRateDropResolvedEventNotification,
              "stripe/events/v2_core_health_authorization_rate_drop_resolved_event"
+    autoload :V2CoreHealthElementsErrorFiringEvent, "stripe/events/v2_core_health_elements_error_firing_event"
+    autoload :V2CoreHealthElementsErrorFiringEventNotification,
+             "stripe/events/v2_core_health_elements_error_firing_event"
+    autoload :V2CoreHealthElementsErrorResolvedEvent, "stripe/events/v2_core_health_elements_error_resolved_event"
+    autoload :V2CoreHealthElementsErrorResolvedEventNotification,
+             "stripe/events/v2_core_health_elements_error_resolved_event"
     autoload :V2CoreHealthEventGenerationFailureResolvedEvent,
              "stripe/events/v2_core_health_event_generation_failure_resolved_event"
     autoload :V2CoreHealthEventGenerationFailureResolvedEventNotification,
              "stripe/events/v2_core_health_event_generation_failure_resolved_event"
     autoload :V2CoreHealthFraudRateIncreasedEvent, "stripe/events/v2_core_health_fraud_rate_increased_event"
     autoload :V2CoreHealthFraudRateIncreasedEventNotification, "stripe/events/v2_core_health_fraud_rate_increased_event"
+    autoload :V2CoreHealthInvoiceCountDroppedFiringEvent,
+             "stripe/events/v2_core_health_invoice_count_dropped_firing_event"
+    autoload :V2CoreHealthInvoiceCountDroppedFiringEventNotification,
+             "stripe/events/v2_core_health_invoice_count_dropped_firing_event"
+    autoload :V2CoreHealthInvoiceCountDroppedResolvedEvent,
+             "stripe/events/v2_core_health_invoice_count_dropped_resolved_event"
+    autoload :V2CoreHealthInvoiceCountDroppedResolvedEventNotification,
+             "stripe/events/v2_core_health_invoice_count_dropped_resolved_event"
     autoload :V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent,
              "stripe/events/v2_core_health_issuing_authorization_request_errors_firing_event"
     autoload :V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification,
@@ -2083,8 +2097,12 @@ module Stripe
     stripe/events/v2_core_health_api_latency_resolved_event
     stripe/events/v2_core_health_authorization_rate_drop_firing_event
     stripe/events/v2_core_health_authorization_rate_drop_resolved_event
+    stripe/events/v2_core_health_elements_error_firing_event
+    stripe/events/v2_core_health_elements_error_resolved_event
     stripe/events/v2_core_health_event_generation_failure_resolved_event
     stripe/events/v2_core_health_fraud_rate_increased_event
+    stripe/events/v2_core_health_invoice_count_dropped_firing_event
+    stripe/events/v2_core_health_invoice_count_dropped_resolved_event
     stripe/events/v2_core_health_issuing_authorization_request_errors_firing_event
     stripe/events/v2_core_health_issuing_authorization_request_errors_resolved_event
     stripe/events/v2_core_health_issuing_authorization_request_timeout_firing_event

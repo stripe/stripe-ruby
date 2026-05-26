@@ -5228,13 +5228,27 @@ module Stripe
               end
 
               class ProofOfRegistration < ::Stripe::StripeObject
+                class Signer < ::Stripe::StripeObject
+                  # Person signing the document.
+                  attr_reader :person
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
+                # Person that is signing the document.
+                attr_reader :signer
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
 
                 def self.inner_class_types
-                  @inner_class_types = {}
+                  @inner_class_types = { signer: Signer }
                 end
 
                 def self.field_remappings
@@ -5243,13 +5257,27 @@ module Stripe
               end
 
               class ProofOfUltimateBeneficialOwnership < ::Stripe::StripeObject
+                class Signer < ::Stripe::StripeObject
+                  # Person signing the document.
+                  attr_reader :person
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
+                # Person that is signing the document.
+                attr_reader :signer
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
 
                 def self.inner_class_types
-                  @inner_class_types = {}
+                  @inner_class_types = { signer: Signer }
                 end
 
                 def self.field_remappings

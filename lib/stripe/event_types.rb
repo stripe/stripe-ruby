@@ -428,10 +428,18 @@ module Stripe
         Events::V2CoreHealthAuthorizationRateDropFiringEvent,
         Events::V2CoreHealthAuthorizationRateDropResolvedEvent.lookup_type =>
         Events::V2CoreHealthAuthorizationRateDropResolvedEvent,
+        Events::V2CoreHealthElementsErrorFiringEvent.lookup_type =>
+        Events::V2CoreHealthElementsErrorFiringEvent,
+        Events::V2CoreHealthElementsErrorResolvedEvent.lookup_type =>
+        Events::V2CoreHealthElementsErrorResolvedEvent,
         Events::V2CoreHealthEventGenerationFailureResolvedEvent.lookup_type =>
         Events::V2CoreHealthEventGenerationFailureResolvedEvent,
         Events::V2CoreHealthFraudRateIncreasedEvent.lookup_type =>
         Events::V2CoreHealthFraudRateIncreasedEvent,
+        Events::V2CoreHealthInvoiceCountDroppedFiringEvent.lookup_type =>
+        Events::V2CoreHealthInvoiceCountDroppedFiringEvent,
+        Events::V2CoreHealthInvoiceCountDroppedResolvedEvent.lookup_type =>
+        Events::V2CoreHealthInvoiceCountDroppedResolvedEvent,
         Events::V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent.lookup_type =>
         Events::V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent,
         Events::V2CoreHealthIssuingAuthorizationRequestErrorsResolvedEvent.lookup_type =>
@@ -1173,10 +1181,18 @@ module Stripe
         Events::V2CoreHealthAuthorizationRateDropFiringEventNotification,
         Events::V2CoreHealthAuthorizationRateDropResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthAuthorizationRateDropResolvedEventNotification,
+        Events::V2CoreHealthElementsErrorFiringEventNotification.lookup_type =>
+        Events::V2CoreHealthElementsErrorFiringEventNotification,
+        Events::V2CoreHealthElementsErrorResolvedEventNotification.lookup_type =>
+        Events::V2CoreHealthElementsErrorResolvedEventNotification,
         Events::V2CoreHealthEventGenerationFailureResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthEventGenerationFailureResolvedEventNotification,
         Events::V2CoreHealthFraudRateIncreasedEventNotification.lookup_type =>
         Events::V2CoreHealthFraudRateIncreasedEventNotification,
+        Events::V2CoreHealthInvoiceCountDroppedFiringEventNotification.lookup_type =>
+        Events::V2CoreHealthInvoiceCountDroppedFiringEventNotification,
+        Events::V2CoreHealthInvoiceCountDroppedResolvedEventNotification.lookup_type =>
+        Events::V2CoreHealthInvoiceCountDroppedResolvedEventNotification,
         Events::V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification.lookup_type =>
         Events::V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification,
         Events::V2CoreHealthIssuingAuthorizationRequestErrorsResolvedEventNotification.lookup_type =>

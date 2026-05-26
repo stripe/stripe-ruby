@@ -7,9 +7,9 @@ module Stripe
       module Analytics
         class MetricQueryCreateParams < ::Stripe::RequestParams
           class Metric < ::Stripe::RequestParams
-            # The Gen6 ID for this metric, e.g. metric_61Sud3n5oAGVCWiSr5.
+            # The ID for this metric, e.g. metric_61Sud3n5oAGVCWiSr5.
             attr_accessor :id
-            # The common name for this metric, e.g. mrr_minor_units.
+            # The common name for this metric, e.g. revenue.mrr.
             attr_accessor :name
 
             def initialize(id: nil, name: nil)

@@ -4,6 +4,11 @@
 # typed: true
 module Stripe
   class PaymentMethodConfigurationListParams < ::Stripe::RequestParams
+    # Whether the configuration is active.
+    sig { returns(T.nilable(T::Boolean)) }
+    def active; end
+    sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def active=(_active); end
     # The Connect application to filter by.
     sig { returns(T.nilable(String)) }
     def application; end
@@ -30,9 +35,10 @@ module Stripe
     sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
     def starting_after=(_starting_after); end
     sig {
-      params(application: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), application: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
      }
     def initialize(
+      active: nil,
       application: nil,
       ending_before: nil,
       expand: nil,

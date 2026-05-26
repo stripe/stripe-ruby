@@ -5,33 +5,6 @@
 module Stripe
   module Radar
     class CustomerEvaluationUpdateParams < ::Stripe::RequestParams
-      class LoginFailed < ::Stripe::RequestParams
-        # The reason why this login failed.
-        sig { returns(String) }
-        def reason; end
-        sig { params(_reason: String).returns(String) }
-        def reason=(_reason); end
-        sig { params(reason: String).void }
-        def initialize(reason: nil); end
-      end
-      class RegistrationFailed < ::Stripe::RequestParams
-        # The reason why this registration failed.
-        sig { returns(String) }
-        def reason; end
-        sig { params(_reason: String).returns(String) }
-        def reason=(_reason); end
-        sig { params(reason: String).void }
-        def initialize(reason: nil); end
-      end
-      class RegistrationSuccess < ::Stripe::RequestParams
-        # The ID of a Customer to attach to an entity-less registration evaluation.
-        sig { returns(T.nilable(String)) }
-        def customer; end
-        sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-        def customer=(_customer); end
-        sig { params(customer: T.nilable(String)).void }
-        def initialize(customer: nil); end
-      end
       # The ID of a Customer to attach to an entity-less registration evaluation.
       sig { returns(T.nilable(String)) }
       def customer; end
@@ -42,53 +15,15 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Data for a failed login event.
-      sig { returns(T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::LoginFailed)) }
-      def login_failed; end
-      sig {
-        params(_login_failed: T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::LoginFailed)).returns(T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::LoginFailed))
-       }
-      def login_failed=(_login_failed); end
-      # Data for a failed registration event.
-      sig {
-        returns(T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationFailed))
-       }
-      def registration_failed; end
-      sig {
-        params(_registration_failed: T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationFailed)).returns(T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationFailed))
-       }
-      def registration_failed=(_registration_failed); end
-      # Data for a successful registration event.
-      sig {
-        returns(T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationSuccess))
-       }
-      def registration_success; end
-      sig {
-        params(_registration_success: T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationSuccess)).returns(T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationSuccess))
-       }
-      def registration_success=(_registration_success); end
       # The outcome status of the evaluation: allowed, restricted, or blocked.
       sig { returns(T.nilable(String)) }
       def status; end
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
-      # The type of event to report on the customer evaluation.
-      sig { returns(T.nilable(String)) }
-      def type; end
-      sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-      def type=(_type); end
       sig {
-        params(customer: T.nilable(String), expand: T.nilable(T::Array[String]), login_failed: T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::LoginFailed), registration_failed: T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationFailed), registration_success: T.nilable(::Stripe::Radar::CustomerEvaluationUpdateParams::RegistrationSuccess), status: T.nilable(String), type: T.nilable(String)).void
+        params(customer: T.nilable(String), expand: T.nilable(T::Array[String]), status: T.nilable(String)).void
        }
-      def initialize(
-        customer: nil,
-        expand: nil,
-        login_failed: nil,
-        registration_failed: nil,
-        registration_success: nil,
-        status: nil,
-        type: nil
-      ); end
+      def initialize(customer: nil, expand: nil, status: nil); end
     end
   end
 end

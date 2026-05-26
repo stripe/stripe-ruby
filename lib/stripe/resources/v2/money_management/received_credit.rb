@@ -330,6 +330,8 @@ module Stripe
         end
 
         class StripeBalancePayment < ::Stripe::StripeObject
+          # ID of the debit agreement associated with this payment.
+          attr_reader :debit_agreement
           # Statement descriptor for the Stripe Balance Payment.
           attr_reader :statement_descriptor
 

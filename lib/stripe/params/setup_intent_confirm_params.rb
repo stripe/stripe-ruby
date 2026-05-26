@@ -142,6 +142,7 @@ module Stripe
         end
       end
 
+      class Bizum < ::Stripe::RequestParams; end
       class Blik < ::Stripe::RequestParams; end
 
       class Boleto < ::Stripe::RequestParams
@@ -353,6 +354,7 @@ module Stripe
       class RevolutPay < ::Stripe::RequestParams; end
       class SamsungPay < ::Stripe::RequestParams; end
       class Satispay < ::Stripe::RequestParams; end
+      class Scalapay < ::Stripe::RequestParams; end
 
       class SepaDebit < ::Stripe::RequestParams
         # IBAN of the bank account.
@@ -466,6 +468,8 @@ module Stripe
       attr_accessor :billie
       # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
       attr_accessor :billing_details
+      # If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+      attr_accessor :bizum
       # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
       attr_accessor :blik
       # If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
@@ -502,7 +506,7 @@ module Stripe
       attr_accessor :konbini
       # If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
       attr_accessor :kr_card
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
       attr_accessor :link
       # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
       attr_accessor :mb_way
@@ -548,6 +552,8 @@ module Stripe
       attr_accessor :samsung_pay
       # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
       attr_accessor :satispay
+      # If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+      attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
       # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -588,6 +594,7 @@ module Stripe
         bancontact: nil,
         billie: nil,
         billing_details: nil,
+        bizum: nil,
         blik: nil,
         boleto: nil,
         cashapp: nil,
@@ -629,6 +636,7 @@ module Stripe
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
+        scalapay: nil,
         sepa_debit: nil,
         shared_payment_granted_token: nil,
         shopeepay: nil,
@@ -655,6 +663,7 @@ module Stripe
         @bancontact = bancontact
         @billie = billie
         @billing_details = billing_details
+        @bizum = bizum
         @blik = blik
         @boleto = boleto
         @cashapp = cashapp
@@ -696,6 +705,7 @@ module Stripe
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
+        @scalapay = scalapay
         @sepa_debit = sepa_debit
         @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
@@ -774,6 +784,8 @@ module Stripe
           @mandate_options = mandate_options
         end
       end
+
+      class Bizum < ::Stripe::RequestParams; end
 
       class Card < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
@@ -1275,13 +1287,15 @@ module Stripe
       attr_accessor :amazon_pay
       # If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
       attr_accessor :bacs_debit
+      # If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+      attr_accessor :bizum
       # Configuration for any card setup attempted on this SetupIntent.
       attr_accessor :card
       # If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
       attr_accessor :card_present
       # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
       attr_accessor :klarna
-      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
       attr_accessor :link
       # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
       attr_accessor :paypal
@@ -1302,6 +1316,7 @@ module Stripe
         acss_debit: nil,
         amazon_pay: nil,
         bacs_debit: nil,
+        bizum: nil,
         card: nil,
         card_present: nil,
         klarna: nil,
@@ -1317,6 +1332,7 @@ module Stripe
         @acss_debit = acss_debit
         @amazon_pay = amazon_pay
         @bacs_debit = bacs_debit
+        @bizum = bizum
         @card = card
         @card_present = card_present
         @klarna = klarna

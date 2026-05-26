@@ -33,7 +33,7 @@ module Stripe
       # The total net amount required to settle with the network.
       sig { returns(Integer) }
       def net_total_amount; end
-      # The card network for this settlement report. One of ["visa", "maestro"]
+      # The card network for this settlement report. One of ["visa", "maestro", "mastercard"]
       sig { returns(String) }
       def network; end
       # The total amount of fees owed to the network.

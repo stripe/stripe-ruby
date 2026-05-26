@@ -308,6 +308,16 @@ module Stripe
         end
       end
 
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Upi < ::Stripe::StripeObject
         # Amount to be charged for future payments.
         attr_reader :amount
@@ -373,6 +383,8 @@ module Stripe
       attr_reader :revolut_pay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field twint
+      attr_reader :twint
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
       attr_reader :type
       # Attribute for field upi
@@ -399,6 +411,7 @@ module Stripe
           pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,
         }

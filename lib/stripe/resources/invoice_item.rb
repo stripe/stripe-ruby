@@ -221,6 +221,37 @@ module Stripe
     end
 
     class ProrationDetails < ::Stripe::StripeObject
+      class CreditedItems < ::Stripe::StripeObject
+        class InvoiceLineItemDetails < ::Stripe::StripeObject
+          # The invoice id for the debited line item(s).
+          attr_reader :invoice
+          # IDs of the debited invoice line item(s) on the invoice that correspond to the credit proration.
+          attr_reader :invoice_line_items
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
+        attr_reader :invoice_item
+        # Attribute for field invoice_line_item_details
+        attr_reader :invoice_line_item_details
+        # Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { invoice_line_item_details: InvoiceLineItemDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class DiscountAmount < ::Stripe::StripeObject
         # The amount, in cents (or local equivalent), of the discount.
         attr_reader :amount
@@ -235,11 +266,13 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
+      attr_reader :credited_items
       # Discount amounts applied when the proration was created.
       attr_reader :discount_amounts
 
       def self.inner_class_types
-        @inner_class_types = { discount_amounts: DiscountAmount }
+        @inner_class_types = { credited_items: CreditedItems, discount_amounts: DiscountAmount }
       end
 
       def self.field_remappings

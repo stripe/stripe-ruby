@@ -11,6 +11,12 @@ module Stripe
           params(params: T.any(::Stripe::V2::Iam::ActivityLogListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
+
+        # Retrieve an activity log.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Iam::ActivityLogRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Iam::ActivityLog)
+         }
+        def retrieve(id, params = {}, opts = {}); end
       end
     end
   end

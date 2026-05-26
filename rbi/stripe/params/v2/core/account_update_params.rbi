@@ -4836,32 +4836,72 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class ProofOfRegistration < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  sig { returns(String) }
+                  def person; end
+                  sig { params(_person: String).returns(String) }
+                  def person=(_person); end
+                  sig { params(person: String).void }
+                  def initialize(person: nil); end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
                 def files=(_files); end
+                # Person that is signing the document.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer))
+                 }
+                def signer; end
+                sig {
+                  params(_signer: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer))
+                 }
+                def signer=(_signer); end
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
                 sig { params(_type: String).returns(String) }
                 def type=(_type); end
-                sig { params(files: T::Array[String], type: String).void }
-                def initialize(files: nil, type: nil); end
+                sig {
+                  params(files: T::Array[String], signer: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer), type: String).void
+                 }
+                def initialize(files: nil, signer: nil, type: nil); end
               end
               class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  sig { returns(String) }
+                  def person; end
+                  sig { params(_person: String).returns(String) }
+                  def person=(_person); end
+                  sig { params(person: String).void }
+                  def initialize(person: nil); end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
                 def files=(_files); end
+                # Person that is signing the document.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+                 }
+                def signer; end
+                sig {
+                  params(_signer: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+                 }
+                def signer=(_signer); end
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
                 sig { params(_type: String).returns(String) }
                 def type=(_type); end
-                sig { params(files: T::Array[String], type: String).void }
-                def initialize(files: nil, type: nil); end
+                sig {
+                  params(files: T::Array[String], signer: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer), type: String).void
+                 }
+                def initialize(files: nil, signer: nil, type: nil); end
               end
               # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               sig {
@@ -4935,7 +4975,7 @@ module Stripe
                 params(_proof_of_address: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
                }
               def proof_of_address=(_proof_of_address); end
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents that demonstrate proof of ultimate beneficial ownership.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
                }

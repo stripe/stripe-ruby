@@ -359,6 +359,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+        sig { returns(T.nilable(T::Boolean)) }
+        def discountable; end
         # The stackable discounts that will be applied to the item.
         sig { returns(T::Array[Discount]) }
         def discounts; end

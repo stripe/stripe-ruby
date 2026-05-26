@@ -341,6 +341,9 @@ module Stripe
           end
         end
         class StripeBalancePayment < ::Stripe::StripeObject
+          # ID of the debit agreement associated with this payment.
+          sig { returns(T.nilable(String)) }
+          def debit_agreement; end
           # Statement descriptor for the Stripe Balance Payment.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end

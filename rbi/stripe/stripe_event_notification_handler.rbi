@@ -1808,6 +1808,18 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthElementsErrorFiringEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_elements_error_firing(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthElementsErrorResolvedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_elements_error_resolved(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthEventGenerationFailureResolvedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_health_event_generation_failure_resolved(&blk);
@@ -1817,6 +1829,18 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthFraudRateIncreasedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_health_fraud_rate_increased(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthInvoiceCountDroppedFiringEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_invoice_count_dropped_firing(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthInvoiceCountDroppedResolvedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_invoice_count_dropped_resolved(&blk);
     end
     
     sig do

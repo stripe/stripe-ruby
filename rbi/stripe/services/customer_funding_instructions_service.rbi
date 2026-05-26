@@ -14,7 +14,7 @@ module Stripe
 
     # Serializes a CustomerFundingInstructions create request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerFundingInstructionsCreateFundingInstructionsParams, opts: T.untyped).returns(String)
+      params(customer: String, params: ::Stripe::CustomerFundingInstructionsCreateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_create_funding_instructions(customer, params = {}, opts = {}); end
   end

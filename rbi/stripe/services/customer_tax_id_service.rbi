@@ -30,7 +30,7 @@ module Stripe
 
     # Serializes a CustomerTaxId create request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerTaxIdCreateForCustomerParams, opts: T.untyped).returns(String)
+      params(customer: String, params: ::Stripe::CustomerTaxIdCreateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_create_for_customer(customer, params = {}, opts = {}); end
 

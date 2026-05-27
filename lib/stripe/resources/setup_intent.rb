@@ -141,6 +141,16 @@ module Stripe
     end
 
     class NextAction < ::Stripe::StripeObject
+      class BlikAuthorize < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CashappHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
         class QrCode < ::Stripe::StripeObject
           # The date (unix timestamp) when the QR code expires.
@@ -257,6 +267,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field blik_authorize
+      attr_reader :blik_authorize
       # Attribute for field cashapp_handle_redirect_or_display_qr_code
       attr_reader :cashapp_handle_redirect_or_display_qr_code
       # Attribute for field pix_display_qr_code
@@ -274,6 +286,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          blik_authorize: BlikAuthorize,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           pix_display_qr_code: PixDisplayQrCode,
           redirect_to_url: RedirectToUrl,
@@ -368,6 +381,16 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Bizum < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -673,6 +696,8 @@ module Stripe
       attr_reader :amazon_pay
       # Attribute for field bacs_debit
       attr_reader :bacs_debit
+      # Attribute for field bizum
+      attr_reader :bizum
       # Attribute for field card
       attr_reader :card
       # Attribute for field card_present
@@ -699,6 +724,7 @@ module Stripe
           acss_debit: AcssDebit,
           amazon_pay: AmazonPay,
           bacs_debit: BacsDebit,
+          bizum: Bizum,
           card: Card,
           card_present: CardPresent,
           klarna: Klarna,

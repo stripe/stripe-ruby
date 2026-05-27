@@ -600,6 +600,11 @@ module Stripe
               @field_encodings = {unit_amount_decimal: :decimal_string}
             end
           end
+          # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+          sig { returns(T.nilable(T::Boolean)) }
+          def discountable; end
+          sig { params(_discountable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+          def discountable=(_discountable); end
           # The coupons to redeem into discounts for the item.
           sig {
             returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]))
@@ -652,9 +657,10 @@ module Stripe
            }
           def tax_rates=(_tax_rates); end
           sig {
-            params(discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+            params(discountable: T.nilable(T::Boolean), discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
            }
           def initialize(
+            discountable: nil,
             discounts: nil,
             metadata: nil,
             period: nil,
@@ -1281,6 +1287,88 @@ module Stripe
          }
         def initialize(flexible: nil, type: nil); end
       end
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          sig { returns(T.nilable(String)) }
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
+          # Controls which subscription items the billing schedule applies to.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(price: T.nilable(String), type: String).void }
+          def initialize(price: nil, type: nil); end
+        end
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The multiplier applied to the interval.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          # Specifies the billing period.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil::Duration))
+           }
+          def duration=(_duration); end
+          # The end date of the billing schedule.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(duration: nil, timestamp: nil, type: nil); end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        sig {
+          returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::AppliesTo]))
+         }
+        def applies_to; end
+        sig {
+          params(_applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::AppliesTo]))
+         }
+        def applies_to=(_applies_to); end
+        # The end date for the billing schedule.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil))
+         }
+        def bill_until; end
+        sig {
+          params(_bill_until: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil))
+         }
+        def bill_until=(_bill_until); end
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        sig { returns(T.nilable(String)) }
+        def key; end
+        sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
+        def key=(_key); end
+        sig {
+          params(applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::AppliesTo]), bill_until: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil), key: T.nilable(String)).void
+         }
+        def initialize(applies_to: nil, bill_until: nil, key: nil); end
+      end
       class Item < ::Stripe::RequestParams
         class BillingThresholds < ::Stripe::RequestParams
           # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
@@ -1485,6 +1573,15 @@ module Stripe
         params(_billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode))
        }
       def billing_mode=(_billing_mode); end
+      # Sets the billing schedules for the subscription.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])))
+       }
+      def billing_schedules; end
+      sig {
+        params(_billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])))
+       }
+      def billing_schedules=(_billing_schedules); end
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       sig { returns(T.nilable(T.any(String, T.any(Integer, String)))) }
       def cancel_at; end
@@ -1546,11 +1643,12 @@ module Stripe
        }
       def trial_end=(_trial_end); end
       sig {
-        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
        }
       def initialize(
         billing_cycle_anchor: nil,
         billing_mode: nil,
+        billing_schedules: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         cancel_now: nil,

@@ -8,7 +8,7 @@ module Stripe
       # A Meter Event Adjustment is used to cancel or modify previously recorded meter events. Meter Event Adjustments allow you to correct billing data by canceling individual events or event ranges, with tracking of adjustment status and creation time.
       class MeterEventAdjustment < APIResource
         class Cancel < ::Stripe::StripeObject
-          # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
+          # The identifier that was originally assigned to the meter event. You can only cancel events within 24 hours of Stripe receiving them.
           sig { returns(String) }
           def identifier; end
           def self.inner_class_types
@@ -27,7 +27,7 @@ module Stripe
         # The name of the meter event. Corresponds with the `event_name` field on a meter.
         sig { returns(String) }
         def event_name; end
-        # The unique id of this meter event adjustment.
+        # The unique ID of this meter event adjustment.
         sig { returns(String) }
         def id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -39,7 +39,7 @@ module Stripe
         # Open Enum. The meter event adjustment’s status.
         sig { returns(String) }
         def status; end
-        # Open Enum. Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
+        # Open Enum. Specifies the type of cancellation. Currently supports canceling a single event.
         sig { returns(String) }
         def type; end
       end

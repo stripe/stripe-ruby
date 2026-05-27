@@ -256,25 +256,47 @@ module Stripe
               end
 
               class ProofOfRegistration < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end
 
               class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end
@@ -294,7 +316,7 @@ module Stripe
               attr_accessor :primary_verification
               # One or more documents that demonstrate proof of address.
               attr_accessor :proof_of_address
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_accessor :proof_of_registration
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_accessor :proof_of_ultimate_beneficial_ownership
@@ -910,7 +932,7 @@ module Stripe
             attr_accessor :date_of_birth
             # Documents that may be submitted to satisfy various informational requests.
             attr_accessor :documents
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             attr_accessor :email
             # The individual's first name.
             attr_accessor :given_name
@@ -1011,7 +1033,7 @@ module Stripe
             }
           end
         end
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         attr_accessor :contact_email
         # The default contact phone for the Account.
         attr_accessor :contact_phone

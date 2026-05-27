@@ -679,6 +679,14 @@ module Stripe
       autoload :MeterEventStreamCreateParams, "stripe/params/v2/billing/meter_event_stream_create_params"
     end
 
+    module Commerce
+      module ProductCatalog
+        autoload :ImportCreateParams, "stripe/params/v2/commerce/product_catalog/import_create_params"
+        autoload :ImportListParams, "stripe/params/v2/commerce/product_catalog/import_list_params"
+        autoload :ImportRetrieveParams, "stripe/params/v2/commerce/product_catalog/import_retrieve_params"
+      end
+    end
+
     module Core
       autoload :AccountCloseParams, "stripe/params/v2/core/account_close_params"
       autoload :AccountCreateParams, "stripe/params/v2/core/account_create_params"
@@ -1299,6 +1307,9 @@ module Stripe
     stripe/params/v2/billing/meter_event_create_params
     stripe/params/v2/billing/meter_event_session_create_params
     stripe/params/v2/billing/meter_event_stream_create_params
+    stripe/params/v2/commerce/product_catalog/import_create_params
+    stripe/params/v2/commerce/product_catalog/import_list_params
+    stripe/params/v2/commerce/product_catalog/import_retrieve_params
     stripe/params/v2/core/account_close_params
     stripe/params/v2/core/account_create_params
     stripe/params/v2/core/account_link_create_params

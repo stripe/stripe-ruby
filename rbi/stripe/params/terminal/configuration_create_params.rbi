@@ -773,7 +773,43 @@ module Stripe
           usd: nil
         ); end
       end
+      class VerifoneM425 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        sig { returns(T.nilable(String)) }
+        def splashscreen; end
+        sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
+        def splashscreen=(_splashscreen); end
+        sig { params(splashscreen: T.nilable(String)).void }
+        def initialize(splashscreen: nil); end
+      end
       class VerifoneP400 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        sig { returns(T.nilable(String)) }
+        def splashscreen; end
+        sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
+        def splashscreen=(_splashscreen); end
+        sig { params(splashscreen: T.nilable(String)).void }
+        def initialize(splashscreen: nil); end
+      end
+      class VerifoneP630 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        sig { returns(T.nilable(String)) }
+        def splashscreen; end
+        sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
+        def splashscreen=(_splashscreen); end
+        sig { params(splashscreen: T.nilable(String)).void }
+        def initialize(splashscreen: nil); end
+      end
+      class VerifoneUx700 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        sig { returns(T.nilable(String)) }
+        def splashscreen; end
+        sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
+        def splashscreen=(_splashscreen); end
+        sig { params(splashscreen: T.nilable(String)).void }
+        def initialize(splashscreen: nil); end
+      end
+      class VerifoneV660p < ::Stripe::RequestParams
         # A File ID representing an image you want to display on the reader.
         sig { returns(T.nilable(String)) }
         def splashscreen; end
@@ -972,6 +1008,13 @@ module Stripe
         params(_tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Tipping))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Tipping)))
        }
       def tipping=(_tipping); end
+      # An object containing device type specific settings for Verifone M425 readers.
+      sig { returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneM425)) }
+      def verifone_m425; end
+      sig {
+        params(_verifone_m425: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneM425)).returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneM425))
+       }
+      def verifone_m425=(_verifone_m425); end
       # An object containing device type specific settings for Verifone P400 readers.
       sig { returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP400)) }
       def verifone_p400; end
@@ -979,6 +1022,27 @@ module Stripe
         params(_verifone_p400: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP400)).returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP400))
        }
       def verifone_p400=(_verifone_p400); end
+      # An object containing device type specific settings for Verifone P630 readers.
+      sig { returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP630)) }
+      def verifone_p630; end
+      sig {
+        params(_verifone_p630: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP630)).returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP630))
+       }
+      def verifone_p630=(_verifone_p630); end
+      # An object containing device type specific settings for Verifone UX700 readers.
+      sig { returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneUx700)) }
+      def verifone_ux700; end
+      sig {
+        params(_verifone_ux700: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneUx700)).returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneUx700))
+       }
+      def verifone_ux700=(_verifone_ux700); end
+      # An object containing device type specific settings for Verifone V660p readers.
+      sig { returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneV660p)) }
+      def verifone_v660p; end
+      sig {
+        params(_verifone_v660p: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneV660p)).returns(T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneV660p))
+       }
+      def verifone_v660p=(_verifone_v660p); end
       # Configurations for connecting to a WiFi network.
       sig { returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Wifi))) }
       def wifi; end
@@ -987,7 +1051,7 @@ module Stripe
        }
       def wifi=(_wifi); end
       sig {
-        params(bbpos_wisepad3: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWisepad3), bbpos_wisepos_e: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWiseposE), cellular: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Cellular)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Offline)), reboot_window: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::StripeS700), stripe_s710: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::StripeS710), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Wifi))).void
+        params(bbpos_wisepad3: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWisepad3), bbpos_wisepos_e: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::BbposWiseposE), cellular: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Cellular)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Offline)), reboot_window: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::StripeS700), stripe_s710: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::StripeS710), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Tipping)), verifone_m425: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneM425), verifone_p400: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP400), verifone_p630: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneP630), verifone_ux700: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneUx700), verifone_v660p: T.nilable(::Stripe::Terminal::ConfigurationCreateParams::VerifoneV660p), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationCreateParams::Wifi))).void
        }
       def initialize(
         bbpos_wisepad3: nil,
@@ -1000,7 +1064,11 @@ module Stripe
         stripe_s700: nil,
         stripe_s710: nil,
         tipping: nil,
+        verifone_m425: nil,
         verifone_p400: nil,
+        verifone_p630: nil,
+        verifone_ux700: nil,
+        verifone_v660p: nil,
         wifi: nil
       ); end
     end

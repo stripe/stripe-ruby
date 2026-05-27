@@ -72,7 +72,7 @@ module Stripe
                   @rendering = rendering
                 end
               end
-              # ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
+              # The ID of a `PaymentMethod` attached to this Account's `customer` configuration, used as the default payment method for invoices and subscriptions.
               attr_accessor :default_payment_method
               # Default invoice settings for the customer account.
               attr_accessor :invoice
@@ -1382,25 +1382,47 @@ module Stripe
               end
 
               class ProofOfRegistration < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end
 
               class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end
@@ -1420,7 +1442,7 @@ module Stripe
               attr_accessor :primary_verification
               # One or more documents that demonstrate proof of address.
               attr_accessor :proof_of_address
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_accessor :proof_of_registration
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_accessor :proof_of_ultimate_beneficial_ownership
@@ -2036,7 +2058,7 @@ module Stripe
             attr_accessor :date_of_birth
             # Documents that may be submitted to satisfy various informational requests.
             attr_accessor :documents
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             attr_accessor :email
             # The individual's first name.
             attr_accessor :given_name
@@ -2111,7 +2133,7 @@ module Stripe
           attr_accessor :business_details
           # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
           attr_accessor :country
-          # The entity type.
+          # The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
           attr_accessor :entity_type
           # Information about the individual represented by the Account. This property is `null` unless `entity_type` is set to `individual`.
           attr_accessor :individual
@@ -2145,7 +2167,7 @@ module Stripe
         attr_accessor :account_token
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         attr_accessor :configuration
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         attr_accessor :contact_email
         # The default contact phone for the Account.
         attr_accessor :contact_phone

@@ -6210,6 +6210,8 @@ module Stripe
     end
     # Allocated Funds configuration for this PaymentIntent.
     attr_accessor :allocated_funds
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_accessor :allowed_payment_method_types
     # Provides industry-specific information about the amount.
     attr_accessor :amount_details
     # Amount to confirm on the PaymentIntent. Defaults to `amount` if not provided.
@@ -6276,6 +6278,7 @@ module Stripe
 
     def initialize(
       allocated_funds: nil,
+      allowed_payment_method_types: nil,
       amount_details: nil,
       amount_to_confirm: nil,
       application_fee_amount: nil,
@@ -6302,6 +6305,7 @@ module Stripe
       use_stripe_sdk: nil
     )
       @allocated_funds = allocated_funds
+      @allowed_payment_method_types = allowed_payment_method_types
       @amount_details = amount_details
       @amount_to_confirm = amount_to_confirm
       @application_fee_amount = application_fee_amount

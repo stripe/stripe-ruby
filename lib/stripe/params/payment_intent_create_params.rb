@@ -6291,6 +6291,8 @@ module Stripe
     end
     # Allocated Funds configuration for this PaymentIntent.
     attr_accessor :allocated_funds
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_accessor :allowed_payment_method_types
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_accessor :amount
     # Provides industry-specific information about the amount.
@@ -6399,6 +6401,7 @@ module Stripe
 
     def initialize(
       allocated_funds: nil,
+      allowed_payment_method_types: nil,
       amount: nil,
       amount_details: nil,
       application_fee_amount: nil,
@@ -6441,6 +6444,7 @@ module Stripe
       use_stripe_sdk: nil
     )
       @allocated_funds = allocated_funds
+      @allowed_payment_method_types = allowed_payment_method_types
       @amount = amount
       @amount_details = amount_details
       @application_fee_amount = application_fee_amount

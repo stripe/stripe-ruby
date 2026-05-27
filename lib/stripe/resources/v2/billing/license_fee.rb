@@ -84,8 +84,6 @@ module Stripe
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
-        # The ID of the license fee's most recently created version.
-        attr_reader :latest_version
         # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
         # to specify the pricing and create subscriptions to these items.
         attr_reader :licensed_item
@@ -101,11 +99,6 @@ module Stripe
         attr_reader :object
         # The service cycle configuration for this License Fee.
         attr_reader :service_cycle
-        # The interval for assessing service.
-        attr_reader :service_interval
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
-        # to specify quarterly service.
-        attr_reader :service_interval_count
         # The tax behavior for Stripe Tax — whether the license fee price includes or excludes tax.
         attr_reader :tax_behavior
         # Defines whether the tiering price is graduated or volume-based. In volume-based tiering, the maximum

@@ -41,9 +41,6 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
-        # The ID of this rate card's most recently created version.
-        sig { returns(String) }
-        def latest_version; end
         # The ID of the Rate Card Version used by all subscriptions when no specific version is specified.
         sig { returns(String) }
         def live_version; end
@@ -65,16 +62,6 @@ module Stripe
         # customer accumulates fees, while the billing interval in Cadence deals with the rate the customer is billed.
         sig { returns(ServiceCycle) }
         def service_cycle; end
-        # The interval for assessing service. For example, a monthly Rate Card with a rate of 1 USD for the first 10 "workloads"
-        # and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service." This is similar to but
-        # distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
-        # while the billing interval in Cadence deals with the rate the customer is billed.
-        sig { returns(String) }
-        def service_interval; end
-        # The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
-        # to specify quarterly service.
-        sig { returns(Integer) }
-        def service_interval_count; end
         # The tax behavior for Stripe Tax — whether the rate card price includes or excludes tax.
         sig { returns(String) }
         def tax_behavior; end

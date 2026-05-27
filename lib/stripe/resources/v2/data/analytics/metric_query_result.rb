@@ -16,7 +16,7 @@ module Stripe
             class Result < ::Stripe::StripeObject
               # If this is a monetary metric, the currency it is returned in. Otherwise null.
               attr_reader :currency
-              # The Gen6 ID of this metric.
+              # The ID of this metric.
               attr_reader :metric
               # The common name of this metric.
               attr_reader :name

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Commerce
-      # The product catalog import object tracks the long-running background process that handles uploading, processing and validation.
+      # The ProductCatalogImport object tracks the long-running background process that handles uploading, processing and validation.
       class ProductCatalogImport < APIResource
         class StatusDetails < ::Stripe::StripeObject
           class AwaitingUpload < ::Stripe::StripeObject

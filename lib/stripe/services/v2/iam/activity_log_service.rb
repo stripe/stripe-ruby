@@ -15,6 +15,17 @@ module Stripe
             base_address: :api
           )
         end
+
+        # Retrieve an activity log.
+        def retrieve(id, params = {}, opts = {})
+          request(
+            method: :get,
+            path: format("/v2/iam/activity_logs/%<id>s", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
       end
     end
   end

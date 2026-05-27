@@ -507,7 +507,7 @@ module Stripe
       # Payment details attached to this payment evaluation.
       sig { returns(T.nilable(PaymentDetails)) }
       def payment_details; end
-      # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block` and `continue`.
+      # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
       sig { returns(String) }
       def recommended_action; end
       # Collection of signals for this payment evaluation.

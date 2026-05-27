@@ -451,6 +451,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class BlikAuthorize < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class BoletoDisplayDetails < ::Stripe::StripeObject
         # The timestamp after which the boleto expires.
         sig { returns(T.nilable(Integer)) }
@@ -1574,6 +1582,9 @@ module Stripe
       # Attribute for field alipay_handle_redirect
       sig { returns(T.nilable(AlipayHandleRedirect)) }
       def alipay_handle_redirect; end
+      # Attribute for field blik_authorize
+      sig { returns(T.nilable(BlikAuthorize)) }
+      def blik_authorize; end
       # Attribute for field boleto_display_details
       sig { returns(T.nilable(BoletoDisplayDetails)) }
       def boleto_display_details; end
@@ -1640,6 +1651,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           alipay_handle_redirect: AlipayHandleRedirect,
+          blik_authorize: BlikAuthorize,
           boleto_display_details: BoletoDisplayDetails,
           card_await_notification: CardAwaitNotification,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
@@ -1668,6 +1680,9 @@ module Stripe
     class PaymentDetails < ::Stripe::StripeObject
       class Benefit < ::Stripe::StripeObject
         class FrMealVoucher < ::Stripe::StripeObject
+          # Whether meal voucher benefit is enabled for this payment.
+          sig { returns(T.nilable(String)) }
+          def enabled; end
           # The 14-digit SIRET of the meal voucher acceptor.
           sig { returns(T.nilable(String)) }
           def siret; end
@@ -3497,6 +3512,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Bizum < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Blik < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -3901,6 +3924,23 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class GiftCard < ::Stripe::StripeObject
+        # Set to `yes` to ignore the application fee on the PaymentIntent when redeeming this gift card.
+        sig { returns(T.nilable(String)) }
+        def ignore_application_fee; end
+        # Set to `yes` to ignore transfer data on the PaymentIntent when redeeming this gift card.
+        sig { returns(T.nilable(String)) }
+        def ignore_transfer_data; end
+        # Request partial authorization on this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_partial_authorization; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -4569,6 +4609,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Scalapay < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SepaDebit < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -4889,6 +4940,9 @@ module Stripe
       # Attribute for field billie
       sig { returns(T.nilable(Billie)) }
       def billie; end
+      # Attribute for field bizum
+      sig { returns(T.nilable(Bizum)) }
+      def bizum; end
       # Attribute for field blik
       sig { returns(T.nilable(Blik)) }
       def blik; end
@@ -4916,6 +4970,9 @@ module Stripe
       # Attribute for field fpx
       sig { returns(T.nilable(Fpx)) }
       def fpx; end
+      # Attribute for field gift_card
+      sig { returns(T.nilable(GiftCard)) }
+      def gift_card; end
       # Attribute for field giropay
       sig { returns(T.nilable(Giropay)) }
       def giropay; end
@@ -5009,6 +5066,9 @@ module Stripe
       # Attribute for field satispay
       sig { returns(T.nilable(Satispay)) }
       def satispay; end
+      # Attribute for field scalapay
+      sig { returns(T.nilable(Scalapay)) }
+      def scalapay; end
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
@@ -5051,6 +5111,7 @@ module Stripe
           bacs_debit: BacsDebit,
           bancontact: Bancontact,
           billie: Billie,
+          bizum: Bizum,
           blik: Blik,
           boleto: Boleto,
           card: Card,
@@ -5060,6 +5121,7 @@ module Stripe
           customer_balance: CustomerBalance,
           eps: Eps,
           fpx: Fpx,
+          gift_card: GiftCard,
           giropay: Giropay,
           gopay: Gopay,
           grabpay: Grabpay,
@@ -5091,6 +5153,7 @@ module Stripe
           revolut_pay: RevolutPay,
           samsung_pay: SamsungPay,
           satispay: Satispay,
+          scalapay: Scalapay,
           sepa_debit: SepaDebit,
           shopeepay: Shopeepay,
           sofort: Sofort,
@@ -5221,16 +5284,39 @@ module Stripe
       end
     end
     class TransferData < ::Stripe::StripeObject
+      class PaymentData < ::Stripe::StripeObject
+        # An arbitrary string attached to the destination payment. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The amount transferred to the destination account. This transfer will occur automatically after the payment succeeds. If no amount is specified, by default the entire payment amount is transferred to the destination account.
       #  The amount must be less than or equal to the [amount](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
       #  representing how much to transfer in the smallest currency unit (e.g., 100 cents to charge $1.00).
       sig { returns(T.nilable(Integer)) }
       def amount; end
+      # An arbitrary string attached to the transfer. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
       # The account (if any) that the payment is attributed to for tax reporting, and where funds from the payment are transferred to after payment success.
       sig { returns(T.any(String, ::Stripe::Account)) }
       def destination; end
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def metadata; end
+      # Attribute for field payment_data
+      sig { returns(T.nilable(PaymentData)) }
+      def payment_data; end
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {payment_data: PaymentData}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -5620,7 +5706,9 @@ module Stripe
     # Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
     # After it's captured, a PaymentIntent can no longer be incremented.
     #
-    # Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+    # Learn more about incremental authorizations with
+    # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+    # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
     sig {
       params(params: T.any(::Stripe::PaymentIntentIncrementAuthorizationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
@@ -5649,7 +5737,9 @@ module Stripe
     # Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
     # After it's captured, a PaymentIntent can no longer be incremented.
     #
-    # Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+    # Learn more about incremental authorizations with
+    # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+    # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
     sig {
       params(intent: String, params: T.any(::Stripe::PaymentIntentIncrementAuthorizationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }

@@ -5280,28 +5280,56 @@ module Stripe
                 end
               end
               class ProofOfRegistration < ::Stripe::StripeObject
+                class Signer < ::Stripe::StripeObject
+                  # Person signing the document.
+                  sig { returns(String) }
+                  def person; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
+                # Person that is signing the document.
+                sig { returns(T.nilable(Signer)) }
+                def signer; end
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
                 def self.inner_class_types
-                  @inner_class_types = {}
+                  @inner_class_types = {signer: Signer}
                 end
                 def self.field_remappings
                   @field_remappings = {}
                 end
               end
               class ProofOfUltimateBeneficialOwnership < ::Stripe::StripeObject
+                class Signer < ::Stripe::StripeObject
+                  # Person signing the document.
+                  sig { returns(String) }
+                  def person; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
+                # Person that is signing the document.
+                sig { returns(T.nilable(Signer)) }
+                def signer; end
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
                 def self.inner_class_types
-                  @inner_class_types = {}
+                  @inner_class_types = {signer: Signer}
                 end
                 def self.field_remappings
                   @field_remappings = {}

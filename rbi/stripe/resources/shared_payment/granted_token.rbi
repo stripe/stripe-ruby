@@ -184,6 +184,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bizum < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Blik < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
@@ -1129,6 +1137,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Scalapay < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class SepaDebit < ::Stripe::StripeObject
           class GeneratedFrom < ::Stripe::StripeObject
             # The ID of the Charge that generated this PaymentMethod, if any.
@@ -1363,6 +1379,9 @@ module Stripe
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         sig { returns(T.nilable(BillingDetails)) }
         def billing_details; end
+        # Attribute for field bizum
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
         # Attribute for field blik
         sig { returns(T.nilable(Blik)) }
         def blik; end
@@ -1486,6 +1505,9 @@ module Stripe
         # Attribute for field satispay
         sig { returns(T.nilable(Satispay)) }
         def satispay; end
+        # Attribute for field scalapay
+        sig { returns(T.nilable(Scalapay)) }
+        def scalapay; end
         # Attribute for field sepa_debit
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
@@ -1535,6 +1557,7 @@ module Stripe
             bancontact: Bancontact,
             billie: Billie,
             billing_details: BillingDetails,
+            bizum: Bizum,
             blik: Blik,
             boleto: Boleto,
             card: Card,
@@ -1576,6 +1599,7 @@ module Stripe
             revolut_pay: RevolutPay,
             samsung_pay: SamsungPay,
             satispay: Satispay,
+            scalapay: Scalapay,
             sepa_debit: SepaDebit,
             shopeepay: Shopeepay,
             sofort: Sofort,

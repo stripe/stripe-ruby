@@ -14,7 +14,7 @@ module Stripe
       )
     end
 
-    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
@@ -92,7 +92,7 @@ module Stripe
       )
     end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     def resume(subscription, params = {}, opts = {})
       request(
         method: :post,
@@ -128,34 +128,93 @@ module Stripe
       )
     end
 
-    # Serializes a Subscription migrate request into a batch job JSONL line.
-    def serialize_batch_migrate(subscription, params = {}, opts = {})
-      item_id = SecureRandom.uuid
+    # Serializes a Subscription cancel request into a batch job JSONL line.
+    def serialize_batch_cancel(subscription_exposed_id, params = {}, opts = {})
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:path_params] = { subscription: subscription }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:path_params] = { subscription_exposed_id: subscription_exposed_id }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription migrate request into a batch job JSONL line.
+    def serialize_batch_migrate(subscription, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { subscription: subscription }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription pause request into a batch job JSONL line.
+    def serialize_batch_pause(subscription, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { subscription: subscription }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Subscription resume request into a batch job JSONL line.
+    def serialize_batch_resume(subscription, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { subscription: subscription }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Serializes a Subscription update request into a batch job JSONL line.
     def serialize_batch_update(subscription_exposed_id, params = {}, opts = {})
-      item_id = SecureRandom.uuid
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:path_params] = { subscription_exposed_id: subscription_exposed_id }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:path_params] = { subscription_exposed_id: subscription_exposed_id }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates an existing subscription to match the specified parameters.

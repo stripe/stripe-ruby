@@ -718,6 +718,21 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          attr_reader :app_id
+          # The client type that the end customer will pay from.
+          attr_reader :client
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
@@ -746,6 +761,8 @@ module Stripe
         attr_reader :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :us_bank_account
+        # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :wechat_pay
 
         def self.inner_class_types
           @inner_class_types = {
@@ -763,6 +780,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
 
@@ -1046,6 +1064,8 @@ module Stripe
     attr_reader :amount_overpaid
     # The amount, in cents (or local equivalent), that was paid.
     attr_reader :amount_paid
+    # Amount, in cents (or local equivalent), that was paid on the invoice outside of Stripe.
+    attr_reader :amount_paid_off_stripe
     # The difference between amount_due and amount_paid, in cents (or local equivalent).
     attr_reader :amount_remaining
     # This is the sum of all the shipping amounts.

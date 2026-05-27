@@ -1844,6 +1844,18 @@ module Stripe
       register("v2.core.health.authorization_rate_drop.resolved", &handler)
     end
 
+    def on_v2_core_health_elements_error_firing(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.health.elements_error.firing", &handler)
+    end
+
+    def on_v2_core_health_elements_error_resolved(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.health.elements_error.resolved", &handler)
+    end
+
     def on_v2_core_health_event_generation_failure_resolved(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -1854,6 +1866,18 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.core.health.fraud_rate.increased", &handler)
+    end
+
+    def on_v2_core_health_invoice_count_dropped_firing(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.health.invoice_count_dropped.firing", &handler)
+    end
+
+    def on_v2_core_health_invoice_count_dropped_resolved(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.health.invoice_count_dropped.resolved", &handler)
     end
 
     def on_v2_core_health_issuing_authorization_request_errors_firing(&handler)

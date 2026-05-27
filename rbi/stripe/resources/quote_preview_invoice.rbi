@@ -726,6 +726,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          sig { returns(T.nilable(String)) }
+          def app_id; end
+          # The client type that the end customer will pay from.
+          sig { returns(T.nilable(String)) }
+          def client; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
@@ -768,6 +782,9 @@ module Stripe
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(WechatPay)) }
+        def wechat_pay; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
@@ -784,6 +801,7 @@ module Stripe
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
         def self.field_remappings
@@ -1085,6 +1103,9 @@ module Stripe
     # The amount, in cents (or local equivalent), that was paid.
     sig { returns(Integer) }
     def amount_paid; end
+    # Amount, in cents (or local equivalent), that was paid on the invoice outside of Stripe.
+    sig { returns(T.nilable(Integer)) }
+    def amount_paid_off_stripe; end
     # The difference between amount_due and amount_paid, in cents (or local equivalent).
     sig { returns(Integer) }
     def amount_remaining; end

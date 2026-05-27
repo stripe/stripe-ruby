@@ -228,7 +228,7 @@ module Stripe
         attr_accessor :payment_method_reuse_agreement
         # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         # Session will determine whether to display an option to opt into promotional communication
-        # from the merchant depending on the customer's locale. Only available to US merchants.
+        # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
         attr_accessor :promotions
         # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
         # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
@@ -1189,7 +1189,7 @@ module Stripe
           end
 
           class Restrictions < ::Stripe::RequestParams
-            # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+            # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_accessor :brands_blocked
 
             def initialize(brands_blocked: nil)
@@ -1865,6 +1865,15 @@ module Stripe
           end
         end
 
+        class Scalapay < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class SepaDebit < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -2022,7 +2031,7 @@ module Stripe
             @setup_future_usage = setup_future_usage
           end
         end
-        # contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `custom`.
+        # contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `elements`.
         attr_accessor :acss_debit
         # contains details about the Affirm payment method options.
         attr_accessor :affirm
@@ -2076,7 +2085,7 @@ module Stripe
         attr_accessor :konbini
         # contains details about the Korean card payment method options.
         attr_accessor :kr_card
-        # contains details about the Link payment method options.
+        # contains details about the Link payment method options (Link is also known as Onelink in the UK).
         attr_accessor :link
         # contains details about the Mobilepay payment method options.
         attr_accessor :mobilepay
@@ -2106,6 +2115,8 @@ module Stripe
         attr_accessor :samsung_pay
         # contains details about the Satispay payment method options.
         attr_accessor :satispay
+        # contains details about the Scalapay payment method options.
+        attr_accessor :scalapay
         # contains details about the Sepa Debit payment method options.
         attr_accessor :sepa_debit
         # contains details about the Sofort payment method options.
@@ -2164,6 +2175,7 @@ module Stripe
           revolut_pay: nil,
           samsung_pay: nil,
           satispay: nil,
+          scalapay: nil,
           sepa_debit: nil,
           sofort: nil,
           swish: nil,
@@ -2214,6 +2226,7 @@ module Stripe
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
           @satispay = satispay
+          @scalapay = scalapay
           @sepa_debit = sepa_debit
           @sofort = sofort
           @swish = swish
@@ -2520,7 +2533,7 @@ module Stripe
         end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. To use an application fee percent, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         attr_accessor :application_fee_percent
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `custom`.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
         attr_accessor :billing_cycle_anchor
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_accessor :billing_mode
@@ -2605,7 +2618,7 @@ module Stripe
             @display = display
           end
         end
-        # contains details about the Link wallet options.
+        # contains details about the Link wallet options (Link is also known as Onelink in the UK).
         attr_accessor :link
 
         def initialize(link: nil)
@@ -2614,7 +2627,7 @@ module Stripe
       end
       # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
       attr_accessor :adaptive_pricing
-      # Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `custom`.
+      # Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :after_expiration
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
@@ -2630,9 +2643,9 @@ module Stripe
       attr_accessor :automatic_tax
       # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
       attr_accessor :billing_address_collection
-      # The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+      # The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `elements`.
       attr_accessor :branding_settings
-      # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
+      # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded_page` or `elements`.
       attr_accessor :cancel_url
       # A unique string to reference the Checkout Session. This can be a
       # customer ID, a cart ID, or similar, and can be used to reconcile the
@@ -2728,7 +2741,7 @@ module Stripe
       #
       # You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :optional_items
-      # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `custom`.
+      # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :origin_context
       # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
       attr_accessor :payment_intent_data
@@ -2766,10 +2779,10 @@ module Stripe
       # We recommend that you review your privacy policy and check with your legal contacts
       # before using this feature. Learn more about [collecting phone numbers with Checkout](https://docs.stripe.com/payments/checkout/phone-numbers).
       attr_accessor :phone_number_collection
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_accessor :redirect_on_completion
       # The URL to redirect your customer back to after they authenticate or cancel their payment on the
-      # payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
+      # payment method's app or site. This parameter is required if `ui_mode` is `embedded_page` or `elements`
       # and redirect-based payment methods are enabled on the session.
       attr_accessor :return_url
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
@@ -2784,19 +2797,19 @@ module Stripe
       # to customize relevant text on the page, such as the submit button.
       #  `submit_type` can only be specified on Checkout Sessions in
       # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
-      # You can't set this parameter if `ui_mode` is `custom`.
+      # You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :submit_type
       # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
       attr_accessor :subscription_data
       # The URL to which Stripe should send customers when payment or setup
       # is complete.
-      # This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
+      # This parameter is not allowed if ui_mode is `embedded_page` or `elements`. If you'd like to use
       # information from the successful Checkout Session on your page, read the
       # guide on [customizing your success page](https://docs.stripe.com/payments/checkout/custom-success-page).
       attr_accessor :success_url
       # Controls tax ID collection during checkout.
       attr_accessor :tax_id_collection
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       attr_accessor :ui_mode
       # Wallet-specific configuration.
       attr_accessor :wallet_options

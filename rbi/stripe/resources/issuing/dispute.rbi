@@ -488,7 +488,7 @@ module Stripe
       # The transaction being disputed.
       sig { returns(T.any(String, ::Stripe::Issuing::Transaction)) }
       def transaction; end
-      # [Treasury](https://docs.stripe.com/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
+      # [Treasury](https://docs.stripe.com/api/treasury) details related to this dispute if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts)
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
       # Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.

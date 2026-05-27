@@ -54,6 +54,12 @@ module Stripe
      }
     def retrieve(payment_method, params = {}, opts = {}); end
 
+    # Serializes a PaymentMethod attach request into a batch job JSONL line.
+    sig {
+      params(payment_method: String, params: ::Stripe::PaymentMethodAttachParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_attach(payment_method, params = {}, opts = {}); end
+
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
     sig {
       params(payment_method: String, params: T.any(::Stripe::PaymentMethodUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)

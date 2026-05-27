@@ -517,6 +517,43 @@ module Stripe
       end
     end
 
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Restrictions < ::Stripe::StripeObject
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          attr_reader :brands_blocked
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        attr_reader :restrictions
+
+        def self.inner_class_types
+          @inner_class_types = { restrictions: Restrictions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configuration for `card` payment methods.
+      attr_reader :card
+
+      def self.inner_class_types
+        @inner_class_types = { card: Card }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class PhoneNumberCollection < ::Stripe::StripeObject
       # If `true`, a phone number will be collected during checkout.
       attr_reader :enabled
@@ -740,6 +777,8 @@ module Stripe
     attr_reader :payment_intent_data
     # Configuration for collecting a payment method during checkout. Defaults to `always`.
     attr_reader :payment_method_collection
+    # Payment-method-specific configuration.
+    attr_reader :payment_method_options
     # The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     attr_reader :payment_method_types
     # Attribute for field phone_number_collection
@@ -814,6 +853,7 @@ module Stripe
         name_collection: NameCollection,
         optional_items: OptionalItem,
         payment_intent_data: PaymentIntentData,
+        payment_method_options: PaymentMethodOptions,
         phone_number_collection: PhoneNumberCollection,
         restrictions: Restrictions,
         shipping_address_collection: ShippingAddressCollection,

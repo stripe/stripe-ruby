@@ -10,7 +10,7 @@ module Stripe
      }
     def attach_cadence(subscription, params = {}, opts = {}); end
 
-    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+    # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
@@ -56,7 +56,7 @@ module Stripe
      }
     def pause(subscription, params = {}, opts = {}); end
 
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     sig {
       params(subscription: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
@@ -77,11 +77,33 @@ module Stripe
      }
     def search(params = {}, opts = {}); end
 
+    # Serializes a Subscription cancel request into a batch job JSONL line.
+    sig {
+      params(subscription_exposed_id: String, params: ::Stripe::SubscriptionCancelParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_cancel(subscription_exposed_id, params = {}, opts = {}); end
+
+    # Serializes a Subscription create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::SubscriptionCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
     # Serializes a Subscription migrate request into a batch job JSONL line.
     sig {
       params(subscription: String, params: ::Stripe::SubscriptionMigrateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_migrate(subscription, params = {}, opts = {}); end
+
+    # Serializes a Subscription pause request into a batch job JSONL line.
+    sig {
+      params(subscription: String, params: ::Stripe::SubscriptionPauseParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_pause(subscription, params = {}, opts = {}); end
+
+    # Serializes a Subscription resume request into a batch job JSONL line.
+    sig {
+      params(subscription: String, params: ::Stripe::SubscriptionResumeParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_resume(subscription, params = {}, opts = {}); end
 
     # Serializes a Subscription update request into a batch job JSONL line.
     sig {

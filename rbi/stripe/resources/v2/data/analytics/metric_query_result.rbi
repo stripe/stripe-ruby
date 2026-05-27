@@ -13,7 +13,7 @@ module Stripe
               # If this is a monetary metric, the currency it is returned in. Otherwise null.
               sig { returns(T.nilable(String)) }
               def currency; end
-              # The Gen6 ID of this metric.
+              # The ID of this metric.
               sig { returns(String) }
               def metric; end
               # The common name of this metric.

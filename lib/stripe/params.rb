@@ -1085,6 +1085,7 @@ module Stripe
 
     module Iam
       autoload :ActivityLogListParams, "stripe/params/v2/iam/activity_log_list_params"
+      autoload :ActivityLogRetrieveParams, "stripe/params/v2/iam/activity_log_retrieve_params"
       autoload :ApiKeyCreateParams, "stripe/params/v2/iam/api_key_create_params"
       autoload :ApiKeyExpireParams, "stripe/params/v2/iam/api_key_expire_params"
       autoload :ApiKeyListParams, "stripe/params/v2/iam/api_key_list_params"
@@ -2116,6 +2117,7 @@ module Stripe
     stripe/params/v2/extend/workflow_run_list_params
     stripe/params/v2/extend/workflow_run_retrieve_params
     stripe/params/v2/iam/activity_log_list_params
+    stripe/params/v2/iam/activity_log_retrieve_params
     stripe/params/v2/iam/api_key_create_params
     stripe/params/v2/iam/api_key_expire_params
     stripe/params/v2/iam/api_key_list_params

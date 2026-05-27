@@ -83,6 +83,21 @@ module Stripe
       )
     end
 
+    # Serializes a PaymentMethod attach request into a batch job JSONL line.
+    def serialize_batch_attach(payment_method, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { payment_method: payment_method }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
     def update(payment_method, params = {}, opts = {})
       request(

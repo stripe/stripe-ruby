@@ -126,7 +126,7 @@ module Stripe
       def payment_method_reuse_agreement=(_payment_method_reuse_agreement); end
       # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
       # Session will determine whether to display an option to opt into promotional communication
-      # from the merchant depending on the customer's locale. Only available to US merchants.
+      # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
       sig { returns(T.nilable(String)) }
       def promotions; end
       sig { params(_promotions: T.nilable(String)).returns(T.nilable(String)) }
@@ -870,6 +870,45 @@ module Stripe
         transfer_group: nil
       ); end
     end
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class Restrictions < ::Stripe::RequestParams
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          sig { returns(T.nilable(T::Array[String])) }
+          def brands_blocked; end
+          sig {
+            params(_brands_blocked: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def brands_blocked=(_brands_blocked); end
+          sig { params(brands_blocked: T.nilable(T::Array[String])).void }
+          def initialize(brands_blocked: nil); end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        sig {
+          returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card::Restrictions))
+         }
+        def restrictions; end
+        sig {
+          params(_restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card::Restrictions)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card::Restrictions))
+         }
+        def restrictions=(_restrictions); end
+        sig {
+          params(restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card::Restrictions)).void
+         }
+        def initialize(restrictions: nil); end
+      end
+      # Configuration for `card` payment methods.
+      sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card)) }
+      def card; end
+      sig {
+        params(_card: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card))
+       }
+      def card=(_card); end
+      sig {
+        params(card: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions::Card)).void
+       }
+      def initialize(card: nil); end
+    end
     class PhoneNumberCollection < ::Stripe::RequestParams
       # Set to `true` to enable phone number collection.
       sig { returns(T::Boolean) }
@@ -1196,6 +1235,13 @@ module Stripe
     def payment_method_collection; end
     sig { params(_payment_method_collection: T.nilable(String)).returns(T.nilable(String)) }
     def payment_method_collection=(_payment_method_collection); end
+    # Attribute for param field payment_method_options
+    sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions)) }
+    def payment_method_options; end
+    sig {
+      params(_payment_method_options: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions))
+     }
+    def payment_method_options=(_payment_method_options); end
     # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://docs.stripe.com/payments/payment-methods/integration-options#payment-method-product-support)).
     sig { returns(T.nilable(T::Array[String])) }
     def payment_method_types; end
@@ -1260,7 +1306,7 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
+      params(after_completion: T.nilable(::Stripe::PaymentLinkCreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_surcharge: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::PaymentLinkCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLinkCreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkCreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLinkCreateParams::LineItem], managed_payments: T.nilable(::Stripe::PaymentLinkCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(::Stripe::PaymentLinkCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_options: T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLinkCreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLinkCreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLinkCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLinkCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkCreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkCreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLinkCreateParams::TransferData)).void
      }
     def initialize(
       after_completion: nil,
@@ -1286,6 +1332,7 @@ module Stripe
       optional_items: nil,
       payment_intent_data: nil,
       payment_method_collection: nil,
+      payment_method_options: nil,
       payment_method_types: nil,
       phone_number_collection: nil,
       restrictions: nil,

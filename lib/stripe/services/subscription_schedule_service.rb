@@ -75,46 +75,61 @@ module Stripe
 
     # Serializes a SubscriptionSchedule cancel request into a batch job JSONL line.
     def serialize_batch_cancel(schedule, params = {}, opts = {})
-      item_id = SecureRandom.uuid
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:path_params] = { schedule: schedule }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:path_params] = { schedule: schedule }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Serializes a SubscriptionSchedule create request into a batch job JSONL line.
     def serialize_batch_create(params = {}, opts = {})
-      item_id = SecureRandom.uuid
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a SubscriptionSchedule release request into a batch job JSONL line.
+    def serialize_batch_release(schedule, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { schedule: schedule }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Serializes a SubscriptionSchedule update request into a batch job JSONL line.
     def serialize_batch_update(schedule, params = {}, opts = {})
-      item_id = SecureRandom.uuid
+      request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
-      item = {
-        id: item_id,
+      request_body = {
+        id: request_id,
         params: params,
         stripe_version: stripe_version,
       }
-      item[:path_params] = { schedule: schedule }
-      item[:context] = opts[:stripe_context] if opts[:stripe_context]
-      JSON.generate(item)
+      request_body[:path_params] = { schedule: schedule }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates an existing subscription schedule.

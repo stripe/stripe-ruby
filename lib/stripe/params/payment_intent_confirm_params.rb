@@ -2330,6 +2330,7 @@ module Stripe
         end
       end
 
+      class Bizum < ::Stripe::RequestParams; end
       class Blik < ::Stripe::RequestParams; end
 
       class Boleto < ::Stripe::RequestParams
@@ -2541,6 +2542,7 @@ module Stripe
       class RevolutPay < ::Stripe::RequestParams; end
       class SamsungPay < ::Stripe::RequestParams; end
       class Satispay < ::Stripe::RequestParams; end
+      class Scalapay < ::Stripe::RequestParams; end
 
       class SepaDebit < ::Stripe::RequestParams
         # IBAN of the bank account.
@@ -2654,6 +2656,8 @@ module Stripe
       attr_accessor :billie
       # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
       attr_accessor :billing_details
+      # If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+      attr_accessor :bizum
       # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
       attr_accessor :blik
       # If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
@@ -2690,7 +2694,7 @@ module Stripe
       attr_accessor :konbini
       # If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
       attr_accessor :kr_card
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
       attr_accessor :link
       # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
       attr_accessor :mb_way
@@ -2736,6 +2740,8 @@ module Stripe
       attr_accessor :samsung_pay
       # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
       attr_accessor :satispay
+      # If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+      attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
       # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -2776,6 +2782,7 @@ module Stripe
         bancontact: nil,
         billie: nil,
         billing_details: nil,
+        bizum: nil,
         blik: nil,
         boleto: nil,
         cashapp: nil,
@@ -2817,6 +2824,7 @@ module Stripe
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
+        scalapay: nil,
         sepa_debit: nil,
         shared_payment_granted_token: nil,
         shopeepay: nil,
@@ -2843,6 +2851,7 @@ module Stripe
         @bancontact = bancontact
         @billie = billie
         @billing_details = billing_details
+        @bizum = bizum
         @blik = blik
         @boleto = boleto
         @cashapp = cashapp
@@ -2884,6 +2893,7 @@ module Stripe
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
+        @scalapay = scalapay
         @sepa_debit = sepa_debit
         @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
@@ -3146,6 +3156,8 @@ module Stripe
           @capture_method = capture_method
         end
       end
+
+      class Bizum < ::Stripe::RequestParams; end
 
       class Blik < ::Stripe::RequestParams
         # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
@@ -3830,6 +3842,8 @@ module Stripe
           @setup_future_usage = setup_future_usage
         end
       end
+
+      class GiftCard < ::Stripe::RequestParams; end
 
       class Giropay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5556,6 +5570,19 @@ module Stripe
         end
       end
 
+      class Scalapay < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        attr_accessor :capture_method
+
+        def initialize(capture_method: nil)
+          @capture_method = capture_method
+        end
+      end
+
       class SepaDebit < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -5884,6 +5911,8 @@ module Stripe
       attr_accessor :bancontact
       # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
       attr_accessor :billie
+      # If this is a `bizum` PaymentMethod, this sub-hash contains details about the Bizum payment method options.
+      attr_accessor :bizum
       # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
       attr_accessor :blik
       # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -5902,6 +5931,8 @@ module Stripe
       attr_accessor :eps
       # If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
       attr_accessor :fpx
+      # If this is a `gift_card` PaymentMethod, this sub-hash contains details about the gift card payment method options.
+      attr_accessor :gift_card
       # If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
       attr_accessor :giropay
       # If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
@@ -5922,7 +5953,7 @@ module Stripe
       attr_accessor :konbini
       # If this is a `kr_card` PaymentMethod, this sub-hash contains details about the KR Card payment method options.
       attr_accessor :kr_card
-      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
       attr_accessor :link
       # If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
       attr_accessor :mb_way
@@ -5964,6 +5995,8 @@ module Stripe
       attr_accessor :samsung_pay
       # If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
       attr_accessor :satispay
+      # If this is a `scalapay` PaymentMethod, this sub-hash contains details about the ScalaPay payment method options.
+      attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
       # If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
@@ -5996,6 +6029,7 @@ module Stripe
         bacs_debit: nil,
         bancontact: nil,
         billie: nil,
+        bizum: nil,
         blik: nil,
         boleto: nil,
         card: nil,
@@ -6005,6 +6039,7 @@ module Stripe
         customer_balance: nil,
         eps: nil,
         fpx: nil,
+        gift_card: nil,
         giropay: nil,
         gopay: nil,
         grabpay: nil,
@@ -6036,6 +6071,7 @@ module Stripe
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
+        scalapay: nil,
         sepa_debit: nil,
         shopeepay: nil,
         sofort: nil,
@@ -6057,6 +6093,7 @@ module Stripe
         @bacs_debit = bacs_debit
         @bancontact = bancontact
         @billie = billie
+        @bizum = bizum
         @blik = blik
         @boleto = boleto
         @card = card
@@ -6066,6 +6103,7 @@ module Stripe
         @customer_balance = customer_balance
         @eps = eps
         @fpx = fpx
+        @gift_card = gift_card
         @giropay = giropay
         @gopay = gopay
         @grabpay = grabpay
@@ -6097,6 +6135,7 @@ module Stripe
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
+        @scalapay = scalapay
         @sepa_debit = sepa_debit
         @shopeepay = shopeepay
         @sofort = sofort
@@ -6171,6 +6210,8 @@ module Stripe
     end
     # Allocated Funds configuration for this PaymentIntent.
     attr_accessor :allocated_funds
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_accessor :allowed_payment_method_types
     # Provides industry-specific information about the amount.
     attr_accessor :amount_details
     # Amount to confirm on the PaymentIntent. Defaults to `amount` if not provided.
@@ -6197,7 +6238,7 @@ module Stripe
     attr_accessor :mandate
     # Attribute for param field mandate_data
     attr_accessor :mandate_data
-    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://docs.stripe.com/payments/cards/charging-saved-cards).
+    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect payment method details and [charge them later](https://docs.stripe.com/payments/save-during-payment).
     attr_accessor :off_session
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
@@ -6237,6 +6278,7 @@ module Stripe
 
     def initialize(
       allocated_funds: nil,
+      allowed_payment_method_types: nil,
       amount_details: nil,
       amount_to_confirm: nil,
       application_fee_amount: nil,
@@ -6263,6 +6305,7 @@ module Stripe
       use_stripe_sdk: nil
     )
       @allocated_funds = allocated_funds
+      @allowed_payment_method_types = allowed_payment_method_types
       @amount_details = amount_details
       @amount_to_confirm = amount_to_confirm
       @application_fee_amount = application_fee_amount

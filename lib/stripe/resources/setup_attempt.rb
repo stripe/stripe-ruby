@@ -450,6 +450,16 @@ module Stripe
         end
       end
 
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Upi < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -517,6 +527,8 @@ module Stripe
       attr_reader :sofort
       # Attribute for field stripe_balance
       attr_reader :stripe_balance
+      # Attribute for field twint
+      attr_reader :twint
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       attr_reader :type
       # Attribute for field upi
@@ -550,6 +562,7 @@ module Stripe
           sepa_debit: SepaDebit,
           sofort: Sofort,
           stripe_balance: StripeBalance,
+          twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,
         }

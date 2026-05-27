@@ -294,7 +294,7 @@ module Stripe
         attr_reader :payment_method_reuse_agreement
         # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         # Session will determine whether to display an option to opt into promotional communication
-        # from the merchant depending on the customer's locale. Only available to US merchants.
+        # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
         attr_reader :promotions
         # If set to `required`, it requires customers to accept the terms of service before being able to pay.
         attr_reader :terms_of_service
@@ -1332,7 +1332,7 @@ module Stripe
           end
 
           class Restrictions < ::Stripe::StripeObject
-            # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+            # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_reader :brands_blocked
 
             def self.inner_class_types
@@ -1960,6 +1960,19 @@ module Stripe
           end
         end
 
+        class Scalapay < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class SepaDebit < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -2232,6 +2245,8 @@ module Stripe
         attr_reader :samsung_pay
         # Attribute for field satispay
         attr_reader :satispay
+        # Attribute for field scalapay
+        attr_reader :scalapay
         # Attribute for field sepa_debit
         attr_reader :sepa_debit
         # Attribute for field sofort
@@ -2285,6 +2300,7 @@ module Stripe
             revolut_pay: RevolutPay,
             samsung_pay: SamsungPay,
             satispay: Satispay,
+            scalapay: Scalapay,
             sepa_debit: SepaDebit,
             sofort: Sofort,
             swish: Swish,
@@ -2711,8 +2727,8 @@ module Stripe
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
       attr_reader :client_reference_id
-      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
-      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
+      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. For `ui_mode: embedded_page`, the client secret is to be used when initializing Stripe.js embedded checkout.
+      #  For `ui_mode: elements`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
       attr_reader :collected_information
@@ -2815,9 +2831,9 @@ module Stripe
       attr_reader :presentment_details
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       attr_reader :recovered_from
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_reader :redirect_on_completion
-      # Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+      # Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
       attr_reader :return_url
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
       attr_reader :saved_payment_method_options
@@ -2848,7 +2864,7 @@ module Stripe
       attr_reader :total_details
       # The UI mode of the Session. Defaults to `hosted_page`.
       attr_reader :ui_mode
-      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted_page`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       attr_reader :url
       # Wallet-specific configuration for this Checkout Session.

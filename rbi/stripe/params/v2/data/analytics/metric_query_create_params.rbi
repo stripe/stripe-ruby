@@ -8,12 +8,12 @@ module Stripe
       module Analytics
         class MetricQueryCreateParams < ::Stripe::RequestParams
           class Metric < ::Stripe::RequestParams
-            # The Gen6 ID for this metric, e.g. metric_61Sud3n5oAGVCWiSr5.
+            # The ID for this metric, e.g. metric_61Sud3n5oAGVCWiSr5.
             sig { returns(T.nilable(String)) }
             def id; end
             sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
             def id=(_id); end
-            # The common name for this metric, e.g. mrr_minor_units.
+            # The common name for this metric, e.g. revenue.mrr.
             sig { returns(T.nilable(String)) }
             def name; end
             sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }

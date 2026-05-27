@@ -13,6 +13,8 @@ module Stripe
         class Impact < ::Stripe::StripeObject
           # The total volume of payment requests within the latest observation time window.
           attr_reader :actual_traffic
+          # The canonical path.
+          attr_reader :canonical_path
           # The expected volume of payment requests within the latest observation time window.
           attr_reader :expected_traffic
           # The size of the observation time window.

@@ -145,6 +145,14 @@ module Stripe
       end
     end
     class NextAction < ::Stripe::StripeObject
+      class BlikAuthorize < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CashappHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
         class QrCode < ::Stripe::StripeObject
           # The date (unix timestamp) when the QR code expires.
@@ -264,6 +272,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field blik_authorize
+      sig { returns(T.nilable(BlikAuthorize)) }
+      def blik_authorize; end
       # Attribute for field cashapp_handle_redirect_or_display_qr_code
       sig { returns(T.nilable(CashappHandleRedirectOrDisplayQrCode)) }
       def cashapp_handle_redirect_or_display_qr_code; end
@@ -287,6 +298,7 @@ module Stripe
       def verify_with_microdeposits; end
       def self.inner_class_types
         @inner_class_types = {
+          blik_authorize: BlikAuthorize,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
           pix_display_qr_code: PixDisplayQrCode,
           redirect_to_url: RedirectToUrl,
@@ -378,6 +390,14 @@ module Stripe
         def mandate_options; end
         def self.inner_class_types
           @inner_class_types = {mandate_options: MandateOptions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Bizum < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -734,6 +754,9 @@ module Stripe
       # Attribute for field bacs_debit
       sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
+      # Attribute for field bizum
+      sig { returns(T.nilable(Bizum)) }
+      def bizum; end
       # Attribute for field card
       sig { returns(T.nilable(Card)) }
       def card; end
@@ -772,6 +795,7 @@ module Stripe
           acss_debit: AcssDebit,
           amazon_pay: AmazonPay,
           bacs_debit: BacsDebit,
+          bizum: Bizum,
           card: Card,
           card_present: CardPresent,
           klarna: Klarna,
@@ -792,6 +816,9 @@ module Stripe
     class SetupDetails < ::Stripe::StripeObject
       class Benefit < ::Stripe::StripeObject
         class FrMealVoucher < ::Stripe::StripeObject
+          # Whether meal voucher benefit is enabled for this setup intent.
+          sig { returns(T.nilable(String)) }
+          def enabled; end
           # The 14-digit SIRET of the meal voucher acceptor.
           sig { returns(T.nilable(String)) }
           def siret; end

@@ -1,3 +1,4 @@
+# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)

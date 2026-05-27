@@ -78,11 +78,14 @@ module Stripe
     class TransferData < ::Stripe::RequestParams
       # The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
       attr_accessor :amount
+      # An arbitrary string attached to the transfer. Often useful for displaying to users.
+      attr_accessor :description
       # ID of an existing, connected Stripe account.
       attr_accessor :destination
 
-      def initialize(amount: nil, destination: nil)
+      def initialize(amount: nil, description: nil, destination: nil)
         @amount = amount
+        @description = description
         @destination = destination
       end
     end

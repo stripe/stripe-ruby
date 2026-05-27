@@ -485,6 +485,39 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Restrictions < ::Stripe::StripeObject
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          sig { returns(T::Array[String]) }
+          def brands_blocked; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        sig { returns(T.nilable(Restrictions)) }
+        def restrictions; end
+        def self.inner_class_types
+          @inner_class_types = {restrictions: Restrictions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configuration for `card` payment methods.
+      sig { returns(T.nilable(Card)) }
+      def card; end
+      def self.inner_class_types
+        @inner_class_types = {card: Card}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class PhoneNumberCollection < ::Stripe::StripeObject
       # If `true`, a phone number will be collected during checkout.
       sig { returns(T::Boolean) }
@@ -722,6 +755,9 @@ module Stripe
     # Configuration for collecting a payment method during checkout. Defaults to `always`.
     sig { returns(String) }
     def payment_method_collection; end
+    # Payment-method-specific configuration.
+    sig { returns(T.nilable(PaymentMethodOptions)) }
+    def payment_method_options; end
     # The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     sig { returns(T.nilable(T::Array[String])) }
     def payment_method_types; end

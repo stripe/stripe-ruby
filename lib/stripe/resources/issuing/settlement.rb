@@ -28,7 +28,7 @@ module Stripe
       attr_reader :metadata
       # The total net amount required to settle with the network.
       attr_reader :net_total_amount
-      # The card network for this settlement report. One of ["visa", "maestro"]
+      # The card network for this settlement report. One of ["visa", "maestro", "mastercard"]
       attr_reader :network
       # The total amount of fees owed to the network.
       attr_reader :network_fees_amount

@@ -1903,7 +1903,7 @@ module Stripe
              }
             def initialize(capabilities: nil); end
           end
-          # The Customer Configuration allows the Account to be used in inbound payment flows.
+          # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer))
            }
@@ -2438,32 +2438,72 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class ProofOfRegistration < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  sig { returns(String) }
+                  def person; end
+                  sig { params(_person: String).returns(String) }
+                  def person=(_person); end
+                  sig { params(person: String).void }
+                  def initialize(person: nil); end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
                 def files=(_files); end
+                # Person that is signing the document.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer))
+                 }
+                def signer; end
+                sig {
+                  params(_signer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer))
+                 }
+                def signer=(_signer); end
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
                 sig { params(_type: String).returns(String) }
                 def type=(_type); end
-                sig { params(files: T::Array[String], type: String).void }
-                def initialize(files: nil, type: nil); end
+                sig {
+                  params(files: T::Array[String], signer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration::Signer), type: String).void
+                 }
+                def initialize(files: nil, signer: nil, type: nil); end
               end
               class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  sig { returns(String) }
+                  def person; end
+                  sig { params(_person: String).returns(String) }
+                  def person=(_person); end
+                  sig { params(person: String).void }
+                  def initialize(person: nil); end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
                 def files=(_files); end
+                # Person that is signing the document.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+                 }
+                def signer; end
+                sig {
+                  params(_signer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer))
+                 }
+                def signer=(_signer); end
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
                 sig { params(_type: String).returns(String) }
                 def type=(_type); end
-                sig { params(files: T::Array[String], type: String).void }
-                def initialize(files: nil, type: nil); end
+                sig {
+                  params(files: T::Array[String], signer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership::Signer), type: String).void
+                 }
+                def initialize(files: nil, signer: nil, type: nil); end
               end
               # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               sig {
@@ -3488,7 +3528,7 @@ module Stripe
               params(_documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents))
              }
             def documents=(_documents); end
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             sig { returns(T.nilable(String)) }
             def email; end
             sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
@@ -3619,7 +3659,7 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # The entity type.
+          # The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
           sig { returns(T.nilable(String)) }
           def entity_type; end
           sig { params(_entity_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -3664,7 +3704,7 @@ module Stripe
           params(_configuration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration))
          }
         def configuration=(_configuration); end
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         sig { returns(T.nilable(String)) }
         def contact_email; end
         sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }

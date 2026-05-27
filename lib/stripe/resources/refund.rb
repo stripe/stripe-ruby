@@ -375,6 +375,16 @@ module Stripe
         end
       end
 
+      class Scalapay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Sofort < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -519,6 +529,8 @@ module Stripe
       attr_reader :pix
       # Attribute for field revolut
       attr_reader :revolut
+      # Attribute for field scalapay
+      attr_reader :scalapay
       # Attribute for field sofort
       attr_reader :sofort
       # Attribute for field swish
@@ -567,6 +579,7 @@ module Stripe
           paypal: Paypal,
           pix: Pix,
           revolut: Revolut,
+          scalapay: Scalapay,
           sofort: Sofort,
           swish: Swish,
           th_bank_transfer: ThBankTransfer,

@@ -484,7 +484,43 @@ module Stripe
         end
       end
 
+      class VerifoneM425 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        attr_accessor :splashscreen
+
+        def initialize(splashscreen: nil)
+          @splashscreen = splashscreen
+        end
+      end
+
       class VerifoneP400 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        attr_accessor :splashscreen
+
+        def initialize(splashscreen: nil)
+          @splashscreen = splashscreen
+        end
+      end
+
+      class VerifoneP630 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        attr_accessor :splashscreen
+
+        def initialize(splashscreen: nil)
+          @splashscreen = splashscreen
+        end
+      end
+
+      class VerifoneUx700 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        attr_accessor :splashscreen
+
+        def initialize(splashscreen: nil)
+          @splashscreen = splashscreen
+        end
+      end
+
+      class VerifoneV660p < ::Stripe::RequestParams
         # A File ID representing an image you want to display on the reader.
         attr_accessor :splashscreen
 
@@ -593,8 +629,16 @@ module Stripe
       attr_accessor :stripe_s710
       # Tipping configurations for readers that support on-reader tips.
       attr_accessor :tipping
+      # An object containing device type specific settings for Verifone M425 readers.
+      attr_accessor :verifone_m425
       # An object containing device type specific settings for Verifone P400 readers.
       attr_accessor :verifone_p400
+      # An object containing device type specific settings for Verifone P630 readers.
+      attr_accessor :verifone_p630
+      # An object containing device type specific settings for Verifone UX700 readers.
+      attr_accessor :verifone_ux700
+      # An object containing device type specific settings for Verifone V660p readers.
+      attr_accessor :verifone_v660p
       # Configurations for connecting to a WiFi network.
       attr_accessor :wifi
 
@@ -610,7 +654,11 @@ module Stripe
         stripe_s700: nil,
         stripe_s710: nil,
         tipping: nil,
+        verifone_m425: nil,
         verifone_p400: nil,
+        verifone_p630: nil,
+        verifone_ux700: nil,
+        verifone_v660p: nil,
         wifi: nil
       )
         @bbpos_wisepad3 = bbpos_wisepad3
@@ -624,7 +672,11 @@ module Stripe
         @stripe_s700 = stripe_s700
         @stripe_s710 = stripe_s710
         @tipping = tipping
+        @verifone_m425 = verifone_m425
         @verifone_p400 = verifone_p400
+        @verifone_p630 = verifone_p630
+        @verifone_ux700 = verifone_ux700
+        @verifone_v660p = verifone_v660p
         @wifi = wifi
       end
     end

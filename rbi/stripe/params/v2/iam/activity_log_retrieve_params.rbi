@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module V2
-    class DatumService < StripeService
-      attr_reader :reporting
+    module Iam
+      class ActivityLogRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

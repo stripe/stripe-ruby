@@ -3,7 +3,7 @@
 
 module Stripe
   module V2
-    class DatumService < StripeService
+    class DataService < StripeService
       attr_reader :reporting
 
       def initialize(requestor)

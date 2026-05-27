@@ -109,13 +109,20 @@ module Stripe
       def amount; end
       sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount=(_amount); end
+      # An arbitrary string attached to the transfer. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
+      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+      def description=(_description); end
       # ID of an existing, connected Stripe account.
       sig { returns(String) }
       def destination; end
       sig { params(_destination: String).returns(String) }
       def destination=(_destination); end
-      sig { params(amount: T.nilable(Integer), destination: String).void }
-      def initialize(amount: nil, destination: nil); end
+      sig {
+        params(amount: T.nilable(Integer), description: T.nilable(String), destination: String).void
+       }
+      def initialize(amount: nil, description: nil, destination: nil); end
     end
     # Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(T.nilable(Integer)) }

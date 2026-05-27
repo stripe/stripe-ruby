@@ -9,6 +9,98 @@ module Stripe
     # Related guide: [Connecting to a reader](https://docs.stripe.com/terminal/payments/connect-reader)
     class Reader < APIResource
       class Action < ::Stripe::StripeObject
+        class ApiError < ::Stripe::StripeObject
+          # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+          sig { returns(T.nilable(String)) }
+          def advice_code; end
+          # For card errors, the ID of the failed charge.
+          sig { returns(T.nilable(String)) }
+          def charge; end
+          # For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
+          sig { returns(T.nilable(String)) }
+          def code; end
+          # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
+          sig { returns(T.nilable(String)) }
+          def decline_code; end
+          # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
+          sig { returns(T.nilable(String)) }
+          def doc_url; end
+          # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+          sig { returns(T.nilable(String)) }
+          def message; end
+          # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+          sig { returns(T.nilable(String)) }
+          def network_advice_code; end
+          # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
+          sig { returns(T.nilable(String)) }
+          def network_decline_code; end
+          # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
+          sig { returns(T.nilable(String)) }
+          def param; end
+          # A PaymentIntent guides you through the process of collecting a payment from your customer.
+          # We recommend that you create exactly one PaymentIntent for each order or
+          # customer session in your system. You can reference the PaymentIntent later to
+          # see the history of payment attempts for a particular session.
+          #
+          # A PaymentIntent transitions through
+          # [multiple statuses](/payments/paymentintents/lifecycle)
+          # throughout its lifetime as it interfaces with Stripe.js to perform
+          # authentication flows and ultimately creates at most one successful charge.
+          #
+          # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
+          sig { returns(T.nilable(::Stripe::PaymentIntent)) }
+          def payment_intent; end
+          # PaymentMethod objects represent your customer's payment instruments.
+          # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
+          # Customer objects to store instrument details for future payments.
+          #
+          # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
+          sig { returns(T.nilable(::Stripe::PaymentMethod)) }
+          def payment_method; end
+          # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
+          sig { returns(T.nilable(String)) }
+          def payment_method_type; end
+          # A URL to the request log entry in your dashboard.
+          sig { returns(T.nilable(String)) }
+          def request_log_url; end
+          # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
+          # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
+          # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+          #
+          # Create a SetupIntent when you're ready to collect your customer's payment credentials.
+          # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
+          # The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
+          # you through the setup process.
+          #
+          # Successful SetupIntents result in payment credentials that are optimized for future payments.
+          # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
+          # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+          # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
+          # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+          # it automatically attaches the resulting payment method to that Customer after successful setup.
+          # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+          # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
+          #
+          # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
+          #
+          # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
+          sig { returns(T.nilable(::Stripe::SetupIntent)) }
+          def setup_intent; end
+          # Attribute for field source
+          sig {
+            returns(T.nilable(T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source)))
+           }
+          def source; end
+          # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class CollectInputs < ::Stripe::StripeObject
           class Input < ::Stripe::StripeObject
             class CustomText < ::Stripe::StripeObject
@@ -282,6 +374,40 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class PrintContent < ::Stripe::StripeObject
+          class Image < ::Stripe::StripeObject
+            # Creation time of the object (in seconds since the Unix epoch).
+            sig { returns(Integer) }
+            def created_at; end
+            # The original name of the uploaded file (e.g. `receipt.png`).
+            sig { returns(String) }
+            def filename; end
+            # The size (in bytes) of the uploaded file.
+            sig { returns(Integer) }
+            def size; end
+            # The format of the uploaded file.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Metadata of an uploaded file
+          sig { returns(T.nilable(Image)) }
+          def image; end
+          # The type of content to print. Currently supports `image`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {image: Image}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class ProcessPaymentIntent < ::Stripe::StripeObject
           class ProcessConfig < ::Stripe::StripeObject
             class Tipping < ::Stripe::StripeObject
@@ -458,6 +584,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The reader action failed due to an [API error](https://docs.stripe.com/api/errors). Only present when `status` is `failed` and the underlying failure was an API error. Avoid parsing the `message` field for programmatic logic; use `type` or `code` instead. The `message` field is for display to humans only and may be updated at anytime. Requires [reader version](https://docs.stripe.com/terminal/readers/stripe-reader-s700-s710#reader-software-version) 2.42 or later. Readers on older versions always return null.
+        sig { returns(T.nilable(ApiError)) }
+        def api_error; end
         # Represents a reader action to collect customer inputs
         sig { returns(T.nilable(CollectInputs)) }
         def collect_inputs; end
@@ -473,6 +602,9 @@ module Stripe
         # Detailed failure message, only set if status is `failed`.
         sig { returns(T.nilable(String)) }
         def failure_message; end
+        # Represents a reader action to print content
+        sig { returns(T.nilable(PrintContent)) }
+        def print_content; end
         # Represents a reader action to process a payment intent
         sig { returns(T.nilable(ProcessPaymentIntent)) }
         def process_payment_intent; end
@@ -493,9 +625,11 @@ module Stripe
         def type; end
         def self.inner_class_types
           @inner_class_types = {
+            api_error: ApiError,
             collect_inputs: CollectInputs,
             collect_payment_method: CollectPaymentMethod,
             confirm_payment_intent: ConfirmPaymentIntent,
+            print_content: PrintContent,
             process_payment_intent: ProcessPaymentIntent,
             process_setup_intent: ProcessSetupIntent,
             refund_payment: RefundPayment,

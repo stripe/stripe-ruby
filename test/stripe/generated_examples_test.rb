@@ -8128,7 +8128,7 @@ module Stripe
       batch_job = client.v2.core.batch_jobs.create({
         endpoint: {
           http_method: "delete",
-          path: "/v1/subscription_schedules",
+          path: "/v1/subscriptions/:subscription_exposed_id",
         },
         metadata: { key: "metadata" },
         skip_validation: true,
@@ -8532,6 +8532,16 @@ module Stripe
 
       activity_logs = client.v2.iam.activity_logs.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs"
+    end
+    should "Test v2 iam activity log get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs/id_123").to_return(
+        body: '{"object":"v2.iam.activity_log","actor":{"type":"api_key"},"context":"context","created":"1970-01-12T21:42:34.472Z","details":{"type":"api_key"},"id":"obj_123","livemode":true,"type":"api_key_created"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      activity_log = client.v2.iam.activity_logs.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs/id_123"
     end
     should "Test v2 money management adjustment get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments").to_return(
@@ -9222,7 +9232,7 @@ module Stripe
             currency: "USD",
             value: 96,
           },
-          network: "rtp",
+          network: "ach",
         }
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/test_helpers/financial_addresses/id_123/credit"

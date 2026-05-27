@@ -548,7 +548,51 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class VerifoneM425 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class VerifoneP400 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class VerifoneP630 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class VerifoneUx700 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class VerifoneV660p < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def splashscreen; end
@@ -685,9 +729,21 @@ module Stripe
       # Attribute for field tipping
       sig { returns(T.nilable(Tipping)) }
       def tipping; end
+      # Attribute for field verifone_m425
+      sig { returns(T.nilable(VerifoneM425)) }
+      def verifone_m425; end
       # Attribute for field verifone_p400
       sig { returns(T.nilable(VerifoneP400)) }
       def verifone_p400; end
+      # Attribute for field verifone_p630
+      sig { returns(T.nilable(VerifoneP630)) }
+      def verifone_p630; end
+      # Attribute for field verifone_ux700
+      sig { returns(T.nilable(VerifoneUx700)) }
+      def verifone_ux700; end
+      # Attribute for field verifone_v660p
+      sig { returns(T.nilable(VerifoneV660p)) }
+      def verifone_v660p; end
       # Attribute for field wifi
       sig { returns(T.nilable(Wifi)) }
       def wifi; end

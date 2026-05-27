@@ -112,6 +112,8 @@ module Stripe
           @field_encodings = { unit_amount_decimal: :decimal_string }
         end
       end
+      # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+      attr_accessor :discountable
       # The coupons to redeem into discounts for the item.
       attr_accessor :discounts
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -128,6 +130,7 @@ module Stripe
       attr_accessor :tax_rates
 
       def initialize(
+        discountable: nil,
         discounts: nil,
         metadata: nil,
         period: nil,
@@ -136,6 +139,7 @@ module Stripe
         quantity: nil,
         tax_rates: nil
       )
+        @discountable = discountable
         @discounts = discounts
         @metadata = metadata
         @period = period
@@ -884,7 +888,7 @@ module Stripe
     attr_accessor :default_tax_rates
     # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
     attr_accessor :description
-    # The coupons to redeem into discounts for the subscription. If not specified or empty, inherits the discount from the subscription's customer.
+    # The coupons to redeem into discounts for the subscription. A populated array overwrites the existing discounts on the subscription. If not specified or empty array, it leaves the subscription's discounts unchanged. If empty string, it clears the subscription's discounts.
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
@@ -900,13 +904,7 @@ module Stripe
     attr_accessor :on_behalf_of
     # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     attr_accessor :pause_collection
-    # Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://docs.stripe.com/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-    #
-    # Use `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://docs.stripe.com/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.
-    #
-    # Use `pending_if_incomplete` to update the subscription using [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://docs.stripe.com/billing/pending-updates-reference#supported-attributes).
-    #
-    # Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
+    # Controls how Stripe handles payment when a subscription update requires payment and `collection_method=charge_automatically`.
     attr_accessor :payment_behavior
     # Payment settings to pass to invoices created by the subscription.
     attr_accessor :payment_settings

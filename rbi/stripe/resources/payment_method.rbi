@@ -174,6 +174,14 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Bizum < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Blik < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1343,6 +1351,14 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Scalapay < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class SepaDebit < ::Stripe::StripeObject
       class GeneratedFrom < ::Stripe::StripeObject
         # The ID of the Charge that generated this PaymentMethod, if any.
@@ -1577,6 +1593,9 @@ module Stripe
     # Attribute for field billing_details
     sig { returns(BillingDetails) }
     def billing_details; end
+    # Attribute for field bizum
+    sig { returns(T.nilable(Bizum)) }
+    def bizum; end
     # Attribute for field blik
     sig { returns(T.nilable(Blik)) }
     def blik; end
@@ -1727,6 +1746,9 @@ module Stripe
     # Attribute for field satispay
     sig { returns(T.nilable(Satispay)) }
     def satispay; end
+    # Attribute for field scalapay
+    sig { returns(T.nilable(Scalapay)) }
+    def scalapay; end
     # Attribute for field sepa_debit
     sig { returns(T.nilable(SepaDebit)) }
     def sepa_debit; end

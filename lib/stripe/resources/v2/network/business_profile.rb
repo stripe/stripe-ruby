@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Network
-      # The Stripe profile represents a business' public identity on the Stripe network.
+      # The Stripe business profile represents a business' public identity on the Stripe network.
       class BusinessProfile < APIResource
         OBJECT_NAME = "v2.network.business_profile"
         def self.object_name
@@ -58,7 +58,7 @@ module Stripe
         attr_reader :branding
         # The description of the business.
         attr_reader :description
-        # The display name of the Stripe profile.
+        # The display name of the Stripe business profile.
         attr_reader :display_name
         # The ID of the Stripe business profile; also known as the Network ID. This is the ID used to identify the business on the Stripe network.
         attr_reader :id
@@ -68,7 +68,7 @@ module Stripe
         attr_reader :object
         # The URL of the business.
         attr_reader :url
-        # The username of the Stripe profile.
+        # The username of the Stripe business profile.
         attr_reader :username
 
         def self.inner_class_types

@@ -882,6 +882,18 @@ module Stripe
        }
       def self.expire(requested_session, params = {}, opts = {}); end
 
+      # Lists orders for a delegated checkout requested session.
+      sig {
+        params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionListOrdersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def list_orders(params = {}, opts = {}); end
+
+      # Lists orders for a delegated checkout requested session.
+      sig {
+        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionListOrdersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list_orders(requested_session, params = {}, opts = {}); end
+
       # Updates a requested session
       sig {
         params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

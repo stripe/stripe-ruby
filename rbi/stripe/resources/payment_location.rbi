@@ -84,7 +84,7 @@ module Stripe
     # Identification numbers associated with the location.
     sig { returns(T.nilable(BusinessRegistration)) }
     def business_registration; end
-    # The capability settings for the location. Only applicable for locations with requested Payment Location Capabilities.
+    # The capability settings for the location. Only applicable for locations with requested payment location capabilities.
     sig { returns(T.nilable(CapabilitySettings)) }
     def capability_settings; end
     # Always true for a deleted object

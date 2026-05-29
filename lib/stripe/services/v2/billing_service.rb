@@ -4,13 +4,14 @@
 module Stripe
   module V2
     class BillingService < StripeService
-      attr_reader :bill_settings, :cadences, :collection_settings, :custom_pricing_units, :intents, :license_fees, :licensed_items, :meter_events, :meter_event_adjustments, :meter_event_session, :meter_event_stream, :metered_items, :one_time_items, :pricing_plans, :pricing_plan_subscriptions, :profiles, :rate_cards, :rate_card_subscriptions, :service_actions
+      attr_reader :bill_settings, :cadences, :collection_settings, :contracts, :custom_pricing_units, :intents, :license_fees, :licensed_items, :meter_events, :meter_event_adjustments, :meter_event_session, :meter_event_stream, :metered_items, :one_time_items, :pricing_plans, :pricing_plan_subscriptions, :profiles, :rate_cards, :rate_card_subscriptions, :service_actions
 
       def initialize(requestor)
         super
         @bill_settings = Stripe::V2::Billing::BillSettingService.new(@requestor)
         @cadences = Stripe::V2::Billing::CadenceService.new(@requestor)
         @collection_settings = Stripe::V2::Billing::CollectionSettingService.new(@requestor)
+        @contracts = Stripe::V2::Billing::ContractService.new(@requestor)
         @custom_pricing_units = Stripe::V2::Billing::CustomPricingUnitService.new(@requestor)
         @intents = Stripe::V2::Billing::IntentService.new(@requestor)
         @license_fees = Stripe::V2::Billing::LicenseFeeService.new(@requestor)

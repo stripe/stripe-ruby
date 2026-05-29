@@ -5079,6 +5079,11 @@ module Stripe
                  }
                 def initialize(staged_purchase: nil); end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              sig { returns(T.nilable(String)) }
+              def digital_asset_category; end
+              sig { params(_digital_asset_category: T.nilable(String)).returns(T.nilable(String)) }
+              def digital_asset_category=(_digital_asset_category); end
               # Details for a liquid asset (crypto or security) funding transaction.
               sig {
                 returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
@@ -5098,9 +5103,9 @@ module Stripe
                }
               def wallet=(_wallet); end
               sig {
-                params(liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+                params(digital_asset_category: T.nilable(String), liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
                }
-              def initialize(liquid_asset: nil, wallet: nil); end
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil); end
             end
             # Payment method specific account funding transaction details.
             sig {
@@ -5579,6 +5584,11 @@ module Stripe
                  }
                 def initialize(staged_purchase: nil); end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              sig { returns(T.nilable(String)) }
+              def digital_asset_category; end
+              sig { params(_digital_asset_category: T.nilable(String)).returns(T.nilable(String)) }
+              def digital_asset_category=(_digital_asset_category); end
               # Details for a liquid asset (crypto or security) funding transaction.
               sig {
                 returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
@@ -5598,9 +5608,9 @@ module Stripe
                }
               def wallet=(_wallet); end
               sig {
-                params(liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+                params(digital_asset_category: T.nilable(String), liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
                }
-              def initialize(liquid_asset: nil, wallet: nil); end
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil); end
             end
             # Payment method specific account funding transaction details.
             sig {

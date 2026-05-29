@@ -160,7 +160,7 @@ module Stripe
         def recipient_verification; end
         sig { params(_recipient_verification: T.nilable(String)).returns(T.nilable(String)) }
         def recipient_verification=(_recipient_verification); end
-        # The description that appears on the receiving end for an OutboundPayment (for example, on a bank statement). Must be between 3 and 22 characters long, and not contain profanity.
+        # The description that appears on the receiving end for an OutboundPayment (for example, on a bank statement). Must be between 3 and 22 characters long for most destinations (500 for FinancialAccount destinations), and not contain profanity.
         sig { returns(T.nilable(String)) }
         def statement_descriptor; end
         sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }

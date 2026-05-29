@@ -1300,20 +1300,6 @@ module Stripe
            }
           def initialize(financial_connections: nil, verification_method: nil); end
         end
-        class WechatPay < ::Stripe::RequestParams
-          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
-          sig { returns(T.nilable(String)) }
-          def app_id; end
-          sig { params(_app_id: T.nilable(String)).returns(T.nilable(String)) }
-          def app_id=(_app_id); end
-          # The client type that the end customer will pay from.
-          sig { returns(T.nilable(String)) }
-          def client; end
-          sig { params(_client: T.nilable(String)).returns(T.nilable(String)) }
-          def client=(_client); end
-          sig { params(app_id: T.nilable(String), client: T.nilable(String)).void }
-          def initialize(app_id: nil, client: nil); end
-        end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
@@ -1440,17 +1426,8 @@ module Stripe
           params(_us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account=(_us_bank_account); end
-        # This sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay)))
-         }
-        def wechat_pay; end
-        sig {
-          params(_wechat_pay: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay)))
-         }
-        def wechat_pay=(_wechat_pay); end
-        sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), bizum: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), bizum: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(
           acss_debit: nil,
@@ -1466,8 +1443,7 @@ module Stripe
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil,
-          wechat_pay: nil
+          us_bank_account: nil
         ); end
       end
       # Payment-method-specific configuration to provide to invoices created by the subscription.

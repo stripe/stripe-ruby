@@ -5,6 +5,7 @@
 module Stripe
   module DelegatedCheckout
     class RequestedSessionService < StripeService
+      attr_reader :orders
       # Confirms a requested session
       sig {
         params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)

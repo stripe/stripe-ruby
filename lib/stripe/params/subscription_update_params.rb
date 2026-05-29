@@ -858,18 +858,6 @@ module Stripe
             @verification_method = verification_method
           end
         end
-
-        class WechatPay < ::Stripe::RequestParams
-          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
-          attr_accessor :app_id
-          # The client type that the end customer will pay from.
-          attr_accessor :client
-
-          def initialize(app_id: nil, client: nil)
-            @app_id = app_id
-            @client = client
-          end
-        end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
@@ -898,8 +886,6 @@ module Stripe
         attr_accessor :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
-        # This sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
-        attr_accessor :wechat_pay
 
         def initialize(
           acss_debit: nil,
@@ -915,8 +901,7 @@ module Stripe
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil,
-          wechat_pay: nil
+          us_bank_account: nil
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
@@ -932,7 +917,6 @@ module Stripe
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
-          @wechat_pay = wechat_pay
         end
       end
       # Payment-method-specific configuration to provide to invoices created by the subscription.

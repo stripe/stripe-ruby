@@ -62,6 +62,8 @@ module Stripe
         CustomerBalanceTransaction.object_name => CustomerBalanceTransaction,
         CustomerCashBalanceTransaction.object_name => CustomerCashBalanceTransaction,
         CustomerSession.object_name => CustomerSession,
+        DelegatedCheckout::Order.object_name => DelegatedCheckout::Order,
+        DelegatedCheckout::OrderEvent.object_name => DelegatedCheckout::OrderEvent,
         DelegatedCheckout::RequestedSession.object_name => DelegatedCheckout::RequestedSession,
         Discount.object_name => Discount,
         Dispute.object_name => Dispute,
@@ -219,6 +221,9 @@ module Stripe
         V2::Billing::CadenceSpendModifier.object_name => V2::Billing::CadenceSpendModifier,
         V2::Billing::CollectionSetting.object_name => V2::Billing::CollectionSetting,
         V2::Billing::CollectionSettingVersion.object_name => V2::Billing::CollectionSettingVersion,
+        V2::Billing::Contract.object_name => V2::Billing::Contract,
+        V2::Billing::ContractLicensePricingQuantityChange.object_name =>
+        V2::Billing::ContractLicensePricingQuantityChange,
         V2::Billing::CustomPricingUnit.object_name => V2::Billing::CustomPricingUnit,
         V2::Billing::Intent.object_name => V2::Billing::Intent,
         V2::Billing::IntentAction.object_name => V2::Billing::IntentAction,

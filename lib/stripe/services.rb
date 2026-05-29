@@ -162,6 +162,7 @@ module Stripe
   end
 
   module DelegatedCheckout
+    autoload :RequestedSessionOrderService, "stripe/services/delegated_checkout/requested_session_order_service"
     autoload :RequestedSessionService, "stripe/services/delegated_checkout/requested_session_service"
   end
 
@@ -343,6 +344,7 @@ module Stripe
       autoload :BillSettingService, "stripe/services/v2/billing/bill_setting_service"
       autoload :CadenceService, "stripe/services/v2/billing/cadence_service"
       autoload :CollectionSettingService, "stripe/services/v2/billing/collection_setting_service"
+      autoload :ContractService, "stripe/services/v2/billing/contract_service"
       autoload :CustomPricingUnitService, "stripe/services/v2/billing/custom_pricing_unit_service"
       autoload :IntentService, "stripe/services/v2/billing/intent_service"
       autoload :LicensedItemService, "stripe/services/v2/billing/licensed_item_service"
@@ -370,6 +372,15 @@ module Stripe
 
       module CollectionSettings
         autoload :VersionService, "stripe/services/v2/billing/collection_settings/version_service"
+      end
+
+      module Contracts
+        autoload :LicensePricingService, "stripe/services/v2/billing/contracts/license_pricing_service"
+
+        module LicensePricing
+          autoload :QuantityChangeService,
+                   "stripe/services/v2/billing/contracts/license_pricing/quantity_change_service"
+        end
       end
 
       module Intents
@@ -570,6 +581,7 @@ module Stripe
     stripe/services/customer_service
     stripe/services/customer_session_service
     stripe/services/customer_tax_id_service
+    stripe/services/delegated_checkout/requested_session_order_service
     stripe/services/delegated_checkout/requested_session_service
     stripe/services/delegated_checkout_service
     stripe/services/dispute_service
@@ -746,6 +758,9 @@ module Stripe
     stripe/services/v2/billing/cadences/spend_modifier_rule_service
     stripe/services/v2/billing/collection_setting_service
     stripe/services/v2/billing/collection_settings/version_service
+    stripe/services/v2/billing/contract_service
+    stripe/services/v2/billing/contracts/license_pricing/quantity_change_service
+    stripe/services/v2/billing/contracts/license_pricing_service
     stripe/services/v2/billing/custom_pricing_unit_service
     stripe/services/v2/billing/intent_service
     stripe/services/v2/billing/intents/action_service

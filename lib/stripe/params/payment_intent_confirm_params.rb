@@ -3332,12 +3332,15 @@ module Stripe
                   @staged_purchase = staged_purchase
                 end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_accessor :digital_asset_category
               # Details for a liquid asset (crypto or security) funding transaction.
               attr_accessor :liquid_asset
               # Details for a wallet funding transaction.
               attr_accessor :wallet
 
-              def initialize(liquid_asset: nil, wallet: nil)
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil)
+                @digital_asset_category = digital_asset_category
                 @liquid_asset = liquid_asset
                 @wallet = wallet
               end
@@ -3640,12 +3643,15 @@ module Stripe
                   @staged_purchase = staged_purchase
                 end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_accessor :digital_asset_category
               # Details for a liquid asset (crypto or security) funding transaction.
               attr_accessor :liquid_asset
               # Details for a wallet funding transaction.
               attr_accessor :wallet
 
-              def initialize(liquid_asset: nil, wallet: nil)
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil)
+                @digital_asset_category = digital_asset_category
                 @liquid_asset = liquid_asset
                 @wallet = wallet
               end

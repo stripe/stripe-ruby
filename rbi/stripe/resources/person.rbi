@@ -121,6 +121,32 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class BirthAddress < ::Stripe::StripeObject
+      # City, district, suburb, town, or village.
+      sig { returns(T.nilable(String)) }
+      def city; end
+      # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+      sig { returns(T.nilable(String)) }
+      def country; end
+      # Address line 1, such as the street, PO Box, or company name.
+      sig { returns(T.nilable(String)) }
+      def line1; end
+      # Address line 2, such as the apartment, suite, unit, or building.
+      sig { returns(T.nilable(String)) }
+      def line2; end
+      # ZIP or postal code.
+      sig { returns(T.nilable(String)) }
+      def postal_code; end
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+      sig { returns(T.nilable(String)) }
+      def state; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Dob < ::Stripe::StripeObject
       # The day of birth, between 1 and 31.
       sig { returns(T.nilable(Integer)) }
@@ -461,6 +487,9 @@ module Stripe
     # The Kanji variation of the person's address (Japan only).
     sig { returns(T.nilable(AddressKanji)) }
     def address_kanji; end
+    # Attribute for field birth_address
+    sig { returns(T.nilable(BirthAddress)) }
+    def birth_address; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end

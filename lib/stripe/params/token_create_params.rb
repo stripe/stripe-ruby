@@ -389,6 +389,37 @@ module Stripe
           end
         end
 
+        class BirthAddress < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+
         class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           attr_accessor :day
@@ -526,6 +557,8 @@ module Stripe
         attr_accessor :address_kana
         # The Kanji variation of the individual's primary address (Japan only).
         attr_accessor :address_kanji
+        # Attribute for param field birth_address
+        attr_accessor :birth_address
         # The individual's date of birth.
         attr_accessor :dob
         # The individual's email address.
@@ -575,6 +608,7 @@ module Stripe
           address: nil,
           address_kana: nil,
           address_kanji: nil,
+          birth_address: nil,
           dob: nil,
           email: nil,
           first_name: nil,
@@ -601,6 +635,7 @@ module Stripe
           @address = address
           @address_kana = address_kana
           @address_kanji = address_kanji
+          @birth_address = birth_address
           @dob = dob
           @email = email
           @first_name = first_name
@@ -882,6 +917,37 @@ module Stripe
         end
       end
 
+      class BirthAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        attr_accessor :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_accessor :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_accessor :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_accessor :line2
+        # ZIP or postal code.
+        attr_accessor :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_accessor :state
+
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        )
+          @city = city
+          @country = country
+          @line1 = line1
+          @line2 = line2
+          @postal_code = postal_code
+          @state = state
+        end
+      end
+
       class Dob < ::Stripe::RequestParams
         # The day of birth, between 1 and 31.
         attr_accessor :day
@@ -1112,6 +1178,8 @@ module Stripe
       attr_accessor :address_kana
       # The Kanji variation of the person's address (Japan only).
       attr_accessor :address_kanji
+      # The person's place of birth.
+      attr_accessor :birth_address
       # The person's date of birth.
       attr_accessor :dob
       # Documents that may be submitted to satisfy various informational requests.
@@ -1168,6 +1236,7 @@ module Stripe
         address: nil,
         address_kana: nil,
         address_kanji: nil,
+        birth_address: nil,
         dob: nil,
         documents: nil,
         email: nil,
@@ -1198,6 +1267,7 @@ module Stripe
         @address = address
         @address_kana = address_kana
         @address_kanji = address_kanji
+        @birth_address = birth_address
         @dob = dob
         @documents = documents
         @email = email

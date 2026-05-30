@@ -154,7 +154,7 @@ See [versioning in the API reference][versioning] for more information.
 
 ### Configuring CA Bundles
 
-By default, the library will use its own internal bundle of known CA
+By default, the library will use the system bundle of known CA
 certificates, but it's possible to configure your own:
 
 ```ruby
@@ -414,13 +414,6 @@ Run the linter:
 ```sh
 just lint
 # or: bundle exec rubocop
-```
-
-Update bundled CA certificates from the [Mozilla cURL release][curl]:
-
-```sh
-just update-certs
-# or: bundle exec rake update_certs
 ```
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys

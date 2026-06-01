@@ -7,6 +7,22 @@ module Stripe
     module Core
       # A FeeEntry is the atomic, append-only record of an assessed fee.
       class FeeEntry < APIResource
+        class Amount < ::Stripe::StripeObject
+          # A lowercase alpha3 currency code like "usd"
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          sig { returns(String) }
+          def currency; end
+          # In major units like "1.23" for 1.23 USD
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class ChargedBy < ::Stripe::StripeObject
           class Application < ::Stripe::StripeObject
             # Human-readable product name, e.g. "Card payments - Stripe fee".
@@ -81,18 +97,34 @@ module Stripe
           end
         end
         class Tax < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def currency; end
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The tax amount calculated for this fee.
-          sig { returns(::Stripe::V2::Amount) }
+          sig { returns(Amount) }
           def amount; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {amount: Amount}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         # The fee amount.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(Amount) }
         def amount; end
         # The entity that assessed this fee.
         sig { returns(ChargedBy) }

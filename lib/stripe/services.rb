@@ -162,6 +162,7 @@ module Stripe
   end
 
   module DelegatedCheckout
+    autoload :OrderService, "stripe/services/delegated_checkout/order_service"
     autoload :RequestedSessionOrderService, "stripe/services/delegated_checkout/requested_session_order_service"
     autoload :RequestedSessionService, "stripe/services/delegated_checkout/requested_session_service"
   end
@@ -337,6 +338,7 @@ module Stripe
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
     autoload :PaymentService, "stripe/services/v2/payment_service"
     autoload :ReportingService, "stripe/services/v2/reporting_service"
+    autoload :SignalService, "stripe/services/v2/signal_service"
     autoload :TaxService, "stripe/services/v2/tax_service"
     autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
@@ -508,6 +510,10 @@ module Stripe
       autoload :ReportService, "stripe/services/v2/reporting/report_service"
     end
 
+    module Signals
+      autoload :AccountSignalService, "stripe/services/v2/signals/account_signal_service"
+    end
+
     module Tax
       autoload :ManualRuleService, "stripe/services/v2/tax/manual_rule_service"
     end
@@ -581,6 +587,7 @@ module Stripe
     stripe/services/customer_service
     stripe/services/customer_session_service
     stripe/services/customer_tax_id_service
+    stripe/services/delegated_checkout/order_service
     stripe/services/delegated_checkout/requested_session_order_service
     stripe/services/delegated_checkout/requested_session_service
     stripe/services/delegated_checkout_service
@@ -847,6 +854,8 @@ module Stripe
     stripe/services/v2/reporting/report_run_service
     stripe/services/v2/reporting/report_service
     stripe/services/v2/reporting_service
+    stripe/services/v2/signal_service
+    stripe/services/v2/signals/account_signal_service
     stripe/services/v2/tax/manual_rule_service
     stripe/services/v2/tax_service
     stripe/services/v2/test_helper_service

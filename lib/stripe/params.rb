@@ -456,6 +456,7 @@ module Stripe
   end
 
   module DelegatedCheckout
+    autoload :OrderRetrieveParams, "stripe/params/delegated_checkout/order_retrieve_params"
     autoload :RequestedSessionConfirmParams, "stripe/params/delegated_checkout/requested_session_confirm_params"
     autoload :RequestedSessionCreateParams, "stripe/params/delegated_checkout/requested_session_create_params"
     autoload :RequestedSessionExpireParams, "stripe/params/delegated_checkout/requested_session_expire_params"
@@ -1224,6 +1225,11 @@ module Stripe
       autoload :ReportRunRetrieveParams, "stripe/params/v2/reporting/report_run_retrieve_params"
     end
 
+    module Signals
+      autoload :AccountSignalListParams, "stripe/params/v2/signals/account_signal_list_params"
+      autoload :AccountSignalRetrieveParams, "stripe/params/v2/signals/account_signal_retrieve_params"
+    end
+
     module Tax
       autoload :ManualRuleCreateParams, "stripe/params/v2/tax/manual_rule_create_params"
       autoload :ManualRuleDeactivateParams, "stripe/params/v2/tax/manual_rule_deactivate_params"
@@ -1405,6 +1411,7 @@ module Stripe
     stripe/params/customer_tax_id_list_params
     stripe/params/customer_tax_id_retrieve_params
     stripe/params/customer_update_params
+    stripe/params/delegated_checkout/order_retrieve_params
     stripe/params/delegated_checkout/requested_session_confirm_params
     stripe/params/delegated_checkout/requested_session_create_params
     stripe/params/delegated_checkout/requested_session_expire_params
@@ -2227,6 +2234,8 @@ module Stripe
     stripe/params/v2/reporting/report_retrieve_params
     stripe/params/v2/reporting/report_run_create_params
     stripe/params/v2/reporting/report_run_retrieve_params
+    stripe/params/v2/signals/account_signal_list_params
+    stripe/params/v2/signals/account_signal_retrieve_params
     stripe/params/v2/tax/manual_rule_create_params
     stripe/params/v2/tax/manual_rule_deactivate_params
     stripe/params/v2/tax/manual_rule_list_params

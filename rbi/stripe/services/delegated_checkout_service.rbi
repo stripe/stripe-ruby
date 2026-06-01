@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   class DelegatedCheckoutService < StripeService
+    attr_reader :orders
     attr_reader :requested_sessions
   end
 end

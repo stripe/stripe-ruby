@@ -1275,6 +1275,10 @@ module Stripe
              "stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event"
     autoload :V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
              "stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event"
+    autoload :V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
+             "stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event"
+    autoload :V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+             "stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event"
   end
 
   module FinancialConnections
@@ -1524,6 +1528,10 @@ module Stripe
     module Reporting
       autoload :Report, "stripe/resources/v2/reporting/report"
       autoload :ReportRun, "stripe/resources/v2/reporting/report_run"
+    end
+
+    module Signals
+      autoload :AccountSignal, "stripe/resources/v2/signals/account_signal"
     end
 
     module Tax
@@ -1809,6 +1817,7 @@ module Stripe
     stripe/resources/v2/payments/settlement_allocation_intent_split
     stripe/resources/v2/reporting/report
     stripe/resources/v2/reporting/report_run
+    stripe/resources/v2/signals/account_signal
     stripe/resources/v2/tax/manual_rule
     stripe/resources/webhook_endpoint
     stripe/events/v1_account_application_authorized_event
@@ -2217,6 +2226,7 @@ module Stripe
     stripe/events/v2_reporting_report_run_succeeded_event
     stripe/events/v2_reporting_report_run_updated_event
     stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event
+    stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event
   ].freeze
   # rubocop:enable Metrics/CollectionLiteralLength
 end

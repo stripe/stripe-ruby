@@ -9,9 +9,41 @@ module Stripe
       # It bridges the fee domain with actual money movement, tracking what was settled and how.
       class FeeBatch < APIResource
         class Adjustments < ::Stripe::StripeObject
+          class TaxAdjustment < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def currency; end
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The amount of tax adjusted for this batch.
-          sig { returns(T.nilable(::Stripe::V2::Amount)) }
+          sig { returns(T.nilable(TaxAdjustment)) }
           def tax_adjustment; end
+          def self.inner_class_types
+            @inner_class_types = {tax_adjustment: TaxAdjustment}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Amount < ::Stripe::StripeObject
+          # A lowercase alpha3 currency code like "usd"
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          sig { returns(String) }
+          def currency; end
+          # In major units like "1.23" for 1.23 USD
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          sig { returns(String) }
+          def value; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -31,10 +63,15 @@ module Stripe
           end
         end
         class CollectionRecord < ::Stripe::StripeObject
-          class Tax < ::Stripe::StripeObject
-            # The tax amount collected via this record.
-            sig { returns(::Stripe::V2::Amount) }
-            def amount; end
+          class Amount < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def currency; end
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def value; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -42,8 +79,35 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Tax < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # A lowercase alpha3 currency code like "usd"
+              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              sig { returns(String) }
+              def currency; end
+              # In major units like "1.23" for 1.23 USD
+              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              sig { returns(String) }
+              def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The tax amount collected via this record.
+            sig { returns(Amount) }
+            def amount; end
+            def self.inner_class_types
+              @inner_class_types = {amount: Amount}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The fee amount collected via this record.
-          sig { returns(::Stripe::V2::Amount) }
+          sig { returns(Amount) }
           def amount; end
           # The ID of the associated v1 balance transaction.
           sig { returns(T.nilable(String)) }
@@ -64,7 +128,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {tax: Tax}
+            @inner_class_types = {amount: Amount, tax: Tax}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -82,11 +146,27 @@ module Stripe
           end
         end
         class Tax < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def currency; end
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The tax amount included in this batch.
-          sig { returns(::Stripe::V2::Amount) }
+          sig { returns(Amount) }
           def amount; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {amount: Amount}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -96,7 +176,7 @@ module Stripe
         sig { returns(T.nilable(Adjustments)) }
         def adjustments; end
         # The total fee amount billed in this batch.
-        sig { returns(::Stripe::V2::Amount) }
+        sig { returns(Amount) }
         def amount; end
         # The entity that collected this batch.
         sig { returns(CollectedBy) }

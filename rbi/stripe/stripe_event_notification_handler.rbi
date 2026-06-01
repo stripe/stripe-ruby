@@ -2473,6 +2473,12 @@ module Stripe
     def on_v2_signals_account_signal_fraudulent_merchant_ready(&blk);
     end
     
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_account_signal_merchant_delinquency_ready(&blk);
+    end
+    
     
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end

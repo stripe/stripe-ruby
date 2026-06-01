@@ -11,6 +11,23 @@ module Stripe
           "v2.core.fee_entry"
         end
 
+        class Amount < ::Stripe::StripeObject
+          # A lowercase alpha3 currency code like "usd"
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          attr_reader :currency
+          # In major units like "1.23" for 1.23 USD
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class ChargedBy < ::Stripe::StripeObject
           class Application < ::Stripe::StripeObject
             # Human-readable product name, e.g. "Card payments - Stripe fee".
@@ -88,11 +105,27 @@ module Stripe
         end
 
         class Tax < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :currency
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The tax amount calculated for this fee.
           attr_reader :amount
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { amount: Amount }
           end
 
           def self.field_remappings
@@ -123,7 +156,12 @@ module Stripe
         attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = { charged_by: ChargedBy, incurred_by: IncurredBy, tax: Tax }
+          @inner_class_types = {
+            amount: Amount,
+            charged_by: ChargedBy,
+            incurred_by: IncurredBy,
+            tax: Tax,
+          }
         end
 
         def self.field_remappings

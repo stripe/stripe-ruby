@@ -302,6 +302,7 @@ module Stripe
         V2::Payments::SettlementAllocationIntentSplit,
         V2::Reporting::Report.object_name => V2::Reporting::Report,
         V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
+        V2::Signals::AccountSignal.object_name => V2::Signals::AccountSignal,
         V2::Tax::ManualRule.object_name => V2::Tax::ManualRule,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }

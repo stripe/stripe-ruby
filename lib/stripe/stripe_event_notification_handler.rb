@@ -2509,6 +2509,12 @@ module Stripe
 
       register("v2.signals.account_signal.fraudulent_merchant_ready", &handler)
     end
+
+    def on_v2_signals_account_signal_merchant_delinquency_ready(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.signals.account_signal.merchant_delinquency_ready", &handler)
+    end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end
 end

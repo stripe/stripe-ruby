@@ -3274,12 +3274,14 @@ module Stripe
          }
         def account_funding=(_account_funding); end
         # The type of money services transaction.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.any(String, String))) }
         def transaction_type; end
-        sig { params(_transaction_type: T.nilable(String)).returns(T.nilable(String)) }
+        sig {
+          params(_transaction_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+         }
         def transaction_type=(_transaction_type); end
         sig {
-          params(account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails::MoneyServices::AccountFunding)), transaction_type: T.nilable(String)).void
+          params(account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails::MoneyServices::AccountFunding)), transaction_type: T.nilable(T.any(String, String))).void
          }
         def initialize(account_funding: nil, transaction_type: nil); end
       end

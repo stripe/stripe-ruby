@@ -4884,6 +4884,20 @@ module Stripe
         def initialize(expires_after_days: nil, setup_future_usage: nil); end
       end
       class Card < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          sig { params(_days: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days=(_days); end
+          # Attribute for param field hours
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          sig { params(_hours: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def hours=(_hours); end
+          sig { params(days: T.nilable(Integer), hours: T.nilable(Integer)).void }
+          def initialize(days: nil, hours: nil); end
+        end
         class Installments < ::Stripe::RequestParams
           class Plan < ::Stripe::RequestParams
             # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
@@ -5313,6 +5327,24 @@ module Stripe
             version: nil
           ); end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        sig { params(_capture_by: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_by=(_capture_by); end
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay))
+         }
+        def capture_delay; end
+        sig {
+          params(_capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay))
+         }
+        def capture_delay=(_capture_delay); end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -5470,9 +5502,11 @@ module Stripe
          }
         def three_d_secure=(_three_d_secure); end
         sig {
-          params(capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_partial_authorization: T.nilable(String), request_reauthorization: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), statement_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::StatementDetails)), three_d_secure: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::ThreeDSecure)).void
+          params(capture_by: T.nilable(String), capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay), capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_partial_authorization: T.nilable(String), request_reauthorization: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), statement_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::StatementDetails)), three_d_secure: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::ThreeDSecure)).void
          }
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
           cvc_token: nil,
           installments: nil,
@@ -5497,6 +5531,20 @@ module Stripe
         ); end
       end
       class CardPresent < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          sig { params(_days: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days=(_days); end
+          # Attribute for param field hours
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          sig { params(_hours: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def hours=(_hours); end
+          sig { params(days: T.nilable(Integer), hours: T.nilable(Integer)).void }
+          def initialize(days: nil, hours: nil); end
+        end
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
@@ -5651,6 +5699,24 @@ module Stripe
           sig { params(requested_priority: T.nilable(String)).void }
           def initialize(requested_priority: nil); end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        sig { params(_capture_by: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_by=(_capture_by); end
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay))
+         }
+        def capture_delay; end
+        sig {
+          params(_capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay))
+         }
+        def capture_delay=(_capture_delay); end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -5700,9 +5766,11 @@ module Stripe
          }
         def routing=(_routing); end
         sig {
-          params(capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails), request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), request_reauthorization: T.nilable(String), routing: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::Routing)).void
+          params(capture_by: T.nilable(String), capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay), capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails), request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), request_reauthorization: T.nilable(String), routing: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::Routing)).void
          }
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
           payment_details: nil,
           request_extended_authorization: nil,

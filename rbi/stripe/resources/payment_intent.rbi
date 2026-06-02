@@ -3558,6 +3558,24 @@ module Stripe
         end
       end
       class Card < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Installments < ::Stripe::StripeObject
           class AvailablePlan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
@@ -3686,6 +3704,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        # Attribute for field capture_delay
+        sig { returns(T.nilable(CaptureDelay)) }
+        def capture_delay; end
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
@@ -3747,6 +3773,7 @@ module Stripe
         def statement_details; end
         def self.inner_class_types
           @inner_class_types = {
+            capture_delay: CaptureDelay,
             installments: Installments,
             mandate_options: MandateOptions,
             statement_details: StatementDetails,
@@ -3757,6 +3784,24 @@ module Stripe
         end
       end
       class CardPresent < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           sig { returns(T.nilable(String)) }
@@ -3768,6 +3813,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        # Attribute for field capture_delay
+        sig { returns(T.nilable(CaptureDelay)) }
+        def capture_delay; end
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
@@ -3784,7 +3837,7 @@ module Stripe
         sig { returns(T.nilable(Routing)) }
         def routing; end
         def self.inner_class_types
-          @inner_class_types = {routing: Routing}
+          @inner_class_types = {capture_delay: CaptureDelay, routing: Routing}
         end
         def self.field_remappings
           @field_remappings = {}

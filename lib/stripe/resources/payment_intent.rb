@@ -3349,6 +3349,25 @@ module Stripe
       end
 
       class Card < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :days
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :hours
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Installments < ::Stripe::StripeObject
           class AvailablePlan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
@@ -3466,6 +3485,12 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_reader :capture_by
+        # Attribute for field capture_delay
+        attr_reader :capture_delay
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Installment details for this payment.
@@ -3511,6 +3536,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            capture_delay: CaptureDelay,
             installments: Installments,
             mandate_options: MandateOptions,
             statement_details: StatementDetails,
@@ -3523,6 +3549,25 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :days
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :hours
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           attr_reader :requested_priority
@@ -3535,6 +3580,12 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_reader :capture_by
+        # Attribute for field capture_delay
+        attr_reader :capture_delay
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
@@ -3547,7 +3598,7 @@ module Stripe
         attr_reader :routing
 
         def self.inner_class_types
-          @inner_class_types = { routing: Routing }
+          @inner_class_types = { capture_delay: CaptureDelay, routing: Routing }
         end
 
         def self.field_remappings

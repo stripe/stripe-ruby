@@ -9701,7 +9701,7 @@ module Stripe
     end
     should "Test v2 core fee batch get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/fee_batches").to_return(
-        body: '{"data":[{"object":"v2.core.fee_batch","amount":{"currency":"usd","value":"value"},"collected_by":{"type":"application"},"collection_records":[{"amount":{"currency":"usd","value":"value"},"type":"money_management_transaction"}],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"status":"billed","status_transitions":{}}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.fee_batch","amount":{"currency":"USD","value":96},"collected_by":{"type":"application"},"collection_records":[{"amount":{"currency":"USD","value":96},"type":"money_management_transaction"}],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"status":"billed","status_transitions":{}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9711,7 +9711,7 @@ module Stripe
     end
     should "Test v2 core fee batch get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/fee_batches/id_123").to_return(
-        body: '{"object":"v2.core.fee_batch","amount":{"currency":"usd","value":"value"},"collected_by":{"type":"application"},"collection_records":[{"amount":{"currency":"usd","value":"value"},"type":"money_management_transaction"}],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"status":"billed","status_transitions":{}}',
+        body: '{"object":"v2.core.fee_batch","amount":{"currency":"USD","value":96},"collected_by":{"type":"application"},"collection_records":[{"amount":{"currency":"USD","value":96},"type":"money_management_transaction"}],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"status":"billed","status_transitions":{}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9721,7 +9721,7 @@ module Stripe
     end
     should "Test v2 core fee entry get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/fee_entries").to_return(
-        body: '{"data":[{"object":"v2.core.fee_entry","amount":{"currency":"usd","value":"value"},"charged_by":{"type":"application"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","incurred_by":{"id":"obj_123","type":"type"},"livemode":true,"reason":"reprice","type":"application_fee"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.fee_entry","amount":{"currency":"USD","value":96},"charged_by":{"type":"application"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","incurred_by":{"id":"obj_123","type":"type"},"livemode":true,"reason":"reprice","type":"application_fee"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9731,7 +9731,7 @@ module Stripe
     end
     should "Test v2 core fee entry get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/fee_entries/id_123").to_return(
-        body: '{"object":"v2.core.fee_entry","amount":{"currency":"usd","value":"value"},"charged_by":{"type":"application"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","incurred_by":{"id":"obj_123","type":"type"},"livemode":true,"reason":"reprice","type":"application_fee"}',
+        body: '{"object":"v2.core.fee_entry","amount":{"currency":"USD","value":96},"charged_by":{"type":"application"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","incurred_by":{"id":"obj_123","type":"type"},"livemode":true,"reason":"reprice","type":"application_fee"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

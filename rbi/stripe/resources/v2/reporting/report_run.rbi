@@ -25,17 +25,34 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class Schema < ::Stripe::StripeObject
+              # The name of the column.
+              sig { returns(String) }
+              def name; end
+              # The type of the column.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # The content type of the file.
             sig { returns(String) }
             def content_type; end
             # A pre-signed URL that allows secure, time-limited access to download the file.
             sig { returns(DownloadUrl) }
             def download_url; end
+            # The columns of the schema.
+            sig { returns(T::Array[Schema]) }
+            def schema; end
             # The total size of the file in bytes.
             sig { returns(Integer) }
             def size; end
             def self.inner_class_types
-              @inner_class_types = {download_url: DownloadUrl}
+              @inner_class_types = {download_url: DownloadUrl, schema: Schema}
             end
             def self.field_remappings
               @field_remappings = {}

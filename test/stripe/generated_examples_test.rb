@@ -7778,6 +7778,244 @@ module Stripe
       )
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/collection_settings/collection_setting_id_123/versions/id_123"
     end
+    should "Test v2 billing contract get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts").to_return(
+        body: '{"data":[{"object":"v2.billing.contract","contract_line_details":[{"contract_line":"contract_line","contract_line_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"service_action"}],"pricing":{},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"contract_number":"contract_number","contract_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","customer":"customer","id":"obj_123","license_quantities":[{"license_pricing_id":"license_pricing_id","license_pricing_type":"price","pricing_line":"pricing_line","quantity":1285004149}],"livemode":true,"pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing":{"type":"price"},"pricing_line":"pricing_line","starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing_override":"pricing_override","priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"multiplier"}],"status":"draft","status_details":{}}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      contracts = client.v2.billing.contracts.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts"
+    end
+    should "Test v2 billing contract post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts").to_return(
+        body: '{"object":"v2.billing.contract","contract_line_details":[{"contract_line":"contract_line","contract_line_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"service_action"}],"pricing":{},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"contract_number":"contract_number","contract_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","customer":"customer","id":"obj_123","license_quantities":[{"license_pricing_id":"license_pricing_id","license_pricing_type":"price","pricing_line":"pricing_line","quantity":1285004149}],"livemode":true,"pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing":{"type":"price"},"pricing_line":"pricing_line","starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing_override":"pricing_override","priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"multiplier"}],"status":"draft","status_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      contract = client.v2.billing.contracts.create({
+        contract_lines: [
+          {
+            ends_at: { timestamp: "1970-01-01T15:18:46.294Z" },
+            metadata: { key: "metadata" },
+            overrides: [
+              {
+                ends_at: { timestamp: "1970-01-01T15:18:46.294Z" },
+                service_action: {
+                  add: {
+                    credit_grant: {
+                      amount: {
+                        monetary: {
+                          currency: "USD",
+                          value: 63,
+                        },
+                        type: "monetary",
+                      },
+                      applicability_config: {
+                        scope: {
+                          billable_items: ["billable_items"],
+                          price_type: "metered",
+                        },
+                      },
+                      category: "paid",
+                      expiry_config: { type: "end_of_service_period" },
+                      name: "name",
+                      priority: 1_165_461_084,
+                    },
+                    service_interval: "month",
+                    service_interval_count: 1_375_336_415,
+                    type: "credit_grant",
+                  },
+                  replace: {
+                    credit_grant: {
+                      amount: {
+                        monetary: {
+                          currency: "USD",
+                          value: 63,
+                        },
+                        type: "monetary",
+                      },
+                      applicability_config: {
+                        scope: {
+                          billable_items: ["billable_items"],
+                          price_type: "metered",
+                        },
+                      },
+                      category: "paid",
+                      expiry_config: { type: "end_of_service_period" },
+                      name: "name",
+                      priority: 1_165_461_084,
+                    },
+                    id: "obj_123",
+                    lookup_key: "lookup_key",
+                    service_interval: "month",
+                    service_interval_count: 1_375_336_415,
+                    type: "credit_grant",
+                  },
+                  type: "add",
+                },
+                starts_at: { timestamp: "1970-01-01T15:18:46.294Z" },
+                type: "service_action",
+              },
+            ],
+            pricing: {},
+            starts_at: { timestamp: "1970-01-01T15:18:46.294Z" },
+          },
+        ],
+        contract_number: "contract_number",
+        currency: "usd",
+        license_quantity_actions: [
+          {
+            effective_at: {
+              timestamp: "1970-01-01T15:18:46.294Z",
+              type: "timestamp",
+            },
+            license_pricing_id: "license_pricing_id",
+            license_pricing_lookup_key: "license_pricing_lookup_key",
+            license_pricing_type: "price",
+            pricing_line: "pricing_line",
+            set: { quantity: 1_285_004_149 },
+            type: "set",
+          },
+        ],
+        pricing_lines: [
+          {
+            ends_at: {
+              timestamp: "1970-01-01T15:18:46.294Z",
+              type: "contract_end",
+            },
+            lookup_key: "lookup_key",
+            metadata: { key: "metadata" },
+            pricing: {
+              price_details: {
+                price: "price",
+                quantity: 1_285_004_149,
+              },
+              type: "price",
+            },
+            starts_at: {
+              timestamp: "1970-01-01T15:18:46.294Z",
+              type: "contract_start",
+            },
+          },
+        ],
+        pricing_overrides: [
+          {
+            ends_at: {
+              timestamp: "1970-01-01T15:18:46.294Z",
+              type: "contract_end",
+            },
+            lookup_key: "lookup_key",
+            multiplier: {
+              criteria: [
+                {
+                  billable_item_ids: ["billable_item_ids"],
+                  billable_item_lookup_keys: ["billable_item_lookup_keys"],
+                  billable_item_types: ["metered"],
+                  metadata_conditions: [
+                    {
+                      all_of: [
+                        {
+                          key: "key",
+                          value: "value",
+                        },
+                      ],
+                    },
+                  ],
+                  rate_card_ids: ["rate_card_ids"],
+                  type: "exclude",
+                },
+              ],
+              factor: "factor",
+            },
+            overwrite_price: {
+              price: "price",
+              tiering_mode: "graduated",
+              tiers: [
+                {
+                  flat_amount: "flat_amount",
+                  unit_amount: "unit_amount",
+                  up_to_decimal: "1387931359.3333333",
+                  up_to_inf: "inf",
+                },
+              ],
+              unit_amount: "unit_amount",
+            },
+            priority: 1_165_461_084,
+            starts_at: {
+              timestamp: "1970-01-01T15:18:46.294Z",
+              type: "contract_start",
+            },
+            type: "multiplier",
+          },
+        ],
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts"
+    end
+    should "Test v2 billing contract get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123").to_return(
+        body: '{"object":"v2.billing.contract","contract_line_details":[{"contract_line":"contract_line","contract_line_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"service_action"}],"pricing":{},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"contract_number":"contract_number","contract_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","customer":"customer","id":"obj_123","license_quantities":[{"license_pricing_id":"license_pricing_id","license_pricing_type":"price","pricing_line":"pricing_line","quantity":1285004149}],"livemode":true,"pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing":{"type":"price"},"pricing_line":"pricing_line","starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing_override":"pricing_override","priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"multiplier"}],"status":"draft","status_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      contract = client.v2.billing.contracts.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123"
+    end
+    should "Test v2 billing contract post 2 (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123").to_return(
+        body: '{"object":"v2.billing.contract","contract_line_details":[{"contract_line":"contract_line","contract_line_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"service_action"}],"pricing":{},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"contract_number":"contract_number","contract_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","customer":"customer","id":"obj_123","license_quantities":[{"license_pricing_id":"license_pricing_id","license_pricing_type":"price","pricing_line":"pricing_line","quantity":1285004149}],"livemode":true,"pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing":{"type":"price"},"pricing_line":"pricing_line","starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing_override":"pricing_override","priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"multiplier"}],"status":"draft","status_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      contract = client.v2.billing.contracts.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123"
+    end
+    should "Test v2 billing contract post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123/activate"
+      ).to_return(
+        body: '{"object":"v2.billing.contract","contract_line_details":[{"contract_line":"contract_line","contract_line_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"service_action"}],"pricing":{},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"contract_number":"contract_number","contract_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","customer":"customer","id":"obj_123","license_quantities":[{"license_pricing_id":"license_pricing_id","license_pricing_type":"price","pricing_line":"pricing_line","quantity":1285004149}],"livemode":true,"pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing":{"type":"price"},"pricing_line":"pricing_line","starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing_override":"pricing_override","priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"multiplier"}],"status":"draft","status_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      contract = client.v2.billing.contracts.activate("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123/activate"
+    end
+    should "Test v2 billing contract post 4 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123/cancel"
+      ).to_return(
+        body: '{"object":"v2.billing.contract","contract_line_details":[{"contract_line":"contract_line","contract_line_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"service_action"}],"pricing":{},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"contract_number":"contract_number","contract_value_details":{"total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","customer":"customer","id":"obj_123","license_quantities":[{"license_pricing_id":"license_pricing_id","license_pricing_type":"price","pricing_line":"pricing_line","quantity":1285004149}],"livemode":true,"pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing":{"type":"price"},"pricing_line":"pricing_line","starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"}}],"pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"pricing_override":"pricing_override","priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z"},"type":"multiplier"}],"status":"draft","status_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      contract = client.v2.billing.contracts.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/id_123/cancel"
+    end
+    should "Test v2 billing contracts license pricing quantity change get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/contract_id_123/license_pricing/license_pricing_id_123/quantity_changes"
+      ).to_return(
+        body: '{"data":[{"object":"v2.billing.contract_license_pricing_quantity_change","created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","license_pricing_id":"license_pricing_id","license_pricing_type":"price","livemode":true,"pricing_line":"pricing_line","quantity":1285004149}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      contract_license_pricing_quantity_changes = client.v2.billing.contracts.license_pricing.quantity_changes.list_quantity_changes(
+        "contract_id_123",
+        "license_pricing_id_123"
+      )
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/contracts/contract_id_123/license_pricing/license_pricing_id_123/quantity_changes"
+    end
     should "Test v2 billing custom pricing unit get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/custom_pricing_units").to_return(
         body: '{"data":[{"object":"v2.billing.custom_pricing_unit","active":true,"created":"1970-01-12T21:42:34.472Z","display_name":"display_name","id":"obj_123","livemode":true}],"next_page_url":null,"previous_page_url":null}',
@@ -10977,6 +11215,29 @@ module Stripe
 
       report_run = client.v2.reporting.report_runs.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs/id_123"
+    end
+    should "Test v2 signals account signal get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=fraudulent_merchant"
+      ).to_return(
+        body: '{"data":[{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"fraudulent_merchant"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_signals = client.v2.signals.account_signals.list({ type: ["fraudulent_merchant"] })
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=fraudulent_merchant"
+    end
+    should "Test v2 signals account signal get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals/id_123").to_return(
+        body: '{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"fraudulent_merchant"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_signal = client.v2.signals.account_signals.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals/id_123"
     end
     should "Test v2 tax manual rule get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/manual_rules").to_return(

@@ -3580,6 +3580,8 @@ module Stripe
         class DepositOptions < ::Stripe::StripeObject
           # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
           attr_reader :networks
+          # If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+          attr_reader :static_address
 
           def self.inner_class_types
             @inner_class_types = {}

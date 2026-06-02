@@ -181,6 +181,49 @@ module Stripe
         town: nil
       ); end
     end
+    class BirthAddress < ::Stripe::RequestParams
+      # City, district, suburb, town, or village.
+      sig { returns(T.nilable(String)) }
+      def city; end
+      sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+      def city=(_city); end
+      # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+      sig { returns(T.nilable(String)) }
+      def country; end
+      sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+      def country=(_country); end
+      # Address line 1, such as the street, PO Box, or company name.
+      sig { returns(T.nilable(String)) }
+      def line1; end
+      sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+      def line1=(_line1); end
+      # Address line 2, such as the apartment, suite, unit, or building.
+      sig { returns(T.nilable(String)) }
+      def line2; end
+      sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+      def line2=(_line2); end
+      # ZIP or postal code.
+      sig { returns(T.nilable(String)) }
+      def postal_code; end
+      sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+      def postal_code=(_postal_code); end
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+      sig { returns(T.nilable(String)) }
+      def state; end
+      sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+      def state=(_state); end
+      sig {
+        params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+       }
+      def initialize(
+        city: nil,
+        country: nil,
+        line1: nil,
+        line2: nil,
+        postal_code: nil,
+        state: nil
+      ); end
+    end
     class Dob < ::Stripe::RequestParams
       # The day of birth, between 1 and 31.
       sig { returns(Integer) }
@@ -517,6 +560,13 @@ module Stripe
       params(_address_kanji: T.nilable(::Stripe::AccountPersonUpdateParams::AddressKanji)).returns(T.nilable(::Stripe::AccountPersonUpdateParams::AddressKanji))
      }
     def address_kanji=(_address_kanji); end
+    # The person's place of birth.
+    sig { returns(T.nilable(::Stripe::AccountPersonUpdateParams::BirthAddress)) }
+    def birth_address; end
+    sig {
+      params(_birth_address: T.nilable(::Stripe::AccountPersonUpdateParams::BirthAddress)).returns(T.nilable(::Stripe::AccountPersonUpdateParams::BirthAddress))
+     }
+    def birth_address=(_birth_address); end
     # The person's date of birth.
     sig { returns(T.nilable(T.any(String, ::Stripe::AccountPersonUpdateParams::Dob))) }
     def dob; end
@@ -675,13 +725,14 @@ module Stripe
      }
     def verification=(_verification); end
     sig {
-      params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonUpdateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonUpdateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonUpdateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonUpdateParams::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::AccountPersonUpdateParams::Dob)), documents: T.nilable(::Stripe::AccountPersonUpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonUpdateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonUpdateParams::Relationship), self_reported_income: T.nilable(::Stripe::AccountPersonUpdateParams::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(::Stripe::AccountPersonUpdateParams::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonUpdateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonUpdateParams::Verification)).void
+      params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonUpdateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonUpdateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonUpdateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonUpdateParams::AddressKanji), birth_address: T.nilable(::Stripe::AccountPersonUpdateParams::BirthAddress), dob: T.nilable(T.any(String, ::Stripe::AccountPersonUpdateParams::Dob)), documents: T.nilable(::Stripe::AccountPersonUpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonUpdateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonUpdateParams::Relationship), self_reported_income: T.nilable(::Stripe::AccountPersonUpdateParams::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(::Stripe::AccountPersonUpdateParams::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonUpdateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonUpdateParams::Verification)).void
      }
     def initialize(
       additional_tos_acceptances: nil,
       address: nil,
       address_kana: nil,
       address_kanji: nil,
+      birth_address: nil,
       dob: nil,
       documents: nil,
       email: nil,

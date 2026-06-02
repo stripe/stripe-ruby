@@ -92,7 +92,7 @@ module Stripe
     attr_reader :address
     # Identification numbers associated with the location.
     attr_reader :business_registration
-    # The capability settings for the location. Only applicable for locations with requested Payment Location Capabilities.
+    # The capability settings for the location. Only applicable for locations with requested payment location capabilities.
     attr_reader :capability_settings
     # Always true for a deleted object
     attr_reader :deleted

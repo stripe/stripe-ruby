@@ -8,6 +8,7 @@ module Stripe
       attr_reader :bill_settings
       attr_reader :cadences
       attr_reader :collection_settings
+      attr_reader :contracts
       attr_reader :custom_pricing_units
       attr_reader :intents
       attr_reader :license_fees

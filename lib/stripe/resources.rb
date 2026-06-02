@@ -141,6 +141,8 @@ module Stripe
   end
 
   module DelegatedCheckout
+    autoload :Order, "stripe/resources/delegated_checkout/order"
+    autoload :OrderEvent, "stripe/resources/delegated_checkout/order_event"
     autoload :RequestedSession, "stripe/resources/delegated_checkout/requested_session"
   end
 
@@ -1273,6 +1275,10 @@ module Stripe
              "stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event"
     autoload :V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
              "stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event"
+    autoload :V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
+             "stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event"
+    autoload :V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+             "stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event"
   end
 
   module FinancialConnections
@@ -1406,6 +1412,9 @@ module Stripe
       autoload :CadenceSpendModifier, "stripe/resources/v2/billing/cadence_spend_modifier"
       autoload :CollectionSetting, "stripe/resources/v2/billing/collection_setting"
       autoload :CollectionSettingVersion, "stripe/resources/v2/billing/collection_setting_version"
+      autoload :Contract, "stripe/resources/v2/billing/contract"
+      autoload :ContractLicensePricingQuantityChange,
+               "stripe/resources/v2/billing/contract_license_pricing_quantity_change"
       autoload :CustomPricingUnit, "stripe/resources/v2/billing/custom_pricing_unit"
       autoload :Intent, "stripe/resources/v2/billing/intent"
       autoload :IntentAction, "stripe/resources/v2/billing/intent_action"
@@ -1521,6 +1530,10 @@ module Stripe
       autoload :ReportRun, "stripe/resources/v2/reporting/report_run"
     end
 
+    module Signals
+      autoload :AccountSignal, "stripe/resources/v2/signals/account_signal"
+    end
+
     module Tax
       autoload :ManualRule, "stripe/resources/v2/tax/manual_rule"
     end
@@ -1581,6 +1594,8 @@ module Stripe
     stripe/resources/customer_balance_transaction
     stripe/resources/customer_cash_balance_transaction
     stripe/resources/customer_session
+    stripe/resources/delegated_checkout/order
+    stripe/resources/delegated_checkout/order_event
     stripe/resources/delegated_checkout/requested_session
     stripe/resources/discount
     stripe/resources/dispute
@@ -1727,6 +1742,8 @@ module Stripe
     stripe/resources/v2/billing/cadence_spend_modifier
     stripe/resources/v2/billing/collection_setting
     stripe/resources/v2/billing/collection_setting_version
+    stripe/resources/v2/billing/contract
+    stripe/resources/v2/billing/contract_license_pricing_quantity_change
     stripe/resources/v2/billing/custom_pricing_unit
     stripe/resources/v2/billing/intent
     stripe/resources/v2/billing/intent_action
@@ -1800,6 +1817,7 @@ module Stripe
     stripe/resources/v2/payments/settlement_allocation_intent_split
     stripe/resources/v2/reporting/report
     stripe/resources/v2/reporting/report_run
+    stripe/resources/v2/signals/account_signal
     stripe/resources/v2/tax/manual_rule
     stripe/resources/webhook_endpoint
     stripe/events/v1_account_application_authorized_event
@@ -2208,6 +2226,7 @@ module Stripe
     stripe/events/v2_reporting_report_run_succeeded_event
     stripe/events/v2_reporting_report_run_updated_event
     stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event
+    stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event
   ].freeze
   # rubocop:enable Metrics/CollectionLiteralLength
 end

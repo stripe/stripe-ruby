@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  # A Payment Location Capability represents a capability for a Stripe account at a Payment Location.
+  # A `payment_location` capability represents a capability for a Stripe account at a payment location.
   class PaymentLocationCapability < APIResource
     class Requirements < ::Stripe::StripeObject
       class Error < ::Stripe::StripeObject
@@ -39,7 +39,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The account for which the capability enables functionality.
+    # The account that the capability enables functionality for.
     sig { returns(String) }
     def account; end
     # The identifier for the capability.
@@ -48,7 +48,7 @@ module Stripe
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
-    # The payment location for which the capability enables functionality.
+    # The payment location that the capability enables functionality for.
     sig { returns(String) }
     def location; end
     # String representing the object's type. Objects of the same type share the same value.
@@ -57,7 +57,7 @@ module Stripe
     # Whether the capability has been requested.
     sig { returns(T::Boolean) }
     def requested; end
-    # Time at which the capability was requested. Measured in seconds since the Unix epoch.
+    # Time when the capability was requested. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
     def requested_at; end
     # Attribute for field requirements
@@ -66,13 +66,13 @@ module Stripe
     # The status of the capability.
     sig { returns(String) }
     def status; end
-    # Returns a list of PaymentLocationCapability objects associated with the location.
+    # List all payment location capabilities associated with the payment location.
     sig {
       params(params: T.any(::Stripe::PaymentLocationCapabilityListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
-    # Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+    # Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
     sig {
       params(capability: String, params: T.any(::Stripe::PaymentLocationCapabilityUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocationCapability)
      }

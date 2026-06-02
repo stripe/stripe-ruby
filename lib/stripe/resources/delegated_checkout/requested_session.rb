@@ -841,6 +841,26 @@ module Stripe
         )
       end
 
+      # Lists orders for a delegated checkout requested session.
+      def list_orders(params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/orders", { requested_session: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Lists orders for a delegated checkout requested session.
+      def self.list_orders(requested_session, params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/orders", { requested_session: CGI.escape(requested_session) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       # Updates a requested session
       def self.update(requested_session, params = {}, opts = {})
         request_stripe_object(

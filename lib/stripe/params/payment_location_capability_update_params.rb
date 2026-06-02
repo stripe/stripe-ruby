@@ -5,7 +5,7 @@ module Stripe
   class PaymentLocationCapabilityUpdateParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # The location for which the capability enables functionality.
+    # The location that the capability enables functionality for.
     attr_accessor :location
     # To request a new capability for the location, set this to `true`. You can remove it from the location by passing `false`.
     attr_accessor :requested

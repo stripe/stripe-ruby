@@ -3815,6 +3815,9 @@ module Stripe
           # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
           sig { returns(T.nilable(T::Array[String])) }
           def networks; end
+          # If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+          sig { returns(T.nilable(T::Boolean)) }
+          def static_address; end
           def self.inner_class_types
             @inner_class_types = {}
           end

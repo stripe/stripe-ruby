@@ -456,9 +456,12 @@ module Stripe
   end
 
   module DelegatedCheckout
+    autoload :OrderRetrieveParams, "stripe/params/delegated_checkout/order_retrieve_params"
     autoload :RequestedSessionConfirmParams, "stripe/params/delegated_checkout/requested_session_confirm_params"
     autoload :RequestedSessionCreateParams, "stripe/params/delegated_checkout/requested_session_create_params"
     autoload :RequestedSessionExpireParams, "stripe/params/delegated_checkout/requested_session_expire_params"
+    autoload :RequestedSessionListOrdersParams, "stripe/params/delegated_checkout/requested_session_list_orders_params"
+    autoload :RequestedSessionOrderListParams, "stripe/params/delegated_checkout/requested_session_order_list_params"
     autoload :RequestedSessionRetrieveParams, "stripe/params/delegated_checkout/requested_session_retrieve_params"
     autoload :RequestedSessionUpdateParams, "stripe/params/delegated_checkout/requested_session_update_params"
   end
@@ -873,6 +876,12 @@ module Stripe
       autoload :CollectionSettingListParams, "stripe/params/v2/billing/collection_setting_list_params"
       autoload :CollectionSettingRetrieveParams, "stripe/params/v2/billing/collection_setting_retrieve_params"
       autoload :CollectionSettingUpdateParams, "stripe/params/v2/billing/collection_setting_update_params"
+      autoload :ContractActivateParams, "stripe/params/v2/billing/contract_activate_params"
+      autoload :ContractCancelParams, "stripe/params/v2/billing/contract_cancel_params"
+      autoload :ContractCreateParams, "stripe/params/v2/billing/contract_create_params"
+      autoload :ContractListParams, "stripe/params/v2/billing/contract_list_params"
+      autoload :ContractRetrieveParams, "stripe/params/v2/billing/contract_retrieve_params"
+      autoload :ContractUpdateParams, "stripe/params/v2/billing/contract_update_params"
       autoload :CustomPricingUnitCreateParams, "stripe/params/v2/billing/custom_pricing_unit_create_params"
       autoload :CustomPricingUnitListParams, "stripe/params/v2/billing/custom_pricing_unit_list_params"
       autoload :CustomPricingUnitRetrieveParams, "stripe/params/v2/billing/custom_pricing_unit_retrieve_params"
@@ -946,6 +955,13 @@ module Stripe
       module CollectionSettings
         autoload :VersionListParams, "stripe/params/v2/billing/collection_settings/version_list_params"
         autoload :VersionRetrieveParams, "stripe/params/v2/billing/collection_settings/version_retrieve_params"
+      end
+
+      module Contracts
+        module LicensePricing
+          autoload :QuantityChangeListQuantityChangesParams,
+                   "stripe/params/v2/billing/contracts/license_pricing/quantity_change_list_quantity_changes_params"
+        end
       end
 
       module Intents
@@ -1209,6 +1225,11 @@ module Stripe
       autoload :ReportRunRetrieveParams, "stripe/params/v2/reporting/report_run_retrieve_params"
     end
 
+    module Signals
+      autoload :AccountSignalListParams, "stripe/params/v2/signals/account_signal_list_params"
+      autoload :AccountSignalRetrieveParams, "stripe/params/v2/signals/account_signal_retrieve_params"
+    end
+
     module Tax
       autoload :ManualRuleCreateParams, "stripe/params/v2/tax/manual_rule_create_params"
       autoload :ManualRuleDeactivateParams, "stripe/params/v2/tax/manual_rule_deactivate_params"
@@ -1390,9 +1411,12 @@ module Stripe
     stripe/params/customer_tax_id_list_params
     stripe/params/customer_tax_id_retrieve_params
     stripe/params/customer_update_params
+    stripe/params/delegated_checkout/order_retrieve_params
     stripe/params/delegated_checkout/requested_session_confirm_params
     stripe/params/delegated_checkout/requested_session_create_params
     stripe/params/delegated_checkout/requested_session_expire_params
+    stripe/params/delegated_checkout/requested_session_list_orders_params
+    stripe/params/delegated_checkout/requested_session_order_list_params
     stripe/params/delegated_checkout/requested_session_retrieve_params
     stripe/params/delegated_checkout/requested_session_update_params
     stripe/params/dispute_close_params
@@ -1972,6 +1996,13 @@ module Stripe
     stripe/params/v2/billing/collection_setting_update_params
     stripe/params/v2/billing/collection_settings/version_list_params
     stripe/params/v2/billing/collection_settings/version_retrieve_params
+    stripe/params/v2/billing/contract_activate_params
+    stripe/params/v2/billing/contract_cancel_params
+    stripe/params/v2/billing/contract_create_params
+    stripe/params/v2/billing/contract_list_params
+    stripe/params/v2/billing/contract_retrieve_params
+    stripe/params/v2/billing/contract_update_params
+    stripe/params/v2/billing/contracts/license_pricing/quantity_change_list_quantity_changes_params
     stripe/params/v2/billing/custom_pricing_unit_create_params
     stripe/params/v2/billing/custom_pricing_unit_list_params
     stripe/params/v2/billing/custom_pricing_unit_retrieve_params
@@ -2203,6 +2234,8 @@ module Stripe
     stripe/params/v2/reporting/report_retrieve_params
     stripe/params/v2/reporting/report_run_create_params
     stripe/params/v2/reporting/report_run_retrieve_params
+    stripe/params/v2/signals/account_signal_list_params
+    stripe/params/v2/signals/account_signal_retrieve_params
     stripe/params/v2/tax/manual_rule_create_params
     stripe/params/v2/tax/manual_rule_deactivate_params
     stripe/params/v2/tax/manual_rule_list_params

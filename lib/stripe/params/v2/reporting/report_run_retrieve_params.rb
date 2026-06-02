@@ -4,7 +4,14 @@
 module Stripe
   module V2
     module Reporting
-      class ReportRunRetrieveParams < ::Stripe::RequestParams; end
+      class ReportRunRetrieveParams < ::Stripe::RequestParams
+        # Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+        attr_accessor :include
+
+        def initialize(include: nil)
+          @include = include
+        end
+      end
     end
   end
 end

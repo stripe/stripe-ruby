@@ -9,7 +9,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # The location for which the capabilities enable functionality.
+    # The payment location that the capabilities enable functionality for.
     sig { returns(String) }
     def location; end
     sig { params(_location: String).returns(String) }

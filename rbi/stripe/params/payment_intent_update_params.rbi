@@ -5748,8 +5748,13 @@ module Stripe
           def networks; end
           sig { params(_networks: T::Array[String]).returns(T::Array[String]) }
           def networks=(_networks); end
-          sig { params(networks: T::Array[String]).void }
-          def initialize(networks: nil); end
+          # If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+          sig { returns(T.nilable(T::Boolean)) }
+          def static_address; end
+          sig { params(_static_address: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+          def static_address=(_static_address); end
+          sig { params(networks: T::Array[String], static_address: T.nilable(T::Boolean)).void }
+          def initialize(networks: nil, static_address: nil); end
         end
         # Specific configuration for this PaymentIntent when the mode is `deposit`.
         sig {

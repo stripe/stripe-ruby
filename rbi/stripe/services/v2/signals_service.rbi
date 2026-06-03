@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module V2
-    class SignalService < StripeService
+    class SignalsService < StripeService
       attr_reader :account_signals
     end
   end

@@ -336,9 +336,9 @@ module Stripe
     autoload :MoneyManagementService, "stripe/services/v2/money_management_service"
     autoload :NetworkService, "stripe/services/v2/network_service"
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
-    autoload :PaymentService, "stripe/services/v2/payment_service"
+    autoload :PaymentsService, "stripe/services/v2/payments_service"
     autoload :ReportingService, "stripe/services/v2/reporting_service"
-    autoload :SignalService, "stripe/services/v2/signal_service"
+    autoload :SignalsService, "stripe/services/v2/signals_service"
     autoload :TaxService, "stripe/services/v2/tax_service"
     autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
@@ -847,15 +847,15 @@ module Stripe
     stripe/services/v2/network_service
     stripe/services/v2/orchestrated_commerce/agreement_service
     stripe/services/v2/orchestrated_commerce_service
-    stripe/services/v2/payment_service
     stripe/services/v2/payments/off_session_payment_service
     stripe/services/v2/payments/settlement_allocation_intent_service
     stripe/services/v2/payments/settlement_allocation_intents/split_service
+    stripe/services/v2/payments_service
     stripe/services/v2/reporting/report_run_service
     stripe/services/v2/reporting/report_service
     stripe/services/v2/reporting_service
-    stripe/services/v2/signal_service
     stripe/services/v2/signals/account_signal_service
+    stripe/services/v2/signals_service
     stripe/services/v2/tax/manual_rule_service
     stripe/services/v2/tax_service
     stripe/services/v2/test_helper_service

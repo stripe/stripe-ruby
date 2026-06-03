@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module V2
-    class PaymentService < StripeService
+    class PaymentsService < StripeService
       attr_reader :off_session_payments
       attr_reader :settlement_allocation_intents
     end

@@ -16,9 +16,9 @@ module Stripe
       @money_management = Stripe::V2::MoneyManagementService.new(@requestor)
       @network = Stripe::V2::NetworkService.new(@requestor)
       @orchestrated_commerce = Stripe::V2::OrchestratedCommerceService.new(@requestor)
-      @payments = Stripe::V2::PaymentService.new(@requestor)
+      @payments = Stripe::V2::PaymentsService.new(@requestor)
       @reporting = Stripe::V2::ReportingService.new(@requestor)
-      @signals = Stripe::V2::SignalService.new(@requestor)
+      @signals = Stripe::V2::SignalsService.new(@requestor)
       @tax = Stripe::V2::TaxService.new(@requestor)
       @test_helpers = Stripe::V2::TestHelperService.new(@requestor)
     end

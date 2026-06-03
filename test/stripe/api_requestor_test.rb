@@ -1799,6 +1799,32 @@ module Stripe
       ensure
         Stripe.enable_telemetry = false
       end
+
+      should "omit source when UNAME_HASH is empty" do
+        original = APIRequestor::SystemProfiler::UNAME_HASH
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "")
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        refute ua.key?(:source)
+      ensure
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
+        Stripe.enable_telemetry = false
+      end
+
+      should "include source when UNAME_HASH is non-empty" do
+        original = APIRequestor::SystemProfiler::UNAME_HASH
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "abc123")
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal "abc123", ua[:source]
+      ensure
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
+        Stripe.enable_telemetry = false
+      end
     end
 
     context ".detect_ai_agent" do

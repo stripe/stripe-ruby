@@ -638,6 +638,8 @@ module Stripe
         Events::V2ReportingReportRunUpdatedEvent.lookup_type => Events::V2ReportingReportRunUpdatedEvent,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent.lookup_type =>
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent,
+        Events::V2SignalsAccountSignalMerchantDelinquencyReadyEvent.lookup_type =>
+        Events::V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -1403,6 +1405,8 @@ module Stripe
         Events::V2ReportingReportRunUpdatedEventNotification,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification.lookup_type =>
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
+        Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification.lookup_type =>
+        Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

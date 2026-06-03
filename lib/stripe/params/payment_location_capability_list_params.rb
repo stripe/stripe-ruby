@@ -5,7 +5,7 @@ module Stripe
   class PaymentLocationCapabilityListParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # The location for which the capabilities enable functionality.
+    # The payment location that the capabilities enable functionality for.
     attr_accessor :location
 
     def initialize(expand: nil, location: nil)

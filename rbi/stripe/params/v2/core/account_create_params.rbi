@@ -2725,8 +2725,19 @@ module Stripe
             def losses_collector; end
             sig { params(_losses_collector: String).returns(String) }
             def losses_collector=(_losses_collector); end
-            sig { params(fees_collector: String, losses_collector: String).void }
-            def initialize(fees_collector: nil, losses_collector: nil); end
+            # A value indicating the party responsible for collecting requirements on this account.
+            sig { returns(T.nilable(String)) }
+            def requirements_collector; end
+            sig { params(_requirements_collector: T.nilable(String)).returns(T.nilable(String)) }
+            def requirements_collector=(_requirements_collector); end
+            sig {
+              params(fees_collector: String, losses_collector: String, requirements_collector: T.nilable(String)).void
+             }
+            def initialize(
+              fees_collector: nil,
+              losses_collector: nil,
+              requirements_collector: nil
+            ); end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(T.nilable(String)) }

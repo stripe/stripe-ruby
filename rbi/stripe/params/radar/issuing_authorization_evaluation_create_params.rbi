@@ -90,9 +90,9 @@ module Stripe
         sig { params(_created_at: Integer).returns(Integer) }
         def created_at=(_created_at); end
         # The last 4 digits of the card number.
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         def last4; end
-        sig { params(_last4: T.nilable(String)).returns(T.nilable(String)) }
+        sig { params(_last4: String).returns(String) }
         def last4=(_last4); end
         # User's specified unique ID of the card for this authorization attempt (e.g., RRN or internal reference).
         sig { returns(String) }
@@ -100,7 +100,7 @@ module Stripe
         sig { params(_reference: String).returns(String) }
         def reference=(_reference); end
         sig {
-          params(bin: String, bin_country: String, card_type: String, created_at: Integer, last4: T.nilable(String), reference: String).void
+          params(bin: String, bin_country: String, card_type: String, created_at: Integer, last4: String, reference: String).void
          }
         def initialize(
           bin: nil,

@@ -1779,10 +1779,13 @@ module Stripe
             attr_accessor :fees_collector
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
             attr_accessor :losses_collector
+            # A value indicating the party responsible for collecting requirements on this account.
+            attr_accessor :requirements_collector
 
-            def initialize(fees_collector: nil, losses_collector: nil)
+            def initialize(fees_collector: nil, losses_collector: nil, requirements_collector: nil)
               @fees_collector = fees_collector
               @losses_collector = losses_collector
+              @requirements_collector = requirements_collector
             end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

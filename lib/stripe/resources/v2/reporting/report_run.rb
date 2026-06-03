@@ -29,15 +29,32 @@ module Stripe
                 @field_remappings = {}
               end
             end
+
+            class Schema < ::Stripe::StripeObject
+              # The name of the column.
+              attr_reader :name
+              # The type of the column.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # The content type of the file.
             attr_reader :content_type
             # A pre-signed URL that allows secure, time-limited access to download the file.
             attr_reader :download_url
+            # The columns of the schema.
+            attr_reader :schema
             # The total size of the file in bytes.
             attr_reader :size
 
             def self.inner_class_types
-              @inner_class_types = { download_url: DownloadUrl }
+              @inner_class_types = { download_url: DownloadUrl, schema: Schema }
             end
 
             def self.field_remappings

@@ -537,6 +537,8 @@ module Stripe
           class Visa < ::Stripe::StripeObject
             # A unique reference ID from the network to represent the card account number.
             attr_reader :card_reference_id
+            # Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
+            attr_reader :token_decision_recommendation
             # The network-unique identifier for the token.
             attr_reader :token_reference_id
             # The ID of the entity requesting tokenization.
@@ -605,6 +607,10 @@ module Stripe
         attr_reader :device_fingerprint
         # Attribute for field network_data
         attr_reader :network_data
+        # The decision made during token provisioning.
+        attr_reader :provisioning_decision
+        # The type of the token, indicating how it is used.
+        attr_reader :token_type
 
         def self.inner_class_types
           @inner_class_types = { network_data: NetworkData }

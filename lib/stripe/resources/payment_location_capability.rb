@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A Payment Location Capability represents a capability for a Stripe account at a Payment Location.
+  # A `payment_location` capability represents a capability for a Stripe account at a payment location.
   class PaymentLocationCapability < APIResource
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
@@ -44,26 +44,26 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The account for which the capability enables functionality.
+    # The account that the capability enables functionality for.
     attr_reader :account
     # The identifier for the capability.
     attr_reader :capability
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
-    # The payment location for which the capability enables functionality.
+    # The payment location that the capability enables functionality for.
     attr_reader :location
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # Whether the capability has been requested.
     attr_reader :requested
-    # Time at which the capability was requested. Measured in seconds since the Unix epoch.
+    # Time when the capability was requested. Measured in seconds since the Unix epoch.
     attr_reader :requested_at
     # Attribute for field requirements
     attr_reader :requirements
     # The status of the capability.
     attr_reader :status
 
-    # Returns a list of PaymentLocationCapability objects associated with the location.
+    # List all payment location capabilities associated with the payment location.
     def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -73,7 +73,7 @@ module Stripe
       )
     end
 
-    # Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+    # Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
     def self.update(capability, params = {}, opts = {})
       request_stripe_object(
         method: :post,

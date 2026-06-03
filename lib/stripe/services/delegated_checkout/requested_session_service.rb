@@ -4,6 +4,13 @@
 module Stripe
   module DelegatedCheckout
     class RequestedSessionService < StripeService
+      attr_reader :orders
+
+      def initialize(requestor)
+        super
+        @orders = Stripe::DelegatedCheckout::RequestedSessionOrderService.new(@requestor)
+      end
+
       # Confirms a requested session
       def confirm(requested_session, params = {}, opts = {})
         request(

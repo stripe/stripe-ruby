@@ -3,7 +3,7 @@
 
 module Stripe
   class PaymentLocationCapabilityService < StripeService
-    # Returns a list of PaymentLocationCapability objects associated with the location.
+    # List all payment location capabilities associated with the payment location.
     def list(params = {}, opts = {})
       request(
         method: :get,
@@ -14,7 +14,7 @@ module Stripe
       )
     end
 
-    # Retrieves information about the specified Payment Location Capability.
+    # Retrieves a payment_location capability
     def retrieve(capability, params = {}, opts = {})
       request(
         method: :get,
@@ -25,7 +25,7 @@ module Stripe
       )
     end
 
-    # Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+    # Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
     def update(capability, params = {}, opts = {})
       request(
         method: :post,

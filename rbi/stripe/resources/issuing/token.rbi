@@ -14,6 +14,9 @@ module Stripe
           # The IP address of the device at provisioning time.
           sig { returns(T.nilable(String)) }
           def ip_address; end
+          # The ISO 639-1 language code of the device associated with the tokenization request.
+          sig { returns(T.nilable(String)) }
+          def language; end
           # The geographic latitude/longitude coordinates of the device at provisioning time. The format is [+-]decimal/[+-]decimal.
           sig { returns(T.nilable(String)) }
           def location; end
@@ -57,6 +60,9 @@ module Stripe
           # A unique reference ID from Visa to represent the card account number.
           sig { returns(T.nilable(String)) }
           def card_reference_id; end
+          # Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
+          sig { returns(T.nilable(String)) }
+          def token_decision_recommendation; end
           # The network-unique identifier for the token.
           sig { returns(String) }
           def token_reference_id; end
@@ -182,9 +188,15 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # The decision made during token provisioning.
+      sig { returns(T.nilable(String)) }
+      def provisioning_decision; end
       # The usage state of the token.
       sig { returns(String) }
       def status; end
+      # The type of the token, indicating how it is used.
+      sig { returns(T.nilable(String)) }
+      def token_type; end
       # The digital wallet for this token, if one was used.
       sig { returns(T.nilable(String)) }
       def wallet_provider; end

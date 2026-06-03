@@ -567,6 +567,9 @@ module Stripe
             # A unique reference ID from the network to represent the card account number.
             sig { returns(T.nilable(String)) }
             def card_reference_id; end
+            # Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
+            sig { returns(T.nilable(String)) }
+            def token_decision_recommendation; end
             # The network-unique identifier for the token.
             sig { returns(String) }
             def token_reference_id; end
@@ -645,6 +648,12 @@ module Stripe
         # Attribute for field network_data
         sig { returns(T.nilable(NetworkData)) }
         def network_data; end
+        # The decision made during token provisioning.
+        sig { returns(T.nilable(String)) }
+        def provisioning_decision; end
+        # The type of the token, indicating how it is used.
+        sig { returns(T.nilable(String)) }
+        def token_type; end
         def self.inner_class_types
           @inner_class_types = {network_data: NetworkData}
         end

@@ -3346,12 +3346,15 @@ module Stripe
                   @staged_purchase = staged_purchase
                 end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_accessor :digital_asset_category
               # Details for a liquid asset (crypto or security) funding transaction.
               attr_accessor :liquid_asset
               # Details for a wallet funding transaction.
               attr_accessor :wallet
 
-              def initialize(liquid_asset: nil, wallet: nil)
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil)
+                @digital_asset_category = digital_asset_category
                 @liquid_asset = liquid_asset
                 @wallet = wallet
               end
@@ -3654,12 +3657,15 @@ module Stripe
                   @staged_purchase = staged_purchase
                 end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_accessor :digital_asset_category
               # Details for a liquid asset (crypto or security) funding transaction.
               attr_accessor :liquid_asset
               # Details for a wallet funding transaction.
               attr_accessor :wallet
 
-              def initialize(liquid_asset: nil, wallet: nil)
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil)
+                @digital_asset_category = digital_asset_category
                 @liquid_asset = liquid_asset
                 @wallet = wallet
               end
@@ -3749,9 +3755,12 @@ module Stripe
         class DepositOptions < ::Stripe::RequestParams
           # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
           attr_accessor :networks
+          # If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+          attr_accessor :static_address
 
-          def initialize(networks: nil)
+          def initialize(networks: nil, static_address: nil)
             @networks = networks
+            @static_address = static_address
           end
         end
         # Specific configuration for this PaymentIntent when the mode is `deposit`.
@@ -6164,22 +6173,14 @@ module Stripe
     end
 
     class PaymentsOrchestration < ::Stripe::RequestParams
-      class PaymentDetails < ::Stripe::RequestParams
-        # Merchant-provided reference for this payment, used for reconciliation.
-        attr_accessor :reference
-
-        def initialize(reference: nil)
-          @reference = reference
-        end
-      end
       # Whether this feature is enabled.
       attr_accessor :enabled
-      # Payment-level details for the orchestrated payment.
-      attr_accessor :payment_details
+      # Merchant-provided reference for this payment, used for reconciliation.
+      attr_accessor :payment_reference
 
-      def initialize(enabled: nil, payment_details: nil)
+      def initialize(enabled: nil, payment_reference: nil)
         @enabled = enabled
-        @payment_details = payment_details
+        @payment_reference = payment_reference
       end
     end
 

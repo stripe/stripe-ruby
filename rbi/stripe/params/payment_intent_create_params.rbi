@@ -3284,12 +3284,14 @@ module Stripe
          }
         def account_funding=(_account_funding); end
         # The type of money services transaction.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.any(String, String))) }
         def transaction_type; end
-        sig { params(_transaction_type: T.nilable(String)).returns(T.nilable(String)) }
+        sig {
+          params(_transaction_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+         }
         def transaction_type=(_transaction_type); end
         sig {
-          params(account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding)), transaction_type: T.nilable(String)).void
+          params(account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding)), transaction_type: T.nilable(T.any(String, String))).void
          }
         def initialize(account_funding: nil, transaction_type: nil); end
       end
@@ -5110,6 +5112,11 @@ module Stripe
                  }
                 def initialize(staged_purchase: nil); end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              sig { returns(T.nilable(String)) }
+              def digital_asset_category; end
+              sig { params(_digital_asset_category: T.nilable(String)).returns(T.nilable(String)) }
+              def digital_asset_category=(_digital_asset_category); end
               # Details for a liquid asset (crypto or security) funding transaction.
               sig {
                 returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
@@ -5129,9 +5136,9 @@ module Stripe
                }
               def wallet=(_wallet); end
               sig {
-                params(liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+                params(digital_asset_category: T.nilable(String), liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
                }
-              def initialize(liquid_asset: nil, wallet: nil); end
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil); end
             end
             # Payment method specific account funding transaction details.
             sig {
@@ -5610,6 +5617,11 @@ module Stripe
                  }
                 def initialize(staged_purchase: nil); end
               end
+              # The category of digital asset being acquired through this account funding transaction.
+              sig { returns(T.nilable(String)) }
+              def digital_asset_category; end
+              sig { params(_digital_asset_category: T.nilable(String)).returns(T.nilable(String)) }
+              def digital_asset_category=(_digital_asset_category); end
               # Details for a liquid asset (crypto or security) funding transaction.
               sig {
                 returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
@@ -5629,9 +5641,9 @@ module Stripe
                }
               def wallet=(_wallet); end
               sig {
-                params(liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+                params(digital_asset_category: T.nilable(String), liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
                }
-              def initialize(liquid_asset: nil, wallet: nil); end
+              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil); end
             end
             # Payment method specific account funding transaction details.
             sig {
@@ -5767,8 +5779,13 @@ module Stripe
           def networks; end
           sig { params(_networks: T::Array[String]).returns(T::Array[String]) }
           def networks=(_networks); end
-          sig { params(networks: T::Array[String]).void }
-          def initialize(networks: nil); end
+          # If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+          sig { returns(T.nilable(T::Boolean)) }
+          def static_address; end
+          sig { params(_static_address: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+          def static_address=(_static_address); end
+          sig { params(networks: T::Array[String], static_address: T.nilable(T::Boolean)).void }
+          def initialize(networks: nil, static_address: nil); end
         end
         # Specific configuration for this PaymentIntent when the mode is `deposit`.
         sig {
@@ -9473,33 +9490,18 @@ module Stripe
       ); end
     end
     class PaymentsOrchestration < ::Stripe::RequestParams
-      class PaymentDetails < ::Stripe::RequestParams
-        # Merchant-provided reference for this payment, used for reconciliation.
-        sig { returns(T.nilable(String)) }
-        def reference; end
-        sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
-        def reference=(_reference); end
-        sig { params(reference: T.nilable(String)).void }
-        def initialize(reference: nil); end
-      end
       # Whether this feature is enabled.
       sig { returns(T::Boolean) }
       def enabled; end
       sig { params(_enabled: T::Boolean).returns(T::Boolean) }
       def enabled=(_enabled); end
-      # Payment-level details for the orchestrated payment.
-      sig {
-        returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentsOrchestration::PaymentDetails))
-       }
-      def payment_details; end
-      sig {
-        params(_payment_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentsOrchestration::PaymentDetails)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentsOrchestration::PaymentDetails))
-       }
-      def payment_details=(_payment_details); end
-      sig {
-        params(enabled: T::Boolean, payment_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentsOrchestration::PaymentDetails)).void
-       }
-      def initialize(enabled: nil, payment_details: nil); end
+      # Merchant-provided reference for this payment, used for reconciliation.
+      sig { returns(T.nilable(String)) }
+      def payment_reference; end
+      sig { params(_payment_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def payment_reference=(_payment_reference); end
+      sig { params(enabled: T::Boolean, payment_reference: T.nilable(String)).void }
+      def initialize(enabled: nil, payment_reference: nil); end
     end
     class RadarOptions < ::Stripe::RequestParams
       # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.

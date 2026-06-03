@@ -3200,18 +3200,6 @@ module Stripe
       end
 
       class Card < ::Stripe::RequestParams
-        class CaptureDelay < ::Stripe::RequestParams
-          # Attribute for param field days
-          attr_accessor :days
-          # Attribute for param field hours
-          attr_accessor :hours
-
-          def initialize(days: nil, hours: nil)
-            @days = days
-            @hours = hours
-          end
-        end
-
         class Installments < ::Stripe::RequestParams
           class Plan < ::Stripe::RequestParams
             # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
@@ -3488,14 +3476,6 @@ module Stripe
             @version = version
           end
         end
-        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
-        #
-        # If omitted, funds are captured before the authorization expires.
-        attr_accessor :capture_by
-        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
-        #
-        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-        attr_accessor :capture_delay
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -3557,8 +3537,6 @@ module Stripe
         attr_accessor :three_d_secure
 
         def initialize(
-          capture_by: nil,
-          capture_delay: nil,
           capture_method: nil,
           cvc_token: nil,
           installments: nil,
@@ -3581,8 +3559,6 @@ module Stripe
           statement_details: nil,
           three_d_secure: nil
         )
-          @capture_by = capture_by
-          @capture_delay = capture_delay
           @capture_method = capture_method
           @cvc_token = cvc_token
           @installments = installments
@@ -3608,18 +3584,6 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::RequestParams
-        class CaptureDelay < ::Stripe::RequestParams
-          # Attribute for param field days
-          attr_accessor :days
-          # Attribute for param field hours
-          attr_accessor :hours
-
-          def initialize(days: nil, hours: nil)
-            @days = days
-            @hours = hours
-          end
-        end
-
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
@@ -3715,14 +3679,6 @@ module Stripe
             @requested_priority = requested_priority
           end
         end
-        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
-        #
-        # If omitted, funds are captured before the authorization expires.
-        attr_accessor :capture_by
-        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
-        #
-        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-        attr_accessor :capture_delay
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -3741,8 +3697,6 @@ module Stripe
         attr_accessor :routing
 
         def initialize(
-          capture_by: nil,
-          capture_delay: nil,
           capture_method: nil,
           payment_details: nil,
           request_extended_authorization: nil,
@@ -3750,8 +3704,6 @@ module Stripe
           request_reauthorization: nil,
           routing: nil
         )
-          @capture_by = capture_by
-          @capture_delay = capture_delay
           @capture_method = capture_method
           @payment_details = payment_details
           @request_extended_authorization = request_extended_authorization

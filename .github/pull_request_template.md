@@ -15,7 +15,7 @@ List out the key changes made in this PR, e.g.
 Either fill it out or remove it if there are no entries to report.
 
 List changes that affect end users, e.g.
-- Fixes crash when calling `foo.bar()` with null argument
+- Fixes crash when calling `foo.bar()` with nil argument
 - Adds support for new `baz` parameter on `PaymentIntent` creation
 
 List breaking changes first with a ⚠️ prefix, e.g.

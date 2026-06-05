@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "digest"
+require "socket"
 require "stripe/instrumentation"
 
 module Stripe
@@ -1104,6 +1106,31 @@ module Stripe
     # in so that we can generate a rich user agent header to help debug
     # integrations.
     class SystemProfiler
+      UNAME_HASH = begin
+        parts = []
+        parts << if RUBY_PLATFORM.match?(/mswin|mingw|cygwin/)
+                   begin
+                     `ver 2>NUL`.strip
+                   rescue StandardError
+                     ""
+                   end
+                 else
+                   begin
+                     `uname -a 2>/dev/null`.strip
+                   rescue StandardError
+                     ""
+                   end
+                 end
+        parts << begin
+          Socket.gethostname
+        rescue StandardError
+          ""
+        end
+        Digest::MD5.hexdigest(parts.join(" "))
+      rescue StandardError
+        ""
+      end
+
       AI_AGENTS = [
         # aiAgents: The beginning of the section generated from our OpenAPI spec
         %w[ANTIGRAVITY_CLI_ALIAS antigravity],
@@ -1139,7 +1166,10 @@ module Stripe
           engine: defined?(RUBY_ENGINE) ? RUBY_ENGINE : "",
         }.delete_if { |_k, v| v.nil? }
 
-        ua[:platform] = RUBY_PLATFORM if Stripe.enable_telemetry?
+        if Stripe.enable_telemetry?
+          ua[:platform] = RUBY_PLATFORM
+          ua[:source] = UNAME_HASH unless UNAME_HASH.empty?
+        end
 
         ai_agent = detect_ai_agent
         ua[:ai_agent] = ai_agent unless ai_agent.empty?

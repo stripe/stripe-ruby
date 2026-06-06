@@ -69,6 +69,8 @@ module Stripe
         classification: "Confidential",
         prepared_by: "Stripe Audit System",
         stakeholders: ["Compliance", "Internal Audit", "Legal"],
+        report_route: "QCF",
+        compliance_route: "QCF",
       }
 
       @report_data

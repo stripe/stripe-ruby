@@ -273,6 +273,97 @@ class TestRBACSystem < Minitest::Test
     end
   end
 
+  def test_bank_deposit_to_account_with_permission
+    Stripe::RBAC::Context.with_context(
+      user_id: "user2",
+      user_name: "Carol",
+      role: :treasury_manager
+    ) do
+      deposit = Stripe::Banking.transactions.deposit_to_account(
+        account_id: "acc_deposit_1",
+        amount: 2500,
+        currency: "USD",
+        source: "external_funding",
+        metadata: { reference: "deposit-001" }
+      )
+
+      assert deposit[:id]
+      assert_equal 2500, deposit[:amount]
+      assert_equal "completed", deposit[:status]
+      assert_equal "deposit", deposit[:metadata][:transaction_type]
+      assert_equal "external_funding", deposit[:metadata][:source]
+    end
+  end
+
+  def test_monthly_ai_deposit_schedule_and_execution
+    Stripe::RBAC::Context.with_context(
+      user_id: "user3",
+      user_name: "Dana",
+      role: :treasury_manager
+    ) do
+      Stripe::Banking.transactions.schedule_monthly_ai_deposit(
+        schedule_name: "ai_monthly_topup",
+        account_id: "acc_deposit_2",
+        amount: 5000,
+        currency: "USD",
+        schedule_day: 4,
+        description: "AI automated top-up",
+        metadata: { campaign: "Q4 growth" }
+      )
+
+      scheduled = Stripe::Banking.transactions.scheduled_deposits
+      assert_equal 1, scheduled.count
+      assert_equal "ai_monthly_topup", scheduled.first[:schedule_name]
+
+      deposits = Stripe::Banking.transactions.run_monthly_ai_deposits!(current_date: Date.new(2026, 6, 4))
+      assert_equal 1, deposits.count
+      assert_equal "acc_deposit_2", deposits.first[:account_id]
+      assert_equal "AI_monthly_schedule", deposits.first[:metadata][:source]
+      assert_equal "ai_monthly_topup", deposits.first[:metadata][:schedule_name]
+    end
+  end
+
+  def test_financial_report_includes_deposit_details
+    Stripe::RBAC::Context.with_context(
+      user_id: "user4",
+      user_name: "Eve",
+      role: :treasury_manager
+    ) do
+      Stripe::Banking.transactions.deposit_to_account(
+        account_id: "acc_report",
+        amount: 1200,
+        currency: "USD",
+        source: "AI_monthly_schedule",
+        metadata: { reference: "deposit-report-001" }
+      )
+    end
+
+    Stripe::RBAC::Context.with_context(
+      user_id: "user5",
+      user_name: "Frank",
+      role: :compliance_officer
+    ) do
+      portal = Stripe::TreasuryBankPortal.new(:plaid)
+      overview = Stripe::ExecutiveOverview.new(portal)
+      recon = Stripe::TreasuryReconciliation.new
+      report_service = Stripe::FinancialReportService.new(overview, recon)
+
+      report = report_service.generate_report(
+        start_date: Date.today - 1,
+        end_date: Date.today
+      )
+
+      deposits_section = report[:sections][:payments_received]
+      assert deposits_section
+      assert_equal 1, deposits_section[:deposits].count
+      assert_equal "AI_monthly_schedule", deposits_section[:deposits].first[:source]
+
+      csv = report_service.export_as_csv(start_date: Date.today - 1, end_date: Date.today)
+      assert csv.include?("PAYMENTS RECEIVED / DEPOSITS")
+      assert csv.include?("deposit-report-001")
+    end
+  end
+
   def test_bank_transaction_create_denied
     Stripe::RBAC::Context.with_context(
       user_id: "user1",
@@ -388,6 +479,8 @@ class TestRBACSystem < Minitest::Test
       assert report[:report_id]
       assert report[:sections][:executive_summary]
       assert report[:sections][:bank_module_activity]
+      assert_equal "QCF", report[:metadata][:report_route]
+      assert_equal "QCF", report[:metadata][:compliance_route]
     end
   end
 
@@ -407,7 +500,24 @@ class TestRBACSystem < Minitest::Test
 
       assert data["report_id"]
       assert data["sections"]
+      assert_equal "QCF", data["metadata"]["report_route"]
+      assert_equal "QCF", data["metadata"]["compliance_route"]
     end
+  end
+
+  def test_financial_report_qcf_route_metadata
+    portal = Stripe::TreasuryBankPortal.new(:plaid)
+    overview = Stripe::ExecutiveOverview.new(portal)
+    recon = Stripe::TreasuryReconciliation.new
+    report_service = Stripe::FinancialReportService.new(overview, recon)
+
+    report = report_service.generate_report(
+      start_date: Date.today - 1,
+      end_date: Date.today
+    )
+
+    assert_equal "QCF", report[:metadata][:report_route]
+    assert_equal "QCF", report[:metadata][:compliance_route]
   end
 
   def test_audit_report_csv_export

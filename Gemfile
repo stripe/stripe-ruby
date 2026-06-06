@@ -11,7 +11,11 @@ group :development do
 
   gem "shoulda-context", "2.0.0"
 
+  gem "csv"
+  gem "matrix"
+  gem "minitest"
   gem "test-unit"
+  gem "prawn"
 
   # Version doesn't matter that much, but this one contains some fixes for Ruby
   # 2.7 warnings that add noise to the test suite.

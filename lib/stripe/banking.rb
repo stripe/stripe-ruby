@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require "date"
+
 module Stripe
   module Banking
     # Managed bank transaction service with RBAC enforcement
     class TransactionManager
       def initialize
         @transactions = {}
+        @scheduled_deposit_configs = {}
         @lock = Mutex.new
       end
 
@@ -31,6 +34,38 @@ module Stripe
           # Log audit event
           Audit.log_from_context(
             action: "create_transaction",
+            resource_type: "bank_transaction",
+            resource_id: transaction[:id],
+            changes: transaction,
+            module_name: "banking",
+            risk_level: assess_risk(transaction)
+          )
+
+          transaction
+        end
+      end
+
+      # Create a deposit transaction and post it to the account
+      def deposit_to_account(account_id:, amount:, currency: "USD", source: nil, metadata: {})
+        RBAC::Policy.require_permission!("bank.create")
+
+        @lock.synchronize do
+          transaction = {
+            id: SecureRandom.uuid,
+            account_id: account_id,
+            amount: amount,
+            currency: currency,
+            description: "Deposit from #{source || 'external'}",
+            metadata: metadata.merge(transaction_type: "deposit", source: source),
+            created_at: Time.now.utc,
+            created_by: RBAC::Context.current.user_id,
+            status: "completed",
+          }
+
+          @transactions[transaction[:id]] = transaction
+
+          Audit.log_from_context(
+            action: "deposit_to_account",
             resource_type: "bank_transaction",
             resource_id: transaction[:id],
             changes: transaction,
@@ -113,17 +148,27 @@ module Stripe
       end
 
       # List all transactions with role-based filtering
-      def list_transactions(account_id: nil, status: nil, start_date: nil, end_date: nil)
+      def list_transactions(account_id: nil, status: nil, start_date: nil, end_date: nil, type: nil)
         RBAC::Policy.require_permission!("bank.view")
+
+        start_date_is_date = start_date.is_a?(Date) && !start_date.is_a?(Time)
+        end_date_is_date = end_date.is_a?(Date) && !end_date.is_a?(Time)
+
+        start_date = start_date.to_time if start_date.respond_to?(:to_time) && !start_date.is_a?(Time)
+
+        if end_date.respond_to?(:to_time) && !end_date.is_a?(Time)
+          end_date = end_date.to_time
+          end_date += 86_399 if end_date_is_date
+        end
 
         @lock.synchronize do
           results = @transactions.values
 
           results = results.select { |t| t[:account_id] == account_id } if account_id
           results = results.select { |t| t[:status] == status } if status
+          results = results.select { |t| t[:metadata] && t[:metadata][:transaction_type] == type } if type
 
           results = results.select { |t| t[:created_at] >= start_date } if start_date
-
           results = results.select { |t| t[:created_at] <= end_date } if end_date
 
           # Apply role-based filtering
@@ -140,6 +185,68 @@ module Stripe
             results
           end
         end
+      end
+
+      # List only deposit transactions
+      def deposit_transactions(account_id: nil, start_date: nil, end_date: nil)
+        list_transactions(
+          account_id: account_id,
+          start_date: start_date,
+          end_date: end_date,
+          type: "deposit"
+        )
+      end
+
+      # Schedule a monthly AI deposit on a fixed day
+      def schedule_monthly_ai_deposit(schedule_name:, account_id:, amount:, currency: "USD", schedule_day: 4,
+                                      description: nil, metadata: {})
+        RBAC::Policy.require_permission!("bank.create")
+
+        @lock.synchronize do
+          @scheduled_deposit_configs[schedule_name] = {
+            schedule_name: schedule_name,
+            account_id: account_id,
+            amount: amount,
+            currency: currency,
+            schedule_day: schedule_day,
+            description: description || "AI monthly deposit",
+            metadata: metadata.merge(source: "AI_monthly_schedule", transaction_type: "deposit"),
+            last_run_month: nil,
+          }
+        end
+      end
+
+      # Run every scheduled AI deposit that is due for the current date
+      def run_monthly_ai_deposits!(current_date: Date.today)
+        RBAC::Policy.require_permission!("bank.create")
+
+        due_configs = nil
+        @lock.synchronize do
+          due_configs = @scheduled_deposit_configs.values.select do |config|
+            config[:schedule_day] == current_date.day && config[:last_run_month] != current_date.strftime("%Y-%m")
+          end
+        end
+
+        due_configs.map do |config|
+          deposit = deposit_to_account(
+            account_id: config[:account_id],
+            amount: config[:amount],
+            currency: config[:currency],
+            source: config[:metadata][:source],
+            metadata: config[:metadata].merge(schedule_name: config[:schedule_name], scheduled_on: current_date.iso8601)
+          )
+
+          @lock.synchronize do
+            config[:last_run_month] = current_date.strftime("%Y-%m")
+          end
+
+          deposit
+        end.compact
+      end
+
+      # Get active scheduled deposit definitions
+      def scheduled_deposits
+        @lock.synchronize { @scheduled_deposit_configs.values.dup }
       end
 
       # Reconcile bank account
@@ -201,8 +308,12 @@ module Stripe
       end
 
       def compliance_view(transaction)
-        # Compliance officer view (without internal metadata)
-        transaction.except(:metadata)
+        # Compliance officer view removes internal-only notes but keeps transaction metadata
+        sanitized = transaction.dup
+        if sanitized[:metadata].is_a?(Hash)
+          sanitized[:metadata] = sanitized[:metadata].reject { |key, _| key == :internal_notes }
+        end
+        sanitized
       end
 
       def self.instance

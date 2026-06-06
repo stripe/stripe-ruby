@@ -28,7 +28,7 @@ module Stripe
 
       sections = if include_sections == :all
                    %i[executive_summary liquidity_analysis reconciliation_summary
-                      exposure_analysis]
+                      exposure_analysis payments_received]
                  else
                    include_sections
                  end
@@ -43,6 +43,8 @@ module Stripe
           @report_data[:sections][:reconciliation_summary] = generate_reconciliation_section(start_date, end_date)
         when :exposure_analysis
           @report_data[:sections][:exposure_analysis] = generate_exposure_section(start_date, end_date)
+        when :payments_received
+          @report_data[:sections][:payments_received] = generate_payments_received_section(start_date, end_date)
         end
       end
 
@@ -51,6 +53,8 @@ module Stripe
         classification: "Confidential",
         prepared_by: "Stripe Treasury System",
         stakeholders: ["CFO", "Treasurer", "Finance Team"],
+        report_route: "QCF",
+        compliance_route: "QCF",
       }
 
       @report_data
@@ -135,6 +139,16 @@ module Stripe
       csv += "Metric,Value\n"
       recon[:metrics].each do |metric, value|
         csv += "#{metric},#{value}\n"
+      end
+
+      if @report_data[:sections][:payments_received]
+        csv += "\nPAYMENTS RECEIVED / DEPOSITS\n"
+        csv += "Deposit ID,Account ID,Amount,Currency,Source,Reference,Description,Timestamp\n"
+        @report_data[:sections][:payments_received][:deposits].each do |deposit|
+          csv += "#{deposit[:id]},#{deposit[:account_id]},#{deposit[:amount]},#{deposit[:currency]},#{deposit[:source]},#{deposit[:reference] || deposit[:metadata]&.fetch(
+            :reference, nil
+          )},#{deposit[:description]},#{deposit[:timestamp]}\n"
+        end
       end
 
       csv
@@ -325,6 +339,10 @@ module Stripe
         text += render_section_text("CURRENCY EXPOSURE ANALYSIS", @report_data[:sections][:exposure_analysis])
       end
 
+      if @report_data[:sections][:payments_received]
+        text += render_section_text("PAYMENTS RECEIVED", @report_data[:sections][:payments_received])
+      end
+
       text
     end
 
@@ -381,6 +399,10 @@ module Stripe
         html += render_section_html("Currency Exposure Analysis", @report_data[:sections][:exposure_analysis])
       end
 
+      if @report_data[:sections][:payments_received]
+        html += render_payments_received_html(@report_data[:sections][:payments_received])
+      end
+
       html
     end
 
@@ -404,6 +426,28 @@ module Stripe
         html += "</table>"
       end
 
+      html += "</div>"
+      html
+    end
+
+    def render_payments_received_html(data)
+      html = "<div class='section'><h2>Payments Received</h2>"
+      html += "<p>Total deposits: #{data[:total_deposits]}</p>"
+      html += "<p>Total received: #{data[:total_amount_received]}</p>"
+      html += "<table>"
+      html += "<tr><th>Deposit ID</th><th>Account</th><th>Amount</th><th>Currency</th><th>Source</th><th>Description</th><th>Timestamp</th></tr>"
+      data[:deposits].each do |deposit|
+        html += "<tr>"
+        html += "<td>#{deposit[:id]}</td>"
+        html += "<td>#{deposit[:account_id]}</td>"
+        html += "<td>#{deposit[:amount]}</td>"
+        html += "<td>#{deposit[:currency]}</td>"
+        html += "<td>#{deposit[:source]}</td>"
+        html += "<td>#{deposit[:description]}</td>"
+        html += "<td>#{deposit[:timestamp]}</td>"
+        html += "</tr>"
+      end
+      html += "</table>"
       html += "</div>"
       html
     end
@@ -495,6 +539,40 @@ module Stripe
       recommendations << "Excellent diversification across #{exposure.count} currencies." if exposure.count >= 5
 
       recommendations
+    end
+
+    def generate_payments_received_section(start_date, end_date)
+      deposits = []
+      if Stripe::RBAC::Context.current?
+        deposits = Stripe::Banking.transactions.deposit_transactions(
+          start_date: start_date,
+          end_date: end_date
+        )
+      end
+
+      total_received = deposits.sum { |deposit| deposit[:amount].to_f }
+
+      {
+        timestamp: Time.now.utc.iso8601,
+        total_deposits: deposits.count,
+        total_amount_received: format_currency(total_received),
+        deposits: deposits.map do |deposit|
+          metadata = deposit[:metadata] || {}
+          reference = metadata[:reference] || metadata["reference"]
+
+          {
+            id: deposit[:id],
+            account_id: deposit[:account_id],
+            amount: deposit[:amount],
+            currency: deposit[:currency],
+            source: metadata[:source] || deposit[:source],
+            reference: reference,
+            description: deposit[:description],
+            timestamp: deposit[:created_at].iso8601,
+            schedule_name: metadata[:schedule_name],
+          }
+        end,
+      }
     end
 
     def titleize_word(word)

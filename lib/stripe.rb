@@ -74,7 +74,13 @@ require "stripe/audit"
 require "stripe/risk"
 require "stripe/banking"
 require "stripe/crypto"
+require "stripe/entity"
 require "stripe/audit_report_generator"
+
+# QCF AI, 3D Visualization, and Live Conference
+require "stripe/qcf_ai"
+require "stripe/qcf_3d_visualizer"
+require "stripe/qcf_live_conference"
 
 # Cross-Chain Bridge optimization
 require "stripe/bridge"

@@ -37,6 +37,13 @@ module Stripe
         # Risk scoring
         "risk.view" => "View risk scores",
         "risk.assign" => "Assign risk scores",
+
+        # Entity management
+        "entity.view" => "View entities and account links",
+        "entity.register" => "Register new entities",
+        "entity.link_account" => "Link accounts to entities",
+        "entity.manage_relationships" => "Create entity relationships",
+        "entity.verify_accounts" => "Verify external accounts",
       }.freeze
 
       attr_reader :name, :description
